@@ -47,6 +47,11 @@ const shopLogos = [
   { name: "Tech One Automotive", src: "/images/logos/tech-one-automotive-logo-square.png" },
 ];
 
+const logoCloudRows = [
+  shopLogos.slice(0, 9),
+  shopLogos.slice(9, 18),
+];
+
 const stats = [
   { k: "300+", v: "Auto repair shops served across the U.S." },
   { k: "13+", v: "Years marketing exclusively for shop owners" },
@@ -251,23 +256,44 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="bg-white pb-12 md:pb-16">
+  <section class="logo-cloud-section bg-white pb-16 md:pb-24">
     <div class="container-page">
-      <p class="text-center text-charcoal/60 text-sm mb-10">
-        Trusted by 300+ shops and industry-leading partners
-      </p>
-      <div class="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-        <div class="flex marquee items-center gap-8 md:gap-12 whitespace-nowrap py-2">
-          {[...shopLogos, ...shopLogos].map((logo, index) => (
-            <div class="flex h-24 w-40 shrink-0 items-center justify-center px-5 py-4">
-              <img
-                src={logo.src}
-                alt={index < shopLogos.length ? logo.name : ""}
-                aria-hidden={index >= shopLogos.length ? "true" : "false"}
-                class="max-h-16 w-full object-contain"
-                loading="eager"
-                decoding="async"
-              />
+      <div class="mx-auto max-w-5xl text-center">
+        <p class="text-xs font-medium uppercase tracking-[0.18em] text-[var(--key-blue)]">
+          Our trusted network
+        </p>
+        <h2 class="font-display mx-auto mt-4 max-w-4xl text-3xl font-semibold leading-tight tracking-normal text-charcoal md:text-4xl">
+          Trusted by 300+ shops and industry-leading partners
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-charcoal/55">
+          Independent repair shops and specialty automotive teams use Turnkey
+          to keep every marketing channel working from one clear plan.
+        </p>
+      </div>
+
+      <div class="relative mx-auto mt-12 max-w-[1160px] overflow-hidden px-2 py-3">
+        <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent md:w-28"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent md:w-28"></div>
+        <div class="space-y-4">
+          {logoCloudRows.map((row, rowIndex) => (
+            <div
+              class:list={[
+                "logo-cloud-row flex w-max items-center gap-4 hover:[animation-play-state:paused] md:gap-5",
+                rowIndex === 0 ? "marquee [animation-duration:44s]" : "marquee [animation-direction:reverse] [animation-duration:52s]",
+              ]}
+            >
+              {[...row, ...row].map((logo, index) => (
+                <div class="flex h-24 w-52 shrink-0 items-center justify-center rounded-2xl bg-white px-6 py-4 shadow-[0_18px_45px_-34px_rgba(20,22,28,0.45)] md:h-28 md:w-60">
+                  <img
+                    src={logo.src}
+                    alt={index < row.length ? logo.name : ""}
+                    aria-hidden={index >= row.length ? "true" : "false"}
+                    class="max-h-[4.75rem] w-full object-contain md:max-h-[5.5rem]"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
+              ))}
             </div>
           ))}
         </div>
