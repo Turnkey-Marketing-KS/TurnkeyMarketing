@@ -1,0 +1,92 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteMedia } from "@/lib/site-media";
+
+const items = [
+  {
+    cat: "Guide",
+    t: "What to keep, cut, and make work harder",
+    d: "A clearer way to look at vendors, spend, calls, and next moves.",
+    image: siteMedia.graphics.marketingPlan,
+  },
+  {
+    cat: "Article",
+    t: "Why disconnected vendors cost more than money",
+    d: "The hidden drag of managing five people without one view of the board.",
+    image: siteMedia.graphics.problems,
+  },
+  {
+    cat: "Playbook",
+    t: "Direct mail that pulls its weight",
+    d: "Lists, offers, timing, and follow-up that turn mail into useful calls.",
+    image: siteMedia.graphics.directMail,
+  },
+  {
+    cat: "Guide",
+    t: "When the growth bet is already made",
+    d: "How to think about demand after the lease, move, hire, or second location.",
+    image: siteMedia.shops.thunderbirdTeam,
+  },
+  {
+    cat: "Article",
+    t: "The retention leak most shops miss",
+    d: "Why the customers you already earned need a real second-visit plan.",
+    image: siteMedia.graphics.leadGenerator,
+  },
+  {
+    cat: "Playbook",
+    t: "Controlled demand for a soft schedule",
+    d: "Practical moves for open bays without creating chaos at the counter.",
+    image: siteMedia.shops.tommys,
+  },
+];
+---
+
+<BaseLayout
+  title="Resources — Turnkey Marketing"
+  description="Guides, articles, and tools built for auto repair shop owners who want their marketing to work harder."
+  path="/resources"
+  ogTitle="Resources — Turnkey Marketing"
+>
+  <section class="border-b hairline">
+    <div class="container-page pt-20 md:pt-28 pb-16">
+      <p class="eyebrow">Resources</p>
+      <h1 class="display-1 mt-6 max-w-[18ch] text-balance">
+        Built for shop owners who want to make smarter marketing decisions.
+      </h1>
+    </div>
+  </section>
+
+  <section class="container-page py-16">
+    <div class="grid gap-px md:grid-cols-2 lg:grid-cols-3 bg-[var(--hairline)] rounded-2xl overflow-hidden">
+      {items.map((item) => (
+        <article class="bg-white p-6 flex flex-col min-h-[360px]">
+          <div class="aspect-[4/3] overflow-hidden rounded-xl bg-[var(--off-white)]">
+            <img
+              src={item.image.src}
+              alt={item.image.alt}
+              width="1000"
+              height="750"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover"
+              style={`object-position: ${item.image.position};`}
+            />
+          </div>
+          <div class="mt-6 flex flex-1 flex-col justify-between">
+            <p class="text-xs uppercase tracking-widest" style="color: var(--key-blue);">
+              {item.cat}
+            </p>
+            <div class="mt-5">
+              <p class="font-display text-xl text-charcoal text-balance">{item.t}</p>
+              <p class="mt-2 text-muted-foreground text-sm">{item.d}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="mt-10 text-center text-sm text-muted-foreground">
+      Full resource library launching soon.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,126 @@
+---
+import "../styles.css";
+import Header from "@/components/site/Header.astro";
+import Footer from "@/components/site/Footer.astro";
+
+type Schema = Record<string, unknown>;
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogTitle?: string;
+  ogType?: string;
+  ogImage?: string;
+  schema?: Schema | Schema[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  path = Astro.url.pathname,
+  ogTitle = title,
+  ogType = "website",
+  ogImage = "/site-media/hero-thunderbird-shop.webp",
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://turnkeyautomarketing.com");
+const canonicalUrl = new URL(path, siteUrl).toString();
+const imageUrl = new URL(ogImage, siteUrl).toString();
+const schemaItems = Array.isArray(schema) ? schema : [schema];
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "ProfessionalService"],
+  name: "Turnkey Marketing",
+  url: siteUrl.toString(),
+  logo: new URL("/turnkey-logo.png", siteUrl).toString(),
+  image: imageUrl,
+  telephone: "+1-913-777-4144",
+  email: "hello@turnkeyautomarketing.com",
+  areaServed: "United States",
+  serviceType: "Auto repair marketing",
+  description:
+    "Auto-repair-specific marketing team helping shop owners with strategy, execution, reporting, retention, direct mail, digital marketing, and vendor coordination.",
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Turnkey Marketing",
+  url: siteUrl.toString(),
+  publisher: {
+    "@type": "Organization",
+    name: "Turnkey Marketing",
+    url: siteUrl.toString(),
+  },
+};
+
+const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolean);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Turnkey Marketing" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    />
+
+    <meta property="og:site_name" content="Turnkey Marketing" />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <div class="flex min-h-screen flex-col" style="background: var(--background);">
+      <Header />
+      <main class="flex-1 pt-[84px] md:pt-[92px]">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <script is:inline>
+      window.tkTrack = function (event, params) {
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push(Object.assign({ event: event }, params || {}));
+          if (typeof window.gtag === "function") window.gtag("event", event, params || {});
+          if (typeof window.fbq === "function") window.fbq("trackCustom", event, params || {});
+        } catch (_) {}
+      };
+
+      document.addEventListener("click", function (event) {
+        var target = event.target && event.target.closest
+          ? event.target.closest("[data-track-event]")
+          : null;
+        if (!target || !window.tkTrack) return;
+        var params = {};
+        if (target.dataset.trackPlacement) params.placement = target.dataset.trackPlacement;
+        if (target.dataset.trackSlug) params.slug = target.dataset.trackSlug;
+        window.tkTrack(target.dataset.trackEvent, params);
+      });
+    </script>
+  </body>
+</html>

@@ -38,7 +38,12 @@ export const services: Service[] = [
     tagline: "Targeted support for launch, rescue, and dense-market campaigns.",
     summary:
       "Multi-channel campaigns wired with call tracking and household-level follow-up so urgent growth bets get a clearer read on what is moving.",
-    outcomes: ["Trackable phone numbers", "Attribution reporting", "Campaign readout", "Optimization loops"],
+    outcomes: [
+      "Trackable phone numbers",
+      "Attribution reporting",
+      "Campaign readout",
+      "Optimization loops",
+    ],
   },
   {
     slug: "direct-mail",
@@ -54,7 +59,12 @@ export const services: Service[] = [
     tagline: "Social that sounds like your shop — not a template.",
     summary:
       "We interview your team, learn your voice, and keep social consistent with real shop proof instead of generic posts.",
-    outcomes: ["On-brand content", "Community engagement", "Review amplification", "Local presence"],
+    outcomes: [
+      "On-brand content",
+      "Community engagement",
+      "Review amplification",
+      "Local presence",
+    ],
   },
   {
     slug: "retention-marketing",

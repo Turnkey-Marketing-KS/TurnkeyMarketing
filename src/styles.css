@@ -1,6 +1,5 @@
 @import "tailwindcss" source(none);
 @source "../src";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -90,6 +89,8 @@
 
   html {
     -webkit-font-smoothing: antialiased;
+    max-width: 100%;
+    overflow-x: clip;
     text-rendering: optimizeLegibility;
     background: var(--background);
   }
@@ -99,6 +100,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4 {

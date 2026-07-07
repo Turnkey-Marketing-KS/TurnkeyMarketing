@@ -1,0 +1,116 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const effectiveDate = "July 6, 2026";
+
+const sections = [
+  {
+    title: "Use of the website",
+    body: [
+      "You may use this website for lawful business purposes and to learn about Turnkey Marketing. You agree not to misuse the website, attempt to interfere with its operation, or use it in a way that violates applicable law or the rights of others.",
+    ],
+  },
+  {
+    title: "Consultations and services",
+    body: [
+      "Submitting a form, scheduling a consultation, or contacting us does not create a client relationship by itself. If you become a client, the specific services, fees, deliverables, timelines, and responsibilities will be governed by a separate written agreement.",
+      "Marketing performance depends on many factors outside any single company's control, including market conditions, shop capacity, operations, customer behavior, offer strength, budget, and vendor platforms. We do not guarantee specific revenue, lead, call, appointment, or ranking outcomes from website use or general discussions.",
+    ],
+  },
+  {
+    title: "Website content",
+    body: [
+      "The content on this website is provided for general informational purposes. It may describe common marketing issues, service categories, examples, or outcomes, but it should not be treated as professional, legal, financial, or operational advice for your specific shop.",
+      "We may update, change, or remove website content at any time without notice.",
+    ],
+  },
+  {
+    title: "Intellectual property",
+    body: [
+      "The website, including its text, design, graphics, images, logos, and other content, is owned by Turnkey Marketing or used with permission. You may not copy, reproduce, modify, distribute, or create derivative works from website content without prior written permission, except as allowed by law.",
+    ],
+  },
+  {
+    title: "Third-party links and tools",
+    body: [
+      "This website may link to third-party websites, scheduling tools, analytics tools, or platforms. We are not responsible for third-party sites, services, policies, availability, or content. Your use of third-party tools may be governed by their own terms and privacy policies.",
+    ],
+  },
+  {
+    title: "Disclaimer of warranties",
+    body: [
+      "The website is provided on an \"as is\" and \"as available\" basis. To the fullest extent permitted by law, Turnkey Marketing disclaims warranties of any kind, whether express, implied, or statutory, including implied warranties of merchantability, fitness for a particular purpose, and non-infringement.",
+    ],
+  },
+  {
+    title: "Limitation of liability",
+    body: [
+      "To the fullest extent permitted by law, Turnkey Marketing will not be liable for indirect, incidental, consequential, special, exemplary, or punitive damages arising from or related to your use of the website. Our total liability for any claim related to the website will not exceed one hundred dollars.",
+    ],
+  },
+  {
+    title: "Indemnification",
+    body: [
+      "You agree to defend, indemnify, and hold harmless Turnkey Marketing from claims, damages, liabilities, costs, and expenses arising from your misuse of the website, violation of these Terms, or violation of applicable law or third-party rights.",
+    ],
+  },
+  {
+    title: "Governing law",
+    body: [
+      "These Terms are governed by the laws of the State of Kansas, without regard to conflict of law principles, unless applicable law requires otherwise.",
+    ],
+  },
+  {
+    title: "Changes to these Terms",
+    body: [
+      "We may update these Terms from time to time. When we do, we will revise the effective date above. Your continued use of the website after an update means the revised Terms apply going forward.",
+    ],
+  },
+  {
+    title: "Contact us",
+    body: [
+      "Questions about these Terms can be sent to hello@turnkeyautomarketing.com or by calling (913) 777-4144.",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Terms of Service - Turnkey Marketing"
+  description="Review the Terms of Service for using the Turnkey Marketing website."
+  path="/terms-of-service"
+  ogTitle="Terms of Service - Turnkey Marketing"
+>
+  <section class="border-b hairline">
+    <div class="container-page pt-20 md:pt-28 pb-16">
+      <p class="eyebrow">Legal</p>
+      <h1 class="display-1 mt-6 max-w-[12ch] text-balance">
+        Terms of Service
+      </h1>
+      <p class="mt-8 text-lg text-muted-foreground max-w-2xl">
+        Effective date: {effectiveDate}
+      </p>
+    </div>
+  </section>
+
+  <section class="container-page py-20">
+    <div class="max-w-3xl space-y-12">
+      <p class="text-lg leading-relaxed text-muted-foreground">
+        These Terms of Service govern your use of the Turnkey Marketing website.
+        By using this website, you agree to these Terms. If you do not agree,
+        please do not use the website.
+      </p>
+
+      {sections.map((section) => (
+        <div class="border-t hairline pt-8">
+          <h2 class="font-display text-2xl font-semibold text-charcoal">
+            {section.title}
+          </h2>
+          <div class="mt-4 space-y-4 text-muted-foreground leading-relaxed">
+            {section.body.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

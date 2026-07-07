@@ -1,0 +1,89 @@
+---
+import { ArrowUpRight, Star } from "lucide-react";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { CONSULTATION_URL, services } from "@/lib/services";
+
+const vip = services.find((service) => service.featured) ?? services[0];
+const rest = services.filter((service) => !service.featured);
+---
+
+<BaseLayout
+  title="Services — Turnkey Marketing"
+  description="A coordinated marketing ecosystem for auto repair shops — VIP Marketing Manager, direct mail, digital, retention, and more."
+  path="/services"
+  ogTitle="Services — Turnkey Marketing"
+>
+  <section class="border-b hairline">
+    <div class="container-page pt-20 md:pt-28 pb-16">
+      <p class="eyebrow">Services</p>
+      <h1 class="display-1 mt-6 max-w-[18ch] text-balance">
+        One team. Every channel. One coordinated plan.
+      </h1>
+      <p class="mt-8 text-lg text-muted-foreground max-w-2xl">
+        You don't need more vendors. You need one marketing team that sees the
+        whole board and moves it forward every week.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-page py-16">
+    <a
+      href={`/services/${vip.slug}`}
+      class="group block rounded-3xl overflow-hidden p-10 md:p-14 relative"
+      style="background: var(--navy); color: #fff;"
+      data-track-event="service_cta_click"
+      data-track-slug={vip.slug}
+      data-track-placement="services_hero"
+    >
+      <div class="flex items-center gap-2">
+        <Star className="h-4 w-4 text-[var(--green)]" />
+        <p class="text-xs uppercase tracking-widest text-white/60">Flagship</p>
+      </div>
+      <h2 class="display-2 text-white mt-4 max-w-2xl text-balance">{vip.name}</h2>
+      <p class="mt-4 text-white/80 text-lg max-w-xl">{vip.tagline}</p>
+      <span class="inline-flex items-center gap-2 mt-8 text-white border-b border-white/30 pb-1">
+        Explore VIP Marketing Manager
+        <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+      </span>
+    </a>
+  </section>
+
+  <section class="container-page pb-24">
+    <div class="border-t hairline">
+      {rest.map((service, index) => (
+        <a
+          href={`/services/${service.slug}`}
+          class="group grid grid-cols-12 gap-6 border-b hairline py-8 items-baseline hover:bg-[var(--off-white)] transition px-2 md:px-4 -mx-2 md:-mx-4 rounded-md"
+          data-track-event="service_cta_click"
+          data-track-slug={service.slug}
+        >
+          <span class="col-span-1 text-xs text-muted-foreground tabular-nums pt-2">
+            {String(index + 2).padStart(2, "0")}
+          </span>
+          <span class="col-span-11 md:col-span-4 font-display text-2xl md:text-3xl text-charcoal">
+            {service.name}
+          </span>
+          <span class="col-span-11 md:col-span-6 text-muted-foreground col-start-2 md:col-start-auto">
+            {service.tagline}
+          </span>
+          <span class="col-span-1 justify-self-end pt-2">
+            <ArrowUpRight className="h-5 w-5 text-charcoal transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </span>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-16 flex justify-center">
+      <a
+        href={CONSULTATION_URL}
+        target="_blank"
+        rel="noopener"
+        class="btn-primary"
+        data-track-event="consultation_cta_click"
+        data-track-placement="services_index"
+      >
+        Schedule a Consultation →
+      </a>
+    </div>
+  </section>
+</BaseLayout>
