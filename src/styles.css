@@ -1,0 +1,247 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-navy-deep: var(--navy-deep);
+  --color-key-blue: var(--key-blue);
+  --color-key-blue-soft: var(--key-blue-soft);
+  --color-green: var(--green);
+  --color-off-white: var(--off-white);
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
+  --color-hairline: var(--hairline);
+
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Brand */
+  --navy: #232E66;
+  --navy-soft: #2c3873;
+  --navy-deep: #1a2352;
+  --key-blue: #3F8CCB;
+  --key-blue-soft: #dfeaf5;
+  --green: #93C845;
+  --off-white: #F4F2ED;
+  --cream: #FBFAF6;
+  --charcoal: #14161C;
+  --hairline: #E7E5DF;
+
+  /* Semantic */
+  --background: #FBFAF6;
+  --foreground: #14161C;
+  --card: #FFFFFF;
+  --card-foreground: #14161C;
+  --popover: #FFFFFF;
+  --popover-foreground: #14161C;
+  --primary: #232E66;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F4F2ED;
+  --secondary-foreground: #14161C;
+  --muted: #F4F2ED;
+  --muted-foreground: #5b6070;
+  --accent: #93C845;
+  --accent-foreground: #14161C;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #FFFFFF;
+  --border: #E7E5DF;
+  --input: #E7E5DF;
+  --ring: #3F8CCB;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background: var(--background);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+
+  ::selection {
+    background: var(--navy);
+    color: #fff;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) { padding-inline: 2rem; }
+  @media (min-width: 1280px) { padding-inline: 3rem; }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+@utility display-1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 7.5vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+
+
+
+@utility display-2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.8vw, 4.25rem);
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+
+@utility display-3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  background: var(--charcoal);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: -0.005em;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 10px 30px -12px rgba(20,22,28,0.35);
+  &:hover { background: var(--navy); transform: translateY(-1px); box-shadow: 0 14px 34px -12px rgba(35,46,102,0.55); }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: #fff;
+  color: var(--charcoal);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.25s ease, border-color 0.25s ease;
+  &:hover { background: var(--off-white); border-color: #d5d3cc; }
+}
+
+@utility btn-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  background: var(--key-blue);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: transform 0.25s ease, background 0.25s ease;
+  box-shadow: 0 10px 30px -12px rgba(63,140,203,0.5);
+  &:hover { background: #3579b0; transform: translateY(-1px); }
+}
+
+@utility hairline {
+  border-color: var(--hairline);
+}
+
+@utility text-balance { text-wrap: balance; }
+
+@utility marquee { animation: marquee 40s linear infinite; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility card-float {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow:
+    0 32px 80px -26px rgba(20,22,28,0.34),
+    0 14px 30px -20px rgba(35,46,102,0.28),
+    0 2px 8px -2px rgba(20,22,28,0.08);
+}
+
+@utility floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+@utility floaty-delay {
+  animation: floaty 7s ease-in-out infinite;
+  animation-delay: -3s;
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

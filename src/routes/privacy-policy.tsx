@@ -1,0 +1,124 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { SiteShell } from "@/components/site/SiteShell";
+
+const effectiveDate = "July 6, 2026";
+
+const sections = [
+  {
+    title: "Information we collect",
+    body: [
+      "We collect information you choose to provide, such as your name, email address, phone number, company or shop name, and details you share when you request a consultation, contact us, or communicate with our team.",
+      "We may also collect basic website usage information, such as pages visited, referring pages, browser type, device information, and interactions with forms or links. This information helps us understand how people use the website and improve the experience.",
+    ],
+  },
+  {
+    title: "How we use information",
+    body: [
+      "We use information to respond to inquiries, schedule consultations, provide and improve our services, understand website performance, send relevant business communications, and protect the security and integrity of our website and systems.",
+      "If you receive marketing email from us, you can unsubscribe using the instructions in the email or contact us directly.",
+    ],
+  },
+  {
+    title: "How we share information",
+    body: [
+      "We do not sell personal information. We may share information with service providers that help us operate the website, schedule appointments, manage communications, analyze performance, or deliver services on our behalf.",
+      "We may also disclose information when required by law, to protect our rights, to prevent misuse of the website, or as part of a business transaction such as a merger, acquisition, or transfer of assets.",
+    ],
+  },
+  {
+    title: "Cookies and similar tools",
+    body: [
+      "The website may use cookies, analytics tools, pixels, or similar technologies to remember preferences, measure traffic, understand performance, and improve marketing. You can adjust cookie settings through your browser, though some site features may not work the same way.",
+    ],
+  },
+  {
+    title: "Data security and retention",
+    body: [
+      "We use reasonable administrative, technical, and organizational safeguards designed to protect information we handle. No online system can be guaranteed to be completely secure.",
+      "We keep information for as long as reasonably needed for the purposes described in this policy, unless a longer retention period is required or permitted by law.",
+    ],
+  },
+  {
+    title: "Your choices",
+    body: [
+      "You may contact us to request that we update, correct, or delete personal information you have provided, subject to legal, contractual, and operational requirements.",
+      "Depending on where you live, you may have additional privacy rights under applicable law. We will review and respond to requests as required.",
+    ],
+  },
+  {
+    title: "Children's privacy",
+    body: [
+      "This website is intended for business audiences and is not directed to children under 13. We do not knowingly collect personal information from children under 13.",
+    ],
+  },
+  {
+    title: "Updates to this policy",
+    body: [
+      "We may update this Privacy Policy from time to time. When we do, we will revise the effective date above. Your continued use of the website after an update means the revised policy applies going forward.",
+    ],
+  },
+  {
+    title: "Contact us",
+    body: [
+      "Questions about this Privacy Policy can be sent to hello@turnkeyautomarketing.com or by calling (913) 777-4144.",
+    ],
+  },
+];
+
+export const Route = createFileRoute("/privacy-policy")({
+  head: () => ({
+    meta: [
+      { title: "Privacy Policy - Turnkey Marketing" },
+      {
+        name: "description",
+        content:
+          "Review how Turnkey Marketing collects, uses, shares, and protects information submitted through the website.",
+      },
+      { property: "og:title", content: "Privacy Policy - Turnkey Marketing" },
+      { property: "og:url", content: "/privacy-policy" },
+    ],
+    links: [{ rel: "canonical", href: "/privacy-policy" }],
+  }),
+  component: PrivacyPolicy,
+});
+
+function PrivacyPolicy() {
+  return (
+    <SiteShell>
+      <section className="border-b hairline">
+        <div className="container-page pt-20 md:pt-28 pb-16">
+          <p className="eyebrow">Legal</p>
+          <h1 className="display-1 mt-6 max-w-[12ch] text-balance">
+            Privacy Policy
+          </h1>
+          <p className="mt-8 text-lg text-muted-foreground max-w-2xl">
+            Effective date: {effectiveDate}
+          </p>
+        </div>
+      </section>
+
+      <section className="container-page py-20">
+        <div className="max-w-3xl space-y-12">
+          <p className="text-lg leading-relaxed text-muted-foreground">
+            This Privacy Policy explains how Turnkey Marketing collects, uses,
+            shares, and protects information when you visit this website,
+            contact us, or interact with our online forms and communications.
+          </p>
+
+          {sections.map((section) => (
+            <div key={section.title} className="border-t hairline pt-8">
+              <h2 className="font-display text-2xl font-semibold text-charcoal">
+                {section.title}
+              </h2>
+              <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
+                {section.body.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </SiteShell>
+  );
+}
