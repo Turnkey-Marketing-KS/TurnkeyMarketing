@@ -22,14 +22,17 @@ const {
   path = Astro.url.pathname,
   ogTitle = title,
   ogType = "website",
-  ogImage = "/site-media/hero-thunderbird-shop.webp",
+  ogImage = "/images/logos/cropped-Icons-01.png",
   schema = [],
   noindex = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL("https://turnkeyautomarketing.com");
+const brandIconPath = "/images/logos/cropped-Icons-01.png";
 const canonicalUrl = new URL(path, siteUrl).toString();
 const imageUrl = new URL(ogImage, siteUrl).toString();
+const brandIconUrl = new URL(brandIconPath, siteUrl).toString();
+const twitterCard = ogImage === brandIconPath ? "summary" : "summary_large_image";
 const schemaItems = Array.isArray(schema) ? schema : [schema];
 
 const organizationSchema = {
@@ -72,7 +75,10 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
     <meta name="author" content="Turnkey Marketing" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href={brandIconPath} type="image/png" sizes="512x512" />
+    <link rel="shortcut icon" href={brandIconPath} type="image/png" />
+    <link rel="apple-touch-icon" href={brandIconPath} />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -86,10 +92,12 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={imageUrl} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image:secure_url" content={imageUrl} />
+    <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
+    <meta name="msapplication-TileImage" content={brandIconUrl} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>

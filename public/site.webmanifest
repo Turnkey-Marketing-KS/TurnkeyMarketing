@@ -1,0 +1,14 @@
+{
+  "name": "Turnkey Marketing",
+  "short_name": "Turnkey",
+  "icons": [
+    {
+      "src": "/images/logos/cropped-Icons-01.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#232e66",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
