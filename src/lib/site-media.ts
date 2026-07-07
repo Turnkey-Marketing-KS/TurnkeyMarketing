@@ -58,6 +58,50 @@ export const siteMedia = {
       alt: "Killian Auto Pros logo",
       position: "50% 50%",
     },
+    mmTechnician: {
+      src: "/images/shops/m-m-IMG_1190-1200-800x533.jpg",
+      alt: "Technician working under the hood in an auto repair bay",
+      position: "50% 45%",
+    },
+    serviceBays: {
+      src: "/images/shops/image6.jpg",
+      alt: "Auto repair service bays with vehicles in the shop",
+      position: "50% 50%",
+    },
+    technicianUnderVehicle: {
+      src: "/images/shops/image8.jpg",
+      alt: "Auto repair technician inspecting the underside of a vehicle",
+      position: "50% 45%",
+    },
+    tommysExterior: {
+      src: "/images/shops/Tommys-hi-tech-building.png",
+      alt: "Tommy's Hi-Tech Auto Repair shop exterior",
+      position: "50% 50%",
+    },
+  },
+  clients: {
+    keeganShopTeam: {
+      src: "/images/clients/turnkey-keegan.jpg",
+      alt: "Repair shop team members standing outside an auto repair shop",
+      position: "50% 40%",
+    },
+    jasonSmith: {
+      src: "/images/clients/jason-smith.jpg",
+      alt: "Auto repair shop owner in a shop-branded shirt",
+      position: "50% 18%",
+    },
+  },
+  team: {
+    visionExpoConversation: {
+      src: "/images/team/20230303-turnkeyvisionexpo0043.jpg",
+      alt: "Turnkey Marketing team member speaking with shop owners at an industry event",
+      position: "50% 45%",
+    },
+    industrySession: {
+      src: "/images/team/20230304-turnkeyvisionexpo0126.jpg",
+      alt: "Turnkey Marketing presenting to auto repair professionals",
+      position: "50% 45%",
+    },
   },
   graphics: {
     leadGenerator: {
