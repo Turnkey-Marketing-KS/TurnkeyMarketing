@@ -5,50 +5,49 @@ import { siteMedia } from "@/lib/site-media";
 ---
 
 <BaseLayout
-  title="Book a Call — Turnkey Marketing"
-  description="Book a strategy call with Turnkey Marketing to talk through your auto repair shop, your current marketing, and the next best move."
+  title="Book a Strategy Call — Turnkey Marketing"
+  description="Pick a time with Chris to talk through your auto repair shop, your current marketing, and what may make sense next."
   path="/book-a-call"
-  ogTitle="Book a Strategy Call with Turnkey Marketing"
+  ogTitle="Book Your Strategy Call with Turnkey"
   ogImage={siteMedia.team.visionExpoConversation.src}
 >
   <section class="container-page py-14 md:py-24">
-    <div class="grid gap-8 lg:grid-cols-12 lg:items-start">
-      <div class="lg:col-span-4">
-        <p class="eyebrow" style="color: var(--key-blue);">Step 2 of 2</p>
-        <h1 class="display-2 mt-5 max-w-[11ch] text-balance text-charcoal">
-          Let’s talk through your shop’s marketing.
-        </h1>
-        <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
-          Pick a time. We will use what you shared to talk through what is
-          working, what is leaking, and the clearest next move.
-        </p>
-      </div>
-
-      <div class="lg:col-span-8">
-        <iframe
-          src={GHL_DISCOVERY_CALL_BOOKING_URL}
-          class="booking-frame"
-          id="yu2OePYtPJE21ORfX8a0_1783535857619"
-          title="Book a Turnkey Marketing strategy call"
-          loading="lazy"
-        >
-        </iframe>
-      </div>
+    <div class="mx-auto max-w-4xl text-center">
+      <p class="eyebrow" style="color: var(--key-blue);">Discovery call</p>
+      <h1 class="display-1 mt-5 text-balance text-charcoal">
+        Book your strategy call with Turnkey.
+      </h1>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+        Pick a time with Chris. We’ll use what you share to talk through your
+        shop, your current marketing, and what may make sense next.
+      </p>
     </div>
+
+    <iframe
+      src={GHL_DISCOVERY_CALL_BOOKING_URL}
+      class="booking-frame mx-auto mt-10 max-w-5xl md:mt-14"
+      id="yu2OePYtPJE21ORfX8a0_1783535857619"
+      title="Book a Turnkey Marketing strategy call"
+      scrolling="no"
+      loading="lazy"
+    >
+    </iframe>
   </section>
+
+  <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
 
   <style>
     .booking-frame {
       display: block;
       width: 100%;
-      height: 860px;
+      min-height: 980px;
       border: 0;
-      background: #fff;
+      background: transparent;
     }
 
-    @media (min-width: 1024px) {
+    @media (max-width: 767px) {
       .booking-frame {
-        height: clamp(640px, calc(100vh - 120px), 820px);
+        min-height: 1100px;
       }
     }
   </style>

@@ -95,8 +95,7 @@ export const services: Service[] = [
 export const getService = (slug: string) => services.find((s) => s.slug === slug);
 
 export const BOOKING_URL = "/book-a-call";
-export const LEAD_FORM_URL = "/contact#website-lead-form";
 export const GHL_DISCOVERY_CALL_BOOKING_URL =
   "https://api.leadconnectorhq.com/widget/booking/yu2OePYtPJE21ORfX8a0";
 
-export const CONSULTATION_URL = LEAD_FORM_URL;
+export const CONSULTATION_URL = BOOKING_URL;

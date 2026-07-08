@@ -1,11 +1,13 @@
 ---
+import { Calendar, Mail, Phone } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { BOOKING_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 ---
 
 <BaseLayout
   title="Contact — Turnkey Marketing"
-  description="Start with the Turnkey Marketing lead form, then continue to book a strategy call with our team."
+  description="Contact Turnkey Marketing or book a strategy call to talk through your auto repair shop marketing."
   path="/contact"
   ogTitle="Contact Turnkey Marketing"
   ogImage={siteMedia.team.visionExpoConversation.src}
@@ -17,46 +19,65 @@ import { siteMedia } from "@/lib/site-media";
         Let’s talk about your shop.
       </h1>
       <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Start with the basics below. Then book your strategy call so we can
-        talk through what is working, what is leaking, and what should happen
-        next.
+        When you are ready, the booking page handles both scheduling and the
+        intake details we need before the call.
       </p>
     </div>
   </section>
 
-  <section id="website-lead-form" class="container-page py-12 md:py-16">
-    <div class="grid gap-10 lg:grid-cols-12 lg:items-start">
-      <div class="lg:col-span-4 lg:sticky lg:top-32">
-        <p class="eyebrow">Step 1 of 2</p>
-        <div class="mt-8 rounded-[24px] bg-[var(--off-white)] p-6">
-          <p class="text-sm font-medium text-charcoal">Next step</p>
-          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-            After the form, continue to the booking page so the call is already
-            connected to the details you shared.
-          </p>
-        </div>
-      </div>
-      <div class="lg:col-span-8">
-        <iframe
-          src="https://api.leadconnectorhq.com/widget/form/P1f7GUG9biZuo9nQ4O0m"
-          style="width:100%;height:1500px;border:none;background:#fff;display:block"
-          id="inline-P1f7GUG9biZuo9nQ4O0m"
-          data-layout="{'id':'INLINE'}"
-          data-trigger-type="alwaysShow"
-          data-trigger-value=""
-          data-activation-type="alwaysActivated"
-          data-activation-value=""
-          data-deactivation-type="neverDeactivate"
-          data-deactivation-value=""
-          data-form-name="Website Lead Form — Turnkey"
-          data-height="1320"
-          data-layout-iframe-id="inline-P1f7GUG9biZuo9nQ4O0m"
-          data-form-id="P1f7GUG9biZuo9nQ4O0m"
-          title="Website Lead Form — Turnkey"
-          loading="lazy"
+  <section class="container-page py-14 md:py-20">
+    <div class="grid gap-5 md:grid-cols-3">
+      <a
+        href={BOOKING_URL}
+        class="group rounded-[28px] bg-[var(--navy)] p-7 text-white transition hover:-translate-y-1"
+        data-track-event="consultation_cta_click"
+        data-track-placement="contact_primary"
+      >
+        <span
+          class="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+          style="background: var(--green); color: var(--charcoal);"
         >
-        </iframe>
-      </div>
+          <Calendar className="h-5 w-5" />
+        </span>
+        <h2 class="mt-8 font-display text-2xl font-semibold">
+          Book a strategy call
+        </h2>
+        <p class="mt-3 text-sm leading-relaxed text-white/70">
+          Pick a time with Chris and share the details in the calendar widget.
+        </p>
+      </a>
+
+      <a
+        href="tel:9137774144"
+        class="rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1"
+        data-track-event="phone_click"
+        data-track-placement="contact"
+      >
+        <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[var(--key-blue)]">
+          <Phone className="h-5 w-5" />
+        </span>
+        <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
+          Call the team
+        </h2>
+        <p class="mt-3 text-lg font-medium text-charcoal">(913) 777-4144</p>
+      </a>
+
+      <a
+        href="mailto:hello@turnkeyautomarketing.com"
+        class="rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1"
+        data-track-event="email_click"
+        data-track-placement="contact"
+      >
+        <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[var(--key-blue)]">
+          <Mail className="h-5 w-5" />
+        </span>
+        <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
+          Email us
+        </h2>
+        <p class="mt-3 break-words text-lg font-medium text-charcoal">
+          hello@turnkeyautomarketing.com
+        </p>
+      </a>
     </div>
   </section>
 </BaseLayout>
