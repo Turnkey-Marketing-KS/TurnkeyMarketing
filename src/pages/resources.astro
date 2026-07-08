@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/site/PageHero.astro";
 import { siteMedia } from "@/lib/site-media";
 
 const items = [
@@ -49,14 +50,13 @@ const items = [
   ogTitle="Resources — Turnkey Marketing"
   ogImage={siteMedia.graphics.leadGenerator.src}
 >
-  <section class="border-b hairline">
-    <div class="container-page pt-20 md:pt-28 pb-16">
-      <p class="eyebrow">Resources</p>
-      <h1 class="display-1 mt-6 max-w-[18ch] text-balance">
-        Built for shop owners who want to make smarter marketing decisions.
-      </h1>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Resources"
+    title="Smarter marketing decisions for repair shop owners."
+    description="Guides, articles, and practical frameworks for owners who want clearer vendor accountability, budget confidence, retention, and controlled demand."
+    image={siteMedia.graphics.marketingPlan}
+    imageFit="contain"
+  />
 
   <section class="container-page py-16">
     <div class="grid gap-px md:grid-cols-2 lg:grid-cols-3 bg-[var(--hairline)] rounded-2xl overflow-hidden">

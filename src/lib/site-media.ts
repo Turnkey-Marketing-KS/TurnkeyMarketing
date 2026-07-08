@@ -90,6 +90,16 @@ export const siteMedia = {
       alt: "Auto repair shop owner in a shop-branded shirt",
       position: "50% 18%",
     },
+    lenPritchett: {
+      src: "/images/clients/len-pritchett.jpeg",
+      alt: "Len Pritchett wearing an RPM Automotive shirt",
+      position: "50% 50%",
+    },
+    steveKillian: {
+      src: "/images/clients/steve-killian.jpeg",
+      alt: "Steve Killian in an auto repair shop office",
+      position: "50% 35%",
+    },
   },
   team: {
     visionExpoConversation: {

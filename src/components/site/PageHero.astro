@@ -1,0 +1,119 @@
+---
+import { ArrowRight } from "lucide-react";
+import type { SiteImage } from "@/lib/site-media";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  image?: SiteImage;
+  imageFit?: "cover" | "contain";
+  ctaHref?: string;
+  ctaLabel?: string;
+  ctaExternal?: boolean;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  backHref?: string;
+  backLabel?: string;
+  accent?: "blue" | "green";
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  image,
+  imageFit = "cover",
+  ctaHref,
+  ctaLabel,
+  ctaExternal = false,
+  secondaryHref,
+  secondaryLabel,
+  backHref,
+  backLabel,
+  accent = "blue",
+} = Astro.props;
+
+const accentColor = accent === "green" ? "var(--green)" : "var(--key-blue)";
+const openCtaExternally = ctaExternal && !ctaHref?.startsWith("/");
+---
+
+<section class="border-b hairline bg-white">
+  <div class="container-page pt-10 pb-12 md:pt-16 md:pb-20">
+    {backHref && backLabel && (
+      <a href={backHref} class="inline-flex text-sm text-muted-foreground transition hover:text-charcoal">
+        ← {backLabel}
+      </a>
+    )}
+
+    <div
+      class:list={[
+        image ? "grid gap-10 lg:grid-cols-12 lg:items-center" : "max-w-4xl",
+        backHref ? "mt-7" : "",
+      ]}
+    >
+      <div class={image ? "lg:col-span-6" : "max-w-4xl"}>
+        <p class="eyebrow" style={`color: ${accentColor};`}>{eyebrow}</p>
+        <h1 class="display-1 mt-5 max-w-[13ch] text-balance text-charcoal md:mt-6">
+          {title}
+        </h1>
+        {description && (
+          <p class="mt-6 max-w-[48ch] text-lg leading-relaxed text-charcoal/65 md:text-xl">
+            {description}
+          </p>
+        )}
+
+        {(ctaHref || secondaryHref) && (
+          <div class="mt-8 flex flex-wrap items-center gap-4 md:mt-10 md:gap-6">
+            {ctaHref && ctaLabel && (
+              <a
+                href={ctaHref}
+                target={openCtaExternally ? "_blank" : undefined}
+                rel={openCtaExternally ? "noopener" : undefined}
+                class="btn-primary"
+              >
+                {ctaLabel}
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            )}
+            {secondaryHref && secondaryLabel && (
+              <a
+                href={secondaryHref}
+                class="inline-flex items-center gap-2 font-medium text-charcoal/75 transition hover:text-charcoal"
+              >
+                {secondaryLabel}
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+
+      {image && (
+        <div class="relative lg:col-span-6">
+          <div
+            class:list={[
+              "relative ml-auto aspect-[16/11] w-full max-w-[620px] overflow-hidden rounded-[32px] shadow-[0_34px_90px_-50px_rgba(20,22,28,0.42)]",
+              imageFit === "contain" ? "bg-[var(--off-white)]" : "bg-[var(--off-white)]",
+            ]}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              width="1200"
+              height="825"
+              loading="eager"
+              decoding="async"
+              class:list={[
+                "absolute inset-0 h-full w-full",
+                imageFit === "contain" ? "object-contain p-8 md:p-12" : "object-cover",
+              ]}
+              style={`object-position: ${image.position};`}
+            />
+          </div>
+          <slot name="badge" />
+        </div>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,39 +1,48 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteMedia } from "@/lib/site-media";
 ---
 
 <BaseLayout
   title="Contact — Turnkey Marketing"
-  description="Submit the Turnkey Marketing contact form, schedule a consultation, call, or email our team."
+  description="Start with the Turnkey Marketing lead form, then continue to book a strategy call with our team."
   path="/contact"
   ogTitle="Contact Turnkey Marketing"
+  ogImage={siteMedia.team.visionExpoConversation.src}
 >
-  <section class="border-b hairline">
-    <div class="container-page pt-20 md:pt-28 pb-16">
-      <p class="eyebrow">Contact</p>
-      <h1 class="display-1 mt-6 max-w-[16ch] text-balance">
-        Let's talk about your shop.
+  <section class="border-b hairline bg-white">
+    <div class="container-page pt-14 md:pt-20 pb-10 md:pb-14">
+      <p class="eyebrow" style="color: var(--key-blue);">Contact</p>
+      <h1 class="display-2 mt-5 max-w-[12ch] text-balance">
+        Let’s talk about your shop.
       </h1>
-      <p class="mt-8 text-lg text-muted-foreground max-w-2xl">
-        30 minutes. No pitch deck. Just a real conversation about what is
-        working, what is leaking, and what the first 90-120 days should
-        realistically focus on.
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        Start with the basics below. Then book your strategy call so we can
+        talk through what is working, what is leaking, and what should happen
+        next.
       </p>
     </div>
   </section>
 
-  <section id="website-lead-form" class="container-page py-20 md:py-24">
+  <section id="website-lead-form" class="container-page py-12 md:py-16">
     <div class="grid gap-10 lg:grid-cols-12 lg:items-start">
       <div class="lg:col-span-4 lg:sticky lg:top-32">
-        <p class="eyebrow">Website lead form</p>
+        <p class="eyebrow">Step 1 of 2</p>
         <h2 class="display-3 mt-5 max-w-[12ch] text-balance">
           Tell us what you are trying to sort out.
         </h2>
         <p class="mt-5 text-muted-foreground leading-relaxed">
           Share the basics about your shop, your current marketing, and what
-          needs to get clearer. Our team will use it to make the first
-          conversation more useful.
+          needs to get clearer. Then pick a time for your strategy call on the
+          next screen.
         </p>
+        <div class="mt-8 rounded-[24px] bg-[var(--off-white)] p-6">
+          <p class="text-sm font-medium text-charcoal">Next step</p>
+          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+            After the form, continue to the booking page so the call is already
+            connected to the details you shared.
+          </p>
+        </div>
       </div>
       <div class="lg:col-span-8">
         <div class="overflow-hidden rounded-2xl border hairline bg-white shadow-[0_24px_70px_-40px_rgba(20,22,28,0.35)]">

@@ -1,7 +1,9 @@
 ---
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/site/PageHero.astro";
 import { CONSULTATION_URL, services, type Service } from "@/lib/services";
+import { getServiceDetail } from "@/lib/service-details";
 
 export function getStaticPaths() {
   return services.map((service) => ({
@@ -15,9 +17,12 @@ interface Props {
 }
 
 const { service } = Astro.props;
+const detail = getServiceDetail(service.slug);
 const related = services.filter((item) => item.slug !== service.slug).slice(0, 3);
-
 const servicePath = `/services/${service.slug}`;
+const accent = detail.accent ?? "blue";
+const accentColor = accent === "green" ? "var(--green)" : "var(--key-blue)";
+
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -58,98 +63,173 @@ const breadcrumbSchema = {
   path={servicePath}
   ogTitle={`${service.name} — Turnkey Marketing`}
   ogType="article"
+  ogImage={detail.image.src}
   schema={[serviceSchema, breadcrumbSchema]}
 >
-  <section class="border-b hairline">
-    <div class="container-page pt-16 md:pt-24 pb-20">
-      <a href="/services" class="text-sm text-muted-foreground hover:text-charcoal">
-        ← All services
-      </a>
-      <div class="mt-6 grid gap-12 lg:grid-cols-12 items-end">
-        <div class="lg:col-span-8">
-          <p class="eyebrow">
-            {service.featured ? "Flagship offer" : "Service"}
-          </p>
-          <h1 class="display-1 mt-6 text-balance">{service.name}</h1>
-          <p class="mt-6 text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            {service.tagline}
-          </p>
-        </div>
-        <div class="lg:col-span-4">
-          <a
-            href={CONSULTATION_URL}
-            target="_blank"
-            rel="noopener"
-            class="btn-primary w-full"
-            data-track-event="service_cta_click"
-            data-track-slug={service.slug}
-            data-track-placement="service_hero"
-          >
-            Talk about {service.name} <ArrowRight className="h-4 w-4" />
-          </a>
+  <PageHero
+    eyebrow={service.featured ? "Flagship service" : "Service"}
+    title={service.name}
+    description={service.tagline}
+    image={detail.image}
+    imageFit={detail.imageFit ?? "cover"}
+    accent={accent}
+    ctaHref={CONSULTATION_URL}
+    ctaLabel={`Talk about ${service.shortName ?? service.name}`}
+    secondaryHref="/services"
+    secondaryLabel="All services"
+    backHref="/services"
+    backLabel="All services"
+  >
+    <div slot="badge" class="card-float floaty absolute -left-3 bottom-8 px-5 py-4 md:left-4">
+      <p class="text-xs font-medium text-charcoal/55">{detail.badgeLabel}</p>
+      <p class="mt-1 font-display text-2xl font-semibold leading-none tracking-normal text-charcoal">
+        {detail.badgeValue}
+      </p>
+    </div>
+  </PageHero>
+
+  <section class="bg-[var(--off-white)] py-16 md:py-24">
+    <div class="container-page grid gap-12 lg:grid-cols-12 lg:items-start">
+      <div class="lg:col-span-5">
+        <p class="eyebrow" style={`color: ${accentColor};`}>Overview</p>
+        <h2 class="display-2 mt-5 max-w-[12ch] text-balance text-charcoal">
+          Built for the way repair shops actually make marketing decisions.
+        </h2>
+      </div>
+      <div class="lg:col-span-7">
+        <p class="max-w-2xl text-lg leading-relaxed text-charcoal/65 md:text-xl">
+          {service.summary}
+        </p>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2">
+          {service.outcomes.map((outcome) => (
+            <div class="rounded-[22px] bg-white p-5">
+              <span
+                class="inline-flex h-7 w-7 items-center justify-center rounded-full"
+                style={`background: ${accentColor};`}
+              >
+                <Check className="h-4 w-4 text-white" />
+              </span>
+              <p class="mt-4 font-medium leading-snug text-charcoal">{outcome}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container-page py-20 grid gap-16 lg:grid-cols-12">
-    <div class="lg:col-span-5">
-      <p class="eyebrow">Overview</p>
-      <h2 class="display-3 mt-4 text-balance">What you actually get.</h2>
+  <section class="container-page py-16 md:py-24">
+    <div class="flex items-center gap-5">
+      <p class="text-sm font-semibold text-charcoal/70">What’s included</p>
+      <div class="h-px flex-1 bg-charcoal/10"></div>
     </div>
-    <div class="lg:col-span-7">
-      <p class="text-lg text-muted-foreground leading-relaxed">{service.summary}</p>
-      <ul class="mt-10 grid gap-4">
-        {service.outcomes.map((outcome) => (
-          <li class="flex items-start gap-4 border-b hairline pb-4">
-            <span
-              class="mt-1 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full"
-              style="background: var(--green);"
-            >
-              <Check className="h-3 w-3 text-charcoal" />
-            </span>
-            <span class="text-charcoal">{outcome}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
 
-  <section style="background: var(--off-white);">
-    <div class="container-page py-20">
-      <p class="eyebrow">How we work</p>
-      <div class="mt-8 grid gap-px md:grid-cols-3 bg-[var(--hairline)] rounded-2xl overflow-hidden">
-        {[
-          { n: "01", t: "Learn the shop", d: "Interviews, audits, and a real look at your goals and market." },
-          { n: "02", t: "Build the plan", d: "Strategy first. Then the tactics that actually fit your shop." },
-          { n: "03", t: "Run it, report it", d: "Weekly execution and honest monthly reporting you can act on." },
-        ].map((step) => (
-          <div class="bg-white p-8">
-            <p class="text-xs tracking-widest text-muted-foreground">{step.n}</p>
-            <p class="font-display text-xl mt-4 text-charcoal">{step.t}</p>
-            <p class="mt-2 text-muted-foreground">{step.d}</p>
+    <div class="mt-10 grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <div class="border-t hairline">
+          {detail.included.map((item, index) => (
+            <div class="flex items-center gap-5 border-b hairline py-5">
+              <span class="text-xs text-muted-foreground tabular-nums">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span class="font-display text-2xl font-semibold leading-tight tracking-normal text-charcoal">
+                {item}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="rounded-[28px] bg-[var(--charcoal)] p-8 text-white">
+            <p class="eyebrow text-white/45">Best fit</p>
+            <p class="mt-6 text-xl leading-relaxed text-white/78">
+              {detail.bestFor}
+            </p>
           </div>
-        ))}
+          <div class="rounded-[28px] bg-[var(--key-blue-soft)] p-8">
+            <p class="eyebrow" style={`color: ${accentColor};`}>Why it matters</p>
+            <p class="mt-6 font-display text-3xl font-semibold leading-tight tracking-normal text-charcoal">
+              {detail.proofLine}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="container-page py-20">
-    <div class="flex items-end justify-between flex-wrap gap-6">
-      <h2 class="display-3">Explore related services</h2>
+  <section class="bg-white py-16 md:py-24">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <p class="eyebrow">How we work</p>
+          <h2 class="display-3 mt-4 max-w-[10ch] text-balance text-charcoal">
+            Clearer decisions, then consistent follow-through.
+          </h2>
+        </div>
+        <div class="lg:col-span-8">
+          <div class="grid gap-px overflow-hidden rounded-[28px] bg-[var(--hairline)] md:grid-cols-3">
+            {[
+              { n: "01", t: "Learn the shop", d: "We look at your goals, capacity, customers, vendors, and market." },
+              { n: "02", t: "Set the plan", d: "We decide what to keep, fix, stop funding, and run next." },
+              { n: "03", t: "Own the rhythm", d: "Execution, reporting, and next moves stay connected each month." },
+            ].map((step) => (
+              <div class="bg-[var(--off-white)] p-7">
+                <p class="text-xs tracking-[0.18em] text-muted-foreground">{step.n}</p>
+                <p class="mt-5 font-display text-xl font-semibold tracking-normal text-charcoal">
+                  {step.t}
+                </p>
+                <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{step.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page py-16 md:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <h2 class="display-3 text-charcoal">Explore related services</h2>
       <a href="/services" class="btn-ghost">All services →</a>
     </div>
-    <div class="mt-10 border-t hairline">
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
       {related.map((item) => (
         <a
           href={`/services/${item.slug}`}
-          class="group grid grid-cols-12 gap-6 border-b hairline py-6 items-baseline hover:bg-[var(--off-white)] transition px-2 -mx-2 rounded-md"
+          class="group rounded-[24px] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[0_26px_70px_-52px_rgba(20,22,28,0.38)]"
         >
-          <span class="col-span-11 md:col-span-4 font-display text-2xl text-charcoal">{item.name}</span>
-          <span class="col-span-11 md:col-span-7 text-muted-foreground col-start-2 md:col-start-auto">{item.tagline}</span>
-          <span class="col-span-1 justify-self-end"><ArrowUpRight className="h-5 w-5" /></span>
+          <p class="font-display text-2xl font-semibold leading-tight tracking-normal text-charcoal">
+            {item.name}
+          </p>
+          <p class="mt-4 text-sm leading-relaxed text-muted-foreground">
+            {item.tagline}
+          </p>
+          <span class="mt-8 inline-flex items-center gap-2 font-medium text-charcoal">
+            View service
+            <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </span>
         </a>
       ))}
     </div>
+  </section>
+
+  <section class="container-page pb-24 md:pb-32">
+    <a
+      href={CONSULTATION_URL}
+      class="flex flex-col gap-8 rounded-[34px] p-8 text-white transition hover:-translate-y-1 md:flex-row md:items-center md:justify-between md:p-12"
+      style={`background: ${service.featured ? "var(--navy)" : "var(--charcoal)"};`}
+      data-track-event="consultation_cta_click"
+      data-track-slug={service.slug}
+      data-track-placement="service_bottom"
+    >
+      <span class="font-display text-3xl font-semibold leading-tight tracking-normal md:text-4xl">
+        Want to see how this would fit your shop?
+      </span>
+      <span class="inline-flex items-center gap-2 font-medium">
+        Schedule a Consultation
+        <ArrowRight className="h-4 w-4" />
+      </span>
+    </a>
   </section>
 </BaseLayout>

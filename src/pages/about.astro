@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/site/PageHero.astro";
 import { CONSULTATION_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 ---
@@ -11,14 +12,14 @@ import { siteMedia } from "@/lib/site-media";
   ogTitle="About Turnkey Marketing"
   ogImage={siteMedia.about.team.src}
 >
-  <section class="border-b hairline">
-    <div class="container-page pt-20 md:pt-28 pb-16">
-      <p class="eyebrow">About</p>
-      <h1 class="display-1 mt-6 max-w-[18ch] text-balance">
-        We built Turnkey because shops deserved better than disconnected vendors.
-      </h1>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="About"
+    title="Built for shops tired of disconnected vendors."
+    description="Turnkey is founder-led, auto-repair-specific, and structured around one simple idea: strategy, execution, reporting, and next moves should stay connected."
+    image={siteMedia.team.industrySession}
+    ctaHref={CONSULTATION_URL}
+    ctaLabel="Meet the team"
+  />
 
   <section class="container-page py-20 grid gap-16 lg:grid-cols-12">
     <div class="lg:col-span-5">
@@ -107,8 +108,6 @@ import { siteMedia } from "@/lib/site-media";
     </h2>
     <a
       href={CONSULTATION_URL}
-      target="_blank"
-      rel="noopener"
       class="btn-primary mt-8 inline-flex"
       data-track-event="consultation_cta_click"
       data-track-placement="about"

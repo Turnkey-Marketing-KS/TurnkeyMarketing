@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/site/PageHero.astro";
 import { CONSULTATION_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 
@@ -44,18 +45,14 @@ const cases = [
   ogTitle="Results — Turnkey Marketing"
   ogImage={siteMedia.shops.mmTechnician.src}
 >
-  <section class="border-b hairline">
-    <div class="container-page pt-20 md:pt-28 pb-16">
-      <p class="eyebrow">Results</p>
-      <h1 class="display-1 mt-6 max-w-[16ch] text-balance">
-        Proof lives in the bays.
-      </h1>
-      <p class="mt-8 text-lg text-muted-foreground max-w-2xl">
-        Case studies and stories from shops we've worked alongside. Full
-        write-ups coming soon — reach out for details on any of these.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Results"
+    title="Proof lives in the bays."
+    description="Case studies and stories from shops we have worked alongside. Full write-ups are coming soon, but the pattern is already clear: better coordination makes the spend easier to understand."
+    image={siteMedia.shops.mmTechnician}
+    ctaHref={CONSULTATION_URL}
+    ctaLabel="Talk about your shop"
+  />
 
   <section class="container-page py-16">
     <div class="grid gap-6 md:grid-cols-2">
@@ -89,7 +86,7 @@ const cases = [
   </section>
 
   <section class="container-page pb-24 text-center">
-    <a href={CONSULTATION_URL} target="_blank" rel="noopener" class="btn-primary">
+    <a href={CONSULTATION_URL} class="btn-primary">
       Talk about your shop →
     </a>
   </section>

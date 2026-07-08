@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { GHL_DISCOVERY_CALL_BOOKING_URL } from "@/lib/services";
+import { siteMedia } from "@/lib/site-media";
+---
+
+<BaseLayout
+  title="Book a Call — Turnkey Marketing"
+  description="Book a strategy call with Turnkey Marketing to talk through your auto repair shop, your current marketing, and the next best move."
+  path="/book-a-call"
+  ogTitle="Book a Strategy Call with Turnkey Marketing"
+  ogImage={siteMedia.team.visionExpoConversation.src}
+>
+  <section class="container-page py-14 md:py-24">
+    <div class="grid gap-8 lg:grid-cols-12 lg:items-start">
+      <div class="lg:col-span-4 lg:sticky lg:top-32">
+        <p class="eyebrow" style="color: var(--key-blue);">Step 2 of 2</p>
+        <h1 class="display-2 mt-5 max-w-[11ch] text-balance text-charcoal">
+          Let’s talk through your shop’s marketing.
+        </h1>
+        <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+          Pick a time. We will use what you shared to talk through what is
+          working, what is leaking, and the clearest next move.
+        </p>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div>
+          <iframe
+            src={GHL_DISCOVERY_CALL_BOOKING_URL}
+            style="width:100%;min-height:1120px;border:none;overflow:visible"
+            id="yu2OePYtPJE21ORfX8a0_1783535857619"
+            title="Book a Turnkey Marketing strategy call"
+            loading="lazy"
+          >
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
