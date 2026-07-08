@@ -13,7 +13,7 @@ import { siteMedia } from "@/lib/site-media";
 >
   <section class="container-page py-14 md:py-24">
     <div class="grid gap-8 lg:grid-cols-12 lg:items-start">
-      <div class="lg:col-span-4 lg:sticky lg:top-32">
+      <div class="lg:col-span-4">
         <p class="eyebrow" style="color: var(--key-blue);">Step 2 of 2</p>
         <h1 class="display-2 mt-5 max-w-[11ch] text-balance text-charcoal">
           Let’s talk through your shop’s marketing.
@@ -25,18 +25,31 @@ import { siteMedia } from "@/lib/site-media";
       </div>
 
       <div class="lg:col-span-8">
-        <div>
-          <iframe
-            src={GHL_DISCOVERY_CALL_BOOKING_URL}
-            style="width:100%;min-height:1120px;border:none;overflow:visible"
-            id="yu2OePYtPJE21ORfX8a0_1783535857619"
-            title="Book a Turnkey Marketing strategy call"
-            loading="lazy"
-          >
-          </iframe>
-        </div>
+        <iframe
+          src={GHL_DISCOVERY_CALL_BOOKING_URL}
+          class="booking-frame"
+          id="yu2OePYtPJE21ORfX8a0_1783535857619"
+          title="Book a Turnkey Marketing strategy call"
+          loading="lazy"
+        >
+        </iframe>
       </div>
     </div>
   </section>
 
+  <style>
+    .booking-frame {
+      display: block;
+      width: 100%;
+      height: 860px;
+      border: 0;
+      background: #fff;
+    }
+
+    @media (min-width: 1024px) {
+      .booking-frame {
+        height: clamp(640px, calc(100vh - 120px), 820px);
+      }
+    }
+  </style>
 </BaseLayout>

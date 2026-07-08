@@ -1,6 +1,6 @@
 ---
 import { ArrowUpRight, ChevronDown, Menu, Star, X } from "lucide-react";
-import { CONSULTATION_URL, services } from "@/lib/services";
+import { BOOKING_URL, services } from "@/lib/services";
 
 const LOGO_SRC = "/turnkey-logo.png";
 const primaryNav = [
@@ -100,7 +100,7 @@ const rest = services.filter((service) => !service.featured);
 
       <div class="hidden lg:flex items-center gap-3">
         <a
-          href={CONSULTATION_URL}
+          href={BOOKING_URL}
           class="btn-primary !py-2.5 !px-5 text-sm"
           data-track-event="consultation_cta_click"
           data-track-placement="navbar"
@@ -167,7 +167,7 @@ const rest = services.filter((service) => !service.featured);
         </ul>
       </div>
       <a
-        href={CONSULTATION_URL}
+        href={BOOKING_URL}
         class="btn-primary w-full mt-8"
         data-track-event="consultation_cta_click"
         data-track-placement="mobile_menu"
