@@ -12,6 +12,10 @@ const primaryNav = [
 
 const vip = services.find((service) => service.featured) ?? services[0];
 const rest = services.filter((service) => !service.featured);
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  currentPath === href || currentPath.startsWith(`${href}/`);
 ---
 
 <header class="fixed top-0 inset-x-0 z-50 pointer-events-none bg-white border-b hairline">
@@ -35,7 +39,13 @@ const rest = services.filter((service) => !service.featured);
         <div class="relative group">
           <a
             href="/services"
-            class="flex items-center gap-1 px-4 py-2 text-[0.92rem] text-charcoal/80 hover:text-charcoal transition rounded-full"
+            class:list={[
+              "flex items-center gap-1 px-4 py-2 text-[0.92rem] transition rounded-full",
+              isActive("/services")
+                ? "bg-[var(--off-white)] text-charcoal"
+                : "text-charcoal/80 hover:text-charcoal",
+            ]}
+            aria-current={isActive("/services") ? "page" : undefined}
           >
             Services
             <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
@@ -91,7 +101,13 @@ const rest = services.filter((service) => !service.featured);
         {primaryNav.slice(1).map((item) => (
           <a
             href={item.href}
-            class="px-4 py-2 text-[0.92rem] text-charcoal/80 hover:text-charcoal transition rounded-full"
+            class:list={[
+              "px-4 py-2 text-[0.92rem] transition rounded-full",
+              isActive(item.href)
+                ? "bg-[var(--off-white)] text-charcoal"
+                : "text-charcoal/80 hover:text-charcoal",
+            ]}
+            aria-current={isActive(item.href) ? "page" : undefined}
           >
             {item.label}
           </a>
@@ -124,7 +140,7 @@ const rest = services.filter((service) => !service.featured);
 
   <div
     id="mobile-menu"
-    class="pointer-events-auto fixed inset-0 z-50 bg-white hidden flex-col"
+    class="mobile-menu pointer-events-auto fixed inset-0 z-50 bg-white flex flex-col"
     aria-hidden="true"
   >
     <div class="container-page flex h-[72px] items-center justify-between border-b hairline">
@@ -178,6 +194,34 @@ const rest = services.filter((service) => !service.featured);
   </div>
 </header>
 
+<style>
+  .mobile-menu {
+    opacity: 0;
+    transform: translateY(10px);
+    visibility: hidden;
+    transition:
+      opacity 0.28s ease,
+      transform 0.28s ease,
+      visibility 0s linear 0.28s;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition:
+      opacity 0.28s ease,
+      transform 0.28s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu {
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
 <script>
   const menu = document.querySelector("#mobile-menu");
   const openButton = document.querySelector("[data-mobile-menu-open]");
@@ -186,8 +230,7 @@ const rest = services.filter((service) => !service.featured);
 
   function setMobileMenu(open: boolean) {
     if (!menu || !openButton) return;
-    menu.classList.toggle("hidden", !open);
-    menu.classList.toggle("flex", open);
+    menu.classList.toggle("is-open", open);
     menu.setAttribute("aria-hidden", String(!open));
     openButton.setAttribute("aria-expanded", String(open));
     document.body.style.overflow = open ? "hidden" : "";

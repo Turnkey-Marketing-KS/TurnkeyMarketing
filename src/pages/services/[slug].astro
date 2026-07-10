@@ -102,7 +102,7 @@ const breadcrumbSchema = {
         </p>
         <div class="mt-10 grid gap-4 sm:grid-cols-2">
           {service.outcomes.map((outcome) => (
-            <div class="rounded-[22px] bg-white p-5">
+            <div class="rounded-[24px] bg-white p-5">
               <span
                 class="inline-flex h-7 w-7 items-center justify-center rounded-full"
                 style={`background: ${accentColor};`}
@@ -142,8 +142,8 @@ const breadcrumbSchema = {
       <div class="lg:col-span-7">
         <div class="grid gap-6 md:grid-cols-2">
           <div class="rounded-[28px] bg-[var(--charcoal)] p-8 text-white">
-            <p class="eyebrow text-white/45">Best fit</p>
-            <p class="mt-6 text-xl leading-relaxed text-white/78">
+            <p class="eyebrow text-white/60">Best fit</p>
+            <p class="mt-6 text-xl leading-relaxed text-white/75">
               {detail.bestFor}
             </p>
           </div>
@@ -217,7 +217,7 @@ const breadcrumbSchema = {
   <section class="container-page pb-24 md:pb-32">
     <a
       href={CONSULTATION_URL}
-      class="flex flex-col gap-8 rounded-[34px] p-8 text-white transition hover:-translate-y-1 md:flex-row md:items-center md:justify-between md:p-12"
+      class="flex flex-col gap-8 rounded-[32px] p-8 text-white transition hover:-translate-y-1 md:flex-row md:items-center md:justify-between md:p-12"
       style={`background: ${service.featured ? "var(--navy)" : "var(--charcoal)"};`}
       data-track-event="consultation_cta_click"
       data-track-slug={service.slug}

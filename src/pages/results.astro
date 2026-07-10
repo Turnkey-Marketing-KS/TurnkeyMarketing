@@ -56,9 +56,14 @@ const cases = [
 
   <section class="container-page py-16">
     <div class="grid gap-6 md:grid-cols-2">
-      {cases.map((item) => (
-        <div class="group overflow-hidden rounded-2xl border hairline bg-white transition hover:border-[var(--navy)]">
-          <div class="aspect-[16/10] overflow-hidden bg-[var(--off-white)]">
+      {cases.map((item, index) => (
+        <div
+          class:list={[
+            "group overflow-hidden rounded-2xl border hairline bg-white transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.35)]",
+            index === cases.length - 1 && "md:col-span-2 md:grid md:grid-cols-2",
+          ]}
+        >
+          <div class="aspect-[16/10] overflow-hidden bg-[var(--off-white)] md:h-full">
             <img
               src={item.image.src}
               alt={item.image.alt}
@@ -73,7 +78,7 @@ const cases = [
               style={`object-position: ${item.image.position};`}
             />
           </div>
-          <div class="p-8">
+          <div class="p-8 md:self-center">
             <p class="text-xs uppercase tracking-widest" style="color: var(--key-blue);">
               {item.tag}
             </p>

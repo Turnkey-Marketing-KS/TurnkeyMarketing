@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ArrowUpRight, Star } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Star } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/site/PageHero.astro";
 import { CONSULTATION_URL, services } from "@/lib/services";
@@ -43,7 +43,7 @@ const vipDetail = getServiceDetail(vip.slug);
     <div class="container-page">
       <a
         href={`/services/${vip.slug}`}
-        class="group grid gap-10 overflow-hidden rounded-[34px] bg-white p-7 shadow-[0_30px_90px_-60px_rgba(20,22,28,0.34)] md:p-10 lg:grid-cols-12 lg:items-center"
+        class="group grid gap-10 overflow-hidden rounded-[32px] bg-white p-7 shadow-[0_30px_90px_-60px_rgba(20,22,28,0.34)] md:p-10 lg:grid-cols-12 lg:items-center"
         data-track-event="service_cta_click"
         data-track-slug={vip.slug}
         data-track-placement="services_hero"
@@ -51,7 +51,7 @@ const vipDetail = getServiceDetail(vip.slug);
         <div class="lg:col-span-5">
           <div class="flex items-center gap-2">
             <Star className="h-4 w-4 text-[var(--green)]" fill="currentColor" />
-            <p class="text-xs uppercase tracking-[0.18em] text-charcoal/45">
+            <p class="text-xs uppercase tracking-[0.18em] text-charcoal/60">
               Flagship service
             </p>
           </div>
@@ -68,13 +68,16 @@ const vipDetail = getServiceDetail(vip.slug);
         </div>
 
         <div class="lg:col-span-4">
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+          <ul class="grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-1">
             {vipDetail.included.map((item) => (
-              <span class="rounded-full bg-[var(--key-blue-soft)] px-4 py-3 text-sm font-medium text-charcoal">
+              <li class="flex items-center gap-3 text-[0.95rem] font-medium text-charcoal">
+                <span class="inline-flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[var(--key-blue-soft)]">
+                  <Check className="h-3.5 w-3.5 text-[var(--navy)]" />
+                </span>
                 {item}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div class="relative lg:col-span-3">
@@ -126,7 +129,7 @@ const vipDetail = getServiceDetail(vip.slug);
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
               </span>
             </div>
-            <div class="aspect-[4/3] overflow-hidden rounded-[20px] bg-[var(--off-white)] md:aspect-auto">
+            <div class="aspect-[4/3] overflow-hidden rounded-[24px] bg-[var(--off-white)] md:aspect-auto">
               <img
                 src={detail.image.src}
                 alt={detail.image.alt}
@@ -150,7 +153,7 @@ const vipDetail = getServiceDetail(vip.slug);
   <section class="container-page pb-24 md:pb-32">
     <a
       href={CONSULTATION_URL}
-      class="flex flex-col gap-8 rounded-[34px] bg-[var(--charcoal)] p-8 text-white transition hover:bg-[var(--navy)] md:flex-row md:items-center md:justify-between md:p-12"
+      class="flex flex-col gap-8 rounded-[32px] bg-[var(--charcoal)] p-8 text-white transition hover:bg-[var(--navy)] md:flex-row md:items-center md:justify-between md:p-12"
       data-track-event="consultation_cta_click"
       data-track-placement="services_index"
     >

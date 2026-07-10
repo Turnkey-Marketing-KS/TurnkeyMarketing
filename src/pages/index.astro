@@ -86,6 +86,7 @@ const testimonials = [
 const capabilityShowcase = [
   {
     title: "VIP Marketing Manager",
+    slug: "vip-marketing-manager",
     detailTitle: "VIP Services",
     summary:
       "The full bundle: the front and back of the marketing plan combined with your own Director of Marketing.",
@@ -104,6 +105,7 @@ const capabilityShowcase = [
   },
   {
     title: "Marketing Consulting",
+    slug: "marketing-consulting",
     detailTitle: "Consulting Services",
     summary:
       "A monthly consulting meeting that looks at your marketing and tells you exactly what to do for better ROI.",
@@ -114,6 +116,7 @@ const capabilityShowcase = [
   },
   {
     title: "DirectTrack",
+    slug: "directtrack-marketing",
     detailTitle: "DirectTrack Services",
     summary:
       "OTT video ads, acquisition emails, geofencing display ads, and monthly ROI tracking for new customer acquisition.",
@@ -124,6 +127,7 @@ const capabilityShowcase = [
   },
   {
     title: "Direct Mail",
+    slug: "direct-mail",
     detailTitle: "Direct Mail Services",
     summary:
       "Management of one postcard, including design, timeline, budget, order verification, and offers.",
@@ -134,6 +138,7 @@ const capabilityShowcase = [
   },
   {
     title: "Social Media",
+    slug: "social-media-marketing",
     detailTitle: "Social Media Services",
     summary:
       "Organic Facebook, Instagram, and Google Business Profile posts, plus Facebook ad creation and review response.",
@@ -144,6 +149,7 @@ const capabilityShowcase = [
   },
   {
     title: "Retention",
+    slug: "retention-marketing",
     detailTitle: "Retention Services",
     summary:
       "Monthly e-mail newsletters and thank you note creation that keep customer follow-up consistent.",
@@ -154,6 +160,7 @@ const capabilityShowcase = [
   },
   {
     title: "Digital",
+    slug: "digital-marketing",
     detailTitle: "Digital Services",
     summary:
       "Google review management, Google Business Profile optimization, website audits, and coordination with website or ads vendors.",
@@ -164,6 +171,7 @@ const capabilityShowcase = [
   },
   {
     title: "Boost Days",
+    slug: "boost-days",
     detailTitle: "Boost Day Services",
     summary:
       "Boost Day strategy, one e-mail, text, and social media ad campaign, phone call evaluations, and one marketing deliverable.",
@@ -189,7 +197,7 @@ const features = [
   },
   {
     icon: BarChart3,
-    color: "#e8a94b",
+    color: "var(--navy)",
     title: "Honest reporting",
     copy: "Monthly reports that tie every dollar to calls, cars, and revenue. Real accountability, no vanity metrics.",
   },
@@ -265,7 +273,7 @@ const faqSchema = {
             <span class="text-charcoal">Auto repair marketing</span>
             <br />
             <span
-              class="inline-block whitespace-nowrap text-[clamp(1.6rem,5vw,3rem)] text-[var(--key-blue)]"
+              class="inline-block whitespace-nowrap text-[clamp(1.4rem,5vw,3rem)] text-[var(--key-blue)]"
               data-hero-phrase
               data-phrases={JSON.stringify(heroPhrases)}
             >
@@ -281,8 +289,7 @@ const faqSchema = {
           <div class="mt-8 flex flex-wrap items-center gap-5 md:mt-10 md:gap-6">
             <a
               href={CONSULTATION_URL}
-              class="inline-flex items-center gap-2 rounded-full px-7 py-4 font-medium text-[0.95rem] text-white transition"
-              style="background: var(--navy); box-shadow: 0 14px 34px -12px rgba(35,46,102,0.55);"
+              class="btn-primary !px-7 !py-4"
               data-track-event="consultation_cta_click"
               data-track-placement="hero_primary"
             >
@@ -300,7 +307,7 @@ const faqSchema = {
 
         <div class="lg:col-span-5 relative w-full max-w-[420px] xl:max-w-[470px] justify-self-center lg:justify-self-center xl:justify-self-end">
           <div
-            class="relative aspect-[4/5] w-full rounded-[34px] overflow-hidden shadow-[0_34px_90px_-42px_rgba(20,22,28,0.45)]"
+            class="relative aspect-[4/5] w-full rounded-[32px] overflow-hidden shadow-[0_34px_90px_-42px_rgba(20,22,28,0.45)]"
             style="background: linear-gradient(160deg, var(--key-blue) 0%, #2e6fa8 100%);"
           >
             <img
@@ -349,23 +356,12 @@ const faqSchema = {
   <section class="logo-cloud-section bg-white pt-4 pb-8 md:pt-6 md:pb-12">
     <div class="container-page">
       <div class="mx-auto max-w-5xl text-center">
-        <p class="text-xs font-medium uppercase tracking-[0.18em] text-[var(--key-blue)]">
-          Our trusted network
-        </p>
-        <h2 class="font-display mx-auto mt-4 max-w-4xl text-3xl font-semibold leading-tight tracking-normal text-charcoal md:text-4xl">
-          Trusted by 300+ shops
-          <br />
-          and industry-leading partners
+        <h2 class="font-display mx-auto max-w-4xl text-balance text-3xl font-semibold leading-tight tracking-normal text-charcoal md:text-4xl">
+          Trusted by 300+ shops and industry-leading partners
         </h2>
-        <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-charcoal/55">
-          Independent repair shops and specialty automotive teams use Turnkey
-          to keep
-          <br />
-          every marketing channel working from one clear plan.
-        </p>
       </div>
 
-      <div class="relative mx-auto mt-8 max-w-[1160px] overflow-hidden px-2 py-2">
+      <div class="relative mx-auto mt-3 max-w-[1160px] overflow-hidden px-2 py-2">
         <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent md:w-28"></div>
         <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent md:w-28"></div>
         <div>
@@ -377,12 +373,12 @@ const faqSchema = {
               ]}
             >
               {[...row, ...row].map((logo, index) => (
-                <div class="flex h-24 w-60 shrink-0 items-center justify-center rounded-2xl bg-white px-3 py-1 md:h-28 md:w-72 md:px-4">
+                <div class="group flex h-20 w-60 shrink-0 items-center justify-center rounded-2xl bg-white px-3 py-1 md:h-24 md:w-72 md:px-4">
                   <img
                     src={logo.src}
                     alt={index < row.length ? logo.name : ""}
                     aria-hidden={index >= row.length ? "true" : "false"}
-                    class="max-h-[6.25rem] w-full object-contain md:max-h-[7.25rem]"
+                    class="max-h-[4.5rem] w-full object-contain grayscale opacity-75 transition duration-300 group-hover:grayscale-0 group-hover:opacity-100 md:max-h-[5.5rem]"
                     loading="eager"
                     decoding="async"
                   />
@@ -422,7 +418,7 @@ const faqSchema = {
           ))}
         </div>
 
-        <div class="capability-panel-wrap relative min-h-[470px] md:min-h-[680px] lg:min-h-[620px]">
+        <div class="capability-panel-wrap relative min-h-[520px] md:min-h-[580px] lg:min-h-[560px]">
           {capabilityShowcase.map((capability, index) => (
             <article
               id={`capability-panel-${index}`}
@@ -435,13 +431,30 @@ const faqSchema = {
               aria-hidden={index === 0 ? "false" : "true"}
               style={`--capability-accent: ${capability.accent === "green" ? "var(--green)" : "var(--key-blue)"};`}
             >
-              <div class="space-y-4 md:space-y-5">
+              <p class="max-w-xl text-base leading-relaxed text-charcoal/70 md:text-lg">
+                {capability.summary}
+              </p>
+              <ul class="mt-6 grid max-w-xl gap-x-8 gap-y-3 sm:grid-cols-2 md:mt-7">
                 {capability.items.map((item) => (
-                  <p class="capability-service-item whitespace-nowrap font-display text-[1.35rem] font-semibold leading-none tracking-normal text-charcoal sm:text-[1.55rem] md:text-[1.5rem] xl:text-[1.7rem]">
+                  <li class="flex items-center gap-2.5 text-[0.95rem] font-medium text-charcoal">
+                    <span
+                      class="h-1.5 w-1.5 flex-none rounded-full"
+                      style="background: var(--capability-accent, var(--key-blue));"
+                    ></span>
                     {item}
-                  </p>
+                  </li>
                 ))}
-              </div>
+              </ul>
+              <a
+                href={`/services/${capability.slug}`}
+                class="group/cap mt-7 inline-flex items-center gap-2 font-medium text-charcoal transition hover:text-[var(--navy)]"
+                data-track-event="service_cta_click"
+                data-track-slug={capability.slug}
+                data-track-placement="home_capability"
+              >
+                Explore {capability.title}
+                <ArrowRight className="h-4 w-4 transition group-hover/cap:translate-x-1" />
+              </a>
               <div class="capability-image-stage relative mt-7 aspect-[16/9] max-w-md overflow-hidden rounded-[24px] bg-white md:mt-8">
                 <img
                   src={capability.image.src}
@@ -471,7 +484,7 @@ const faqSchema = {
     <div class="container-page">
       <div class="text-center max-w-3xl mx-auto">
         <h2 class="display-2 text-balance">
-          Everything you need to <span class="text-charcoal/35">grow your shop.</span>
+          Everything you need to <span class="text-charcoal/45">grow your shop.</span>
         </h2>
         <p class="mt-6 text-charcoal/65 text-lg leading-relaxed">
           From strategy to execution, we run the marketing playbook that has
@@ -498,13 +511,13 @@ const faqSchema = {
   <section class="pb-24 md:pb-32">
     <div class="container-page">
       <div
-        class="rounded-[36px] overflow-hidden grid lg:grid-cols-2 gap-10 p-10 md:p-16 relative"
+        class="rounded-[32px] overflow-hidden grid lg:grid-cols-2 gap-10 p-10 md:p-16 relative"
         style="background: var(--charcoal); color: #fff;"
       >
         <div class="relative">
           <h3 class="display-2 leading-tight text-white text-balance">
             Own the plan.<br />
-            <span class="text-white/40">Run every channel.</span>
+            <span class="text-white/50">Run every channel.</span>
           </h3>
           <p class="mt-6 text-white/70 text-lg max-w-md leading-relaxed">
             Not more homework. More ownership. We coordinate vendors, campaigns,
@@ -523,9 +536,9 @@ const faqSchema = {
           </div>
         </div>
 
-        <div class="relative min-h-[380px]">
+        <div class="relative mx-auto mt-4 w-full max-w-[420px] lg:mx-0 lg:ml-auto lg:mt-0 lg:w-[65%] lg:max-w-none">
           <div
-            class="absolute right-0 bottom-0 w-[65%] aspect-[3/4] rounded-2xl overflow-hidden"
+            class="aspect-[3/4] w-full overflow-hidden rounded-[24px]"
             style="background: linear-gradient(160deg, var(--key-blue) 0%, var(--navy) 100%);"
           >
             <img
@@ -539,7 +552,7 @@ const faqSchema = {
               style={`object-position: ${siteMedia.shops.thunderbirdTeam.position};`}
             />
           </div>
-          <div class="absolute top-2 left-2 card-float px-5 py-4 min-w-[200px]">
+          <div class="absolute -left-3 top-5 card-float px-5 py-4 min-w-[200px] md:-left-4 lg:top-8">
             <div class="flex items-center gap-2 text-[11px] text-charcoal/60">
               <span
                 class="inline-flex h-6 w-6 items-center justify-center rounded-md text-[var(--key-blue)]"
@@ -571,7 +584,7 @@ const faqSchema = {
               </div>
             </div>
           </div>
-          <div class="absolute bottom-4 -right-2 md:right-4 card-float px-4 py-3 min-w-[220px]">
+          <div class="absolute -right-3 bottom-5 card-float px-4 py-3 min-w-[220px] md:-right-4 lg:bottom-6">
             <div class="flex items-center justify-between text-[10px] text-charcoal/60">
               <span>Channel mix</span>
               <span style="color: var(--green);">+1.4% MoM</span>
@@ -588,7 +601,7 @@ const faqSchema = {
             </div>
             <div class="mt-2 flex items-end gap-1 h-12">
               {[[50, 30], [60, 40], [45, 35], [70, 45], [55, 60], [80, 55]].map(([a, b]) => (
-                <div class="flex-1 flex gap-0.5 items-end">
+                <div class="flex-1 h-full flex gap-0.5 items-end">
                   <div class="flex-1 rounded-sm" style={`height: ${a}%; background: var(--navy);`}></div>
                   <div class="flex-1 rounded-sm" style={`height: ${b}%; background: var(--key-blue);`}></div>
                 </div>
@@ -603,11 +616,9 @@ const faqSchema = {
   <section class="pb-24 md:pb-32">
     <div class="container-page">
       <div class="text-center max-w-3xl mx-auto">
-        <p class="text-sm font-medium" style="color: var(--key-blue);">
-          Client proof
-        </p>
-        <h2 class="display-2 text-balance">
-          Shop owners say <span class="text-charcoal/35">it best.</span>
+        <p class="eyebrow" style="color: var(--key-blue);">Client proof</p>
+        <h2 class="display-2 mt-4 text-balance">
+          Shop owners say <span class="text-charcoal/45">it best.</span>
         </h2>
         <p class="mt-6 text-charcoal/65 text-lg leading-relaxed">
           Real repair shop owners talking about what changes when Turnkey owns
@@ -621,7 +632,7 @@ const faqSchema = {
             class="rounded-[28px] p-8 flex flex-col min-h-[360px] relative overflow-hidden"
             style="background: var(--off-white);"
           >
-            <Quote className="absolute right-7 top-7 h-10 w-10 text-[var(--key-blue)]" aria-hidden="true" />
+            <Quote className="absolute right-7 top-7 h-10 w-10 text-[var(--key-blue)] opacity-30" aria-hidden="true" />
             <p class="text-xs uppercase tracking-widest text-[var(--key-blue)]">
               {testimonial.marker}
             </p>
@@ -663,7 +674,7 @@ const faqSchema = {
   <section class="pb-24 md:pb-32">
     <div class="container-page">
       <div
-        class="rounded-[36px] p-10 md:p-16"
+        class="rounded-[32px] p-10 md:p-16"
         style="background: var(--charcoal); color: #fff;"
       >
         <div class="grid gap-10 lg:grid-cols-3">
@@ -691,9 +702,9 @@ const faqSchema = {
 
   <section class="pb-24 md:pb-32">
     <div class="container-page">
-      <div class="text-center max-w-3xl mx-auto">
+      <div class="text-center max-w-4xl mx-auto">
         <h2 class="display-2 text-balance">Two ways to work with us.</h2>
-        <p class="mt-6 text-charcoal/65 text-lg leading-relaxed">
+        <p class="mx-auto mt-6 max-w-2xl text-charcoal/65 text-lg leading-relaxed">
           Whether you need a fractional Director of Marketing or a full-stack
           done-for-you team, we scope the engagement to your shop.
         </p>
@@ -708,14 +719,15 @@ const faqSchema = {
             Strategy, oversight, and accountability for shops with in-house
             staff or existing vendors.
           </p>
-          <div class="mt-8 flex items-end gap-1">
-            <span class="font-display text-5xl font-semibold text-charcoal">
-              Custom
-            </span>
+          <div class="mt-8">
+            <div class="font-display text-4xl font-semibold text-charcoal">Custom</div>
+            <p class="mt-1 text-sm text-charcoal/60">Pricing scoped to your shop</p>
           </div>
           <a
             href={CONSULTATION_URL}
-            class="mt-8 inline-flex w-full items-center justify-center rounded-full px-6 py-3.5 font-medium text-sm bg-charcoal text-white hover:opacity-90 transition"
+            class="btn-primary mt-8 w-full !py-3.5 text-sm"
+            data-track-event="consultation_cta_click"
+            data-track-placement="pricing_fractional"
           >
             Talk to us
           </a>
@@ -754,10 +766,9 @@ const faqSchema = {
             A full done-for-you marketing department. We own the plan and run
             every piece — you focus on the shop.
           </p>
-          <div class="mt-8 flex items-end gap-1">
-            <span class="font-display text-5xl font-semibold text-white">
-              Custom
-            </span>
+          <div class="mt-8">
+            <div class="font-display text-4xl font-semibold text-white">Custom</div>
+            <p class="mt-1 text-sm text-white/60">Pricing scoped to your shop</p>
           </div>
           <a
             href={CONSULTATION_URL}
@@ -794,10 +805,7 @@ const faqSchema = {
     <div class="container-page">
       <div class="flex items-end justify-between gap-6 flex-wrap mb-12">
         <h2 class="display-2 text-balance">Latest insights</h2>
-        <a
-          href="/resources"
-          class="inline-flex items-center gap-2 rounded-full px-5 py-2.5 border hairline bg-white text-sm font-medium text-charcoal hover:bg-[var(--off-white)] transition"
-        >
+        <a href="/resources" class="btn-ghost !px-5 !py-2.5 text-sm">
           Explore all
         </a>
       </div>
@@ -845,13 +853,13 @@ const faqSchema = {
 
   <section class="pb-24 md:pb-32">
     <div class="container-page">
-      <div class="text-center max-w-3xl mx-auto mb-14">
+      <div class="text-center max-w-4xl mx-auto mb-14">
         <h2 class="display-2 text-balance">Frequently asked questions</h2>
       </div>
       <div class="max-w-3xl mx-auto space-y-3">
         {faqItems.map((item, index) => (
           <details class="faq-item rounded-2xl bg-white border hairline overflow-hidden" open={index === 0}>
-            <summary class="w-full flex items-center justify-between text-left px-6 py-5 cursor-pointer">
+            <summary class="w-full flex items-center justify-between text-left px-6 py-5 cursor-pointer transition-colors hover:bg-[var(--cream)]">
               <span class="font-display text-lg font-semibold text-charcoal pr-8">
                 {item.q}
               </span>
@@ -875,7 +883,7 @@ const faqSchema = {
   <section class="pb-24 md:pb-32">
     <div class="container-page">
       <div
-        class="rounded-[36px] py-24 md:py-32 px-6 text-center relative overflow-hidden"
+        class="rounded-[32px] py-24 md:py-32 px-6 text-center relative overflow-hidden"
         style="background: linear-gradient(160deg, #eef4fa 0%, #dfeaf5 60%, #e6ecdb 100%);"
       >
         <div class="relative max-w-3xl mx-auto">
@@ -889,11 +897,7 @@ const faqSchema = {
           </div>
           <h2 class="display-1 mt-6 text-balance">
             Grow your shop
-            <span
-              style="background: linear-gradient(120deg, var(--navy) 0%, var(--key-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
-            >
-              without adding another hat.
-            </span>
+            <span class="text-[var(--key-blue)]">without adding another hat.</span>
           </h2>
           <p class="mt-6 text-lg text-charcoal/65 max-w-xl mx-auto">
             30 minutes with our team. No pitch deck. Just a real conversation
@@ -903,8 +907,7 @@ const faqSchema = {
           <div class="mt-10 flex flex-wrap justify-center gap-3">
             <a
               href={CONSULTATION_URL}
-              class="inline-flex items-center gap-2 rounded-full px-7 py-4 font-medium text-[0.95rem] text-white transition"
-              style="background: var(--navy); box-shadow: 0 14px 34px -12px rgba(35,46,102,0.55);"
+              class="btn-primary !px-7 !py-4"
               data-track-event="consultation_cta_click"
               data-track-placement="final_cta"
             >
@@ -912,7 +915,7 @@ const faqSchema = {
             </a>
             <a
               href="tel:9137774144"
-              class="inline-flex items-center gap-2 rounded-full px-7 py-4 font-medium text-[0.95rem] border hairline bg-white text-charcoal hover:bg-white/70 transition"
+              class="btn-ghost !px-7 !py-4"
               data-track-event="phone_click"
               data-track-placement="final_cta"
             >
@@ -1097,15 +1100,6 @@ const faqSchema = {
 
     .capability-panel {
       transform: translateY(8px);
-    }
-
-    .capability-panel .space-y-4 {
-      display: grid;
-      gap: 0.85rem;
-    }
-
-    .capability-service-item {
-      font-size: 1.08rem;
     }
 
     .capability-image-stage {
