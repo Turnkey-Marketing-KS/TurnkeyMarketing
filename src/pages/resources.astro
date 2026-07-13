@@ -2,45 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/site/PageHero.astro";
 import { siteMedia } from "@/lib/site-media";
-
-const items = [
-  {
-    cat: "Guide",
-    t: "What to keep, cut, and make work harder",
-    d: "A clearer way to look at vendors, spend, calls, and next moves.",
-    image: siteMedia.graphics.marketingPlan,
-  },
-  {
-    cat: "Article",
-    t: "Why disconnected vendors cost more than money",
-    d: "The hidden drag of managing five people without one view of the board.",
-    image: siteMedia.team.visionExpoConversation,
-  },
-  {
-    cat: "Playbook",
-    t: "Direct mail that pulls its weight",
-    d: "Lists, offers, timing, and follow-up that turn mail into useful calls.",
-    image: siteMedia.graphics.directMail,
-  },
-  {
-    cat: "Guide",
-    t: "When the growth bet is already made",
-    d: "How to think about demand after the lease, move, hire, or second location.",
-    image: siteMedia.clients.keeganShopTeam,
-  },
-  {
-    cat: "Article",
-    t: "The retention leak most shops miss",
-    d: "Why the customers you already earned need a real second-visit plan.",
-    image: siteMedia.graphics.leadGenerator,
-  },
-  {
-    cat: "Playbook",
-    t: "Controlled demand for a soft schedule",
-    d: "Practical moves for open bays without creating chaos at the counter.",
-    image: siteMedia.shops.serviceBays,
-  },
-];
+import { resourcePosts } from "@/lib/resource-posts";
 ---
 
 <BaseLayout
@@ -60,8 +22,8 @@ const items = [
 
   <section class="container-page py-16">
     <div class="grid gap-px md:grid-cols-2 lg:grid-cols-3 bg-[var(--hairline)] rounded-2xl overflow-hidden">
-      {items.map((item) => (
-        <article class="bg-white p-6 flex flex-col min-h-[360px]">
+      {resourcePosts.map((item) => (
+        <a href={item.href} class="group bg-white p-6 flex flex-col min-h-[360px]">
           <div class="aspect-[4/3] overflow-hidden rounded-xl bg-[var(--off-white)]">
             <img
               src={item.image.src}
@@ -70,24 +32,26 @@ const items = [
               height="750"
               loading="lazy"
               decoding="async"
-              class="h-full w-full object-cover"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               style={`object-position: ${item.image.position};`}
             />
           </div>
           <div class="mt-6 flex flex-1 flex-col justify-between">
             <p class="text-xs uppercase tracking-widest" style="color: var(--key-blue);">
-              {item.cat}
+              {item.tag} · {item.date}
             </p>
             <div class="mt-5">
-              <p class="font-display text-xl text-charcoal text-balance">{item.t}</p>
-              <p class="mt-2 text-muted-foreground text-sm">{item.d}</p>
+              <p class="font-display text-xl text-charcoal text-balance group-hover:text-[var(--navy)] transition">
+                {item.title}
+              </p>
+              <p class="mt-2 text-muted-foreground text-sm">{item.description}</p>
             </div>
           </div>
-        </article>
+        </a>
       ))}
     </div>
     <p class="mt-10 text-center text-sm text-muted-foreground">
-      Full resource library launching soon.
+      These cards use source assets from the original Turnkey Marketing site.
     </p>
   </section>
 </BaseLayout>

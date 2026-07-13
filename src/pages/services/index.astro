@@ -115,8 +115,18 @@ const vipDetail = getServiceDetail(vip.slug);
             data-track-slug={service.slug}
           >
             <div>
-              <span class="text-xs text-muted-foreground tabular-nums">
-                {String(index + 2).padStart(2, "0")}
+              <span class="flex items-center gap-2">
+                <span class="text-xs text-muted-foreground tabular-nums">
+                  {String(index + 2).padStart(2, "0")}
+                </span>
+                {service.isNew && (
+                  <span
+                    class="rounded px-1.5 py-0.5 text-[0.6rem] uppercase tracking-widest"
+                    style="background: var(--green); color: var(--charcoal);"
+                  >
+                    New
+                  </span>
+                )}
               </span>
               <h2 class="mt-4 font-display text-3xl font-semibold leading-tight tracking-normal text-charcoal">
                 {service.name}

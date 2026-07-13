@@ -87,7 +87,17 @@ const isActive = (href: string) =>
                     href={`/services/${service.slug}`}
                     class="rounded-xl px-4 py-2.5 hover:bg-[var(--off-white)] transition"
                   >
-                    <div class="text-[0.95rem] text-charcoal font-medium">{service.name}</div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[0.95rem] text-charcoal font-medium">{service.name}</span>
+                      {service.isNew && (
+                        <span
+                          class="text-[0.6rem] uppercase tracking-widest px-1.5 py-0.5 rounded"
+                          style="background: var(--green); color: var(--charcoal);"
+                        >
+                          New
+                        </span>
+                      )}
+                    </div>
                     <div class="text-xs text-muted-foreground line-clamp-1 mt-0.5">
                       {service.tagline}
                     </div>
@@ -174,9 +184,17 @@ const isActive = (href: string) =>
               <a
                 href={`/services/${service.slug}`}
                 data-mobile-menu-link
-                class="block py-2 text-charcoal"
+                class="flex items-center gap-2 py-2 text-charcoal"
               >
                 {service.name}
+                {service.isNew && (
+                  <span
+                    class="text-[0.6rem] uppercase tracking-widest px-1.5 py-0.5 rounded"
+                    style="background: var(--green); color: var(--charcoal);"
+                  >
+                    New
+                  </span>
+                )}
               </a>
             </li>
           ))}

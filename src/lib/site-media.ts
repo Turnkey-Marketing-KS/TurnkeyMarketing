@@ -134,5 +134,10 @@ export const siteMedia = {
       alt: "Marketing problems framework graphic",
       position: "50% 50%",
     },
+    jasonSmithPlan: {
+      src: "/original-site-assets/jason-smith-marketing-plan.png",
+      alt: "Jason Smith quote about creating a yearly marketing plan with Turnkey Marketing",
+      position: "50% 50%",
+    },
   },
 } as const;

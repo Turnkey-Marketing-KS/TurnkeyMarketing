@@ -6,6 +6,7 @@ export type Service = {
   summary: string;
   outcomes: string[];
   featured?: boolean;
+  isNew?: boolean;
 };
 
 export const services: Service[] = [
@@ -25,25 +26,26 @@ export const services: Service[] = [
     featured: true,
   },
   {
+    slug: "directtrack-marketing",
+    name: "DirectTrack Marketing",
+    tagline: "Our newest service — trackable acquisition campaigns averaging 7x–15x ROI.",
+    summary:
+      "Multi-channel campaigns wired with call tracking and household-level follow-up, so urgent growth bets get a clearer read on what is moving — with an average ROI of 7x–15x.",
+    outcomes: [
+      "7x–15x average ROI",
+      "Trackable phone numbers",
+      "Attribution reporting",
+      "Optimization loops",
+    ],
+    isNew: true,
+  },
+  {
     slug: "marketing-consulting",
     name: "Marketing Consulting",
     tagline: "Outside eyes for teams that already have pieces in motion.",
     summary:
       "Sit down with a marketing team that knows auto repair. We audit what is working, what is leaking, what to keep, and what to change next.",
     outcomes: ["Marketing audit", "90-day focus plan", "Budget guidance", "Vendor scorecard"],
-  },
-  {
-    slug: "directtrack-marketing",
-    name: "DirectTrack Marketing",
-    tagline: "Targeted support for launch, rescue, and dense-market campaigns.",
-    summary:
-      "Multi-channel campaigns wired with call tracking and household-level follow-up so urgent growth bets get a clearer read on what is moving.",
-    outcomes: [
-      "Trackable phone numbers",
-      "Attribution reporting",
-      "Campaign readout",
-      "Optimization loops",
-    ],
   },
   {
     slug: "direct-mail",

@@ -2,16 +2,25 @@
 import {
   ArrowRight,
   BarChart3,
+  Compass,
+  Crown,
+  Globe,
+  Mail,
   Phone,
   Quote,
+  Radar,
+  Repeat,
+  Share2,
   Star,
   Target,
   TrendingUp,
   Zap,
 } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { CONSULTATION_URL } from "@/lib/services";
+import { CONSULTATION_URL, services } from "@/lib/services";
+import { getServiceDetail } from "@/lib/service-details";
 import { siteMedia } from "@/lib/site-media";
+import { resourcePosts } from "@/lib/resource-posts";
 
 const heroPhrases = [
   "that fills the right bays.",
@@ -83,104 +92,22 @@ const testimonials = [
   },
 ];
 
-const capabilityShowcase = [
-  {
-    title: "VIP Marketing Manager",
-    slug: "vip-marketing-manager",
-    detailTitle: "VIP Services",
-    summary:
-      "The full bundle: the front and back of the marketing plan combined with your own Director of Marketing.",
-    items: [
-      "Marketing Consulting",
-      "DirectTrack Marketing",
-      "Direct Mail",
-      "Social Media",
-      "Retention",
-      "Digital",
-      "Boost Days",
-    ],
-    image: siteMedia.about.team,
-    imageFit: "cover",
-    accent: "green",
-  },
-  {
-    title: "Marketing Consulting",
-    slug: "marketing-consulting",
-    detailTitle: "Consulting Services",
-    summary:
-      "A monthly consulting meeting that looks at your marketing and tells you exactly what to do for better ROI.",
-    items: ["Monthly Consulting Meeting", "Marketing Review", "ROI Recommendations"],
-    image: siteMedia.team.visionExpoConversation,
-    imageFit: "cover",
-    accent: "blue",
-  },
-  {
-    title: "DirectTrack",
-    slug: "directtrack-marketing",
-    detailTitle: "DirectTrack Services",
-    summary:
-      "OTT video ads, acquisition emails, geofencing display ads, and monthly ROI tracking for new customer acquisition.",
-    items: ["OTT Video Ads", "Acquisition E-mails", "Geofencing Display Ads", "ROI Tracking"],
-    image: siteMedia.graphics.leadGenerator,
-    imageFit: "contain",
-    accent: "blue",
-  },
-  {
-    title: "Direct Mail",
-    slug: "direct-mail",
-    detailTitle: "Direct Mail Services",
-    summary:
-      "Management of one postcard, including design, timeline, budget, order verification, and offers.",
-    items: ["Postcard Management", "Penetration Reports", "Retention Campaigns"],
-    image: siteMedia.graphics.directMail,
-    imageFit: "contain",
-    accent: "blue",
-  },
-  {
-    title: "Social Media",
-    slug: "social-media-marketing",
-    detailTitle: "Social Media Services",
-    summary:
-      "Organic Facebook, Instagram, and Google Business Profile posts, plus Facebook ad creation and review response.",
-    items: ["Facebook Posts", "Instagram Posts", "GBP Posts", "Facebook Ads", "Comment + Review Response"],
-    image: siteMedia.team.industrySession,
-    imageFit: "cover",
-    accent: "blue",
-  },
-  {
-    title: "Retention",
-    slug: "retention-marketing",
-    detailTitle: "Retention Services",
-    summary:
-      "Monthly e-mail newsletters and thank you note creation that keep customer follow-up consistent.",
-    items: ["E-mail Newsletter", "Thank You Notes"],
-    image: siteMedia.shops.thunderbirdTeam,
-    imageFit: "cover",
-    accent: "blue",
-  },
-  {
-    title: "Digital",
-    slug: "digital-marketing",
-    detailTitle: "Digital Services",
-    summary:
-      "Google review management, Google Business Profile optimization, website audits, and coordination with website or ads vendors.",
-    items: ["Google Review Management", "GBP Optimization", "Website Audit", "Vendor Coordination"],
-    image: siteMedia.graphics.marketingPlan,
-    imageFit: "contain",
-    accent: "blue",
-  },
-  {
-    title: "Boost Days",
-    slug: "boost-days",
-    detailTitle: "Boost Day Services",
-    summary:
-      "Boost Day strategy, one e-mail, text, and social media ad campaign, phone call evaluations, and one marketing deliverable.",
-    items: ["Boost Day Strategy", "Email/Text/Social Campaign", "Phone Call Evaluations", "Marketing Deliverable"],
-    image: siteMedia.shops.serviceBays,
-    imageFit: "cover",
-    accent: "blue",
-  },
-] as const;
+const serviceIcons: Record<string, typeof Crown> = {
+  "vip-marketing-manager": Crown,
+  "directtrack-marketing": Radar,
+  "marketing-consulting": Compass,
+  "direct-mail": Mail,
+  "social-media-marketing": Share2,
+  "retention-marketing": Repeat,
+  "digital-marketing": Globe,
+  "boost-days": Zap,
+};
+
+const serviceIndex = services.map((service) => ({
+  ...service,
+  included: getServiceDetail(service.slug)?.included ?? [],
+  icon: serviceIcons[service.slug] ?? Compass,
+}));
 
 const features = [
   {
@@ -203,29 +130,21 @@ const features = [
   },
 ];
 
-const insightPosts = [
+const opportunityCards = [
   {
-    date: "Jun 2, 2026",
-    tag: "Retention",
-    title: "How to reactivate 900+ dormant customers in one quarter",
-    color: "linear-gradient(160deg, var(--key-blue-soft) 0%, #cfe1ef 100%)",
-    image: siteMedia.graphics.leadGenerator,
+    label: "Doing It All Alone",
+    title: "You manage all the moving pieces",
+    points: ["Vendor follow-up", "Scattered reports", "Owner time"],
   },
   {
-    date: "Jun 8, 2026",
-    tag: "Direct Mail",
-    title: "Why direct mail is quietly outperforming digital for repair shops",
-    color: "linear-gradient(160deg, #f0e5d4 0%, #e0d0b8 100%)",
-    image: siteMedia.graphics.directMail,
+    label: "Turnkey",
+    title: "One team owns the whole strategy.",
+    points: ["Vendors coordinated for you", "Reports show what to do next", "Campaigns that fit your growth"],
+    featured: true,
   },
-  {
-    date: "Jun 9, 2026",
-    tag: "Reporting",
-    title: "The 4 marketing metrics every shop owner should track monthly",
-    color: "linear-gradient(160deg, #dce8d4 0%, #c4d5b8 100%)",
-    image: siteMedia.graphics.marketingPlan,
-  },
-];
+] as const;
+
+const insightPosts = resourcePosts.slice(0, 3);
 
 const faqItems = [
   { q: "What is the best marketing strategy for an auto repair shop?", a: "The best strategy is a coordinated plan that matches your market, capacity, customer mix, and budget. For most shops, that means Google visibility, reviews, paid search, retention, direct mail, and reporting working together instead of as separate vendor tasks." },
@@ -391,91 +310,104 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="capability-showcase-section bg-[var(--off-white)] py-14 md:py-28" data-capability-showcase data-active-accent="green">
+  <section class="bg-[var(--off-white)] py-16 md:py-24">
     <div class="container-page">
-      <div class="flex items-center gap-5">
-        <p class="text-sm font-semibold text-charcoal/70">Services</p>
-        <div class="h-px flex-1 bg-charcoal/10"></div>
+      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div>
+          <p class="eyebrow" style="color: var(--key-blue);">Services</p>
+          <h2 class="display-2 mt-4 text-balance">
+            Marketing services built around your shop.
+          </h2>
+        </div>
+        <p class="max-w-2xl text-lg leading-relaxed text-charcoal/65 lg:justify-self-end">
+          Start with the full VIP program, or use a focused service where your
+          shop needs momentum first.
+        </p>
       </div>
 
-      <div class="capability-shell mt-10 grid gap-8 md:mt-14 md:gap-12 lg:grid-cols-[1fr_1.45fr] lg:items-start">
-        <div class="capability-selector">
-          {capabilityShowcase.map((capability, index) => (
-            <button
-              type="button"
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:grid-cols-4 lg:gap-5">
+        {serviceIndex.map((service) => {
+          const Icon = service.icon;
+          const featured = Boolean(service.featured);
+          return (
+            <a
+              href={`/services/${service.slug}`}
               class:list={[
-                "capability-option block w-full whitespace-nowrap text-left font-display text-[1.65rem] font-semibold leading-[1.04] tracking-normal text-charcoal/35 outline-none transition sm:text-[2rem] md:text-[2.25rem] xl:text-[2.5rem]",
-                index === 0 && "is-active",
+                "group flex h-full flex-col rounded-[24px] p-6 transition duration-300 hover:-translate-y-1",
+                featured
+                  ? "bg-[var(--navy)] text-white hover:shadow-[0_28px_70px_-40px_rgba(35,46,102,0.75)]"
+                  : "bg-white text-charcoal hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.35)]",
               ]}
-              data-capability-trigger={index}
-              data-capability-accent={capability.accent}
-              aria-controls={`capability-panel-${index}`}
-              aria-pressed={index === 0 ? "true" : "false"}
-              style={`--capability-accent: ${capability.accent === "green" ? "var(--green)" : "var(--key-blue)"};`}
+              data-track-event="service_cta_click"
+              data-track-slug={service.slug}
+              data-track-placement="home_services"
             >
-              {capability.title}
-            </button>
-          ))}
-        </div>
+              <div class="flex items-start justify-between gap-3">
+                <span
+                  class:list={[
+                    "inline-flex h-11 w-11 items-center justify-center rounded-xl",
+                    featured
+                      ? "bg-white/10 text-[var(--green)]"
+                      : "bg-[var(--key-blue-soft)] text-[var(--navy)]",
+                  ]}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                {(featured || service.isNew) && (
+                  <span
+                    class="rounded-full px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest"
+                    style="background: var(--green); color: var(--charcoal);"
+                  >
+                    {featured ? "Flagship" : "New"}
+                  </span>
+                )}
+              </div>
 
-        <div class="capability-panel-wrap relative min-h-[520px] md:min-h-[580px] lg:min-h-[560px]">
-          {capabilityShowcase.map((capability, index) => (
-            <article
-              id={`capability-panel-${index}`}
-              class:list={[
-                "capability-panel",
-                index === 0 && "is-active",
-              ]}
-              data-capability-panel={index}
-              data-capability-accent={capability.accent}
-              aria-hidden={index === 0 ? "false" : "true"}
-              style={`--capability-accent: ${capability.accent === "green" ? "var(--green)" : "var(--key-blue)"};`}
-            >
-              <p class="max-w-xl text-base leading-relaxed text-charcoal/70 md:text-lg">
-                {capability.summary}
-              </p>
-              <ul class="mt-6 grid max-w-xl gap-x-8 gap-y-3 sm:grid-cols-2 md:mt-7">
-                {capability.items.map((item) => (
-                  <li class="flex items-center gap-2.5 text-[0.95rem] font-medium text-charcoal">
+              <h3 class="mt-5 font-display text-xl font-semibold leading-snug">
+                {service.name}
+              </h3>
+
+              <ul
+                class:list={[
+                  "mt-4 space-y-2 text-sm leading-relaxed",
+                  featured ? "text-white/75" : "text-charcoal/60",
+                ]}
+              >
+                {service.included.slice(0, 4).map((item) => (
+                  <li class="flex items-start gap-2.5">
                     <span
-                      class="h-1.5 w-1.5 flex-none rounded-full"
-                      style="background: var(--capability-accent, var(--key-blue));"
+                      class="mt-[0.45rem] h-1.5 w-1.5 flex-none rounded-full"
+                      style={`background: ${featured ? "var(--green)" : "var(--key-blue)"};`}
                     ></span>
                     {item}
                   </li>
                 ))}
+                {service.included.length > 4 && (
+                  <li
+                    class:list={[
+                      "pl-4 text-xs font-medium",
+                      featured ? "text-white/55" : "text-charcoal/45",
+                    ]}
+                  >
+                    + {service.included.length - 4} more
+                  </li>
+                )}
               </ul>
-              <a
-                href={`/services/${capability.slug}`}
-                class="group/cap mt-7 inline-flex items-center gap-2 font-medium text-charcoal transition hover:text-[var(--navy)]"
-                data-track-event="service_cta_click"
-                data-track-slug={capability.slug}
-                data-track-placement="home_capability"
+
+              <span
+                class:list={[
+                  "mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium transition",
+                  featured
+                    ? "text-white"
+                    : "text-charcoal group-hover:text-[var(--navy)]",
+                ]}
               >
-                Explore {capability.title}
-                <ArrowRight className="h-4 w-4 transition group-hover/cap:translate-x-1" />
-              </a>
-              <div class="capability-image-stage relative mt-7 aspect-[16/9] max-w-md overflow-hidden rounded-[24px] bg-white md:mt-8">
-                <img
-                  src={capability.image.src}
-                  alt={capability.image.alt}
-                  width="1000"
-                  height="563"
-                  loading="lazy"
-                  decoding="async"
-                  class:list={[
-                    "capability-image absolute inset-0 h-full w-full",
-                    capability.imageFit === "contain" ? "object-contain p-7 md:p-10" : "object-cover",
-                    index === 0 && "is-active",
-                  ]}
-                  style={`object-position: ${capability.image.position};`}
-                  data-capability-image={index}
-                  aria-hidden={index === 0 ? "false" : "true"}
-                />
-              </div>
-            </article>
-          ))}
-        </div>
+                View service
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </a>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -552,18 +484,18 @@ const faqSchema = {
               style={`object-position: ${siteMedia.shops.thunderbirdTeam.position};`}
             />
           </div>
-          <div class="absolute -left-3 top-5 card-float px-5 py-4 min-w-[200px] md:-left-4 lg:top-8">
-            <div class="flex items-center gap-2 text-[11px] text-charcoal/60">
+          <div class="absolute -left-2 top-4 card-float px-3.5 py-3 md:-left-4 md:min-w-[200px] md:px-5 md:py-4 lg:top-8">
+            <div class="flex items-center gap-2 text-[10px] text-charcoal/60 md:text-[11px]">
               <span
-                class="inline-flex h-6 w-6 items-center justify-center rounded-md text-[var(--key-blue)]"
+                class="inline-flex h-5 w-5 items-center justify-center rounded-md text-[var(--key-blue)] md:h-6 md:w-6"
                 style="background: var(--key-blue-soft);"
               >
                 <TrendingUp className="h-3 w-3" />
               </span>
               Monthly revenue
             </div>
-            <div class="mt-3 flex items-center gap-3">
-              <svg viewBox="0 0 40 40" class="h-14 w-14">
+            <div class="mt-2 flex items-center gap-2.5 md:mt-3 md:gap-3">
+              <svg viewBox="0 0 40 40" class="h-10 w-10 md:h-14 md:w-14">
                 <circle cx="20" cy="20" r="16" fill="none" stroke="#E7E5DF" stroke-width="5"></circle>
                 <circle
                   cx="20"
@@ -580,11 +512,11 @@ const faqSchema = {
               </svg>
               <div>
                 <div class="text-[10px] text-charcoal/60">Revenue</div>
-                <div class="font-display text-lg font-semibold text-charcoal">$182k</div>
+                <div class="font-display text-base font-semibold text-charcoal md:text-lg">$182k</div>
               </div>
             </div>
           </div>
-          <div class="absolute -right-3 bottom-5 card-float px-4 py-3 min-w-[220px] md:-right-4 lg:bottom-6">
+          <div class="absolute -right-2 bottom-4 card-float w-[172px] px-3.5 py-3 md:-right-4 md:w-auto md:min-w-[220px] md:px-4 lg:bottom-6">
             <div class="flex items-center justify-between text-[10px] text-charcoal/60">
               <span>Channel mix</span>
               <span style="color: var(--green);">+1.4% MoM</span>
@@ -599,7 +531,7 @@ const faqSchema = {
                 Digital
               </span>
             </div>
-            <div class="mt-2 flex items-end gap-1 h-12">
+            <div class="mt-2 flex h-9 items-end gap-1 md:h-12">
               {[[50, 30], [60, 40], [45, 35], [70, 45], [55, 60], [80, 55]].map(([a, b]) => (
                 <div class="flex-1 h-full flex gap-0.5 items-end">
                   <div class="flex-1 rounded-sm" style={`height: ${a}%; background: var(--navy);`}></div>
@@ -702,101 +634,74 @@ const faqSchema = {
 
   <section class="pb-24 md:pb-32">
     <div class="container-page">
-      <div class="text-center max-w-4xl mx-auto">
-        <h2 class="display-2 text-balance">Two ways to work with us.</h2>
-        <p class="mx-auto mt-6 max-w-2xl text-charcoal/65 text-lg leading-relaxed">
-          Whether you need a fractional Director of Marketing or a full-stack
-          done-for-you team, we scope the engagement to your shop.
-        </p>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="eyebrow" style="color: var(--key-blue);">Opportunity cost</p>
+        <h2 class="display-2 mt-4 text-balance">
+          Stop being the person who holds marketing together.
+        </h2>
       </div>
 
-      <div class="mt-14 grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
-        <div class="rounded-[28px] p-8 md:p-10" style="background: var(--off-white);">
-          <div class="font-display text-2xl font-semibold text-charcoal">
-            Fractional CMO
-          </div>
-          <p class="text-charcoal/60 mt-2 text-sm">
-            Strategy, oversight, and accountability for shops with in-house
-            staff or existing vendors.
-          </p>
-          <div class="mt-8">
-            <div class="font-display text-4xl font-semibold text-charcoal">Custom</div>
-            <p class="mt-1 text-sm text-charcoal/60">Pricing scoped to your shop</p>
-          </div>
-          <a
-            href={CONSULTATION_URL}
-            class="btn-primary mt-8 w-full !py-3.5 text-sm"
-            data-track-event="consultation_cta_click"
-            data-track-placement="pricing_fractional"
+      <div class="mx-auto mt-12 grid max-w-5xl gap-5 md:grid-cols-2">
+        {opportunityCards.map((card) => (
+          <article
+            class={`relative overflow-hidden rounded-[28px] p-7 md:p-9 ${
+              card.featured ? "text-white" : "text-charcoal"
+            }`}
+            style={`background: ${card.featured ? "var(--navy)" : "var(--off-white)"};`}
           >
-            Talk to us
-          </a>
-          <ul class="mt-8 space-y-3 text-sm text-charcoal/75">
-            {[
-              "Quarterly strategy roadmap",
-              "Vendor audit & coordination",
-              "Monthly reporting reviews",
-              "Direct access to our team",
-            ].map((item) => (
-              <li class="flex gap-2">
-                <span
-                  class="mt-1.5 h-1.5 w-1.5 rounded-full flex-none"
-                  style="background: var(--key-blue);"
-                ></span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+            {card.featured && (
+              <span
+                class="absolute right-6 top-6 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest"
+                style="background: var(--green); color: var(--charcoal);"
+              >
+                Owned for you
+              </span>
+            )}
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.18em]"
+              style={`color: ${card.featured ? "var(--green)" : "var(--key-blue)"};`}
+            >
+              {card.label}
+            </p>
+            <h3
+              class={`mt-5 max-w-sm font-display text-3xl font-semibold leading-tight ${
+                card.featured ? "text-white" : "text-charcoal"
+              }`}
+            >
+              {card.title}
+            </h3>
+            <ul
+              class={`mt-8 grid gap-3 text-sm leading-relaxed ${
+                card.featured ? "text-white/85" : "text-charcoal/75"
+              }`}
+            >
+              {card.points.map((point) => (
+                <li
+                  class={`flex items-center gap-3 rounded-2xl px-4 py-3 ${
+                    card.featured ? "bg-white/10" : "bg-white"
+                  }`}
+                >
+                  <span
+                    class="h-2 w-2 flex-none rounded-full"
+                    style={`background: ${card.featured ? "var(--green)" : "var(--key-blue)"};`}
+                  ></span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
 
-        <div
-          class="rounded-[28px] p-8 md:p-10 relative"
-          style="background: var(--navy); color: #fff;"
+      <div class="mt-9 text-center">
+        <a
+          href={CONSULTATION_URL}
+          class="btn-primary !px-7 !py-4"
+          data-track-event="consultation_cta_click"
+          data-track-placement="opportunity_cost"
         >
-          <div
-            class="absolute -top-3 right-8 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full font-semibold"
-            style="background: var(--green); color: var(--charcoal);"
-          >
-            Flagship
-          </div>
-          <div class="font-display text-2xl font-semibold text-white">
-            VIP Marketing Manager
-          </div>
-          <p class="text-white/70 mt-2 text-sm">
-            A full done-for-you marketing department. We own the plan and run
-            every piece — you focus on the shop.
-          </p>
-          <div class="mt-8">
-            <div class="font-display text-4xl font-semibold text-white">Custom</div>
-            <p class="mt-1 text-sm text-white/60">Pricing scoped to your shop</p>
-          </div>
-          <a
-            href={CONSULTATION_URL}
-            class="mt-8 inline-flex w-full items-center justify-center rounded-full px-6 py-3.5 font-medium text-sm transition"
-            style="background: var(--green); color: var(--charcoal);"
-            data-track-event="consultation_cta_click"
-            data-track-placement="pricing_flagship"
-          >
-            Schedule a Consultation
-          </a>
-          <ul class="mt-8 space-y-3 text-sm text-white/85">
-            {[
-              "Full marketing team, on retainer",
-              "Direct mail, digital, GBP, reviews, CRM",
-              "Weekly execution & campaign shipping",
-              "Monthly reporting with real accountability",
-              "Dedicated marketing manager for your shop",
-            ].map((item) => (
-              <li class="flex gap-2">
-                <span
-                  class="mt-1.5 h-1.5 w-1.5 rounded-full flex-none"
-                  style="background: var(--green);"
-                ></span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+          Book a Call <ArrowRight className="h-4 w-4" />
+        </a>
       </div>
     </div>
   </section>
@@ -812,15 +717,10 @@ const faqSchema = {
 
       <div class="grid gap-6 md:grid-cols-3">
         {insightPosts.map((post) => (
-          <article class="group">
+          <a href={post.href} class="group block">
             <div
-              class="aspect-[4/3] rounded-[24px] overflow-hidden relative"
-              style={`background: ${post.color};`}
+              class="aspect-[4/3] rounded-[24px] overflow-hidden relative bg-[var(--off-white)]"
             >
-              <div
-                class="absolute inset-0 opacity-40"
-                style="background-image: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 60%);"
-              ></div>
               <img
                 src={post.image.src}
                 alt={post.image.alt}
@@ -845,7 +745,7 @@ const faqSchema = {
             <h3 class="font-display text-xl md:text-2xl font-semibold text-charcoal mt-3 leading-snug group-hover:text-[var(--navy)] transition">
               {post.title}
             </h3>
-          </article>
+          </a>
         ))}
       </div>
     </div>
@@ -938,97 +838,6 @@ const faqSchema = {
     transform: translateY(0.16em);
   }
 
-  .capability-shell {
-    animation: capability-shell-in 0.75s cubic-bezier(0.21, 0.86, 0.32, 1) both;
-  }
-
-  .capability-selector > * + * {
-    margin-top: 0.5rem;
-  }
-
-  .capability-option {
-    transform-origin: left center;
-    transition:
-      color 0.32s ease,
-      opacity 0.32s ease,
-      transform 0.32s ease;
-  }
-
-  .capability-option:hover,
-  .capability-option:focus-visible,
-  .capability-option.is-active {
-    color: var(--capability-accent, var(--key-blue));
-    opacity: 1;
-    transform: translateX(0.18em);
-  }
-
-  .capability-option:focus-visible {
-    border-radius: 0.2em;
-    box-shadow: 0 0 0 3px rgba(63, 140, 203, 0.18);
-  }
-
-  .capability-panel {
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    transform: translateY(18px);
-    visibility: hidden;
-    transition:
-      opacity 0.34s ease,
-      transform 0.42s cubic-bezier(0.21, 0.86, 0.32, 1);
-  }
-
-  .capability-panel.is-active {
-    opacity: 1;
-    pointer-events: auto;
-    position: relative;
-    transform: translateY(0);
-    visibility: visible;
-  }
-
-  .capability-panel.is-active .capability-heading {
-    color: var(--capability-accent, var(--charcoal));
-  }
-
-  .capability-image-stage {
-    box-shadow: 0 34px 90px -58px rgba(20, 22, 28, 0.38);
-    transition: box-shadow 0.35s ease, outline-color 0.35s ease;
-    outline: 1px solid transparent;
-    outline-offset: 0;
-  }
-
-  .capability-showcase-section[data-active-accent="green"] .capability-image-stage {
-    box-shadow: 0 34px 90px -56px rgba(147, 200, 69, 0.55);
-    outline-color: rgba(147, 200, 69, 0.28);
-  }
-
-  .capability-image {
-    opacity: 0;
-    transform: scale(1.045) translateY(16px);
-    visibility: hidden;
-    transition:
-      opacity 0.45s ease,
-      transform 0.72s cubic-bezier(0.21, 0.86, 0.32, 1);
-  }
-
-  .capability-image.is-active {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    visibility: visible;
-  }
-
-  @keyframes capability-shell-in {
-    from {
-      opacity: 0;
-      transform: translateY(22px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   .faq-item > summary {
     list-style: none;
   }
@@ -1049,72 +858,8 @@ const faqSchema = {
     display: inline;
   }
 
-  @media (max-width: 1023px) {
-    .capability-option.is-active,
-    .capability-option:hover,
-    .capability-option:focus-visible {
-      transform: translateX(0.1em);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .capability-selector {
-      display: flex;
-      gap: 1.15rem;
-      margin-inline: -1.25rem;
-      overflow-x: auto;
-      padding: 0 1.25rem 0.85rem;
-      scroll-padding-inline: 1.25rem;
-      scroll-snap-type: x proximity;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .capability-selector::-webkit-scrollbar {
-      display: none;
-    }
-
-    .capability-selector > * + * {
-      margin-top: 0;
-    }
-
-    .capability-option {
-      border-bottom: 2px solid transparent;
-      flex: 0 0 auto;
-      font-size: 1.18rem;
-      padding-bottom: 0.4rem;
-      scroll-snap-align: start;
-      width: auto;
-    }
-
-    .capability-option.is-active,
-    .capability-option:hover,
-    .capability-option:focus-visible {
-      border-bottom-color: var(--capability-accent, var(--key-blue));
-      transform: none;
-    }
-
-    .capability-panel-wrap {
-      min-height: 0;
-    }
-
-    .capability-panel {
-      transform: translateY(8px);
-    }
-
-    .capability-image-stage {
-      margin-top: 1.35rem;
-      max-width: 100%;
-      border-radius: 18px;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .capability-shell,
-    .capability-image,
-    .capability-panel,
-    .capability-option {
-      animation: none;
+    [data-hero-phrase] {
       transition: none;
     }
   }
@@ -1136,85 +881,4 @@ const faqSchema = {
     }, 2600);
   }
 
-  const capabilityRoot = document.querySelector<HTMLElement>("[data-capability-showcase]");
-
-  if (capabilityRoot) {
-    const triggers = Array.from(
-      capabilityRoot.querySelectorAll<HTMLElement>("[data-capability-trigger]"),
-    );
-    const panels = Array.from(
-      capabilityRoot.querySelectorAll<HTMLElement>("[data-capability-panel]"),
-    );
-    const images = Array.from(
-      capabilityRoot.querySelectorAll<HTMLElement>("[data-capability-image]"),
-    );
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const compactViewport = window.matchMedia("(max-width: 767px)").matches;
-    let activeIndex = 0;
-    let rotateTimer: number | undefined;
-
-    const setActiveCapability = (nextIndex: number) => {
-      activeIndex = nextIndex;
-      capabilityRoot.dataset.activeAccent =
-        triggers[nextIndex]?.dataset.capabilityAccent || "blue";
-
-      if (compactViewport) {
-        triggers[nextIndex]?.scrollIntoView({
-          block: "nearest",
-          inline: "center",
-          behavior: reduceMotion ? "auto" : "smooth",
-        });
-      }
-
-      triggers.forEach((trigger, index) => {
-        const isActive = index === nextIndex;
-        trigger.classList.toggle("is-active", isActive);
-        trigger.setAttribute("aria-pressed", String(isActive));
-      });
-
-      panels.forEach((panel, index) => {
-        const isActive = index === nextIndex;
-        panel.classList.toggle("is-active", isActive);
-        panel.setAttribute("aria-hidden", String(!isActive));
-      });
-
-      images.forEach((image, index) => {
-        const isActive = index === nextIndex;
-        image.classList.toggle("is-active", isActive);
-        image.setAttribute("aria-hidden", String(!isActive));
-      });
-    };
-
-    const stopRotation = () => {
-      if (rotateTimer) {
-        window.clearInterval(rotateTimer);
-        rotateTimer = undefined;
-      }
-    };
-
-    const startRotation = () => {
-      if (reduceMotion || compactViewport || triggers.length < 2) return;
-      stopRotation();
-      rotateTimer = window.setInterval(() => {
-        setActiveCapability((activeIndex + 1) % triggers.length);
-      }, 3600);
-    };
-
-    triggers.forEach((trigger, index) => {
-      const selectCapability = () => {
-        stopRotation();
-        setActiveCapability(index);
-      };
-
-      trigger.addEventListener("mouseenter", selectCapability);
-      trigger.addEventListener("focus", selectCapability);
-      trigger.addEventListener("click", selectCapability);
-    });
-
-    capabilityRoot.addEventListener("mouseenter", stopRotation);
-    capabilityRoot.addEventListener("focusin", stopRotation);
-    capabilityRoot.addEventListener("mouseleave", startRotation);
-
-    startRotation();
-  }
 </script>

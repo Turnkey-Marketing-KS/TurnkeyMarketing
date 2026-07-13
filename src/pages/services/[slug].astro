@@ -67,7 +67,7 @@ const breadcrumbSchema = {
   schema={[serviceSchema, breadcrumbSchema]}
 >
   <PageHero
-    eyebrow={service.featured ? "Flagship service" : "Service"}
+    eyebrow={service.featured ? "Flagship service" : service.isNew ? "New service" : "Service"}
     title={service.name}
     description={service.tagline}
     image={detail.image}

@@ -17,7 +17,6 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     accent: "green",
     included: [
       "Marketing Consulting",
-      "DirectTrack Marketing",
       "Direct Mail",
       "Social Media",
       "Retention",
@@ -45,9 +44,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     included: ["OTT Video Ads", "Acquisition E-mails", "Geofencing Display Ads", "ROI Tracking"],
     bestFor:
       "Best for launch, rescue, or dense-market situations where you need targeted acquisition with clearer tracking.",
-    badgeValue: "Tracked",
-    badgeLabel: "Calls + campaigns",
-    proofLine: "Campaigns built with reporting from the start, not guessed at later.",
+    badgeValue: "7x–15x",
+    badgeLabel: "Average ROI",
+    proofLine: "DirectTrack campaigns average a 7x–15x return on spend.",
   },
   "direct-mail": {
     image: siteMedia.graphics.directMail,
