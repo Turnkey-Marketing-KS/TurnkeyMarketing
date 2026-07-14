@@ -1,4 +1,5 @@
 import { services } from "@/lib/services";
+import { resourcePosts } from "@/lib/resource-posts";
 
 const staticPaths = [
   "/",
@@ -14,7 +15,8 @@ const staticPaths = [
 
 export function GET({ site }: { site: URL }) {
   const servicePaths = services.map((service) => `/services/${service.slug}`);
-  const paths = [...staticPaths, ...servicePaths];
+  const resourcePaths = resourcePosts.map((post) => post.href);
+  const paths = [...staticPaths, ...servicePaths, ...resourcePaths];
   const urls = paths.map((path) => {
     const loc = new URL(path, site).toString();
     return `  <url><loc>${loc}</loc><changefreq>weekly</changefreq></url>`;

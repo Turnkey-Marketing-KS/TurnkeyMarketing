@@ -58,7 +58,7 @@ export const services: Service[] = [
   {
     slug: "social-media-marketing",
     name: "Social Media Marketing",
-    tagline: "Social that sounds like your shop — not a template.",
+    tagline: "Social that sounds like your shop and stays consistent.",
     summary:
       "We interview your team, learn your voice, and keep social consistent with real shop proof instead of generic posts.",
     outcomes: [

@@ -60,12 +60,18 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   "social-media-marketing": {
     image: siteMedia.team.industrySession,
-    included: ["Facebook Posts", "Instagram Posts", "GBP Posts", "Facebook Ads", "Comment + Review Response"],
+    included: [
+      "Facebook Posts",
+      "Instagram Posts",
+      "GBP Posts",
+      "Facebook Ads",
+      "Comment + Review Response",
+    ],
     bestFor:
       "Best when your shop needs consistency, a real local voice, and follow-through on the places customers already check.",
     badgeValue: "3-5",
     badgeLabel: "Weekly posts",
-    proofLine: "A social presence that sounds like your shop instead of a template.",
+    proofLine: "A social presence built around your real shop voice and local proof.",
   },
   "retention-marketing": {
     image: siteMedia.shops.thunderbirdTeam,
@@ -79,7 +85,12 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "digital-marketing": {
     image: siteMedia.graphics.marketingPlan,
     imageFit: "contain",
-    included: ["Google Review Management", "GBP Optimization", "Website Audit", "Vendor Coordination"],
+    included: [
+      "Google Review Management",
+      "GBP Optimization",
+      "Website Audit",
+      "Vendor Coordination",
+    ],
     bestFor:
       "Best when Google, reviews, ads, and website work need to stop feeling like disconnected vendor conversations.",
     badgeValue: "Google",
@@ -88,7 +99,12 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   "boost-days": {
     image: siteMedia.shops.serviceBays,
-    included: ["Boost Day Strategy", "Email/Text/Social Campaign", "Phone Call Evaluations", "Marketing Deliverable"],
+    included: [
+      "Boost Day Strategy",
+      "Email/Text/Social Campaign",
+      "Phone Call Evaluations",
+      "Marketing Deliverable",
+    ],
     bestFor:
       "Best when the schedule softens and you need controlled demand without creating chaos at the counter.",
     badgeValue: "Fast",

@@ -1,57 +1,232 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/site/PageHero.astro";
 import { siteMedia } from "@/lib/site-media";
 import { resourcePosts } from "@/lib/resource-posts";
+
+const [featuredPost, ...secondaryPosts] = resourcePosts;
+const resourceFilters = ["All", ...Array.from(new Set(resourcePosts.map((post) => post.tag)))];
+const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-");
 ---
 
 <BaseLayout
-  title="Resources — Turnkey Marketing"
-  description="Guides, articles, and tools built for auto repair shop owners who want their marketing to work harder."
+  title="Auto Repair Marketing Resources — Turnkey Marketing"
+  description="Auto repair marketing articles, guides, and tools for shop owners who want clearer spend, better follow-up, and less guesswork."
   path="/resources"
-  ogTitle="Resources — Turnkey Marketing"
+  ogTitle="Auto Repair Marketing Resources — Turnkey Marketing"
   ogImage={siteMedia.graphics.leadGenerator.src}
 >
-  <PageHero
-    eyebrow="Resources"
-    title="Smarter marketing decisions for repair shop owners."
-    description="Guides, articles, and practical frameworks for owners who want clearer vendor accountability, budget confidence, retention, and controlled demand."
-    image={siteMedia.graphics.marketingPlan}
-    imageFit="contain"
-  />
+  <section class="bg-[var(--off-white)] py-6 md:py-10">
+    <div class="container-page">
+      <div class="overflow-hidden rounded-[34px] bg-white px-5 py-8 md:px-10 md:py-12 lg:px-14 lg:py-14">
+        <div>
+          <p class="eyebrow text-[var(--key-blue)]">Resources</p>
+          <h1 class="display-2 mt-5 max-w-4xl text-balance">
+            Auto repair marketing resources.
+          </h1>
+          <p class="mt-7 max-w-3xl text-lg leading-relaxed text-charcoal/65 md:text-xl">
+            Practical articles for auto repair shop owners who want clearer
+            marketing decisions, stronger vendor accountability, and less
+            guesswork around what to run next.
+          </p>
+        </div>
 
-  <section class="container-page py-16">
-    <div class="grid gap-px md:grid-cols-2 lg:grid-cols-3 bg-[var(--hairline)] rounded-2xl overflow-hidden">
-      {resourcePosts.map((item) => (
-        <a href={item.href} class="group bg-white p-6 flex flex-col min-h-[360px]">
-          <div class="aspect-[4/3] overflow-hidden rounded-xl bg-[var(--off-white)]">
-            <img
-              src={item.image.src}
-              alt={item.image.alt}
-              width="1000"
-              height="750"
-              loading="lazy"
-              decoding="async"
-              class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-              style={`object-position: ${item.image.position};`}
-            />
-          </div>
-          <div class="mt-6 flex flex-1 flex-col justify-between">
-            <p class="text-xs uppercase tracking-widest" style="color: var(--key-blue);">
-              {item.tag} · {item.date}
-            </p>
-            <div class="mt-5">
-              <p class="font-display text-xl text-charcoal text-balance group-hover:text-[var(--navy)] transition">
-                {item.title}
-              </p>
-              <p class="mt-2 text-muted-foreground text-sm">{item.description}</p>
+        <div
+          class="relative isolate mt-10 inline-flex max-w-full gap-1 overflow-x-auto rounded-full bg-[var(--off-white)] p-1"
+          data-resource-filter-bar
+          role="tablist"
+          aria-label="Filter resources"
+        >
+          <span
+            class="pointer-events-none absolute bottom-1 top-1 rounded-full bg-charcoal transition-[transform,width] duration-300 ease-out"
+            data-resource-filter-indicator
+            aria-hidden="true"
+          ></span>
+          {resourceFilters.map((filter, index) => (
+            <button
+              type="button"
+              data-resource-filter={filter}
+              data-resource-filter-slug={filterSlug(filter)}
+              role="tab"
+              aria-selected={index === 0 ? "true" : "false"}
+              class="relative z-10 shrink-0 rounded-full px-5 py-2.5 text-sm font-medium text-white [mix-blend-mode:difference]"
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+
+        {featuredPost && (
+          <a
+            href={featuredPost.href}
+            class="group mt-14 grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center"
+            data-resource-card
+            data-resource-tag={featuredPost.tag}
+          >
+            <div class="aspect-[16/9] overflow-hidden rounded-[26px] bg-[var(--off-white)] md:aspect-[16/8.8]">
+              <img
+                src={featuredPost.image.src}
+                alt={featuredPost.image.alt}
+                width="1400"
+                height="790"
+                loading="eager"
+                decoding="async"
+                class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"
+                style={`object-position: ${featuredPost.image.position};`}
+              />
             </div>
-          </div>
-        </a>
-      ))}
+            <article class="lg:px-4">
+              <div class="flex flex-wrap items-center gap-3 text-sm text-charcoal/45">
+                <span class="rounded-full bg-[var(--off-white)] px-3 py-1 text-xs font-medium text-charcoal">
+                  {featuredPost.tag}
+                </span>
+                <span>·</span>
+                <span>{featuredPost.date}</span>
+              </div>
+              <h2 class="mt-6 max-w-[16ch] font-display text-3xl font-semibold leading-[1.05] text-charcoal text-balance md:text-4xl lg:text-5xl">
+                {featuredPost.title}
+              </h2>
+              <p class="mt-5 max-w-xl text-lg leading-relaxed text-charcoal/70">
+                {featuredPost.dek}
+              </p>
+              <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-charcoal">
+                Read article
+                <span class="transition group-hover:translate-x-1">→</span>
+              </span>
+            </article>
+          </a>
+        )}
+
+        <div class="mt-16 grid gap-x-7 gap-y-12 md:grid-cols-2">
+          {secondaryPosts.map((item, index) => (
+            <a
+              href={item.href}
+              id={filterSlug(item.tag)}
+              data-resource-card
+              data-resource-tag={item.tag}
+              class:list={[
+                "group block",
+                index === 0 ? "md:mt-20" : "",
+                index === 1 ? "md:-mt-2" : "",
+              ]}
+            >
+              <div
+                class:list={[
+                  "overflow-hidden rounded-[26px] bg-[var(--off-white)]",
+                  index % 2 === 0 ? "aspect-[5/3.25]" : "aspect-[4/3.35]",
+                ]}
+              >
+                <img
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  width="1000"
+                  height="760"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                  style={`object-position: ${item.image.position};`}
+                />
+              </div>
+              <div class="mt-5 flex flex-wrap items-center gap-3 text-sm text-charcoal/45">
+                <span class="rounded-full bg-[var(--off-white)] px-3 py-1 text-xs font-medium text-charcoal">
+                  {item.tag}
+                </span>
+                <span>·</span>
+                <span>{item.date}</span>
+              </div>
+              <h2 class="mt-4 max-w-[14ch] font-display text-3xl font-semibold leading-[1.04] text-charcoal text-balance md:text-4xl">
+                {item.title}
+              </h2>
+              <p class="mt-4 max-w-xl text-base leading-relaxed text-charcoal/65">
+                {item.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
-    <p class="mt-10 text-center text-sm text-muted-foreground">
-      These cards use source assets from the original Turnkey Marketing site.
-    </p>
   </section>
+
+  <script>
+    const initResourceFilters = () => {
+      const bar = document.querySelector("[data-resource-filter-bar]");
+      const indicator = document.querySelector("[data-resource-filter-indicator]");
+      const buttons = Array.from(document.querySelectorAll("[data-resource-filter]"));
+      const cards = Array.from(document.querySelectorAll("[data-resource-card]"));
+
+      if (!(bar instanceof HTMLElement) || !(indicator instanceof HTMLElement) || buttons.length === 0) {
+        return;
+      }
+
+      const moveIndicator = (button) => {
+        if (!(button instanceof HTMLElement)) return;
+        indicator.style.width = `${button.offsetWidth}px`;
+        indicator.style.transform = `translateX(${button.offsetLeft}px)`;
+      };
+
+      const setActiveFilter = (filter, updateHash = true) => {
+        const activeButton = buttons.find((button) => button.getAttribute("data-resource-filter") === filter);
+        if (!(activeButton instanceof HTMLElement)) return;
+
+        buttons.forEach((button) => {
+          const isActive = button === activeButton;
+          button.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        cards.forEach((card) => {
+          if (!(card instanceof HTMLElement)) return;
+
+          const shouldShow = filter === "All" || card.getAttribute("data-resource-tag") === filter;
+          if (shouldShow) {
+            card.hidden = false;
+            card.style.opacity = "0";
+            card.style.transform = "translateY(10px)";
+            window.requestAnimationFrame(() => {
+              card.style.opacity = "1";
+              card.style.transform = "translateY(0)";
+            });
+          } else {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(10px)";
+            window.setTimeout(() => {
+              if (card.style.opacity === "0") {
+                card.hidden = true;
+              }
+            }, 180);
+          }
+        });
+
+        window.requestAnimationFrame(() => {
+          moveIndicator(activeButton);
+        });
+
+        if (updateHash) {
+          const slug = activeButton.getAttribute("data-resource-filter-slug");
+          const nextUrl = filter === "All" ? "/resources" : `/resources#${slug}`;
+          window.history.replaceState(null, "", nextUrl);
+        }
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setActiveFilter(button.getAttribute("data-resource-filter") ?? "All");
+        });
+      });
+
+      const initialSlug = window.location.hash.replace("#", "");
+      const initialButton = buttons.find(
+        (button) => button.getAttribute("data-resource-filter-slug") === initialSlug,
+      );
+      setActiveFilter(initialButton?.getAttribute("data-resource-filter") ?? "All", false);
+      window.addEventListener("resize", () => {
+        const activeButton = buttons.find((button) => button.getAttribute("aria-selected") === "true");
+        moveIndicator(activeButton);
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initResourceFilters, { once: true });
+    } else {
+      initResourceFilters();
+    }
+  </script>
 </BaseLayout>

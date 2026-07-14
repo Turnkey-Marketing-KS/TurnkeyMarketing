@@ -22,6 +22,12 @@ const related = services.filter((item) => item.slug !== service.slug).slice(0, 3
 const servicePath = `/services/${service.slug}`;
 const accent = detail.accent ?? "blue";
 const accentColor = accent === "green" ? "var(--green)" : "var(--key-blue)";
+const serviceTitle =
+  service.slug === "vip-marketing-manager"
+    ? "VIP Marketing Manager for Auto Repair Shops"
+    : service.slug === "directtrack-marketing"
+      ? "DirectTrack Marketing for Auto Repair Shops"
+      : `${service.name} for Auto Repair Shops`;
 
 const serviceSchema = {
   "@context": "https://schema.org",
@@ -58,17 +64,17 @@ const breadcrumbSchema = {
 ---
 
 <BaseLayout
-  title={`${service.name} — Turnkey Marketing`}
+  title={`${serviceTitle} — Turnkey Marketing`}
   description={service.summary}
   path={servicePath}
-  ogTitle={`${service.name} — Turnkey Marketing`}
+  ogTitle={`${serviceTitle} — Turnkey Marketing`}
   ogType="article"
   ogImage={detail.image.src}
   schema={[serviceSchema, breadcrumbSchema]}
 >
   <PageHero
     eyebrow={service.featured ? "Flagship service" : service.isNew ? "New service" : "Service"}
-    title={service.name}
+    title={serviceTitle}
     description={service.tagline}
     image={detail.image}
     imageFit={detail.imageFit ?? "cover"}

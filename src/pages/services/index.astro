@@ -110,7 +110,10 @@ const vipDetail = getServiceDetail(vip.slug);
         return (
           <a
             href={`/services/${service.slug}`}
-            class="group grid min-h-[280px] gap-7 rounded-[28px] bg-white p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.35)] md:grid-cols-[1fr_180px]"
+            class:list={[
+              "group grid min-h-[280px] gap-7 rounded-[28px] bg-white p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.35)] md:grid-cols-[1fr_180px]",
+              service.isNew && "ring-1 ring-[var(--green)]/45",
+            ]}
             data-track-event="service_cta_click"
             data-track-slug={service.slug}
           >

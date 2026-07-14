@@ -1,0 +1,112 @@
+---
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getResourcePost, resourcePosts } from "@/lib/resource-posts";
+import { CONSULTATION_URL } from "@/lib/services";
+
+export function getStaticPaths() {
+  return resourcePosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const currentPost = post ?? getResourcePost(Astro.params.slug ?? "");
+
+if (!currentPost) {
+  return Astro.redirect("/404");
+}
+---
+
+<BaseLayout
+  title={`${currentPost.title} — Turnkey Marketing`}
+  description={currentPost.description}
+  path={currentPost.href}
+  ogTitle={`${currentPost.title} — Turnkey Marketing`}
+  ogType="article"
+  ogImage={currentPost.image.src}
+>
+  <section class="container-page py-14 md:py-20">
+    <a href="/resources" class="inline-flex items-center gap-2 text-sm font-medium text-charcoal/65 transition hover:text-charcoal">
+      <ArrowLeft className="h-4 w-4" />
+      All resources
+    </a>
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-12 lg:items-start">
+      <div class="lg:col-span-7">
+        <p class="eyebrow text-[var(--key-blue)]">{currentPost.tag} · {currentPost.date}</p>
+        <h1 class="page-title mt-5 max-w-[12ch] text-balance text-charcoal">
+          {currentPost.title}
+        </h1>
+        <p class="mt-6 max-w-2xl text-xl leading-relaxed text-charcoal/65">
+          {currentPost.dek}
+        </p>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="rounded-[30px] bg-white p-4 shadow-[0_30px_90px_-60px_rgba(20,22,28,0.45)]">
+          <div class="aspect-[4/3] overflow-hidden rounded-[22px] bg-[var(--off-white)]">
+            <img
+              src={currentPost.image.src}
+              alt={currentPost.image.alt}
+              width="1000"
+              height="750"
+              loading="eager"
+              decoding="async"
+              class="h-full w-full object-cover"
+              style={`object-position: ${currentPost.image.position};`}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--off-white)] py-14 md:py-20">
+    <div class="container-page grid gap-10 lg:grid-cols-12">
+      <aside class="lg:col-span-4">
+        <div class="sticky top-28 rounded-[28px] bg-white p-7">
+          <p class="text-sm font-semibold text-charcoal">What to take from this</p>
+          <ul class="mt-5 grid gap-3 text-sm leading-relaxed text-charcoal/70">
+            {currentPost.takeaways.map((takeaway) => (
+              <li class="flex gap-3">
+                <span class="mt-2 h-2 w-2 flex-none rounded-full bg-[var(--key-blue)]"></span>
+                <span>{takeaway}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+
+      <article class="lg:col-span-8">
+        <div class="rounded-[32px] bg-white p-7 md:p-10">
+          {currentPost.sections.map((section, index) => (
+            <section class={index === 0 ? "" : "mt-10 border-t hairline pt-10"}>
+              <h2 class="font-display text-3xl font-semibold leading-tight text-charcoal">
+                {section.heading}
+              </h2>
+              <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">
+                {section.body}
+              </p>
+            </section>
+          ))}
+        </div>
+
+        <div class="mt-8 rounded-[28px] bg-[var(--navy)] p-7 text-white md:p-9">
+          <h2 class="font-display text-3xl font-semibold leading-tight">
+            Want help applying this to your shop?
+          </h2>
+          <p class="mt-4 max-w-2xl text-white/70">
+            Bring the question to a strategy call. We will talk through what is
+            working, what is leaking, and what may make sense next.
+          </p>
+          <a href={CONSULTATION_URL} class="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-medium text-charcoal transition hover:brightness-105">
+            Book a Call
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
