@@ -18,7 +18,7 @@ import { siteMedia } from "@/lib/site-media";
       <h1 class="display-2 mt-5 max-w-[12ch] text-balance">
         Let’s talk about your shop.
       </h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+      <p class="mt-5 max-w-[32ch] text-lg leading-relaxed text-muted-foreground md:max-w-2xl">
         When you are ready, the booking page handles both scheduling and the
         intake details we need before the call.
       </p>
@@ -26,10 +26,10 @@ import { siteMedia } from "@/lib/site-media";
   </section>
 
   <section class="container-page py-14 md:py-20">
-    <div class="grid gap-5 md:grid-cols-3">
+    <div class="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-3">
       <a
         href={BOOKING_URL}
-        class="group rounded-[28px] bg-[var(--navy)] p-7 text-white transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(35,46,102,0.65)]"
+        class="group min-w-0 rounded-[28px] bg-[var(--navy)] p-7 text-white transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(35,46,102,0.65)]"
         data-track-event="consultation_cta_click"
         data-track-placement="contact_primary"
       >
@@ -49,7 +49,7 @@ import { siteMedia } from "@/lib/site-media";
 
       <a
         href="tel:9137774144"
-        class="rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
+        class="min-w-0 rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
         data-track-event="phone_click"
         data-track-placement="contact"
       >
@@ -64,7 +64,7 @@ import { siteMedia } from "@/lib/site-media";
 
       <a
         href="mailto:hello@turnkeyautomarketing.com"
-        class="rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
+        class="min-w-0 rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
         data-track-event="email_click"
         data-track-placement="contact"
       >

@@ -48,29 +48,29 @@ const openCtaExternally = ctaExternal && !ctaHref?.startsWith("/");
 
     <div
       class:list={[
-        image ? "grid gap-10 lg:grid-cols-12 lg:items-center" : "max-w-4xl",
+        image ? "grid min-w-0 gap-10 lg:grid-cols-12 lg:items-center" : "max-w-4xl",
         backHref ? "mt-7" : "",
       ]}
     >
-      <div class={image ? "lg:col-span-6" : "max-w-4xl"}>
+      <div class={image ? "min-w-0 lg:col-span-6" : "max-w-4xl"}>
         <p class="eyebrow" style={`color: ${accentColor};`}>{eyebrow}</p>
-        <h1 class="page-title mt-5 max-w-[16ch] text-balance text-charcoal md:mt-6">
+        <h1 class="page-title mt-5 max-w-full text-balance text-charcoal md:mt-6 md:max-w-[16ch]">
           {title}
         </h1>
         {description && (
-          <p class="mt-6 max-w-[48ch] text-lg leading-relaxed text-charcoal/65 md:text-xl">
+          <p class="mt-6 max-w-[32ch] text-lg leading-relaxed text-charcoal/65 md:max-w-[48ch] md:text-xl">
             {description}
           </p>
         )}
 
         {(ctaHref || secondaryHref) && (
-          <div class="mt-8 flex flex-wrap items-center gap-4 md:mt-10 md:gap-6">
+          <div class="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center md:mt-10 md:gap-6">
             {ctaHref && ctaLabel && (
               <a
                 href={ctaHref}
                 target={openCtaExternally ? "_blank" : undefined}
                 rel={openCtaExternally ? "noopener" : undefined}
-                class="btn-primary"
+                class="btn-primary w-full sm:w-auto"
               >
                 {ctaLabel}
                 <ArrowRight className="h-4 w-4" />
@@ -79,7 +79,7 @@ const openCtaExternally = ctaExternal && !ctaHref?.startsWith("/");
             {secondaryHref && secondaryLabel && (
               <a
                 href={secondaryHref}
-                class="inline-flex items-center gap-2 font-medium text-charcoal/75 transition hover:text-charcoal"
+                class="inline-flex items-center justify-center gap-2 py-1 font-medium text-charcoal/75 transition hover:text-charcoal sm:justify-start"
               >
                 {secondaryLabel}
                 <ArrowRight className="h-4 w-4" />
@@ -90,10 +90,10 @@ const openCtaExternally = ctaExternal && !ctaHref?.startsWith("/");
       </div>
 
       {image && (
-        <div class="relative lg:col-span-6">
+        <div class="relative min-w-0 lg:col-span-6">
           <div
             class:list={[
-              "relative ml-auto aspect-[16/11] w-full max-w-[620px] overflow-hidden rounded-[32px] shadow-[0_34px_90px_-50px_rgba(20,22,28,0.42)]",
+              "relative mx-auto aspect-[16/11] w-full max-w-[620px] overflow-hidden rounded-[28px] shadow-[0_34px_90px_-50px_rgba(20,22,28,0.42)] md:rounded-[32px] lg:ml-auto",
               imageFit === "contain" ? "bg-[var(--off-white)]" : "bg-[var(--off-white)]",
             ]}
           >

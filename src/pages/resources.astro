@@ -17,13 +17,13 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
 >
   <section class="bg-[var(--off-white)] py-6 md:py-10">
     <div class="container-page">
-      <div class="overflow-hidden rounded-[34px] bg-white px-5 py-8 md:px-10 md:py-12 lg:px-14 lg:py-14">
-        <div>
+      <div class="min-w-0 overflow-hidden rounded-[28px] bg-white px-5 py-8 md:rounded-[34px] md:px-10 md:py-12 lg:px-14 lg:py-14">
+        <div class="min-w-0">
           <p class="eyebrow text-[var(--key-blue)]">Resources</p>
           <h1 class="display-2 mt-5 max-w-4xl text-balance">
             Auto repair marketing resources.
           </h1>
-          <p class="mt-7 max-w-3xl text-lg leading-relaxed text-charcoal/65 md:text-xl">
+          <p class="mt-7 max-w-[32ch] text-lg leading-relaxed text-charcoal/65 md:max-w-3xl md:text-xl">
             Practical articles for auto repair shop owners who want clearer
             marketing decisions, stronger vendor accountability, and less
             guesswork around what to run next.
@@ -31,7 +31,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
         </div>
 
         <div
-          class="relative isolate mt-10 inline-flex max-w-full gap-1 overflow-x-auto rounded-full bg-[var(--off-white)] p-1"
+          class="no-scrollbar resource-filter-bar relative isolate mt-9 flex max-w-full scroll-px-1 gap-1 overflow-x-auto rounded-full bg-[var(--off-white)] p-1 md:inline-flex"
           data-resource-filter-bar
           role="tablist"
           aria-label="Filter resources"
@@ -48,7 +48,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
               data-resource-filter-slug={filterSlug(filter)}
               role="tab"
               aria-selected={index === 0 ? "true" : "false"}
-              class="relative z-10 shrink-0 rounded-full px-5 py-2.5 text-sm font-medium text-white [mix-blend-mode:difference]"
+              class="relative z-10 shrink-0 rounded-full px-4 py-2.5 text-sm font-medium text-charcoal/70 transition-colors duration-75 md:px-5"
             >
               {filter}
             </button>
@@ -58,7 +58,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
         {featuredPost && (
           <a
             href={featuredPost.href}
-            class="group mt-14 grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center"
+            class="group mt-12 grid min-w-0 gap-7 lg:mt-14 lg:grid-cols-[1.12fr_0.88fr] lg:items-center"
             data-resource-card
             data-resource-tag={featuredPost.tag}
           >
@@ -74,7 +74,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                 style={`object-position: ${featuredPost.image.position};`}
               />
             </div>
-            <article class="lg:px-4">
+            <article class="min-w-0 lg:px-4">
               <div class="flex flex-wrap items-center gap-3 text-sm text-charcoal/45">
                 <span class="rounded-full bg-[var(--off-white)] px-3 py-1 text-xs font-medium text-charcoal">
                   {featuredPost.tag}
@@ -82,10 +82,10 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                 <span>·</span>
                 <span>{featuredPost.date}</span>
               </div>
-              <h2 class="mt-6 max-w-[16ch] font-display text-3xl font-semibold leading-[1.05] text-charcoal text-balance md:text-4xl lg:text-5xl">
+              <h2 class="mt-5 max-w-[22ch] font-display text-2xl font-semibold leading-[1.08] text-charcoal text-balance md:mt-6 md:text-3xl lg:max-w-[20ch] lg:text-4xl">
                 {featuredPost.title}
               </h2>
-              <p class="mt-5 max-w-xl text-lg leading-relaxed text-charcoal/70">
+              <p class="mt-4 max-w-xl text-base leading-relaxed text-charcoal/70 md:mt-5 md:text-lg">
                 {featuredPost.dek}
               </p>
               <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-charcoal">
@@ -133,7 +133,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                 <span>·</span>
                 <span>{item.date}</span>
               </div>
-              <h2 class="mt-4 max-w-[14ch] font-display text-3xl font-semibold leading-[1.04] text-charcoal text-balance md:text-4xl">
+              <h2 class="mt-4 max-w-[20ch] font-display text-2xl font-semibold leading-[1.08] text-charcoal text-balance md:max-w-[18ch] md:text-3xl">
                 {item.title}
               </h2>
               <p class="mt-4 max-w-xl text-base leading-relaxed text-charcoal/65">
@@ -170,6 +170,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
         buttons.forEach((button) => {
           const isActive = button === activeButton;
           button.setAttribute("aria-selected", isActive ? "true" : "false");
+          button.toggleAttribute("data-active", isActive);
         });
 
         cards.forEach((card) => {
@@ -206,11 +207,14 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
         }
       };
 
-      buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-          setActiveFilter(button.getAttribute("data-resource-filter") ?? "All");
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            setActiveFilter(button.getAttribute("data-resource-filter") ?? "All");
+            if (button instanceof HTMLElement) {
+              button.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+            }
+          });
         });
-      });
 
       const initialSlug = window.location.hash.replace("#", "");
       const initialButton = buttons.find(
@@ -229,4 +233,16 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
       initResourceFilters();
     }
   </script>
+
+  <style>
+    .resource-filter-bar [data-resource-filter][data-active] {
+      color: #fff;
+    }
+
+    @media (max-width: 480px) {
+      .resource-filter-bar {
+        border-radius: 1.5rem;
+      }
+    }
+  </style>
 </BaseLayout>

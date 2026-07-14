@@ -94,11 +94,11 @@ const breadcrumbSchema = {
     </div>
   </PageHero>
 
-  <section class="bg-[var(--off-white)] py-16 md:py-24">
+  <section class="bg-[var(--off-white)] py-14 md:py-24">
     <div class="container-page grid gap-12 lg:grid-cols-12 lg:items-start">
       <div class="lg:col-span-5">
         <p class="eyebrow" style={`color: ${accentColor};`}>Overview</p>
-        <h2 class="display-2 mt-5 max-w-[12ch] text-balance text-charcoal">
+        <h2 class="display-2 mt-5 max-w-full text-balance text-charcoal md:max-w-[12ch]">
           Built for the way repair shops actually make marketing decisions.
         </h2>
       </div>
@@ -123,7 +123,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <section class="container-page py-16 md:py-24">
+  <section class="container-page py-14 md:py-24">
     <div class="flex items-center gap-5">
       <p class="text-sm font-semibold text-charcoal/70">What’s included</p>
       <div class="h-px flex-1 bg-charcoal/10"></div>
@@ -137,7 +137,7 @@ const breadcrumbSchema = {
               <span class="text-xs text-muted-foreground tabular-nums">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span class="font-display text-2xl font-semibold leading-tight tracking-normal text-charcoal">
+              <span class="font-display text-xl font-semibold leading-tight tracking-normal text-charcoal md:text-2xl">
                 {item}
               </span>
             </div>
@@ -164,12 +164,12 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <section class="bg-white py-16 md:py-24">
+  <section class="bg-white py-14 md:py-24">
     <div class="container-page">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
           <p class="eyebrow">How we work</p>
-          <h2 class="display-3 mt-4 max-w-[10ch] text-balance text-charcoal">
+          <h2 class="display-3 mt-4 max-w-full text-balance text-charcoal md:max-w-[10ch]">
             Clearer decisions, then consistent follow-through.
           </h2>
         </div>
@@ -194,7 +194,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <section class="container-page py-16 md:py-24">
+  <section class="container-page py-14 md:py-24">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <h2 class="display-3 text-charcoal">Explore related services</h2>
       <a href="/services" class="btn-ghost">All services →</a>
@@ -223,13 +223,13 @@ const breadcrumbSchema = {
   <section class="container-page pb-24 md:pb-32">
     <a
       href={CONSULTATION_URL}
-      class="flex flex-col gap-8 rounded-[32px] p-8 text-white transition hover:-translate-y-1 md:flex-row md:items-center md:justify-between md:p-12"
+      class="flex flex-col gap-7 rounded-[28px] p-7 text-white transition hover:-translate-y-1 md:flex-row md:items-center md:justify-between md:rounded-[32px] md:p-12"
       style={`background: ${service.featured ? "var(--navy)" : "var(--charcoal)"};`}
       data-track-event="consultation_cta_click"
       data-track-slug={service.slug}
       data-track-placement="service_bottom"
     >
-      <span class="font-display text-3xl font-semibold leading-tight tracking-normal md:text-4xl">
+      <span class="font-display text-2xl font-semibold leading-tight tracking-normal md:text-4xl">
         Want to see how this would fit your shop?
       </span>
       <span class="inline-flex items-center gap-2 font-medium">

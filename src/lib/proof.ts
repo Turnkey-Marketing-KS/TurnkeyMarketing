@@ -47,7 +47,9 @@ export type VideoTestimonial = {
   name: string;
   shop: string;
   theme: string;
-  fileId: string;
+  videoSrc: string;
+  posterSrc: string;
+  posterAlt: string;
   sourceUrl: string;
   confidence: "drive-file-title";
 };
@@ -199,7 +201,9 @@ export const videoTestimonials: VideoTestimonial[] = [
     name: "Steve Killian",
     shop: "Killian Auto Pros",
     theme: "Second-location growth",
-    fileId: "1BFYlCOmlgDoPPRRmuSzI7mI8M32WDvz_",
+    videoSrc: "/videos/testimonials/steve-killian-testimonial.mp4",
+    posterSrc: "/images/video-posters/steve-killian-testimonial-poster.webp",
+    posterAlt: "Steve Killian testimonial video poster for Killian Auto Pros",
     sourceUrl: "https://drive.google.com/file/d/1BFYlCOmlgDoPPRRmuSzI7mI8M32WDvz_/view",
     confidence: "drive-file-title",
   },
@@ -207,7 +211,9 @@ export const videoTestimonials: VideoTestimonial[] = [
     name: "Jason Smith",
     shop: "M&M Car Care Center",
     theme: "Long-term marketing investment",
-    fileId: "1lW0FJMMX9RhdVxICj6aQvjMQWje2nLNO",
+    videoSrc: "/videos/testimonials/jason-smith-testimonial.mp4",
+    posterSrc: "/images/video-posters/jason-smith-testimonial-poster.webp",
+    posterAlt: "Jason Smith testimonial video poster for M&M Car Care Center",
     sourceUrl: "https://drive.google.com/file/d/1lW0FJMMX9RhdVxICj6aQvjMQWje2nLNO/view",
     confidence: "drive-file-title",
   },
@@ -215,7 +221,9 @@ export const videoTestimonials: VideoTestimonial[] = [
     name: "Ryan Sullivan",
     shop: "Sullivan's",
     theme: "Shop-owner testimonial",
-    fileId: "1YQYZJAEOUNwlpREraEuWNmcG9yHlyXMq",
+    videoSrc: "/videos/testimonials/ryan-sullivan-testimonial.mp4",
+    posterSrc: "/images/video-posters/ryan-sullivan-testimonial-poster.webp",
+    posterAlt: "Ryan Sullivan testimonial video poster for Sullivan's",
     sourceUrl: "https://drive.google.com/file/d/1YQYZJAEOUNwlpREraEuWNmcG9yHlyXMq/view",
     confidence: "drive-file-title",
   },
