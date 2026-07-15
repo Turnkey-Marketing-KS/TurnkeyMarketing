@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { GHL_DISCOVERY_CALL_BOOKING_URL } from "@/lib/services";
+import { APPOINTMENTCORE_BOOKING_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 import { CalendarDays, ExternalLink, Phone } from "lucide-react";
 ---
@@ -67,7 +67,7 @@ import { CalendarDays, ExternalLink, Phone } from "lucide-react";
 
           <div class="booking-fallback-actions">
             <a
-              href={GHL_DISCOVERY_CALL_BOOKING_URL}
+              href={APPOINTMENTCORE_BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               class="booking-direct-link"
@@ -86,9 +86,9 @@ import { CalendarDays, ExternalLink, Phone } from "lucide-react";
       </div>
 
       <iframe
-        src={GHL_DISCOVERY_CALL_BOOKING_URL}
+        src={APPOINTMENTCORE_BOOKING_URL}
         class="booking-frame"
-        id="yu2OePYtPJE21ORfX8a0_1783535857619"
+        id="appointmentcore-booking-frame"
         title="Book a Turnkey Marketing strategy call"
         scrolling="no"
         loading="eager"
@@ -128,8 +128,6 @@ import { CalendarDays, ExternalLink, Phone } from "lucide-react";
       );
     })();
   </script>
-
-  <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
 
   <style>
     .booking-shell {

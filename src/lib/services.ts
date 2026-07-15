@@ -96,8 +96,6 @@ export const services: Service[] = [
 
 export const getService = (slug: string) => services.find((s) => s.slug === slug);
 
-export const BOOKING_URL = "/book-a-call";
-export const GHL_DISCOVERY_CALL_BOOKING_URL =
-  "https://api.leadconnectorhq.com/widget/booking/yu2OePYtPJE21ORfX8a0";
-
 export const CONSULTATION_URL = "https://go.appointmentcore.com/book/7uUZaGNRL6";
+export const BOOKING_URL = CONSULTATION_URL;
+export const APPOINTMENTCORE_BOOKING_URL = CONSULTATION_URL;
