@@ -32,8 +32,8 @@ export const services: Service[] = [
     summary:
       "DirectTrack uses precision-targeted digital campaigns, transparent ROI tracking, and monthly reporting to show what is actually moving new customer acquisition.",
     outcomes: [
-      "Targeted email campaigns",
-      "Streaming commercial campaigns",
+      "Super targeted email campaigns",
+      "Commercials on streaming services",
       "Geofencing banner and display ads",
       "ROI tracking and reporting",
     ],
@@ -100,4 +100,4 @@ export const BOOKING_URL = "/book-a-call";
 export const GHL_DISCOVERY_CALL_BOOKING_URL =
   "https://api.leadconnectorhq.com/widget/booking/yu2OePYtPJE21ORfX8a0";
 
-export const CONSULTATION_URL = BOOKING_URL;
+export const CONSULTATION_URL = "https://go.appointmentcore.com/book/7uUZaGNRL6";

@@ -15,54 +15,80 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
   ogTitle="Auto Repair Marketing Resources — Turnkey Marketing"
   ogImage={siteMedia.graphics.leadGenerator.src}
 >
-  <section class="bg-[var(--off-white)] py-6 md:py-10">
+  <section class="bg-[var(--off-white)] py-6 md:py-10 lg:py-14">
     <div class="container-page">
-      <div class="min-w-0 overflow-hidden rounded-[28px] bg-white px-5 py-8 md:rounded-[34px] md:px-10 md:py-12 lg:px-14 lg:py-14">
-        <div class="min-w-0">
-          <p class="eyebrow text-[var(--key-blue)]">Resources</p>
-          <h1 class="display-2 mt-5 max-w-4xl text-balance">
-            Auto repair marketing resources.
-          </h1>
-          <p class="mt-7 max-w-[32ch] text-lg leading-relaxed text-charcoal/65 md:max-w-3xl md:text-xl">
-            Practical articles for auto repair shop owners who want clearer
-            marketing decisions, stronger vendor accountability, and less
-            guesswork around what to run next.
+      <header class="min-w-0 overflow-hidden rounded-[28px] border border-black/[0.04] bg-white px-5 py-8 shadow-[0_24px_70px_-54px_rgba(20,22,28,0.5)] md:rounded-[34px] md:px-10 md:py-12 lg:px-14 lg:py-14">
+        <div class="grid gap-8 lg:grid-cols-[1fr_0.82fr] lg:items-end lg:gap-16">
+          <div class="min-w-0">
+            <p class="eyebrow text-[var(--key-blue)]">Resources</p>
+            <h1 class="display-2 mt-5 max-w-4xl text-balance">
+              Better marketing decisions, built for busy bays.
+            </h1>
+          </div>
+          <p class="max-w-2xl text-base leading-relaxed text-charcoal/65 md:text-lg lg:pb-1">
+            Practical articles for shop owners who want clearer marketing
+            decisions, stronger vendor accountability, and less guesswork
+            around what to run next.
           </p>
         </div>
 
-        <div
-          class="no-scrollbar resource-filter-bar relative isolate mt-9 flex max-w-full scroll-px-1 gap-1 overflow-x-auto rounded-full bg-[var(--off-white)] p-1 md:inline-flex"
-          data-resource-filter-bar
-          role="tablist"
-          aria-label="Filter resources"
-        >
-          <span
-            class="pointer-events-none absolute bottom-1 top-1 rounded-full bg-charcoal transition-[transform,width] duration-300 ease-out"
-            data-resource-filter-indicator
-            aria-hidden="true"
-          ></span>
-          {resourceFilters.map((filter, index) => (
-            <button
-              type="button"
-              data-resource-filter={filter}
-              data-resource-filter-slug={filterSlug(filter)}
-              role="tab"
-              aria-selected={index === 0 ? "true" : "false"}
-              class="relative z-10 shrink-0 rounded-full px-4 py-2.5 text-sm font-medium text-charcoal/70 transition-colors duration-75 md:px-5"
-            >
-              {filter}
-            </button>
-          ))}
+        <div class="mt-9 border-t border-[var(--hairline)] pt-6 md:mt-11 md:flex md:items-center md:gap-6 md:pt-7">
+          <p class="mb-3 shrink-0 text-sm font-semibold text-charcoal md:mb-0">Browse by topic</p>
+          <div
+            class="no-scrollbar resource-filter-bar relative isolate flex max-w-full scroll-px-1 gap-1 overflow-x-auto rounded-full bg-[var(--off-white)] p-1 md:inline-flex"
+            data-resource-filter-bar
+            role="tablist"
+            aria-label="Filter resources"
+          >
+            <span
+              class="pointer-events-none absolute bottom-1 top-1 rounded-full bg-charcoal transition-[transform,width] duration-300 ease-out"
+              data-resource-filter-indicator
+              aria-hidden="true"
+            ></span>
+            {resourceFilters.map((filter, index) => (
+              <button
+                type="button"
+                data-resource-filter={filter}
+                data-resource-filter-slug={filterSlug(filter)}
+                role="tab"
+                aria-selected={index === 0 ? "true" : "false"}
+                class="relative z-10 shrink-0 rounded-full px-4 py-2.5 text-sm font-medium text-charcoal/70 transition-colors duration-75 md:px-5"
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <section class="mt-14 md:mt-20" aria-labelledby="resource-library-heading">
+        <div class="flex items-end justify-between gap-4 border-b border-charcoal/10 pb-5 md:pb-6">
+          <div>
+            <p class="eyebrow text-[var(--key-blue)]">The library</p>
+            <h2 id="resource-library-heading" class="mt-2 font-display text-2xl font-semibold text-charcoal md:text-3xl">
+              Explore the resources
+            </h2>
+          </div>
+          <p class="shrink-0 text-sm text-charcoal/55" aria-live="polite" data-resource-count>
+            {resourcePosts.length} resources
+          </p>
         </div>
 
-        {featuredPost && (
+      {featuredPost && (
+        <div
+          class="mt-8 md:mt-10"
+          data-resource-card
+          data-resource-tag={featuredPost.tag}
+        >
+          <div class="mb-4 flex items-center gap-3 md:mb-5">
+            <span class="h-2 w-2 rounded-full bg-[var(--green)]"></span>
+            <p class="eyebrow text-charcoal/60">Featured resource</p>
+          </div>
           <a
             href={featuredPost.href}
-            class="group mt-12 grid min-w-0 gap-7 lg:mt-14 lg:grid-cols-[1.12fr_0.88fr] lg:items-center"
-            data-resource-card
-            data-resource-tag={featuredPost.tag}
+            class="group grid min-w-0 overflow-hidden rounded-[28px] border border-black/[0.06] bg-white shadow-[0_24px_70px_-54px_rgba(20,22,28,0.55)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_80px_-48px_rgba(20,22,28,0.5)] lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch"
           >
-            <div class="aspect-[16/9] overflow-hidden rounded-[26px] bg-[var(--off-white)] md:aspect-[16/8.8]">
+            <div class="aspect-[16/9] overflow-hidden bg-[var(--off-white)] lg:min-h-[430px] lg:aspect-auto">
               <img
                 src={featuredPost.image.src}
                 alt={featuredPost.image.alt}
@@ -74,75 +100,73 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                 style={`object-position: ${featuredPost.image.position};`}
               />
             </div>
-            <article class="min-w-0 lg:px-4">
-              <div class="flex flex-wrap items-center gap-3 text-sm text-charcoal/45">
-                <span class="rounded-full bg-[var(--off-white)] px-3 py-1 text-xs font-medium text-charcoal">
+            <article class="flex min-w-0 flex-col justify-center px-5 py-7 md:px-9 md:py-10 lg:px-12">
+              <div class="flex flex-wrap items-center gap-2.5 text-sm text-charcoal/50">
+                <span class="rounded-full bg-[var(--key-blue-soft)] px-3 py-1 text-xs font-semibold text-[var(--navy)]">
                   {featuredPost.tag}
                 </span>
-                <span>·</span>
+                <span aria-hidden="true">·</span>
                 <span>{featuredPost.date}</span>
               </div>
-              <h2 class="mt-5 max-w-[22ch] font-display text-2xl font-semibold leading-[1.08] text-charcoal text-balance md:mt-6 md:text-3xl lg:max-w-[20ch] lg:text-4xl">
+              <h2 class="mt-5 max-w-[20ch] font-display text-2xl font-semibold leading-[1.08] text-charcoal text-balance md:text-3xl lg:text-4xl">
                 {featuredPost.title}
               </h2>
-              <p class="mt-4 max-w-xl text-base leading-relaxed text-charcoal/70 md:mt-5 md:text-lg">
+              <p class="mt-4 max-w-xl text-base leading-relaxed text-charcoal/65 md:mt-5 md:text-lg">
                 {featuredPost.dek}
               </p>
-              <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-charcoal">
+              <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
                 Read article
                 <span class="motion-arrow">→</span>
               </span>
             </article>
           </a>
-        )}
+        </div>
+      )}
 
-        <div class="mt-16 grid gap-x-7 gap-y-12 md:grid-cols-2">
-          {secondaryPosts.map((item, index) => (
+        <div class="mt-6 grid gap-6 md:mt-8 md:grid-cols-2 lg:gap-7">
+          {secondaryPosts.map((item) => (
             <a
               href={item.href}
               id={filterSlug(item.tag)}
               data-resource-card
               data-resource-tag={item.tag}
-              class:list={[
-                "group block",
-                index === 0 ? "md:mt-20" : "",
-                index === 1 ? "md:-mt-2" : "",
-              ]}
+              class="group flex h-full min-w-0 flex-col overflow-hidden rounded-[24px] border border-black/[0.06] bg-white shadow-[0_18px_55px_-48px_rgba(20,22,28,0.55)] transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_28px_70px_-46px_rgba(20,22,28,0.48)] md:rounded-[28px]"
             >
-              <div
-                class:list={[
-                  "overflow-hidden rounded-[26px] bg-[var(--off-white)]",
-                  index % 2 === 0 ? "aspect-[5/3.25]" : "aspect-[4/3.35]",
-                ]}
-              >
+              <div class="aspect-[16/10] overflow-hidden border-b border-black/[0.05] bg-[var(--off-white)]">
                 <img
                   src={item.image.src}
                   alt={item.image.alt}
                   width="1000"
-                  height="760"
+                  height="625"
                   loading="lazy"
                   decoding="async"
                   class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
                   style={`object-position: ${item.image.position};`}
                 />
               </div>
-              <div class="mt-5 flex flex-wrap items-center gap-3 text-sm text-charcoal/45">
-                <span class="rounded-full bg-[var(--off-white)] px-3 py-1 text-xs font-medium text-charcoal">
-                  {item.tag}
+              <div class="flex flex-1 flex-col px-5 py-6 md:px-7 md:py-7">
+                <div class="flex flex-wrap items-center gap-2.5 text-sm text-charcoal/50">
+                  <span class="rounded-full bg-[var(--off-white)] px-3 py-1 text-xs font-semibold text-charcoal">
+                    {item.tag}
+                  </span>
+                  <span aria-hidden="true">·</span>
+                  <span>{item.date}</span>
+                </div>
+                <h3 class="mt-4 max-w-[22ch] font-display text-2xl font-semibold leading-[1.1] text-charcoal text-balance md:text-[1.7rem]">
+                  {item.title}
+                </h3>
+                <p class="mt-4 max-w-xl text-base leading-relaxed text-charcoal/65">
+                  {item.description}
+                </p>
+                <span class="mt-6 inline-flex items-center gap-2 pt-1 text-sm font-semibold text-[var(--navy)]">
+                  Read article
+                  <span class="motion-arrow">→</span>
                 </span>
-                <span>·</span>
-                <span>{item.date}</span>
               </div>
-              <h2 class="mt-4 max-w-[20ch] font-display text-2xl font-semibold leading-[1.08] text-charcoal text-balance md:max-w-[18ch] md:text-3xl">
-                {item.title}
-              </h2>
-              <p class="mt-4 max-w-xl text-base leading-relaxed text-charcoal/65">
-                {item.description}
-              </p>
             </a>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   </section>
 
@@ -153,6 +177,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
       const indicator = document.querySelector("[data-resource-filter-indicator]");
       const buttons = Array.from(document.querySelectorAll("[data-resource-filter]"));
       const cards = Array.from(document.querySelectorAll("[data-resource-card]"));
+      const count = document.querySelector("[data-resource-count]");
 
       if (!(bar instanceof HTMLElement) || !(indicator instanceof HTMLElement) || buttons.length === 0) {
         return;
@@ -184,14 +209,11 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
           if (shouldShow) {
             card.hidden = false;
             card.style.opacity = "0";
-            card.style.transform = "translateY(10px)";
             window.requestAnimationFrame(() => {
               card.style.opacity = "1";
-              card.style.transform = "translateY(0)";
             });
           } else {
             card.style.opacity = "0";
-            card.style.transform = "translateY(10px)";
             window.setTimeout(() => {
               if (card.style.opacity === "0") {
                 card.hidden = true;
@@ -199,6 +221,13 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
             }, 180);
           }
         });
+
+        if (count instanceof HTMLElement) {
+          const visibleCount = cards.filter(
+            (card) => filter === "All" || card.getAttribute("data-resource-tag") === filter,
+          ).length;
+          count.textContent = `${visibleCount} ${visibleCount === 1 ? "resource" : "resources"}`;
+        }
 
         window.requestAnimationFrame(() => {
           moveIndicator(activeButton);
@@ -211,18 +240,18 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
         }
       };
 
-        buttons.forEach((button) => {
-          button.addEventListener("click", () => {
-            setActiveFilter(button.getAttribute("data-resource-filter") ?? "All");
-            if (button instanceof HTMLElement) {
-              button.scrollIntoView({
-                behavior: reducedMotion ? "auto" : "smooth",
-                block: "nearest",
-                inline: "center",
-              });
-            }
-          });
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setActiveFilter(button.getAttribute("data-resource-filter") ?? "All");
+          if (button instanceof HTMLElement) {
+            button.scrollIntoView({
+              behavior: reducedMotion ? "auto" : "smooth",
+              block: "nearest",
+              inline: "center",
+            });
+          }
         });
+      });
 
       const initialSlug = window.location.hash.replace("#", "");
       const initialButton = buttons.find(
@@ -251,6 +280,12 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
 
     .resource-filter-bar [data-resource-filter][data-active] {
       color: #fff;
+    }
+
+    [data-resource-card] {
+      transition:
+        opacity 180ms ease,
+        transform 260ms var(--ease-emphasized);
     }
 
     @media (max-width: 480px) {

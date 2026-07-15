@@ -1,239 +1,72 @@
 ---
-import { ArrowRight, BarChart3, PlayCircle, Quote, Star, TrendingUp } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { CONSULTATION_URL } from "@/lib/services";
-import {
-  ownerTestimonials,
-  resultMetricProof,
-  reviewGrowthProof,
-  videoTestimonials,
-} from "@/lib/proof";
+import { prospectResultStories, videoTestimonials } from "@/lib/proof";
 
-const accentVars = {
-  green: "--proof-accent: var(--green); --proof-soft: rgba(146, 204, 64, 0.16);",
-  blue: "--proof-accent: var(--key-blue); --proof-soft: rgba(68, 145, 209, 0.16);",
-  navy: "--proof-accent: var(--navy); --proof-soft: rgba(35, 46, 102, 0.12);",
-} as const;
-
-const proofHighlights = [
-  { value: "500+", label: "cars after onboarding", client: "Auto Medics" },
-  { value: "130%", label: "YoY revenue growth", client: "Torque European" },
-  { value: "15-20", label: "reviews per month", client: "Chris Matthews Automotive" },
-];
+const legendaryResult = prospectResultStories[0]!;
+const killianResult = prospectResultStories[1]!;
+const dannysResult = prospectResultStories[2]!;
+const ggResult = prospectResultStories[4]!;
+const nashvilleResult = prospectResultStories[5]!;
+const proResult = prospectResultStories[6]!;
 ---
 
 <BaseLayout
   title="Auto Repair Marketing Results — Turnkey Marketing"
-  description="Client-specific examples from auto repair shops using Turnkey Marketing, including revenue growth, review growth, and shop-owner video testimonials."
+  description="See how independent auto repair shops grew revenue, car count, returning customers, capacity, and locations while working with Turnkey Marketing."
   path="/results"
   ogTitle="Auto Repair Marketing Results — Turnkey Marketing"
 >
-  <section class="bg-white py-16 md:py-24">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-end">
-        <div>
-          <p class="eyebrow text-[var(--key-blue)]">Results</p>
-          <h1 class="display-1 mt-5 max-w-4xl text-balance text-charcoal">
-            Proof from auto repair shops.
-          </h1>
-          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/65 md:text-xl">
-            Client-specific examples from shops that trusted Turnkey to connect
-            the plan, campaigns, reporting, and follow-through. These are real
-            examples, not universal guarantees.
-          </p>
-        </div>
-
-        <div class="rounded-[30px] bg-[var(--off-white)] p-6 md:p-8">
-          <div class="flex items-center justify-between gap-4 border-b hairline pb-5">
-            <div>
-              <p class="text-xs font-semibold uppercase text-[var(--key-blue)]">
-                Snapshot
-              </p>
-              <h2 class="mt-2 font-display text-2xl font-semibold text-charcoal">
-                Client-specific wins
-              </h2>
-            </div>
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[var(--green)]">
-              <TrendingUp className="h-6 w-6" />
-            </div>
-          </div>
-
-          <div class="mt-5 grid gap-3">
-            {proofHighlights.map((item) => (
-              <div class="grid grid-cols-[auto_1fr] gap-4 rounded-2xl bg-white p-4">
-                <div class="font-display text-3xl font-semibold text-charcoal">
-                  {item.value}
-                </div>
-                <div class="min-w-0">
-                  <div class="font-medium text-charcoal">{item.label}</div>
-                  <div class="mt-1 text-sm text-charcoal/55">{item.client}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+  <section class="relative overflow-hidden bg-white">
+    <div class="container-page flex min-h-[62vh] items-center justify-center pt-16 pb-10 text-center md:min-h-[68vh] md:pt-24 md:pb-12">
+      <div class="mx-auto max-w-6xl">
+        <p class="eyebrow text-[var(--key-blue)]">Client results</p>
+        <h1 class="display-1 mt-6">
+          <span class="block text-[var(--navy)]">More cars.</span>
+          <span class="block text-[var(--key-blue)]">More calls.</span>
+          <span class="block text-[var(--green)]">More revenue.</span>
+        </h1>
+        <a href={CONSULTATION_URL} class="btn-primary mt-9">
+          Let’s grow my shop! <ArrowRight className="motion-arrow h-4 w-4" />
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-16 md:py-24">
+  <section class="bg-white py-16 md:py-24">
     <div class="container-page">
-      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-        <div>
-          <p class="eyebrow text-[var(--key-blue)]">Measured wins</p>
-          <h2 class="display-2 mt-4 max-w-3xl text-balance text-charcoal">
-            Results shown as clear numbers.
-          </h2>
-        </div>
-        <p class="max-w-2xl text-lg leading-relaxed text-charcoal/65 lg:justify-self-end">
-          Instead of leaning on screenshots, these cards translate the strongest
-          proof points into simple visuals a shop owner can understand quickly.
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="eyebrow text-[var(--key-blue)]">Shop stories</p>
+        <h2 class="mt-5 text-balance font-display text-4xl font-semibold leading-tight text-charcoal md:text-6xl">Real shops. Real growth.</h2>
+      </div>
+
+      <article class="mt-12 rounded-[28px] bg-[var(--navy)] p-7 text-white md:p-10 lg:p-12">
+        <img src={killianResult.logoSrc} alt={`${killianResult.name} logo`} loading="lazy" decoding="async" class="h-16 w-auto max-w-[150px] rounded-xl bg-white p-2 object-contain" />
+        <p class="mt-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--green)]">Multi-location growth</p>
+        <h3 class="mt-4 max-w-3xl text-balance font-display text-4xl font-semibold leading-[1.02] md:text-6xl">From one location to four.</h3>
+        <p class="mt-6 max-w-4xl text-lg leading-relaxed text-white/65 md:text-xl">
+          Killian Auto Pros expanded from one shop to four while combined average revenue grew from <strong class="font-semibold text-white">$662K to $971K</strong> and average car count grew from <strong class="font-semibold text-white">1,236 to 1,706</strong> across the three locations with comparable data.
         </p>
-      </div>
+      </article>
 
-      <div class="mt-12 grid gap-5 lg:grid-cols-3">
-        {resultMetricProof.map((item) => (
-          <article
-            class="motion-card overflow-hidden rounded-[30px] bg-white p-7 md:p-8"
-            style={accentVars[item.accent]}
-          >
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-[var(--key-blue)]">
-                  {item.eyebrow}
-                </p>
-                <h3 class="mt-4 font-display text-2xl font-semibold text-charcoal">
-                  {item.client}
-                </h3>
-              </div>
-              <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--proof-soft)] text-[var(--proof-accent)]">
-                <BarChart3 className="h-5 w-5" />
-              </div>
-            </div>
-
-            <div class="mt-8">
-              <div class="font-display text-6xl font-semibold leading-none text-charcoal">
-                {item.metric}
-              </div>
-              <p class="mt-3 text-lg font-medium leading-snug text-charcoal">
-                {item.label}
-              </p>
-              <p class="mt-4 text-sm leading-relaxed text-charcoal/60">
-                {item.context}
-              </p>
-            </div>
-
-            <div class="mt-8 rounded-3xl bg-[var(--off-white)] p-5">
-              <div class="mb-4 flex items-center justify-between text-xs font-medium text-charcoal/55">
-                <span>{item.chartLabel}</span>
-                <span>Client example</span>
-              </div>
-              <div class="flex h-32 items-end gap-2">
-                {item.chartValues.map((value) => (
-                  <div class="flex flex-1 items-end">
-                    <div
-                      class="w-full rounded-t-lg bg-[var(--proof-accent)]"
-                      style={`height: ${value}%; opacity: ${0.32 + value / 150};`}
-                    ></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-white py-16 md:py-24">
-    <div class="container-page">
-      <div class="overflow-hidden rounded-[36px] bg-[var(--off-white)] p-6 md:p-8 lg:p-10">
-        <div class="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
-          <div class="rounded-[30px] bg-white p-7 md:p-8">
-            <p class="eyebrow text-[var(--key-blue)]">Google reviews</p>
-            <h2 class="mt-5 max-w-xl font-display text-4xl font-semibold leading-[0.98] tracking-normal text-charcoal md:text-5xl">
-              More reviews. More trust before the call.
-            </h2>
-            <p class="mt-5 max-w-xl text-lg leading-relaxed text-charcoal/65">
-              Reputation work helps local drivers choose the shop before they
-              ever pick up the phone.
-            </p>
-
-            <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-              <div class="rounded-3xl border hairline bg-[var(--off-white)] p-5">
-                <div class="text-sm font-medium text-charcoal/55">Before</div>
-                <div class="mt-3 font-display text-4xl font-semibold text-charcoal">
-                  1-2
-                </div>
-                <div class="mt-1 text-sm text-charcoal/60">reviews per month</div>
-              </div>
-              <div class="rounded-3xl bg-[var(--green)] p-5 text-charcoal">
-                <div class="text-sm font-medium text-charcoal/65">After</div>
-                <div class="mt-3 font-display text-4xl font-semibold">
-                  15-20
-                </div>
-                <div class="mt-1 text-sm text-charcoal/70">reviews per month</div>
-              </div>
+      <div class="mt-6">
+        <article class="flex min-h-[390px] flex-col justify-between rounded-[28px] bg-[var(--off-white)] p-7 md:p-10">
+          <div>
+            <img src={dannysResult.logoSrc} alt="Tech One Automotive logo" loading="lazy" decoding="async" class="h-20 w-44 rounded-xl bg-white p-2 object-contain" />
+            <p class="mt-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--key-blue)]">Tech One Automotive</p>
+            <h3 class="mt-5 max-w-lg text-balance font-display text-4xl font-semibold leading-[1.02] text-charcoal md:text-5xl">$1 million in growth—and a second location.</h3>
+          </div>
+          <div class="mt-10">
+            <div class="font-display text-5xl font-semibold leading-none text-[var(--navy)] md:text-6xl">$1.8M → $2.8M</div>
+            <p class="mt-3 text-sm text-charcoal/50">Annual revenue · 2022 to 2023 · approximately +56%</p>
+            <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-charcoal/15 pt-5 text-sm font-medium text-charcoal/60">
+              <span>Nearly 1,000 more cars</span>
+              <span>Full bays during the second shop’s soft launch</span>
             </div>
           </div>
+        </article>
 
-          <article
-            class="motion-card relative overflow-hidden rounded-[30px] bg-[var(--navy)] p-7 text-white md:p-8"
-            style={accentVars[reviewGrowthProof.accent]}
-          >
-            <div class="absolute right-0 top-0 h-40 w-40 rounded-bl-full bg-[var(--green)]/20"></div>
-            <div class="relative">
-              <div class="flex flex-wrap items-start justify-between gap-5">
-                <div>
-                  <p class="text-xs font-semibold uppercase tracking-widest text-[var(--green)]">
-                    {reviewGrowthProof.client}
-                  </p>
-                  <h3 class="mt-4 max-w-xl font-display text-3xl font-semibold leading-tight md:text-4xl">
-                    A consistent review engine, not occasional luck.
-                  </h3>
-                </div>
-                <div class="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/75">
-                  Client example
-                </div>
-              </div>
-
-              <div class="mt-8 rounded-[26px] bg-white p-5 text-charcoal md:p-6">
-                <div class="flex items-center justify-between gap-4">
-                  <div>
-                    <p class="text-sm font-medium text-charcoal/55">
-                      {reviewGrowthProof.chartLabel}
-                    </p>
-                    <p class="mt-1 text-sm text-charcoal/55">
-                      Activity became steady enough to support visibility and trust.
-                    </p>
-                  </div>
-                  <div class="hidden rounded-full bg-[var(--key-blue-soft)] px-3 py-1 text-sm font-semibold text-[var(--key-blue)] sm:block">
-                    Upward trend
-                  </div>
-                </div>
-
-                <div class="mt-8 grid h-40 grid-cols-8 items-end gap-2 border-b hairline pb-3">
-                  {reviewGrowthProof.chartValues.map((value, index) => (
-                    <div class="flex h-full items-end">
-                      <div
-                        class:list={[
-                          "w-full rounded-t-xl",
-                          index < 3 ? "bg-[var(--key-blue-soft)]" : "bg-[var(--green)]",
-                        ]}
-                        style={`height: ${value}%;`}
-                      ></div>
-                    </div>
-                  ))}
-                </div>
-
-                <div class="mt-3 flex items-center justify-between text-xs font-medium text-charcoal/45">
-                  <span>Occasional</span>
-                  <span>Consistent</span>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
       </div>
     </div>
   </section>
@@ -258,7 +91,7 @@ const proofHighlights = [
         </p>
       </div>
 
-      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+      <div class="mx-auto mt-12 grid max-w-5xl gap-5 lg:grid-cols-3">
         {videoTestimonials.map((video) => (
           <article class="motion-card overflow-hidden rounded-[30px] bg-white">
             <div class="flex justify-center bg-white px-3 pt-3">
@@ -287,56 +120,66 @@ const proofHighlights = [
     </div>
   </section>
 
-  <section class="container-page py-16 md:py-24">
-    <div class="mx-auto max-w-3xl text-center">
-      <p class="eyebrow text-[var(--key-blue)]">Written proof</p>
-      <h2 class="display-2 mt-5 text-balance text-charcoal">
-        Three quotes worth keeping close.
-      </h2>
-    </div>
+  <section class="bg-[var(--navy)] py-20 md:py-28">
+    <div class="container-page">
+      <div class="mx-auto max-w-4xl text-center">
+        <p class="eyebrow text-[var(--green)]">What growth can unlock</p>
+        <h2 class="mt-5 text-balance font-display text-4xl font-semibold leading-tight text-white md:text-6xl">More room to hire, expand, and lead.</h2>
+      </div>
 
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
-      {ownerTestimonials.map((testimonial) => (
-        <figure class="motion-card relative flex min-h-[360px] flex-col overflow-hidden rounded-[28px] bg-[var(--off-white)] p-8">
-          <Quote className="absolute right-7 top-7 h-10 w-10 text-[var(--key-blue)] opacity-30" aria-hidden="true" />
-          <p class="text-xs uppercase tracking-widest text-[var(--key-blue)]">
-            {testimonial.marker}
-          </p>
-          <blockquote class="mt-8 flex-1 font-display text-2xl font-semibold leading-tight text-charcoal">
-            “{testimonial.quote}”
-          </blockquote>
-          <figcaption class="mt-8 border-t hairline pt-6">
-            <div class="flex items-center gap-4">
-              <img
-                src={testimonial.image.src}
-                alt={testimonial.image.alt}
-                width="96"
-                height="96"
-                loading="lazy"
-                decoding="async"
-                class="h-14 w-14 shrink-0 rounded-full object-cover"
-                style={`object-position: ${testimonial.image.position};`}
-              />
-              <div>
-                <div class="font-display text-lg font-semibold text-charcoal">
-                  {testimonial.name}
-                </div>
-                <div class="mt-1 text-sm leading-relaxed text-charcoal/60">
-                  {testimonial.shop}
-                  <br />
-                  {testimonial.location}
-                </div>
-              </div>
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        <article class="flex min-h-[370px] flex-col justify-between rounded-[28px] bg-[rgba(255,255,255,0.08)] p-7 text-white shadow-[0_24px_70px_rgba(8,18,66,0.24)] md:p-9">
+          <div>
+            <div class="flex h-20 w-48 items-center justify-center rounded-xl bg-white p-2.5">
+              <img src={ggResult.logoSrc} alt={`${ggResult.name} logo`} loading="lazy" decoding="async" class="h-full w-full object-contain" />
             </div>
-          </figcaption>
-        </figure>
-      ))}
+            <p class="mt-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--green)]">March revenue</p>
+          </div>
+          <div class="mt-12">
+            <div class="flex flex-nowrap items-center gap-3 whitespace-nowrap font-display text-[clamp(2rem,3.4vw,2.5rem)] font-semibold leading-none text-white">
+              <span>$392K</span>
+              <ArrowRight className="h-6 w-6 flex-none text-[var(--green)]" />
+              <span>$540K</span>
+            </div>
+            <p class="mt-5 text-sm text-white/50">Approximately 38% growth</p>
+          </div>
+        </article>
+        <article class="flex min-h-[370px] flex-col justify-between rounded-[28px] bg-[rgba(255,255,255,0.08)] p-7 text-white shadow-[0_24px_70px_rgba(8,18,66,0.24)] md:p-9">
+          <div>
+            <div class="flex h-20 w-48 items-center justify-center rounded-xl bg-white p-2.5">
+              <img src={nashvilleResult.logoSrc} alt={`${nashvilleResult.name} logo`} loading="lazy" decoding="async" class="h-full w-full object-contain" />
+            </div>
+            <p class="mt-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8bc9f3]">Revenue milestone</p>
+          </div>
+          <div class="mt-12">
+            <div class="font-display text-6xl font-semibold leading-none text-white">$1M+</div>
+            <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/50">Reached during the Nashville shop’s second year</p>
+          </div>
+        </article>
+        <article class="flex min-h-[370px] flex-col justify-between rounded-[28px] bg-[rgba(255,255,255,0.08)] p-7 text-white shadow-[0_24px_70px_rgba(8,18,66,0.24)] md:p-9">
+          <div>
+            <div class="flex h-20 w-48 items-center justify-center rounded-xl bg-white p-2.5">
+              <img src={proResult.logoSrc} alt={`${proResult.name} logo`} loading="lazy" decoding="async" class="h-full w-full object-contain" />
+            </div>
+            <p class="mt-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--green)]">Return on ad spend</p>
+          </div>
+          <div class="mt-12">
+            <div class="font-display text-6xl font-semibold leading-none text-[var(--green)]">3.74×</div>
+            <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/50">$3.74 tracked revenue for every $1 in advertising</p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
-  <section class="container-page pb-24 text-center">
-    <a href={CONSULTATION_URL} class="btn-primary">
-      Talk about your shop <ArrowRight className="motion-arrow h-4 w-4" />
-    </a>
+  <section class="bg-white py-14 md:py-20">
+    <div class="container-page">
+      <div class="mx-auto max-w-5xl rounded-[32px] bg-[var(--navy)] px-7 py-12 text-center text-white shadow-[0_28px_80px_rgba(24,42,109,0.16)] md:px-12 md:py-16">
+        <h2 class="mx-auto max-w-4xl text-balance font-display text-4xl font-semibold leading-[1.05] md:text-6xl">What could happen to your shop if you let the experts handle your marketing?</h2>
+        <a href={CONSULTATION_URL} class="mt-9 inline-flex items-center gap-2 rounded-full bg-[var(--green)] px-8 py-4 text-base font-semibold text-charcoal shadow-[0_14px_34px_rgba(142,203,63,0.22)] transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_18px_42px_rgba(255,255,255,0.16)]">
+          Let’s find out <ArrowRight className="motion-arrow h-4 w-4" />
+        </a>
+      </div>
+    </div>
   </section>
 </BaseLayout>

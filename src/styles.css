@@ -479,9 +479,44 @@ html.motion-ready [data-reveal="fade"] {
   }
 }
 
+@property --vip-border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .vip-shader-card {
+  --vip-border-angle: 0deg;
   isolation: isolate;
-  background: var(--navy);
+  border: 6px solid transparent;
+  background:
+    linear-gradient(var(--navy), var(--navy)) padding-box,
+    conic-gradient(
+      from var(--vip-border-angle),
+      var(--key-blue) 0deg 60deg,
+      #79d5f6 95deg,
+      var(--green) 125deg 180deg,
+      #79d5f6 210deg,
+      var(--key-blue) 245deg 360deg
+    ) border-box;
+  box-shadow:
+    0 0 18px rgba(63, 140, 203, 0.38),
+    0 0 40px rgba(147, 200, 69, 0.16),
+    0 24px 70px -44px rgba(35, 46, 102, 0.8);
+  animation: vip-border-flow 8s linear infinite;
+}
+
+.vip-shader-card:hover,
+.vip-shader-card:focus-visible {
+  animation-duration: 2.2s;
+  box-shadow:
+    0 0 24px rgba(63, 140, 203, 0.58),
+    0 0 52px rgba(147, 200, 69, 0.26),
+    0 34px 90px -46px rgba(35, 46, 102, 0.82);
+}
+
+@keyframes vip-border-flow {
+  to { --vip-border-angle: 360deg; }
 }
 
 .vip-shader-card::before,
