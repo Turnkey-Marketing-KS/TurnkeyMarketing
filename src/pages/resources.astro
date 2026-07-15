@@ -90,7 +90,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
               </p>
               <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-charcoal">
                 Read article
-                <span class="transition group-hover:translate-x-1">→</span>
+                <span class="motion-arrow">→</span>
               </span>
             </article>
           </a>
@@ -148,6 +148,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
 
   <script>
     const initResourceFilters = () => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const bar = document.querySelector("[data-resource-filter-bar]");
       const indicator = document.querySelector("[data-resource-filter-indicator]");
       const buttons = Array.from(document.querySelectorAll("[data-resource-filter]"));
@@ -171,6 +172,9 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
           const isActive = button === activeButton;
           button.setAttribute("aria-selected", isActive ? "true" : "false");
           button.toggleAttribute("data-active", isActive);
+          if (button instanceof HTMLElement) {
+            button.style.color = isActive ? "#fff" : "";
+          }
         });
 
         cards.forEach((card) => {
@@ -211,7 +215,11 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
           button.addEventListener("click", () => {
             setActiveFilter(button.getAttribute("data-resource-filter") ?? "All");
             if (button instanceof HTMLElement) {
-              button.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+              button.scrollIntoView({
+                behavior: reducedMotion ? "auto" : "smooth",
+                block: "nearest",
+                inline: "center",
+              });
             }
           });
         });
@@ -235,6 +243,12 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
   </script>
 
   <style>
+    .resource-filter-bar [data-resource-filter] {
+      transition:
+        color 0ms linear,
+        transform 260ms var(--ease-emphasized);
+    }
+
     .resource-filter-bar [data-resource-filter][data-active] {
       color: #fff;
     }

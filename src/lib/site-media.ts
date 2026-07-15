@@ -129,6 +129,46 @@ export const siteMedia = {
       alt: "Direct mail campaign graphic for auto repair marketing",
       position: "50% 50%",
     },
+    directMailMailbox: {
+      src: "/images/services/direct-mail-mailbox.png",
+      alt: "Stylized blue mailbox representing direct mail marketing campaigns",
+      position: "50% 50%",
+    },
+    serviceVipMarketing: {
+      src: "/images/services/vip-marketing-manager-hero.jpg",
+      alt: "Stylized marketing command center representing Turnkey's VIP Marketing Manager service",
+      position: "50% 50%",
+    },
+    serviceDirectTrack: {
+      src: "/images/services/directtrack-marketing-hero.jpg",
+      alt: "Stylized acquisition targeting system representing DirectTrack Marketing campaigns",
+      position: "50% 50%",
+    },
+    serviceConsulting: {
+      src: "/images/services/marketing-consulting-hero.jpg",
+      alt: "Stylized strategy workspace representing marketing consulting for auto repair shops",
+      position: "50% 50%",
+    },
+    serviceSocial: {
+      src: "/images/services/social-media-marketing-hero.jpg",
+      alt: "Stylized social content system representing social media marketing for auto repair shops",
+      position: "50% 50%",
+    },
+    serviceRetention: {
+      src: "/images/services/retention-marketing-hero.jpg",
+      alt: "Stylized customer follow-up loop representing retention marketing for auto repair shops",
+      position: "50% 50%",
+    },
+    serviceDigital: {
+      src: "/images/services/digital-marketing-hero.jpg",
+      alt: "Stylized local visibility dashboard representing digital marketing for auto repair shops",
+      position: "50% 50%",
+    },
+    serviceBoostDays: {
+      src: "/images/services/boost-days-hero.jpg",
+      alt: "Stylized demand campaign system representing Boost Days for auto repair shops",
+      position: "50% 50%",
+    },
     problems: {
       src: "/site-media/problems-graphic.webp",
       alt: "Marketing problems framework graphic",

@@ -4,13 +4,13 @@ import { CONSULTATION_URL, services } from "@/lib/services";
 const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark background.png";
 ---
 
-<footer style="background: var(--navy); color: #fff;">
-  <div class="container-page py-20">
-    <div class="grid gap-16 lg:grid-cols-12">
+<footer class="site-footer" style="background: var(--navy); color: #fff;">
+  <div class="container-page py-12 md:py-20">
+    <div class="grid gap-8 md:gap-16 lg:grid-cols-12">
       <div class="lg:col-span-5">
         <a
           href="/"
-          class="inline-flex"
+          class="hidden md:inline-flex"
           aria-label="Turnkey Marketing home"
         >
           <img
@@ -18,59 +18,82 @@ const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark backgro
             alt="Turnkey Marketing"
             width="7300"
             height="1567"
-            class="h-16 w-auto max-w-[280px]"
+            class="h-12 w-auto max-w-[220px] md:h-16 md:max-w-[280px]"
             loading="lazy"
             decoding="async"
           />
         </a>
-        <h2 class="display-2 text-white mt-4 text-balance">
+        <h2 class="display-2 mt-0 text-balance text-white md:mt-4">
           More calls.<br />
           More cars.<br />
           More revenue.
         </h2>
         <a
           href={CONSULTATION_URL}
-          class="inline-flex items-center justify-center gap-2 mt-8 px-6 py-4 rounded-full font-medium transition hover:brightness-105 hover:-translate-y-px"
+          class="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-5 py-3.5 text-center font-medium transition hover:-translate-y-px hover:brightness-105 md:mt-8 md:min-h-0 md:w-auto md:px-6 md:py-4"
           style="background: var(--green); color: var(--charcoal);"
           data-track-event="consultation_cta_click"
           data-track-placement="footer"
         >
-          Schedule a Consultation →
+          Schedule a Consultation <span class="motion-arrow">→</span>
         </a>
-        <p class="mt-6 text-sm text-white/50">
+        <div
+          class="mt-4 grid grid-cols-3 divide-x divide-white/10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] py-3 text-center md:hidden"
+          aria-label="Turnkey Marketing trust indicators"
+        >
+          <div class="px-2">
+            <strong class="block text-base font-semibold leading-none text-white">300+</strong>
+            <span class="mt-1 block text-[11px] leading-tight text-white/65">shops</span>
+          </div>
+          <div class="px-2">
+            <strong class="block text-base font-semibold leading-none text-white">13+</strong>
+            <span class="mt-1 block text-[11px] leading-tight text-white/65">years</span>
+          </div>
+          <div class="px-2">
+            <strong class="block text-xs font-semibold leading-none text-white">ATI + ShopFix</strong>
+            <span class="mt-1 block text-[11px] leading-tight text-white/65">partners</span>
+          </div>
+        </div>
+        <p class="mt-6 hidden text-sm text-white/50 md:block">
           Trusted by 300+ shops · 13+ years · ATI & ShopFix partners
         </p>
       </div>
 
-      <div class="min-w-0 lg:col-span-7 grid grid-cols-2 gap-10 text-sm md:grid-cols-[0.75fr_1fr_1.35fr]">
+      <nav
+        class="grid min-w-0 grid-cols-2 gap-x-6 gap-y-6 text-sm md:grid-cols-[0.75fr_1fr_1.35fr] md:gap-10 lg:col-span-7"
+        aria-label="Footer navigation"
+      >
         <div>
-          <p class="text-white/50 text-xs uppercase tracking-widest mb-4">Company</p>
-          <ul class="space-y-3">
-            <li><a href="/about" class="hover:text-[var(--green)]">About</a></li>
-            <li><a href="/results" class="hover:text-[var(--green)]">Results</a></li>
-            <li><a href="/resources" class="hover:text-[var(--green)]">Resources</a></li>
-            <li><a href="/contact" class="hover:text-[var(--green)]">Contact</a></li>
+          <p class="mb-2 text-xs uppercase tracking-widest text-white/65 md:mb-4 md:text-white/50">Company</p>
+          <ul class="space-y-0 md:space-y-3">
+            <li><a href="/about" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">About</a></li>
+            <li><a href="/results" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">Results</a></li>
+            <li><a href="/resources" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">Resources</a></li>
+            <li><a href="/contact" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">Contact</a></li>
           </ul>
         </div>
         <div>
-          <p class="text-white/50 text-xs uppercase tracking-widest mb-4">Services</p>
-          <ul class="space-y-3">
+          <p class="mb-2 text-xs uppercase tracking-widest text-white/65 md:mb-4 md:text-white/50">Services</p>
+          <ul class="space-y-0 md:space-y-3">
             {services.slice(0, 6).map((service) => (
               <li>
-                <a href={`/services/${service.slug}`} class="hover:text-[var(--green)]">
+                <a
+                  href={`/services/${service.slug}`}
+                  class="inline-flex min-h-11 items-center leading-snug text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white"
+                >
                   {service.name}
                 </a>
               </li>
             ))}
           </ul>
         </div>
-        <div>
-          <p class="text-white/50 text-xs uppercase tracking-widest mb-4">Contact</p>
-          <ul class="space-y-3">
+        <div class="col-span-2 border-t border-white/10 pt-6 md:col-span-1 md:border-0 md:pt-0">
+          <p class="mb-2 text-xs uppercase tracking-widest text-white/65 md:mb-4 md:text-white/50">Contact</p>
+          <ul class="space-y-0 md:space-y-3">
             <li>
               <a
                 href="tel:9137774144"
-                class="whitespace-nowrap hover:text-[var(--green)]"
+                class="inline-flex min-h-11 items-center whitespace-nowrap text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white"
                 data-track-event="phone_click"
                 data-track-placement="footer"
               >
@@ -80,7 +103,7 @@ const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark backgro
             <li>
               <a
                 href="mailto:hello@turnkeyautomarketing.com"
-                class="whitespace-nowrap hover:text-[var(--green)]"
+                class="inline-flex min-h-11 max-w-full items-center break-all text-white/90 hover:text-[var(--green)] md:min-h-0 md:whitespace-nowrap md:text-white"
                 data-track-event="email_click"
                 data-track-placement="footer"
               >
@@ -89,16 +112,16 @@ const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark backgro
             </li>
           </ul>
         </div>
-      </div>
+      </nav>
     </div>
 
-    <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-white/50">
+    <div class="mt-8 flex flex-col items-start justify-between gap-2 border-t border-white/10 pt-5 text-xs text-white/60 md:mt-16 md:flex-row md:items-center md:gap-4 md:pt-8 md:text-white/50">
       <p>© {new Date().getFullYear()} Turnkey Marketing. Built for auto repair shops.</p>
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <a href="/privacy-policy" class="hover:text-[var(--green)]">
+      <div class="flex flex-wrap items-center gap-x-4">
+        <a href="/privacy-policy" class="inline-flex min-h-11 items-center hover:text-[var(--green)] md:min-h-0">
           Privacy Policy
         </a>
-        <a href="/terms-of-service" class="hover:text-[var(--green)]">
+        <a href="/terms-of-service" class="inline-flex min-h-11 items-center hover:text-[var(--green)] md:min-h-0">
           Terms of Service
         </a>
       </div>

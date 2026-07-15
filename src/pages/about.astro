@@ -1,118 +1,450 @@
 ---
+import { ArrowDown, ArrowRight, HeartHandshake, Lightbulb, Target } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/site/PageHero.astro";
 import { CONSULTATION_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
+
+const expertise = [
+  {
+    title: "Strategy & account leadership",
+    copy: "A clear plan, a steady point of contact, and confident next moves for your shop.",
+  },
+  {
+    title: "Brand, content & creative",
+    copy: "Work that sounds like you, looks like you, and earns trust in your community.",
+  },
+  {
+    title: "Digital, media & direct mail",
+    copy: "The right channels working together instead of competing for your attention and budget.",
+  },
+  {
+    title: "Reporting & optimization",
+    copy: "Plain-English insight into what is working, what is not, and where we go next.",
+  },
+];
+
+const values = [
+  {
+    icon: HeartHandshake,
+    number: "01",
+    title: "Care like it is our own shop.",
+    copy: "Your business supports a team, a family, and a community. We never forget what is riding on the work.",
+  },
+  {
+    icon: Target,
+    number: "02",
+    title: "Tell the truth about the numbers.",
+    copy: "No vanity metrics or marketing fog. We focus on useful signals, sound decisions, and measurable progress.",
+  },
+  {
+    icon: Lightbulb,
+    number: "03",
+    title: "Bring expertise, stay curious.",
+    copy: "We know this industry deeply, and we keep learning from every shop owner, campaign, and market we serve.",
+  },
+];
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Turnkey Marketing",
+  description:
+    "Meet the founder-led team of auto repair marketing experts behind Turnkey Marketing.",
+  mainEntity: {
+    "@type": "Organization",
+    name: "Turnkey Marketing",
+    foundingDate: "2013",
+    founder: {
+      "@type": "Person",
+      name: "Carrie-Lynn Rodenberg",
+      jobTitle: "Founder",
+      knowsAbout: [
+        "Auto repair marketing",
+        "Direct response marketing",
+        "Marketing strategy",
+        "Small business growth",
+      ],
+    },
+  },
+};
 ---
 
 <BaseLayout
-  title="About — Turnkey Marketing"
-  description="Founder-led by Carrie-Lynn Rodenberg. 13+ years helping auto repair shops grow with strategy, execution, and real accountability."
+  title="About Turnkey | Auto Repair Marketing Experts"
+  description="Meet the founder-led Turnkey team helping independent auto repair shops grow through expert strategy, creative, execution, and genuine care."
   path="/about"
-  ogTitle="About Turnkey Marketing"
+  ogTitle="Meet the Auto Repair Marketing Experts at Turnkey"
   ogImage={siteMedia.about.team.src}
+  schema={aboutSchema}
 >
-  <PageHero
-    eyebrow="About"
-    title="Built for shops tired of disconnected vendors."
-    description="Turnkey is founder-led, auto-repair-specific, and structured around one simple idea: strategy, execution, reporting, and next moves should stay connected."
-    image={siteMedia.team.industrySession}
-    ctaHref={CONSULTATION_URL}
-    ctaLabel="Meet the team"
-  />
+  <section class="about-hero relative isolate min-h-[720px] overflow-hidden text-white lg:min-h-[760px]">
+    <img
+      src={siteMedia.about.team.src}
+      alt="The Turnkey Marketing team, specialists in marketing for independent auto repair shops"
+      width="1400"
+      height="933"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 -z-20 h-full w-full object-cover"
+    />
+    <div class="about-hero-overlay absolute inset-0 -z-10"></div>
 
-  <section class="container-page py-20 grid gap-16 lg:grid-cols-12">
-    <div class="lg:col-span-5">
-      <div class="aspect-[4/5] overflow-hidden rounded-2xl bg-[var(--off-white)]">
-        <img
-          src={siteMedia.about.founder.src}
-          alt={siteMedia.about.founder.alt}
-          width="687"
-          height="900"
-          loading="lazy"
-          decoding="async"
-          class="h-full w-full -translate-x-2 scale-[1.12] object-cover"
-          style={`object-position: ${siteMedia.about.founder.position};`}
-        />
-      </div>
-      <p class="font-display text-xl mt-6">Carrie-Lynn Rodenberg</p>
-      <p class="text-sm text-muted-foreground">Founder, Turnkey Marketing</p>
-    </div>
-    <div class="lg:col-span-7 space-y-6 text-lg text-muted-foreground leading-relaxed">
-      <p>
-        For 13+ years, we've worked alongside auto repair shop owners who were
-        tired of piecing together marketing from vendors who didn't really know
-        their shop, their brand, or their customers.
-      </p>
-      <p>
-        Turnkey is our answer. We're an auto-repair-specific marketing team that
-        comes alongside owners as a real marketing department — owning the
-        strategy, managing the execution, and helping shops grow with confidence.
-      </p>
-      <p>
-        We're proud to partner with ATI and ShopFix, and to have helped 300+
-        shops fill more bays, keep more customers, and make their marketing
-        spend work harder.
-      </p>
-    </div>
-  </section>
-
-  <section style="background: var(--off-white);">
-    <div class="container-page py-20">
-      <div class="grid gap-10 md:grid-cols-3">
-        {[
-          { k: "300+", v: "auto repair shops" },
-          { k: "13+", v: "years in the industry" },
-          { k: "Founder-led", v: "expertise from Carrie-Lynn" },
-        ].map((stat) => (
-          <div class="border-t hairline pt-6">
-            <p class="font-display text-4xl text-charcoal">{stat.k}</p>
-            <p class="mt-2 text-muted-foreground">{stat.v}</p>
+    <div class="container-page flex min-h-[720px] items-end pb-10 pt-28 lg:min-h-[760px] lg:pb-14">
+      <div class="grid w-full gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+        <div class="max-w-4xl">
+          <p class="about-kicker">About Turnkey Marketing</p>
+          <h1 class="mt-6 max-w-[13ch] text-balance text-[clamp(3rem,7.2vw,6.8rem)] font-semibold leading-[0.94] tracking-[-0.058em]">
+            Auto repair marketing experts who care deeply.
+          </h1>
+          <p class="mt-7 max-w-2xl text-balance text-lg leading-relaxed text-white/82 md:text-xl">
+            We help independent shop owners grow stronger businesses, reclaim their time,
+            and build the life they worked so hard to create.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#our-team" class="about-btn-light">
+              Meet the team <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              href={CONSULTATION_URL}
+              class="about-btn-outline"
+              data-track-event="consultation_cta_click"
+              data-track-placement="about_hero"
+            >
+              Talk with us <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
           </div>
-        ))}
+        </div>
+
+        <aside class="hidden border-l border-white/28 pl-7 lg:block" aria-label="Turnkey Marketing at a glance">
+          <p class="text-sm font-medium uppercase tracking-[0.16em] text-[var(--green)]">At a glance</p>
+          <dl class="mt-5 space-y-5">
+            <div>
+              <dt class="text-3xl font-semibold tracking-[-0.04em]">Since 2013</dt>
+              <dd class="mt-1 text-sm text-white/66">Family-owned and founder-led</dd>
+            </div>
+            <div>
+              <dt class="text-3xl font-semibold tracking-[-0.04em]">300+ shops</dt>
+              <dd class="mt-1 text-sm text-white/66">Supported across the country</dd>
+            </div>
+            <div>
+              <dt class="text-3xl font-semibold tracking-[-0.04em]">$100M+</dt>
+              <dd class="mt-1 text-sm text-white/66">Revenue driven to repair shops</dd>
+            </div>
+          </dl>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="container-page py-20">
-    <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
-      <div class="lg:col-span-7 overflow-hidden rounded-[28px] bg-[var(--off-white)]">
-        <img
-          src={siteMedia.about.team.src}
-          alt={siteMedia.about.team.alt}
-          width="1400"
-          height="933"
-          loading="lazy"
-          decoding="async"
-          class="aspect-[16/10] h-full w-full object-cover"
-          style={`object-position: ${siteMedia.about.team.position};`}
-        />
-      </div>
-      <div class="lg:col-span-5">
-        <p class="eyebrow">Our team</p>
-        <h2 class="display-2 mt-5 max-w-[12ch] text-balance">
-          Built around the shop owner.
+  <section class="bg-white">
+    <div class="container-page grid gap-12 py-20 md:py-28 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-4">
+        <p class="eyebrow">Why we are here</p>
+        <h2 class="mt-5 max-w-[12ch] text-balance text-[clamp(2.3rem,4.6vw,4.2rem)] font-semibold leading-[1.02] tracking-[-0.048em]">
+          We fell in love with the people behind the bays.
         </h2>
-        <p class="mt-6 text-lg leading-relaxed text-muted-foreground">
-          Strategy, creative, reporting, and execution stay connected under one
-          roof, so every channel works from the same plan and the same
-          understanding of your shop.
+      </div>
+      <div class="space-y-6 text-lg leading-relaxed text-muted-foreground lg:col-span-7 lg:col-start-6 lg:pt-10">
+        <p class="text-xl leading-relaxed text-charcoal md:text-2xl">
+          Shop owners are some of the most resourceful, generous, hard-working people we know.
+          They deserve a marketing team that brings the same level of care to their business.
+        </p>
+        <p>
+          Turnkey began in Kansas City in 2013 as a family-owned small business. We understand
+          the weight of payroll, the late-night decisions, and the responsibility that comes
+          with building something other people depend on.
+        </p>
+        <p>
+          That is why our work has never been about selling one more tactic. We learn the shop,
+          build the plan, coordinate the work, and stay accountable to the outcome. Our purpose
+          is simple: use what we are good at to help independent auto repair businesses — and
+          the people behind them — thrive.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="container-page py-24 text-center">
-    <h2 class="display-2 max-w-2xl mx-auto text-balance">
-      Come meet the team behind your marketing.
-    </h2>
-    <a
-      href={CONSULTATION_URL}
-      class="btn-primary mt-8 inline-flex"
-      data-track-event="consultation_cta_click"
-      data-track-placement="about"
-    >
-      Schedule a Consultation →
-    </a>
+  <section id="carrie-lynn" class="founder-feature overflow-hidden">
+    <div class="container-page py-20 md:py-28">
+      <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+        <div class="relative lg:col-span-5">
+          <div class="founder-portrait relative mx-auto max-w-[520px] overflow-hidden rounded-[2rem]">
+            <img
+              src={siteMedia.about.founder.src}
+              alt="Carrie-Lynn Rodenberg, founder and auto repair marketing expert at Turnkey Marketing"
+              width="687"
+              height="900"
+              loading="lazy"
+              decoding="async"
+              class="aspect-[4/5] h-full w-full object-cover"
+              style={`object-position: ${siteMedia.about.founder.position};`}
+            />
+          </div>
+          <div class="founder-caption relative -mt-14 ml-auto max-w-[290px] rounded-2xl bg-white p-5 shadow-[0_24px_70px_-26px_rgba(20,22,28,0.45)] md:mr-[-1rem]">
+            <p class="text-base font-semibold text-charcoal">Carrie-Lynn Rodenberg</p>
+            <p class="mt-1 text-sm text-muted-foreground">Founder, Turnkey Marketing</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 lg:col-start-7">
+          <p class="eyebrow text-[var(--key-blue)]">Founder spotlight</p>
+          <h2 class="mt-5 max-w-[12ch] text-balance text-[clamp(2.5rem,4.8vw,4.8rem)] font-semibold leading-[0.98] tracking-[-0.052em]">
+            An industry-leading voice in auto repair marketing.
+          </h2>
+          <div class="mt-7 space-y-5 text-lg leading-relaxed text-muted-foreground">
+            <p class="text-xl leading-relaxed text-charcoal">
+              Carrie-Lynn has built her career turning sophisticated marketing strategy into
+              practical growth for independent business owners.
+            </p>
+            <p>
+              Before founding Turnkey, she led direct-response marketing for EmblemHealth,
+              a $10 billion company. Later, as Director of Marketing for an orthodontic
+              company, her team placed second for Infusionsoft’s Ultimate Marketer of the
+              Year award. Since then, Carrie-Lynn and the Turnkey team have helped drive more
+              than $100 million in revenue for independent repair shops.
+            </p>
+            <p>
+              Her perspective is trusted on stages and platforms including ShopFix Academy,
+              VISION Hi-Tech Training & Expo, and Remarkable Results Radio. As a speaker,
+              strategist, and founder, Carrie-Lynn continues to raise the standard for what
+              shop owners should expect from their marketing partners.
+            </p>
+          </div>
+
+          <div class="mt-8 border-l-2 border-[var(--green)] pl-5">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-charcoal">Known for</p>
+            <p class="mt-2 text-base leading-relaxed text-muted-foreground">
+              Clear strategy · Direct-response expertise · Shop-owner advocacy · Turning data into action
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="our-team" class="bg-white">
+    <div class="container-page py-20 md:py-28">
+      <div class="grid gap-8 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow">The Turnkey team</p>
+          <h2 class="mt-5 max-w-[13ch] text-balance text-[clamp(2.4rem,5.2vw,5rem)] font-semibold leading-[0.98] tracking-[-0.052em]">
+            Different specialties. One plan for your shop.
+          </h2>
+        </div>
+        <p class="max-w-lg text-lg leading-relaxed text-muted-foreground lg:col-span-4 lg:col-start-9 lg:pb-2">
+          You get strategists, account leaders, designers, writers, media experts,
+          analysts, and operators working as one connected marketing department.
+        </p>
+      </div>
+
+      <figure class="team-frame mt-12 overflow-hidden rounded-[2rem] bg-[var(--navy)]">
+        <img
+          src={siteMedia.about.team.src}
+          alt="Turnkey Marketing's team of auto repair marketing strategists, creatives, account leaders, and specialists"
+          width="1400"
+          height="933"
+          loading="lazy"
+          decoding="async"
+          class="h-auto w-full"
+        />
+      </figure>
+
+      <div class="mt-12 grid border-y border-[var(--hairline)] md:grid-cols-2">
+        {expertise.map((item, index) => (
+          <article class:list={["team-discipline py-8 md:p-9", index % 2 === 1 && "md:border-l md:border-[var(--hairline)]"]}>
+            <p class="text-xs font-semibold tracking-[0.15em] text-[var(--key-blue)]">
+              {String(index + 1).padStart(2, "0")}
+            </p>
+            <h3 class="mt-4 text-xl font-semibold tracking-[-0.025em] text-charcoal md:text-2xl">{item.title}</h3>
+            <p class="mt-3 max-w-md leading-relaxed text-muted-foreground">{item.copy}</p>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <section class="values-section">
+    <div class="container-page py-20 md:py-28">
+      <div class="max-w-3xl">
+        <p class="about-kicker text-[var(--green)]">How we show up</p>
+        <h2 class="mt-5 text-balance text-[clamp(2.4rem,5vw,4.8rem)] font-semibold leading-[1] tracking-[-0.05em] text-white">
+          Expertise matters. How we use it matters more.
+        </h2>
+      </div>
+
+      <div class="mt-14 grid gap-px overflow-hidden rounded-[2rem] bg-white/14 lg:grid-cols-3">
+        {values.map((value) => (
+          <article class="value-card bg-[var(--navy)] p-8 md:p-10">
+            <div class="flex items-center justify-between">
+              <value.icon className="h-6 w-6 text-[var(--green)]" strokeWidth={1.7} aria-hidden="true" />
+              <span class="text-xs font-semibold tracking-[0.16em] text-white/42">{value.number}</span>
+            </div>
+            <h3 class="mt-12 max-w-[12ch] text-2xl font-semibold leading-tight tracking-[-0.035em] text-white md:text-3xl">
+              {value.title}
+            </h3>
+            <p class="mt-5 leading-relaxed text-white/65">{value.copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section relative isolate overflow-hidden">
+    <div class="cta-orb absolute -right-24 -top-32 -z-10 h-[420px] w-[420px] rounded-full"></div>
+    <div class="container-page py-20 text-center md:py-28">
+      <p class="eyebrow">Your shop deserves a real marketing team</p>
+      <h2 class="mx-auto mt-5 max-w-[15ch] text-balance text-[clamp(2.5rem,5.4vw,5.2rem)] font-semibold leading-[0.98] tracking-[-0.052em] text-charcoal">
+        Let’s build something good for your business — and your life.
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        Tell us where you want your shop to go. We’ll listen, share what we see,
+        and help you find the clearest next step.
+      </p>
+      <a
+        href={CONSULTATION_URL}
+        class="btn-primary mt-8"
+        data-track-event="consultation_cta_click"
+        data-track-placement="about_footer"
+      >
+        Meet Your Marketing Team <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      </a>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .about-hero {
+    background: var(--navy-deep);
+  }
+
+  .about-hero img {
+    object-position: 50% 42%;
+  }
+
+  .about-hero-overlay {
+    background:
+      linear-gradient(90deg, rgba(16, 23, 60, 0.97) 0%, rgba(22, 31, 75, 0.9) 38%, rgba(20, 30, 72, 0.46) 70%, rgba(18, 26, 60, 0.28) 100%),
+      linear-gradient(0deg, rgba(12, 18, 46, 0.92) 0%, rgba(14, 21, 52, 0.08) 56%);
+  }
+
+  .about-kicker {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .about-btn-light,
+  .about-btn-outline {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    padding: 0.9rem 1.35rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: transform 220ms var(--ease-emphasized), background-color 220ms ease, border-color 220ms ease;
+  }
+
+  .about-btn-light {
+    background: white;
+    color: var(--navy);
+  }
+
+  .about-btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    color: white;
+  }
+
+  .about-btn-light:hover,
+  .about-btn-outline:hover {
+    transform: translateY(-2px);
+  }
+
+  .about-btn-outline:hover {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .founder-feature {
+    background:
+      radial-gradient(circle at 7% 12%, rgba(63, 140, 203, 0.13), transparent 34%),
+      var(--off-white);
+  }
+
+  .founder-portrait::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    box-shadow: inset 0 0 0 1px rgba(20, 22, 28, 0.08);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .founder-caption {
+    border: 1px solid rgba(20, 22, 28, 0.08);
+  }
+
+  .team-frame {
+    box-shadow: 0 40px 90px -55px rgba(20, 22, 28, 0.62);
+  }
+
+  .team-discipline:nth-child(n + 3) {
+    border-top: 1px solid var(--hairline);
+  }
+
+  .values-section {
+    background:
+      radial-gradient(circle at 90% 10%, rgba(63, 140, 203, 0.26), transparent 34%),
+      var(--navy-deep);
+  }
+
+  .value-card {
+    transition: background-color 260ms ease, transform 260ms var(--ease-emphasized);
+  }
+
+  .value-card:hover {
+    background: var(--navy-soft);
+  }
+
+  .cta-section {
+    background: var(--cream);
+  }
+
+  .cta-orb {
+    background: radial-gradient(circle, rgba(147, 200, 69, 0.28), rgba(147, 200, 69, 0));
+    filter: blur(2px);
+  }
+
+  @media (max-width: 767px) {
+    .about-hero,
+    .about-hero .container-page {
+      min-height: 700px;
+    }
+
+    .about-hero img {
+      object-position: 56% 50%;
+    }
+
+    .about-hero-overlay {
+      background:
+        linear-gradient(0deg, rgba(14, 21, 55, 0.98) 0%, rgba(18, 27, 66, 0.84) 65%, rgba(18, 27, 66, 0.62) 100%);
+    }
+
+    .team-discipline + .team-discipline {
+      border-top: 1px solid var(--hairline);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-btn-light,
+    .about-btn-outline,
+    .value-card {
+      transition: none;
+    }
+  }
+</style>

@@ -15,7 +15,7 @@ export const googleReviewHighlights: GoogleReviewHighlight[] = [
   },
   {
     author: "Anthony Campanella",
-    detail: "Google review",
+    detail: "Paul Campanella's Auto Centers",
     excerpt:
       "They helped us through so many transitions on the marketing side while allowing us to focus on operations and growth.",
     keyword: "Operations + growth",
@@ -28,13 +28,13 @@ export const googleReviewHighlights: GoogleReviewHighlight[] = [
   },
   {
     author: "Christopher Taylor",
-    detail: "Google review",
+    detail: "Danny's Automotive",
     excerpt: "They have helped me grow my shop over 300% during that time.",
     keyword: "Shop growth",
   },
   {
     author: "John Andryszewski",
-    detail: "Google review",
+    detail: "JA Autowerks",
     excerpt:
       "The team at Turnkey really knows their stuff when it comes to marketing for auto repair shops.",
     keyword: "Auto repair marketing",
@@ -48,13 +48,13 @@ export const googleReviewHighlights: GoogleReviewHighlight[] = [
   },
   {
     author: "Terrie Walters",
-    detail: "Google review",
+    detail: "ASAP Auto Repair",
     excerpt: "They have absolutely perfected marketing for auto repair.",
     keyword: "Auto repair ROI",
   },
   {
     author: "ASC AutoCenter",
-    detail: "Google review",
+    detail: "ASC AutoCenter",
     excerpt:
       "The ability to have a super smart marketing manager on staff without having the big commitment is great.",
     keyword: "Marketing manager",

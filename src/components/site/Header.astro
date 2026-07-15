@@ -21,9 +21,9 @@ const isActive = (href: string) =>
 <header class="fixed top-0 inset-x-0 z-50 pointer-events-none bg-white border-b hairline">
   <div class="container-page">
     <div
-      class="pointer-events-auto flex h-[80px] md:h-[88px] items-center justify-between px-0 transition duration-500"
+      class="pointer-events-auto flex h-[72px] md:h-[88px] items-center justify-between px-0 transition duration-500"
     >
-      <a href="/" class="flex items-center" aria-label="Turnkey Marketing home">
+      <a href="/" class="site-logo-link flex items-center" aria-label="Turnkey Marketing home">
         <img
           src={LOGO_SRC}
           alt="Turnkey Marketing"
@@ -40,7 +40,7 @@ const isActive = (href: string) =>
           <a
             href="/services"
             class:list={[
-              "flex items-center gap-1 px-4 py-2 text-[0.92rem] transition rounded-full",
+              "site-nav-link flex items-center gap-1 px-4 py-2 text-[0.92rem] transition rounded-full",
               isActive("/services")
                 ? "bg-[var(--off-white)] text-charcoal"
                 : "text-charcoal/80 hover:text-charcoal",
@@ -51,12 +51,12 @@ const isActive = (href: string) =>
             <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
           <div
-            class="absolute left-1/2 top-full -translate-x-1/2 pt-4 w-[720px] opacity-0 translate-y-2 pointer-events-none transition duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto"
+            class="nav-dropdown-panel absolute left-1/2 top-full -translate-x-1/2 pt-4 w-[720px] opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto"
           >
             <div class="rounded-3xl border hairline bg-white shadow-[0_30px_80px_-20px_rgba(20,22,28,0.25)] p-5">
               <a
                 href={`/services/${vip.slug}`}
-                class="group/vip flex items-start gap-4 rounded-2xl p-4 hover:bg-[var(--off-white)] transition"
+                class="site-menu-link group/vip flex items-start gap-4 rounded-2xl p-4 hover:bg-[var(--off-white)] transition"
               >
                 <span
                   class="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-xl text-white"
@@ -85,7 +85,7 @@ const isActive = (href: string) =>
                 {rest.map((service) => (
                   <a
                     href={`/services/${service.slug}`}
-                    class="rounded-xl px-4 py-2.5 hover:bg-[var(--off-white)] transition"
+                    class="site-menu-link rounded-xl px-4 py-2.5 hover:bg-[var(--off-white)] transition"
                   >
                     <div class="flex items-center gap-2">
                       <span class="text-[0.95rem] text-charcoal font-medium">{service.name}</span>
@@ -112,7 +112,7 @@ const isActive = (href: string) =>
           <a
             href={item.href}
             class:list={[
-              "px-4 py-2 text-[0.92rem] transition rounded-full",
+              "site-nav-link px-4 py-2 text-[0.92rem] transition rounded-full",
               isActive(item.href)
                 ? "bg-[var(--off-white)] text-charcoal"
                 : "text-charcoal/80 hover:text-charcoal",
@@ -137,7 +137,7 @@ const isActive = (href: string) =>
 
       <button
         type="button"
-        class="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-[var(--off-white)]"
+        class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-[var(--off-white)]"
         aria-label="Open menu"
         aria-controls="mobile-menu"
         aria-expanded="false"
@@ -157,7 +157,7 @@ const isActive = (href: string) =>
       <span class="font-display text-lg font-semibold">Menu</span>
       <button
         type="button"
-        class="inline-flex items-center justify-center h-10 w-10 rounded-full"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full"
         aria-label="Close menu"
         data-mobile-menu-close
       >
@@ -176,6 +176,17 @@ const isActive = (href: string) =>
           </a>
         ))}
       </nav>
+
+      <a
+        href={BOOKING_URL}
+        class="btn-primary mt-6 min-h-11 w-full"
+        data-mobile-menu-link
+        data-track-event="consultation_cta_click"
+        data-track-placement="mobile_menu"
+      >
+        Book a Call
+      </a>
+
       <div class="mt-6">
         <p class="eyebrow mb-3">All Services</p>
         <ul class="grid gap-2">
@@ -184,7 +195,7 @@ const isActive = (href: string) =>
               <a
                 href={`/services/${service.slug}`}
                 data-mobile-menu-link
-                class="flex items-center gap-2 py-2 text-charcoal"
+                class="flex min-h-11 items-center gap-2 py-2 text-charcoal"
               >
                 {service.name}
                 {service.isNew && (
@@ -200,14 +211,6 @@ const isActive = (href: string) =>
           ))}
         </ul>
       </div>
-      <a
-        href={BOOKING_URL}
-        class="btn-primary w-full mt-8"
-        data-track-event="consultation_cta_click"
-        data-track-placement="mobile_menu"
-      >
-        Book a Call
-      </a>
     </div>
   </div>
 </header>
@@ -215,12 +218,12 @@ const isActive = (href: string) =>
 <style>
   .mobile-menu {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
     visibility: hidden;
     transition:
-      opacity 0.28s ease,
-      transform 0.28s ease,
-      visibility 0s linear 0.28s;
+      opacity var(--duration-standard) var(--ease-emphasized),
+      transform var(--duration-standard) var(--ease-emphasized),
+      visibility 0s linear var(--duration-standard);
   }
 
   .mobile-menu.is-open {
@@ -228,8 +231,8 @@ const isActive = (href: string) =>
     transform: none;
     visibility: visible;
     transition:
-      opacity 0.28s ease,
-      transform 0.28s ease;
+      opacity var(--duration-standard) var(--ease-emphasized),
+      transform var(--duration-standard) var(--ease-emphasized);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -245,13 +248,30 @@ const isActive = (href: string) =>
   const openButton = document.querySelector("[data-mobile-menu-open]");
   const closeButton = document.querySelector("[data-mobile-menu-close]");
   const menuLinks = document.querySelectorAll("[data-mobile-menu-link]");
+  let previousFocus: HTMLElement | null = null;
 
   function setMobileMenu(open: boolean) {
     if (!menu || !openButton) return;
+    const wasOpen = menu.classList.contains("is-open");
+
+    if (open && !wasOpen) {
+      previousFocus = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    }
+
     menu.classList.toggle("is-open", open);
     menu.setAttribute("aria-hidden", String(!open));
     openButton.setAttribute("aria-expanded", String(open));
     document.body.style.overflow = open ? "hidden" : "";
+
+    if (open) {
+      window.requestAnimationFrame(() => {
+        if (closeButton instanceof HTMLElement) closeButton.focus();
+      });
+    } else if (wasOpen) {
+      previousFocus?.focus();
+    }
   }
 
   openButton?.addEventListener("click", () => setMobileMenu(true));

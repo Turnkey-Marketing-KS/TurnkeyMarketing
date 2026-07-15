@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { GHL_DISCOVERY_CALL_BOOKING_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
+import { CalendarDays, ExternalLink, Phone } from "lucide-react";
 ---
 
 <BaseLayout
@@ -23,31 +24,348 @@ import { siteMedia } from "@/lib/site-media";
       </p>
     </div>
 
-    <iframe
-      src={GHL_DISCOVERY_CALL_BOOKING_URL}
-      class="booking-frame mx-auto mt-10 max-w-5xl md:mt-14"
-      id="yu2OePYtPJE21ORfX8a0_1783535857619"
-      title="Book a Turnkey Marketing strategy call"
-      scrolling="no"
-      loading="lazy"
+    <div
+      class="booking-shell mx-auto mt-10 max-w-5xl md:mt-14"
+      data-booking-shell
+      aria-busy="true"
     >
-    </iframe>
+      <div
+        class="booking-loading"
+        data-booking-loader
+        role="status"
+        aria-live="polite"
+      >
+        <div class="booking-loading-card">
+          <span class="booking-loader-icon" aria-hidden="true">
+            <CalendarDays className="h-6 w-6" />
+          </span>
+          <p class="eyebrow mt-5" style="color: var(--key-blue);">Scheduling</p>
+          <h2 class="font-display mt-3 text-2xl font-semibold text-charcoal md:text-3xl">
+            Finding available times…
+          </h2>
+          <p
+            class="mx-auto mt-3 max-w-md leading-relaxed text-charcoal/65"
+            data-booking-status
+          >
+            The calendar may take a few seconds to connect.
+          </p>
+
+          <div class="booking-calendar-preview" aria-hidden="true">
+            <div class="booking-preview-heading">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="booking-preview-slots">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="booking-fallback-actions">
+            <a
+              href={GHL_DISCOVERY_CALL_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="booking-direct-link"
+            >
+              Open scheduler directly <ExternalLink className="h-4 w-4" />
+            </a>
+            <a href="tel:9137774144" class="booking-phone-link">
+              <Phone className="h-4 w-4" /> (913) 777-4144
+            </a>
+          </div>
+
+          <p class="booking-slow-message" data-booking-slow>
+            Still loading? Use either option above and we’ll help you get scheduled.
+          </p>
+        </div>
+      </div>
+
+      <iframe
+        src={GHL_DISCOVERY_CALL_BOOKING_URL}
+        class="booking-frame"
+        id="yu2OePYtPJE21ORfX8a0_1783535857619"
+        title="Book a Turnkey Marketing strategy call"
+        scrolling="no"
+        loading="eager"
+        data-booking-frame
+      >
+      </iframe>
+    </div>
   </section>
+
+  <script is:inline>
+    (() => {
+      const shell = document.querySelector("[data-booking-shell]");
+      const frame = document.querySelector("[data-booking-frame]");
+      const status = document.querySelector("[data-booking-status]");
+
+      if (!(shell instanceof HTMLElement) || !(frame instanceof HTMLIFrameElement)) return;
+
+      let loaded = false;
+      const slowTimer = window.setTimeout(() => {
+        if (loaded) return;
+        shell.classList.add("is-slow");
+        if (status) {
+          status.textContent = "The calendar is taking longer than usual to connect.";
+        }
+      }, 8000);
+
+      frame.addEventListener(
+        "load",
+        () => {
+          loaded = true;
+          window.clearTimeout(slowTimer);
+          shell.classList.add("is-loaded");
+          shell.classList.remove("is-slow");
+          shell.setAttribute("aria-busy", "false");
+        },
+        { once: true },
+      );
+    })();
+  </script>
 
   <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
 
   <style>
+    .booking-shell {
+      position: relative;
+      min-height: 980px;
+      overflow: hidden;
+      border: 1px solid var(--hairline);
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 28px 70px -52px rgba(20, 22, 28, 0.38);
+    }
+
     .booking-frame {
       display: block;
       width: 100%;
       min-height: 980px;
       border: 0;
-      background: transparent;
+      background: #fff;
+      opacity: 0;
+      transition: opacity var(--duration-slow) var(--ease-standard);
+    }
+
+    .booking-loading {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: clamp(1.25rem, 5vw, 3rem);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(63, 140, 203, 0.12), transparent 34%),
+        linear-gradient(160deg, #eef4fa 0%, #f7f7f3 58%, #eef2e7 100%);
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity var(--duration-standard) var(--ease-standard),
+        visibility 0s linear 0s;
+    }
+
+    .booking-loading-card {
+      width: 100%;
+      max-width: 620px;
+      padding: clamp(1.5rem, 5vw, 2.5rem);
+      border: 1px solid rgba(231, 229, 223, 0.92);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 28px 70px -50px rgba(20, 22, 28, 0.4);
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+
+    .booking-loader-icon {
+      display: inline-flex;
+      width: 3.25rem;
+      height: 3.25rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+      background: var(--navy);
+      color: #fff;
+      box-shadow: 0 14px 30px -18px rgba(35, 46, 102, 0.7);
+      animation: booking-loader-pulse 1.8s var(--ease-standard) infinite;
+    }
+
+    .booking-calendar-preview {
+      margin: 1.75rem auto 0;
+      max-width: 30rem;
+      padding: 1rem;
+      border: 1px solid var(--hairline);
+      border-radius: 18px;
+      background: var(--cream);
+    }
+
+    .booking-preview-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .booking-preview-heading span {
+      display: block;
+      height: 0.65rem;
+      border-radius: 999px;
+      background: #dce2ea;
+    }
+
+    .booking-preview-heading span:first-child {
+      width: 38%;
+      background: rgba(35, 46, 102, 0.2);
+    }
+
+    .booking-preview-heading span:last-child {
+      width: 18%;
+    }
+
+    .booking-preview-slots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+    }
+
+    .booking-preview-slots span {
+      height: 2.35rem;
+      border: 1px solid rgba(63, 140, 203, 0.2);
+      border-radius: 0.75rem;
+      background: rgba(223, 234, 245, 0.56);
+      animation: booking-slot-shimmer 1.8s ease-in-out infinite alternate;
+    }
+
+    .booking-preview-slots span:nth-child(2n) {
+      animation-delay: -0.6s;
+    }
+
+    .booking-fallback-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .booking-direct-link,
+    .booking-phone-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition:
+        transform var(--duration-standard) var(--ease-emphasized),
+        background-color var(--duration-standard) var(--ease-standard);
+    }
+
+    .booking-direct-link {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .booking-phone-link {
+      border: 1px solid var(--hairline);
+      background: #fff;
+      color: var(--charcoal);
+    }
+
+    .booking-direct-link:hover,
+    .booking-phone-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .booking-slow-message {
+      display: none;
+      margin: 1rem auto 0;
+      max-width: 30rem;
+      color: rgba(20, 22, 28, 0.62);
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .booking-shell.is-slow .booking-slow-message {
+      display: block;
+    }
+
+    .booking-shell.is-loaded .booking-frame {
+      opacity: 1;
+    }
+
+    .booking-shell.is-loaded .booking-loading {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition:
+        opacity var(--duration-standard) var(--ease-standard),
+        visibility 0s linear var(--duration-standard);
+    }
+
+    @keyframes booking-loader-pulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    @keyframes booking-slot-shimmer {
+      from { opacity: 0.45; }
+      to { opacity: 1; }
     }
 
     @media (max-width: 767px) {
+      .booking-shell,
       .booking-frame {
         min-height: 1100px;
+      }
+
+      .booking-shell {
+        border-radius: 24px;
+      }
+
+      .booking-loading {
+        padding: 1rem;
+      }
+
+      .booking-loading-card {
+        padding: 1.5rem 1rem;
+        border-radius: 20px;
+      }
+
+      .booking-calendar-preview {
+        margin-top: 1.25rem;
+      }
+
+      .booking-fallback-actions {
+        flex-direction: column;
+      }
+
+      .booking-direct-link,
+      .booking-phone-link {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .booking-loader-icon,
+      .booking-preview-slots span {
+        animation: none;
+      }
+
+      .booking-frame,
+      .booking-loading {
+        transition: none;
       }
     }
   </style>
