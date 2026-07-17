@@ -475,11 +475,10 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "social-media-marketing": {
     image: siteMedia.graphics.serviceSocial,
     hero: {
-      badge: "Done-for-you content",
+      badge: "",
       headline: "Stay in front of local customers.",
       headlineAccent: "We do the posting.",
-      subhead:
-        "Facebook, Instagram, and Google Business Profile posts in your shop's real voice — plus ad management and responses to the comments and reviews your customers actually read.",
+      subhead: "",
       stats: [
         {
           value: "3 platforms",

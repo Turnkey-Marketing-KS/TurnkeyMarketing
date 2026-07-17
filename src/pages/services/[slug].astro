@@ -55,6 +55,7 @@ const servicePath = `/services/${service.slug}`;
 const accent = detail.accent ?? "blue";
 const accentColor = accent === "green" ? "var(--green)" : "var(--key-blue)";
 const hero = detail.hero;
+const hasHeroSubhead = hero.subhead.trim().length > 0;
 const shortName = service.shortName ?? service.name;
 const serviceIndex = services.findIndex((s) => s.slug === service.slug);
 const serviceTitle =
@@ -94,6 +95,17 @@ const deliverableIcons: Record<string, typeof Check> = {
   zap: Zap,
   phone: Phone,
   file: FileText,
+};
+
+const serviceCardIcons: Record<string, typeof Check> = {
+  "vip-marketing-manager": Users,
+  "directtrack-marketing": Target,
+  "marketing-consulting": Compass,
+  "direct-mail": Mail,
+  "social-media-marketing": Share2,
+  "retention-marketing": Repeat,
+  "digital-marketing": Globe,
+  "boost-days": Zap,
 };
 
 const relatedServices = detail.pairsWith
@@ -166,7 +178,7 @@ const faqSchema = {
     <div class="container-page pb-16 pt-8 md:pb-20 md:pt-10">
       <div class="flex items-center justify-between" data-reveal>
         <nav aria-label="Breadcrumb" class="flex items-center gap-1.5 text-sm text-muted-foreground">
-          <a href="/services" class="transition hover:text-charcoal">Services</a>
+          <a href="/services" class="inline-flex min-h-11 items-center transition hover:text-charcoal">Services</a>
           <ChevronRight className="h-3.5 w-3.5 text-charcoal/35" />
           <span class="font-medium text-charcoal">{service.name}</span>
         </nav>
@@ -179,7 +191,11 @@ const faqSchema = {
         <p class="eyebrow flex items-center gap-3" data-reveal style="--reveal-delay: 60ms;">
           <span class="h-px w-8 md:w-10" style={`background: ${accentColor};`} aria-hidden="true"
           ></span>
-          <span><span class="hidden sm:inline">{service.name} · </span>{hero.badge}</span>
+          <span>
+            {hero.badge ? (
+              <><span class="hidden sm:inline">{service.name} · </span>{hero.badge}</>
+            ) : service.name}
+          </span>
         </p>
 
         <h1
@@ -193,15 +209,25 @@ const faqSchema = {
       </div>
 
       <div
-        class="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:items-end lg:gap-10"
+        class:list={[
+          "gap-8",
+          hasHeroSubhead
+            ? "mt-12 grid md:mt-16 lg:grid-cols-12 lg:items-end lg:gap-10"
+            : "mt-8 md:mt-10",
+        ]}
         data-reveal
         style="--reveal-delay: 200ms;"
       >
-        <p class="max-w-[46ch] text-lg leading-relaxed text-charcoal/60 md:text-xl lg:col-span-7">
-          {hero.subhead}
-        </p>
+        {hasHeroSubhead && (
+          <p class="max-w-[46ch] text-lg leading-relaxed text-charcoal/60 md:text-xl lg:col-span-7">
+            {hero.subhead}
+          </p>
+        )}
         <div
-          class="flex flex-col items-start gap-5 sm:flex-row sm:items-center lg:col-span-5 lg:justify-end"
+          class:list={[
+            "flex flex-col items-start gap-5 sm:flex-row sm:items-center",
+            hasHeroSubhead && "lg:col-span-5 lg:justify-end",
+          ]}
         >
           <a
             href={CONSULTATION_URL}
@@ -215,7 +241,7 @@ const faqSchema = {
           </a>
           <a
             href="#service-includes"
-            class="group inline-flex items-center gap-2 whitespace-nowrap py-1 font-medium text-charcoal/80 transition hover:text-charcoal"
+            class="group inline-flex min-h-11 items-center gap-2 whitespace-nowrap font-medium text-charcoal/80 transition hover:text-charcoal"
           >
             See what's included
             <ArrowRight className="motion-arrow h-4 w-4" />
@@ -341,15 +367,9 @@ const faqSchema = {
       </div>
 
       <div class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
-        {detail.process.map((step, index) => (
+        {detail.process.map((step) => (
           <div class="border-t border-white/15 pt-7">
-            <span
-              class="font-display text-sm font-semibold tracking-[0.18em]"
-              style={`color: ${accentColor};`}
-            >
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <p class="mt-4 font-display text-2xl font-semibold leading-tight tracking-normal text-white">
+            <p class="font-display text-2xl font-semibold leading-tight tracking-normal text-white">
               {step.title}
             </p>
             <p class="mt-3 leading-relaxed text-white/65">{step.description}</p>
@@ -391,7 +411,7 @@ const faqSchema = {
             </div>
             <a
               href="/results"
-              class="group mt-8 inline-flex items-center gap-2 font-medium text-charcoal"
+              class="group mt-8 inline-flex min-h-11 items-center gap-2 font-medium text-charcoal"
             >
               See real shop results
               <ArrowRight className="motion-arrow h-4 w-4" />
@@ -415,7 +435,7 @@ const faqSchema = {
           </p>
           <a
             href={CONSULTATION_URL}
-            class="btn-ghost mt-7"
+            class="btn-blue mt-7"
             data-track-event="consultation_cta_click"
             data-track-slug={service.slug}
             data-track-placement="service_faq"
@@ -460,30 +480,52 @@ const faqSchema = {
           <p class="eyebrow" style={`color: ${accentColor};`}>Pairs well with</p>
           <h2 class="display-3 mt-4 text-balance text-charcoal">Shops rarely run just one piece.</h2>
         </div>
-        <a href="/services" class="group inline-flex items-center gap-2 pb-1 font-medium text-charcoal">
+        <a href="/services" class="group inline-flex min-h-11 items-center gap-2 font-medium text-charcoal">
           All services
           <ArrowRight className="motion-arrow h-4 w-4" />
         </a>
       </div>
 
       <div class="mt-10 grid gap-5 md:grid-cols-3">
-        {relatedServices.map((related) => (
-          <a
-            href={`/services/${related.slug}`}
-            class="group motion-card flex flex-col justify-between gap-8 rounded-[24px] border border-[var(--hairline)] bg-[var(--cream)] p-6 md:p-7"
-          >
-            <div>
-              <p class="font-display text-xl font-semibold leading-tight tracking-normal text-charcoal">
-                {related.shortName ?? related.name}
-              </p>
-              <p class="mt-2.5 leading-relaxed text-muted-foreground">{related.tagline}</p>
-            </div>
-            <span class="inline-flex items-center gap-2 text-sm font-medium text-charcoal">
-              Learn more
-              <ArrowRight className="motion-arrow h-4 w-4" />
-            </span>
-          </a>
-        ))}
+        {relatedServices.map((related) => {
+          const RelatedIcon = serviceCardIcons[related.slug] ?? ArrowRight;
+
+          return (
+            <a
+              href={`/services/${related.slug}`}
+              class="motion-card group/related relative flex min-h-[260px] flex-col overflow-hidden rounded-[28px] border border-[rgba(63,140,203,0.22)] bg-white p-6 shadow-[0_24px_58px_-42px_rgba(35,46,102,0.62)] transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-[var(--navy)] hover:bg-[var(--navy)] hover:shadow-[0_30px_70px_-38px_rgba(35,46,102,0.82)] md:p-7"
+            >
+              <span class="pointer-events-none absolute inset-x-7 top-0 h-px bg-gradient-to-r from-transparent via-[var(--key-blue)]/75 to-transparent transition-colors group-hover/related:via-[var(--green)]"></span>
+              <span class="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full bg-[var(--key-blue-soft)]/75 blur-3xl transition-colors group-hover/related:bg-[var(--key-blue)]/25"></span>
+
+              <div class="relative z-10 flex items-start justify-between gap-4">
+                <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--key-blue)]/10 bg-[var(--key-blue-soft)] text-[var(--navy)] transition-colors duration-300 group-hover/related:border-white/10 group-hover/related:bg-white/10 group-hover/related:text-[var(--green)]">
+                  <RelatedIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--navy)]/10 bg-white text-[var(--navy)] shadow-[0_10px_24px_-18px_rgba(35,46,102,0.7)] transition duration-300 group-hover/related:border-white/12 group-hover/related:bg-white/10 group-hover/related:text-white">
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/related:translate-x-0.5" aria-hidden="true" />
+                </span>
+              </div>
+
+              <div class="relative z-10 mt-7">
+                <p class="text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--key-blue)] transition-colors group-hover/related:text-[var(--green)]">
+                  Recommended pairing
+                </p>
+                <h3 class="mt-2.5 font-display text-[1.4rem] font-semibold leading-tight tracking-normal text-charcoal transition-colors group-hover/related:text-white">
+                  {related.shortName ?? related.name}
+                </h3>
+                <p class="mt-3 line-clamp-3 leading-relaxed text-muted-foreground transition-colors group-hover/related:text-white/68">
+                  {related.tagline}
+                </p>
+              </div>
+
+              <span class="relative z-10 mt-auto inline-flex items-center gap-2 pt-7 text-sm font-semibold text-[var(--navy)] transition-colors group-hover/related:text-white">
+                Explore service
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/related:translate-x-1" />
+              </span>
+            </a>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -512,7 +554,7 @@ const faqSchema = {
           </a>
           <a
             href="/results"
-            class="group inline-flex items-center gap-2 font-medium text-white/85 transition hover:text-white"
+            class="group inline-flex min-h-11 items-center gap-2 font-medium text-white/85 transition hover:text-white"
           >
             See client results
             <ArrowRight className="motion-arrow h-4 w-4" />

@@ -120,13 +120,13 @@ export const siteMedia = {
       position: "50% 50%",
     },
     marketingPlan: {
-      src: "/site-media/marketing-plan.webp",
-      alt: "Marketing plan worksheet and strategy graphic",
+      src: "/images/resources/auto-repair-marketing-plan-v2.jpg",
+      alt: "Illustrated marketing roadmap leading to a successful auto repair shop",
       position: "50% 50%",
     },
     directMail: {
-      src: "/site-media/direct-mail-results.webp",
-      alt: "Direct mail campaign graphic for auto repair marketing",
+      src: "/images/resources/direct-mail-still-works-v2.jpg",
+      alt: "Illustrated postcard campaign directing cars to an auto repair shop",
       position: "50% 50%",
     },
     directMailMailbox: {
@@ -170,8 +170,8 @@ export const siteMedia = {
       position: "50% 50%",
     },
     problems: {
-      src: "/site-media/problems-graphic.webp",
-      alt: "Marketing problems framework graphic",
+      src: "/images/resources/why-auto-repair-marketing-breaks-v2.jpg",
+      alt: "Disconnected marketing activities surrounding an auto repair shop",
       position: "50% 50%",
     },
     jasonSmithPlan: {

@@ -24,7 +24,6 @@ import { getServiceDetail } from "@/lib/service-details";
 import { siteMedia } from "@/lib/site-media";
 import { resourcePosts } from "@/lib/resource-posts";
 import { ownerTestimonials } from "@/lib/proof";
-import { googleReviewHighlights } from "@/lib/google-reviews";
 
 const heroPhrases = [
   "that increases car count.",
@@ -80,9 +79,6 @@ const stats = [
   { k: "5.0★", v: "Google rating from shop owners and clients", accent: true },
 ];
 
-const reviewLoop = [...googleReviewHighlights, ...googleReviewHighlights];
-const mobileTrustReview = googleReviewHighlights[2];
-
 const serviceIcons: Record<string, typeof Crown> = {
   "vip-marketing-manager": Crown,
   "directtrack-marketing": Route,
@@ -120,7 +116,7 @@ const features = [
     animation: "zap",
     color: "var(--green)",
     title: "Weekly execution",
-    copy: "We don't just consult. We run the direct mail, ads, GBP, reviews, and CRM every week — you approve, we ship.",
+    copy: "We don't just consult. We run the direct mail, ads, GBP, reviews, and CRM every week.",
   },
   {
     icon: BarChart3,
@@ -134,9 +130,9 @@ const features = [
 const opportunityCards = [
   {
     label: "Doing it all alone",
-    title: "Your time becomes the hidden marketing budget.",
-    cost: "You chase vendors, review reports, approve details, and solve marketing problems instead of the bigger shop problems only you can solve.",
-    points: ["Vendor follow-up", "Scattered reports", "Time you never get back"],
+    title: "The weight of success is all on you.",
+    cost: "You're expected to know what to advertise, approve every postcard and design, chase vendors for answers, and fix car count when the bays slow down—all while running the shop.",
+    points: ["Every empty bay becomes your problem", "Every ad and design needs your attention", "Every vendor needs to be chased"],
   },
   {
     label: "Turnkey Marketing Leadership",
@@ -190,25 +186,35 @@ const faqSchema = {
     <div class="container-page pt-6 md:pt-10 pb-6 md:pb-8 relative">
       <div class="grid min-w-0 gap-10 lg:grid-cols-12 lg:gap-8 xl:gap-12 items-center lg:min-h-[72vh]">
         <div class="min-w-0 lg:col-span-7">
-          <h1
-            class="hero-heading display-1 max-w-full"
-          >
+          <h1 class="hero-heading display-1 max-w-full" data-reveal>
             <span class="text-charcoal">Auto repair <span class="block sm:inline">marketing</span></span>
-            <span
-              class="hero-heading-phrase text-[var(--key-blue)]"
-              data-hero-phrase
-              data-phrases={JSON.stringify(heroPhrases)}
-            >
-              <span data-hero-phrase-text>{heroPhrases[0]}</span><span data-hero-cursor aria-hidden="true">|</span>
+            <span class="hero-rotator text-[var(--key-blue)]" data-hero-rotator>
+              <span class="sr-only">{heroPhrases[0]}</span>
+              {heroPhrases.map((phrase, index) => (
+                <span
+                  class:list={["hero-rotator-phrase", index === 0 && "is-active"]}
+                  aria-hidden="true"
+                >
+                  {phrase}
+                </span>
+              ))}
             </span>
           </h1>
 
-          <p class="mt-6 max-w-[32ch] text-lg leading-relaxed text-charcoal/65 md:mt-8 md:max-w-[46ch] md:text-xl">
+          <p
+            class="mt-6 max-w-[32ch] text-lg leading-relaxed text-charcoal/65 md:mt-8 md:max-w-[46ch] md:text-xl"
+            data-reveal
+            style="--reveal-delay: 90ms;"
+          >
             Know what to keep, fix, stop funding, and run next. Then Turnkey
             owns the moving pieces while you stay focused on the shop.
           </p>
 
-          <div class="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center md:mt-10 md:gap-6">
+          <div
+            class="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center md:mt-10 md:gap-6"
+            data-reveal
+            style="--reveal-delay: 170ms;"
+          >
             <a
               href={CONSULTATION_URL}
               class="btn-primary w-full !px-7 !py-4 sm:w-auto"
@@ -219,7 +225,7 @@ const faqSchema = {
             </a>
             <a
               href="/services"
-              class="inline-flex items-center justify-center gap-2 py-1 text-charcoal/80 hover:text-charcoal font-medium text-[0.95rem] transition sm:justify-start"
+              class="inline-flex min-h-11 items-center justify-center gap-2 text-charcoal/80 hover:text-charcoal font-medium text-[0.95rem] transition sm:justify-start"
             >
               See what we do
               <ArrowRight className="motion-arrow h-4 w-4" />
@@ -259,7 +265,7 @@ const faqSchema = {
 
           <div class="floaty-delay absolute -right-2 bottom-16 min-w-[176px] px-4 py-3 md:-right-5 md:bottom-32 md:min-w-[200px] md:px-5 md:py-4 card-float">
             <div class="flex items-center gap-2 text-[11px] text-charcoal/60 mb-1.5">
-              <div class="flex text-[var(--green)]">
+              <div class="flex" style="color: #F4B400;">
                 {[0, 1, 2, 3, 4].map(() => (
                   <Star className="h-3 w-3" fill="currentColor" />
                 ))}
@@ -293,39 +299,12 @@ const faqSchema = {
                 alt={logo.name}
                 class="max-h-12 w-full object-contain"
                 style={`transform: scale(${logo.scale});`}
-                loading="eager"
+                loading="lazy"
                 decoding="async"
               />
             </div>
           ))}
         </div>
-
-        <div class="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-charcoal">
-          <span class="flex text-[var(--green)]" aria-label="5 out of 5 stars">
-            {[0, 1, 2, 3, 4].map(() => (
-              <Star className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true" />
-            ))}
-          </span>
-          <span>5.0 on Google</span>
-        </div>
-
-        <figure class="mt-4 rounded-[24px] bg-[var(--off-white)] p-5 text-left">
-          <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--key-blue)]">
-            {mobileTrustReview.keyword}
-          </p>
-          <blockquote class="mt-3 font-display text-xl font-semibold leading-snug text-charcoal">
-            “{mobileTrustReview.excerpt}”
-          </blockquote>
-          <figcaption class="mt-5 border-t hairline pt-4 text-sm text-charcoal/60">
-            <span class="font-semibold text-charcoal">{mobileTrustReview.author}</span>
-            {mobileTrustReview.detail !== mobileTrustReview.author && (
-              <>
-                <span class="mx-2 text-charcoal/30">·</span>
-                {mobileTrustReview.detail}
-              </>
-            )}
-          </figcaption>
-        </figure>
       </div>
 
       <div class="relative mx-auto mt-3 hidden max-w-[1160px] overflow-hidden px-2 py-2 md:block">
@@ -345,8 +324,8 @@ const faqSchema = {
                     src={logo.src}
                     alt={index < row.length ? logo.name : ""}
                     aria-hidden={index >= row.length ? "true" : "false"}
-                    class="max-h-[4.5rem] w-full scale-[1.04] object-contain grayscale opacity-80 transition duration-300 group-hover:grayscale-0 group-hover:opacity-100 md:max-h-[5.5rem] md:scale-[1.08]"
-                    loading="eager"
+                    class="max-h-[4.5rem] w-full scale-[1.04] object-contain opacity-100 md:max-h-[5.5rem] md:scale-[1.08]"
+                    loading="lazy"
                     decoding="async"
                   />
                 </div>
@@ -356,12 +335,12 @@ const faqSchema = {
         </div>
       </div>
 
-      <div class="mx-auto mt-5 hidden max-w-[1160px] overflow-hidden py-2 md:mt-7 md:block">
+      <div class="mx-auto mt-6 max-w-[1160px] md:mt-7">
         <div class="mb-4 flex flex-wrap items-center justify-center gap-3 text-center">
-          <span class="inline-flex items-center gap-2 rounded-full bg-[var(--green)]/15 px-4 py-2 text-sm font-semibold text-charcoal">
-            <span class="flex text-[var(--green)]">
+          <span class="inline-flex items-center gap-2 text-sm font-semibold text-charcoal">
+            <span class="flex" style="color: #F4B400;" aria-label="5 out of 5 stars">
               {[0, 1, 2, 3, 4].map(() => (
-                <Star className="h-3.5 w-3.5" fill="currentColor" />
+                <Star className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true" />
               ))}
             </span>
             5.0 on Google
@@ -371,37 +350,120 @@ const faqSchema = {
           </span>
         </div>
 
-        <div class="relative">
-          <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-white to-transparent md:w-20"></div>
-          <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-white to-transparent md:w-20"></div>
-          <div class="marquee flex w-max gap-4 hover:[animation-play-state:paused] [animation-duration:58s]">
-            {reviewLoop.map((review, index) => (
+        <div class="grid gap-4 md:grid-cols-3 md:gap-5">
+          {ownerTestimonials.map((testimonial, index) => {
+            const isFeatured = index === 1;
+
+            return (
               <figure
-                class="flex w-[300px] shrink-0 flex-col justify-between rounded-[22px] bg-[var(--off-white)] p-5 md:w-[360px]"
-                aria-hidden={index >= googleReviewHighlights.length ? "true" : "false"}
+                class:list={[
+                  "motion-card group/testimonial relative flex min-h-[250px] overflow-hidden rounded-[28px] border p-1 shadow-[0_24px_60px_-42px_rgba(17,33,69,0.58)] md:min-h-[272px]",
+                  isFeatured
+                    ? "border-[var(--navy)]/20 bg-[var(--navy)] shadow-[0_28px_64px_-40px_rgba(35,46,102,0.78)]"
+                    : "border-[rgba(63,140,203,0.24)] bg-white",
+                ]}
               >
-                <div>
-                  <div class="flex text-[var(--green)]">
-                    {[0, 1, 2, 3, 4].map(() => (
-                      <Star className="h-3.5 w-3.5" fill="currentColor" />
-                    ))}
+                <div
+                  class:list={[
+                    "relative flex w-full flex-col overflow-hidden rounded-[23px] p-5 md:p-6",
+                    isFeatured ? "bg-[var(--navy)]" : "bg-white",
+                  ]}
+                >
+                  <span
+                    class:list={[
+                      "pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent to-transparent",
+                      isFeatured ? "via-[var(--green)]/80" : "via-[var(--key-blue)]/65",
+                    ]}
+                  ></span>
+                  <span
+                    class:list={[
+                      "pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full blur-3xl",
+                      isFeatured ? "bg-[var(--key-blue)]/20" : "bg-[var(--key-blue-soft)]/70",
+                    ]}
+                  ></span>
+
+                  <div class="relative z-10 flex items-start justify-between gap-4">
+                    <span
+                      class:list={[
+                        "inline-flex rounded-full px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.18em]",
+                        isFeatured
+                          ? "bg-[var(--green)] text-[var(--charcoal)]"
+                          : "bg-[var(--key-blue-soft)] text-[var(--key-blue)]",
+                      ]}
+                    >
+                      {testimonial.marker}
+                    </span>
+                    <span
+                      class:list={[
+                        "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border",
+                        isFeatured
+                          ? "border-white/12 bg-white/10 text-[var(--green)]"
+                          : "border-[var(--key-blue)]/12 bg-[var(--off-white)] text-[var(--key-blue)]",
+                      ]}
+                    >
+                      <Quote className="h-4.5 w-4.5" fill="currentColor" aria-hidden="true" />
+                    </span>
                   </div>
-                  <blockquote class="mt-4 font-display text-lg font-semibold leading-snug text-charcoal">
-                    “{review.excerpt}”
+
+                  <blockquote
+                    class:list={[
+                      "relative z-10 mt-5 max-w-[18ch] font-display text-[1.35rem] font-semibold leading-[1.18] md:text-[1.55rem]",
+                      isFeatured ? "text-white" : "text-charcoal",
+                    ]}
+                  >
+                    “{testimonial.quote}”
                   </blockquote>
+
+                  <figcaption class="relative z-10 mt-auto flex items-center gap-3.5 pt-7">
+                    <span class="relative shrink-0">
+                      <span
+                        class:list={[
+                          "absolute -inset-1 rounded-full blur-[1px]",
+                          isFeatured ? "bg-[var(--green)]/45" : "bg-[var(--key-blue)]/22",
+                        ]}
+                      ></span>
+                      <img
+                        src={testimonial.image.src}
+                        alt={testimonial.image.alt}
+                        width="96"
+                        height="96"
+                        loading="lazy"
+                        decoding="async"
+                        class="relative h-12 w-12 rounded-full object-cover ring-2 ring-white"
+                        style={`object-position: ${testimonial.image.position};`}
+                      />
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <div
+                        class:list={[
+                          "truncate font-display text-sm font-semibold",
+                          isFeatured ? "text-white" : "text-charcoal",
+                        ]}
+                      >
+                        {testimonial.name}
+                      </div>
+                      <div
+                        class:list={[
+                          "mt-0.5 truncate text-xs",
+                          isFeatured ? "text-white/65" : "text-charcoal/60",
+                        ]}
+                      >
+                        {testimonial.shop}
+                      </div>
+                      <div
+                        class:list={[
+                          "mt-0.5 truncate text-[10px]",
+                          isFeatured ? "text-white/42" : "text-charcoal/42",
+                        ]}
+                      >
+                        {testimonial.location}
+                      </div>
+                    </div>
+                  </figcaption>
                 </div>
-                <figcaption class="mt-5 text-sm text-charcoal/60">
-                  <span class="font-semibold text-charcoal">{review.author}</span>
-                  {review.detail !== review.author && (
-                    <>
-                      <span class="mx-2 text-charcoal/30">·</span>
-                      {review.detail}
-                    </>
-                  )}
-                </figcaption>
               </figure>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -416,122 +478,135 @@ const faqSchema = {
         </p>
         <h2 class="display-2 mt-5 text-balance text-charcoal">
           Start with one service.
-          <span class="block text-[var(--key-blue)]">Or hand us the whole thing.</span>
+          <span class="block text-[var(--key-blue)]">Or get the whole marketing department.</span>
         </h2>
       </div>
 
-      <div class="mt-9 grid gap-5 md:mt-12 lg:grid-cols-12">
-        <a
-          href={`/services/${homeVipService.slug}`}
-          class="vip-shader-card group relative overflow-hidden rounded-[32px] bg-[var(--navy)] p-6 text-white transition hover:-translate-y-1 md:p-9 lg:col-span-7"
-          data-track-event="service_cta_click"
-          data-track-slug={homeVipService.slug}
-          data-track-placement="home_services"
-        >
+      <div class="mt-9 space-y-5 md:mt-12 md:space-y-7">
+        <div class="vip-service-suite relative overflow-hidden rounded-[36px]">
           <div class="relative">
-            <div class="flex items-start justify-between gap-5">
-              <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-[var(--green)] md:h-12 md:w-12 md:rounded-2xl">
-                <Crown className="h-6 w-6 md:h-7 md:w-7" />
-              </span>
-              <span class="rounded-full bg-[var(--green)] px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-charcoal">
-                Full team
-              </span>
-            </div>
-
-            <div class="mt-6 grid gap-6 md:mt-9 md:grid-cols-[0.95fr_1.05fr] md:items-end md:gap-8">
-              <div>
-                <h3 class="max-w-[11ch] font-display text-4xl font-semibold leading-tight tracking-normal md:text-5xl">
-                  {homeVipService.name}
-                </h3>
-                <p class="mt-4 max-w-md text-base leading-relaxed text-white/72 md:mt-5 md:text-lg">
-                  Strategy, execution, vendors, reporting, and next moves owned
-                  by one team.
-                </p>
-              </div>
-
-              <div class="grid gap-3 text-sm text-white/88">
-                {homeVipService.outcomes.map((outcome, index) => (
-                  <span
-                    class:list={[
-                      "items-center gap-2 rounded-2xl bg-white/10 px-3.5 py-2.5 md:px-4 md:py-3",
-                      index > 2 ? "hidden md:flex" : "flex",
-                    ]}
-                  >
-                    <span class="h-2 w-2 rounded-full bg-[var(--green)]"></span>
-                    {outcome}
+            <a
+              href={`/services/${homeVipService.slug}`}
+              class="vip-suite-lead group relative block p-6 text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/70 md:p-9 lg:p-10"
+              data-track-event="service_cta_click"
+              data-track-slug={homeVipService.slug}
+              data-track-placement="home_services"
+            >
+              <div class="relative z-10">
+                <div class="flex items-start">
+                  <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-[var(--green)] md:h-12 md:w-12 md:rounded-2xl">
+                    <Crown className="h-6 w-6 md:h-7 md:w-7" />
                   </span>
-                ))}
+                </div>
+
+                <div class="mt-6 md:mt-9">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
+                      Like hiring your own marketing manager
+                    </p>
+                    <h3 class="mt-3 max-w-[13ch] font-display text-4xl font-semibold leading-tight tracking-normal md:text-5xl lg:text-6xl">
+                      {homeVipService.name}
+                    </h3>
+                    <p class="mt-4 max-w-2xl text-base leading-relaxed text-white/80 md:mt-5 md:text-lg">
+                      Stop chasing vendors, checking every little detail, and wondering what is
+                      actually working. We make the plan, manage the people, and keep the work
+                      moving so it stops landing back on you.
+                    </p>
+                  </div>
+
+                </div>
+
+                <span class="mt-7 inline-flex min-h-11 items-center gap-2 font-medium md:mt-9">
+                  See how VIP works
+                  <ArrowRight className="motion-arrow h-4 w-4" />
+                </span>
+              </div>
+            </a>
+
+            <div class="relative bg-white p-4 pt-5 md:p-6 md:pt-7 lg:p-8 lg:pt-8">
+              <div class="mb-5 flex items-center gap-3 md:mb-6 md:gap-4">
+                <span class="h-px flex-1 bg-[var(--hairline)]" aria-hidden="true"></span>
+                <span class="max-w-[22rem] text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-charcoal/55 md:text-xs">
+                  Included with VIP. Also available on their own.
+                </span>
+                <span class="h-px flex-1 bg-[var(--hairline)]" aria-hidden="true"></span>
+              </div>
+
+              <div class="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 md:gap-4 lg:grid-cols-3">
+                {homeFocusedServices.map((service) => {
+                  const Icon = service.icon;
+                  return (
+                    <a
+                      href={`/services/${service.slug}`}
+                      class="group rounded-[22px] border border-[rgba(63,140,203,0.28)] bg-white p-4 transition-[background-color,border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-[var(--key-blue)] hover:bg-[var(--key-blue)] hover:shadow-[0_20px_44px_-38px_rgba(35,46,102,0.5)] focus-visible:border-[var(--key-blue)] focus-visible:bg-[var(--key-blue)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--navy)] max-[359px]:flex max-[359px]:items-center max-[359px]:gap-3 max-[359px]:rounded-[18px] max-[359px]:p-3.5 md:p-6"
+                      data-track-event="service_cta_click"
+                      data-track-slug={service.slug}
+                      data-track-placement="home_services"
+                    >
+                      <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--key-blue-soft)] text-[var(--navy)] transition-colors duration-300 group-hover:bg-white/15 group-hover:text-white group-focus-visible:bg-white/15 group-focus-visible:text-white md:h-10 md:w-10">
+                        <Icon className="h-4 w-4 md:h-5 md:w-5" />
+                      </span>
+                      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-charcoal transition-colors duration-300 group-hover:text-white group-focus-visible:text-white max-[359px]:mt-0 max-[359px]:text-base md:mt-4 md:text-xl">
+                        {service.name}
+                      </h3>
+                      <p class="mt-2 hidden text-sm leading-relaxed text-charcoal/65 transition-colors duration-300 group-hover:text-white/75 group-focus-visible:text-white/75 md:block">
+                        {service.tagline}
+                      </p>
+                    </a>
+                  );
+                })}
               </div>
             </div>
-
-            <span class="mt-6 inline-flex items-center gap-2 font-medium md:mt-9">
-              Explore VIP Marketing Manager
-              <ArrowRight className="motion-arrow h-4 w-4" />
-            </span>
           </div>
-        </a>
+        </div>
 
         <a
           href={`/services/${homeDirectTrackService.slug}`}
-          class="group flex flex-col justify-between rounded-[32px] bg-[var(--key-blue)] p-6 text-white transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.35)] md:p-8 lg:col-span-5"
+          class="group relative grid overflow-hidden rounded-[32px] border border-white/10 p-6 text-white shadow-[0_24px_64px_-46px_rgba(35,46,102,0.72)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_34px_80px_-44px_rgba(35,46,102,0.82)] md:p-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:gap-8 lg:p-9"
+          style="background: linear-gradient(135deg, var(--key-blue) 0%, var(--navy) 100%);"
           data-track-event="service_cta_click"
           data-track-slug={homeDirectTrackService.slug}
           data-track-placement="home_services"
         >
-          <div>
-            <div class="flex items-start justify-between gap-4">
+          <span class="pointer-events-none absolute -left-24 -top-32 h-72 w-72 rounded-full bg-white/10 blur-3xl"></span>
+          <span class="pointer-events-none absolute -bottom-24 right-24 h-56 w-56 rounded-full bg-[var(--key-blue)]/25 blur-3xl"></span>
+          <span class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--green)]/90 to-transparent"></span>
+
+          <div class="relative z-10 flex flex-col justify-center py-1 lg:pr-3">
+            <div class="flex items-center gap-3">
               <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-white md:h-12 md:w-12 md:rounded-2xl">
                 <Route className="h-5 w-5 md:h-6 md:w-6" />
               </span>
               <span class="rounded-full bg-[var(--green)] px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-charcoal">
-                New
+                New service
               </span>
             </div>
             <h3 class="mt-5 font-display text-3xl font-semibold leading-tight text-white md:mt-7 md:text-4xl">
               {homeDirectTrackService.name}
             </h3>
-            <p class="mt-4 text-base leading-relaxed text-white/80 md:mt-5 md:text-lg">
+            <p class="mt-4 max-w-xl text-base leading-relaxed text-white/80 md:mt-5 md:text-lg">
               Trackable campaigns for shops that need targeted demand, clearer
               attribution, and a better read on what is moving.
             </p>
-            <div class="mt-5 flex flex-wrap gap-2 md:mt-7">
+          </div>
+
+          <div class="relative z-10 mt-7 flex flex-col justify-center rounded-[24px] border border-white/10 bg-white/[0.08] p-5 backdrop-blur-sm lg:mt-0 lg:p-6">
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/58">
+              Built to reach the right customers
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
               {homeDirectTrackService.outcomes.slice(0, 3).map((outcome) => (
-                <span class="rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white/90">
+                <span class="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90">
                   {outcome}
                 </span>
               ))}
             </div>
+            <span class="mt-6 inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-white px-5 font-semibold text-[var(--navy)] shadow-[0_14px_30px_-18px_rgba(17,33,69,0.65)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_18px_34px_-18px_rgba(17,33,69,0.75)]">
+              See DirectTrack
+              <ArrowRight className="motion-arrow h-4 w-4" />
+            </span>
           </div>
-          <span class="mt-6 inline-flex items-center gap-2 font-medium text-white md:mt-8">
-            See DirectTrack
-            <ArrowRight className="motion-arrow h-4 w-4" />
-          </span>
         </a>
-
-        <div class="grid grid-cols-2 gap-3 md:gap-4 lg:col-span-12 lg:grid-cols-3">
-          {homeFocusedServices.map((service) => {
-            const Icon = service.icon;
-            return (
-              <a
-                href={`/services/${service.slug}`}
-                class="group rounded-[24px] bg-white p-4 transition-[background-color,box-shadow] duration-300 ease-out hover:bg-[var(--navy)] hover:shadow-[0_24px_60px_-46px_rgba(20,22,28,0.35)] focus-visible:bg-[var(--navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--key-blue)] focus-visible:ring-offset-2 md:p-6"
-                data-track-event="service_cta_click"
-                data-track-slug={service.slug}
-                data-track-placement="home_services"
-              >
-                <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--key-blue-soft)] text-[var(--navy)] transition-colors duration-300 group-hover:bg-white/15 group-hover:text-white group-focus-visible:bg-white/15 group-focus-visible:text-white md:h-10 md:w-10">
-                  <Icon className="h-4 w-4 md:h-5 md:w-5" />
-                </span>
-                <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-charcoal transition-colors duration-300 group-hover:text-white group-focus-visible:text-white md:mt-4 md:text-xl">
-                  {service.name}
-                </h3>
-                <p class="mt-2 hidden text-sm leading-relaxed text-charcoal/65 transition-colors duration-300 group-hover:text-white/75 group-focus-visible:text-white/75 md:block">
-                  {service.tagline}
-                </p>
-              </a>
-            );
-          })}
-        </div>
       </div>
     </div>
   </section>
@@ -575,13 +650,13 @@ const faqSchema = {
       >
         <div class="relative">
           <h3 class="display-2 leading-tight text-white text-balance">
-            Own the plan.<br />
-            <span class="text-[var(--key-blue)]">Run every channel.</span>
+            You hired help.<br />
+            <span class="text-[var(--key-blue)]">Why is the marketing still on you?</span>
           </h3>
           <p class="mt-5 max-w-md text-base leading-relaxed text-white/70 md:mt-6 md:text-lg">
-            Not more homework. More marketing leadership. We coordinate vendors, campaigns,
-            reporting, and next steps without making you manage every marketing
-            decision.
+            If you are still chasing updates, approving every detail, and wondering what is
+            actually bringing cars through the door, the job never left your plate. We own
+            the plan and keep it moving.
           </p>
           <div class="mt-7 md:mt-10">
             <a
@@ -590,7 +665,7 @@ const faqSchema = {
               data-track-event="consultation_cta_click"
               data-track-placement="launch_section"
             >
-              Talk through the plan
+              Get it off my plate
             </a>
           </div>
         </div>
@@ -672,64 +747,6 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="pb-16 md:pb-32">
-    <div class="container-page">
-      <div class="text-center max-w-3xl mx-auto">
-        <p class="eyebrow" style="color: var(--key-blue);">Client proof</p>
-        <h2 class="display-2 mt-4 text-balance">
-          Shop owners say <span class="text-[var(--key-blue)]">it best.</span>
-        </h2>
-        <p class="mt-5 text-base leading-relaxed text-charcoal/65 md:mt-6 md:text-lg">
-          Real repair shop owners talking about what changes when Turnkey owns
-          the plan, the follow-through, and the next move.
-        </p>
-      </div>
-
-      <div class="mt-10 grid gap-5 md:mt-16 md:grid-cols-3 md:gap-6">
-        {ownerTestimonials.map((testimonial) => (
-          <figure
-            class="relative flex min-h-0 flex-col overflow-hidden rounded-[28px] p-6 md:min-h-[360px] md:p-8"
-            style="background: var(--off-white);"
-          >
-            <Quote className="absolute right-5 top-5 h-8 w-8 text-[var(--key-blue)] opacity-30 md:right-7 md:top-7 md:h-10 md:w-10" aria-hidden="true" />
-            <p class="text-xs uppercase tracking-widest text-[var(--key-blue)]">
-              {testimonial.marker}
-            </p>
-            <blockquote class="mt-6 flex-1 font-display text-2xl font-semibold leading-tight text-charcoal md:mt-8 md:text-[1.65rem]">
-              “{testimonial.quote}”
-            </blockquote>
-            <figcaption class="mt-6 border-t hairline pt-5 md:mt-8 md:pt-6">
-              <div class="flex items-center gap-4">
-                {"image" in testimonial && (
-                  <img
-                    src={testimonial.image.src}
-                    alt={testimonial.image.alt}
-                    width="96"
-                    height="96"
-                    loading="lazy"
-                    decoding="async"
-                    class="h-14 w-14 shrink-0 rounded-full object-cover"
-                    style={`object-position: ${testimonial.image.position};`}
-                  />
-                )}
-                <div>
-                  <div class="font-display text-lg font-semibold text-charcoal">
-                    {testimonial.name}
-                  </div>
-                  <div class="mt-1 text-sm text-charcoal/60 leading-relaxed">
-                    {testimonial.shop}
-                    <br />
-                    {testimonial.location}
-                  </div>
-                </div>
-              </div>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <section class="hidden md:block md:pb-32">
     <div class="container-page">
       <div
@@ -773,7 +790,7 @@ const faqSchema = {
           What is your time worth?
         </h2>
         <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-charcoal/65 md:text-lg">
-          The real cost is your lost time, the sleepless nights, the leads that
+          The real cost is lost time, the sleepless nights, the leads that
           slip away, and the stress of chasing scattered vendors while the work
           lands with whoever has a spare hour.
         </p>
@@ -834,11 +851,6 @@ const faqSchema = {
         ))}
       </div>
 
-      <p class="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-charcoal/55 md:mt-8">
-        It is the same reason a complex diagnostic should not land with the lube
-        tech: the right tools still need the right specialist.
-      </p>
-
       <div class="mt-7 text-center md:mt-9">
         <a
           href={CONSULTATION_URL}
@@ -856,7 +868,7 @@ const faqSchema = {
     <div class="container-page">
       <div class="mb-8 flex flex-wrap items-end justify-between gap-6 md:mb-12">
         <h2 class="display-2 text-balance">Latest insights</h2>
-        <a href="/resources" class="btn-ghost !px-5 !py-2.5 text-sm">
+        <a href="/resources" class="btn-ghost min-h-11 !px-5 !py-2.5 text-sm">
           Explore all
         </a>
       </div>
@@ -915,19 +927,18 @@ const faqSchema = {
             ]}
             open={index === 0}
           >
-            <summary class="flex w-full cursor-pointer items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--cream)] md:px-6 md:py-5">
-              <span class="pr-5 font-display text-base font-semibold text-charcoal md:pr-8 md:text-lg">
+            <summary class="faq-summary group flex w-full cursor-pointer items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--key-blue)] md:px-6 md:py-5">
+              <span class="faq-question pr-5 font-display text-base font-semibold text-charcoal transition-colors group-hover:text-white md:pr-8 md:text-lg">
                 {item.q}
               </span>
               <span
-                class="flex-none inline-flex h-8 w-8 items-center justify-center rounded-full"
-                style="background: var(--off-white);"
+                class="faq-icon inline-flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[var(--off-white)] text-charcoal transition-colors group-hover:bg-white/15 group-hover:text-white"
               >
                 <span class="faq-plus">+</span>
                 <span class="faq-minus">−</span>
               </span>
             </summary>
-            <div class="px-5 pb-5 leading-relaxed text-charcoal/70 md:px-6 md:pb-6">
+            <div class="faq-answer px-5 pb-5 leading-relaxed text-charcoal/70 transition-colors md:px-6 md:pb-6">
               {item.a}
             </div>
           </details>
@@ -957,7 +968,7 @@ const faqSchema = {
       >
         <div class="relative max-w-3xl mx-auto">
           <div class="inline-flex items-center gap-2 text-xs text-charcoal/60">
-            <div class="flex text-[var(--green)]">
+            <div class="flex" style="color: #F4B400;">
               {[0, 1, 2, 3, 4].map(() => (
                 <Star className="h-3.5 w-3.5" fill="currentColor" />
               ))}
@@ -1003,31 +1014,31 @@ const faqSchema = {
     line-height: 1.04;
   }
 
-  .hero-heading-phrase {
-    display: flex;
-    align-items: baseline;
-    width: fit-content;
+  .hero-rotator {
+    display: grid;
     max-width: 100%;
-    margin-top: 0.65rem;
-    font-size: clamp(1.25rem, 6.1vw, 1.65rem);
-    line-height: 1.12;
-    letter-spacing: -0.035em;
-    white-space: normal;
+    margin-top: 0.12em;
   }
 
-  [data-hero-phrase] {
-    font-variant-ligatures: none;
+  .hero-rotator-phrase {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: translateY(0.45em);
+    transition:
+      opacity 500ms var(--ease-standard),
+      transform 620ms var(--ease-emphasized);
+    pointer-events: none;
+    text-wrap: balance;
   }
 
-  [data-hero-cursor] {
-    display: none;
-    margin-left: 0.04em;
-    color: var(--key-blue);
+  .hero-rotator-phrase.is-active {
+    opacity: 1;
+    transform: none;
   }
 
-  @keyframes hero-cursor-blink {
-    50% {
-      opacity: 0;
+  @media (prefers-reduced-motion: reduce) {
+    .hero-rotator-phrase {
+      transition: none;
     }
   }
 
@@ -1037,6 +1048,21 @@ const faqSchema = {
 
   .faq-item > summary::-webkit-details-marker {
     display: none;
+  }
+
+  .faq-item[open] > .faq-summary,
+  .faq-item[open] > .faq-answer {
+    background: var(--key-blue);
+  }
+
+  .faq-item[open] .faq-question,
+  .faq-item[open] > .faq-answer {
+    color: white;
+  }
+
+  .faq-item[open] .faq-icon {
+    background: rgb(255 255 255 / 0.15);
+    color: white;
   }
 
   .faq-minus {
@@ -1060,10 +1086,6 @@ const faqSchema = {
   }
 
   @media (max-width: 767px) {
-    .hero-heading-phrase {
-      text-wrap: balance;
-    }
-
     .faq-extra {
       display: none;
     }
@@ -1074,89 +1096,48 @@ const faqSchema = {
   }
 
   @media (min-width: 768px) {
-    .hero-heading-phrase {
-      min-width: 14ch;
-      margin-top: 0.3rem;
+    .hero-rotator {
+      margin-top: 0.18em;
+    }
+
+    .hero-rotator-phrase {
       font-size: clamp(2rem, 4.75vw, 3rem);
+      line-height: 1.08;
       white-space: nowrap;
-    }
-
-    [data-hero-cursor] {
-      display: inline-block;
-      animation: hero-cursor-blink 1s steps(2, start) infinite;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    [data-hero-cursor] {
-      animation: none;
-      opacity: 0;
     }
   }
 </style>
 
 <script>
-  const phrase = document.querySelector<HTMLElement>("[data-hero-phrase]");
-  const phraseText = document.querySelector<HTMLElement>("[data-hero-phrase-text]");
-  const phrases = phrase ? JSON.parse(phrase.dataset.phrases || "[]") : [];
-  let phraseIndex = 0;
-
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const desktopHeroMotionQuery = window.matchMedia("(min-width: 768px)");
   const reduceMotion = reduceMotionQuery.matches;
-  const typeSpeed = 42;
-  const deleteSpeed = 22;
-  const holdDelay = 1550;
-  const betweenDelay = 180;
-  let phraseTimer = 0;
-  let phraseRun = 0;
 
-  const schedulePhrase = (callback: () => void, delay: number, run: number) => {
-    phraseTimer = window.setTimeout(() => {
-      if (run === phraseRun) callback();
-    }, delay);
-  };
+  const rotator = document.querySelector<HTMLElement>("[data-hero-rotator]");
 
-  const typePhrase = (text: string, charIndex: number, run: number) => {
-    if (!phraseText || run !== phraseRun) return;
-    phraseText.textContent = text.slice(0, charIndex);
-    if (charIndex < text.length) {
-      schedulePhrase(() => typePhrase(text, charIndex + 1, run), typeSpeed, run);
-      return;
-    }
-    schedulePhrase(() => deletePhrase(text, text.length, run), holdDelay, run);
-  };
+  if (rotator) {
+    const rotatorPhrases = Array.from(
+      rotator.querySelectorAll<HTMLElement>(".hero-rotator-phrase"),
+    );
+    let activePhrase = 0;
+    let rotatorTimer = 0;
 
-  const deletePhrase = (text: string, charIndex: number, run: number) => {
-    if (!phraseText || run !== phraseRun) return;
-    phraseText.textContent = text.slice(0, charIndex);
-    if (charIndex > 0) {
-      schedulePhrase(() => deletePhrase(text, charIndex - 1, run), deleteSpeed, run);
-      return;
-    }
-    phraseIndex = (phraseIndex + 1) % phrases.length;
-    schedulePhrase(() => typePhrase(phrases[phraseIndex], 0, run), betweenDelay, run);
-  };
+    const advancePhrase = () => {
+      rotatorPhrases[activePhrase]?.classList.remove("is-active");
+      activePhrase = (activePhrase + 1) % rotatorPhrases.length;
+      rotatorPhrases[activePhrase]?.classList.add("is-active");
+    };
 
-  const syncHeroPhrase = () => {
-    window.clearTimeout(phraseTimer);
-    phraseRun += 1;
-    phraseIndex = 0;
+    const syncRotator = () => {
+      window.clearInterval(rotatorTimer);
+      if (rotatorPhrases.length > 1 && !reduceMotionQuery.matches && !document.hidden) {
+        rotatorTimer = window.setInterval(advancePhrase, 2800);
+      }
+    };
 
-    if (!phraseText || !phrases.length) return;
-    phraseText.textContent = phrases[0];
-
-    if (phrases.length < 2 || reduceMotionQuery.matches || !desktopHeroMotionQuery.matches) {
-      return;
-    }
-
-    const run = phraseRun;
-    schedulePhrase(() => deletePhrase(phrases[0], phrases[0].length, run), holdDelay, run);
-  };
-
-  syncHeroPhrase();
-  desktopHeroMotionQuery.addEventListener("change", syncHeroPhrase);
-  reduceMotionQuery.addEventListener("change", syncHeroPhrase);
+    syncRotator();
+    reduceMotionQuery.addEventListener("change", syncRotator);
+    document.addEventListener("visibilitychange", syncRotator);
+  }
 
   const featureIcons = document.querySelectorAll("[data-feature-icon]");
 

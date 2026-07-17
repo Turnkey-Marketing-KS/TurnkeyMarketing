@@ -41,7 +41,7 @@ const openCtaExternally = ctaExternal && !ctaHref?.startsWith("/");
 <section class="border-b hairline bg-white">
   <div class="container-page pt-10 pb-12 md:pt-16 md:pb-20">
     {backHref && backLabel && (
-      <a href={backHref} class="inline-flex text-sm text-muted-foreground transition hover:text-charcoal">
+      <a href={backHref} class="inline-flex min-h-11 items-center text-sm text-muted-foreground transition hover:text-charcoal">
         ← {backLabel}
       </a>
     )}
@@ -79,7 +79,7 @@ const openCtaExternally = ctaExternal && !ctaHref?.startsWith("/");
             {secondaryHref && secondaryLabel && (
               <a
                 href={secondaryHref}
-                class="inline-flex items-center justify-center gap-2 py-1 font-medium text-charcoal/75 transition hover:text-charcoal sm:justify-start"
+                class="inline-flex min-h-11 items-center justify-center gap-2 font-medium text-charcoal/75 transition hover:text-charcoal sm:justify-start"
               >
                 {secondaryLabel}
                 <ArrowRight className="h-4 w-4" />

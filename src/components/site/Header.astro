@@ -48,61 +48,100 @@ const isActive = (href: string) =>
             aria-current={isActive("/services") ? "page" : undefined}
           >
             Services
-            <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
+            <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-180 group-focus-within:rotate-180" aria-hidden="true" />
           </a>
           <div
-            class="nav-dropdown-panel absolute left-1/2 top-full -translate-x-1/2 pt-4 w-[720px] opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto"
+            class="nav-dropdown-panel absolute left-1/2 top-full w-[880px] -translate-x-1/2 translate-y-3 pt-4 opacity-0 pointer-events-none group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
           >
-            <div class="rounded-3xl border hairline bg-white shadow-[0_30px_80px_-20px_rgba(20,22,28,0.25)] p-5">
+            <div class="overflow-hidden rounded-[30px] border border-[rgba(35,46,102,0.12)] bg-white p-2 shadow-[0_34px_90px_-28px_rgba(20,22,28,0.34),0_14px_36px_-24px_rgba(35,46,102,0.28)]">
+              <div class="grid grid-cols-[0.82fr_1.35fr] gap-2">
               <a
                 href={`/services/${vip.slug}`}
-                class="site-menu-link group/vip flex items-start gap-4 rounded-2xl p-4 hover:bg-[var(--off-white)] transition"
+                class="site-menu-link group/vip relative flex min-h-full flex-col overflow-hidden rounded-[24px] px-6 py-7 text-white"
+                style="background: linear-gradient(155deg, var(--key-blue) 0%, var(--navy) 72%);"
               >
-                <span
-                  class="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-xl text-white"
-                  style="background: var(--navy);"
-                >
-                  <Star className="h-4 w-4" />
-                </span>
-                <div class="flex-1">
-                  <div class="flex items-center gap-2">
-                    <span class="font-display text-[1.1rem] text-charcoal font-semibold">
-                      {vip.name}
+                <span class="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/10 blur-2xl"></span>
+                <div class="relative z-10 flex items-center justify-between gap-3">
+                  <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/12 text-[var(--green)] ring-1 ring-white/15">
+                    <Star className="h-5 w-5" />
+                  </span>
+                  <span class="rounded-full bg-[var(--green)] px-3 py-1 text-[0.61rem] font-bold uppercase tracking-[0.16em] text-[var(--charcoal)]">
+                    Whole department
+                  </span>
+                </div>
+
+                <div class="relative z-10 mt-8">
+                  <h2 class="font-display text-[1.75rem] font-semibold leading-[1.02] text-white">
+                    {vip.name}
+                  </h2>
+                  <p class="mt-4 text-sm leading-relaxed text-white/74">
+                    We make the plan, keep every vendor moving, and show you what is actually working.
+                  </p>
+                </div>
+
+                <div class="relative z-10 mt-auto pt-8">
+                  <div class="grid gap-2 text-xs font-medium text-white/82">
+                    <span class="flex items-center gap-2">
+                      <span class="h-1.5 w-1.5 rounded-full bg-[var(--green)]"></span>
+                      One team owns the whole plan
                     </span>
-                    <span
-                      class="text-[0.6rem] uppercase tracking-widest px-1.5 py-0.5 rounded"
-                      style="background: var(--green); color: var(--charcoal);"
-                    >
-                      Flagship
+                    <span class="flex items-center gap-2">
+                      <span class="h-1.5 w-1.5 rounded-full bg-[var(--green)]"></span>
+                      Less vendor chasing for you
                     </span>
                   </div>
-                  <p class="text-sm text-muted-foreground mt-1">{vip.tagline}</p>
+                  <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                    See how VIP works
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/vip:translate-x-0.5 group-hover/vip:-translate-y-0.5" />
+                  </span>
                 </div>
-                <ArrowUpRight className="h-4 w-4 text-charcoal/40 group-hover/vip:text-charcoal transition" />
               </a>
-              <div class="my-3 border-t hairline"></div>
-              <div class="grid grid-cols-2 gap-1">
-                {rest.map((service) => (
-                  <a
-                    href={`/services/${service.slug}`}
-                    class="site-menu-link rounded-xl px-4 py-2.5 hover:bg-[var(--off-white)] transition"
-                  >
-                    <div class="flex items-center gap-2">
-                      <span class="text-[0.95rem] text-charcoal font-medium">{service.name}</span>
+
+              <div class="rounded-[24px] bg-[var(--off-white)] px-5 py-5">
+                <div class="flex items-end justify-between gap-5 px-1">
+                  <div>
+                    <p class="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[var(--key-blue)]">
+                      Individual services
+                    </p>
+                    <p class="mt-1.5 text-sm text-charcoal/58">Start with one service, or add support as you need it.</p>
+                  </div>
+                  <a href="/services" class="shrink-0 text-xs font-semibold text-[var(--navy)] transition hover:text-[var(--key-blue)]">
+                    View all
+                  </a>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-2">
+                  {rest.map((service) => (
+                    <a
+                      href={`/services/${service.slug}`}
+                      class="site-menu-link group/service min-w-0 rounded-2xl border border-[rgba(63,140,203,0.2)] bg-white px-4 py-3.5 shadow-[0_12px_30px_-28px_rgba(35,46,102,0.5)] transition hover:border-[var(--key-blue)] hover:bg-[var(--key-blue)] hover:shadow-[0_18px_36px_-26px_rgba(35,46,102,0.5)]"
+                    >
+                      <div class="flex items-center justify-between gap-3">
+                        <span class="truncate text-[0.9rem] font-semibold text-charcoal transition-colors group-hover/service:text-white">
+                          {service.name}
+                        </span>
+                        <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[var(--key-blue)] transition group-hover/service:-translate-y-0.5 group-hover/service:translate-x-0.5 group-hover/service:text-white" />
+                      </div>
+                      <div class="mt-1 line-clamp-1 text-[0.69rem] leading-relaxed text-charcoal/52 transition-colors group-hover/service:text-white/72">
+                        {service.tagline}
+                      </div>
                       {service.isNew && (
-                        <span
-                          class="text-[0.6rem] uppercase tracking-widest px-1.5 py-0.5 rounded"
-                          style="background: var(--green); color: var(--charcoal);"
-                        >
-                          New
+                        <span class="mt-2 inline-flex rounded-full bg-[var(--green)] px-2 py-0.5 text-[0.56rem] font-bold uppercase tracking-[0.14em] text-[var(--charcoal)]">
+                          New service
                         </span>
                       )}
-                    </div>
-                    <div class="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-                      {service.tagline}
-                    </div>
-                  </a>
-                ))}
+                    </a>
+                  ))}
+                </div>
+
+                <a
+                  href="/services"
+                  class="group/all mt-4 flex items-center justify-between rounded-2xl border border-[var(--navy)]/10 bg-white px-4 py-3 text-sm font-semibold text-[var(--navy)] transition hover:border-[var(--navy)] hover:bg-[var(--navy)] hover:text-white"
+                >
+                  Compare every service
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/all:translate-x-0.5 group-hover/all:-translate-y-0.5" />
+                </a>
+              </div>
               </div>
             </div>
           </div>

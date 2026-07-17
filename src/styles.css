@@ -367,6 +367,20 @@ a.group {
   transition-duration: var(--duration-standard);
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary:active,
+  .btn-blue:active,
+  .btn-ghost:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  .motion-card:active,
+  a.group:active,
+  .card-float:active {
+    transform: scale(0.985);
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .motion-card:hover,
   a.group:hover {
@@ -483,6 +497,63 @@ html.motion-ready [data-reveal="fade"] {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
+}
+
+.vip-service-suite {
+  --vip-border-angle: 0deg;
+  isolation: isolate;
+  border: 6px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    conic-gradient(
+      from var(--vip-border-angle),
+      var(--key-blue) 0deg 60deg,
+      #79d5f6 95deg,
+      var(--green) 125deg 180deg,
+      #79d5f6 210deg,
+      var(--key-blue) 245deg 360deg
+    ) border-box;
+  box-shadow:
+    0 0 18px rgba(63, 140, 203, 0.38),
+    0 0 40px rgba(147, 200, 69, 0.16),
+    0 24px 70px -44px rgba(35, 46, 102, 0.8);
+  animation: vip-border-flow 8s linear infinite;
+}
+
+@media (max-width: 479px) {
+  .vip-service-suite {
+    border-width: 4px;
+    border-radius: 30px;
+    box-shadow:
+      0 0 14px rgba(63, 140, 203, 0.34),
+      0 0 30px rgba(147, 200, 69, 0.14),
+      0 20px 54px -42px rgba(35, 46, 102, 0.76);
+  }
+}
+
+.vip-service-suite:hover,
+.vip-service-suite:focus-within {
+  animation-duration: 2.2s;
+  box-shadow:
+    0 0 24px rgba(63, 140, 203, 0.52),
+    0 0 48px rgba(147, 200, 69, 0.22),
+    0 34px 90px -46px rgba(35, 46, 102, 0.82);
+}
+
+.vip-suite-lead {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(63, 140, 203, 0.82), transparent 44%),
+    radial-gradient(circle at 82% 74%, rgba(52, 76, 139, 0.9), transparent 52%),
+    linear-gradient(135deg, #2e6fa8 0%, var(--navy) 70%);
+}
+
+.vip-suite-lead::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(118deg, transparent 26%, rgba(255, 255, 255, 0.08) 48%, transparent 68%);
+  opacity: 0.7;
 }
 
 .vip-shader-card {
