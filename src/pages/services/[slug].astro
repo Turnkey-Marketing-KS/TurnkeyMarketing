@@ -122,11 +122,11 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   name: service.name,
-  description: service.summary,
+  description: service.seoDescription,
   provider: {
     "@type": "Organization",
     name: "Turnkey Marketing",
-    url: "https://turnkeyautomarketing.com",
+    url: "https://www.turnkeyautomarketing.com",
   },
   areaServed: "United States",
   serviceType: "Auto repair marketing",
@@ -140,13 +140,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Services",
-      item: "https://turnkeyautomarketing.com/services",
+      item: "https://www.turnkeyautomarketing.com/services",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: service.name,
-      item: `https://turnkeyautomarketing.com${servicePath}`,
+      item: `https://www.turnkeyautomarketing.com${servicePath}`,
     },
   ],
 };
@@ -166,10 +166,10 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title={`${serviceTitle} — Turnkey Marketing`}
-  description={service.summary}
+  title={service.seoTitle}
+  description={service.seoDescription}
   path={servicePath}
-  ogTitle={`${serviceTitle} — Turnkey Marketing`}
+  ogTitle={service.seoTitle}
   ogType="article"
   ogImage={detail.image.src}
   schema={[serviceSchema, breadcrumbSchema, faqSchema]}

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/whatwedo",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/why-us",
+      "destination": "/results",
+      "permanent": true
+    },
+    {
+      "source": "/whoweare",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/insights",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/insights/page/:id",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/customer-life-cycle",
+      "destination": "/services/retention-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/case-study",
+      "destination": "/results",
+      "permanent": true
+    },
+    {
+      "source": "/category/:path*",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/author/:path*",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio_category/:path*",
+      "destination": "/results",
+      "permanent": true
+    },
+    {
+      "source": "/faq-items",
+      "destination": "/#home-faq-list",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/auto-repair-shop-photography",
+      "destination": "/resources/auto-repair-shop-photography-guide",
+      "permanent": true
+    },
+    {
+      "source": "/be-the-guide",
+      "destination": "/resources/be-the-guide-auto-repair-shop-messaging",
+      "permanent": true
+    },
+    {
+      "source": "/create-customer-profile-auto-repair-shop",
+      "destination": "/resources/ideal-customer-profile-auto-repair-shop",
+      "permanent": true
+    },
+    {
+      "source": "/use-this-magical-three-word-filter-to-woo-customers-to-your-auto-repair-shop",
+      "destination": "/resources/know-like-trust-marketing-filter",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-create-a-winning-marketing-plan-for-your-auto-repair-shop",
+      "destination": "/resources/auto-repair-marketing-plan",
+      "permanent": true
+    },
+    {
+      "source": "/joe-flammer-ratchet-wrench",
+      "destination": "/resources/direct-mail-for-repair-shops",
+      "permanent": true
+    },
+    {
+      "source": "/two-keys-auto-repair-shop-message",
+      "destination": "/resources/be-the-guide-auto-repair-shop-messaging",
+      "permanent": true
+    },
+    {
+      "source": "/celebrating-10-years-of-turnkey-marketing",
+      "destination": "/about",
+      "permanent": true
+    }
+  ]
+}

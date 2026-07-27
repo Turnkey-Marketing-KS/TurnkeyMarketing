@@ -22,14 +22,15 @@ const {
   path = Astro.url.pathname,
   ogTitle = title,
   ogType = "website",
-  ogImage = "/images/logos/cropped-Icons-01.png",
+  ogImage = "/favicon-512.png",
   schema = [],
   noindex = false,
 } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL("https://turnkeyautomarketing.com");
-const brandIconPath = "/images/logos/cropped-Icons-01.png";
-const canonicalUrl = new URL(path, siteUrl).toString();
+const siteUrl = Astro.site ?? new URL("https://www.turnkeyautomarketing.com");
+const brandIconPath = "/favicon-512.png";
+const canonicalPath = path === "/" ? path : path.replace(/\/+$/, "");
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const imageUrl = new URL(ogImage, siteUrl).toString();
 const brandIconUrl = new URL(brandIconPath, siteUrl).toString();
 const twitterCard = ogImage === brandIconPath ? "summary" : "summary_large_image";
@@ -78,11 +79,12 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Turnkey Marketing" />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href={brandIconPath} type="image/png" sizes="512x512" />
-    <link rel="shortcut icon" href={brandIconPath} type="image/png" />
-    <link rel="apple-touch-icon" href={brandIconPath} />
+    <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+    <link rel="icon" href="/favicon-32.png?v=2" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png?v=2" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

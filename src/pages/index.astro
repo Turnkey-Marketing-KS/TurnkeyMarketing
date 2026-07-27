@@ -324,6 +324,7 @@ const faqSchema = {
                     src={logo.src}
                     alt={index < row.length ? logo.name : ""}
                     aria-hidden={index >= row.length ? "true" : "false"}
+                    role={index >= row.length ? "presentation" : undefined}
                     class="max-h-[4.5rem] w-full scale-[1.04] object-contain opacity-100 md:max-h-[5.5rem] md:scale-[1.08]"
                     loading="lazy"
                     decoding="async"

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://turnkeyautomarketing.com/sitemap.xml
+Sitemap: https://www.turnkeyautomarketing.com/sitemap.xml

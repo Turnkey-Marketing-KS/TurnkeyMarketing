@@ -51,15 +51,18 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       stats: [
         {
           value: "One team",
-          label: "Strategy, creative, copy, social, and reporting live under one roof — not five vendors.",
+          label:
+            "Strategy, creative, copy, social, and reporting live under one roof — not five vendors.",
         },
         {
           value: "Zero hiring",
-          label: "No recruiting, training, or managing an in-house marketer to get real marketing leadership.",
+          label:
+            "No recruiting, training, or managing an in-house marketer to get real marketing leadership.",
         },
         {
           value: "Monthly reporting",
-          label: "You always know what ran, what it cost, and what it brought back through the door.",
+          label:
+            "You always know what ran, what it cost, and what it brought back through the door.",
         },
       ],
     },
@@ -83,22 +86,26 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         icon: "share",
         title: "Social media coordinator",
-        description: "Keeps Facebook, Instagram, and Google Business Profile active in your shop's voice.",
+        description:
+          "Keeps Facebook, Instagram, and Google Business Profile active in your shop's voice.",
       },
       {
         icon: "palette",
         title: "Graphic designer",
-        description: "Postcards, ads, and social creative built for your shop — not pulled from templates.",
+        description:
+          "Postcards, ads, and social creative built for your shop — not pulled from templates.",
       },
       {
         icon: "pen",
         title: "Copywriter",
-        description: "The words on your mailers, emails, and ads, written by someone who knows shop customers.",
+        description:
+          "The words on your mailers, emails, and ads, written by someone who knows shop customers.",
       },
       {
         icon: "clipboard",
         title: "Administrative assistant",
-        description: "The coordination and follow-through that keeps campaigns shipping on schedule.",
+        description:
+          "The coordination and follow-through that keeps campaigns shipping on schedule.",
       },
     ],
     process: [
@@ -190,7 +197,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         icon: "search",
         title: "Review of current marketing",
-        description: "We look at everything you're running — spend, vendors, results — and find the leaks.",
+        description:
+          "We look at everything you're running — spend, vendors, results — and find the leaks.",
       },
       {
         icon: "compass",
@@ -296,7 +304,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         icon: "map-pin",
         title: "Geofenced display ads",
-        description: "Banner ads aimed at real geography — neighborhoods, commuter routes, competitor zones.",
+        description:
+          "Banner ads aimed at real geography — neighborhoods, commuter routes, competitor zones.",
       },
       {
         icon: "chart",
@@ -503,12 +512,14 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         icon: "facebook",
         title: "Organic Facebook posts",
-        description: "3–5 posts a week that show real work, real people, and your shop's personality.",
+        description:
+          "3–5 posts a week that show real work, real people, and your shop's personality.",
       },
       {
         icon: "instagram",
         title: "Organic Instagram posts",
-        description: "Your shop's work, team, and story — kept current without you filming anything.",
+        description:
+          "Your shop's work, team, and story — kept current without you filming anything.",
       },
       {
         icon: "map-pin",
@@ -610,7 +621,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         icon: "mail",
         title: "Monthly email newsletter",
-        description: "Written, designed, and sent for you — real content, not filler your customers delete.",
+        description:
+          "Written, designed, and sent for you — real content, not filler your customers delete.",
       },
       {
         icon: "heart",
@@ -639,7 +651,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
     ],
     testimonial: {
-      quote: "I've felt a real sense of relief knowing everything is being handled with care and urgency.",
+      quote:
+        "I've felt a real sense of relief knowing everything is being handled with care and urgency.",
       name: "Virgilio Peralta",
       detail: "Auto Medics",
     },
@@ -724,7 +737,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     process: [
       {
         title: "Audit the foundation",
-        description: "We review your profile, reviews, website, and ads for what's costing you calls.",
+        description:
+          "We review your profile, reviews, website, and ads for what's costing you calls.",
       },
       {
         title: "Optimize and manage",
@@ -827,7 +841,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         title: "Fire the campaign",
-        description: "Email, text, and social go out together around one offer with a real deadline.",
+        description:
+          "Email, text, and social go out together around one offer with a real deadline.",
       },
       {
         title: "Answer the phones",
