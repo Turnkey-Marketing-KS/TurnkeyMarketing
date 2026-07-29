@@ -1,5 +1,5 @@
 ---
-import { Calendar, Mail, Phone } from "lucide-react";
+import { Calendar, Mail, MapPin, Phone } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { BOOKING_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
@@ -26,7 +26,7 @@ import { siteMedia } from "@/lib/site-media";
   </section>
 
   <section class="container-page py-14 md:py-20">
-    <div class="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-3">
+    <div class="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-2 lg:grid-cols-4">
       <a
         href={BOOKING_URL}
         class="group min-w-0 rounded-[28px] bg-[var(--navy)] p-7 text-white transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(35,46,102,0.65)]"
@@ -77,6 +77,24 @@ import { siteMedia } from "@/lib/site-media";
         <p class="mt-3 break-words text-lg font-medium text-charcoal">
           hello@turnkeyautomarketing.com
         </p>
+      </a>
+
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=9401+Indian+Creek+Pkwy+%231300%2C+Overland+Park%2C+KS+66210"
+        class="min-w-0 rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
+          <MapPin className="h-5 w-5" />
+        </span>
+        <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
+          Office
+        </h2>
+        <address class="mt-3 text-base font-medium not-italic leading-relaxed text-charcoal">
+          9401 Indian Creek Pkwy #1300<br />
+          Overland Park, KS 66210
+        </address>
       </a>
     </div>
   </section>
