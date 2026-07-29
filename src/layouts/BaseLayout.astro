@@ -70,6 +70,20 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XJZ35N9FWG"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", "G-XJZ35N9FWG");
+    </script>
     <script is:inline>
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         document.documentElement.classList.add("motion-ready");
@@ -160,8 +174,11 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
       window.tkTrack = function (event, params) {
         try {
           window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push(Object.assign({ event: event }, params || {}));
-          if (typeof window.gtag === "function") window.gtag("event", event, params || {});
+          if (typeof window.gtag === "function") {
+            window.gtag("event", event, params || {});
+          } else {
+            window.dataLayer.push(Object.assign({ event: event }, params || {}));
+          }
           if (typeof window.fbq === "function") window.fbq("trackCustom", event, params || {});
         } catch (_) {}
       };
