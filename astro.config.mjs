@@ -5,14 +5,9 @@ import { rm } from "node:fs/promises";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  site: "https://turnkeyautomarketing.com",
+  site: "https://www.turnkeyautomarketing.com",
   output: "static",
-  trailingSlash: "ignore",
-  redirects: {
-    "/privacy": "/privacy-policy",
-    "/terms": "/terms-of-service",
-    "/terms-and-conditions": "/terms-of-service",
-  },
+  trailingSlash: "never",
   integrations: [
     react(),
     {

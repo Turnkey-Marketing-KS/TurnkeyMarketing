@@ -1,6 +1,8 @@
 import { services } from "@/lib/services";
 import { resourcePosts } from "@/lib/resource-posts";
 
+const canonicalSite = new URL("https://www.turnkeyautomarketing.com");
+
 const staticPaths = [
   "/",
   "/services",
@@ -13,12 +15,12 @@ const staticPaths = [
   "/terms-of-service",
 ];
 
-export function GET({ site }: { site: URL }) {
+export function GET() {
   const servicePaths = services.map((service) => `/services/${service.slug}`);
   const resourcePaths = resourcePosts.map((post) => post.href);
   const paths = [...staticPaths, ...servicePaths, ...resourcePaths];
   const urls = paths.map((path) => {
-    const loc = new URL(path, site).toString();
+    const loc = new URL(path, canonicalSite).toString();
     return `  <url><loc>${loc}</loc><changefreq>weekly</changefreq></url>`;
   });
 

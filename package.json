@@ -9,6 +9,7 @@
     "build:dev": "astro build",
     "preview": "astro preview --host 127.0.0.1 --port 8080",
     "lint": "eslint .",
+    "seo:check": "node scripts/seo-check.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {

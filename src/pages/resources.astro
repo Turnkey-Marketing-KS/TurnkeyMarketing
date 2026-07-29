@@ -92,8 +92,8 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
               <img
                 src={featuredPost.image.src}
                 alt={featuredPost.image.alt}
-                width="1400"
-                height="790"
+                width={featuredPost.imageWidth ?? 1400}
+                height={featuredPost.imageHeight ?? 790}
                 loading="eager"
                 decoding="async"
                 class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"
@@ -106,7 +106,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                   {featuredPost.tag}
                 </span>
                 <span aria-hidden="true">·</span>
-                <span>{featuredPost.date}</span>
+                <time datetime={featuredPost.updatedDate ?? featuredPost.originalDate}>{featuredPost.date}</time>
               </div>
               <h2 class="mt-5 max-w-[20ch] font-display text-2xl font-semibold leading-[1.08] text-charcoal text-balance md:text-3xl lg:text-4xl">
                 {featuredPost.title}
@@ -136,8 +136,8 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                 <img
                   src={item.image.src}
                   alt={item.image.alt}
-                  width="1000"
-                  height="625"
+                  width={item.imageWidth ?? 1000}
+                  height={item.imageHeight ?? 625}
                   loading="lazy"
                   decoding="async"
                   class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
@@ -150,7 +150,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                     {item.tag}
                   </span>
                   <span aria-hidden="true">·</span>
-                  <span>{item.date}</span>
+                  <time datetime={item.updatedDate ?? item.originalDate}>{item.date}</time>
                 </div>
                 <h3 class="mt-4 max-w-[22ch] font-display text-2xl font-semibold leading-[1.1] text-charcoal text-balance md:text-[1.7rem]">
                   {item.title}
