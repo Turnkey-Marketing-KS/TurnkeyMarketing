@@ -121,10 +121,6 @@ import {
     <div class="container-page">
       <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div class="lg:col-span-5">
-          <p class="eyebrow flex items-center gap-3">
-            <span class="h-px w-8 bg-[var(--key-blue)] md:w-10" aria-hidden="true"></span>
-            Growth story
-          </p>
           <h2 class="display-3 mt-5 text-balance text-charcoal">{killianStory.headline}</h2>
           <p class="mt-5 leading-relaxed text-charcoal/65 md:text-lg">{killianStory.body}</p>
           <img
@@ -176,10 +172,6 @@ import {
     <div class="container-page">
       <div>
         <div>
-          <p class="eyebrow flex items-center gap-3">
-            <span class="h-px w-8 bg-[var(--key-blue)] md:w-10" aria-hidden="true"></span>
-            More wins
-          </p>
           <h2 class="display-3 mt-5 text-balance text-charcoal">More before &amp; afters.</h2>
         </div>
       </div>
@@ -209,10 +201,10 @@ import {
       <figure class="mx-auto max-w-4xl text-center">
         <img
           src={demandQuote.logoSrc}
-          alt={`${demandQuote.attribution} logo`}
+          alt={demandQuote.logoAlt}
           loading="lazy"
           decoding="async"
-          class="mx-auto h-10 w-auto object-contain"
+          class="mx-auto h-20 w-auto object-contain"
         />
         <blockquote class="mt-8 font-display text-2xl font-semibold leading-snug tracking-tight text-white md:text-4xl md:leading-[1.2]">
           “{demandQuote.quote}”

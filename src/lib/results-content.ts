@@ -102,9 +102,10 @@ export const moreResults = [
 
 export const demandQuote = {
   quote:
-    "We are buying two more racks, and I am calling the recruiter Monday to add a seventh tech. If you build it…and hire Turnkey…they will come.",
-  attribution: "Clark's Car Care",
-  logoSrc: "/images/results/shop-logos/clarks-car-care.png",
+    "Having a year long marketing calendar and an expert who knows our business makes this one of the best investments I have made in my company.",
+  attribution: "Jason Smith, M&M Car Care Center",
+  logoSrc: "/original-site-assets/M-M-logo.png",
+  logoAlt: "M&M Car Care Center logo",
   context:
-    "Booked out about a week on oil changes and heavily booked with service work — demand that turned into new equipment and hiring plans.",
+    "An established shop-owner review already featured elsewhere on the Turnkey Marketing website.",
 };
