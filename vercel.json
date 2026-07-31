@@ -23,6 +23,11 @@
       "permanent": true
     },
     {
+      "source": "/book-a-call",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
       "source": "/insights",
       "destination": "/resources",
       "permanent": true
