@@ -228,14 +228,13 @@ export const videoTestimonials: VideoTestimonial[] = [
     confidence: "drive-file-title",
   },
   {
-    name: "Jason Keller",
-    shop: "Rocky Mountain Diesel & Auto Repair",
+    name: "Brian Jesko",
+    shop: "Trinity Auto Haus",
     theme: "Shop-owner testimonial",
-    videoSrc: "/videos/testimonials/jason-keller-testimonial.mp4",
-    posterSrc: "/images/video-posters/jason-keller-testimonial-poster.jpg",
-    posterAlt:
-      "Jason Keller testimonial video poster for Rocky Mountain Diesel & Auto Repair",
-    sourceUrl: "https://drive.google.com/file/d/12SVGefsCI59CbwgBxSSAGB7pxLuekhvn/view",
+    videoSrc: "/videos/testimonials/brian-jesko-testimonial.mp4",
+    posterSrc: "/images/video-posters/brian-jesko-testimonial-poster.jpg",
+    posterAlt: "Brian Jesko testimonial video poster for Trinity Auto Haus",
+    sourceUrl: "https://drive.google.com/file/d/1Ls9zqtM-KEI2J7bOsVEb6gghjr9E9vHQ/view",
     confidence: "drive-file-title",
   },
   {
@@ -277,12 +276,6 @@ export const testimonialVideoCandidates: TestimonialVideoCandidate[] = [
     name: "Libby Canandy",
     shop: "Modern Brake & Alignment",
     sourceUrl: "https://drive.google.com/file/d/1DZ7DlHjqb2YDmqqGDmnBZZXccRShoQwL/view",
-    status: "needs-transcription",
-  },
-  {
-    name: "Brian Jesko",
-    shop: "Brian Jesko testimonial",
-    sourceUrl: "https://drive.google.com/file/d/1Ls9zqtM-KEI2J7bOsVEb6gghjr9E9vHQ/view",
     status: "needs-transcription",
   },
   {
