@@ -93,6 +93,20 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
       gtag("js", new Date());
       gtag("config", "G-XJZ35N9FWG");
     </script>
+    <!-- Meta Pixel Code -->
+    <script is:inline>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1370666708344083');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
     <script is:inline>
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         document.documentElement.classList.add("motion-ready");
@@ -131,6 +145,17 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
+    <!-- Meta Pixel Code -->
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=1370666708344083&amp;ev=PageView&amp;noscript=1"
+        alt=""
+      />
+    </noscript>
+    <!-- End Meta Pixel Code -->
     <div class="flex min-h-screen flex-col" style="background: var(--background);">
       <Header />
       <main class="flex-1 pt-[76px] md:pt-[92px]">
