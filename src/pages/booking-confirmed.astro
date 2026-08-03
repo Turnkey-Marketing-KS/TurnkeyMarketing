@@ -90,4 +90,9 @@ import { siteMedia } from "@/lib/site-media";
   window.gtag?.("event", "generate_lead", {
     lead_source: "appointment_booking",
   });
+
+  window.fbq?.("track", "Lead", {
+    content_name: "Strategy Call",
+    lead_source: "appointment_booking",
+  });
 </script>
