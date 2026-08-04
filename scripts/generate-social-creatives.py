@@ -15,7 +15,7 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "public" / "social-creatives" / "turnkey-30"
+OUT = ROOT / "social-creatives" / "turnkey-30"
 SIZE = 1080
 
 NAVY = "#232E66"

@@ -17,7 +17,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "public" / "social-creatives" / "turnkey-30-v2"
+OUT = ROOT / "social-creatives" / "turnkey-30-v2"
 SIZE = 1080
 
 NAVY = "#232E66"
@@ -471,7 +471,7 @@ def slug(text: str) -> str:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     old_captions = []
-    old_csv = ROOT / "public" / "social-creatives" / "turnkey-30" / "captions-and-sources.csv"
+    old_csv = ROOT / "social-creatives" / "turnkey-30" / "captions-and-sources.csv"
     if old_csv.exists():
         with old_csv.open(newline="", encoding="utf-8") as handle:
             old_captions = list(csv.DictReader(handle))

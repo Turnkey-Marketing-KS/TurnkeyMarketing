@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "public" / "social-creatives" / "turnkey-30-v3"
+OUT = ROOT / "social-creatives" / "turnkey-30-v3"
 W, H = 1080, 1350
 
 NAVY = "#232E66"
@@ -384,17 +384,17 @@ CREATIVES = [
     dict(kind="proof", metric="$200k+", metric_size=136, hook="First month across the line.", asset="public/site-media/proof/sports-car-shop-growth.png", accent=GREEN, bg=CREAM, note="SPORTS CAR SHOP • REVENUE MILESTONE"),
     dict(kind="proof", metric="1–2 TO\n15–20", metric_size=92, hook="reviews per month.", asset="public/site-media/proof/chris-matthews-reviews.png", accent=BLUE, bg=BLUE_SOFT, note="CHRIS MATTHEWS AUTOMOTIVE • REVIEW GROWTH"),
     dict(kind="compare", hook="Clicks aren't booked cars.", label="MEASURE WHAT MATTERS"),
-    dict(kind="photo_overlay", hook="Empty bays are expensive.", label="DEMAND + CAPACITY", asset="public/social-creatives/turnkey-30-v3/supporting-images/empty-service-bay.png", center=(0.5, 0.48), accent=GREEN, size=84, title_y=972),
-    dict(kind="portrait_split", hook="The phone call is marketing.", label="CALL HANDLING", asset="public/social-creatives/turnkey-30-v3/supporting-images/service-advisor-phone.png", center=(0.56, 0.47), accent=BLUE, bg=CREAM, size=62),
-    dict(kind="working", hook="Direct mail still works.", label="CHANNEL TRUTH", asset="public/social-creatives/turnkey-30-v3/supporting-images/direct-mail-planning.png", center=(0.5, 0.58), accent=GREEN, note="LIST • OFFER • TIMING • FOLLOW-UP"),
+    dict(kind="photo_overlay", hook="Empty bays are expensive.", label="DEMAND + CAPACITY", asset="social-creatives/turnkey-30-v3/supporting-images/empty-service-bay.png", center=(0.5, 0.48), accent=GREEN, size=84, title_y=972),
+    dict(kind="portrait_split", hook="The phone call is marketing.", label="CALL HANDLING", asset="social-creatives/turnkey-30-v3/supporting-images/service-advisor-phone.png", center=(0.56, 0.47), accent=BLUE, bg=CREAM, size=62),
+    dict(kind="working", hook="Direct mail still works.", label="CHANNEL TRUTH", asset="social-creatives/turnkey-30-v3/supporting-images/direct-mail-planning.png", center=(0.5, 0.58), accent=GREEN, note="LIST • OFFER • TIMING • FOLLOW-UP"),
     dict(kind="photo_band", hook="Keep the customers you earned.", label="RETENTION", asset="public/site-media/pearson-auto-repair-shop.webp", center=(0.44, 0.45), accent=GREEN, logo_white=True, size=72),
-    dict(kind="portrait_split", hook="Track what matters.", label="HONEST REPORTING", asset="public/social-creatives/turnkey-30-v3/supporting-images/owner-reviewing-report.png", center=(0.54, 0.5), accent=BLUE, bg=OFF_WHITE, size=72),
+    dict(kind="portrait_split", hook="Track what matters.", label="HONEST REPORTING", asset="social-creatives/turnkey-30-v3/supporting-images/owner-reviewing-report.png", center=(0.54, 0.5), accent=BLUE, bg=OFF_WHITE, size=72),
     dict(kind="working", hook="Calls. Cars. Revenue.", label="THE REPORTING LINE", items=["Calls", "Booked", "Cars", "Revenue"], accent=GREEN, note="FOLLOW THE METRIC TO THE SHOP"),
     dict(kind="photo_band", hook="Market to the right car.", label="CUSTOMER MIX", asset="public/site-media/mm-shop.webp", center=(0.56, 0.5), accent=BLUE, logo_white=True, size=76),
     dict(kind="working", hook="Make the next move obvious.", label="THE PLAN", asset="public/site-media/marketing-plan.webp", center=(0.5, 0.5), accent=BLUE, note="MARKET • CAPACITY • GOALS • CUSTOMER MIX", size=72),
     dict(kind="photo_band", hook="Your outside marketing department.", label="VIP MARKETING MANAGER", asset="public/site-media/team-turnkey-2025.webp", center=(0.5, 0.44), accent=GREEN, logo_white=False, size=66),
     dict(kind="working", hook="Targeted. Tracked. Transparent.", label="DIRECTTRACK", items=["Target", "Reach", "Track", "Improve"], accent=BLUE, note="A CLEAR ACQUISITION LANE", size=72),
-    dict(kind="working", hook="Mail with a plan.", label="DIRECT MAIL", asset="public/social-creatives/turnkey-30-v3/supporting-images/direct-mail-planning.png", center=(0.5, 0.66), accent=GREEN, note="MANAGED AS A CAMPAIGN • NOT A PRINT JOB", size=84),
+    dict(kind="working", hook="Mail with a plan.", label="DIRECT MAIL", asset="social-creatives/turnkey-30-v3/supporting-images/direct-mail-planning.png", center=(0.5, 0.66), accent=GREEN, note="MANAGED AS A CAMPAIGN • NOT A PRINT JOB", size=84),
     dict(kind="photo_band", hook="Consistency beats random posting.", label="SOCIAL MEDIA", asset="public/images/team/20230303-turnkeyvisionexpo0048.jpg", center=(0.52, 0.5), accent=BLUE, logo_white=False, size=68),
     dict(kind="statement", hook="Bring them back.", label="RETENTION", accent=GREEN, bg=NAVY, gesture="return", size=118),
     dict(kind="working", hook="Connect the moving pieces.", label="DIGITAL MARKETING", items=["Reviews", "Google Profile", "Website", "Vendors"], accent=BLUE, note="ONE ACCOUNTABLE PLAN", size=74),

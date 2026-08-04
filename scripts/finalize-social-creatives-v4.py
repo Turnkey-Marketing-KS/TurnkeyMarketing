@@ -10,10 +10,10 @@ from PIL import Image, ImageDraw, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CAMPAIGN = ROOT / "public" / "social-creatives" / "turnkey-30-v4"
+CAMPAIGN = ROOT / "social-creatives" / "turnkey-30-v4"
 RAW = CAMPAIGN / "generated-raw"
 FEED = CAMPAIGN / "feed-4x5"
-SOURCE_CALENDAR = ROOT / "public" / "social-creatives" / "turnkey-30-v3" / "content-calendar-and-captions.csv"
+SOURCE_CALENDAR = ROOT / "social-creatives" / "turnkey-30-v3" / "content-calendar-and-captions.csv"
 
 POSTS = [
     ("01-marketing-that-knows-your-shop.png", "Marketing that knows your shop.", 0.00),

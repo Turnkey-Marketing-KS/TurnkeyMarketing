@@ -11,6 +11,11 @@ node_modules
 .pnpm-store/
 dist
 dist-ssr
+
+# Generated social campaign creatives. Kept out of the repo entirely — the
+# scripts in scripts/ regenerate them, and public/ would publish them.
+social-creatives/
+public/social-creatives/
 .output
 .astro
 .vinxi
