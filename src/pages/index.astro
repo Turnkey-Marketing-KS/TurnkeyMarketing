@@ -71,8 +71,6 @@ const logoCloudRows = [
   shopLogos.slice(15),
 ];
 
-const mobileTrustLogos = shopLogos.slice(0, 12).map((logo) => ({ ...logo, scale: 1 }));
-
 const stats = [
   { k: "300+", v: "Auto repair shops served across the U.S." },
   { k: "13+", v: "Years marketing exclusively for shop owners" },
@@ -177,7 +175,7 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Turnkey Marketing — Marketing that knows your auto repair shop"
+  title="Auto Repair Marketing Company for Independent Shops | Turnkey"
   description="The auto-repair-specific marketing team that owns the plan, manages the pieces, and helps shops get more calls, more cars, and more revenue."
   path="/"
   schema={faqSchema}
@@ -186,20 +184,20 @@ const faqSchema = {
     <div class="container-page pt-6 md:pt-10 pb-6 md:pb-8 relative">
       <div class="grid min-w-0 gap-10 lg:grid-cols-12 lg:gap-8 xl:gap-12 items-center lg:min-h-[72vh]">
         <div class="min-w-0 lg:col-span-7">
-          <h1 class="hero-heading display-1 max-w-full" data-reveal>
-            <span class="text-charcoal">Auto repair <span class="block sm:inline">marketing</span></span>
-            <span class="hero-rotator text-[var(--key-blue)]" data-hero-rotator>
-              <span class="sr-only">{heroPhrases[0]}</span>
-              {heroPhrases.map((phrase, index) => (
-                <span
-                  class:list={["hero-rotator-phrase", index === 0 && "is-active"]}
-                  aria-hidden="true"
-                >
-                  {phrase}
-                </span>
-              ))}
-            </span>
-          </h1>
+          <div data-reveal>
+            <h1 class="hero-heading display-1 max-w-full">
+              <span class="text-charcoal">Auto repair <span class="block sm:inline">marketing</span></span>
+              <span class="sr-only"> {heroPhrases[0]}</span>
+            </h1>
+            <div
+              class="hero-heading hero-typer text-[var(--key-blue)]"
+              data-hero-typer
+              data-phrases={JSON.stringify(heroPhrases)}
+              aria-hidden="true"
+            >
+              <span class="hero-typer-text" data-hero-typer-text>{heroPhrases[0]}</span>
+            </div>
+          </div>
 
           <p
             class="mt-6 max-w-[32ch] text-lg leading-relaxed text-charcoal/65 md:mt-8 md:max-w-[46ch] md:text-xl"
@@ -290,18 +288,35 @@ const faqSchema = {
         </h2>
       </div>
 
-      <div class="mt-6 md:hidden">
-        <div class="grid grid-cols-2 gap-3">
-          {mobileTrustLogos.map((logo) => (
-            <div class="flex h-20 items-center justify-center overflow-hidden rounded-2xl border hairline bg-white p-2.5">
-              <img
-                src={logo.src}
-                alt={logo.name}
-                class="max-h-12 w-full object-contain"
-                style={`transform: scale(${logo.scale});`}
-                loading="lazy"
-                decoding="async"
-              />
+      <div
+        class="relative -mx-5 mt-6 overflow-hidden py-2 md:hidden"
+        aria-label="Trusted auto repair shop logos"
+      >
+        <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white via-white/90 to-transparent"></div>
+        <div class="space-y-2.5">
+          {logoCloudRows.map((row, rowIndex) => (
+            <div
+              class:list={[
+                "logo-cloud-row flex w-max items-center gap-3 marquee",
+                rowIndex === 0
+                  ? "[animation-duration:34s]"
+                  : "[animation-direction:reverse] [animation-duration:40s]",
+              ]}
+            >
+              {[...row, ...row].map((logo, index) => (
+                <div class="flex h-16 w-36 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[linear-gradient(180deg,#ffffff_0%,#fbfaf6_100%)] px-3 py-2 shadow-[0_12px_30px_-24px_rgba(20,22,28,0.45)]">
+                  <img
+                    src={logo.src}
+                    alt={index < row.length ? logo.name : ""}
+                    aria-hidden={index >= row.length ? "true" : "false"}
+                    role={index >= row.length ? "presentation" : undefined}
+                    class="max-h-11 w-full object-contain opacity-95"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
             </div>
           ))}
         </div>
@@ -370,12 +385,6 @@ const faqSchema = {
                     isFeatured ? "bg-[var(--navy)]" : "bg-white",
                   ]}
                 >
-                  <span
-                    class:list={[
-                      "pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent to-transparent",
-                      isFeatured ? "via-[var(--green)]/80" : "via-[var(--key-blue)]/65",
-                    ]}
-                  ></span>
                   <span
                     class:list={[
                       "pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full blur-3xl",
@@ -528,7 +537,8 @@ const faqSchema = {
               <div class="mb-5 flex items-center gap-3 md:mb-6 md:gap-4">
                 <span class="h-px flex-1 bg-[var(--hairline)]" aria-hidden="true"></span>
                 <span class="max-w-[22rem] text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-charcoal/55 md:text-xs">
-                  Included with VIP. Also available on their own.
+                  <span class="block">Included with VIP.</span>
+                  <span class="block">Also available on their own.</span>
                 </span>
                 <span class="h-px flex-1 bg-[var(--hairline)]" aria-hidden="true"></span>
               </div>
@@ -571,7 +581,7 @@ const faqSchema = {
         >
           <span class="pointer-events-none absolute -left-24 -top-32 h-72 w-72 rounded-full bg-white/10 blur-3xl"></span>
           <span class="pointer-events-none absolute -bottom-24 right-24 h-56 w-56 rounded-full bg-[var(--key-blue)]/25 blur-3xl"></span>
-          <span class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--green)]/90 to-transparent"></span>
+          <span class="pointer-events-none absolute inset-x-8 top-0 hidden h-px bg-gradient-to-r from-transparent via-[var(--green)]/90 to-transparent md:block"></span>
 
           <div class="relative z-10 flex flex-col justify-center py-1 lg:pr-3">
             <div class="flex items-center gap-3">
@@ -592,10 +602,7 @@ const faqSchema = {
           </div>
 
           <div class="relative z-10 mt-7 flex flex-col justify-center rounded-[24px] border border-white/10 bg-white/[0.08] p-5 backdrop-blur-sm lg:mt-0 lg:p-6">
-            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/58">
-              Built to reach the right customers
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2">
               {homeDirectTrackService.outcomes.slice(0, 3).map((outcome) => (
                 <span class="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90">
                   {outcome}
@@ -650,9 +657,12 @@ const faqSchema = {
         style="background: var(--charcoal); color: #fff;"
       >
         <div class="relative">
-          <h3 class="display-2 leading-tight text-white text-balance">
+          <h3 class="display-2 leading-tight text-white max-[479px]:text-[1.75rem] max-[479px]:leading-[1.08]">
             You hired help.<br />
-            <span class="text-[var(--key-blue)]">Why is the marketing still on you?</span>
+            <span class="text-[var(--key-blue)]">
+              <span class="max-[479px]:block">Why is the marketing</span>
+              <span class="max-[479px]:block">still on you?</span>
+            </span>
           </h3>
           <p class="mt-5 max-w-md text-base leading-relaxed text-white/70 md:mt-6 md:text-lg">
             If you are still chasing updates, approving every detail, and wondering what is
@@ -805,20 +815,22 @@ const faqSchema = {
             }`}
             style={`background: ${card.featured ? "var(--navy)" : "var(--off-white)"};`}
           >
-            {card.featured && (
-              <span
-                class="absolute right-5 top-5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest md:right-6 md:top-6"
-                style="background: var(--green); color: var(--charcoal);"
+            <div class="flex items-center justify-between gap-3 md:block">
+              <p
+                class="min-w-0 text-[10px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
+                style={`color: ${card.featured ? "var(--green)" : "var(--key-blue)"};`}
               >
-                Better path
-              </span>
-            )}
-            <p
-              class="text-xs font-semibold uppercase tracking-[0.18em]"
-              style={`color: ${card.featured ? "var(--green)" : "var(--key-blue)"};`}
-            >
-              {card.label}
-            </p>
+                {card.label}
+              </p>
+              {card.featured && (
+                <span
+                  class="flex-none rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest md:absolute md:right-6 md:top-6"
+                  style="background: var(--green); color: var(--charcoal);"
+                >
+                  Better path
+                </span>
+              )}
+            </div>
             <h3
               class={`mt-4 max-w-sm font-display text-3xl font-semibold leading-tight md:mt-5 ${
                 card.featured ? "text-white" : "text-charcoal"
@@ -1015,30 +1027,40 @@ const faqSchema = {
     line-height: 1.04;
   }
 
-  .hero-rotator {
-    display: grid;
+  .hero-typer {
+    display: block;
     max-width: 100%;
+    min-height: 2.08em;
     margin-top: 0.12em;
   }
 
-  .hero-rotator-phrase {
-    grid-area: 1 / 1;
-    opacity: 0;
-    transform: translateY(0.45em);
-    transition:
-      opacity 500ms var(--ease-standard),
-      transform 620ms var(--ease-emphasized);
-    pointer-events: none;
+  .hero-typer-text {
     text-wrap: balance;
   }
 
-  .hero-rotator-phrase.is-active {
-    opacity: 1;
-    transform: none;
+  .hero-typer-text::after {
+    content: "";
+    display: inline-block;
+    width: 0.075em;
+    height: 0.82em;
+    margin-left: 0.08em;
+    border-radius: 999px;
+    background: currentColor;
+    vertical-align: -0.06em;
+    animation: hero-cursor-blink 780ms steps(1, end) infinite;
+  }
+
+  @keyframes hero-cursor-blink {
+    0%, 46% { opacity: 1; }
+    47%, 100% { opacity: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-rotator-phrase {
+    .hero-typer-text::after {
+      display: none;
+    }
+
+    .hero-typer-text {
       transition: none;
     }
   }
@@ -1087,6 +1109,14 @@ const faqSchema = {
   }
 
   @media (max-width: 767px) {
+    .hero-typer-text {
+      transition: opacity 160ms ease;
+    }
+
+    .hero-typer-text.is-swapping {
+      opacity: 0;
+    }
+
     .faq-extra {
       display: none;
     }
@@ -1097,11 +1127,9 @@ const faqSchema = {
   }
 
   @media (min-width: 768px) {
-    .hero-rotator {
+    .hero-typer {
+      min-height: 1.08em;
       margin-top: 0.18em;
-    }
-
-    .hero-rotator-phrase {
       font-size: clamp(2rem, 4.75vw, 3rem);
       line-height: 1.08;
       white-space: nowrap;
@@ -1111,33 +1139,106 @@ const faqSchema = {
 
 <script>
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mobileHeroQuery = window.matchMedia("(max-width: 767px)");
   const reduceMotion = reduceMotionQuery.matches;
 
-  const rotator = document.querySelector<HTMLElement>("[data-hero-rotator]");
+  const typer = document.querySelector<HTMLElement>("[data-hero-typer]");
+  const typerText = typer?.querySelector<HTMLElement>("[data-hero-typer-text]");
 
-  if (rotator) {
-    const rotatorPhrases = Array.from(
-      rotator.querySelectorAll<HTMLElement>(".hero-rotator-phrase"),
-    );
-    let activePhrase = 0;
-    let rotatorTimer = 0;
+  if (typer && typerText) {
+    let phrases: string[] = [];
 
-    const advancePhrase = () => {
-      rotatorPhrases[activePhrase]?.classList.remove("is-active");
-      activePhrase = (activePhrase + 1) % rotatorPhrases.length;
-      rotatorPhrases[activePhrase]?.classList.add("is-active");
-    };
+    try {
+      phrases = JSON.parse(typer.dataset.phrases || "[]");
+    } catch {
+      phrases = [];
+    }
 
-    const syncRotator = () => {
-      window.clearInterval(rotatorTimer);
-      if (rotatorPhrases.length > 1 && !reduceMotionQuery.matches && !document.hidden) {
-        rotatorTimer = window.setInterval(advancePhrase, 2800);
-      }
-    };
+    if (phrases.length) {
+      let phraseIndex = 0;
+      let characterIndex = phrases[0].length;
+      let deleting = true;
+      let typerTimer = 0;
 
-    syncRotator();
-    reduceMotionQuery.addEventListener("change", syncRotator);
-    document.addEventListener("visibilitychange", syncRotator);
+      const scheduleTyper = (delay: number) => {
+        window.clearTimeout(typerTimer);
+        typerTimer = window.setTimeout(runTyper, delay);
+      };
+
+      const runTyper = () => {
+        if (mobileHeroQuery.matches) {
+          typerText.classList.add("is-swapping");
+          typerTimer = window.setTimeout(() => {
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            characterIndex = phrases[phraseIndex].length;
+            deleting = true;
+            typerText.textContent = phrases[phraseIndex];
+            typerText.classList.remove("is-swapping");
+            scheduleTyper(2400);
+          }, 160);
+          return;
+        }
+
+        const phrase = phrases[phraseIndex] || "";
+
+        if (deleting) {
+          characterIndex = Math.max(0, characterIndex - 1);
+        } else {
+          characterIndex = Math.min(phrase.length, characterIndex + 1);
+        }
+
+        typerText.textContent = phrase.slice(0, characterIndex);
+
+        if (deleting && characterIndex === 0) {
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          deleting = false;
+          scheduleTyper(260);
+          return;
+        }
+
+        if (!deleting && characterIndex === phrases[phraseIndex].length) {
+          deleting = true;
+          scheduleTyper(1650);
+          return;
+        }
+
+        scheduleTyper(deleting ? 28 : 52);
+      };
+
+      const syncTyper = () => {
+        window.clearTimeout(typerTimer);
+        typerText.classList.remove("is-swapping");
+
+        if (reduceMotionQuery.matches) {
+          phraseIndex = 0;
+          characterIndex = phrases[0].length;
+          deleting = true;
+          typerText.textContent = phrases[0];
+          return;
+        }
+
+        if (mobileHeroQuery.matches) {
+          phraseIndex = 0;
+          characterIndex = phrases[0].length;
+          deleting = true;
+          typerText.textContent = phrases[0];
+
+          if (!document.hidden) {
+            scheduleTyper(2400);
+          }
+          return;
+        }
+
+        if (!document.hidden) {
+          scheduleTyper(1650);
+        }
+      };
+
+      syncTyper();
+      reduceMotionQuery.addEventListener("change", syncTyper);
+      mobileHeroQuery.addEventListener("change", syncTyper);
+      document.addEventListener("visibilitychange", syncTyper);
+    }
   }
 
   const featureIcons = document.querySelectorAll("[data-feature-icon]");
