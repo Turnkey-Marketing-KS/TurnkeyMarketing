@@ -1,4 +1,5 @@
 ---
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { CONSULTATION_URL, services } from "@/lib/services";
 
 const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark background.png";
@@ -124,6 +125,47 @@ const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark backgro
               </a>
             </li>
           </ul>
+          <div class="mt-5 border-t border-white/10 pt-5 md:mt-7">
+            <p class="text-xs uppercase tracking-widest text-white/65 md:text-white/50">Follow us</p>
+            <div class="mt-3 flex items-center gap-2" role="group" aria-label="Turnkey Marketing social media">
+              <a
+                href="https://www.facebook.com/turnkeymarketingks"
+                class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/90 transition hover:border-[var(--green)] hover:bg-white/[0.06] hover:text-[var(--green)]"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Turnkey Marketing on Facebook"
+                data-track-event="social_link_click"
+                data-track-platform="facebook"
+                data-track-placement="footer"
+              >
+                <Facebook size={18} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+              <a
+                href="https://www.instagram.com/turnkey_marketing/"
+                class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/90 transition hover:border-[var(--green)] hover:bg-white/[0.06] hover:text-[var(--green)]"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Turnkey Marketing on Instagram"
+                data-track-event="social_link_click"
+                data-track-platform="instagram"
+                data-track-placement="footer"
+              >
+                <Instagram size={18} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/turnkey-marketing-for-auto-repair-shops"
+                class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/90 transition hover:border-[var(--green)] hover:bg-white/[0.06] hover:text-[var(--green)]"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Turnkey Marketing on LinkedIn"
+                data-track-event="social_link_click"
+                data-track-platform="linkedin"
+                data-track-placement="footer"
+              >
+                <Linkedin size={18} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
         </div>
       </nav>
     </div>
