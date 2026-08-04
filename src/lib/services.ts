@@ -115,10 +115,10 @@ export const services: Service[] = [
     name: "Digital Marketing",
     tagline: "Google reviews, Google Business Profile, website audits, and vendor coordination.",
     summary:
-      "Digital Marketing keeps the core visibility pieces connected: Google review management, Google Business Profile optimization, website audits, and coordination with website or Google Ads vendors.",
-    seoTitle: "Digital Marketing Services for Auto Repair Shops",
+      "Digital Marketing supports the local SEO work that helps nearby customers find and trust your shop: Google review management, Google Business Profile optimization, website audits, and coordination with website or Google Ads vendors.",
+    seoTitle: "Local SEO & Digital Marketing for Auto Repair Shops",
     seoDescription:
-      "Improve local visibility with Google review management, Business Profile optimization, website audits, and coordination across your digital vendors.",
+      "Improve local visibility with local SEO, Google review management, Business Profile optimization, website audits, and digital vendor coordination.",
     outcomes: [
       "Google review management",
       "GBP optimization",

@@ -1,23 +1,37 @@
 ---
-import { ArrowDown, ArrowRight, HeartHandshake, Lightbulb, Target } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowRight,
+  ChartNoAxesCombined,
+  Compass,
+  HeartHandshake,
+  Lightbulb,
+  Megaphone,
+  Palette,
+  Target,
+} from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { CONSULTATION_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 
 const expertise = [
   {
+    icon: Compass,
     title: "Strategy & account leadership",
     copy: "A clear plan, a steady point of contact, and confident next moves for your shop.",
   },
   {
+    icon: Palette,
     title: "Brand, content & creative",
     copy: "Work that sounds like you, looks like you, and earns trust in your community.",
   },
   {
+    icon: Megaphone,
     title: "Digital, media & direct mail",
     copy: "The right channels working together instead of competing for your attention and budget.",
   },
   {
+    icon: ChartNoAxesCombined,
     title: "Reporting & optimization",
     copy: "Plain-English insight into what is working, what is not, and where we go next.",
   },
@@ -70,8 +84,8 @@ const aboutSchema = {
 ---
 
 <BaseLayout
-  title="About Turnkey | Auto Repair Marketing Experts"
-  description="Meet the founder-led Turnkey team helping independent auto repair shops grow through expert strategy, creative, execution, and genuine care."
+  title="About Turnkey | Auto Repair Marketing Agency"
+  description="Meet the founder-led auto repair marketing agency helping independent shops grow through expert strategy, creative, execution, and genuine care."
   path="/about"
   ogTitle="Meet the Auto Repair Marketing Experts at Turnkey"
   ogImage={siteMedia.about.team.src}
@@ -98,8 +112,9 @@ const aboutSchema = {
             Auto repair marketing experts who care deeply.
           </h1>
           <p class="mt-7 max-w-2xl text-balance text-lg leading-relaxed text-white/82 md:text-xl">
-            We help independent shop owners grow stronger businesses, reclaim their time,
-            and build the life they worked so hard to create.
+            Turnkey is an auto repair marketing agency built for independent shop owners. We help
+            them grow stronger businesses, reclaim their time, and build the life they worked so
+            hard to create.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="#our-team" class="about-btn-light">
@@ -141,15 +156,11 @@ const aboutSchema = {
     <div class="container-page grid gap-12 py-20 md:py-28 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-4">
         <p class="eyebrow">Why we are here</p>
-        <h2 class="mt-5 max-w-[12ch] text-balance text-[clamp(2.3rem,4.6vw,4.2rem)] font-semibold leading-[1.02] tracking-[-0.048em]">
+        <h2 class="mt-5 max-w-[12ch] text-balance text-[clamp(2.3rem,4.6vw,4.2rem)] font-semibold leading-[1.02] tracking-[-0.048em] text-[var(--key-blue)]">
           We fell in love with the people behind the bays.
         </h2>
       </div>
       <div class="space-y-6 text-lg leading-relaxed text-muted-foreground lg:col-span-7 lg:col-start-6 lg:pt-10">
-        <p class="text-xl leading-relaxed text-charcoal md:text-2xl">
-          Shop owners are some of the most resourceful, generous, hard-working people we know.
-          They deserve a marketing team that brings the same level of care to their business.
-        </p>
         <p>
           Turnkey began in Kansas City in 2013 as a family-owned small business. We understand
           the weight of payroll, the late-night decisions, and the responsibility that comes
@@ -169,7 +180,10 @@ const aboutSchema = {
     <div class="container-page py-20 md:py-28">
       <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div class="relative lg:col-span-5">
-          <div class="founder-portrait relative mx-auto max-w-[520px] overflow-hidden rounded-[2rem]">
+          <div
+            class="founder-portrait relative mx-auto max-w-[520px] overflow-hidden rounded-[2rem]"
+            data-founder-parallax
+          >
             <img
               src={siteMedia.about.founder.src}
               alt="Carrie-Lynn Rodenberg, founder and auto repair marketing expert at Turnkey Marketing"
@@ -193,12 +207,8 @@ const aboutSchema = {
             An industry-leading voice in auto repair marketing.
           </h2>
           <div class="mt-7 space-y-5 text-lg leading-relaxed text-muted-foreground">
-            <p class="text-xl leading-relaxed text-charcoal">
-              Carrie-Lynn has built her career turning sophisticated marketing strategy into
-              practical growth for independent business owners.
-            </p>
             <p>
-              Before founding Turnkey, she led direct-response marketing for EmblemHealth,
+              Before founding Turnkey, Carrie-Lynn led direct-response marketing for EmblemHealth,
               a $10 billion company. Later, as Director of Marketing for an orthodontic
               company, her team placed second for Infusionsoft’s Ultimate Marketer of the
               Year award. Since then, Carrie-Lynn and the Turnkey team have helped drive more
@@ -212,12 +222,6 @@ const aboutSchema = {
             </p>
           </div>
 
-          <div class="mt-8 border-l-2 border-[var(--green)] pl-5">
-            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-charcoal">Known for</p>
-            <p class="mt-2 text-base leading-relaxed text-muted-foreground">
-              Clear strategy · Direct-response expertise · Shop-owner advocacy · Turning data into action
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -250,14 +254,17 @@ const aboutSchema = {
         />
       </figure>
 
-      <div class="mt-12 grid border-y border-[var(--hairline)] md:grid-cols-2">
-        {expertise.map((item, index) => (
-          <article class:list={["team-discipline py-8 md:p-9", index % 2 === 1 && "md:border-l md:border-[var(--hairline)]"]}>
-            <p class="text-xs font-semibold tracking-[0.15em] text-[var(--key-blue)]">
-              {String(index + 1).padStart(2, "0")}
-            </p>
-            <h3 class="mt-4 text-xl font-semibold tracking-[-0.025em] text-charcoal md:text-2xl">{item.title}</h3>
-            <p class="mt-3 max-w-md leading-relaxed text-muted-foreground">{item.copy}</p>
+      <div class="discipline-grid mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-12">
+        {expertise.map((item) => (
+          <article class="team-discipline relative isolate flex min-h-[250px] flex-col overflow-hidden rounded-[1.75rem] p-7 md:p-9">
+            <span class="discipline-orb" aria-hidden="true"></span>
+            <div class="discipline-icon relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-2xl">
+              <item.icon className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <div class="relative z-10 mt-auto pt-12">
+              <h3 class="max-w-[18ch] text-2xl font-semibold leading-tight tracking-[-0.035em] md:text-[1.7rem]">{item.title}</h3>
+              <p class="mt-4 max-w-md leading-relaxed">{item.copy}</p>
+            </div>
           </article>
         ))}
       </div>
@@ -313,6 +320,37 @@ const aboutSchema = {
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const portraitFrame = document.querySelector<HTMLElement>("[data-founder-parallax]");
+  const portraitImage = portraitFrame?.querySelector<HTMLElement>("img");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (portraitFrame && portraitImage && !reduceMotion.matches) {
+    let animationFrame: number | undefined;
+
+    const updatePortrait = () => {
+      animationFrame = undefined;
+      const bounds = portraitFrame.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const portraitCenter = bounds.top + bounds.height / 2;
+      const travel = viewportCenter + bounds.height / 2;
+      const progress = Math.max(-1, Math.min(1, (viewportCenter - portraitCenter) / travel));
+
+      portraitImage.style.setProperty("--portrait-parallax", `${progress * 56}px`);
+    };
+
+    const requestPortraitUpdate = () => {
+      if (animationFrame === undefined) {
+        animationFrame = window.requestAnimationFrame(updatePortrait);
+      }
+    };
+
+    updatePortrait();
+    window.addEventListener("scroll", requestPortraitUpdate, { passive: true });
+    window.addEventListener("resize", requestPortraitUpdate);
+  }
+</script>
 
 <style>
   .about-hero {
@@ -385,6 +423,12 @@ const aboutSchema = {
     pointer-events: none;
   }
 
+  .founder-portrait img {
+    transform: translate3d(0, var(--portrait-parallax, 0px), 0) scale(1.28);
+    transform-origin: center;
+    will-change: transform;
+  }
+
   .founder-caption {
     border: 1px solid rgba(20, 22, 28, 0.08);
   }
@@ -393,8 +437,94 @@ const aboutSchema = {
     box-shadow: 0 40px 90px -55px rgba(20, 22, 28, 0.62);
   }
 
-  .team-discipline:nth-child(n + 3) {
-    border-top: 1px solid var(--hairline);
+  .team-discipline {
+    border: 1px solid rgba(35, 46, 102, 0.1);
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(240, 246, 251, 0.9));
+    box-shadow: 0 24px 60px -44px rgba(20, 22, 28, 0.6);
+    color: var(--charcoal);
+    transition:
+      transform 280ms var(--ease-emphasized),
+      border-color 280ms ease,
+      box-shadow 280ms ease;
+  }
+
+  .team-discipline:nth-child(1),
+  .team-discipline:nth-child(4) {
+    border-color: rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(145deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: white;
+    box-shadow: 0 28px 70px -44px rgba(35, 46, 102, 0.9);
+  }
+
+  .team-discipline:nth-child(2) {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(223, 234, 245, 0.86));
+  }
+
+  .team-discipline:nth-child(3) {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(239, 247, 229, 0.88));
+  }
+
+  .team-discipline p {
+    color: var(--muted-foreground);
+  }
+
+  .team-discipline:nth-child(1) p,
+  .team-discipline:nth-child(4) p {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .discipline-icon {
+    border: 1px solid rgba(63, 140, 203, 0.18);
+    background: rgba(255, 255, 255, 0.76);
+    color: var(--key-blue);
+    box-shadow: 0 16px 32px -24px rgba(35, 46, 102, 0.65);
+    backdrop-filter: blur(10px);
+  }
+
+  .team-discipline:nth-child(1) .discipline-icon,
+  .team-discipline:nth-child(4) .discipline-icon {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--green);
+  }
+
+  .discipline-orb {
+    position: absolute;
+    right: -3.5rem;
+    top: -4.5rem;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(63, 140, 203, 0.2), rgba(63, 140, 203, 0));
+    pointer-events: none;
+  }
+
+  .team-discipline:nth-child(1) .discipline-orb,
+  .team-discipline:nth-child(4) .discipline-orb {
+    background: radial-gradient(circle, rgba(147, 200, 69, 0.22), rgba(147, 200, 69, 0));
+  }
+
+  .team-discipline:hover {
+    z-index: 1;
+    transform: translateY(-4px);
+    border-color: rgba(63, 140, 203, 0.3);
+    box-shadow: 0 34px 76px -46px rgba(20, 22, 28, 0.72);
+  }
+
+  @media (min-width: 1024px) {
+    .team-discipline:nth-child(1),
+    .team-discipline:nth-child(4) {
+      grid-column: span 7 / span 7;
+    }
+
+    .team-discipline:nth-child(2),
+    .team-discipline:nth-child(3) {
+      grid-column: span 5 / span 5;
+    }
   }
 
   .values-section {
@@ -423,7 +553,13 @@ const aboutSchema = {
   @media (max-width: 767px) {
     .about-hero,
     .about-hero .container-page {
-      min-height: 700px;
+      min-height: 620px;
+    }
+
+    .about-hero .container-page {
+      align-items: flex-start;
+      padding-top: 3.5rem;
+      padding-bottom: 3rem;
     }
 
     .about-hero img {
@@ -435,16 +571,22 @@ const aboutSchema = {
         linear-gradient(0deg, rgba(14, 21, 55, 0.98) 0%, rgba(18, 27, 66, 0.84) 65%, rgba(18, 27, 66, 0.62) 100%);
     }
 
-    .team-discipline + .team-discipline {
-      border-top: 1px solid var(--hairline);
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .founder-portrait img {
+      transform: none;
+    }
+
     .about-btn-light,
     .about-btn-outline,
+    .team-discipline,
     .value-card {
       transition: none;
+    }
+
+    .team-discipline:hover {
+      transform: none;
     }
   }
 </style>

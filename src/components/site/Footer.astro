@@ -39,21 +39,30 @@ const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark backgro
           Schedule a Consultation <span class="motion-arrow">→</span>
         </a>
         <div
-          class="mt-4 grid grid-cols-3 divide-x divide-white/10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] py-3 text-center md:hidden"
+          class="relative mt-5 overflow-hidden rounded-[22px] border border-white/15 bg-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_45px_-32px_rgba(0,0,0,0.55)] md:hidden"
           aria-label="Turnkey Marketing trust indicators"
         >
-          <div class="px-2">
-            <strong class="block text-base font-semibold leading-none text-white">300+</strong>
-            <span class="mt-1 block text-[11px] leading-tight text-white/65">shops</span>
+          <span class="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-[var(--green)] to-transparent"></span>
+          <div class="flex items-center gap-2 px-4 py-3">
+            <span class="h-1.5 w-1.5 rounded-full bg-[var(--green)] shadow-[0_0_0_4px_rgba(147,200,69,0.12)]"></span>
+            <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/65">
+              Trusted where it matters
+            </p>
           </div>
-          <div class="px-2">
-            <strong class="block text-base font-semibold leading-none text-white">13+</strong>
-            <span class="mt-1 block text-[11px] leading-tight text-white/65">years</span>
-          </div>
-          <div class="px-2">
-            <strong class="block text-xs font-semibold leading-none text-white">ATI + ShopFix</strong>
-            <span class="mt-1 block text-[11px] leading-tight text-white/65">partners</span>
-          </div>
+          <dl class="grid grid-cols-[0.9fr_0.9fr_1.2fr] divide-x divide-white/10 border-t border-white/10">
+            <div class="px-3 py-4">
+              <dt class="font-display text-xl font-semibold leading-none tracking-[-0.03em] text-white">300+</dt>
+              <dd class="mt-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-white/55">Shops served</dd>
+            </div>
+            <div class="px-3 py-4">
+              <dt class="font-display text-xl font-semibold leading-none tracking-[-0.03em] text-white">13+</dt>
+              <dd class="mt-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-white/55">Years focused</dd>
+            </div>
+            <div class="px-3 py-4">
+              <dt class="whitespace-nowrap font-display text-[13px] font-semibold leading-none tracking-[-0.01em] text-white">ATI + ShopFix</dt>
+              <dd class="mt-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-white/55">Industry partners</dd>
+            </div>
+          </dl>
         </div>
         <p class="mt-6 hidden text-sm text-white/50 md:block">
           Trusted by 300+ shops · 13+ years · ATI & ShopFix partners

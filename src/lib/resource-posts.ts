@@ -14,6 +14,14 @@ export type ResourcePost = {
   image: SiteImage;
   imageWidth?: number;
   imageHeight?: number;
+  layout?: "article" | "client-proof";
+  client?: {
+    name: string;
+    company: string;
+    location: string;
+    quote: string;
+    portrait: SiteImage;
+  };
   href: string;
   sourceAsset: string;
   originalUrl?: string;
@@ -410,11 +418,23 @@ export const resourcePosts: ResourcePost[] = [
     slug: "jason-smith-marketing-plan",
     date: "Jan 2023",
     tag: "Client Proof",
-    title: "Jason Smith Marketing Plan",
+    title: "The Yearly Marketing Plan Jason Smith Had Never Had",
+    seoTitle: "Jason Smith's Yearly Marketing Plan | Turnkey Marketing",
     description:
-      "A source-site client proof graphic about creating a yearly marketing plan with Turnkey.",
-    dek: "A client-proof example of why yearly planning matters when a shop wants marketing to support growth instead of reacting month to month.",
+      "See why sitting down with Turnkey to build a yearly marketing plan was a mind-blowing moment for Jason Smith of M&M Car Care Center.",
+    dek: "For the first time, Jason could see an entire year of marketing mapped to his shop—not another pile of disconnected monthly tactics.",
     image: siteMedia.graphics.jasonSmithPlan,
+    imageWidth: 960,
+    imageHeight: 540,
+    layout: "client-proof",
+    client: {
+      name: "Jason Smith",
+      company: "M&M Car Care Center",
+      location: "Northwest Indiana",
+      quote:
+        "I never created a yearly marketing plan—ever. So when Jared, my Turnkey Marketing account manager, came out and we sat down and did that, it was mind blowing to me.",
+      portrait: siteMedia.clients.jasonSmith,
+    },
     href: resourcePath("jason-smith-marketing-plan"),
     sourceAsset:
       "https://turnkeyautomarketing.com/wp-content/uploads/2023/01/jason-smith-marketing-plan.png",
@@ -425,14 +445,19 @@ export const resourcePosts: ResourcePost[] = [
     ],
     sections: [
       {
-        heading: "Growth needs a calendar.",
-        body: "A yearly marketing plan gives the shop a rhythm for acquisition, retention, reputation, seasonal pushes, and budget decisions. It also keeps the owner from having to restart the strategy conversation every month.",
+        heading: "The plan made the whole year visible.",
+        body: "A yearly marketing plan gives the shop a rhythm for acquisition, retention, reputation, seasonal pushes, and budget decisions. Instead of restarting the strategy conversation every month, Jason and his team could see how the pieces worked together and what needed to happen next.",
       },
       {
-        heading: "Accountability keeps it useful.",
-        body: "The plan only matters if someone owns execution and reporting. That is where a marketing team can remove the burden from the shop owner while still keeping the direction clear.",
+        heading: "A plan is only useful when someone owns it.",
+        body: "Turnkey pairs the strategy with execution and reporting, so the owner gets a clear direction without becoming the project manager for every campaign. The result is accountability, fewer last-minute decisions, and marketing that supports the shop's actual goals.",
       },
     ],
+    serviceLink: {
+      href: "/services/vip-marketing-manager",
+      label: "See how a VIP Marketing Manager owns the plan",
+    },
+    relatedSlugs: ["auto-repair-marketing-plan", "why-auto-repair-marketing-breaks"],
   },
 ];
 

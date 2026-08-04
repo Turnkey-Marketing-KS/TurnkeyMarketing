@@ -12,16 +12,16 @@ const vipDetail = getServiceDetail(vip.slug);
 ---
 
 <BaseLayout
-  title="Services — Turnkey Marketing"
-  description="A coordinated marketing ecosystem for auto repair shops — VIP Marketing Manager, direct mail, digital, retention, and more."
+  title="Auto Repair Marketing Agency Services | Turnkey"
+  description="Explore auto repair marketing services from Turnkey: strategy, direct mail, retention, social media, local SEO, and coordinated vendor support."
   path="/services"
   ogTitle="Services — Turnkey Marketing"
   ogImage={siteMedia.about.team.src}
 >
   <PageHero
     eyebrow="Services"
-    title="Marketing support built around the whole shop."
-    description="You do not need more disconnected vendors. You need one team that sees the whole board, knows the repair-shop world, and moves the plan forward every week."
+    title="Auto repair marketing services built around the whole shop."
+    description="You do not need more disconnected vendors. You need an auto repair marketing agency that sees the whole board, knows the repair-shop world, and moves the plan forward every week."
     image={siteMedia.team.visionExpoConversation}
     ctaHref={CONSULTATION_URL}
     ctaLabel="Schedule a Consultation"
@@ -38,6 +38,32 @@ const vipDetail = getServiceDetail(vip.slug);
       </p>
     </div>
   </PageHero>
+
+  <section class="bg-white py-14 md:py-20">
+    <div class="container-page grid gap-7 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-5">
+        <p class="eyebrow">Built for independent shops</p>
+        <h2 class="mt-5 max-w-[13ch] text-balance text-[clamp(2.2rem,4.2vw,3.9rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-charcoal">
+          The right work, connected to one plan.
+        </h2>
+      </div>
+      <div class="space-y-5 text-lg leading-relaxed text-muted-foreground lg:col-span-6 lg:col-start-7 lg:pt-8">
+        <p>
+          Turnkey helps auto shop owners connect strategy, direct mail, customer retention,
+          social media, digital campaigns, and reporting. Some shops need a complete outside
+          marketing department; others need one focused service. Either way, the work starts
+          with what the shop is trying to change, not with a channel someone wants to sell.
+        </p>
+        <p>
+          For local visibility, that includes the practical SEO work already inside our Digital
+          Marketing service: Google review management, Google Business Profile optimization,
+          semi-annual website audits, and coordination with website and Google Ads vendors.
+          Turnkey keeps those pieces working toward the same goal while the shop owner stays
+          focused on the bays, the team, and the customers.
+        </p>
+      </div>
+    </div>
+  </section>
 
   <section class="bg-[var(--off-white)] py-16 md:py-24">
     <div class="container-page">
@@ -105,7 +131,7 @@ const vipDetail = getServiceDetail(vip.slug);
     </div>
 
     <div class="mt-10 grid gap-5 md:grid-cols-2">
-      {rest.map((service, index) => {
+      {rest.map((service) => {
         const detail = getServiceDetail(service.slug);
         return (
           <a
@@ -118,20 +144,18 @@ const vipDetail = getServiceDetail(vip.slug);
             data-track-slug={service.slug}
           >
             <div>
-              <span class="flex items-center gap-2">
-                <span class="text-xs text-muted-foreground tabular-nums">
-                  {String(index + 2).padStart(2, "0")}
+              {service.isNew && (
+                <span
+                  class="inline-flex rounded px-1.5 py-0.5 text-[0.6rem] uppercase tracking-widest"
+                  style="background: var(--green); color: var(--charcoal);"
+                >
+                  New
                 </span>
-                {service.isNew && (
-                  <span
-                    class="rounded px-1.5 py-0.5 text-[0.6rem] uppercase tracking-widest"
-                    style="background: var(--green); color: var(--charcoal);"
-                  >
-                    New
-                  </span>
-                )}
-              </span>
-              <h2 class="mt-4 font-display text-3xl font-semibold leading-tight tracking-normal text-charcoal">
+              )}
+              <h2 class:list={[
+                "font-display text-3xl font-semibold leading-tight tracking-normal text-charcoal",
+                service.isNew && "mt-4",
+              ]}>
                 {service.name}
               </h2>
               <p class="mt-4 max-w-md text-muted-foreground">
@@ -146,8 +170,8 @@ const vipDetail = getServiceDetail(vip.slug);
               <img
                 src={detail.image.src}
                 alt={detail.image.alt}
-                width="540"
-                height="560"
+                width="1200"
+                height={service.slug === "direct-mail" ? 673 : 675}
                 loading="lazy"
                 decoding="async"
                 class:list={[

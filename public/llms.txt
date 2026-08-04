@@ -1,0 +1,34 @@
+# Turnkey Marketing
+
+> Turnkey Marketing is an auto-repair-specific marketing company for independent repair shops. Its team coordinates strategy, campaigns, creative, customer retention, reporting, and vendor support around one plan.
+
+## Primary pages
+
+- [Auto Repair Marketing](https://www.turnkeyautomarketing.com/): Overview of Turnkey's coordinated marketing approach for independent auto repair shops.
+- [Auto Repair Marketing Services](https://www.turnkeyautomarketing.com/services): The full service lineup and links to detailed service pages.
+- [Client Results](https://www.turnkeyautomarketing.com/results): Stories and outcomes from independent auto repair shops.
+- [About Turnkey](https://www.turnkeyautomarketing.com/about): The company's team, experience, and approach.
+- [Contact Turnkey](https://www.turnkeyautomarketing.com/contact): Ways to contact the team and schedule a consultation.
+
+## Services
+
+- [VIP Marketing Manager](https://www.turnkeyautomarketing.com/services/vip-marketing-manager): A coordinated outside marketing department for an auto repair shop.
+- [DirectTrack Marketing](https://www.turnkeyautomarketing.com/services/directtrack-marketing): Targeted digital acquisition campaigns with ROI tracking and reporting.
+- [Marketing Consulting](https://www.turnkeyautomarketing.com/services/marketing-consulting): Monthly strategy, campaign review, and marketing guidance.
+- [Direct Mail](https://www.turnkeyautomarketing.com/services/direct-mail): Managed postcard campaigns, from design and list strategy through reporting.
+- [Social Media Marketing](https://www.turnkeyautomarketing.com/services/social-media-marketing): Facebook, Instagram, and Google Business Profile content and response support.
+- [Retention Marketing](https://www.turnkeyautomarketing.com/services/retention-marketing): Email newsletters, thank-you notes, and CRM follow-up for current customers.
+- [Digital Marketing](https://www.turnkeyautomarketing.com/services/digital-marketing): Google review management, Business Profile optimization, website audits, and vendor coordination.
+- [Boost Days](https://www.turnkeyautomarketing.com/services/boost-days): Focused campaigns for slow periods, open bays, or timing-sensitive demand.
+
+## Resources
+
+- [Auto Repair Marketing Resources](https://www.turnkeyautomarketing.com/resources): Practical articles and guides for repair shop owners.
+- [How to Think About an Auto Repair Marketing Plan](https://www.turnkeyautomarketing.com/resources/auto-repair-marketing-plan)
+- [Why Direct Mail Still Works for Repair Shops](https://www.turnkeyautomarketing.com/resources/direct-mail-for-repair-shops)
+- [How to Build an Ideal Customer Profile for Your Repair Shop](https://www.turnkeyautomarketing.com/resources/ideal-customer-profile-auto-repair-shop)
+- [The Auto Repair Shop Photography Guide](https://www.turnkeyautomarketing.com/resources/auto-repair-shop-photography-guide)
+
+## Site index
+
+- [XML sitemap](https://www.turnkeyautomarketing.com/sitemap.xml)

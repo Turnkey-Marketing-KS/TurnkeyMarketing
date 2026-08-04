@@ -3,24 +3,38 @@ import { resourcePosts } from "@/lib/resource-posts";
 
 const canonicalSite = new URL("https://www.turnkeyautomarketing.com");
 
-const staticPaths = [
-  "/",
-  "/services",
-  "/about",
-  "/results",
-  "/resources",
-  "/contact",
-  "/privacy-policy",
-  "/terms-of-service",
+type SitemapEntry = {
+  path: string;
+  lastmod?: string;
+};
+
+const currentContentDate = "2026-08-04";
+
+const staticEntries: SitemapEntry[] = [
+  { path: "/", lastmod: currentContentDate },
+  { path: "/services", lastmod: currentContentDate },
+  { path: "/about", lastmod: currentContentDate },
+  { path: "/results", lastmod: currentContentDate },
+  { path: "/resources", lastmod: currentContentDate },
+  { path: "/contact" },
+  { path: "/privacy-policy" },
+  { path: "/terms-of-service" },
 ];
 
 export function GET() {
-  const servicePaths = services.map((service) => `/services/${service.slug}`);
-  const resourcePaths = resourcePosts.map((post) => post.href);
-  const paths = [...staticPaths, ...servicePaths, ...resourcePaths];
-  const urls = paths.map((path) => {
+  const serviceEntries: SitemapEntry[] = services.map((service) => ({
+    path: `/services/${service.slug}`,
+    lastmod: currentContentDate,
+  }));
+  const resourceEntries: SitemapEntry[] = resourcePosts.map((post) => ({
+    path: post.href,
+    lastmod: post.updatedDate ?? post.originalDate,
+  }));
+  const entries = [...staticEntries, ...serviceEntries, ...resourceEntries];
+  const urls = entries.map(({ path, lastmod }) => {
     const loc = new URL(path, canonicalSite).toString();
-    return `  <url><loc>${loc}</loc><changefreq>weekly</changefreq></url>`;
+    const lastmodTag = lastmod ? `<lastmod>${lastmod}</lastmod>` : "";
+    return `  <url><loc>${loc}</loc>${lastmodTag}</url>`;
   });
 
   return new Response(

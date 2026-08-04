@@ -682,11 +682,11 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "digital-marketing": {
     image: siteMedia.graphics.serviceDigital,
     hero: {
-      badge: "Local visibility",
+      badge: "Local SEO & visibility",
       headline: "Customers Google you",
       headlineAccent: "before they call you.",
       subhead:
-        "Review management, Google Business Profile optimization, website audits, and vendor coordination — so when a local customer searches for a shop, yours looks like the obvious choice.",
+        "Practical local search engine optimization (SEO) through review management, Google Business Profile optimization, website audits, and vendor coordination — so when a local customer searches for a shop, yours looks like the obvious choice.",
       stats: [
         {
           value: "Reviews managed",
@@ -715,8 +715,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         icon: "map-pin",
-        title: "GBP optimization",
-        description: "Your profile tuned for the local searches that turn into phone calls.",
+        title: "Local SEO and GBP optimization",
+        description:
+          "Your Google Business Profile tuned for the local searches that turn into phone calls.",
       },
       {
         icon: "globe",
@@ -743,7 +744,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         title: "Optimize and manage",
         description:
-          "The profile gets tuned, the review process starts running, and your vendors get pulled onto one plan.",
+          "The local SEO fundamentals get tuned, the review process starts running, and your vendors get pulled onto one plan.",
       },
       {
         title: "Measure what matters",
@@ -766,7 +767,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "What is a Google Business Profile and why does it matter?",
-        a: "It's the panel customers see on Google before they ever reach your website — hours, reviews, photos, directions. It's usually your first impression, and most shops leave it unmanaged.",
+        a: "It's the panel customers see on Google before they ever reach your website — hours, reviews, photos, directions. Keeping it accurate and active is a core part of local SEO because it is usually your shop's first impression.",
       },
       {
         q: "Do you run the Google Ads yourselves?",

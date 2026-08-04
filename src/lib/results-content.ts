@@ -7,7 +7,7 @@ export const featuredResult = {
   name: "Legendary Automotive & Diesel Repair",
   logoSrc: "/images/results/shop-logos/legendary-automotive-diesel-repair.png",
   headline: "Legendary Automotive",
-  body: "Between August 2024 and June 2026, Legendary Automotive & Diesel Repair grew from $260,534 to $701,725 in revenue — while total cars served nearly tripled and returning cars grew more than five-fold.",
+  body: "Between August 2024 and June 2026, Legendary Automotive & Diesel Repair grew from $260,534 to $701,725 in monthly revenue — while total cars served nearly tripled and returning cars grew more than five-fold.",
   footnote: "Figures compare August 2024 with June 2026.",
   chart: {
     ariaLabel:
@@ -58,7 +58,7 @@ export const killianStory = {
 export const moreResults = [
   {
     name: "SSA European Auto Repair",
-    logoSrc: "/images/results/shop-logos/ssa-european-auto-repair.jpg",
+    logoSrc: "/images/results/shop-logos/ssa-european-auto-repair.webp",
     delta: "≈ +118%",
     line: "$3.3M → $7.2M annual revenue · 2023 actual vs. 2026 projected",
     meta: "With Turnkey since September 2022 · Kingston, MA",
