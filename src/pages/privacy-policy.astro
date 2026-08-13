@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const effectiveDate = "July 6, 2026";
+const effectiveDate = "August 13, 2026";
 
 const sections = [
   {
@@ -23,6 +23,13 @@ const sections = [
     body: [
       "We do not sell personal information. We may share information with service providers that help us operate the website, schedule appointments, manage communications, analyze performance, or deliver services on our behalf.",
       "We may also disclose information when required by law, to protect our rights, to prevent misuse of the website, or as part of a business transaction such as a merger, acquisition, or transfer of assets.",
+    ],
+  },
+  {
+    title: "SMS messaging and consent",
+    body: [
+      "If you voluntarily opt in, Turnkey Marketing, operated by CL Business Coaching LLC, may send recurring marketing and promotional text messages to the mobile number you provide. Messages may include special offers, information about marketing services, and business updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. SMS consent is not a condition of purchase.",
+      "No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Information sharing with subcontractors in support services, such as customer service and message delivery, is permitted only as necessary to provide those services. All other use-case categories exclude text-messaging originator opt-in data and consent; this information will not be shared with any third parties.",
     ],
   },
   {
@@ -87,9 +94,10 @@ const sections = [
   <section class="container-page py-20">
     <div class="max-w-3xl space-y-12">
       <p class="text-lg leading-relaxed text-muted-foreground">
-        This Privacy Policy explains how Turnkey Marketing collects, uses,
-        shares, and protects information when you visit this website, contact
-        us, or interact with our online forms and communications.
+        This Privacy Policy explains how Turnkey Marketing, operated by CL
+        Business Coaching LLC, collects, uses, shares, and protects information
+        when you visit this website, contact us, or interact with our online
+        forms and communications.
       </p>
 
       {sections.map((section) => (

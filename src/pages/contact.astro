@@ -1,7 +1,7 @@
 ---
-import { Calendar, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { BOOKING_URL } from "@/lib/services";
+import { APPOINTMENTCORE_BOOKING_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 ---
 
@@ -12,41 +12,49 @@ import { siteMedia } from "@/lib/site-media";
   ogTitle="Contact Turnkey Marketing"
   ogImage={siteMedia.team.visionExpoConversation.src}
 >
-  <section class="border-b hairline bg-white">
-    <div class="container-page pt-14 md:pt-20 pb-10 md:pb-14">
-      <p class="eyebrow" style="color: var(--key-blue);">Contact</p>
-      <h1 class="display-2 mt-5 max-w-[12ch] text-balance">
-        Let’s talk about your shop.
-      </h1>
-      <p class="mt-5 max-w-[32ch] text-lg leading-relaxed text-muted-foreground md:max-w-2xl">
-        When you are ready, the booking page handles both scheduling and the
-        intake details we need before the call.
+  <section id="book" class="scroll-mt-24 border-b hairline bg-[var(--off-white)] py-14 md:py-20">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="eyebrow" style="color: var(--key-blue);">Book a strategy call</p>
+        <h2 class="display-2 mt-5 text-balance">
+          Choose a time that works for you.
+        </h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-5xl overflow-hidden rounded-[28px] bg-white shadow-[0_28px_70px_-48px_rgba(20,22,28,0.35)] ring-1 ring-black/5">
+        <iframe
+          src={APPOINTMENTCORE_BOOKING_URL}
+          title="Book a strategy call with Turnkey Marketing"
+          width="100%"
+          height="800"
+          class="block min-h-[800px] w-full border-0"
+          loading="eager"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+
+      <p class="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
+        SMS marketing consent is optional and separate from booking. If you
+        choose to opt in, you agree to receive recurring marketing text
+        messages about special offers, marketing services, and business updates
+        from Turnkey Marketing, operated by CL Business Coaching LLC, at the
+        mobile number provided. Message frequency varies. Message and data rates
+        may apply. Reply HELP for help or STOP to opt out. Consent is not a
+        condition of purchase. Review our
+        <a class="font-medium text-[var(--navy)] underline underline-offset-4" href="/privacy-policy">Privacy Policy</a>
+        and
+        <a class="font-medium text-[var(--navy)] underline underline-offset-4" href="/terms-of-service">Terms of Service</a>.
       </p>
     </div>
+
+    <script
+      is:inline
+      src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786632678"
+    ></script>
   </section>
 
   <section class="container-page py-14 md:py-20">
-    <div class="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-2 lg:grid-cols-4">
-      <a
-        href={BOOKING_URL}
-        class="group min-w-0 rounded-[28px] bg-[var(--navy)] p-7 text-white transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(35,46,102,0.65)]"
-        data-track-event="consultation_cta_click"
-        data-track-placement="contact_primary"
-      >
-        <span
-          class="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
-          style="background: var(--green); color: var(--charcoal);"
-        >
-          <Calendar className="h-5 w-5" />
-        </span>
-        <h2 class="mt-8 font-display text-2xl font-semibold">
-          Book a strategy call
-        </h2>
-        <p class="mt-3 text-sm leading-relaxed text-white/70">
-          Pick a time with Chris and share the details in the calendar widget.
-        </p>
-      </a>
-
+    <div class="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-3">
       <a
         href="tel:9137774144"
         class="min-w-0 rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
