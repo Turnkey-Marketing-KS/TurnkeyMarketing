@@ -1023,6 +1023,29 @@
         }
         .pain-panel h2 .pain-line { display: block; }
 
+        .pillars .section-head {
+          max-width: none;
+          display: grid;
+          grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+          grid-template-areas:
+            "eyebrow copy"
+            "heading copy";
+          column-gap: clamp(3rem, 7vw, 7rem);
+          align-items: end;
+        }
+        .pillars .section-head .eyebrow {
+          grid-area: eyebrow;
+          align-self: start;
+        }
+        .pillars .section-head h2 { grid-area: heading; }
+        .pillars .section-head p {
+          grid-area: copy;
+          justify-self: end;
+          margin-top: 0;
+          max-width: 32ch;
+          font-size: 1.125rem;
+        }
+
         /* Photo sits beside the copy here, so the block reads left-aligned. */
         .hero-copy { text-align: left; }
         .hero-copy h1 { margin-inline: 0; }
