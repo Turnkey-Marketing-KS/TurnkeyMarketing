@@ -1023,7 +1023,8 @@
         }
         .pain-panel h2 .pain-line { display: block; }
 
-        .pillars .section-head {
+        .pillars .section-head,
+        .voices .section-head {
           max-width: none;
           display: grid;
           grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
@@ -1033,17 +1034,25 @@
           column-gap: clamp(3rem, 7vw, 7rem);
           align-items: end;
         }
-        .pillars .section-head .eyebrow {
+        .pillars .section-head .eyebrow,
+        .voices .section-head .eyebrow {
           grid-area: eyebrow;
           align-self: start;
         }
-        .pillars .section-head h2 { grid-area: heading; }
-        .pillars .section-head p {
+        .pillars .section-head h2,
+        .voices .section-head h2 { grid-area: heading; }
+        .pillars .section-head p,
+        .voices .section-head p {
           grid-area: copy;
           justify-self: end;
           margin-top: 0;
           max-width: 32ch;
           font-size: 1.125rem;
+        }
+        .voices .voices-rating > :last-child {
+          flex-basis: 100%;
+          margin-top: 0.35rem;
+          line-height: 1.6;
         }
 
         /* Photo sits beside the copy here, so the block reads left-aligned. */
