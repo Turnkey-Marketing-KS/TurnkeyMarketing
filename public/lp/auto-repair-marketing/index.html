@@ -1012,6 +1012,17 @@
         .hero-media { max-width: 470px; justify-self: end; }
         .hero-frame { aspect-ratio: 4 / 5; }
 
+        .pain-panel {
+          grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+          gap: 2rem;
+        }
+        .pain-panel h2 {
+          max-width: none;
+          font-size: clamp(2.65rem, 4.15vw, 3.6rem);
+          line-height: 1.04;
+        }
+        .pain-panel h2 .pain-line { display: block; }
+
         /* Photo sits beside the copy here, so the block reads left-aligned. */
         .hero-copy { text-align: left; }
         .hero-copy h1 { margin-inline: 0; }
@@ -1293,8 +1304,11 @@
           <div class="pain-panel" data-reveal>
             <div>
               <h2 class="display-2">
-                You hired help.
-                <em>Why is the marketing still on you?</em>
+                <span class="pain-line">You hired help.</span>
+                <em>
+                  <span class="pain-line">Why is the marketing</span>
+                  <span class="pain-line">still on you?</span>
+                </em>
               </h2>
               <p class="pain-body">
                 If you are still chasing updates, approving every detail, and wondering what is
