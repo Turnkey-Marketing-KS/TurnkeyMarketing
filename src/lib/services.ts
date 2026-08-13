@@ -149,4 +149,4 @@ export const getService = (slug: string) => services.find((s) => s.slug === slug
 export const CONSULTATION_URL = "/contact#book";
 export const BOOKING_URL = CONSULTATION_URL;
 export const APPOINTMENTCORE_BOOKING_URL =
-  "https://go.appointmentcore.com/book/7uUZaGNRL6?d=SlotsV2&e=1";
+  "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1";
