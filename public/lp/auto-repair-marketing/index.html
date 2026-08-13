@@ -813,13 +813,10 @@
         padding-bottom: 2.75rem;
         scroll-margin-top: calc(var(--header-h) + 12px);
       }
-      .start-grid { display: grid; gap: 1.75rem; align-items: start; }
-      .start-copy p {
-        margin-top: 1rem;
-        max-width: 44ch;
-        font-size: 1.0625rem;
-        line-height: 1.65;
-        color: rgba(20, 22, 28, 0.65);
+      .start-grid {
+        width: 100%;
+        max-width: 62rem;
+        margin-inline: auto;
       }
 
       .sheet {
@@ -984,7 +981,6 @@
         .qa { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
 
         .start { padding-bottom: 4rem; }
-        .start-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 3rem; }
         .sheet { padding: 1rem; }
         .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
 
@@ -1670,21 +1666,10 @@
       <!-- =========================================================
            EMBEDDED BOOKING CALENDAR — final page section
            ========================================================= -->
-      <section class="start" id="start" aria-labelledby="booking-heading">
+      <section class="start" id="start" aria-label="Schedule a consultation">
         <div class="container-page">
           <div class="start-grid">
-            <div class="start-copy" data-reveal>
-              <span class="eyebrow">Start here</span>
-              <h2 class="display-2" id="booking-heading" style="margin-top: 0.85rem;">
-                Choose a time that works.
-              </h2>
-              <p>
-                Pick a convenient time for a 30-minute conversation about your shop, your goals,
-                and what your marketing should focus on next.
-              </p>
-            </div>
-
-            <div class="sheet" data-reveal style="--reveal-delay: 90ms;">
+            <div class="sheet" data-reveal>
               <iframe
                 class="booking-widget"
                 src="https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d"
