@@ -1,0 +1,1784 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Paid-search landing page. Kept out of the organic index so it does not
+         compete with the homepage for "auto repair marketing". Google Ads serves
+         this page regardless of robots directives. Delete this line to index it. -->
+    <meta name="robots" content="noindex, follow" />
+
+    <title>Auto Repair Marketing That Increases Car Count | Turnkey Marketing</title>
+    <meta
+      name="description"
+      content="Turnkey is the outside marketing department for independent auto repair shops. 300+ shops, 13+ years, ATI and ShopFix partners. Book a 30-minute consultation."
+    />
+    <link rel="canonical" href="https://www.turnkeyautomarketing.com/lp/auto-repair-marketing" />
+    <link rel="icon" href="/favicon-search.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/favicon-search.png" sizes="512x512" />
+
+    <!-- LCP: hero photo -->
+    <link rel="preload" as="image" href="/site-media/hero-thunderbird-shop.webp" fetchpriority="high" />
+
+    <!-- Inter — same family the main site uses. Loaded without blocking render. -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+
+    <script>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("motion-ready");
+      }
+    </script>
+
+    <!-- Google tag (GA4 + Google Ads). Same property IDs as the main site. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJZ35N9FWG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", "G-XJZ35N9FWG");
+      gtag("config", "G-1468YCTQJ3");
+    </script>
+
+    <style>
+      /* ==================================================================
+         TURNKEY MARKETING — PAID SEARCH LANDING PAGE
+
+         Design system is lifted directly from src/styles.css so this page
+         reads as part of the main site: Inter at weight 600 for display,
+         -0.04em tracking, navy pill CTAs, rounded-32px section panels,
+         key-blue accent on the second half of headlines, hairline-divided
+         stats, white cards with a key-blue-soft icon tile, card-float
+         shadows and the site's data-reveal entrance.
+
+         Conversion structure is LP-specific: no navigation, one goal,
+         repeated CTAs, embedded booking calendar, sticky mobile call/book bar.
+         ================================================================== */
+      :root {
+        /* Brand — matches src/styles.css */
+        --navy: #232e66;
+        --navy-soft: #2c3873;
+        --navy-deep: #1a2352;
+        --key-blue: #3f8ccb;
+        --key-blue-soft: #dfeaf5;
+        --green: #93c845;
+        --off-white: #f4f2ed;
+        --cream: #fbfaf6;
+        --charcoal: #14161c;
+        --hairline: #e7e5df;
+        --muted: #5b6070;
+
+        --radius: 0.75rem;
+
+        --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+        --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration-fast: 160ms;
+        --duration-standard: 260ms;
+        --duration-reveal: 680ms;
+
+        --font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+
+        --header-h: 60px;
+      }
+
+      *,
+      *::before,
+      *::after { box-sizing: border-box; }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(var(--header-h) + 12px);
+        background: var(--cream);
+      }
+
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--charcoal);
+        font-family: var(--font);
+        font-feature-settings: "ss01", "cv11";
+        font-size: 17px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      h1, h2, h3 {
+        margin: 0;
+        font-family: var(--font);
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        line-height: 1.1;
+      }
+
+      p { margin: 0; }
+      ul, ol { margin: 0; padding: 0; list-style: none; }
+      img { display: block; max-width: 100%; height: auto; }
+      a { color: inherit; }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible {
+        outline: 2px solid var(--key-blue);
+        outline-offset: 2px;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* ---- Site container ---- */
+      .container-page {
+        width: 100%;
+        max-width: 1360px;
+        margin-inline: auto;
+        padding-inline: 1.25rem;
+      }
+      @media (min-width: 768px) { .container-page { padding-inline: 2rem; } }
+      @media (min-width: 1280px) { .container-page { padding-inline: 3rem; } }
+
+      /* ---- Site display scale ---- */
+      .display-1 {
+        font-size: clamp(2.35rem, 8.4vw, 4.6rem);
+        line-height: 1;
+        letter-spacing: -0.045em;
+        font-weight: 600;
+      }
+      .display-2 {
+        font-size: clamp(2rem, 4.8vw, 4.25rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        font-weight: 600;
+      }
+      .display-3 {
+        font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        font-weight: 600;
+      }
+
+      .eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .eyebrow-light { color: rgba(255, 255, 255, 0.62); }
+
+      .tnum { font-variant-numeric: tabular-nums; }
+      .balance { text-wrap: balance; }
+
+      /* ==================================================================
+         Buttons — btn-primary / btn-ghost / btn-light / btn-go from the site
+         ================================================================== */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.95rem 1.5rem;
+        min-height: 52px;
+        border: 0;
+        border-radius: 999px;
+        font-family: var(--font);
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: -0.005em;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          transform var(--duration-standard) var(--ease-emphasized),
+          background-color var(--duration-standard) var(--ease-standard),
+          border-color var(--duration-standard) var(--ease-standard),
+          box-shadow var(--duration-standard) var(--ease-emphasized);
+      }
+      .btn svg {
+        transition: transform var(--duration-standard) var(--ease-emphasized);
+      }
+      .btn:hover svg { transform: translateX(3px); }
+
+      .btn-primary {
+        background: var(--navy);
+        color: #fff;
+        box-shadow: 0 14px 34px -12px rgba(35, 46, 102, 0.55);
+      }
+      .btn-primary:hover {
+        background: var(--navy-deep);
+        box-shadow: 0 20px 44px -18px rgba(35, 46, 102, 0.72);
+        transform: translateY(-2px);
+      }
+      .btn-primary:active { transform: translateY(0); }
+
+      .btn-ghost {
+        background: #fff;
+        color: var(--charcoal);
+        border: 1px solid var(--hairline);
+      }
+      .btn-ghost:hover {
+        background: var(--off-white);
+        border-color: #d5d3cc;
+        box-shadow: 0 18px 34px -28px rgba(20, 22, 28, 0.32);
+        transform: translateY(-1px);
+      }
+
+      .btn-light { background: #fff; color: var(--charcoal); }
+      .btn-light:hover { background: rgba(255, 255, 255, 0.9); transform: translateY(-2px); }
+
+      .btn-go {
+        background: var(--green);
+        color: var(--charcoal);
+        font-weight: 600;
+        box-shadow: 0 14px 34px -14px rgba(142, 203, 63, 0.5);
+      }
+      .btn-go:hover {
+        background: #9fd253;
+        box-shadow: 0 20px 44px -18px rgba(142, 203, 63, 0.6);
+        transform: translateY(-2px);
+      }
+
+      .btn-block { width: 100%; }
+      .btn-lg { padding: 1.1rem 1.85rem; font-size: 1.0125rem; min-height: 56px; }
+
+      /* ---- card-float, from the site ---- */
+      .card-float {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow:
+          0 32px 80px -26px rgba(20, 22, 28, 0.34),
+          0 14px 30px -20px rgba(35, 46, 102, 0.28),
+          0 2px 8px -2px rgba(20, 22, 28, 0.08);
+      }
+
+      /* ---- Site reveal entrance ---- */
+      html.motion-ready [data-reveal] {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity var(--duration-reveal) var(--ease-standard),
+          transform var(--duration-reveal) var(--ease-emphasized);
+        transition-delay: var(--reveal-delay, 0ms);
+      }
+      html.motion-ready [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        [data-reveal] { opacity: 1 !important; transform: none !important; }
+        .belt-track { animation: none !important; }
+        .btn, .btn svg, .action-bar { transition: none; }
+      }
+
+      /* ==================================================================
+         Header
+         ================================================================== */
+      .masthead {
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: saturate(1.5) blur(10px);
+        border-bottom: 1px solid var(--hairline);
+      }
+      .masthead-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: var(--header-h);
+      }
+      .brand { flex: none; margin-right: auto; display: flex; align-items: center; }
+      .brand img { flex: none; height: 21px; width: auto; }
+
+      .tel-head {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--navy);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .tel-head svg { flex: none; display: none; }
+      .tel-head:hover { color: var(--key-blue); }
+
+      .cta-head {
+        flex: none;
+        min-height: 40px;
+        padding: 0.6rem 0.95rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+      /* "a Call" is dropped on the narrowest screens so the header never
+         overflows; the sticky bottom bar carries the full CTA wording. */
+      .cta-more { display: none; }
+
+      /* ==================================================================
+         Hero
+         ================================================================== */
+      .hero { background: #fff; }
+      /* padding-block only — a `padding` shorthand here would wipe out
+         .container-page's horizontal gutters. */
+      .hero-inner { padding-block: 1.75rem 2.25rem; }
+      .hero-grid { display: grid; gap: 2.25rem; min-width: 0; }
+
+      /* ------------------------------------------------------------------
+         A/B TEST SLOT — H1 (scheduled week 6)
+         Edit only the text inside <h1 class="display-1">. Keep the tags,
+         classes and the <em> wrapper that colours the second line.
+         ------------------------------------------------------------------ */
+      .hero h1 { max-width: 18ch; }
+      .hero h1 em { font-style: normal; color: var(--key-blue); }
+
+      /* Single-column widths centre the whole hero block; the desktop split
+         re-aligns it left against the photo (see the 1024px breakpoint). */
+      .hero-copy { min-width: 0; text-align: center; }
+      .hero-copy h1 { margin-inline: auto; }
+
+      .hero-acts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 2rem;
+      }
+
+      .hero-proof {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem 1.1rem;
+        margin-top: 1.5rem;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: rgba(20, 22, 28, 0.6);
+      }
+      .hero-proof .stars { color: var(--green); letter-spacing: 0.08em; }
+      /* Dots would strand at line ends once the row wraps, so they only appear
+         at widths where the row stays on one line. */
+      .hero-proof .dot {
+        display: none;
+        width: 4px; height: 4px;
+        border-radius: 50%;
+        background: var(--hairline);
+      }
+
+      .hero-media { position: relative; min-width: 0; width: 100%; }
+      .hero-frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        border-radius: 28px;
+        background: linear-gradient(160deg, var(--key-blue) 0%, var(--navy) 100%);
+      }
+      .hero-frame img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 52% 50%;
+      }
+
+      .floaty {
+        position: absolute;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        width: 190px;
+        padding: 0.85rem 1rem;
+      }
+      .floaty .lbl {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.625rem;
+        color: rgba(20, 22, 28, 0.6);
+      }
+      .floaty .tile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px; height: 20px;
+        border-radius: 6px;
+        background: var(--key-blue-soft);
+        color: var(--key-blue);
+      }
+      .floaty .val {
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+      }
+      .floaty .val b {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .floaty .val span { font-size: 0.6875rem; color: var(--green); font-weight: 600; }
+      .floaty .stars { margin-top: 0.4rem; font-size: 0.6875rem; color: var(--green); letter-spacing: 0.1em; }
+
+      /* ==================================================================
+         Trust strip — hairline-divided stats, then partner badges
+         ================================================================== */
+      .trust { background: #fff; padding: 0 0 2.25rem; }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem 0.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--hairline);
+      }
+      .stat { padding-inline: 0.25rem; text-align: center; }
+      .stat .k {
+        font-size: 1.875rem;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--charcoal);
+      }
+      .stat.accent .k { color: var(--green); }
+      .stat .v {
+        margin: 0.5rem auto 0;
+        max-width: 22ch;
+        font-size: 0.75rem;
+        line-height: 1.4;
+        color: rgba(20, 22, 28, 0.6);
+      }
+
+      .partners {
+        margin-top: 1.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--hairline);
+        display: grid;
+        gap: 0.85rem;
+        justify-items: center;
+      }
+      .partner-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+      /* ------------------------------------------------------------------
+         PARTNER BADGES — ATI + ShopFix Academy
+         No licensed ATI / ShopFix logo files exist in this repo, so these
+         are set as type. When the partner files arrive, drop them in
+         /lp/assets/ and replace the <b>/<span> pair inside each badge with:
+         <img src="/lp/assets/ati-logo.webp"
+              alt="Automotive Training Institute partner" width="…" height="…">
+         ------------------------------------------------------------------ */
+      .partner {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1.1rem;
+        border: 1px solid var(--hairline);
+        border-radius: 999px;
+        background: #fff;
+      }
+      .partner .check {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px; height: 20px;
+        border-radius: 50%;
+        background: rgba(147, 200, 69, 0.18);
+        color: #5e8a1f;
+        flex: none;
+      }
+      .partner b {
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: var(--navy);
+      }
+      .partner span { font-size: 0.75rem; color: rgba(20, 22, 28, 0.55); }
+
+      /* ==================================================================
+         Logo wall
+         ================================================================== */
+      .wall { background: #fff; padding: 0 0 2.5rem; }
+      .wall-head { text-align: center; max-width: 36ch; margin: 0 auto 1.5rem; }
+      .wall-head .eyebrow { display: block; margin-bottom: 0.75rem; }
+
+      .belt {
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+      }
+      .belt + .belt { margin-top: 0.35rem; }
+      .belt-track {
+        display: flex;
+        align-items: center;
+        width: max-content;
+        gap: 2.25rem;
+        padding: 0.6rem 1.125rem;
+        animation: belt 58s linear infinite;
+        will-change: transform;
+      }
+      .belt-track.rev { animation-duration: 72s; animation-direction: reverse; }
+      .belt:hover .belt-track,
+      .belt:focus-within .belt-track { animation-play-state: paused; }
+      @keyframes belt {
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(-50%, 0, 0); }
+      }
+      /* Source files carry opaque white boxes; multiply drops that white into
+         the white band so each mark reads as a transparent PNG would. */
+      .belt-track img {
+        flex: none;
+        height: 30px;
+        width: auto;
+        max-width: 124px;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+      }
+
+      /* ==================================================================
+         Pain — charcoal rounded panel, matching the site's launch section
+         ================================================================== */
+      .pain { padding-bottom: 2.75rem; }
+      .pain-panel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        background: var(--charcoal);
+        color: #fff;
+        padding: 1.75rem;
+        display: grid;
+        gap: 2rem;
+      }
+      .pain-panel h2 { color: #fff; max-width: 20ch; }
+      .pain-panel h2 em { font-style: normal; color: var(--key-blue); }
+      .pain-body {
+        margin-top: 1.25rem;
+        max-width: 34ch;
+        font-size: 1rem;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .pain-cta { margin-top: 1.75rem; }
+
+      .compare { display: grid; gap: 1rem; }
+      .compare-card { border-radius: 20px; padding: 1.25rem 1.25rem 1.4rem; }
+      .compare-card h3 {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        line-height: 1.35;
+        letter-spacing: -0.02em;
+      }
+      .compare-card ul { margin-top: 1rem; display: grid; gap: 0.8rem; }
+      .compare-card li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.65rem;
+        font-size: 0.9375rem;
+        line-height: 1.45;
+      }
+      .compare-card li svg { flex: none; margin-top: 3px; }
+
+      /* The "alone" column is deliberately not a card — it sits directly on the
+         panel so the white Turnkey card is the only object that lifts off it. */
+      .compare-card.alone { padding: 0 0 0.25rem; }
+      .compare-card.alone h3 { color: rgba(255, 255, 255, 0.9); }
+      .compare-card.alone li { color: rgba(255, 255, 255, 0.6); }
+      .compare-card.alone li svg { color: #e8836f; }
+      .compare-card.alone ul { border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 0.9rem; }
+
+      .compare-card.ours {
+        background: #fff;
+        box-shadow: 0 26px 60px -30px rgba(0, 0, 0, 0.55);
+      }
+      .compare-card.ours h3 { color: var(--navy); }
+      .compare-card.ours li { color: rgba(20, 22, 28, 0.78); }
+      .compare-card.ours li svg { color: #5e8a1f; }
+
+      /* ==================================================================
+         Pillars — white cards with a key-blue-soft icon tile
+         ================================================================== */
+      .pillars { padding-bottom: 2.75rem; }
+      .section-head { max-width: 34ch; }
+      .section-head .eyebrow { display: block; margin-bottom: 0.85rem; }
+      .section-head p {
+        margin-top: 1rem;
+        max-width: 46ch;
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        color: rgba(20, 22, 28, 0.65);
+      }
+
+      .pillar-grid { display: grid; gap: 1rem; margin-top: 1.75rem; }
+      .pillar {
+        background: #fff;
+        border: 1px solid var(--hairline);
+        border-radius: 20px;
+        padding: 1.5rem 1.4rem 1.6rem;
+      }
+      .icon-tile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px; height: 40px;
+        border-radius: 12px;
+        background: var(--key-blue-soft);
+        color: var(--key-blue);
+        margin-bottom: 1rem;
+      }
+      .pillar h3 { font-size: 1.125rem; letter-spacing: -0.028em; }
+      .pillar p {
+        margin-top: 0.6rem;
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: rgba(20, 22, 28, 0.62);
+      }
+
+      /* ---- Mid-page CTA (2 of 3) — navy gradient panel ---- */
+      .relay { padding-bottom: 2.75rem; }
+      .relay-panel {
+        border-radius: 32px;
+        padding: 1.85rem 1.75rem 2rem;
+        background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%);
+        color: #fff;
+        display: grid;
+        gap: 1.5rem;
+      }
+      .relay-panel h2 { color: #fff; max-width: 24ch; }
+      .relay-panel p {
+        margin-top: 0.9rem;
+        max-width: 44ch;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      /* ==================================================================
+         Testimonials — site card pattern, Killian featured
+         ================================================================== */
+      .voices { padding-bottom: 2.75rem; }
+      .voices-rating {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.6rem;
+        margin-top: 1.1rem;
+        font-size: 0.875rem;
+        color: rgba(20, 22, 28, 0.6);
+      }
+      .voices-rating .stars { color: var(--green); letter-spacing: 0.08em; }
+      .voices-rating b { color: var(--charcoal); font-weight: 600; }
+
+      .voice-grid { display: grid; gap: 1rem; margin-top: 1.75rem; }
+      .voice {
+        display: flex;
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 1.35rem 1.35rem 1.4rem;
+        background: #fff;
+        border: 1px solid var(--hairline);
+      }
+      .voice-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+      .tag {
+        display: inline-block;
+        padding: 0.3rem 0.65rem;
+        border-radius: 999px;
+        background: var(--key-blue-soft);
+        color: #235c8c;
+        font-size: 0.625rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .glyph {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px; height: 30px;
+        flex: none;
+        border-radius: 9px;
+        background: var(--key-blue-soft);
+        color: var(--key-blue);
+      }
+      .voice blockquote {
+        margin: 1.1rem 0 0;
+        font-size: 1.0625rem;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: -0.025em;
+        color: var(--charcoal);
+      }
+      .voice-who {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-top: auto;
+        padding-top: 1.35rem;
+      }
+      .voice-who img {
+        width: 40px; height: 40px;
+        flex: none;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .voice-name { display: block; font-size: 0.875rem; font-weight: 600; letter-spacing: -0.015em; }
+      .voice-shop {
+        display: block;
+        margin-top: 1px;
+        font-size: 0.75rem;
+        line-height: 1.35;
+        color: rgba(20, 22, 28, 0.55);
+      }
+
+      .voice.featured {
+        background: linear-gradient(155deg, var(--navy) 0%, var(--navy-deep) 100%);
+        border-color: var(--navy);
+      }
+      .voice.featured blockquote { color: #fff; font-size: 1.1875rem; }
+      .voice.featured .tag { background: rgba(147, 200, 69, 0.2); color: #bde27f; }
+      .voice.featured .glyph { background: rgba(255, 255, 255, 0.12); color: #fff; }
+      .voice.featured .voice-name { color: #fff; }
+      .voice.featured .voice-shop { color: rgba(255, 255, 255, 0.6); }
+
+      /* ---- Founder ---- */
+      .founder { padding-bottom: 2.75rem; }
+      .founder-panel {
+        border-radius: 24px;
+        background: var(--off-white);
+        border: 1px solid var(--hairline);
+        padding: 1.5rem;
+        display: grid;
+        gap: 1.25rem;
+        align-items: center;
+      }
+      .founder-panel img {
+        width: 76px; height: 76px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: 54% 18%;
+        border: 3px solid #fff;
+      }
+      .founder-panel h3 { font-size: 1.0625rem; letter-spacing: -0.025em; line-height: 1.35; }
+      .founder-panel p {
+        margin-top: 0.6rem;
+        max-width: 58ch;
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: rgba(20, 22, 28, 0.62);
+      }
+      .honors { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+      .honor {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid var(--hairline);
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--navy);
+      }
+      .honor svg { flex: none; color: #5e8a1f; }
+
+      /* ==================================================================
+         Answers — three questions, always open
+         ================================================================== */
+      .answers { padding-bottom: 2.75rem; }
+      .qa { margin-top: 1.75rem; display: grid; gap: 1rem; }
+      .qa-item {
+        background: #fff;
+        border: 1px solid var(--hairline);
+        border-radius: 20px;
+        padding: 1.4rem 1.35rem 1.5rem;
+      }
+      .qa-item h3 { font-size: 1.0625rem; letter-spacing: -0.025em; line-height: 1.35; }
+      .qa-item p {
+        margin-top: 0.7rem;
+        font-size: 0.9375rem;
+        line-height: 1.65;
+        color: rgba(20, 22, 28, 0.65);
+      }
+
+      /* ==================================================================
+         Embedded booking calendar
+         ================================================================== */
+      .start { padding-bottom: 2.75rem; }
+      .start-grid { display: grid; gap: 1.75rem; align-items: start; }
+      .start-copy p {
+        margin-top: 1rem;
+        max-width: 44ch;
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        color: rgba(20, 22, 28, 0.65);
+      }
+
+      .sheet {
+        background: #fff;
+        border: 1px solid var(--hairline);
+        border-radius: 24px;
+        padding: 0.75rem;
+        box-shadow: 0 24px 60px -34px rgba(20, 22, 28, 0.22);
+        overflow: hidden;
+      }
+      .booking-widget {
+        display: block;
+        width: 100%;
+        min-height: 760px;
+        border: 0;
+        overflow: hidden;
+      }
+
+      /* ==================================================================
+         Final CTA + footer
+         ================================================================== */
+      .close { padding-bottom: 2.25rem; }
+      .close-panel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        padding: 2.25rem 1.75rem 2.5rem;
+        background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%);
+        color: #fff;
+        text-align: center;
+      }
+      .close-panel h2 { color: #fff; max-width: 22ch; margin-inline: auto; }
+      .close-panel p {
+        margin: 1.25rem auto 0;
+        max-width: 46ch;
+        font-size: 1rem;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.72);
+      }
+      .close-acts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.85rem;
+      }
+      .btn-outline-light {
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.34);
+      }
+      .btn-outline-light:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; }
+
+      .site-footer { border-top: 1px solid var(--hairline); padding: 1.5rem 0 2rem; }
+      .footer-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+        text-align: center;
+        font-size: 0.8125rem;
+        color: rgba(20, 22, 28, 0.55);
+      }
+      .footer-links { display: flex; gap: 1.25rem; }
+      .footer-links a { text-decoration: none; }
+      .footer-links a:hover { color: var(--charcoal); text-decoration: underline; }
+
+      /* ==================================================================
+         Mobile action bar — tap-to-call + book, always in thumb reach
+         ================================================================== */
+      .action-bar {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        z-index: 70;
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom));
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: saturate(1.5) blur(10px);
+        border-top: 1px solid var(--hairline);
+        transform: translateY(120%);
+        transition: transform var(--duration-standard) var(--ease-emphasized);
+      }
+      .action-bar.is-on { transform: none; }
+      .action-bar .btn { min-height: 48px; padding: 0.7rem 0.9rem; font-size: 0.875rem; }
+      @media (min-width: 768px) { .action-bar { display: none; } }
+
+      /* ==================================================================
+         BREAKPOINTS
+         ================================================================== */
+      @media (min-width: 480px) {
+        .brand img { height: 24px; }
+        .tel-head { font-size: 0.8125rem; gap: 6px; }
+        .tel-head svg { display: block; }
+        .cta-head { font-size: 0.8125rem; padding: 0.65rem 1.1rem; }
+        .cta-more { display: inline; }
+        .hero-proof .dot { display: block; }
+        .hero-acts { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; }
+        .hero-acts .btn { width: auto; flex: none; white-space: nowrap; }
+        .close-acts { flex-direction: row; justify-content: center; }
+        .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .belt-track img { height: 32px; max-width: 136px; }
+      }
+
+      @media (min-width: 768px) {
+        :root { --header-h: 76px; }
+        .brand img { height: 28px; }
+        .tel-head { font-size: 0.9375rem; }
+        .cta-head { font-size: 0.875rem; padding: 0.7rem 1.25rem; }
+
+        .hero-inner { padding-block: 2.75rem 3.25rem; }
+        .hero-frame { border-radius: 32px; }
+        .floaty { width: 210px; right: 1.25rem; bottom: 1.25rem; }
+
+        .trust { padding-bottom: 3.5rem; }
+        .stats { padding-top: 2.75rem; gap: 0 0; }
+        .stat { padding-inline: 1.5rem; }
+        .stat + .stat { border-left: 1px solid var(--hairline); }
+        .stat .k { font-size: 3.25rem; }
+        .stat .v { font-size: 0.9375rem; margin-top: 0.85rem; }
+        .partners { margin-top: 2.5rem; padding-top: 2rem; }
+
+        .wall { padding-bottom: 4rem; }
+
+        .pain { padding-bottom: 4rem; }
+        .pain-panel { padding: 3rem; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; align-items: center; }
+
+        .pillars { padding-bottom: 4rem; }
+        .pillar-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+        .pillar { padding: 1.85rem 1.75rem 2rem; }
+
+        .relay { padding-bottom: 4rem; }
+        .relay-panel {
+          padding: 3rem;
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 2.5rem;
+        }
+
+        .voices { padding-bottom: 4rem; }
+        .voice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+        .voice { padding: 1.6rem 1.6rem 1.75rem; }
+
+        .founder { padding-bottom: 4rem; }
+        .founder-panel { padding: 2rem 2.25rem; grid-template-columns: auto minmax(0, 1fr); gap: 1.85rem; }
+        .founder-panel img { width: 96px; height: 96px; }
+
+        .answers { padding-bottom: 4rem; }
+        .qa { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+
+        .start { padding-bottom: 4rem; }
+        .start-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 3rem; }
+        .sheet { padding: 1rem; }
+        .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
+
+        .close { padding-bottom: 3rem; }
+        .close-panel { padding: 4rem 3rem 4.25rem; }
+        .site-footer { padding: 2rem 0 2.5rem; }
+        .footer-row { flex-direction: row; justify-content: space-between; }
+      }
+
+      @media (min-width: 1024px) {
+        .hero-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: center; }
+        .hero-inner { padding-block: 3.5rem 4rem; }
+        .hero-media { max-width: 470px; justify-self: end; }
+        .hero-frame { aspect-ratio: 4 / 5; }
+
+        /* Photo sits beside the copy here, so the block reads left-aligned. */
+        .hero-copy { text-align: left; }
+        .hero-copy h1 { margin-inline: 0; }
+        .hero-acts, .hero-proof { justify-content: flex-start; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =========================================================
+         HEADER — logo, tappable phone, booking CTA.
+         No navigation by design: every exit is a lost lead.
+         ========================================================= -->
+    <header class="masthead">
+      <div class="container-page masthead-row">
+        <span class="brand">
+          <img
+            src="/turnkey-logo.png"
+            alt="Turnkey Marketing"
+            width="1110"
+            height="271"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </span>
+
+        <a
+          class="tel-head lp-phone-link tnum"
+          href="tel:{{TRACKING_NUMBER}}"
+          data-track-event="phone_call_click"
+          data-track-placement="header"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+          {{TRACKING_NUMBER}}
+        </a>
+
+        <a
+          class="btn btn-primary cta-head js-book"
+          href="#start"
+          data-track-event="consultation_cta_click"
+          data-track-placement="header"
+          aria-label="Schedule a consultation"
+        >
+          <span>Schedule<span class="cta-more"> a Call</span></span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <!-- =========================================================
+           HERO
+           ========================================================= -->
+      <section class="hero">
+        <div class="container-page hero-inner">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <!-- ==========================================================
+                   A/B TEST SLOT — H1 (scheduled week 6)
+                   Edit only the text inside <h1>. Keep the tags, classes and
+                   the <em> wrapper that colours the second line.
+                   ========================================================== -->
+              <h1 class="display-1 balance" data-reveal>
+                Auto repair marketing
+                <em>that increases car count.</em>
+              </h1>
+              <!-- ================ END A/B TEST SLOT ================ -->
+
+              <div class="hero-acts" data-reveal style="--reveal-delay: 170ms;">
+                <a
+                  class="btn btn-primary btn-lg btn-block js-book"
+                  href="#start"
+                  data-track-event="consultation_cta_click"
+                  data-track-placement="hero_primary"
+                >
+                  Schedule a Consultation
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h13M13 6l6 6-6 6" />
+                  </svg>
+                </a>
+                <a
+                  class="btn btn-ghost btn-lg btn-block lp-phone-link"
+                  href="tel:{{TRACKING_NUMBER}}"
+                  data-track-event="phone_call_click"
+                  data-track-placement="hero_secondary"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  Or call {{TRACKING_NUMBER}}
+                </a>
+              </div>
+
+              <p class="hero-proof" data-reveal style="--reveal-delay: 240ms;">
+                <span class="stars" aria-hidden="true">★★★★★</span>
+                <span>5.0 Google rating</span>
+                <span class="dot" aria-hidden="true"></span>
+                <span>300+ shops served</span>
+                <span class="dot" aria-hidden="true"></span>
+                <span>ATI + ShopFix partners</span>
+              </p>
+            </div>
+
+            <div class="hero-media" data-reveal style="--reveal-delay: 140ms;">
+              <div class="hero-frame">
+                <img
+                  src="/site-media/hero-thunderbird-shop.webp"
+                  alt="Service advisor helping a customer at the front counter of an independent auto repair shop"
+                  width="1200"
+                  height="800"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </div>
+
+              <div class="floaty card-float">
+                <p class="lbl">
+                  <span class="tile" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 17l6-6 4 4 8-8" />
+                      <path d="M21 7v5h-5" />
+                    </svg>
+                  </span>
+                  Shops served
+                </p>
+                <p class="val">
+                  <b class="tnum">300+</b>
+                  <span>13+ years</span>
+                </p>
+                <p class="stars" aria-label="5.0 Google rating">★★★★★ 5.0 Google</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           TRUST STRIP + ATI / SHOPFIX PARTNERS
+           ========================================================= -->
+      <section class="trust" aria-label="Turnkey Marketing track record">
+        <div class="container-page">
+          <div class="stats" data-reveal>
+            <div class="stat">
+              <p class="k tnum">300+</p>
+              <p class="v">Auto repair shops served across the U.S.</p>
+            </div>
+            <div class="stat">
+              <p class="k tnum">13+</p>
+              <p class="v">Years marketing only for shop owners</p>
+            </div>
+            <div class="stat accent">
+              <p class="k tnum">5.0&#9733;</p>
+              <p class="v">Google rating from shop owners</p>
+            </div>
+            <div class="stat">
+              <p class="k tnum">$100M+</p>
+              <p class="v">Revenue driven for independent shops</p>
+            </div>
+          </div>
+
+          <div class="partners" data-reveal>
+            <p class="eyebrow">Industry partners</p>
+            <div class="partner-row">
+              <span class="partner">
+                <span class="check" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </span>
+                <b>ATI</b>
+                <span>Automotive Training Institute</span>
+              </span>
+              <span class="partner">
+                <span class="check" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </span>
+                <b>ShopFix Academy</b>
+                <span>Coaching group partner</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           CLIENT LOGO WALL — 30 independent shops
+           ========================================================= -->
+      <section class="wall" aria-label="Shops that work with Turnkey Marketing">
+        <div class="container-page">
+          <div class="wall-head" data-reveal>
+            <span class="eyebrow">Trusted by shop owners</span>
+            <h2 class="display-3 balance">A few of the 300+ shops we run marketing for</h2>
+          </div>
+        </div>
+
+        <div class="belt">
+          <div class="belt-track">
+            <img src="/lp/assets/logos/d-and-e-auto-repair.webp" alt="D&amp;E Auto Repair" width="295" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/super-service-of-aliso-viejo.webp" alt="Super Service of Aliso Viejo" width="140" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/cdt-automotive.webp" alt="CDT Automotive" width="159" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/fast-lane-automotive.webp" alt="Fast Lane Automotive" width="278" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/budd-and-company-automotive-mlk.webp" alt="Budd &amp; Company Automotive" width="205" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/keeton-euro-repair.webp" alt="Keeton Euro Repair" width="270" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/ingolstadt-west.webp" alt="Ingolstadt West" width="218" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/chris-matthews-automotive.webp" alt="Chris Matthews Automotive" width="300" height="71" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/japanese-car-care-east.webp" alt="Japanese Car Care" width="300" height="107" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/cherry-lane-auto-repair.webp" alt="Cherry Lane Auto Repair" width="297" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/carfix-mast-dr.webp" alt="CarFix" width="300" height="80" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/pristal-s-automotive-inc.webp" alt="Pristal's Automotive" width="299" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/boradori-automotive-marysville.webp" alt="Boradori Automotive" width="199" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/al-huss-auto-and-truck.webp" alt="Al Huss Auto &amp; Truck" width="248" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/autoworks-of-tampa.webp" alt="AutoWorks of Tampa" width="300" height="96" loading="lazy" decoding="async" />
+
+            <!-- duplicate set keeps the belt seamless -->
+            <img src="/lp/assets/logos/d-and-e-auto-repair.webp" alt="" aria-hidden="true" width="295" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/super-service-of-aliso-viejo.webp" alt="" aria-hidden="true" width="140" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/cdt-automotive.webp" alt="" aria-hidden="true" width="159" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/fast-lane-automotive.webp" alt="" aria-hidden="true" width="278" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/budd-and-company-automotive-mlk.webp" alt="" aria-hidden="true" width="205" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/keeton-euro-repair.webp" alt="" aria-hidden="true" width="270" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/ingolstadt-west.webp" alt="" aria-hidden="true" width="218" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/chris-matthews-automotive.webp" alt="" aria-hidden="true" width="300" height="71" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/japanese-car-care-east.webp" alt="" aria-hidden="true" width="300" height="107" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/cherry-lane-auto-repair.webp" alt="" aria-hidden="true" width="297" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/carfix-mast-dr.webp" alt="" aria-hidden="true" width="300" height="80" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/pristal-s-automotive-inc.webp" alt="" aria-hidden="true" width="299" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/boradori-automotive-marysville.webp" alt="" aria-hidden="true" width="199" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/al-huss-auto-and-truck.webp" alt="" aria-hidden="true" width="248" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/autoworks-of-tampa.webp" alt="" aria-hidden="true" width="300" height="96" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <div class="belt">
+          <div class="belt-track rev">
+            <img src="/lp/assets/logos/pit-shop-auto-repair-libertyville.webp" alt="Pit Shop Auto Repair" width="155" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/eurotech-car-care.webp" alt="Eurotech Car Care" width="300" height="75" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/kay-jay-s-auto-repair.webp" alt="Kay Jay's Auto Repair" width="300" height="91" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/koffman-autoworks.webp" alt="Koffman AutoWorks" width="300" height="111" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/pro-automotive-191-west-main-dudley.webp" alt="Pro Automotive" width="300" height="57" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/keeton-auto-repair.webp" alt="Keeton Auto Repair" width="269" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/horizon-auto-center.webp" alt="Horizon Auto Center" width="300" height="82" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/garage-guys-automotive-richmond.webp" alt="Garage Guys Automotive" width="300" height="94" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/choisser-automotive-services-of-davidsonville.webp" alt="Choisser Automotive Services" width="252" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/craftsman-auto-care.webp" alt="Craftsman Auto Care" width="300" height="47" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/apex-auto-and-rv-repair.webp" alt="APEX Auto &amp; RV Repair" width="102" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/inmotion-auto-care.webp" alt="inMOTION Auto Care" width="300" height="60" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/gene-s-112-auto-service-center.webp" alt="Gene's 112 Auto Service Center" width="182" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/killian-auto-pros-greenville.webp" alt="Killian Auto Pros" width="176" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/certified-auto-repair.webp" alt="Certified Auto Repair" width="275" height="112" loading="lazy" decoding="async" />
+
+            <!-- duplicate set keeps the belt seamless -->
+            <img src="/lp/assets/logos/pit-shop-auto-repair-libertyville.webp" alt="" aria-hidden="true" width="155" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/eurotech-car-care.webp" alt="" aria-hidden="true" width="300" height="75" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/kay-jay-s-auto-repair.webp" alt="" aria-hidden="true" width="300" height="91" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/koffman-autoworks.webp" alt="" aria-hidden="true" width="300" height="111" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/pro-automotive-191-west-main-dudley.webp" alt="" aria-hidden="true" width="300" height="57" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/keeton-auto-repair.webp" alt="" aria-hidden="true" width="269" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/horizon-auto-center.webp" alt="" aria-hidden="true" width="300" height="82" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/garage-guys-automotive-richmond.webp" alt="" aria-hidden="true" width="300" height="94" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/choisser-automotive-services-of-davidsonville.webp" alt="" aria-hidden="true" width="252" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/craftsman-auto-care.webp" alt="" aria-hidden="true" width="300" height="47" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/apex-auto-and-rv-repair.webp" alt="" aria-hidden="true" width="102" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/inmotion-auto-care.webp" alt="" aria-hidden="true" width="300" height="60" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/gene-s-112-auto-service-center.webp" alt="" aria-hidden="true" width="182" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/killian-auto-pros-greenville.webp" alt="" aria-hidden="true" width="176" height="112" loading="lazy" decoding="async" />
+            <img src="/lp/assets/logos/certified-auto-repair.webp" alt="" aria-hidden="true" width="275" height="112" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           PAIN — charcoal panel, matching the site's launch section
+           ========================================================= -->
+      <section class="pain">
+        <div class="container-page">
+          <div class="pain-panel" data-reveal>
+            <div>
+              <h2 class="display-2">
+                You hired help.
+                <em>Why is the marketing still on you?</em>
+              </h2>
+              <p class="pain-body">
+                If you are still chasing updates, approving every detail, and wondering what is
+                actually bringing cars through the door, the job never left your plate.
+              </p>
+              <div class="pain-cta">
+                <a
+                  class="btn btn-light js-book"
+                  href="#start"
+                  data-track-event="consultation_cta_click"
+                  data-track-placement="pain_panel"
+                >
+                  Get it off my plate
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h13M13 6l6 6-6 6" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="compare">
+              <div class="compare-card alone">
+                <h3>Doing it all alone &mdash; the weight is on you</h3>
+                <ul>
+                  <li>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                    Every empty bay becomes your problem
+                  </li>
+                  <li>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                    Every ad and design needs your attention
+                  </li>
+                  <li>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                    Every vendor needs to be chased
+                  </li>
+                </ul>
+              </div>
+
+              <div class="compare-card ours">
+                <h3>With Turnkey &mdash; one team owns the strategy</h3>
+                <ul>
+                  <li>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                    Vendors coordinated
+                  </li>
+                  <li>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                    Reports with next moves
+                  </li>
+                  <li>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                    Campaigns that fit your growth
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           HOW IT WORKS
+           ========================================================= -->
+      <section class="pillars">
+        <div class="container-page">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">How it works</span>
+            <h2 class="display-2">Your outside marketing department.</h2>
+            <p>One accountable team owns the plan and every moving piece. You stay in the bays.</p>
+          </div>
+
+          <div class="pillar-grid">
+            <article class="pillar" data-reveal>
+              <span class="icon-tile" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="4.5" />
+                  <circle cx="12" cy="12" r="1" fill="currentColor" />
+                </svg>
+              </span>
+              <h3>Shop-specific strategy</h3>
+              <p>
+                We start with proven auto-repair formulas, then adjust around your market,
+                capacity, goals, and customer mix.
+              </p>
+            </article>
+
+            <article class="pillar" data-reveal style="--reveal-delay: 80ms;">
+              <span class="icon-tile" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z" />
+                </svg>
+              </span>
+              <h3>Weekly execution</h3>
+              <p>
+                We don't just consult. We run the direct mail, ads, Google Business Profile,
+                reviews, and CRM every week.
+              </p>
+            </article>
+
+            <article class="pillar" data-reveal style="--reveal-delay: 160ms;">
+              <span class="icon-tile" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 21h18" />
+                  <rect x="4.5" y="12" width="4" height="7" rx="1" />
+                  <rect x="10" y="7.5" width="4" height="11.5" rx="1" />
+                  <rect x="15.5" y="3.5" width="4" height="15.5" rx="1" />
+                </svg>
+              </span>
+              <h3>Honest reporting</h3>
+              <p>
+                Monthly reports that tie every dollar to calls, cars, and revenue. Real
+                accountability, no vanity metrics.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- MID-PAGE CTA (2 of 3) ---- -->
+      <section class="relay">
+        <div class="container-page">
+          <div class="relay-panel" data-reveal>
+            <div>
+              <h2 class="display-3">Get the marketing off your plate.</h2>
+              <p>30 minutes with our team. No pitch deck. Just a real conversation about your shop.</p>
+            </div>
+            <div>
+              <a
+                class="btn btn-go btn-lg js-book"
+                href="#start"
+                data-track-event="consultation_cta_click"
+                data-track-placement="mid_page"
+              >
+                Schedule a Consultation
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h13M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           TESTIMONIALS — Killian featured first
+           ========================================================= -->
+      <section class="voices">
+        <div class="container-page">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">From shop owners</span>
+            <h2 class="display-2">What owners say after the handoff.</h2>
+            <p class="voices-rating">
+              <span class="stars" aria-hidden="true">★★★★★</span>
+              <b>5.0 on Google</b>
+              <span>Shop owners mention growth, less guesswork, and getting their time back.</span>
+            </p>
+          </div>
+
+          <div class="voice-grid">
+            <figure class="voice featured" data-reveal>
+              <div class="voice-top">
+                <span class="tag">Second-location ramp</span>
+                <span class="glyph" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 5C6.5 5 4 7.6 4 10.8c0 3 2.2 5.2 5 5.2.4 0 .8 0 1.1-.1-.6 1.6-2 2.7-3.8 3.1l.5 2c3.9-.8 6.7-4.2 6.7-8.7C13.5 7.6 12.5 5 9.5 5zm10 0C16.5 5 14 7.6 14 10.8c0 3 2.2 5.2 5 5.2.4 0 .8 0 1.1-.1-.6 1.6-2 2.7-3.8 3.1l.5 2c3.9-.8 6.7-4.2 6.7-8.7C23.5 7.6 22.5 5 19.5 5z" /></svg>
+                </span>
+              </div>
+              <blockquote>
+                &ldquo;We got to $300,000/month within one year at a brand new shop.&rdquo;
+              </blockquote>
+              <figcaption class="voice-who">
+                <img
+                  src="/lp/assets/avatar-steve-killian.webp"
+                  alt="Steve Killian of Killian Auto Pros"
+                  width="160" height="160" loading="lazy" decoding="async"
+                />
+                <span>
+                  <span class="voice-name">Steve Killian</span>
+                  <span class="voice-shop">Killian Auto Pros &middot; Greenville, SC</span>
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="voice" data-reveal style="--reveal-delay: 80ms;">
+              <div class="voice-top">
+                <span class="tag">Long-term growth</span>
+                <span class="glyph" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 5C6.5 5 4 7.6 4 10.8c0 3 2.2 5.2 5 5.2.4 0 .8 0 1.1-.1-.6 1.6-2 2.7-3.8 3.1l.5 2c3.9-.8 6.7-4.2 6.7-8.7C13.5 7.6 12.5 5 9.5 5zm10 0C16.5 5 14 7.6 14 10.8c0 3 2.2 5.2 5 5.2.4 0 .8 0 1.1-.1-.6 1.6-2 2.7-3.8 3.1l.5 2c3.9-.8 6.7-4.2 6.7-8.7C23.5 7.6 22.5 5 19.5 5z" /></svg>
+                </span>
+              </div>
+              <blockquote>
+                &ldquo;One of the best investments I have made in my company.&rdquo;
+              </blockquote>
+              <figcaption class="voice-who">
+                <img
+                  src="/lp/assets/avatar-jason-smith.webp"
+                  alt="Jason Smith of M&amp;M Car Care Center"
+                  width="160" height="160" loading="lazy" decoding="async"
+                />
+                <span>
+                  <span class="voice-name">Jason Smith</span>
+                  <span class="voice-shop">M&amp;M Car Care Center &middot; Northwest Indiana</span>
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="voice" data-reveal style="--reveal-delay: 160ms;">
+              <div class="voice-top">
+                <span class="tag">Marketing leadership</span>
+                <span class="glyph" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 5C6.5 5 4 7.6 4 10.8c0 3 2.2 5.2 5 5.2.4 0 .8 0 1.1-.1-.6 1.6-2 2.7-3.8 3.1l.5 2c3.9-.8 6.7-4.2 6.7-8.7C13.5 7.6 12.5 5 9.5 5zm10 0C16.5 5 14 7.6 14 10.8c0 3 2.2 5.2 5 5.2.4 0 .8 0 1.1-.1-.6 1.6-2 2.7-3.8 3.1l.5 2c3.9-.8 6.7-4.2 6.7-8.7C23.5 7.6 22.5 5 19.5 5z" /></svg>
+                </span>
+              </div>
+              <blockquote>&ldquo;They take care of everything.&rdquo;</blockquote>
+              <figcaption class="voice-who">
+                <img
+                  src="/lp/assets/avatar-len-pritchett.webp"
+                  alt="Len Pritchett of RPM Automotive"
+                  width="160" height="160" loading="lazy" decoding="async"
+                />
+                <span>
+                  <span class="voice-name">Len Pritchett</span>
+                  <span class="voice-shop">RPM Automotive &middot; Prairie Du Chien, WI</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Founder ---- -->
+      <section class="founder">
+        <div class="container-page">
+          <div class="founder-panel" data-reveal>
+            <img
+              src="/site-media/founder-carrie-lynn.webp"
+              alt="Carrie-Lynn Rodenberg, founder of Turnkey Marketing"
+              width="160" height="160" loading="lazy" decoding="async"
+            />
+            <div>
+              <h3>Founded by Carrie&#8209;Lynn Rodenberg in 2013.</h3>
+              <p>
+                She speaks on auto repair marketing at ShopFix Academy, VISION Hi-Tech Training
+                &amp; Expo, ASTE, and Remarkable Results Radio.
+              </p>
+              <div class="honors">
+                <span class="honor">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                  9th Fastest Growing Company, KC Metro
+                </span>
+                <span class="honor">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                  Top Woman-Owned Business in Kansas City, 2022
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           STRAIGHT ANSWERS (3 questions, never collapsed)
+           ========================================================= -->
+      <section class="answers">
+        <div class="container-page">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Straight answers</span>
+            <h2 class="display-2">Three things owners ask first.</h2>
+          </div>
+
+          <div class="qa">
+            <div class="qa-item" data-reveal>
+              <h3>Do I have to fire my current vendors?</h3>
+              <p>
+                Keep vendors that are producing clear value and make them part of one
+                accountable plan. We help you see what to keep, what to cut, and what needs
+                tighter coordination.
+              </p>
+            </div>
+            <div class="qa-item" data-reveal style="--reveal-delay: 80ms;">
+              <h3>How long before this works?</h3>
+              <p>
+                Some cleanup and campaign fixes show early signals quickly, but dependable
+                growth usually takes months. The first 90 to 120 days fixes tracking, cleans up
+                vendors, and launches the priority campaigns.
+              </p>
+            </div>
+            <div class="qa-item" data-reveal style="--reveal-delay: 160ms;">
+              <h3>How will I know it is working?</h3>
+              <p>
+                Marketing is working when it creates the right calls, booked appointments, and
+                returning customers at a cost the shop can defend. Your report explains what to
+                keep, fix, stop funding, and run next.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           EMBEDDED BOOKING CALENDAR
+           ========================================================= -->
+      <section class="start" id="start">
+        <div class="container-page">
+          <div class="start-grid">
+            <div class="start-copy" data-reveal>
+              <span class="eyebrow">Start here</span>
+              <h2 class="display-2" style="margin-top: 0.85rem;">Choose a time that works.</h2>
+              <p>
+                Pick a convenient time for a 30-minute conversation about your shop, your goals,
+                and what your marketing should focus on next.
+              </p>
+            </div>
+
+            <div class="sheet" data-reveal style="--reveal-delay: 90ms;">
+              <iframe
+                class="booking-widget"
+                src="https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d"
+                allow="payment"
+                scrolling="no"
+                id="6tmXrJxmo6AUsMP2ja9d_1786653518659"
+                title="Schedule a consultation with Turnkey Marketing"
+              ></iframe>
+              <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FINAL CTA (3 of 3)
+           ========================================================= -->
+      <section class="close">
+        <div class="container-page">
+          <div class="close-panel" data-reveal>
+            <h2 class="display-2">30 minutes. No pitch deck.</h2>
+            <p>
+              Just a real conversation about what is working, what is leaking, and what the next
+              few months should realistically focus on.
+            </p>
+            <div class="close-acts">
+              <a
+                class="btn btn-go btn-lg js-book"
+                href="#start"
+                data-track-event="consultation_cta_click"
+                data-track-placement="final"
+              >
+                Schedule a Consultation
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h13M13 6l6 6-6 6" />
+                </svg>
+              </a>
+              <a
+                class="btn btn-outline-light btn-lg lp-phone-link"
+                href="tel:{{TRACKING_NUMBER}}"
+                data-track-event="phone_call_click"
+                data-track-placement="final"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                Or call {{TRACKING_NUMBER}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================================
+         MINIMAL FOOTER
+         ========================================================= -->
+    <footer class="site-footer">
+      <div class="container-page footer-row">
+        <p>&copy; 2026 Turnkey Marketing. All rights reserved.</p>
+        <p class="footer-links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Mobile action bar — appears once the hero scrolls away -->
+    <nav class="action-bar" id="lp-action-bar" aria-label="Quick actions">
+      <a
+        class="btn btn-ghost lp-phone-link"
+        href="tel:{{TRACKING_NUMBER}}"
+        data-track-event="phone_call_click"
+        data-track-placement="sticky_bar"
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+        Call
+      </a>
+      <a
+        class="btn btn-primary js-book"
+        href="#start"
+        data-track-event="consultation_cta_click"
+        data-track-placement="sticky_bar"
+      >
+        Schedule a Consultation
+      </a>
+    </nav>
+
+    <script>
+      (function () {
+        "use strict";
+
+        function track(event, params) {
+          try {
+            if (typeof window.gtag === "function") {
+              window.gtag("event", event, params || {});
+            } else {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push(Object.assign({ event: event }, params || {}));
+            }
+          } catch (e) {}
+        }
+
+        /* ---- Event delegation for CTA + phone tracking ---- */
+        document.addEventListener("click", function (event) {
+          var el = event.target.closest ? event.target.closest("[data-track-event]") : null;
+          if (!el) return;
+          var params = {};
+          if (el.dataset.trackPlacement) params.placement = el.dataset.trackPlacement;
+          track(el.dataset.trackEvent, params);
+        });
+
+        /* ------------------------------------------------------------
+           Scroll driver for the reveal entrance and the mobile action bar.
+
+           Deliberately NOT IntersectionObserver. On a paid-traffic page a
+           reveal that never fires means content stuck at opacity 0, so this
+           runs off a passive scroll/resize listener plus a load-time pass —
+           the same signal that paints the page. A failsafe also reveals
+           everything after 1.2s no matter what, so no path leaves the page
+           blank.
+           ------------------------------------------------------------ */
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var revealTargets = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
+
+        var bar = document.getElementById("lp-action-bar");
+        var hero = document.querySelector(".hero");
+        var startBlock = document.getElementById("start");
+
+        function revealAll() {
+          revealTargets.forEach(function (el) { el.classList.add("is-visible"); });
+          revealTargets = [];
+        }
+
+        function tick() {
+          var vh = window.innerHeight;
+
+          /* Reveal anything within 12% below the fold. */
+          if (revealTargets.length) {
+            revealTargets = revealTargets.filter(function (el) {
+              if (el.getBoundingClientRect().top < vh * 1.12) {
+                el.classList.add("is-visible");
+                return false;
+              }
+              return true;
+            });
+          }
+
+          /* Action bar: on once the hero is mostly gone, off while the calendar
+             is on screen so it never covers the submit button. */
+          if (bar && hero) {
+            var pastHero = hero.getBoundingClientRect().bottom < vh * 0.6;
+            var onForm = false;
+            if (startBlock) {
+              var f = startBlock.getBoundingClientRect();
+              onForm = f.top < vh * 0.85 && f.bottom > vh * 0.15;
+            }
+            bar.classList.toggle("is-on", pastHero && !onForm);
+          }
+        }
+
+        if (reduced) {
+          revealAll();
+        }
+
+        var queued = false;
+        function onScroll() {
+          if (queued) return;
+          queued = true;
+          window.requestAnimationFrame(function () {
+            queued = false;
+            tick();
+          });
+        }
+
+        tick();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        window.addEventListener("load", tick);
+        window.setTimeout(revealAll, 1200);
+
+      })();
+    </script>
+  </body>
+</html>
