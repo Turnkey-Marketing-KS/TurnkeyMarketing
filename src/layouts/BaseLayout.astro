@@ -33,6 +33,10 @@ const canonicalPath = path === "/" ? path : path.replace(/\/+$/, "");
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const imageUrl = new URL(ogImage, siteUrl).toString();
 const brandIconUrl = new URL(brandIconPath, siteUrl).toString();
+const faviconUrl = new URL(
+  "/favicon-search.png?brand=turnkey-20260813",
+  siteUrl,
+).toString();
 const twitterCard = ogImage === brandIconPath ? "summary" : "summary_large_image";
 const schemaItems = Array.isArray(schema) ? schema : [schema];
 
@@ -118,12 +122,9 @@ const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolea
     <meta name="author" content="Turnkey Marketing" />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon-search.png" type="image/png" sizes="512x512" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-    <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="icon" href={faviconUrl} type="image/png" sizes="512x512" />
+    <link rel="shortcut icon" href={faviconUrl} type="image/png" />
+    <link rel="apple-touch-icon" href={faviconUrl} sizes="512x512" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
