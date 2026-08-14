@@ -1,6 +1,7 @@
 ---
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import MarketingIdeasArticle from "@/components/resources/MarketingIdeasArticle.astro";
 import { getResourcePost, resourcePosts } from "@/lib/resource-posts";
 import { CONSULTATION_URL } from "@/lib/services";
 
@@ -25,6 +26,7 @@ const relatedPosts = (currentPost.relatedSlugs ?? [])
   .map((slug) => getResourcePost(slug))
   .filter((relatedPost) => relatedPost !== undefined);
 const isClientProof = currentPost.layout === "client-proof" && currentPost.client;
+const isMarketingIdeas = currentPost.layout === "marketing-ideas";
 
 const articleSchema = {
   "@context": "https://schema.org",
@@ -87,7 +89,9 @@ const breadcrumbSchema = {
   ogImage={currentPost.image.src}
   schema={[articleSchema, breadcrumbSchema]}
 >
-  {isClientProof ? (
+  {isMarketingIdeas ? (
+    <MarketingIdeasArticle post={currentPost} />
+  ) : isClientProof ? (
     <>
       <section class="overflow-hidden bg-[var(--off-white)] py-8 md:py-12 lg:py-16">
         <div class="container-page">

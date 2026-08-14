@@ -15,27 +15,29 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
   ogTitle="Auto Repair Marketing Resources — Turnkey Marketing"
   ogImage={siteMedia.graphics.leadGenerator.src}
 >
-  <section class="bg-[var(--off-white)] py-6 md:py-10 lg:py-14">
+  <section class="bg-[var(--off-white)] py-6 md:py-8 lg:py-10">
     <div class="container-page">
-      <header class="min-w-0 overflow-hidden rounded-[28px] border border-black/[0.04] bg-white px-5 py-8 shadow-[0_24px_70px_-54px_rgba(20,22,28,0.5)] md:rounded-[34px] md:px-10 md:py-12 lg:px-14 lg:py-14">
-        <div class="grid gap-8 lg:grid-cols-[1fr_0.82fr] lg:items-end lg:gap-16">
+      <header class="min-w-0 overflow-hidden rounded-[28px] border border-black/[0.04] bg-white px-5 py-8 shadow-[0_24px_70px_-54px_rgba(20,22,28,0.5)] md:rounded-[34px] md:px-10 md:py-10 lg:px-12 lg:py-11">
+        <div class="grid gap-7 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12">
           <div class="min-w-0">
             <p class="eyebrow text-[var(--key-blue)]">Resources</p>
-            <h1 class="display-2 mt-5 max-w-4xl text-balance">
-              Auto repair marketing resources for busy shop owners.
+            <h1 class="display-2 mt-5 max-w-[13ch] text-balance lg:max-w-none">
+              <span class="lg:block">Auto repair marketing</span>
+              <span class="lg:block">resources for busy</span>
+              <span class="lg:block">shop owners.</span>
             </h1>
           </div>
-          <p class="max-w-2xl text-base leading-relaxed text-charcoal/65 md:text-lg lg:pb-1">
+          <p class="max-w-2xl text-base leading-relaxed text-charcoal/65 md:text-lg lg:self-center lg:pt-10">
             Practical articles for shop owners who want clearer marketing
             decisions, stronger vendor accountability, and less guesswork
             around what to run next.
           </p>
         </div>
 
-        <div class="mt-9 border-t border-[var(--hairline)] pt-6 md:mt-11 md:flex md:items-center md:gap-6 md:pt-7">
-          <p class="mb-3 shrink-0 text-sm font-semibold text-charcoal md:mb-0">Browse by topic</p>
+        <div class="mt-9 border-t border-[var(--hairline)] pt-6 md:mt-10 md:pt-6">
+          <p class="mb-4 text-sm font-semibold text-charcoal">Browse by topic</p>
           <div
-            class="resource-filter-bar relative isolate -mx-4 grid w-[calc(100%+2rem)] grid-cols-3 gap-1 rounded-[1.5rem] bg-[var(--off-white)] p-1 md:mx-0 md:inline-flex md:w-auto md:flex-nowrap md:rounded-full"
+            class="resource-filter-bar relative isolate -mx-4 grid w-[calc(100%+2rem)] grid-cols-3 gap-1 rounded-[1.5rem] bg-[var(--off-white)] p-1 md:mx-0 md:w-full md:grid-cols-4 md:rounded-[1.6rem] lg:inline-grid lg:w-auto lg:grid-cols-8 xl:inline-flex xl:flex-nowrap xl:rounded-full"
             data-resource-filter-bar
             role="tablist"
             aria-label="Filter resources"
@@ -52,7 +54,7 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
                 data-resource-filter-slug={filterSlug(filter)}
                 role="tab"
                 aria-selected={index === 0 ? "true" : "false"}
-                class="relative z-10 inline-flex min-h-11 min-w-0 items-center justify-center whitespace-nowrap rounded-full px-2 text-[13px] font-medium text-charcoal/70 transition-colors duration-75 sm:px-3 sm:text-sm md:shrink-0 md:px-5"
+                class="relative z-10 inline-flex min-h-11 min-w-0 items-center justify-center whitespace-nowrap rounded-full px-2 text-[13px] font-medium text-charcoal/70 transition-colors duration-75 sm:px-3 sm:text-sm md:px-4 lg:px-4 xl:shrink-0 xl:px-5"
               >
                 {filter}
               </button>

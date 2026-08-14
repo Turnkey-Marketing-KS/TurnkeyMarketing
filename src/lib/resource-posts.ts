@@ -14,7 +14,7 @@ export type ResourcePost = {
   image: SiteImage;
   imageWidth?: number;
   imageHeight?: number;
-  layout?: "article" | "client-proof";
+  layout?: "article" | "client-proof" | "marketing-ideas";
   client?: {
     name: string;
     company: string;
@@ -42,6 +42,41 @@ export type ResourcePost = {
 const resourcePath = (slug: string) => `/resources/${slug}`;
 
 export const resourcePosts: ResourcePost[] = [
+  {
+    slug: "auto-repair-marketing-ideas",
+    date: "Aug 2026",
+    originalDate: "2026-08-14",
+    updatedDate: "2026-08-14",
+    tag: "Planning",
+    title: "Auto Repair Marketing Ideas for the Problem in Front of You",
+    seoTitle: "Auto Repair Marketing Ideas for Independent Shops | Turnkey",
+    seoDescription:
+      "Find practical auto repair marketing ideas for attracting better customers, filling slow bays, earning trust, and bringing past customers back.",
+    description:
+      "A decision guide for choosing the right marketing move based on the problem your shop needs to solve.",
+    dek: "The best marketing idea is not the newest channel. It is the move that addresses the constraint currently holding back your shop.",
+    image: siteMedia.hero,
+    imageWidth: 1200,
+    imageHeight: 800,
+    layout: "marketing-ideas",
+    href: resourcePath("auto-repair-marketing-ideas"),
+    sourceAsset: "public/site-media/hero-thunderbird-shop.webp",
+    takeaways: [
+      "Choose the shop problem before you choose a marketing channel.",
+      "Match every campaign to a specific audience, owner, timeframe, and business result.",
+      "Measure the path from response to booked work and the next visit—not only impressions or leads.",
+    ],
+    sections: [],
+    serviceLink: {
+      href: "/services/marketing-consulting",
+      label: "Choose what to run next with marketing consulting",
+    },
+    relatedSlugs: [
+      "auto-repair-marketing-plan",
+      "ideal-customer-profile-auto-repair-shop",
+      "direct-mail-for-repair-shops",
+    ],
+  },
   {
     slug: "ideal-customer-profile-auto-repair-shop",
     date: "Updated Jul 2026",
