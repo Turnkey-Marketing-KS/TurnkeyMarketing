@@ -35,7 +35,6 @@ const groupLinks = [
 const situations = [
   {
     icon: Users,
-    signal: "You have open capacity",
     need: "Attract better-fit new customers",
     startingPoint: "Local visibility, proof, targeted mail, and referrals",
     measure: "Qualified first appointments",
@@ -44,7 +43,6 @@ const situations = [
   },
   {
     icon: CalendarDays,
-    signal: "A soft week is approaching",
     need: "Fill a known schedule gap",
     startingPoint: "Capacity campaigns, reactivation, and declined work",
     measure: "Appointments in the target window",
@@ -53,7 +51,6 @@ const situations = [
   },
   {
     icon: Repeat2,
-    signal: "First visits are not becoming habits",
     need: "Earn the second and third visit",
     startingPoint: "Next-step scheduling, welcome follow-up, and reminders",
     measure: "Return rate and time to next visit",
@@ -62,7 +59,6 @@ const situations = [
   },
   {
     icon: ShieldCheck,
-    signal: "People find you but hesitate",
     need: "Build trust before the call",
     startingPoint: "Real photos, honest reviews, clear process, and useful answers",
     measure: "Profile actions and call-to-book rate",
@@ -71,7 +67,6 @@ const situations = [
   },
   {
     icon: Target,
-    signal: "The shop is busy with the wrong work",
     need: "Improve customer and repair-order fit",
     startingPoint: "A focused audience, service promise, and advisor script",
     measure: "Target-service mix and repair-order quality",
@@ -445,8 +440,7 @@ const readMinutes = Math.max(1, Math.round(wordSource.split(/\s+/).length / 225)
               <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
                 <SituationIcon className="h-5 w-5" />
               </span>
-              <p class="mt-5 text-xs font-semibold uppercase tracking-[0.12em] text-charcoal/55">{situation.signal}</p>
-              <h3 class="mt-2 text-xl font-semibold leading-tight text-charcoal">{situation.need}</h3>
+              <h3 class="mt-5 text-xl font-semibold leading-tight text-charcoal">{situation.need}</h3>
               <p class="mt-4 text-sm leading-relaxed text-charcoal/70">Start with: {situation.startingPoint}.</p>
               <div class="mt-auto border-l-2 border-[var(--green)] pl-3 pt-0 text-xs leading-relaxed text-charcoal/55">
                 <span class="font-semibold text-charcoal/70">Measure:</span> {situation.measure}
