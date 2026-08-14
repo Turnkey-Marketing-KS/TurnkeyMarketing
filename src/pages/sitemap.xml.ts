@@ -5,38 +5,39 @@ const canonicalSite = new URL("https://www.turnkeyautomarketing.com");
 
 type SitemapEntry = {
   path: string;
-  lastmod?: string;
+  lastmod: string;
 };
 
-const currentContentDate = "2026-08-04";
+const homepageUpdatedDate = "2026-08-14";
+const seoRefreshDate = "2026-08-13";
+const contentBaselineDate = "2026-08-04";
 
 const staticEntries: SitemapEntry[] = [
-  { path: "/", lastmod: currentContentDate },
-  { path: "/services", lastmod: currentContentDate },
-  { path: "/about", lastmod: currentContentDate },
-  { path: "/results", lastmod: "2026-08-13" },
-  { path: "/resources", lastmod: currentContentDate },
-  { path: "/contact", lastmod: "2026-08-13" },
-  { path: "/privacy-policy" },
-  { path: "/terms-of-service" },
+  { path: "/", lastmod: homepageUpdatedDate },
+  { path: "/services", lastmod: seoRefreshDate },
+  { path: "/about", lastmod: contentBaselineDate },
+  { path: "/results", lastmod: seoRefreshDate },
+  { path: "/resources", lastmod: seoRefreshDate },
+  { path: "/contact", lastmod: seoRefreshDate },
+  { path: "/privacy-policy", lastmod: seoRefreshDate },
+  { path: "/terms-of-service", lastmod: seoRefreshDate },
 ];
 
 export function GET() {
   const serviceEntries: SitemapEntry[] = services.map((service) => ({
     path: `/services/${service.slug}`,
     lastmod: ["marketing-consulting", "direct-mail", "vip-marketing-manager"].includes(service.slug)
-      ? "2026-08-13"
-      : currentContentDate,
+      ? seoRefreshDate
+      : contentBaselineDate,
   }));
   const resourceEntries: SitemapEntry[] = resourcePosts.map((post) => ({
     path: post.href,
-    lastmod: post.updatedDate ?? post.originalDate,
+    lastmod: post.updatedDate ?? post.originalDate ?? contentBaselineDate,
   }));
   const entries = [...staticEntries, ...serviceEntries, ...resourceEntries];
   const urls = entries.map(({ path, lastmod }) => {
     const loc = new URL(path, canonicalSite).toString();
-    const lastmodTag = lastmod ? `<lastmod>${lastmod}</lastmod>` : "";
-    return `  <url><loc>${loc}</loc>${lastmodTag}</url>`;
+    return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`;
   });
 
   return new Response(

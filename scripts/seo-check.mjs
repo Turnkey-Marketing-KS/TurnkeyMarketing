@@ -4,6 +4,7 @@ import { resolve, relative, sep } from "node:path";
 const projectRoot = resolve(import.meta.dirname, "..");
 const distRoot = resolve(projectRoot, "dist");
 const canonicalOrigin = "https://www.turnkeyautomarketing.com";
+const primaryFaviconPath = "/favicon-search.png";
 const failures = [];
 
 function fail(scope, message) {
@@ -111,6 +112,9 @@ for (const file of htmlFiles) {
   const canonicals = tags(html, "link")
     .map((tag) => attributes(tag))
     .filter((link) => (link.get("rel") ?? "").toLowerCase().split(/\s+/).includes("canonical"));
+  const icons = tags(html, "link")
+    .map((tag) => attributes(tag))
+    .filter((link) => (link.get("rel") ?? "").toLowerCase().split(/\s+/).includes("icon"));
   const headings = tags(html, "h1");
 
   const hasTitle = validateCount(scope, "title", titleMatches);
@@ -142,6 +146,21 @@ for (const file of htmlFiles) {
         fail(scope, `canonical must not contain a query or hash: ${canonical}`);
     } catch {
       fail(scope, `canonical is not an absolute URL: ${canonical || "(empty)"}`);
+    }
+  }
+
+  if (!icons.some((icon) => icon.get("href") === primaryFaviconPath)) {
+    fail(scope, `missing primary favicon link: ${primaryFaviconPath}`);
+  }
+  for (const icon of icons) {
+    const href = icon.get("href")?.trim() ?? "";
+    try {
+      const url = new URL(href, canonicalOrigin);
+      if (url.search || url.hash) {
+        fail(scope, `favicon URL must be stable and omit query strings or hashes: ${href}`);
+      }
+    } catch {
+      fail(scope, `favicon URL is invalid: ${href || "(empty)"}`);
     }
   }
 
@@ -192,9 +211,24 @@ const sitemapFile = resolve(distRoot, "sitemap.xml");
 let sitemapUrls = [];
 try {
   const sitemap = await readFile(sitemapFile, "utf8");
-  sitemapUrls = [...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map((match) =>
-    decodeHtml(match[1]),
-  );
+  const sitemapEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/gi)];
+  sitemapUrls = sitemapEntries.map((entry, index) => {
+    const locMatches = [...entry[1].matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)];
+    const lastmodMatches = [...entry[1].matchAll(/<lastmod>\s*([^<]+?)\s*<\/lastmod>/gi)];
+    if (locMatches.length !== 1) {
+      fail("sitemap.xml", `entry ${index + 1} must contain exactly one <loc>`);
+    }
+    if (lastmodMatches.length !== 1) {
+      fail("sitemap.xml", `entry ${index + 1} must contain exactly one <lastmod>`);
+    } else {
+      const lastmod = lastmodMatches[0][1].trim();
+      const parsedDate = new Date(`${lastmod}T00:00:00Z`);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(lastmod) || Number.isNaN(parsedDate.getTime())) {
+        fail("sitemap.xml", `entry ${index + 1} has an invalid <lastmod>: ${lastmod}`);
+      }
+    }
+    return decodeHtml(locMatches[0]?.[1] ?? "");
+  });
   if (!sitemapUrls.length) fail("sitemap.xml", "contains no <loc> URLs");
 } catch {
   fail("sitemap.xml", "missing from dist");
@@ -222,6 +256,19 @@ for (const page of indexablePages) {
   if (page.canonical && !sitemapSet.has(page.canonical)) {
     fail(page.scope, `indexable canonical is missing from sitemap: ${page.canonical}`);
   }
+}
+
+const canonicalSet = new Set(indexablePages.map((page) => page.canonical).filter(Boolean));
+for (const value of sitemapSet) {
+  if (!canonicalSet.has(value)) {
+    fail("sitemap.xml", `URL is not an indexable canonical page: ${value}`);
+  }
+}
+
+try {
+  await stat(resolve(distRoot, primaryFaviconPath.slice(1)));
+} catch {
+  fail(primaryFaviconPath, "primary favicon is missing from dist");
 }
 
 const redirectsFile = resolve(projectRoot, "vercel.json");
