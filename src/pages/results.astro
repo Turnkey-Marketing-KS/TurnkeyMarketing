@@ -10,6 +10,25 @@ import {
   killianStory,
   moreResults,
 } from "@/lib/results-content";
+
+// Routes marketing-director and outsourced-department intent to the service pages that
+// own it, so this proof page supports those pages instead of ranking in place of them.
+const resultPathways = [
+  {
+    eyebrow: "Outsourced marketing department",
+    title: "VIP Marketing Manager",
+    body: "A full outside marketing department for your auto repair shop — an account manager, designer, copywriter, and social coordinator planning the work, running it every week, and reporting what it did for car count.",
+    cta: "See how VIP works",
+    href: "/services/vip-marketing-manager",
+  },
+  {
+    eyebrow: "Outside marketing direction",
+    title: "Marketing Consulting",
+    body: "Monthly strategy sessions with an experienced auto repair marketing consultant who reviews what is running and helps you decide what to keep, fix, stop, and start next.",
+    cta: "See how consulting works",
+    href: "/services/marketing-consulting",
+  },
+];
 ---
 
 <BaseLayout
@@ -259,6 +278,43 @@ import {
             </div>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--off-white)] py-14 md:py-20">
+    <div class="container-page">
+      <div class="mx-auto max-w-5xl">
+        <p class="eyebrow text-[var(--key-blue)]">What produced these results</p>
+        <h2 class="display-3 mt-4 max-w-[24ch] text-balance text-charcoal">
+          Every shop on this page has someone owning the marketing.
+        </h2>
+        <p class="mt-5 max-w-[62ch] leading-relaxed text-charcoal/65">
+          The results above came from a plan that someone ran every week and reported on every
+          month. Shops reach that two ways — by handing the whole function to an outside team, or
+          by keeping execution in-house with experienced direction on top of it.
+        </p>
+
+        <div class="mt-10 grid gap-5 md:grid-cols-2">
+          {resultPathways.map((path) => (
+            <a
+              href={path.href}
+              class="motion-card group/path flex flex-col rounded-[28px] border border-[var(--hairline)] bg-white p-7 transition hover:border-[var(--navy)] md:p-8"
+            >
+              <p class="text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--key-blue)]">
+                {path.eyebrow}
+              </p>
+              <h3 class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">
+                {path.title}
+              </h3>
+              <p class="mt-3 leading-relaxed text-muted-foreground">{path.body}</p>
+              <span class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-semibold text-[var(--navy)]">
+                {path.cta}
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/path:translate-x-1" />
+              </span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </section>

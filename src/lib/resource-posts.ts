@@ -333,58 +333,162 @@ export const resourcePosts: ResourcePost[] = [
   },
   {
     slug: "direct-mail-for-repair-shops",
-    date: "Jun 2023",
+    date: "Updated Aug 2026",
+    originalDate: "2023-06-27",
+    updatedDate: "2026-08-13",
     tag: "Direct Mail",
-    title: "Why Direct Mail Still Works for Repair Shops",
+    title: "Direct Mail for Auto Repair Shops: A Campaign Guide",
+    seoTitle: "Direct Mail for Auto Repair Shops: Campaign Guide | Turnkey",
+    seoDescription:
+      "Plan auto repair direct mail campaigns with the right mailing list, offer, timing, postcard creative, call tracking, and follow-up that drives repair orders.",
     description:
-      "A Turnkey direct mail resource graphic from the original site, built around shop-owner acquisition campaigns.",
-    dek: "Direct mail still earns a place when the list, offer, timing, and follow-up are treated like a campaign instead of a print order.",
+      "A six-part guide to running auto repair direct mail as a managed campaign instead of a one-off postcard order.",
+    dek: "Direct mail still earns a place when the list, offer, timing, creative, tracking, and follow-up are treated like a campaign instead of a print order.",
     image: siteMedia.graphics.directMail,
     href: resourcePath("direct-mail-for-repair-shops"),
     sourceAsset:
       "https://turnkeyautomarketing.com/wp-content/uploads/2023/06/2023-06-27-blog-RW-direct-mail.png",
     takeaways: [
-      "Direct mail works best with a specific market, message, offer, and timing.",
-      "Tracking matters because mail should be judged by calls, appointments, and customer quality.",
-      "Mail is strongest when it is connected to digital, CRM, and follow-up.",
+      "The mailing list decides more of the outcome than the postcard design does.",
+      "Mail should be judged by calls, booked appointments, and repair-order quality — not by how the piece looked.",
+      "Most disappointing campaigns fail at timing, tracking, or front-counter follow-up rather than at the print stage.",
     ],
     sections: [
       {
-        heading: "A mailer is not the strategy.",
-        body: "The postcard is only one piece. The real work is deciding who should receive it, what problem the offer solves, when it should land, and how the shop follows up when demand starts coming in.",
+        heading: "1. A mailer is not the strategy.",
+        body: "The postcard is one piece of a direct mail campaign for an auto repair shop. The real work is deciding who should receive it, what problem the offer solves, when it should land, and how the shop follows up when the phone starts ringing. A printer can sell quantity. Nobody at the print shop owns whether the mail reached households that can become good customers.",
       },
       {
-        heading: "The best campaigns connect channels.",
-        body: "Mail can support new customer acquisition, second-location growth, customer reactivation, and dense-market visibility. It works harder when call tracking and follow-up are connected from the start.",
+        heading: "2. Build the mailing list before the creative.",
+        body: "Start with the households that can realistically drive to the shop and afford the work the bays are built for. A tight radius around the shop usually beats a broad blanket drop, and household filters — vehicle age, income range, homeownership, tenure in the neighborhood — matter more than raw quantity. Your own customer list is a separate and often stronger audience, because reactivating a lapsed customer costs less than buying a new one.",
+        bullets: [
+          "Drive-time radius from the shop, not an arbitrary mile count.",
+          "Household characteristics that match your best current customers.",
+          "New movers, who are actively choosing a shop for the first time.",
+          "Your own lapsed customers, mailed as a separate reactivation campaign.",
+        ],
       },
+      {
+        heading: "3. Write an offer that attracts the right work.",
+        body: "The offer decides which customer responds. A deep discount on a low-margin service brings in price shoppers who will not return. An offer tied to the work the shop wants more of — diagnostics, maintenance intervals, seasonal inspections, a specific vehicle type — attracts a customer worth keeping. State the offer plainly, give it an expiration so the mail has a reason to be acted on, and make sure the front counter can honor exactly what was printed.",
+      },
+      {
+        heading: "4. Decide the timing and the drop schedule.",
+        body: "Mail should land when the shop has capacity to absorb the response and when demand is naturally moving. Plan around the shop's real slow weeks, seasonal service patterns, and technician availability, then work backward through list pull, creative approval, print, and postal transit. One drop rarely establishes recognition. A repeated schedule to the same list — several drops across a season — consistently outperforms a single large mailing to a list you only touch once.",
+        bullets: [
+          "Work backward from the mail date through print, approval, and list deadlines.",
+          "Mail into weeks the shop can actually staff.",
+          "Repeat to a smaller list rather than mailing a larger list once.",
+          "Give each drop enough spacing to read the response before the next one.",
+        ],
+      },
+      {
+        heading: "5. Track the response, not just the impression.",
+        body: "Direct mail earns its budget when the shop can connect it to booked work. Put a trackable phone number on the piece, keep a landing page or scheduling link that matches the mailer's promise, and ask at the counter how the customer heard about the shop. Penetration reporting shows where the campaign reached; call and appointment data shows what came back. Judge the campaign on calls, booked appointments, show rate, and average repair order — not on the print cost per piece.",
+        bullets: [
+          "Trackable phone number and a matching landing page or booking link.",
+          "A consistent source question at the counter and on the phone.",
+          "Calls, booked appointments, show rate, and repair-order value by drop.",
+          "Penetration reporting to confirm the mail reached the intended neighborhoods.",
+        ],
+      },
+      {
+        heading: "6. Plan the follow-up before the mail drops.",
+        body: "The campaign continues after the postcard arrives. Someone has to answer the phone well, capture the customer's information, book the appointment, and bring that customer back a second time. Connect the mail to the shop's email, text, and CRM follow-up so a first visit generated by a postcard turns into a retained customer. This is where most disappointing direct mail campaigns actually fail — not at the mailbox.",
+      },
+    ],
+    serviceLink: {
+      href: "/services/direct-mail",
+      label: "See how our managed direct mail campaigns work",
+    },
+    relatedSlugs: [
+      "auto-repair-marketing-plan",
+      "ideal-customer-profile-auto-repair-shop",
+      "5-marketing-mistakes-shop-owners-make",
     ],
   },
   {
     slug: "auto-repair-marketing-plan",
-    date: "Jan 2023",
+    date: "Updated Aug 2026",
+    updatedDate: "2026-08-13",
     tag: "Planning",
-    title: "How to Think About an Auto Repair Marketing Plan",
-    seoTitle: "Auto Repair Marketing Plan Guide | Turnkey Marketing",
+    title: "How to Build an Auto Repair Marketing Plan",
+    seoTitle: "Auto Repair Marketing Plan: 7-Step Guide | Turnkey",
+    seoDescription:
+      "Build an auto repair marketing plan around shop goals, ideal customers, budget, channels, a 12-month calendar, and useful performance metrics.",
     description:
-      "A practical marketing plan framework for aligning goals, tactics, messages, and measurement.",
-    dek: "A marketing plan should make budget decisions clearer, vendor conversations easier, and the next move less dependent on guesswork.",
+      "A seven-step framework for turning shop goals, budget, channels, and reporting into one practical marketing plan.",
+    dek: "A useful auto repair marketing plan connects the result your shop needs to the customers, campaigns, calendar, budget, and measurements that can produce it.",
     image: siteMedia.graphics.marketingPlan,
     href: resourcePath("auto-repair-marketing-plan"),
     sourceAsset: "https://turnkeyautomarketing.com/wp-content/uploads/2023/01/marketing-plan2.png",
     takeaways: [
-      "Start with the shop goal, not the channel.",
-      "Separate growth, retention, reputation, and capacity questions.",
-      "Use reporting to decide the next move, not just prove activity happened.",
+      "Start with a specific shop result, such as better-fit work, stronger retention, or more booked appointments.",
+      "Give acquisition, retention, reputation, and seasonal campaigns clear jobs in a 12-month calendar.",
+      "Track the path from marketing source to calls, appointments, repair orders, and revenue so the next move is defensible.",
     ],
     sections: [
       {
-        heading: "The plan has to match the shop.",
-        body: "A shop trying to ramp a second location needs a different marketing rhythm than a full shop trying to improve customer quality. The plan should reflect capacity, market, advisor follow-through, and the work the owner wants more of.",
+        heading: "1. Choose the shop result before the marketing channel.",
+        body: "Start the auto repair marketing plan with one business result. A second location that needs first-time customers requires a different plan than a full shop that wants better repair-order quality or stronger retention. Write down the capacity, car-count, revenue, customer-mix, or service-category change you need, along with a timeframe. That keeps the team from buying a channel simply because a vendor recommended it.",
+        bullets: [
+          "How many additional booked appointments can the shop handle each week?",
+          "Which services, vehicles, or customer relationships are the best fit?",
+          "Is the priority acquisition, retention, reputation, reactivation, or a seasonal capacity gap?",
+          "What must improve in the next 90 days, and what is a 12-month goal?",
+        ],
       },
       {
-        heading: "The next move should be obvious.",
-        body: "Good reporting should make it clear what deserves more budget, what needs fixing, and what should stop. That is where marketing starts feeling manageable instead of scattered.",
+        heading: "2. Establish the baseline and a workable budget.",
+        body: "Record what the shop already spends, which vendors and campaigns are active, and what each one appears to produce. Include software, creative, media, mail, agency fees, discounts, and staff time when they materially affect the decision. Then set a budget range the shop can maintain long enough to learn. A smaller coordinated plan is more useful than an ambitious mix that stops before the results are clear.",
+        bullets: [
+          "Current monthly spend by vendor and channel.",
+          "Calls, forms, booked appointments, new customers, and returning customers by source when available.",
+          "Average repair order, gross profit, customer acquisition cost, and customer value using the shop's own definitions.",
+          "Capacity constraints such as technician hours, advisor follow-through, or parts availability.",
+        ],
       },
+      {
+        heading: "3. Define the customer, work, and offer.",
+        body: "Decide who the plan should attract and what action they should take. The best audience is not always every driver in a radius. It may be owners of a specific vehicle type, households near a new location, lapsed customers, or current customers who need a maintenance service. Match the message and offer to that situation, then make sure the front counter can deliver the same promise when the customer calls.",
+      },
+      {
+        heading: "4. Give every marketing channel one clear job.",
+        body: "Choose channels by the role they play in the customer journey. Local SEO, Google Business Profile work, reviews, and paid search help capture existing demand. Direct mail, targeted digital campaigns, and social content can create awareness before a driver searches. Email, CRM follow-up, thank-you messages, and reactivation campaigns help the shop earn another visit from customers it already paid to acquire. Use only the channels the team can coordinate and measure.",
+        bullets: [
+          "Capture demand: local search visibility, reviews, website conversion, and paid search.",
+          "Create demand: direct mail, targeted digital campaigns, community visibility, and social content.",
+          "Retain demand: email, service reminders, CRM follow-up, thank-you messages, and reactivation.",
+          "Support conversion: call handling, online scheduling, advisor scripts, offers, and follow-up.",
+        ],
+      },
+      {
+        heading: "5. Build a 12-month auto repair shop marketing calendar.",
+        body: "Put recurring work, seasonal opportunities, campaign launches, creative deadlines, and review dates on one calendar. Start with the shop's real demand patterns rather than a generic holiday list. Schedule enough lead time for mail, creative approval, landing pages, lists, tracking, staff communication, and follow-up. The calendar should also show who owns each task so the owner does not become the default project manager.",
+      },
+      {
+        heading: "6. Measure the path from response to repair order.",
+        body: "A marketing dashboard should connect activity to shop outcomes. Clicks and impressions can help diagnose a campaign, but they do not show whether the right cars reached the bays. Track calls and forms, then booked appointments, show rate, repair-order quality, source mix, returning customers, and revenue. Use consistent source definitions so vendor reports can be compared instead of reviewed in separate silos.",
+      },
+      {
+        heading: "7. Review the plan with keep, fix, stop, and start decisions.",
+        body: "Review the marketing plan on a regular monthly rhythm and make a clear call on each active campaign. Keep what is producing a defensible result. Fix the message, targeting, tracking, landing page, call handling, or follow-up when the channel has potential but the system is leaking. Stop work that cannot support the goal, and start the next priority only when someone can own it. Good reporting makes the next move obvious instead of merely proving that activity happened.",
+        bullets: [
+          "Keep: producing the intended shop outcome at a cost the business can defend.",
+          "Fix: promising channel with a specific, correctable leak.",
+          "Stop: wrong audience, wrong goal, weak economics, or no accountable owner.",
+          "Start: the highest-priority gap the current team can execute and measure.",
+        ],
+      },
+    ],
+    serviceLink: {
+      href: "/services/marketing-consulting",
+      label: "Get an experienced auto repair marketing consultant",
+    },
+    relatedSlugs: [
+      "why-auto-repair-marketing-breaks",
+      "jason-smith-marketing-plan",
+      "ideal-customer-profile-auto-repair-shop",
     ],
   },
   {

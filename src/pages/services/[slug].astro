@@ -58,12 +58,21 @@ const hero = detail.hero;
 const hasHeroSubhead = hero.subhead.trim().length > 0;
 const shortName = service.shortName ?? service.name;
 const serviceIndex = services.findIndex((s) => s.slug === service.slug);
-const serviceTitle =
-  service.slug === "vip-marketing-manager"
-    ? "VIP Marketing Manager for Auto Repair Shops"
-    : service.slug === "directtrack-marketing"
-      ? "DirectTrack Marketing for Auto Repair Shops"
-      : `${service.name} for Auto Repair Shops`;
+// Sends commercial service pages to the matching educational resource so the two
+// pages support each other instead of competing for the same query.
+const supportingResources: Record<string, { href: string; label: string; lead: string }> = {
+  "marketing-consulting": {
+    href: "/resources/auto-repair-marketing-plan",
+    label: "seven-step auto repair marketing plan guide",
+    lead: "Planning before the call? Use our",
+  },
+  "direct-mail": {
+    href: "/resources/direct-mail-for-repair-shops",
+    label: "direct mail campaign guide for repair shops",
+    lead: "Want the thinking behind the campaign? Read our",
+  },
+};
+const supportingResource = supportingResources[service.slug];
 
 const deliverableIcons: Record<string, typeof Check> = {
   layers: Layers,
@@ -322,6 +331,17 @@ const faqSchema = {
               Everything it takes to make this work. Handled.
             </h2>
             <p class="mt-5 leading-relaxed text-charcoal/65">{service.summary}</p>
+            {supportingResource && (
+              <p class="mt-4 text-sm leading-relaxed text-charcoal/65">
+                {supportingResource.lead}
+                <a
+                  href={supportingResource.href}
+                  class="ml-1 font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/35 underline-offset-4 transition hover:decoration-[var(--key-blue)]"
+                >
+                  {supportingResource.label}
+                </a>.
+              </p>
+            )}
             <a
               href={CONSULTATION_URL}
               class="btn-primary mt-7"

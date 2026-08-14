@@ -19,9 +19,9 @@ export const services: Service[] = [
     tagline: "Your outside marketing department, with the plan and execution owned by one team.",
     summary:
       "VIP brings the full Turnkey service stack together with account management, creative, copy, social coordination, reporting, and admin support, so your shop has a marketing department without building one in-house.",
-    seoTitle: "VIP Marketing Management for Auto Repair Shops",
+    seoTitle: "Outsourced Marketing Department for Auto Repair Shops",
     seoDescription:
-      "Get a complete outsourced marketing department for your auto repair shop, with strategy, creative, execution, reporting, and one accountable team.",
+      "An outsourced marketing department and marketing director for your auto repair shop — strategy, creative, execution, and reporting from one accountable team.",
     outcomes: [
       "All core services coordinated",
       "Account management and reporting",
@@ -71,9 +71,9 @@ export const services: Service[] = [
       "Postcard campaigns managed from design and timing through list strategy and reporting.",
     summary:
       "Direct Mail gives shops a planned postcard campaign instead of a one-off print job, with the design, timeline, budget, order verification, offers, and penetration reporting handled together.",
-    seoTitle: "Direct Mail Marketing Services for Auto Repair Shops",
+    seoTitle: "Auto Repair Direct Mail & Postcard Marketing Services",
     seoDescription:
-      "Plan and launch auto repair direct mail campaigns with expert design, list strategy, offer development, order verification, and performance reporting.",
+      "Managed auto repair direct mail campaigns with postcard design, mailing lists, offers, timing, order verification, and penetration reporting.",
     outcomes: [
       "Postcard management",
       "Campaign timeline",

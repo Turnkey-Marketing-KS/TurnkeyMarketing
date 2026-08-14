@@ -14,9 +14,9 @@ const staticEntries: SitemapEntry[] = [
   { path: "/", lastmod: currentContentDate },
   { path: "/services", lastmod: currentContentDate },
   { path: "/about", lastmod: currentContentDate },
-  { path: "/results", lastmod: currentContentDate },
+  { path: "/results", lastmod: "2026-08-13" },
   { path: "/resources", lastmod: currentContentDate },
-  { path: "/contact" },
+  { path: "/contact", lastmod: "2026-08-13" },
   { path: "/privacy-policy" },
   { path: "/terms-of-service" },
 ];
@@ -24,7 +24,9 @@ const staticEntries: SitemapEntry[] = [
 export function GET() {
   const serviceEntries: SitemapEntry[] = services.map((service) => ({
     path: `/services/${service.slug}`,
-    lastmod: currentContentDate,
+    lastmod: ["marketing-consulting", "direct-mail", "vip-marketing-manager"].includes(service.slug)
+      ? "2026-08-13"
+      : currentContentDate,
   }));
   const resourceEntries: SitemapEntry[] = resourcePosts.map((post) => ({
     path: post.href,

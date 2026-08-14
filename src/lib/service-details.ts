@@ -167,7 +167,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       headline: "Stop guessing where your",
       headlineAccent: "marketing spend goes.",
       subhead:
-        "One hour a month with a strategist who only works with auto repair shops. We review everything you're running and give you straight answers on what to keep, fix, or stop paying for.",
+        "One hour a month with an auto repair marketing consultant who only works with shops. We review your plan, campaigns, vendors, and reporting, then give you straight answers on what to keep, fix, stop, or start.",
       stats: [
         {
           value: "Keep, fix, or stop",
@@ -191,8 +191,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     deliverables: [
       {
         icon: "calendar",
-        title: "Monthly one-hour strategy meeting",
-        description: "A standing meeting focused on decisions, not status updates.",
+        title: "Monthly marketing strategy meeting",
+        description:
+          "A standing one-hour meeting focused on decisions for your auto repair marketing plan, not status updates.",
       },
       {
         icon: "search",
@@ -244,8 +245,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         a: "Whatever you have — current campaigns, spend, vendor reports, and the questions keeping you up at night. We'll organize it from there.",
       },
       {
-        q: "Is one hour a month really enough?",
-        a: "For direction, yes. The review work happens before the meeting, so the hour is spent on decisions — what to do next and why.",
+        q: "What does an auto repair marketing consultant help with?",
+        a: "We review your marketing plan, spend, campaigns, vendors, reporting, and shop goals before making clear keep, fix, stop, and start recommendations. The work is strategic guidance; execution remains with your team and vendors unless you choose a managed Turnkey service.",
       },
       {
         q: "What if I don't have any marketing running yet?",
