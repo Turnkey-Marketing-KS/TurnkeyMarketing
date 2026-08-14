@@ -113,6 +113,13 @@ export const siteMedia = {
       position: "50% 45%",
     },
   },
+  services: {
+    overviewHero: {
+      src: "/images/services/auto-repair-shop-service-bays.webp",
+      alt: "Open auto repair service bays with a vehicle and shop equipment",
+      position: "50% 50%",
+    },
+  },
   graphics: {
     leadGenerator: {
       src: "/site-media/lead-generator.webp",
