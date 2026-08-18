@@ -95,6 +95,7 @@ if (!distInfo.isDirectory()) {
 
 const files = await walk(distRoot);
 const htmlFiles = files.filter((file) => file.endsWith(".html"));
+const generatedPagePaths = new Set(htmlFiles.map((file) => outputPath(file)));
 const indexablePages = [];
 
 for (const file of htmlFiles) {
@@ -271,19 +272,76 @@ try {
   fail(primaryFaviconPath, "primary favicon is missing from dist");
 }
 
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let quoted = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index];
+    if (quoted) {
+      if (character === '"' && text[index + 1] === '"') {
+        value += '"';
+        index += 1;
+      } else if (character === '"') quoted = false;
+      else value += character;
+    } else if (character === '"') quoted = true;
+    else if (character === ",") {
+      row.push(value);
+      value = "";
+    } else if (character === "\n") {
+      row.push(value.replace(/\r$/, ""));
+      if (row.some((cell) => cell.length)) rows.push(row);
+      row = [];
+      value = "";
+    } else value += character;
+  }
+
+  if (value.length || row.length) {
+    row.push(value.replace(/\r$/, ""));
+    if (row.some((cell) => cell.length)) rows.push(row);
+  }
+  return rows;
+}
+
 const redirectsFile = resolve(projectRoot, "vercel.json");
 try {
   const config = JSON.parse(await readFile(redirectsFile, "utf8"));
-  const redirects = Array.isArray(config.redirects) ? config.redirects : [];
+  if (typeof config.bulkRedirectsPath !== "string" || !config.bulkRedirectsPath) {
+    throw new Error("bulkRedirectsPath must point to the reviewed redirect map");
+  }
+
+  const bulkRedirectsFile = resolve(projectRoot, config.bulkRedirectsPath);
+  const redirectRows = parseCsv(await readFile(bulkRedirectsFile, "utf8"));
+  const redirectHeaders = redirectRows.shift() ?? [];
+  const expectedHeaders = ["source", "destination", "statusCode"];
+  if (redirectHeaders.join(",") !== expectedHeaders.join(",")) {
+    throw new Error(`redirect CSV headers must be ${expectedHeaders.join(",")}`);
+  }
+  const redirects = redirectRows.map(([source, destination, statusCode]) => ({
+    source,
+    destination,
+    statusCode: Number(statusCode),
+  }));
   const sources = new Map();
 
   for (const [index, redirect] of redirects.entries()) {
-    const scope = `vercel.json redirect ${index + 1}`;
+    const scope = `${config.bulkRedirectsPath} redirect ${index + 1}`;
     const source = redirect.source;
     const destination = redirect.destination;
     if (typeof source !== "string" || typeof destination !== "string") {
       fail(scope, "source and destination must be strings");
       continue;
+    }
+    if (!source.startsWith("/") || /[?#:*()]/.test(source)) {
+      fail(scope, `source must be an exact pathname without wildcards: ${source}`);
+    }
+    if (redirect.statusCode !== 301) {
+      fail(
+        scope,
+        `legacy and canonical redirects must use status 301; found ${redirect.statusCode}`,
+      );
     }
     if (sources.has(source))
       fail(scope, `duplicate source also used by redirect ${sources.get(source)}`);
@@ -305,9 +363,8 @@ try {
     }
     if (destinationUrl.search) fail(scope, `destination must not contain a query: ${destination}`);
 
-    const staticDestination = !destinationUrl.pathname.includes(":");
     const destinationCanonical = `${destinationUrl.origin}${destinationUrl.pathname}`;
-    if (staticDestination && !sitemapSet.has(destinationCanonical)) {
+    if (!sitemapSet.has(destinationCanonical)) {
       fail(scope, `destination is not an indexable sitemap URL: ${destinationCanonical}`);
     }
   }
@@ -323,16 +380,115 @@ try {
     }
   }
 
-  for (const [start, index] of sources) {
-    const visited = new Set([start]);
-    let current = new URL(redirects[index - 1].destination, canonicalOrigin).pathname;
-    while (sources.has(current)) {
-      if (visited.has(current)) {
-        fail(`vercel.json redirect ${index}`, `redirect loop includes ${current}`);
-        break;
+  for (const sitemapUrl of sitemapSet) {
+    const pathname = new URL(sitemapUrl).pathname;
+    if (pathname === "/") continue;
+    const slashSource = `${pathname}/`;
+    const redirectIndex = sources.get(slashSource);
+    if (!redirectIndex) {
+      fail(
+        config.bulkRedirectsPath,
+        `missing trailing-slash redirect for canonical page: ${slashSource}`,
+      );
+      continue;
+    }
+    const destination = redirects[redirectIndex - 1].destination;
+    if (new URL(destination, canonicalOrigin).pathname !== pathname) {
+      fail(config.bulkRedirectsPath, `${slashSource} must redirect directly to ${pathname}`);
+    }
+  }
+
+  const legacyMatrixFile = resolve(projectRoot, "docs/seo/legacy-url-matrix.csv");
+  const legacyRows = parseCsv(await readFile(legacyMatrixFile, "utf8"));
+  const legacyHeaders = legacyRows.shift() ?? [];
+  const legacyIndexes = new Map(legacyHeaders.map((header, index) => [header, index]));
+  for (const requiredHeader of ["source_url", "action", "target_url"]) {
+    if (!legacyIndexes.has(requiredHeader)) {
+      throw new Error(`legacy URL matrix is missing ${requiredHeader}`);
+    }
+  }
+
+  const documentedRedirectSources = new Set();
+  for (const row of legacyRows) {
+    const sourceUrl = new URL(row[legacyIndexes.get("source_url")]);
+    const action = row[legacyIndexes.get("action")];
+    const target = row[legacyIndexes.get("target_url")];
+    const sourcePath = sourceUrl.pathname;
+    const slashlessSource = sourcePath === "/" ? "/" : sourcePath.replace(/\/+$/, "");
+    const slashSource = slashlessSource === "/" ? "/" : `${slashlessSource}/`;
+
+    if (action === "retire_404") {
+      for (const candidate of new Set([slashlessSource, slashSource])) {
+        if (sources.has(candidate)) {
+          fail("legacy URL matrix", `${candidate} is marked retire_404 but has a redirect`);
+        }
       }
-      visited.add(current);
-      current = new URL(redirects[sources.get(current) - 1].destination, canonicalOrigin).pathname;
+      if (generatedPagePaths.has(slashlessSource)) {
+        fail("legacy URL matrix", `${slashlessSource} is marked retire_404 but builds as a page`);
+      }
+      continue;
+    }
+
+    if (!["exact_redirect", "section_redirect", "rebuild"].includes(action)) continue;
+    if (!target) {
+      fail("legacy URL matrix", `${sourcePath} has action ${action} without a target`);
+      continue;
+    }
+
+    const targetUrl = new URL(target);
+    const expectedDestination = `${targetUrl.pathname}${targetUrl.hash}`;
+    const candidates =
+      slashlessSource === targetUrl.pathname
+        ? [slashSource]
+        : [...new Set([slashlessSource, slashSource])];
+    if (slashlessSource === "/" && sourceUrl.origin !== canonicalOrigin) continue;
+
+    for (const candidate of candidates) {
+      documentedRedirectSources.add(candidate);
+      const redirectIndex = sources.get(candidate);
+      if (!redirectIndex) {
+        fail("legacy URL matrix", `${candidate} is missing its reviewed 301 redirect`);
+        continue;
+      }
+      const destination = redirects[redirectIndex - 1].destination;
+      if (destination !== expectedDestination) {
+        fail(
+          "legacy URL matrix",
+          `${candidate} redirects to ${destination}; expected ${expectedDestination}`,
+        );
+      }
+    }
+  }
+
+  const canonicalSlashSources = new Set(
+    [...sitemapSet]
+      .map((sitemapUrl) => new URL(sitemapUrl).pathname)
+      .filter((pathname) => pathname !== "/")
+      .map((pathname) => `${pathname}/`),
+  );
+  for (const source of sources.keys()) {
+    if (!canonicalSlashSources.has(source) && !documentedRedirectSources.has(source)) {
+      fail("legacy URL matrix", `${source} has a redirect but is not documented in the matrix`);
+    }
+  }
+
+  for (const file of htmlFiles) {
+    const html = await readFile(file, "utf8");
+    const scope = outputPath(file);
+    for (const tag of tags(html, "a")) {
+      const href = attributes(tag).get("href")?.trim();
+      if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+        continue;
+      }
+      let url;
+      try {
+        url = new URL(href, canonicalOrigin);
+      } catch {
+        continue;
+      }
+      if (url.origin === canonicalOrigin && sources.has(url.pathname)) {
+        fail(scope, `internal link points to redirecting URL: ${href}`);
+      }
     }
   }
 } catch (error) {

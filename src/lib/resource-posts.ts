@@ -233,7 +233,7 @@ export const resourcePosts: ResourcePost[] = [
     href: resourcePath("be-the-guide-auto-repair-shop-messaging"),
     sourceAsset: "public/original-site-assets/be-the-guide.png",
     originalUrl: "https://turnkeyautomarketing.com/be-the-guide/",
-    legacyPaths: ["/be-the-guide/"],
+    legacyPaths: ["/be-the-guide/", "/two-keys-auto-repair-shop-message/"],
     takeaways: [
       "The customer is the hero; the shop earns attention by being a useful guide.",
       "Effective guides pair empathy with specific, believable authority.",
@@ -383,6 +383,8 @@ export const resourcePosts: ResourcePost[] = [
     href: resourcePath("direct-mail-for-repair-shops"),
     sourceAsset:
       "https://turnkeyautomarketing.com/wp-content/uploads/2023/06/2023-06-27-blog-RW-direct-mail.png",
+    originalUrl: "https://turnkeyautomarketing.com/joe-flammer-ratchet-wrench/",
+    legacyPaths: ["/joe-flammer-ratchet-wrench/"],
     takeaways: [
       "The mailing list decides more of the outcome than the postcard design does.",
       "Mail should be judged by calls, booked appointments, and repair-order quality — not by how the piece looked.",
@@ -445,6 +447,7 @@ export const resourcePosts: ResourcePost[] = [
   {
     slug: "auto-repair-marketing-plan",
     date: "Updated Aug 2026",
+    originalDate: "2023-01-26",
     updatedDate: "2026-08-13",
     tag: "Planning",
     title: "How to Build an Auto Repair Marketing Plan",
@@ -457,6 +460,9 @@ export const resourcePosts: ResourcePost[] = [
     image: siteMedia.graphics.marketingPlan,
     href: resourcePath("auto-repair-marketing-plan"),
     sourceAsset: "https://turnkeyautomarketing.com/wp-content/uploads/2023/01/marketing-plan2.png",
+    originalUrl:
+      "https://turnkeyautomarketing.com/how-to-create-a-winning-marketing-plan-for-your-auto-repair-shop/",
+    legacyPaths: ["/how-to-create-a-winning-marketing-plan-for-your-auto-repair-shop/"],
     takeaways: [
       "Start with a specific shop result, such as better-fit work, stronger retention, or more booked appointments.",
       "Give acquisition, retention, reputation, and seasonal campaigns clear jobs in a 12-month calendar.",
