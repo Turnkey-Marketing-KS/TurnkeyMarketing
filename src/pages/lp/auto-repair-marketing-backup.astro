@@ -1,0 +1,785 @@
+---
+import {
+  ArrowRight,
+  ClipboardCheck,
+  Gauge,
+  Phone,
+  Quote,
+  Route,
+  Star,
+  Target,
+} from "lucide-react";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { featuredResult } from "@/lib/results-content";
+import { CONSULTATION_URL } from "@/lib/services";
+import { siteMedia } from "@/lib/site-media";
+
+const ownerQuotes = [
+  {
+    quote: "One of the best investments I have made in my company.",
+    name: "Jason Smith",
+    shop: "M&M Car Care Center · Northwest Indiana",
+    image: "/lp/assets/avatar-jason-smith.webp",
+  },
+  {
+    quote: "They take care of everything.",
+    name: "Len Pritchett",
+    shop: "RPM Automotive · Prairie Du Chien, WI",
+    image: "/lp/assets/avatar-len-pritchett.webp",
+  },
+];
+
+const faqItems = [
+  {
+    q: "Do I have to fire my current marketing vendors?",
+    a: "Keep vendors that are producing clear value and make them part of one accountable plan. We help you see what to keep, what to cut, and what needs tighter coordination.",
+  },
+  {
+    q: "How long before auto repair marketing works?",
+    a: "Some cleanup and campaign fixes show early signals quickly, but dependable growth usually takes months. The first 90 to 120 days focuses on tracking, vendor cleanup, and launching the priority campaigns.",
+  },
+  {
+    q: "How will I know it is working?",
+    a: "Marketing is working when it creates the right calls, booked appointments, and returning customers at a cost your shop can defend. Your report should explain what to keep, fix, stop funding, and run next.",
+  },
+  {
+    q: "What does auto repair marketing cost?",
+    a: "The right budget depends on your market, current car count, shop capacity, and growth target. We recommend a plan only after understanding those numbers and where your current marketing is leaking.",
+  },
+];
+
+const pageSchemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Auto Repair Marketing",
+    serviceType: "Auto repair shop marketing",
+    provider: {
+      "@type": "Organization",
+      name: "Turnkey Marketing",
+      url: "https://www.turnkeyautomarketing.com/",
+    },
+    areaServed: "United States",
+    description:
+      "An outside marketing department for independent auto repair shops, including strategy, weekly execution, vendor coordination, and honest reporting.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Auto Repair Marketing That Increases Car Count | Turnkey Marketing"
+  description="Get auto repair marketing off your plate with one accountable team for strategy, weekly execution, vendor coordination, and honest reporting."
+  path="/lp/auto-repair-marketing-backup"
+  ogImage={siteMedia.hero.src}
+  schema={pageSchemas}
+  noindex={true}
+>
+  <div class="lp-page">
+  <section class="lp-hero relative overflow-hidden bg-white">
+    <img
+      src={siteMedia.hero.src}
+      alt={siteMedia.hero.alt}
+      width="1200"
+      height="800"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="lp-hero-image absolute inset-0 h-full w-full object-cover"
+      style={`object-position: ${siteMedia.hero.position};`}
+    />
+    <div class="lp-hero-wash absolute inset-0" aria-hidden="true"></div>
+
+    <div class="lp-hero-inner container-page relative z-10 flex min-h-[720px] items-center pb-10 pt-24 md:min-h-[760px] md:pb-12 md:pt-28 lg:min-h-[min(800px,100vh)]">
+      <div class="w-full" data-reveal>
+        <h1 class="lp-hero-title text-charcoal">
+          Auto repair<br />marketing that<br />increases car count.
+        </h1>
+        <p class="mt-6 max-w-[52ch] text-base leading-relaxed text-charcoal/68 md:text-lg">
+          From strategy to weekly execution and reporting.
+        </p>
+
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a
+            href={CONSULTATION_URL}
+            class="btn-primary w-full !px-6 !py-3.5 sm:w-auto"
+            data-track-event="consultation_cta_click"
+            data-track-placement="lp_backup_hero"
+          >
+            Discuss your shop
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </a>
+          <a
+            href="/results"
+            class="btn-ghost w-full !border-charcoal/15 !bg-white/90 !px-6 !py-3.5 backdrop-blur sm:w-auto"
+            data-track-placement="lp_backup_hero"
+          >
+            View shop results
+            <span class="inline-flex h-5 w-5 items-center justify-center rounded-full border border-charcoal/20 text-[0.65rem]" aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="mt-10 grid max-w-[620px] grid-cols-2 gap-6 sm:grid-cols-[0.72fr_1fr] sm:gap-0">
+          <div class="sm:border-r sm:border-charcoal/18 sm:pr-8">
+            <p class="text-2xl font-semibold tracking-tight text-charcoal md:text-3xl">300+</p>
+            <p class="mt-1 text-xs leading-relaxed text-charcoal/58 md:text-sm">repair shops served</p>
+          </div>
+          <div class="sm:pl-8">
+            <p class="text-2xl font-semibold tracking-tight text-charcoal md:text-3xl">13+ years</p>
+            <p class="mt-1 text-xs leading-relaxed text-charcoal/58 md:text-sm">marketing only for shop owners</p>
+          </div>
+        </div>
+
+        <div class="mt-20 w-full">
+          <div class="grid grid-cols-3 items-center gap-x-7 gap-y-5 opacity-60 grayscale sm:grid-cols-[140px_repeat(6,minmax(0,1fr))]">
+            <p class="col-span-3 text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-charcoal/45 sm:col-span-1">Trusted by shops nationwide</p>
+            {[
+              ["D&E Auto Repair", "/images/trust-logos/vip/01-d-and-e-auto-repair.webp"],
+              ["Super Service of Aliso Viejo", "/images/trust-logos/vip/02-super-service-of-aliso-viejo.webp"],
+              ["CDT Automotive", "/images/trust-logos/vip/03-cdt-automotive.webp"],
+              ["AutoWorks of Tampa", "/images/trust-logos/vip/15-autoworks-of-tampa.webp"],
+              ["Killian Auto Pros", "/images/trust-logos/vip/29-killian-auto-pros-greenville.webp"],
+              ["Certified Auto Repair", "/images/trust-logos/vip/30-certified-auto-repair.webp"],
+            ].map(([name, src]) => (
+              <div class="flex h-10 items-center justify-start">
+                <img src={src} alt={name} width="240" height="120" loading="eager" decoding="async" class="max-h-9 max-w-full object-contain" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-grid-bg bg-[#f7f7f8] py-20 md:pb-18 md:pt-28">
+    <div class="container-page">
+      <div class="mx-auto max-w-4xl text-center" data-reveal>
+        <h2 class="display-2 text-balance">Your marketing department.</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/64">
+          Strategy, campaigns, vendors, and reporting—run day to day.
+        </p>
+      </div>
+
+      <div class="motion-card mx-auto mt-10 grid max-w-[1200px] overflow-hidden border border-charcoal/14 bg-white shadow-[0_28px_70px_-46px_rgba(20,22,28,0.38)] md:-mx-6 md:max-w-none lg:grid-cols-[0.88fr_1.12fr]" data-reveal>
+        <div class="flex flex-col justify-center p-7 md:p-10 lg:p-12">
+          <img src="/turnkey-brand-icon.png" alt="" width="512" height="512" class="h-12 w-12 object-contain" loading="lazy" decoding="async" />
+          <h3 class="display-3 mt-7">One team owns it all.</h3>
+          <p class="mt-4 max-w-md leading-relaxed text-charcoal/62">Your strategy, campaigns, vendors, and reporting operate as one system instead of four more jobs for the owner.</p>
+          <a href="/services/vip-marketing-manager" class="mt-8 inline-flex w-fit items-center gap-3 rounded-[8px] border border-charcoal/18 bg-white px-5 py-3.5 text-sm font-semibold text-charcoal shadow-sm transition hover:-translate-y-0.5 hover:border-[var(--key-blue)]" data-track-event="service_link_click" data-track-slug="vip-marketing-manager" data-track-placement="lp_backup_featured">View the marketing department <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <div class="lp-feature-system relative min-h-[440px] overflow-hidden p-6 md:min-h-[460px] md:p-10">
+          <div class="lp-feature-glow absolute inset-0" aria-hidden="true"></div>
+          <div class="relative mx-auto flex h-full max-w-[560px] items-center justify-center">
+            <div class="w-[230px] overflow-hidden rounded-[14px] border border-white/45 bg-white shadow-[0_35px_90px_-32px_rgba(3,8,16,0.72)] md:w-[250px]">
+              <div class="flex items-center gap-3 border-b border-[var(--hairline)] px-4 py-4">
+                <span class="inline-flex h-7 w-7 items-center justify-center rounded-[7px] border border-charcoal/14 text-charcoal/56"><ClipboardCheck className="h-3.5 w-3.5" aria-hidden="true" /></span>
+                <p class="text-[0.68rem] font-semibold text-charcoal">Shop_Growth_Plan.pdf</p>
+              </div>
+              <div class="p-4">
+                <span class="rounded-[5px] bg-[#f0f1f2] px-2.5 py-1 text-[0.58rem] font-medium text-charcoal/46">Extracted results</span>
+                <div class="mt-5 divide-y divide-[var(--hairline)]">
+                  {[["New calls", "124"], ["Booked cars", "86"], ["Car count", "+18%"], ["Tracked revenue", "$182,000"]].map(([label, value]) => (
+                    <div class="flex items-center justify-between py-3 text-[0.66rem]"><span class="text-charcoal/46">{label}</span><strong class="text-charcoal">{value}</strong></div>
+                  ))}
+                </div>
+                <div class="mt-5 flex justify-end"><span class="rounded-full bg-[var(--green)]/22 px-3 py-1 text-[0.6rem] font-semibold text-[var(--navy)]">✓ Verified</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-quote-section bg-[#f7f7f8] pb-20 pt-12 md:pb-[202px] md:pt-14">
+    <div class="container-page">
+      <h2 class="display-2 text-center text-balance" data-reveal>What shop owners say.</h2>
+      <div class="mx-auto mt-12 max-w-[1200px] overflow-hidden rounded-[16px] border border-charcoal/12 bg-white md:-mx-6 md:mt-14 md:max-w-none" data-reveal>
+        <div class="grid min-h-[430px] lg:grid-cols-[0.52fr_1.48fr]">
+          <div class="lp-quote-profile flex flex-col justify-between gap-10 border-b border-charcoal/10 p-7 md:p-10 lg:border-b-0 lg:border-r">
+            <img src="/images/results/shop-logos/killian-auto-pros.png" alt="Killian Auto Pros logo" width="360" height="160" loading="lazy" decoding="async" class="h-12 w-auto max-w-[180px] object-contain object-left" />
+            <div>
+              <img src="/lp/assets/avatar-steve-killian.webp" alt="Steve Killian of Killian Auto Pros" width="160" height="160" loading="lazy" decoding="async" class="h-16 w-16 rounded-full object-cover" />
+              <p class="mt-5 font-semibold text-charcoal">Steve Killian</p>
+              <p class="mt-1 max-w-[22ch] text-sm leading-relaxed text-charcoal/52">Killian Auto Pros<br />Greenville, SC</p>
+            </div>
+          </div>
+          <div class="lp-quote-copy flex flex-col justify-center p-7 md:p-12 lg:p-16">
+            <Quote className="h-8 w-8 text-[var(--key-blue)]" aria-hidden="true" />
+            <blockquote class="mt-7 max-w-[34ch] font-display text-[clamp(1.8rem,2.6vw,2.25rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-charcoal">We got to $300,000/month within one year at a brand new shop.</blockquote>
+            <a href="/results" class="mt-8 inline-flex w-fit items-center gap-2 border-b border-charcoal/20 pb-1 text-sm font-semibold text-charcoal transition hover:border-[var(--key-blue)] hover:text-[var(--key-blue)]">View shop results <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 md:pb-[10.175rem] md:pt-24">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <h2 class="display-2 text-balance">What your team owns.</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/64">One accountable team owns the plan and every moving piece.</p>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:-mx-6 md:mt-11 lg:grid-cols-2" data-reveal>
+        <article class="motion-card overflow-hidden rounded-[14px] border border-charcoal/14 bg-white p-4 shadow-[0_22px_55px_-44px_rgba(20,22,28,0.38)]">
+          <div class="lp-system-panel relative h-64 overflow-hidden rounded-[12px] p-6 sm:h-72 md:p-9">
+            <div class="absolute inset-0 lp-orbit" aria-hidden="true"></div>
+            <div class="relative z-10 flex h-full flex-col items-center justify-center">
+              <span class="inline-flex h-16 w-16 items-center justify-center rounded-[22px] bg-white text-[var(--key-blue)] shadow-xl">
+                <Target className="h-7 w-7" aria-hidden="true" />
+              </span>
+              <div class="mt-8 grid w-full max-w-sm grid-cols-3 gap-3">
+                {["Your market", "Your capacity", "Your goals"].map((label) => (
+                  <span class="rounded-2xl border border-white/20 bg-white/10 px-3 py-3 text-center text-xs font-medium text-white/84 backdrop-blur">{label}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="mx-2 mb-2 mt-5 border-t border-[var(--hairline)] pt-5">
+            <h3 class="text-xl font-semibold tracking-[-0.025em]">Shop-specific strategy</h3>
+            <p class="mt-2 text-sm leading-relaxed text-charcoal/62">Proven auto-repair formulas, adjusted around your market, capacity, goals, and customer mix.</p>
+          </div>
+        </article>
+
+        <article class="motion-card overflow-hidden rounded-[14px] border border-charcoal/14 bg-white p-4 shadow-[0_22px_55px_-44px_rgba(20,22,28,0.38)]">
+          <div class="lp-execution-panel relative h-64 overflow-hidden rounded-[12px] p-6 sm:h-72 md:p-9">
+            <div class="absolute inset-0 lp-execution-dots" aria-hidden="true"></div>
+            <div class="relative z-10 flex h-full items-center justify-center">
+              <div class="relative flex h-52 w-64 items-center justify-center">
+                <span class="absolute left-0 top-12 inline-flex h-20 w-20 items-center justify-center rounded-[14px] border border-white/60 bg-white/92 text-[var(--key-blue)] shadow-xl"><ClipboardCheck className="h-8 w-8" aria-hidden="true" /></span>
+                <span class="inline-flex h-28 w-24 items-center justify-center rounded-[16px] border border-white/70 bg-white text-[var(--navy)] shadow-2xl"><Route className="h-10 w-10" aria-hidden="true" /></span>
+                <span class="absolute right-0 top-20 inline-flex h-20 w-24 items-center justify-center rounded-[14px] border border-white/60 bg-white/92 text-[var(--green)] shadow-xl"><Gauge className="h-8 w-8" aria-hidden="true" /></span>
+              </div>
+            </div>
+          </div>
+          <div class="mx-2 mb-2 mt-5 border-t border-[var(--hairline)] pt-5">
+            <h3 class="text-xl font-semibold tracking-[-0.025em]">Weekly execution</h3>
+            <p class="mt-2 text-sm leading-relaxed text-charcoal/62">Direct mail, ads, Google Business Profile, reviews, and CRM—handled every week.</p>
+          </div>
+        </article>
+
+        <article class="motion-card overflow-hidden rounded-[14px] border border-charcoal/14 bg-white p-4 shadow-[0_22px_55px_-44px_rgba(20,22,28,0.38)] lg:col-span-2">
+          <div class="lp-report-panel relative flex h-64 items-center justify-center overflow-hidden rounded-[12px] p-6 sm:h-72 md:p-8">
+            <div class="relative flex h-full w-full max-w-[380px] flex-col rounded-[14px] border border-white/45 bg-white p-5 shadow-[0_30px_72px_-34px_rgba(2,9,24,0.55)]">
+              <div class="flex items-center justify-between border-b border-[var(--hairline)] pb-4">
+                <div><p class="text-[0.65rem] uppercase tracking-[0.12em] text-charcoal/42">Monthly revenue</p><p class="mt-1 text-2xl font-semibold tracking-[-0.04em] text-[var(--navy)]">$182,400</p></div>
+                <span class="rounded-full bg-[var(--green)]/18 px-3 py-1 text-xs font-semibold text-[var(--navy)]">+14.6%</span>
+              </div>
+              <div class="mt-auto flex h-24 items-end gap-2 pt-5" aria-label="Illustrative rising revenue chart">
+                {[36, 46, 42, 58, 64, 70, 86, 100].map((height, index) => (
+                  <span class="flex-1 rounded-t-[3px]" style={`height:${height}%; background:${index > 5 ? "var(--green)" : "var(--key-blue)"};`}></span>
+                ))}
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[0.6rem] text-charcoal/42"><span>Calls</span><span>Booked cars</span><span>Revenue</span></div>
+            </div>
+          </div>
+          <div class="mx-2 mb-2 mt-5 border-t border-[var(--hairline)] pt-5">
+            <h3 class="text-xl font-semibold tracking-[-0.025em]">Honest reporting. Clear next moves.</h3>
+            <p class="mt-2 text-sm leading-relaxed text-charcoal/62">Every dollar is tied to calls, cars, and revenue—so you know what to keep, fix, and run next.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-grid-bg bg-[var(--off-white)] py-14 md:pb-[202px] md:pt-24">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <h2 class="display-2 text-balance">Shop owner results.</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-charcoal/60">Clear plans, consistent execution, and fewer owner decisions.</p>
+      </div>
+
+      <article class="motion-card mt-10 grid overflow-hidden border border-charcoal/14 bg-white shadow-[0_20px_50px_-42px_rgba(20,22,28,0.35)] md:-mx-[1.375rem] md:mt-[50px] lg:grid-cols-[0.88fr_1.12fr]" data-reveal>
+        <div class="flex flex-col justify-center p-7 md:p-10 lg:p-12">
+          <img src={featuredResult.logoSrc} alt={`${featuredResult.name} logo`} width="360" height="160" loading="lazy" decoding="async" class="h-14 w-auto max-w-[230px] object-contain object-left" />
+          <h3 class="display-3 mt-7">Approximately 169% revenue growth.</h3>
+          <p class="mt-4 max-w-md leading-relaxed text-charcoal/62">Legendary Automotive &amp; Diesel Repair grew reported revenue from $260,534 to $701,725—approximately 169%—while total cars served nearly tripled.</p>
+          <a href="/results" class="mt-8 inline-flex w-fit items-center gap-3 rounded-[8px] border border-charcoal/18 bg-white px-5 py-3.5 text-sm font-semibold text-charcoal shadow-sm transition hover:-translate-y-0.5 hover:border-[var(--key-blue)]">View the full result <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="lp-feature-system relative min-h-[410px] overflow-hidden p-7 md:min-h-[454px] md:p-10">
+          <div class="lp-feature-glow absolute inset-0" aria-hidden="true"></div>
+          <div class="relative flex h-full items-center justify-center">
+            <div class="w-full max-w-[520px] rounded-[14px] border border-white/45 bg-white p-6 shadow-[0_35px_90px_-42px_rgba(20,22,28,0.5)] md:p-8">
+              <div class="flex items-end justify-center gap-8 border-b border-[var(--hairline)] pb-6 md:gap-12">
+                {featuredResult.chart.bars.map((bar) => (
+                  <div class="flex h-52 w-28 flex-col items-center justify-end">
+                    {bar.tag && <span class="mb-2 rounded-full bg-[var(--green)]/18 px-2.5 py-1 text-[0.62rem] font-semibold text-[var(--navy)]">{bar.tag}</span>}
+                    <strong class="mb-3 text-sm text-charcoal">{bar.value}</strong>
+                    <span class="w-full rounded-t-[5px]" style={`height:${bar.height}%;background:${bar.color};`}></span>
+                  </div>
+                ))}
+              </div>
+              <div class="mt-4 flex justify-center gap-14 text-[0.68rem] text-charcoal/46"><span>Aug 2024</span><span>June 2026</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="mt-[22px] grid gap-[22px] md:-mx-[1.375rem] md:grid-cols-2" data-reveal>
+        {ownerQuotes.map((item, index) => (
+          <article class="motion-card overflow-hidden rounded-[24px] border border-charcoal/14 bg-white p-3 shadow-[0_20px_50px_-42px_rgba(20,22,28,0.35)]">
+            <div class="lp-client-project relative flex min-h-[300px] items-center justify-center overflow-hidden rounded-[12px] p-8 md:min-h-[306px]">
+              <div class="lp-project-dots absolute inset-0" aria-hidden="true"></div>
+              <div class="relative w-full max-w-[360px] rounded-[14px] border border-white/50 bg-white p-5 shadow-[0_28px_70px_-34px_rgba(3,8,16,0.52)]">
+                <div class="flex items-center justify-between border-b border-[var(--hairline)] pb-4">
+                  <div class="flex items-center gap-3"><img src={item.image} alt={`${item.name}, ${item.shop.split(" · ")[0]}`} width="160" height="160" loading="lazy" decoding="async" class="h-10 w-10 rounded-full object-cover grayscale" /><div><p class="text-xs font-semibold text-charcoal">{item.name}</p><p class="mt-0.5 text-[0.58rem] text-charcoal/42">Monthly marketing view</p></div></div>
+                  <span class="inline-flex h-8 w-8 items-center justify-center rounded-[8px] bg-[var(--key-blue-soft)] text-[var(--key-blue)]">{index === 0 ? <Target className="h-4 w-4" aria-hidden="true" /> : <Gauge className="h-4 w-4" aria-hidden="true" />}</span>
+                </div>
+                <div class="mt-5 grid grid-cols-[0.8fr_1.2fr] items-end gap-4">
+                  <div><p class="text-[0.6rem] uppercase tracking-[0.13em] text-charcoal/40">Owner time</p><p class="mt-2 text-3xl font-semibold tracking-[-0.05em] text-charcoal">Less.</p><p class="mt-1 text-[0.62rem] text-charcoal/44">Marketing handled weekly</p></div>
+                  <div class="flex h-24 items-end gap-2" aria-label="Illustrative marketing momentum chart">{[38, 48, 55, 72, 84, 100].map((height, barIndex) => <span class="flex-1 rounded-t-[3px]" style={`height:${height}%;background:${barIndex > 3 ? "var(--green)" : "var(--key-blue)"};`}></span>)}</div>
+                </div>
+              </div>
+            </div>
+            <div class="px-3 pb-5 pt-6 md:px-4">
+              <blockquote class="text-xl font-semibold leading-snug tracking-tight text-charcoal">“{item.quote}”</blockquote>
+              <p class="mt-5 text-sm font-semibold text-charcoal">{item.name}</p>
+              <p class="mt-1 text-xs leading-relaxed text-charcoal/50">{item.shop}</p>
+              <a href="/results" class="mt-6 inline-flex items-center gap-2 border-b border-charcoal/18 pb-1 text-sm font-semibold text-charcoal transition hover:border-[var(--key-blue)] hover:text-[var(--key-blue)]">View result <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-grid-bg bg-white py-16 md:pb-[7.92rem] md:pt-14">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <h2 class="display-2 text-balance">The team behind Turnkey.</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/62">Since 2013, Turnkey has learned the rhythms of car count, capacity, customer retention, and owner bandwidth.</p>
+      </div>
+
+      <div class="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-14 md:grid-cols-3" data-reveal>
+        {[
+          [siteMedia.about.founder, "Carrie-Lynn Rodenberg", "Founder · Turnkey Marketing", "Built Turnkey around one promise: give shop owners one accountable team for strategy, campaigns, vendors, and reporting.", "/about", "Meet Turnkey", 1],
+          [{ src: "/images/team/20230303-turnkeyvisionexpo0027.jpg", alt: "Turnkey Marketing specialists speaking with an auto repair professional", position: "72% 38%" }, "Campaign strategy", "Repair-shop specialists who own the plan", "Market, capacity, customer mix, and growth goals become one practical marketing plan the whole team can run.", "/services/vip-marketing-manager", "Explore the strategy", 1.28],
+          [{ src: "/images/team/20230303-turnkeyvisionexpo0048.jpg", alt: "Turnkey Marketing team members working with a shop owner at an industry event", position: "68% 40%" }, "Weekly execution", "Creative, campaigns, vendors, and reporting", "The moving pieces move forward every week—without the next marketing task landing back on the shop owner.", "/services/vip-marketing-manager", "See how we work", 1.28],
+        ].map(([image, name, role, description, href, linkLabel, scale]) => (
+          <article>
+            <div class="rounded-[2.4rem] border border-charcoal/12 bg-white p-2.5 shadow-[0_18px_44px_-28px_rgba(16,24,40,0.35)]">
+              <div class="relative aspect-square overflow-hidden rounded-[1.9rem]">
+                <img src={image.src} alt={image.alt} width="900" height="1050" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" style={`object-position:${image.position};transform:scale(${scale});`} />
+              </div>
+            </div>
+            <h3 class="mt-8 text-3xl font-semibold tracking-tight text-charcoal">{name}</h3>
+            <p class="mt-1.5 text-sm font-medium text-charcoal/52">{role}</p>
+            <p class="mt-4 max-w-sm text-sm leading-relaxed text-charcoal/52">{description}</p>
+            <a href={href} class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-charcoal transition hover:text-[var(--key-blue)]">{linkLabel} <span aria-hidden="true">↗</span></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-grid-bg min-h-[699px] border-y border-[var(--hairline)] bg-[#f7f7f8] py-14 md:pb-[69px] md:pt-[131px]">
+    <div class="container-page">
+      <div class="mx-auto max-w-[760px]" data-reveal>
+        <h2 class="display-2 text-center text-balance">Frequently asked questions.</h2>
+        <div class="mt-12">
+          {faqItems.map((item, index) => (
+            <details class="faq-item group border-b border-charcoal/14 py-5" open={index === 0}>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-5 text-left font-semibold text-charcoal marker:content-none">
+                <span class="text-base md:text-lg">{item.q}</span>
+                <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center text-[var(--navy)] transition group-open:rotate-45"><span class="text-2xl font-light">+</span></span>
+              </summary>
+              <p class="max-w-3xl pt-4 leading-relaxed text-charcoal/62">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-contact-stage relative overflow-hidden border-y border-charcoal/8 bg-[#f7f7f8] py-20 md:pb-[159px] md:pt-32">
+    <div class="absolute inset-0 lp-cta-rings" aria-hidden="true"></div>
+    <div class="container-page relative z-10" data-reveal>
+      <div class="mx-auto max-w-[760px] text-center">
+        <p class="eyebrow invisible" aria-hidden="true">30 minutes. Real answers.</p>
+        <h2 class="display-2 mx-auto mt-5 text-balance text-charcoal">Do you have marketing that creates too much work?</h2>
+        <p class="mx-auto mt-6 max-w-xl leading-relaxed text-charcoal/62">Tell us what is working, what is leaking, and what keeps landing back on your plate. We will tell you openly where we can help.</p>
+      </div>
+
+      <div class="mx-auto mt-[35px] max-w-[672px]">
+        <a href={CONSULTATION_URL} class="group flex min-h-[88px] items-center gap-4 rounded-[14px] border border-charcoal/12 bg-white p-4 text-left shadow-[0_22px_58px_-42px_rgba(20,22,28,0.42)] transition hover:bg-[var(--off-white)] md:p-5" data-track-event="consultation_cta_click" data-track-placement="lp_backup_final">
+          <span class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-[var(--key-blue-soft)] text-[var(--key-blue)]"><ClipboardCheck className="h-5 w-5" aria-hidden="true" /></span>
+          <span class="min-w-0 flex-1"><strong class="block text-sm text-charcoal">Book a meeting</strong><span class="mt-1 block text-xs text-charcoal/52">Choose an available time in the calendar.</span></span>
+          <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-charcoal/12 text-charcoal transition group-hover:border-[var(--key-blue)] group-hover:text-[var(--key-blue)]">↗</span>
+        </a>
+        <div class="my-5 flex items-center gap-4"><span class="h-px flex-1 bg-[var(--hairline)]"></span><span class="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-charcoal/38">Or</span><span class="h-px flex-1 bg-[var(--hairline)]"></span></div>
+        <form action={CONSULTATION_URL} method="get" class="min-h-[342px] overflow-hidden rounded-[14px] border border-charcoal/12 bg-white shadow-[0_22px_58px_-42px_rgba(20,22,28,0.42)]">
+          <div class="grid sm:grid-cols-2">
+            <label class="border-b border-[var(--hairline)] p-4 sm:border-r md:p-5"><span class="block text-xs font-semibold text-charcoal/72">Your name</span><input name="name" autocomplete="name" class="mt-2 w-full border-0 bg-transparent p-0 text-sm text-charcoal outline-none placeholder:text-charcoal/34" placeholder="Shop owner" /></label>
+            <label class="border-b border-[var(--hairline)] p-4 md:p-5"><span class="block text-xs font-semibold text-charcoal/72">Your email</span><input name="email" type="email" autocomplete="email" class="mt-2 w-full border-0 bg-transparent p-0 text-sm text-charcoal outline-none placeholder:text-charcoal/34" placeholder="you@yourshop.com" /></label>
+          </div>
+          <label class="block border-b border-[var(--hairline)] p-4 md:p-5"><span class="block text-xs font-semibold text-charcoal/72">What keeps landing back on your plate?</span><textarea name="details" rows="4" class="mt-3 w-full resize-none border-0 bg-transparent p-0 text-sm leading-relaxed text-charcoal outline-none placeholder:text-charcoal/34" placeholder="Ads, direct mail, reporting, vendors—give us the short version."></textarea></label>
+          <div class="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between md:p-5">
+            <a href="tel:+19134270674" class="inline-flex items-center gap-2 text-[0.68rem] font-medium text-charcoal/50 transition hover:text-[var(--key-blue)]" data-track-event="phone_click" data-track-placement="lp_backup_final"><Phone className="h-3.5 w-3.5" aria-hidden="true" />Or call (913) 427-0674</a>
+            <button type="submit" class="inline-flex items-center justify-center gap-3 rounded-[10px] bg-[#0b0c10] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5">Discuss your shop <ArrowRight className="h-4 w-4" aria-hidden="true" /></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white px-2 pb-2 md:px-3 md:pb-0 md:pt-28" aria-label="Turnkey Marketing contact information">
+    <div class="lp-campaign-footer relative mx-auto max-w-[1500px] overflow-hidden rounded-[34px] border border-charcoal/10 p-6 md:rounded-[46px] md:p-10">
+      <img src={siteMedia.hero.src} alt="" width="1200" height="800" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover opacity-[0.08] grayscale" style={`object-position: ${siteMedia.hero.position};`} aria-hidden="true" />
+      <div class="absolute inset-0 bg-[#eef0f4]/88" aria-hidden="true"></div>
+      <div class="relative z-10">
+        <img src="/turnkey-logo.png" alt="Turnkey Marketing" width="1110" height="271" loading="lazy" decoding="async" class="h-11 w-auto grayscale md:h-12" />
+        <div class="grid min-h-[430px] items-center gap-10 py-12 md:min-h-[501px] md:grid-cols-[0.95fr_1.05fr] md:py-16">
+          <img src="/turnkey-brand-icon.png" alt="" width="512" height="512" loading="lazy" decoding="async" class="w-[min(68vw,330px)] opacity-25 grayscale" aria-hidden="true" />
+          <div>
+            <a href="mailto:hello@turnkeyautomarketing.com" class="block break-all font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold tracking-[-0.04em] text-charcoal transition hover:text-[var(--key-blue)] sm:break-normal md:whitespace-nowrap" data-track-event="email_click" data-track-placement="lp_backup_campaign_footer">hello@turnkeyautomarketing.com</a>
+            <div class="mt-6 h-px w-full bg-charcoal/12"></div>
+            <a href="tel:+19134270674" class="mt-5 inline-block text-sm font-medium text-charcoal/56 transition hover:text-[var(--key-blue)]" data-track-event="phone_click" data-track-placement="lp_backup_campaign_footer">(913) 427-0674</a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-5 border-t border-charcoal/10 pt-6 text-xs text-charcoal/48 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 Turnkey Marketing · Built for auto repair shops.</p>
+          <div class="flex gap-5"><a href="/results" class="transition hover:text-charcoal">Results</a><a href="/services" class="transition hover:text-charcoal">Services</a><a href="/privacy-policy" class="transition hover:text-charcoal">Privacy</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+  <script is:inline>
+    (() => {
+      const header = document.querySelector("header");
+      const updateHeader = () => header?.classList.toggle("lp-header-scrolled", window.scrollY > 32);
+      updateHeader();
+      window.addEventListener("scroll", updateHeader, { passive: true });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .lp-page {
+    --charcoal: #08090c;
+    --off-white: #f7f7f8;
+    --cream: #f7f7f8;
+    --hairline: #dfe0e3;
+    background: #f7f7f8;
+    color: #08090c;
+    font-family: "Geist", "Geist Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  .lp-page :global(h1),
+  .lp-page :global(h2),
+  .lp-page :global(h3) {
+    font-family: "Instrument Sans", "Instrument Sans Fallback", "Geist", sans-serif;
+  }
+
+  .lp-page :global(.display-2) {
+    width: min(100%, 672px);
+    margin-inline: auto;
+    font-size: clamp(2.35rem, 3.8vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.055em;
+  }
+
+  .lp-page :global(.display-3) {
+    font-size: clamp(1.75rem, 2.5vw, 2rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .lp-page :global(.btn-primary),
+  .lp-page :global(.btn-ghost) {
+    min-height: 52px;
+    border-radius: 10px;
+    font-family: "Geist", "Geist Fallback", system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.018em;
+    box-shadow: 0 12px 28px -20px rgba(20, 22, 28, 0.42);
+  }
+
+  .lp-page :global(.btn-primary) {
+    background: #0b0c10;
+  }
+
+  .lp-hero-title {
+    width: min(100%, 1024px);
+    font-family: "Instrument Sans", "Instrument Sans Fallback", "Geist", sans-serif;
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.01;
+    letter-spacing: -0.055em;
+  }
+
+  .lp-hero {
+    padding-bottom: 10px;
+  }
+
+  .lp-hero-inner {
+    padding-inline: 57px;
+  }
+
+  .lp-hero-image {
+    filter: grayscale(0.72) saturate(0.42) contrast(0.88) brightness(1.13);
+    transform: scale(1.015);
+  }
+
+  .lp-hero-wash {
+    background:
+      linear-gradient(90deg, rgba(247, 247, 248, 0.9) 0%, rgba(247, 247, 248, 0.82) 39%, rgba(247, 247, 248, 0.34) 70%, rgba(247, 247, 248, 0.08) 100%),
+      linear-gradient(0deg, rgba(247, 247, 248, 0.4) 0%, transparent 30%);
+  }
+
+  .lp-grid-bg {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .lp-grid-bg::before,
+  .lp-grid-bg::after {
+    position: absolute;
+    z-index: -1;
+    width: 230px;
+    height: 230px;
+    content: "";
+    opacity: 0.8;
+    background-image:
+      linear-gradient(rgba(63, 140, 203, 0.085) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(63, 140, 203, 0.085) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+  }
+
+  .lp-grid-bg::before {
+    top: 40px;
+    left: -42px;
+  }
+
+  .lp-grid-bg::after {
+    right: -42px;
+    bottom: 40px;
+  }
+
+  .lp-feature-system {
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(145deg, #0b1c30, #214463);
+    background-size: 42px 42px, 42px 42px, auto;
+  }
+
+  .lp-feature-glow {
+    background:
+      linear-gradient(168deg, transparent 52%, rgba(72, 154, 219, 0.22) 58%, transparent 66%),
+      radial-gradient(circle at 80% 14%, rgba(147, 200, 69, 0.14), transparent 24%),
+      radial-gradient(circle at 12% 88%, rgba(255, 255, 255, 0.1), transparent 34%);
+  }
+
+  .lp-quote-profile {
+    background-image:
+      radial-gradient(circle at 8% 38%, rgba(73, 135, 255, 0.38), transparent 48%),
+      radial-gradient(circle at 78% 60%, rgba(153, 184, 255, 0.13), transparent 54%),
+      linear-gradient(rgba(63, 140, 203, 0.075) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(63, 140, 203, 0.075) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+  }
+
+  .lp-quote-copy {
+    background-image:
+      radial-gradient(circle at 100% 8%, rgba(87, 128, 231, 0.08), transparent 38%),
+      linear-gradient(rgba(63, 140, 203, 0.075) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(63, 140, 203, 0.075) 1px, transparent 1px);
+    background-size: auto, 48px 48px, 48px 48px;
+    background-position: -1px -1px;
+  }
+
+  .lp-system-panel {
+    background:
+      radial-gradient(circle at 50% 46%, rgba(147, 200, 69, 0.16), transparent 18%),
+      linear-gradient(145deg, #7898ae, #516c83);
+  }
+
+  .lp-execution-panel {
+    background:
+      radial-gradient(circle at 52% 45%, rgba(255, 255, 255, 0.28), transparent 24%),
+      linear-gradient(145deg, #829fb3, #627c91);
+  }
+
+  .lp-execution-dots {
+    opacity: 0.42;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.55) 1.2px, transparent 1.2px);
+    background-position: center;
+    background-size: 20px 20px;
+    mask-image: radial-gradient(circle at center, #000 0 38%, transparent 70%);
+  }
+
+  .lp-client-project img {
+    filter: grayscale(0.82) saturate(0.45) contrast(0.9);
+  }
+
+  .lp-client-project {
+    background:
+      radial-gradient(circle at 75% 18%, rgba(147, 200, 69, 0.14), transparent 24%),
+      linear-gradient(145deg, #17344e, #315a77);
+  }
+
+  .lp-project-dots {
+    opacity: 0.32;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+    background-size: 18px 18px;
+    mask-image: radial-gradient(circle at center, #000, transparent 72%);
+  }
+
+  .lp-orbit {
+    background:
+      radial-gradient(circle at center, transparent 0 16%, rgba(255,255,255,0.15) 16.3% 16.6%, transparent 16.9% 31%, rgba(255,255,255,0.12) 31.3% 31.6%, transparent 31.9% 48%, rgba(255,255,255,0.09) 48.3% 48.6%, transparent 48.9%),
+      linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: auto, 42px 42px, 42px 42px;
+  }
+
+  .lp-report-panel {
+    background:
+      radial-gradient(circle at 75% 20%, rgba(147, 200, 69, 0.22), transparent 26%),
+      linear-gradient(145deg, #88a7ba, #587185);
+  }
+
+  .lp-cta-rings {
+    opacity: 0.55;
+    background: repeating-radial-gradient(circle at 50% 100%, transparent 0 82px, rgba(63, 140, 203, 0.13) 83px 84px);
+  }
+
+  @media (max-width: 767px) {
+    .lp-hero-inner {
+      padding-inline: 20px;
+    }
+
+    .lp-hero-title {
+      font-size: clamp(2.72rem, 12.5vw, 4rem);
+      line-height: 1.01;
+    }
+
+    .lp-hero-wash {
+      background:
+        linear-gradient(0deg, rgba(247, 247, 248, 0.97) 5%, rgba(247, 247, 248, 0.84) 55%, rgba(247, 247, 248, 0.3) 100%),
+        linear-gradient(90deg, rgba(247, 247, 248, 0.5), rgba(247, 247, 248, 0.1));
+    }
+
+    .lp-grid-bg::before,
+    .lp-grid-bg::after {
+      width: 160px;
+      height: 160px;
+      background-size: 40px 40px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lp-orbit { animation: lp-orbit-shift 16s linear infinite; }
+    @keyframes lp-orbit-shift { to { transform: rotate(360deg) scale(1.04); } }
+  }
+</style>
+
+<style is:global>
+  @import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&display=swap");
+
+  body:has(.lp-page),
+  body:has(.lp-page) > div {
+    background: #f7f7f8 !important;
+    color: #08090c;
+    font-family: "Geist", "Geist Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  body:has(.lp-page) main {
+    padding-top: 0 !important;
+  }
+
+  body:has(.lp-page) .lp-page > section:not(.lp-hero) {
+    background-color: #f7f7f8 !important;
+  }
+
+  body:has(.lp-page) header {
+    top: 16px;
+    right: auto;
+    left: 50%;
+    width: min(calc(100% - 40px), 1140px);
+    transform: translateX(-50%);
+    border: 1px solid transparent !important;
+    border-radius: 16px;
+    background: transparent !important;
+    box-shadow: none;
+    backdrop-filter: none;
+    color: #08090c;
+    font-family: "Geist", "Geist Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+    transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, backdrop-filter 220ms ease;
+  }
+
+  body:has(.lp-page) header.lp-header-scrolled {
+    border-color: rgba(20, 22, 28, 0.12) !important;
+    background: rgba(255, 255, 255, 0.88) !important;
+    box-shadow: 0 18px 50px -34px rgba(20, 22, 28, 0.38);
+    backdrop-filter: blur(18px);
+  }
+
+  body:has(.lp-page) header > .container-page {
+    max-width: none;
+    padding-inline: 18px;
+  }
+
+  body:has(.lp-page) header > .container-page > div {
+    height: 62px;
+  }
+
+  body:has(.lp-page) header .site-logo-link img {
+    height: 36px;
+  }
+
+  body:has(.lp-page) header .btn-primary {
+    border-radius: 9px;
+    background: var(--charcoal);
+    box-shadow: none;
+  }
+
+  body:has(.lp-page) .lp-page .motion-card,
+  body:has(.lp-page) .lp-page article,
+  body:has(.lp-page) .lp-page details {
+    border-radius: 14px;
+  }
+
+  body:has(.lp-page) .lp-page .motion-card > div,
+  body:has(.lp-page) .lp-page article > div:first-child {
+    border-radius: 12px;
+  }
+
+  body:has(.lp-page) footer.site-footer {
+    display: none !important;
+  }
+
+  @media (max-width: 767px) {
+    body:has(.lp-page) header {
+      top: 10px;
+      width: calc(100% - 24px);
+      border-radius: 14px;
+      border-color: rgba(20, 22, 28, 0.12) !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      box-shadow: 0 18px 50px -34px rgba(20, 22, 28, 0.38);
+      backdrop-filter: blur(18px);
+    }
+
+    body:has(.lp-page) header > .container-page > div {
+      height: 58px;
+    }
+
+    body:has(.lp-page) header .site-logo-link img {
+      height: 36px;
+    }
+  }
+</style>

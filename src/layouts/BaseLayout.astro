@@ -38,8 +38,10 @@ const schemaItems = Array.isArray(schema) ? schema : [schema];
 
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "ProfessionalService"],
+  "@type": "Organization",
+  "@id": new URL("/#organization", siteUrl).toString(),
   name: "Turnkey Marketing",
+  legalName: "CL Business Coaching LLC",
   url: siteUrl.toString(),
   logo: brandIconUrl,
   image: imageUrl,
@@ -54,7 +56,19 @@ const organizationSchema = {
     addressCountry: "US",
   },
   areaServed: "United States",
-  serviceType: "Auto repair marketing",
+  foundingDate: "2013",
+  founder: {
+    "@type": "Person",
+    name: "Carrie-Lynn Rodenberg",
+  },
+  knowsAbout: [
+    "Auto repair marketing",
+    "Marketing for independent auto repair shops",
+    "Auto repair direct mail",
+    "Auto repair digital marketing",
+    "Auto repair social media marketing",
+    "Auto repair marketing consulting",
+  ],
   sameAs: [
     "https://www.facebook.com/turnkeymarketingks",
     "https://www.instagram.com/turnkey_marketing/",
@@ -71,12 +85,14 @@ const webSiteSchema = {
   url: siteUrl.toString(),
   publisher: {
     "@type": "Organization",
+    "@id": new URL("/#organization", siteUrl).toString(),
     name: "Turnkey Marketing",
     url: siteUrl.toString(),
   },
 };
 
-const jsonLd = [organizationSchema, webSiteSchema, ...schemaItems].filter(Boolean);
+const sitewideSchema = canonicalPath === "/" ? [organizationSchema, webSiteSchema] : [];
+const jsonLd = [...sitewideSchema, ...schemaItems].filter(Boolean);
 ---
 
 <!doctype html>

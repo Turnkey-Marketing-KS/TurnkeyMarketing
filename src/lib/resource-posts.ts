@@ -32,10 +32,11 @@ export type ResourcePost = {
     body: string;
     bullets?: string[];
   }[];
-  serviceLink?: {
+  serviceLinks?: {
     href: string;
     label: string;
-  };
+    description: string;
+  }[];
   relatedSlugs?: string[];
 };
 
@@ -67,10 +68,6 @@ export const resourcePosts: ResourcePost[] = [
       "Measure the path from response to booked work and the next visit—not only impressions or leads.",
     ],
     sections: [],
-    serviceLink: {
-      href: "/services/marketing-consulting",
-      label: "Choose what to run next with marketing consulting",
-    },
     relatedSlugs: [
       "auto-repair-marketing-plan",
       "ideal-customer-profile-auto-repair-shop",
@@ -136,10 +133,14 @@ export const resourcePosts: ResourcePost[] = [
         body: "Treat the first profile as a working hypothesis. Compare it with repair-order quality, vehicle mix, retention, declined work, call recordings, reviews, and customer feedback. Revisit it when capacity, staffing, specialty, geography, or business goals change. The useful profile is the one that keeps improving real decisions.",
       },
     ],
-    serviceLink: {
-      href: "/services/marketing-consulting",
-      label: "See how marketing consulting sharpens your strategy",
-    },
+    serviceLinks: [
+      {
+        href: "/services/marketing-consulting",
+        label: "See how marketing consulting sharpens your strategy",
+        description:
+          "Use the customer profile to guide your audience, offer, channels, and follow-up.",
+      },
+    ],
     relatedSlugs: [
       "be-the-guide-auto-repair-shop-messaging",
       "know-like-trust-marketing-filter",
@@ -200,10 +201,14 @@ export const resourcePosts: ResourcePost[] = [
         body: "Ask for full-resolution originals plus web-ready exports. Sort files by people, facility, service, equipment, community, and orientation, then use descriptive filenames. Refresh staff and facility photography when the team or customer experience changes; a smaller current library is more credible than a large outdated one.",
       },
     ],
-    serviceLink: {
-      href: "/services/digital-marketing",
-      label: "See how digital marketing strengthens local trust",
-    },
+    serviceLinks: [
+      {
+        href: "/services/digital-marketing",
+        label: "See how digital marketing strengthens local trust",
+        description:
+          "Put a current, credible photo library to work across your local online presence.",
+      },
+    ],
     relatedSlugs: [
       "be-the-guide-auto-repair-shop-messaging",
       "know-like-trust-marketing-filter",
@@ -263,10 +268,14 @@ export const resourcePosts: ResourcePost[] = [
         body: "The guide role cannot stop at the website. Use the same clear language in phone scripts, appointment confirmations, inspections, estimates, follow-up, social content, and review responses. Consistency turns a marketing promise into an experience customers can recognize and recommend.",
       },
     ],
-    serviceLink: {
-      href: "/services/marketing-consulting",
-      label: "Build a clearer shop message with marketing consulting",
-    },
+    serviceLinks: [
+      {
+        href: "/services/marketing-consulting",
+        label: "Build a clearer shop message with marketing consulting",
+        description:
+          "Align the customer problem, proof, offer, and next step before the campaign goes live.",
+      },
+    ],
     relatedSlugs: [
       "ideal-customer-profile-auto-repair-shop",
       "know-like-trust-marketing-filter",
@@ -327,10 +336,20 @@ export const resourcePosts: ResourcePost[] = [
         ],
       },
     ],
-    serviceLink: {
-      href: "/services/marketing-consulting",
-      label: "Use marketing consulting to strengthen the whole campaign",
-    },
+    serviceLinks: [
+      {
+        href: "/services/marketing-consulting",
+        label: "Use marketing consulting to strengthen the whole campaign",
+        description:
+          "Review the audience, message, proof, and next step as one coordinated system.",
+      },
+      {
+        href: "/services/digital-marketing",
+        label: "Strengthen local trust with digital marketing",
+        description:
+          "Keep the shop information, reviews, and online presence consistent where drivers check first.",
+      },
+    ],
     relatedSlugs: [
       "be-the-guide-auto-repair-shop-messaging",
       "ideal-customer-profile-auto-repair-shop",
@@ -363,6 +382,19 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "The fix is a single scoreboard.",
         body: "A useful marketing plan connects calls, booked appointments, customer mix, retention, and spend. That makes the next move easier to defend because every channel is working toward the same shop goal.",
+      },
+    ],
+    serviceLinks: [
+      {
+        href: "/services/marketing-consulting",
+        label: "Find the leaks with marketing consulting",
+        description: "Get a practical view of what to keep, fix, stop, and run next.",
+      },
+      {
+        href: "/services/vip-marketing-manager",
+        label: "Put one team in charge with a VIP Marketing Manager",
+        description:
+          "Coordinate the moving parts so the owner is not left connecting every report and vendor.",
       },
     ],
   },
@@ -434,10 +466,14 @@ export const resourcePosts: ResourcePost[] = [
         body: "The campaign continues after the postcard arrives. Someone has to answer the phone well, capture the customer's information, book the appointment, and bring that customer back a second time. Connect the mail to the shop's email, text, and CRM follow-up so a first visit generated by a postcard turns into a retained customer. This is where most disappointing direct mail campaigns actually fail — not at the mailbox.",
       },
     ],
-    serviceLink: {
-      href: "/services/direct-mail",
-      label: "See how our managed direct mail campaigns work",
-    },
+    serviceLinks: [
+      {
+        href: "/services/direct-mail",
+        label: "See how our managed direct mail campaigns work",
+        description:
+          "Plan the list, offer, timing, tracking, and follow-up as one accountable campaign.",
+      },
+    ],
     relatedSlugs: [
       "auto-repair-marketing-plan",
       "ideal-customer-profile-auto-repair-shop",
@@ -522,10 +558,20 @@ export const resourcePosts: ResourcePost[] = [
         ],
       },
     ],
-    serviceLink: {
-      href: "/services/marketing-consulting",
-      label: "Get an experienced auto repair marketing consultant",
-    },
+    serviceLinks: [
+      {
+        href: "/services/marketing-consulting",
+        label: "Get an experienced auto repair marketing consultant",
+        description:
+          "Build a defensible plan around your goals, capacity, priorities, and measures.",
+      },
+      {
+        href: "/services/vip-marketing-manager",
+        label: "See how a VIP Marketing Manager carries the plan forward",
+        description:
+          "Keep campaigns, reporting, and next steps coordinated after the plan is built.",
+      },
+    ],
     relatedSlugs: [
       "why-auto-repair-marketing-breaks",
       "jason-smith-marketing-plan",
@@ -556,6 +602,20 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "Leadership removes the drag.",
         body: "The better path is one team coordinating vendors, campaigns, reporting, and next steps. The owner should understand the why without having to manage every small decision.",
+      },
+    ],
+    serviceLinks: [
+      {
+        href: "/services/marketing-consulting",
+        label: "Diagnose the gaps with marketing consulting",
+        description:
+          "Clarify the goals, priorities, and decisions that should guide the whole effort.",
+      },
+      {
+        href: "/services/vip-marketing-manager",
+        label: "See how a VIP Marketing Manager coordinates the whole plan",
+        description:
+          "Bring campaigns, vendors, reporting, and next steps under one accountable team.",
       },
     ],
   },
@@ -598,10 +658,14 @@ export const resourcePosts: ResourcePost[] = [
         body: "Turnkey pairs the strategy with execution and reporting, so the owner gets a clear direction without becoming the project manager for every campaign. The result is accountability, fewer last-minute decisions, and marketing that supports the shop's actual goals.",
       },
     ],
-    serviceLink: {
-      href: "/services/vip-marketing-manager",
-      label: "See how a VIP Marketing Manager owns the plan",
-    },
+    serviceLinks: [
+      {
+        href: "/services/vip-marketing-manager",
+        label: "See how a VIP Marketing Manager owns the plan",
+        description:
+          "Get strategy, execution, reporting, and next steps coordinated around your shop.",
+      },
+    ],
     relatedSlugs: ["auto-repair-marketing-plan", "why-auto-repair-marketing-breaks"],
   },
 ];

@@ -9,14 +9,59 @@ import { siteMedia } from "@/lib/site-media";
 const vip = services.find((service) => service.featured) ?? services[0];
 const rest = services.filter((service) => !service.featured);
 const vipDetail = getServiceDetail(vip.slug);
+const serviceNeeds = [
+  {
+    title: "You need a clearer plan before spending more.",
+    copy: "Review what is running, decide what to keep or change, and leave with a practical next move.",
+    slug: "marketing-consulting",
+    label: "Explore Marketing Consulting",
+  },
+  {
+    title: "You need a coordinated marketing department.",
+    copy: "Put strategy, creative, vendor coordination, reporting, and weekly execution under one accountable team.",
+    slug: "vip-marketing-manager",
+    label: "Explore VIP Marketing Manager",
+  },
+  {
+    title: "You need more local customers in the door.",
+    copy: "Build a planned postcard campaign around the right list, offer, timing, and reporting.",
+    slug: "direct-mail",
+    label: "Explore Direct Mail",
+  },
+  {
+    title: "You need nearby drivers to find and trust you.",
+    copy: "Strengthen reviews, your Google Business Profile, website oversight, and the vendors connected to them.",
+    slug: "digital-marketing",
+    label: "Explore Digital Marketing",
+  },
+];
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Auto Repair Marketing Services",
+  description:
+    "Turnkey Marketing services for independent auto repair shops, including consulting, direct mail, social media, retention, digital marketing, and an outsourced marketing department.",
+  url: "https://www.turnkeyautomarketing.com/services",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: services.map((service, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: service.name,
+      url: `https://www.turnkeyautomarketing.com/services/${service.slug}`,
+    })),
+  },
+};
 ---
 
 <BaseLayout
-  title="Auto Repair Marketing Agency Services | Turnkey"
+  title="Auto Repair Marketing Services | Turnkey Marketing"
   description="Explore auto repair marketing services from Turnkey: strategy, direct mail, retention, social media, local SEO, and coordinated vendor support."
   path="/services"
   ogTitle="Services — Turnkey Marketing"
   ogImage={siteMedia.about.team.src}
+  schema={servicesSchema}
 >
   <PageHero
     eyebrow="Services"
@@ -61,6 +106,42 @@ const vipDetail = getServiceDetail(vip.slug);
           Turnkey keeps those pieces working toward the same goal while the shop owner stays
           focused on the bays, the team, and the customers.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--navy)] py-14 md:py-20">
+    <div class="container-page">
+      <div class="max-w-2xl">
+        <p class="eyebrow text-[var(--green)]">Choose by what your shop needs</p>
+        <h2 class="mt-5 text-balance text-[clamp(2.2rem,4.2vw,3.9rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-white">
+          Start with the problem in front of you.
+        </h2>
+        <p class="mt-5 text-lg leading-relaxed text-white/72">
+          You do not have to buy a full stack to make progress. Choose the service that fits the
+          decision your shop needs to make now.
+        </p>
+      </div>
+
+      <div class="mt-9 grid gap-4 md:mt-12 md:grid-cols-2 md:gap-5">
+        {serviceNeeds.map((need) => (
+          <a
+            href={`/services/${need.slug}`}
+            class="group flex min-h-[230px] flex-col rounded-[28px] border border-black/[0.06] bg-white p-6 shadow-[0_22px_60px_-50px_rgba(20,22,28,0.5)] transition hover:-translate-y-1 hover:border-[var(--key-blue)]/30 hover:shadow-[0_28px_70px_-46px_rgba(20,22,28,0.52)] md:p-8"
+            data-track-event="service_cta_click"
+            data-track-slug={need.slug}
+            data-track-placement="services_need_pathways"
+          >
+            <h3 class="max-w-[20ch] font-display text-2xl font-semibold leading-tight tracking-normal text-charcoal md:text-[1.75rem]">
+              {need.title}
+            </h3>
+            <p class="mt-4 max-w-xl leading-relaxed text-muted-foreground">{need.copy}</p>
+            <span class="mt-auto inline-flex min-h-11 items-end gap-2 pt-7 font-semibold text-[var(--navy)]">
+              {need.label}
+              <ArrowRight className="motion-arrow h-4 w-4" />
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   </section>

@@ -8,16 +8,15 @@ type SitemapEntry = {
   lastmod: string;
 };
 
-const homepageUpdatedDate = "2026-08-14";
+const phaseThreeRefreshDate = "2026-08-18";
 const seoRefreshDate = "2026-08-13";
-const contentBaselineDate = "2026-08-04";
 
 const staticEntries: SitemapEntry[] = [
-  { path: "/", lastmod: homepageUpdatedDate },
-  { path: "/services", lastmod: seoRefreshDate },
-  { path: "/about", lastmod: contentBaselineDate },
-  { path: "/results", lastmod: seoRefreshDate },
-  { path: "/resources", lastmod: seoRefreshDate },
+  { path: "/", lastmod: phaseThreeRefreshDate },
+  { path: "/services", lastmod: phaseThreeRefreshDate },
+  { path: "/about", lastmod: phaseThreeRefreshDate },
+  { path: "/results", lastmod: phaseThreeRefreshDate },
+  { path: "/resources", lastmod: phaseThreeRefreshDate },
   { path: "/contact", lastmod: seoRefreshDate },
   { path: "/privacy-policy", lastmod: seoRefreshDate },
   { path: "/terms-of-service", lastmod: seoRefreshDate },
@@ -26,13 +25,11 @@ const staticEntries: SitemapEntry[] = [
 export function GET() {
   const serviceEntries: SitemapEntry[] = services.map((service) => ({
     path: `/services/${service.slug}`,
-    lastmod: ["marketing-consulting", "direct-mail", "vip-marketing-manager"].includes(service.slug)
-      ? seoRefreshDate
-      : contentBaselineDate,
+    lastmod: phaseThreeRefreshDate,
   }));
   const resourceEntries: SitemapEntry[] = resourcePosts.map((post) => ({
     path: post.href,
-    lastmod: post.updatedDate ?? post.originalDate ?? contentBaselineDate,
+    lastmod: phaseThreeRefreshDate,
   }));
   const entries = [...staticEntries, ...serviceEntries, ...resourceEntries];
   const urls = entries.map(({ path, lastmod }) => {

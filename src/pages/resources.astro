@@ -168,6 +168,33 @@ const filterSlug = (filter: string) => filter.toLowerCase().replaceAll(" ", "-")
             </a>
           ))}
         </div>
+
+        <aside class="mt-12 overflow-hidden rounded-[28px] bg-[var(--navy)] p-7 text-white md:mt-16 md:flex md:items-center md:justify-between md:gap-10 md:p-10">
+          <div class="max-w-2xl">
+            <p class="eyebrow text-[var(--green)]">Put the ideas to work</p>
+            <h2 class="mt-4 font-display text-3xl font-semibold leading-tight tracking-normal md:text-4xl">
+              Need help turning a resource into a real next step?
+            </h2>
+            <p class="mt-4 text-base leading-relaxed text-white/72 md:text-lg">
+              Start with a clear marketing decision, then choose the focused service or coordinated
+              support that fits your shop.
+            </p>
+          </div>
+          <div class="mt-7 flex flex-wrap gap-3 md:mt-0 md:shrink-0 md:flex-col">
+            <a
+              href="/services/marketing-consulting"
+              class="inline-flex min-h-11 items-center justify-center rounded-full bg-white px-5 font-semibold text-[var(--navy)] transition hover:-translate-y-0.5"
+              data-track-event="service_cta_click"
+              data-track-slug="marketing-consulting"
+              data-track-placement="resources_commercial_path"
+            >
+              Get marketing guidance
+            </a>
+            <a href="/services" class="inline-flex min-h-11 items-center justify-center rounded-full border border-white/35 px-5 font-semibold text-white transition hover:border-white hover:bg-white/10">
+              Explore services
+            </a>
+          </div>
+        </aside>
       </section>
     </div>
   </section>

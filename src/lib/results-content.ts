@@ -3,11 +3,17 @@
 // absent. Keep monthly / annual / average / projected / one-time labels intact
 // when editing.
 
+type ResultServiceLink = {
+  href: string;
+  label: string;
+};
+
 export const featuredResult = {
+  id: "legendary-automotive",
   name: "Legendary Automotive & Diesel Repair",
   logoSrc: "/images/results/shop-logos/legendary-automotive-diesel-repair.png",
   headline: "Legendary Automotive",
-  body: "Between August 2024 and June 2026, Legendary Automotive & Diesel Repair grew from $260,534 to $701,725 in monthly revenue — while total cars served nearly tripled and returning cars grew more than five-fold.",
+  body: "Between the August 2024 and June 2026 reporting periods, Legendary Automotive & Diesel Repair grew from $260,534 to $701,725 in reported revenue — while total cars served nearly tripled and returning cars grew more than five-fold.",
   footnote: "Figures compare August 2024 with June 2026.",
   chart: {
     ariaLabel:
@@ -20,25 +26,43 @@ export const featuredResult = {
   },
 };
 
-export const bandStats = [
+export const bandStats: {
+  id: string;
+  name: string;
+  value: string;
+  label: string;
+  serviceLinks?: ResultServiceLink[];
+}[] = [
   {
+    id: "torque-european",
+    name: "Torque European",
     value: "2×",
     label:
       "Torque European's monthly revenue — from ≈ $110K to a consistent $220K–$230K since onboarding in August 2025.",
   },
   {
+    id: "asap-auto-repair",
+    name: "ASAP Auto Repair",
     value: "+60%",
     label:
       "ASAP Auto Repair's monthly revenue — $125K to $200K from October 2024 to June 2026, with an all-time high in three of the last four months.",
+    serviceLinks: [
+      { href: "/services/direct-mail", label: "Direct mail" },
+      { href: "/services/directtrack-marketing", label: "DirectTrack" },
+    ],
   },
   {
+    id: "pro-automotive",
+    name: "Pro Automotive",
     value: "3.74×",
     label:
       "Pro Automotive's tracked revenue for every $1 of advertising in the first full month of its campaign.",
+    serviceLinks: [{ href: "/services/directtrack-marketing", label: "DirectTrack" }],
   },
 ];
 
 export const killianStory = {
+  id: "killian-auto-pros",
   name: "Killian Auto Pros",
   logoSrc: "/images/results/shop-logos/killian-auto-pros.png",
   headline: "One shop became four.",
@@ -55,22 +79,39 @@ export const killianStory = {
   ],
 };
 
-export const moreResults = [
+export const moreResults: {
+  id: string;
+  name: string;
+  logoSrc: string;
+  delta: string;
+  line: string;
+  meta: string;
+  serviceLinks?: ResultServiceLink[];
+}[] = [
   {
+    id: "ssa-european-auto-repair",
     name: "SSA European Auto Repair",
     logoSrc: "/images/results/shop-logos/ssa-european-auto-repair.webp",
     delta: "≈ +118%",
     line: "$3.3M → $7.2M annual revenue · 2023 actual vs. 2026 projected",
     meta: "With Turnkey since September 2022 · Kingston, MA",
+    serviceLinks: [{ href: "/services/direct-mail", label: "Direct mail" }],
   },
   {
+    id: "dempsters-quality-car-care",
     name: "Dempster's Quality Car Care",
     logoSrc: "/images/results/shop-logos/dempsters-quality-car-care.jpg",
     delta: "≈ +52%",
     line: "$105K → $160K monthly revenue, with four straight record months",
     meta: "With Turnkey since August 2025",
+    serviceLinks: [
+      { href: "/services/vip-marketing-manager", label: "VIP Marketing Manager" },
+      { href: "/services/direct-mail", label: "Direct mail" },
+      { href: "/services/directtrack-marketing", label: "DirectTrack" },
+    ],
   },
   {
+    id: "g-and-g-autohaus",
     name: "G&G Autohaus",
     logoSrc: "/images/results/shop-logos/g-and-g-autohaus.png",
     delta: "+38%",
@@ -78,13 +119,19 @@ export const moreResults = [
     meta: "March 2023 vs. March 2024",
   },
   {
+    id: "certified-auto-repair",
     name: "Certified Auto Repair",
     logoSrc: "/images/results/shop-logos/certified-auto-repair.png",
     delta: "≈ +32%",
     line: "$2.8M → $3.7M annual revenue · baseline vs. 2026 projected",
     meta: "With Turnkey since September 2023 · Henrico, VA",
+    serviceLinks: [
+      { href: "/services/social-media-marketing", label: "Social media" },
+      { href: "/services/digital-marketing", label: "Digital marketing" },
+    ],
   },
   {
+    id: "sports-car-shop",
     name: "Sports Car Shop",
     logoSrc: "/images/results/shop-logos/sports-car-shop.png",
     delta: "+30%+",
@@ -92,6 +139,7 @@ export const moreResults = [
     meta: "Onboarded August 2025",
   },
   {
+    id: "the-car-care-center-nashville",
     name: "The Car Care Center — Nashville",
     logoSrc: "/images/results/shop-logos/the-car-care-center-nashville.jpg",
     delta: "$35K",

@@ -178,13 +178,34 @@ const breadcrumbSchema = {
                 </section>
               ))}
 
-              {currentPost.serviceLink && (
-                <p class="mt-12 border-t border-[var(--hairline)] pt-8 text-base leading-relaxed text-charcoal/65">
-                  Ready to turn the idea into a coordinated plan?
-                  <a href={currentPost.serviceLink.href} class="ml-1 font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/35 underline-offset-4 transition hover:decoration-[var(--key-blue)]">
-                    {currentPost.serviceLink.label}
-                  </a>.
-                </p>
+              {currentPost.serviceLinks && currentPost.serviceLinks.length > 0 && (
+                <section class="mt-12 border-t border-[var(--hairline)] pt-8" aria-labelledby="related-services-heading">
+                  <p class="eyebrow text-[var(--key-blue)]">Put this into practice</p>
+                  <h2 id="related-services-heading" class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">
+                    Related marketing services
+                  </h2>
+                  <div class={`mt-6 grid gap-4 ${currentPost.serviceLinks.length > 1 ? "sm:grid-cols-2" : "max-w-xl"}`}>
+                    {currentPost.serviceLinks.map((serviceLink) => (
+                      <a
+                        href={serviceLink.href}
+                        class="group rounded-[22px] border border-black/[0.08] bg-[var(--off-white)] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-black/15 hover:bg-white hover:shadow-[0_20px_45px_-38px_rgba(20,22,28,0.45)]"
+                        data-track-event="service_cta_click"
+                        data-track-slug={serviceLink.href.replace("/services/", "")}
+                        data-track-placement="resource_related_services"
+                      >
+                        <h3 class="font-display text-lg font-semibold leading-snug text-charcoal transition group-hover:text-[var(--navy)]">
+                          {serviceLink.label}
+                        </h3>
+                        <p class="mt-3 text-sm leading-relaxed text-charcoal/65">
+                          {serviceLink.description}
+                        </p>
+                        <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
+                          Explore service <span class="motion-arrow" aria-hidden="true">→</span>
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </section>
               )}
             </div>
           </article>
@@ -317,13 +338,34 @@ const breadcrumbSchema = {
               )}
             </section>
           ))}
-          {currentPost.serviceLink && (
-            <p class="mt-10 border-t hairline pt-8 text-base leading-relaxed text-charcoal/65">
-              Ready to turn the idea into a coordinated plan?
-              <a href={currentPost.serviceLink.href} class="ml-1 font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/35 underline-offset-4 transition hover:decoration-[var(--key-blue)]">
-                {currentPost.serviceLink.label}
-              </a>.
-            </p>
+          {currentPost.serviceLinks && currentPost.serviceLinks.length > 0 && (
+            <section class="mt-10 border-t hairline pt-8" aria-labelledby="related-services-heading">
+              <p class="eyebrow text-[var(--key-blue)]">Put this into practice</p>
+              <h2 id="related-services-heading" class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">
+                Related marketing services
+              </h2>
+              <div class={`mt-6 grid gap-4 ${currentPost.serviceLinks.length > 1 ? "sm:grid-cols-2" : "max-w-xl"}`}>
+                {currentPost.serviceLinks.map((serviceLink) => (
+                  <a
+                    href={serviceLink.href}
+                    class="group rounded-[22px] border border-black/[0.08] bg-[var(--off-white)] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-black/15 hover:bg-white hover:shadow-[0_20px_45px_-38px_rgba(20,22,28,0.45)]"
+                    data-track-event="service_cta_click"
+                    data-track-slug={serviceLink.href.replace("/services/", "")}
+                    data-track-placement="resource_related_services"
+                  >
+                    <h3 class="font-display text-lg font-semibold leading-snug text-charcoal transition group-hover:text-[var(--navy)]">
+                      {serviceLink.label}
+                    </h3>
+                    <p class="mt-3 text-sm leading-relaxed text-charcoal/65">
+                      {serviceLink.description}
+                    </p>
+                    <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
+                      Explore service <span class="motion-arrow" aria-hidden="true">→</span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </section>
           )}
         </div>
 

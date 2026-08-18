@@ -4,6 +4,19 @@ export type ServiceDetail = {
   image: SiteImage;
   imageFit?: "cover" | "contain";
   accent?: "blue" | "green";
+  sectionHeadings?: {
+    problems?: string;
+    included?: string;
+    process?: string;
+  };
+  scope?: {
+    title: string;
+    description: string;
+  };
+  relatedProof?: {
+    href: string;
+    label: string;
+  }[];
   hero: {
     badge: string;
     headline: string;
@@ -159,13 +172,29 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     bestFor:
       "Best when you want your own marketing department without hiring one, and you still want a clear view of what is happening.",
+    relatedProof: [
+      {
+        href: "/results#dempsters-quality-car-care",
+        label: "Dempster’s Quality Car Care: four straight record months",
+      },
+    ],
   },
   "marketing-consulting": {
     image: siteMedia.graphics.serviceConsulting,
+    sectionHeadings: {
+      problems: "When every vendor sees one channel, the owner is left guessing.",
+      included: "Auto repair marketing consulting for clearer decisions.",
+      process: "From scattered reports to a defensible next move.",
+    },
+    scope: {
+      title: "Clear advice, with a clear boundary",
+      description:
+        "Consulting covers the plan, spend, campaigns, vendors, reporting, and next decisions. Execution stays with your team and existing vendors unless you separately choose a managed Turnkey service.",
+    },
     hero: {
       badge: "Monthly strategy",
-      headline: "Stop guessing where your",
-      headlineAccent: "marketing spend goes.",
+      headline: "Auto repair marketing guidance.",
+      headlineAccent: "Without the guesswork.",
       subhead:
         "One hour a month with an auto repair marketing consultant who only works with shops. We review your plan, campaigns, vendors, and reporting, then give you straight answers on what to keep, fix, stop, or start.",
       stats: [
@@ -369,13 +398,37 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     bestFor:
       "Best for launch, rescue, or dense-market situations where you need targeted acquisition with clearer tracking.",
+    relatedProof: [
+      {
+        href: "/results#asap-auto-repair",
+        label: "ASAP Auto Repair: monthly revenue growth",
+      },
+      {
+        href: "/results#pro-automotive",
+        label: "Pro Automotive: 3.74× tracked revenue in its first full month",
+      },
+      {
+        href: "/results#dempsters-quality-car-care",
+        label: "Dempster’s Quality Car Care: four straight record months",
+      },
+    ],
   },
   "direct-mail": {
     image: siteMedia.graphics.directMailMailbox,
+    sectionHeadings: {
+      problems: "A postcard cannot rescue a campaign with the wrong list or offer.",
+      included: "Managed direct mail for auto repair shops — from list to reporting.",
+      process: "Plan the campaign, mail it well, then learn from the response.",
+    },
+    scope: {
+      title: "Measurement beyond the mailbox",
+      description:
+        "Turnkey reviews delivery and penetration, campaign response, calls, appointments, customer quality, and attributable revenue when the shop's tracking data supports it. We do not invent response-rate benchmarks.",
+    },
     hero: {
       badge: "Managed campaigns",
-      headline: "Postcards that pull cars",
-      headlineAccent: "into your bays.",
+      headline: "Auto repair direct mail",
+      headlineAccent: "that pulls cars into your bays.",
       subhead:
         "We plan the list, the offer, the design, and the mail date as one campaign — then show you penetration reports so you know it reached the right homes and what came back.",
       stats: [
@@ -481,14 +534,39 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     bestFor:
       "Best when the postcard, list, budget, order, offer, timing, and follow-up need to be managed as one campaign.",
+    relatedProof: [
+      {
+        href: "/results#asap-auto-repair",
+        label: "ASAP Auto Repair: monthly revenue growth",
+      },
+      {
+        href: "/results#ssa-european-auto-repair",
+        label: "SSA European Auto Repair: annual revenue growth",
+      },
+      {
+        href: "/results#dempsters-quality-car-care",
+        label: "Dempster’s Quality Car Care: four straight record months",
+      },
+    ],
   },
   "social-media-marketing": {
     image: siteMedia.graphics.serviceSocial,
+    sectionHeadings: {
+      problems: "Inconsistent posting makes a busy shop look quiet online.",
+      included: "Social media marketing built around a real auto repair shop.",
+      process: "Capture the shop's voice, publish consistently, and respond.",
+    },
+    scope: {
+      title: "What social media owns",
+      description:
+        "This service covers organic Facebook, Instagram, and Google Business Profile posts, Facebook ad creation and management, plus comment and review responses. Profile optimization and the broader review system live in Digital Marketing.",
+    },
     hero: {
       badge: "",
-      headline: "Stay in front of local customers.",
-      headlineAccent: "We do the posting.",
-      subhead: "",
+      headline: "Social media marketing",
+      headlineAccent: "for auto repair shops.",
+      subhead:
+        "Turnkey keeps Facebook, Instagram, and Google Business Profile active in your shop's voice, manages Facebook ads, and handles customer responses while your team stays focused on the bays.",
       stats: [
         {
           value: "3 platforms",
@@ -589,6 +667,12 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     bestFor:
       "Best when your shop needs consistency, a real local voice, and follow-through on the places customers already check.",
+    relatedProof: [
+      {
+        href: "/results#certified-auto-repair",
+        label: "Certified Auto Repair: annual revenue growth",
+      },
+    ],
   },
   "retention-marketing": {
     image: siteMedia.graphics.serviceRetention,
@@ -682,10 +766,21 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   "digital-marketing": {
     image: siteMedia.graphics.serviceDigital,
+    sectionHeadings: {
+      problems:
+        "Local visibility breaks when the profile, reviews, website, and vendors work in silos.",
+      included: "Digital marketing and local SEO for auto repair shops.",
+      process: "Strengthen the local foundation, coordinate the vendors, and measure calls.",
+    },
+    scope: {
+      title: "A practical local-visibility scope",
+      description:
+        "Turnkey manages reviews, optimizes the Google Business Profile, audits the website twice a year, and coordinates website and Google Ads vendors. This is not website development, direct Google Ads management, or a standalone technical SEO and link-building program.",
+    },
     hero: {
       badge: "Local SEO & visibility",
-      headline: "Customers Google you",
-      headlineAccent: "before they call you.",
+      headline: "Digital marketing for",
+      headlineAccent: "auto repair shops.",
       subhead:
         "Practical local search engine optimization (SEO) through review management, Google Business Profile optimization, website audits, and vendor coordination — so when a local customer searches for a shop, yours looks like the obvious choice.",
       stats: [
@@ -785,6 +880,12 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     bestFor:
       "Best when Google, reviews, ads, and website work need to stop feeling like disconnected vendor conversations.",
+    relatedProof: [
+      {
+        href: "/results#certified-auto-repair",
+        label: "Certified Auto Repair: annual revenue growth",
+      },
+    ],
   },
   "boost-days": {
     image: siteMedia.graphics.serviceBoostDays,

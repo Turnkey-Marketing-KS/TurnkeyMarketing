@@ -29,6 +29,19 @@ const resultPathways = [
     href: "/services/marketing-consulting",
   },
 ];
+
+const resultsSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Auto Repair Marketing Results",
+  description:
+    "Client-specific revenue, car-count, retention, and location-growth examples from independent auto repair shops working with Turnkey Marketing.",
+  url: "https://www.turnkeyautomarketing.com/results",
+  about: {
+    "@type": "Thing",
+    name: "Auto repair marketing results",
+  },
+};
 ---
 
 <BaseLayout
@@ -36,21 +49,26 @@ const resultPathways = [
   description="See how independent auto repair shops grow revenue, car count, customer retention, and locations with Turnkey Marketing campaigns."
   path="/results"
   ogTitle="Auto Repair Marketing Results — Turnkey Marketing"
+  schema={resultsSchema}
 >
   <section class="relative overflow-hidden bg-white">
     <div class="container-page flex min-h-[62vh] items-center justify-center pt-16 pb-10 text-center md:min-h-[68vh] md:pt-24 md:pb-12">
       <div class="mx-auto max-w-6xl">
         <p class="eyebrow text-[var(--key-blue)]">Client results</p>
         <h1 class="display-1 mt-6">
-          <span class="block text-[var(--navy)]">More cars.</span>
-          <span class="block text-[var(--key-blue)]">More calls.</span>
-          <span class="block text-[var(--green)]">More revenue.</span>
+          <span class="block text-[var(--navy)]">Auto repair marketing</span>
+          <span class="block text-[var(--key-blue)]">that drives calls, cars,</span>
+          <span class="block text-[var(--green)]">and revenue.</span>
         </h1>
+        <p class="mx-auto mt-7 max-w-[58ch] text-lg leading-relaxed text-charcoal/65">
+          Client-specific examples from independent repair shops using coordinated strategy,
+          campaigns, and reporting with Turnkey Marketing.
+        </p>
         <div class="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
           <a href={CONSULTATION_URL} class="btn-primary">
             Let’s grow my shop! <ArrowRight className="motion-arrow h-4 w-4" />
           </a>
-          <a href="#featured-result" class="btn-ghost border-[var(--navy)]/20 text-[var(--navy)]">
+          <a href={`#${featuredResult.id}`} class="btn-ghost border-[var(--navy)]/20 text-[var(--navy)]">
             Show me the proof <span class="text-lg leading-none" aria-hidden="true">↓</span>
           </a>
         </div>
@@ -58,7 +76,7 @@ const resultPathways = [
     </div>
   </section>
 
-  <section id="featured-result" class="scroll-mt-24 border-t border-[var(--hairline)] bg-white py-16 md:py-24">
+  <section id={featuredResult.id} class="scroll-mt-24 border-t border-[var(--hairline)] bg-white py-16 md:py-24">
     <div class="container-page">
       <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div class="lg:col-span-5">
@@ -124,19 +142,40 @@ const resultPathways = [
       <h2 class="display-3 max-w-[20ch] text-balance text-white">And it’s not a one-off.</h2>
       <div class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
         {bandStats.map((stat) => (
-          <div class="border-t border-white/15 pt-7">
+          <article
+            id={stat.id}
+            tabindex="-1"
+            aria-label={`${stat.name} client result`}
+            class="result-target scroll-mt-24 border-t border-white/15 pt-7"
+          >
             <TrendingUp className="h-5 w-5 text-[var(--green)]" />
             <p class="mt-4 font-display text-5xl font-semibold leading-none tracking-tight text-white md:text-6xl">
               {stat.value}
             </p>
             <p class="mt-4 max-w-[38ch] leading-relaxed text-white/65">{stat.label}</p>
-          </div>
+            {stat.serviceLinks && (
+              <p class="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-sm text-white/75">
+                <span class="text-white/45">Documented work:</span>
+                {stat.serviceLinks.map((link) => (
+                  <a
+                    href={link.href}
+                    class="font-semibold underline decoration-white/25 underline-offset-4 transition hover:decoration-[var(--green)]"
+                    data-track-event="service_cta_click"
+                    data-track-slug={link.href.replace("/services/", "")}
+                    data-track-placement="results_documented_work"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </p>
+            )}
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-16 md:py-24">
+  <section id={killianStory.id} class="scroll-mt-24 bg-white py-16 md:py-24">
     <div class="container-page">
       <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div class="lg:col-span-5">
@@ -197,7 +236,7 @@ const resultPathways = [
 
       <div class="mt-12 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {moreResults.map((result) => (
-          <div>
+          <article id={result.id} tabindex="-1" class="result-target scroll-mt-24">
             <img
               src={result.logoSrc}
               alt={`${result.name} logo`}
@@ -209,7 +248,24 @@ const resultPathways = [
               {result.delta}
             </p>
             <p class="mt-3 max-w-[34ch] font-medium leading-snug text-charcoal">{result.line}</p>
-          </div>
+            <p class="mt-2 text-sm leading-relaxed text-charcoal/50">{result.meta}</p>
+            {result.serviceLinks && (
+              <p class="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-sm">
+                <span class="text-charcoal/45">Documented work:</span>
+                {result.serviceLinks.map((link) => (
+                  <a
+                    href={link.href}
+                    class="font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/30 underline-offset-4 transition hover:decoration-[var(--key-blue)]"
+                    data-track-event="service_cta_click"
+                    data-track-slug={link.href.replace("/services/", "")}
+                    data-track-placement="results_documented_work"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </p>
+            )}
+          </article>
         ))}
       </div>
     </div>
@@ -329,6 +385,15 @@ const resultPathways = [
       </div>
     </div>
   </section>
+
+  <section class="border-t border-[var(--hairline)] bg-white py-8">
+    <div class="container-page">
+      <p class="mx-auto max-w-4xl text-center text-sm leading-relaxed text-charcoal/50">
+        These are client-specific examples, not promises or typical-results claims. Results vary
+        by shop, market, investment, capacity, offer, tracking, and execution.
+      </p>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -347,5 +412,11 @@ const resultPathways = [
       transform: scaleY(1);
       transition: none;
     }
+  }
+
+  .result-target:focus,
+  .result-target:target {
+    outline: 3px solid var(--green);
+    outline-offset: 8px;
   }
 </style>

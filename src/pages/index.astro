@@ -182,7 +182,7 @@ const faqSchema = {
 >
   <section class="relative overflow-hidden bg-white">
     <div class="container-page pt-6 md:pt-10 pb-2 md:pb-3 relative">
-      <div class="grid min-w-0 gap-10 lg:grid-cols-12 lg:gap-8 xl:gap-12 items-center lg:min-h-[72vh]">
+      <div class="grid min-w-0 gap-8 md:gap-10 lg:grid-cols-12 lg:gap-8 xl:gap-12 items-center lg:min-h-[72vh]">
         <div class="min-w-0 text-center md:text-left lg:col-span-8">
           <div data-reveal>
             <h1 class="hero-heading display-1 max-w-full">
@@ -204,8 +204,17 @@ const faqSchema = {
             data-reveal
             style="--reveal-delay: 90ms;"
           >
-            Know what to keep, fix, stop funding, and run next. Then Turnkey
-            owns the moving pieces while you stay focused on the shop.
+            Know what to keep, fix, stop<span class="hidden md:inline"> funding</span>, and run
+            next.<span class="hidden md:inline"> Then Turnkey owns the moving pieces while you stay
+            focused on the shop.</span>
+          </p>
+
+          <p
+            class="mx-auto mt-4 max-w-[42ch] text-sm font-semibold leading-relaxed text-[var(--navy)] md:mx-0 md:text-[0.95rem]"
+            data-reveal
+            style="--reveal-delay: 130ms;"
+          >
+            Turnkey only works with independent auto repair shops — more than 300 served since 2013.
           </p>
 
           <div
@@ -229,11 +238,30 @@ const faqSchema = {
               <ArrowRight className="motion-arrow h-4 w-4" />
             </a>
           </div>
+
+          <div
+            class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[13px] text-charcoal/70 md:hidden"
+            data-reveal
+            style="--reveal-delay: 230ms;"
+          >
+            <span class="inline-flex items-center gap-1.5">
+              <span class="flex" style="color: #F4B400;">
+                {[0, 1, 2, 3, 4].map(() => (
+                  <Star className="h-3 w-3" fill="currentColor" />
+                ))}
+              </span>
+              5.0 on Google
+            </span>
+            <span aria-hidden="true" class="text-charcoal/25">·</span>
+            <span>
+              <span class="font-semibold text-charcoal">+38%</span> booked calls
+            </span>
+          </div>
         </div>
 
         <div class="min-w-0 lg:col-span-4 relative w-full max-w-[350px] sm:max-w-[420px] xl:max-w-[470px] justify-self-center lg:justify-self-center xl:justify-self-end">
           <div
-            class="relative aspect-[4/5] w-full rounded-[32px] overflow-hidden shadow-[0_34px_90px_-42px_rgba(20,22,28,0.45)]"
+            class="relative aspect-[3/2] w-full rounded-[32px] overflow-hidden shadow-[0_34px_90px_-42px_rgba(20,22,28,0.45)] md:aspect-[4/5]"
             style="background: linear-gradient(160deg, var(--key-blue) 0%, #2e6fa8 100%);"
           >
             <img
@@ -249,7 +277,7 @@ const faqSchema = {
             />
           </div>
 
-          <div class="floaty absolute -left-2 top-12 min-w-[168px] px-4 py-3 md:-left-5 md:top-20 md:min-w-[190px] md:px-5 md:py-4 card-float">
+          <div class="floaty absolute -left-2 top-12 hidden min-w-[168px] px-4 py-3 md:-left-5 md:top-20 md:block md:min-w-[190px] md:px-5 md:py-4 card-float">
             <div class="text-[11px] text-charcoal/60 mb-1">Booked calls</div>
             <div class="flex items-baseline gap-2">
               <div class="font-display text-2xl font-semibold text-charcoal leading-none">
@@ -261,7 +289,7 @@ const faqSchema = {
             </div>
           </div>
 
-          <div class="floaty-delay absolute -right-2 bottom-16 min-w-[176px] px-4 py-3 md:-right-5 md:bottom-32 md:min-w-[200px] md:px-5 md:py-4 card-float">
+          <div class="floaty-delay absolute -right-2 bottom-16 hidden min-w-[176px] px-4 py-3 md:-right-5 md:bottom-32 md:block md:min-w-[200px] md:px-5 md:py-4 card-float">
             <div class="flex items-center gap-2 text-[11px] text-charcoal/60 mb-1.5">
               <div class="flex" style="color: #F4B400;">
                 {[0, 1, 2, 3, 4].map(() => (
@@ -490,6 +518,36 @@ const faqSchema = {
           Start with one service.
           <span class="block text-[var(--key-blue)]">Or get the whole marketing department.</span>
         </h2>
+        <p class="mt-5 max-w-3xl text-base leading-relaxed text-charcoal/65 md:text-lg">
+          Need to get your priorities straight first? Use our
+          <a href="/resources/auto-repair-marketing-plan" class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]">
+            seven-step auto repair marketing plan guide
+          </a>.
+          Want an experienced second opinion? Our
+          <a
+            href="/services/marketing-consulting"
+            class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]"
+            data-track-event="service_cta_click"
+            data-track-slug="marketing-consulting"
+            data-track-placement="home_service_pathways"
+          >
+            marketing consulting
+          </a>
+          gives you a clear next move. If a local acquisition campaign is the priority, explore
+          <a
+            href="/services/direct-mail"
+            class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]"
+            data-track-event="service_cta_click"
+            data-track-slug="direct-mail"
+            data-track-placement="home_service_pathways"
+          >
+            managed direct mail
+          </a>.
+          You can also
+          <a href="/results" class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]">
+            see examples of client work
+          </a>.
+        </p>
       </div>
 
       <div class="mt-9 space-y-5 md:mt-12 md:space-y-7">
