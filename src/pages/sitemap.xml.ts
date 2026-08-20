@@ -17,6 +17,7 @@ const staticEntries: SitemapEntry[] = [
   { path: "/about", lastmod: phaseThreeRefreshDate },
   { path: "/results", lastmod: phaseThreeRefreshDate },
   { path: "/resources", lastmod: phaseThreeRefreshDate },
+  { path: "/photos", lastmod: "2026-08-20" },
   { path: "/contact", lastmod: seoRefreshDate },
   { path: "/privacy-policy", lastmod: seoRefreshDate },
   { path: "/terms-of-service", lastmod: seoRefreshDate },

@@ -1,0 +1,427 @@
+---
+import {
+  ArrowDown,
+  ArrowRight,
+  Camera,
+  Check,
+  MapPin,
+  Smartphone,
+  Sparkles,
+  Users,
+  Wrench,
+} from "lucide-react";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { CONSULTATION_URL } from "@/lib/services";
+
+const shotList = [
+  {
+    number: "01",
+    label: "Owners & team",
+    intro: "Put a familiar, trustworthy face on the shop.",
+    items: [
+      "Owner portraits in both horizontal and vertical formats",
+      "Owners outside with the shop sign and inside near the service desk",
+      "Owner or owners with family in a relaxed or formal setting",
+      "Candid conversations with customers and team members",
+      "Pointing, inviting, and playful poses for promotions",
+      "A friendly full-team photo in clean, branded clothing",
+    ],
+  },
+  {
+    number: "02",
+    label: "Customer areas",
+    intro: "Show customers what it will feel like to visit.",
+    items: [
+      "A service advisor greeting, helping, or shaking hands with a customer",
+      "Reviewing an estimate on paper, a tablet, or a computer",
+      "Front-desk moments: answering calls, paperwork, and payments",
+      "A clean counter with branding and customer materials visible",
+      "Waiting-area seating, coffee, snacks, TV, and other amenities",
+      "The shop dog greeting customers or relaxing near the service desk",
+    ],
+  },
+  {
+    number: "03",
+    label: "Inside the shop",
+    intro: "Make skill, care, and professionalism visible.",
+    items: [
+      "Wide views of clean bays with vehicles on lifts",
+      "Technicians diagnosing, inspecting, and working with tools",
+      "Oil changes, brakes, tires, alignments, A/C, and scan-tool work",
+      "Digital vehicle inspections and close-ups of vehicle conditions",
+      "Steering, suspension, diesel, motorhome, or specialty work you offer",
+      "A mix of focused action shots and technicians smiling at the camera",
+    ],
+  },
+  {
+    number: "04",
+    label: "Outside & local",
+    intro: "Help a first-time customer recognize your shop and neighborhood.",
+    items: [
+      "Front signage in good morning, midday, and evening light",
+      "Service bays with the doors open and closed",
+      "A street view that shows the entrance and approach",
+      "The after-hours key drop and how a customer uses it",
+      "Loaner or shuttle vehicles with the branding visible",
+      "Recognizable local landmarks, murals, parks, or gathering places",
+    ],
+  },
+];
+
+const mustHaveShots = [
+  "Owner or full team outside the shop",
+  "Service advisor helping a customer",
+  "Clean front desk and waiting area",
+  "Wide view of the service bays",
+  "Technician inspecting a vehicle",
+  "Technician using a scan tool",
+  "Shop sign and main entrance",
+  "Key drop, loaner, or best customer convenience",
+  "One horizontal and one vertical version of every key scene",
+];
+
+const prepSteps = [
+  {
+    title: "Clean what the camera will see.",
+    copy: "Tidy the counter, waiting room, bays, parking area, and uniforms. Remove paperwork, license plates, and anything with private customer information.",
+  },
+  {
+    title: "Stage people and vehicles.",
+    copy: "Choose representative vehicles, confirm who will be photographed, and schedule enough breathing room so the team can look relaxed instead of rushed.",
+  },
+  {
+    title: "Capture every scene two ways.",
+    copy: "Ask for horizontal and vertical versions, plus one wide view and one close detail. That gives your website, social posts, ads, and print pieces room to work.",
+  },
+];
+
+const siteUrl = Astro.site ?? new URL("https://www.turnkeyautomarketing.com");
+const pageUrl = new URL("/photos", siteUrl).toString();
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Auto Repair Shop Photo Shot List",
+  description:
+    "A practical photo-day checklist for auto repair shop owners, staff, customer areas, service bays, repairs, exteriors, and local landmarks.",
+  url: pageUrl,
+  isPartOf: {
+    "@type": "WebSite",
+    url: siteUrl.toString(),
+    name: "Turnkey Marketing",
+  },
+  about: {
+    "@type": "Thing",
+    name: "Auto repair shop photography",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: siteUrl.toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Photo shot list",
+      item: pageUrl,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Auto Repair Shop Photo Shot List | Turnkey Marketing"
+  description="Use this practical auto repair shop photography checklist to capture your team, customer areas, service bays, repairs, exterior, and community."
+  path="/photos"
+  ogTitle="The Auto Repair Shop Photo Shot List"
+  ogImage="/images/resources/auto-repair-shop-photography.jpg"
+  schema={[pageSchema, breadcrumbSchema]}
+>
+  <section class="relative overflow-hidden bg-white">
+    <div class="container-page py-10 md:py-16 lg:py-20">
+      <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
+        <div class="lg:col-span-7">
+          <p class="eyebrow text-[var(--key-blue)]">Photo day field guide</p>
+          <h1 class="page-title mt-5 max-w-[11ch] text-balance text-charcoal">
+            Get every photo your shop needs.
+          </h1>
+          <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-charcoal/65 md:text-xl">
+            Customers want to see the people, place, and care behind your shop. Use this shot list
+            to plan one productive photo day—and leave with a library that works across your
+            website, Google profile, social media, ads, direct mail, and recruiting.
+          </p>
+          <div class="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
+            <a href="#shot-list" class="btn-primary w-full sm:w-auto" data-track-event="photo_shot_list_click" data-track-placement="photos_hero">
+              Start the shot list
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              href="/resources/auto-repair-shop-photography-guide"
+              class="inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-[var(--navy)] transition hover:text-[var(--key-blue)] sm:justify-start"
+            >
+              Read the full photography guide
+              <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
+        <div class="relative lg:col-span-5">
+          <div class="overflow-hidden rounded-[30px] bg-[var(--off-white)] p-3 shadow-[0_34px_90px_-54px_rgba(20,22,28,0.5)] md:rounded-[36px] md:p-4">
+            <div class="aspect-[6/5] overflow-hidden rounded-[22px] md:rounded-[28px]">
+              <img
+                src="/images/resources/auto-repair-shop-photography.jpg"
+                alt="Two auto repair shop team members standing outside their shop"
+                width="1200"
+                height="1000"
+                class="h-full w-full object-cover"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <div class="card-float absolute -bottom-5 left-4 flex items-center gap-3 px-4 py-3 md:-left-6 md:bottom-8 md:px-5 md:py-4">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--green)]/20 text-[var(--navy)]">
+              <Camera className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <p class="text-xs text-charcoal/55">One photo day</p>
+              <p class="text-sm font-semibold text-charcoal">A full marketing library</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--off-white)] py-14 md:py-20" aria-labelledby="must-have-heading">
+    <div class="container-page">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-5">
+          <p class="eyebrow text-[var(--key-blue)]">Short on time?</p>
+          <h2 id="must-have-heading" class="display-3 mt-4 max-w-[13ch] text-balance text-charcoal">
+            Start with these nine must-have shots.
+          </h2>
+          <p class="mt-5 max-w-[52ch] text-base leading-relaxed text-charcoal/65 md:text-lg">
+            If the schedule gets tight, protect these first. Together they show who you are, what
+            the visit feels like, and how your team cares for a vehicle.
+          </p>
+        </div>
+        <ol class="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+          {mustHaveShots.map((shot, index) => (
+            <li class:list={[
+              "motion-card flex min-h-20 items-start gap-4 rounded-[22px] border border-black/[0.05] bg-white px-5 py-4 shadow-[0_18px_50px_-44px_rgba(20,22,28,0.5)]",
+              index === mustHaveShots.length - 1 ? "sm:col-span-2" : "",
+            ]}>
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--key-blue)]/12 text-xs font-bold text-[var(--navy)]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span class="pt-1 text-sm font-medium leading-relaxed text-charcoal/75">{shot}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="shot-list" class="scroll-mt-28 bg-white py-14 md:py-20" aria-labelledby="shot-list-heading">
+    <div class="container-page">
+      <div class="max-w-3xl">
+        <p class="eyebrow text-[var(--key-blue)]">Complete checklist</p>
+        <h2 id="shot-list-heading" class="display-2 mt-4 text-balance text-charcoal">
+          Photograph the whole customer experience.
+        </h2>
+        <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-charcoal/65">
+          Cars on lifts matter, but they are only one part of the story. A useful library also shows
+          the people customers will meet, the spaces they will enter, and the details that make your
+          shop different.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
+        {shotList.map((group, index) => (
+          <article class:list={[
+            "motion-card rounded-[28px] border border-black/[0.05] p-6 md:rounded-[32px] md:p-8",
+            index === 0 || index === 3 ? "bg-[var(--off-white)]" : "bg-[var(--key-blue-soft)]/55",
+          ]}>
+            <div class="flex items-start justify-between gap-5">
+              <div>
+                <p class="text-xs font-bold tracking-[0.16em] text-[var(--key-blue)]">{group.number}</p>
+                <h3 class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal md:text-3xl">
+                  {group.label}
+                </h3>
+              </div>
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--navy)] shadow-[0_14px_30px_-24px_rgba(20,22,28,0.45)]">
+                {index === 0 && <Users className="h-5 w-5" aria-hidden="true" />}
+                {index === 1 && <Smartphone className="h-5 w-5" aria-hidden="true" />}
+                {index === 2 && <Wrench className="h-5 w-5" aria-hidden="true" />}
+                {index === 3 && <MapPin className="h-5 w-5" aria-hidden="true" />}
+              </span>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-charcoal/62">{group.intro}</p>
+            <ul class="mt-6 grid gap-3 border-t border-charcoal/10 pt-6">
+              {group.items.map((item) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--green)]" strokeWidth={3} aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="overflow-hidden bg-[var(--navy)] py-14 text-white md:py-20" aria-labelledby="examples-heading">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow !text-[var(--green)]">What good coverage looks like</p>
+          <h2 id="examples-heading" class="display-2 mt-4 max-w-[12ch] text-balance">
+            People. Place. Process. Proof.
+          </h2>
+        </div>
+        <p class="max-w-[52ch] text-base leading-relaxed text-white/68 md:text-lg lg:col-span-5">
+          Mix real interactions, clean facility views, and close-up work. The result should feel
+          recognizably yours—not like a stock-photo library that could belong to any shop.
+        </p>
+      </div>
+
+      <div class="mt-10 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-12">
+        <figure class="col-span-2 overflow-hidden rounded-[24px] bg-white/5 lg:col-span-5 lg:row-span-2 lg:rounded-[30px]">
+          <img
+            src="/site-media/mikes-auto-works.webp"
+            alt="Auto repair team member helping a customer at the service counter"
+            width="1200"
+            height="900"
+            loading="lazy"
+            decoding="async"
+            class="h-full min-h-[260px] w-full object-cover lg:min-h-[530px]"
+          />
+        </figure>
+        <figure class="col-span-1 overflow-hidden rounded-[22px] bg-white/5 lg:col-span-4 lg:rounded-[30px]">
+          <img
+            src="/images/shops/image6.jpg"
+            alt="Clean auto repair service bays with vehicles ready for work"
+            width="640"
+            height="427"
+            loading="lazy"
+            decoding="async"
+            class="h-full min-h-[180px] w-full object-cover lg:min-h-[250px]"
+          />
+        </figure>
+        <figure class="col-span-1 overflow-hidden rounded-[22px] bg-white/5 lg:col-span-3 lg:rounded-[30px]">
+          <img
+            src="/images/shops/image2.jpg"
+            alt="Auto repair technician inspecting the underside of a vehicle"
+            width="640"
+            height="427"
+            loading="lazy"
+            decoding="async"
+            class="h-full min-h-[180px] w-full object-cover lg:min-h-[250px]"
+          />
+        </figure>
+        <figure class="col-span-2 overflow-hidden rounded-[24px] bg-white/5 lg:col-span-7 lg:rounded-[30px]">
+          <img
+            src="/images/shops/Tommys-hi-tech-building.png"
+            alt="Auto repair shop exterior with open service bays and visible signage"
+            width="1814"
+            height="888"
+            loading="lazy"
+            decoding="async"
+            class="h-full min-h-[220px] w-full object-cover lg:min-h-[260px]"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--off-white)] py-14 md:py-20" aria-labelledby="prep-heading">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div class="lg:col-span-4">
+          <p class="eyebrow text-[var(--key-blue)]">Before the camera comes out</p>
+          <h2 id="prep-heading" class="display-3 mt-4 max-w-[13ch] text-balance text-charcoal">
+            Set up a photo day that stays on schedule.
+          </h2>
+          <p class="mt-5 text-base leading-relaxed text-charcoal/65">
+            A little planning keeps the day efficient and gives the photographer more chances to
+            capture natural moments.
+          </p>
+        </div>
+
+        <ol class="grid gap-5 lg:col-span-8">
+          {prepSteps.map((step, index) => (
+            <li class="motion-card grid gap-4 rounded-[26px] border border-black/[0.05] bg-white p-6 sm:grid-cols-[auto_1fr] sm:gap-5 md:p-7">
+              <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--green)]/18 text-sm font-bold text-[var(--navy)]">
+                {index + 1}
+              </span>
+              <div>
+                <h3 class="font-display text-xl font-semibold leading-tight text-charcoal">{step.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-charcoal/65 md:text-base">{step.copy}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="mt-10 rounded-[28px] border border-[var(--key-blue)]/18 bg-[var(--key-blue-soft)]/55 p-6 md:rounded-[32px] md:p-8">
+        <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div class="flex gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--navy)]">
+              <Sparkles className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <h3 class="font-display text-xl font-semibold text-charcoal">One last detail: secure permission.</h3>
+              <p class="mt-2 max-w-[70ch] text-sm leading-relaxed text-charcoal/65">
+                Get releases from recognizable customers and team members, and make sure your
+                photographer agreement gives the shop lasting rights to use the final images on the
+                web, social media, ads, email, print, and recruiting.
+              </p>
+            </div>
+          </div>
+          <a href="/resources/auto-repair-shop-photography-guide" class="btn-ghost shrink-0">
+            Photography planning tips
+            <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 md:py-20">
+    <div class="container-page">
+      <div class="relative overflow-hidden rounded-[30px] bg-[var(--navy)] px-6 py-10 text-white md:rounded-[36px] md:px-12 md:py-14 lg:px-16">
+        <span class="pointer-events-none absolute -right-16 -top-24 h-80 w-80 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
+        <div class="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <p class="eyebrow !text-[var(--green)]">Put the photos to work</p>
+            <h2 class="mt-4 max-w-[17ch] font-display text-3xl font-semibold leading-tight md:text-5xl">
+              Your best photos should do more than sit in a folder.
+            </h2>
+            <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+              Turnkey can help your shop use a strong photo library across Google, your website,
+              social content, campaigns, and recruiting—inside one coordinated marketing plan.
+            </p>
+          </div>
+          <a
+            href={CONSULTATION_URL}
+            class="inline-flex min-h-12 w-fit items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105"
+            data-track-event="consultation_cta_click"
+            data-track-placement="photos_final_cta"
+          >
+            Schedule a Consultation
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
