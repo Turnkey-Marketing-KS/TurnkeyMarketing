@@ -119,6 +119,11 @@ const jsonLd = [...sitewideSchema, ...schemaItems].filter(Boolean);
         phone_conversion_number: "(913) 427-0674",
       });
     </script>
+    <script>
+      import { initializeAttributionTracking } from "@/lib/booking-tracking.mjs";
+
+      initializeAttributionTracking(window);
+    </script>
     <!-- Meta Pixel Code -->
     <script is:inline>
       !function(f,b,e,v,n,t,s)

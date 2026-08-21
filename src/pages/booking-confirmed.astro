@@ -86,13 +86,8 @@ import { siteMedia } from "@/lib/site-media";
   </section>
 </BaseLayout>
 
-<script is:inline>
-  window.gtag?.("event", "generate_lead", {
-    lead_source: "appointment_booking",
-  });
+<script>
+  import { trackAppointmentBooked } from "@/lib/booking-tracking.mjs";
 
-  window.fbq?.("track", "Lead", {
-    content_name: "Strategy Call",
-    lead_source: "appointment_booking",
-  });
+  trackAppointmentBooked(window, "/booking-confirmed");
 </script>

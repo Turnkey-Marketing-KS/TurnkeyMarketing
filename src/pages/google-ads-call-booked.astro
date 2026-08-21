@@ -106,3 +106,11 @@ import { siteMedia } from "@/lib/site-media";
     });
   })();
 </script>
+
+<script>
+  import { trackAppointmentBooked } from "@/lib/booking-tracking.mjs";
+
+  trackAppointmentBooked(window, "/google-ads-call-booked", {
+    trackGoogleAdsConversion: false,
+  });
+</script>
