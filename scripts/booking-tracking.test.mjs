@@ -547,7 +547,7 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   assert.match(paidConfirmationSource, /attributionFunnel="google_ads"/);
   assert.doesNotMatch(paidConfirmationSource, /trackAppointmentBooked/);
   assert.match(paidConfirmationSource, /booking_provider: "ghl_calendar"/);
-  assert.doesNotMatch(paidConfirmationSource, /8Oy4CJqVtuMcEKrylLJE|send_to:\s*"AW-18358810922\//);
+  assert.match(paidConfirmationSource, /send_to:\s*"AW-18358810922\/8Oy4CJqVtuMcEKrylLJE"/);
   assert.equal(nativeForms.length, 0, `Unexpected native forms: ${nativeForms.join(", ")}`);
 });
 
