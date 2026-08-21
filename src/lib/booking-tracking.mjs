@@ -559,11 +559,7 @@ function wasRecentlyTracked(targetWindow, now) {
   }
 }
 
-export function trackAppointmentBooked(
-  targetWindow,
-  confirmationPath,
-  { trackGoogleAdsConversion = true } = {},
-) {
+export function trackAppointmentBooked(targetWindow, confirmationPath) {
   const now = Date.now();
   if (wasRecentlyTracked(targetWindow, now)) return false;
 
@@ -575,13 +571,6 @@ export function trackAppointmentBooked(
 
   dispatchAnalyticsEvent(targetWindow, "appointment_booked", eventParams);
   dispatchAnalyticsEvent(targetWindow, "generate_lead", eventParams);
-  if (trackGoogleAdsConversion && isGooglePaidAttribution(attribution)) {
-    dispatchAnalyticsEvent(targetWindow, "conversion", {
-      send_to: "AW-18358810922/8Oy4CJqVtuMcEKrylLJE",
-      value: 1,
-      currency: "USD",
-    });
-  }
   if (typeof targetWindow.fbq === "function") {
     targetWindow.fbq("track", "Lead", {
       content_name: "Strategy Call",

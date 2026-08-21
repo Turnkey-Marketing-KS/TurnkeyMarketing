@@ -455,21 +455,21 @@ test("sanitizes PII from landing/referrer context and pass-through payloads", ()
   assert.equal(decorated.searchParams.get("tk_tracking_session_id"), TRACKING_ID);
 });
 
-test("booking confirmation preserves event semantics, dedupe, and paid-only conversion", () => {
+test("booking confirmation preserves event semantics and dedupe without Ads conversion", () => {
   const paidWindow = createTrackingWindow(
     "https://www.turnkeyautomarketing.com/booking-confirmed?gclid=paid-click&utm_source=google&utm_medium=cpc&utm_campaign=shops",
   );
   assert.equal(trackAppointmentBooked(paidWindow, "/booking-confirmed"), true);
   assert.deepEqual(
     paidWindow.dataLayer.map((event) => event.event),
-    ["appointment_booked", "generate_lead", "conversion"],
+    ["appointment_booked", "generate_lead"],
   );
   assert.equal(paidWindow.dataLayer[0].tracking_session_id, TRACKING_ID);
   assert.equal(paidWindow.dataLayer[0].gclid, "paid-click");
   assert.equal(paidWindow.dataLayer[0].booking_provider, "appointmentcore");
   assert.equal(paidWindow.dataLayer[0].booking_funnel, "main_website");
   assert.equal(trackAppointmentBooked(paidWindow, "/booking-confirmed"), false);
-  assert.equal(paidWindow.dataLayer.length, 3);
+  assert.equal(paidWindow.dataLayer.length, 2);
 
   const organicWindow = createTrackingWindow(
     "https://www.turnkeyautomarketing.com/booking-confirmed?utm_source=google&utm_medium=organic&utm_campaign=gbp",
@@ -482,7 +482,7 @@ test("booking confirmation preserves event semantics, dedupe, and paid-only conv
   assert.equal(isGooglePaidAttribution(organicWindow.tkAttribution), false);
 });
 
-test("booking confirmation uses paid attribution retained from the same browser session", () => {
+test("booking confirmation retains paid attribution without emitting Ads conversion", () => {
   const storage = createStorage();
   const landingWindow = createTrackingWindow(
     "https://www.turnkeyautomarketing.com/?gclid=session-paid-click&utm_source=google&utm_medium=cpc&utm_campaign=shops",
@@ -509,7 +509,7 @@ test("booking confirmation uses paid attribution retained from the same browser 
   );
   assert.equal(
     confirmationWindow.dataLayer.filter((event) => event.event === "conversion").length,
-    1,
+    0,
   );
   assert.equal(confirmationWindow.dataLayer[0].tracking_session_id, TRACKING_ID);
   assert.equal(
@@ -517,6 +517,25 @@ test("booking confirmation uses paid attribution retained from the same browser 
     landingAttribution.tracking_session_id,
   );
   assert.equal(confirmationWindow.dataLayer[0].first_gclid, "session-paid-click");
+});
+
+test("AppointmentCore confirmation cannot emit Google Ads conversion under paid attribution", () => {
+  const paidWindow = createTrackingWindow(
+    "https://www.turnkeyautomarketing.com/booking-confirmed?gclid=paid-click&utm_source=google&utm_medium=cpc",
+  );
+
+  trackAppointmentBooked(paidWindow, "/booking-confirmed", {
+    trackGoogleAdsConversion: true,
+  });
+
+  assert.deepEqual(
+    paidWindow.dataLayer.map((event) => event.event),
+    ["appointment_booked", "generate_lead"],
+  );
+  assert.equal(
+    paidWindow.dataLayer.some((event) => event.send_to === "AW-18358810922/8Oy4CJqVtuMcEKrylLJE"),
+    false,
+  );
 });
 
 test("booking events retain legacy landing aliases and the new first/latest contract", () => {
@@ -606,6 +625,8 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   assert.doesNotMatch(paidConfirmationSource, /trackAppointmentBooked/);
   assert.match(paidConfirmationSource, /booking_provider: "ghl_calendar"/);
   assert.match(paidConfirmationSource, /send_to:\s*"AW-18358810922\/8Oy4CJqVtuMcEKrylLJE"/);
+  assert.doesNotMatch(trackingSource, /AW-18358810922\/8Oy4CJqVtuMcEKrylLJE/);
+  assert.doesNotMatch(bookingConfirmationSource, /send_to|trackGoogleAdsConversion/);
   assert.match(
     bookingConfirmationSource,
     /trackAppointmentBooked\(window, "\/booking-confirmed"\)/,
