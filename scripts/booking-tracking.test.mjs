@@ -5,7 +5,6 @@ import test from "node:test";
 
 import {
   ATTRIBUTION_STORAGE_KEY,
-  buildAnonymousAttributionPayload,
   buildBookingEventParams,
   decorateUrlWithAttribution,
   initializeAttributionTracking,
@@ -13,6 +12,7 @@ import {
   mergeAttribution,
   parseStoredAttribution,
   sanitizeUrlForAttribution,
+  trackAppointmentCoreCalendarViewed,
   trackAppointmentBooked,
 } from "../src/lib/booking-tracking.mjs";
 
@@ -168,7 +168,7 @@ test("safely migrates the legacy flat sessionStorage record", () => {
   assert.doesNotMatch(JSON.stringify(migrated), /owner|email=/i);
 });
 
-test("decorates AppointmentCore with correlation fields and preserves provider parameters", () => {
+test("never decorates the cross-origin AppointmentCore URL", () => {
   const attribution = mergeAttribution({
     href: "https://www.turnkeyautomarketing.com/?gclid=click-1&utm_source=google&utm_medium=cpc&utm_campaign=shops",
     referrer: "https://www.google.com/",
@@ -178,28 +178,17 @@ test("decorates AppointmentCore with correlation fields and preserves provider p
   attribution.ga_client_id = "12345.67890";
   attribution.ga_session_id = "1760000000";
 
-  const decorated = new URL(
-    decorateUrlWithAttribution(
-      "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1&email=owner%40shop.com",
-      attribution,
-    ),
+  const appointmentCoreUrl = "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1";
+  const decorated = decorateUrlWithAttribution(
+    appointmentCoreUrl,
+    attribution,
+    "https://www.turnkeyautomarketing.com/",
   );
 
-  assert.equal(decorated.searchParams.get("d"), "Slots");
-  assert.equal(decorated.searchParams.get("e"), "1");
-  assert.equal(decorated.searchParams.get("email"), null);
-  assert.equal(decorated.searchParams.get("gclid"), "click-1");
-  assert.equal(decorated.searchParams.get("tk_gclid"), "click-1");
-  assert.equal(decorated.searchParams.get("tk_first_gclid"), "click-1");
-  assert.equal(decorated.searchParams.get("tk_latest_gclid"), "click-1");
-  assert.equal(decorated.searchParams.get("tk_tracking_session_id"), TRACKING_ID);
-  assert.equal(decorated.searchParams.get("tk_ga_client_id"), "12345.67890");
-  assert.equal(decorated.searchParams.get("tk_ga_session_id"), "1760000000");
-  assert.equal(decorated.searchParams.get("tk_first_touch_at"), FIRST_TIME);
-  assert.equal(decorated.searchParams.get("tk_latest_touch_at"), FIRST_TIME);
+  assert.equal(decorated, appointmentCoreUrl);
 });
 
-test("initialization decorates internal contact links and the existing iframe without firing conversion", () => {
+test("initialization leaves internal links and the existing iframe unchanged", () => {
   const link = createElement("href", "/contact#book");
   const frame = createElement("src", "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1");
   const trackingWindow = createTrackingWindow(
@@ -208,20 +197,16 @@ test("initialization decorates internal contact links and the existing iframe wi
   );
 
   const attribution = initializeAttributionTracking(trackingWindow);
-  const contactUrl = new URL(link.getAttribute("href"), trackingWindow.location.href);
-  const frameUrl = new URL(frame.getAttribute("src"));
-
-  assert.equal(contactUrl.searchParams.get("gclid"), null);
-  assert.equal(contactUrl.searchParams.get("tk_gclid"), "click-1");
-  assert.equal(contactUrl.searchParams.get("tk_tracking_session_id"), TRACKING_ID);
-  assert.equal(contactUrl.hash, "#book");
-  assert.equal(frameUrl.searchParams.get("gclid"), "click-1");
-  assert.equal(frameUrl.searchParams.get("tk_tracking_session_id"), TRACKING_ID);
+  assert.equal(link.getAttribute("href"), "/contact#book");
+  assert.equal(
+    frame.getAttribute("src"),
+    "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1",
+  );
   assert.equal(attribution.tracking_session_id, TRACKING_ID);
   assert.deepEqual(trackingWindow.dataLayer, []);
 });
 
-test("silently stores anonymous attribution without adding a second customer form", () => {
+test("initialization stores attribution first-party and makes no network request", () => {
   const requests = [];
   const trackingWindow = createTrackingWindow(
     "https://www.turnkeyautomarketing.com/?gclid=click-1&utm_source=google&utm_medium=cpc&utm_campaign=shops&email=owner%40shop.com",
@@ -234,37 +219,16 @@ test("silently stores anonymous attribution without adding a second customer for
   );
 
   const attribution = initializeAttributionTracking(trackingWindow);
-  assert.equal(requests.length, 1);
-  assert.match(requests[0].url, /\/api\/attribution\/appointmentcore\/handoff$/);
-  assert.equal(requests[0].options.headers["X-Turnkey-Attribution-Version"], "2");
-  const payload = JSON.parse(requests[0].options.body).attribution;
-  assert.equal(payload.tracking_session_id, attribution.tracking_session_id);
-  assert.equal(payload.gclid, "click-1");
+  assert.equal(requests.length, 0);
   assert.equal(
-    payload.first_landing_page.startsWith("https://www.turnkeyautomarketing.com/"),
-    true,
+    JSON.parse(trackingWindow.sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY)).tracking_session_id,
+    attribution.tracking_session_id,
   );
-  assert.doesNotMatch(JSON.stringify(payload), /owner%40shop|owner@shop|email=/i);
+  assert.doesNotMatch(JSON.stringify(attribution), /owner%40shop|owner@shop|email=/i);
   assert.equal(trackingWindow.document.querySelectorAll("form").length, 0);
 });
 
-test("anonymous payload includes only sanitized attribution fields", () => {
-  const payload = buildAnonymousAttributionPayload({
-    tracking_session_id: TRACKING_ID,
-    first_touch_at: FIRST_TIME,
-    latest_touch_at: LATEST_TIME,
-    first_landing_page: "/?gclid=click-1&email=owner%40shop.com",
-    latest_landing_page: "/contact?phone=9134270674",
-    first_touch: { gclid: "click-1", utm_source: "google" },
-    latest_touch: { gclid: "click-1", utm_source: "google" },
-  });
-  assert.equal(payload.gclid, "click-1");
-  assert.equal(payload.first_landing_page, "https://www.turnkeyautomarketing.com/?gclid=click-1");
-  assert.equal(payload.latest_landing_page, "https://www.turnkeyautomarketing.com/contact");
-  assert.doesNotMatch(JSON.stringify(payload), /owner|9134270674|email=|phone=/i);
-});
-
-test("contact and iframe decoration is idempotent and keeps #book plus existing parameters", () => {
+test("same-origin URL decoration is idempotent and cross-origin URLs are untouched", () => {
   const attribution = mergeAttribution({
     href: "https://www.turnkeyautomarketing.com/?gclid=click-1&utm_campaign=shops",
     referrer: "https://www.google.com/",
@@ -280,18 +244,17 @@ test("contact and iframe decoration is idempotent and keeps #book plus existing 
   const contactTwice = decorateUrlWithAttribution(contactOnce, attribution, undefined, {
     includeRaw: false,
   });
+  const frameUrl = "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1";
   const frameOnce = decorateUrlWithAttribution(
-    "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1",
+    frameUrl,
     attribution,
+    "https://www.turnkeyautomarketing.com/",
   );
-  const frameTwice = decorateUrlWithAttribution(frameOnce, attribution);
 
   assert.equal(contactTwice, contactOnce);
-  assert.equal(frameTwice, frameOnce);
+  assert.equal(frameOnce, frameUrl);
   assert.equal(new URL(contactTwice).searchParams.get("view"), "calendar");
   assert.equal(new URL(contactTwice).hash, "#book");
-  assert.equal(new URL(frameTwice).searchParams.get("d"), "Slots");
-  assert.equal(new URL(frameTwice).searchParams.get("e"), "1");
 });
 
 test("missing values do not create empty, undefined, or null URL parameters", () => {
@@ -310,7 +273,7 @@ test("missing values do not create empty, undefined, or null URL parameters", ()
   assert.equal([...decorated.searchParams.values()].includes(""), false);
 });
 
-test("session storage keeps the same tracking ID and imports tk_ pass-through if storage is unavailable", () => {
+test("same-origin session storage keeps attribution and the same tracking ID", () => {
   const storage = createStorage();
   const firstWindow = createTrackingWindow("https://www.turnkeyautomarketing.com/?gclid=click-1", {
     storage,
@@ -325,17 +288,8 @@ test("session storage keeps the same tracking ID and imports tk_ pass-through if
   const next = initializeAttributionTracking(nextWindow);
   assert.equal(next.tracking_session_id, first.tracking_session_id);
 
-  const decorated = decorateUrlWithAttribution("/contact#book", first, firstWindow.location.href, {
-    includeRaw: false,
-  });
-  const imported = mergeAttribution({
-    href: decorated,
-    referrer: "https://www.turnkeyautomarketing.com/",
-    now: LATEST_TIME,
-  });
-  assert.equal(imported.tracking_session_id, first.tracking_session_id);
-  assert.equal(imported.first_touch.gclid, "click-1");
-  assert.equal(imported.latest_touch.gclid, "click-1");
+  assert.equal(next.first_touch.gclid, "click-1");
+  assert.equal(next.latest_touch.gclid, "click-1");
 });
 
 test("blocked sessionStorage is safe and the in-memory tk_ ID remains stable", () => {
@@ -377,7 +331,7 @@ test("captures GA4 identifiers only when available through first-party cookie or
   assert.equal(attribution.ga_session_id, "1760000000");
 });
 
-test("does not duplicate the anonymous handoff when the main layout initializes twice", () => {
+test("repeat initialization never makes an attribution network request", () => {
   const requests = [];
   const trackingWindow = createTrackingWindow(
     "https://www.turnkeyautomarketing.com/?gclid=click-1&utm_source=google&utm_medium=cpc",
@@ -394,7 +348,49 @@ test("does not duplicate the anonymous handoff when the main layout initializes 
 
   initializeAttributionTracking(trackingWindow);
   initializeAttributionTracking(trackingWindow);
-  assert.equal(requests.length, 1);
+  assert.equal(requests.length, 0);
+});
+
+test("contact records one low-cardinality AppointmentCore calendar view per page load", () => {
+  const storage = createStorage();
+  const frame = createElement("src", "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1");
+  const contactWindow = createTrackingWindow("https://www.turnkeyautomarketing.com/contact#book", {
+    referrer: "https://www.turnkeyautomarketing.com/",
+    storage,
+    frames: [frame],
+  });
+
+  initializeAttributionTracking(contactWindow);
+  initializeAttributionTracking(contactWindow);
+
+  assert.deepEqual(contactWindow.dataLayer, [
+    {
+      event: "appointmentcore_calendar_viewed",
+      booking_provider: "appointmentcore",
+      booking_funnel: "main_website",
+    },
+  ]);
+  assert.equal(trackAppointmentCoreCalendarViewed(contactWindow), false);
+
+  const reloadedWindow = createTrackingWindow("https://www.turnkeyautomarketing.com/contact#book", {
+    referrer: "https://www.turnkeyautomarketing.com/",
+    storage,
+    frames: [createElement("src", "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1")],
+  });
+  initializeAttributionTracking(reloadedWindow);
+  assert.equal(reloadedWindow.dataLayer.length, 1);
+});
+
+test("a consultation CTA alone does not emit calendar or booked events", () => {
+  const consultationLink = createElement("href", "/contact#book");
+  const trackingWindow = createTrackingWindow("https://www.turnkeyautomarketing.com/", {
+    links: [consultationLink],
+  });
+
+  initializeAttributionTracking(trackingWindow);
+
+  assert.deepEqual(trackingWindow.dataLayer, []);
+  assert.equal(consultationLink.getAttribute("href"), "/contact#book");
 });
 
 test("a paid first touch remains eligible after a later direct return", () => {
@@ -470,6 +466,8 @@ test("booking confirmation preserves event semantics, dedupe, and paid-only conv
   );
   assert.equal(paidWindow.dataLayer[0].tracking_session_id, TRACKING_ID);
   assert.equal(paidWindow.dataLayer[0].gclid, "paid-click");
+  assert.equal(paidWindow.dataLayer[0].booking_provider, "appointmentcore");
+  assert.equal(paidWindow.dataLayer[0].booking_funnel, "main_website");
   assert.equal(trackAppointmentBooked(paidWindow, "/booking-confirmed"), false);
   assert.equal(paidWindow.dataLayer.length, 3);
 
@@ -482,6 +480,43 @@ test("booking confirmation preserves event semantics, dedupe, and paid-only conv
     ["appointment_booked", "generate_lead"],
   );
   assert.equal(isGooglePaidAttribution(organicWindow.tkAttribution), false);
+});
+
+test("booking confirmation uses paid attribution retained from the same browser session", () => {
+  const storage = createStorage();
+  const landingWindow = createTrackingWindow(
+    "https://www.turnkeyautomarketing.com/?gclid=session-paid-click&utm_source=google&utm_medium=cpc&utm_campaign=shops",
+    { storage },
+  );
+  const landingAttribution = initializeAttributionTracking(landingWindow);
+  const confirmationWindow = createTrackingWindow(
+    "https://www.turnkeyautomarketing.com/booking-confirmed",
+    {
+      referrer: "https://go.appointmentcore.com/",
+      storage,
+    },
+  );
+
+  trackAppointmentBooked(confirmationWindow, "/booking-confirmed");
+
+  assert.equal(
+    confirmationWindow.dataLayer.filter((event) => event.event === "appointment_booked").length,
+    1,
+  );
+  assert.equal(
+    confirmationWindow.dataLayer.filter((event) => event.event === "generate_lead").length,
+    1,
+  );
+  assert.equal(
+    confirmationWindow.dataLayer.filter((event) => event.event === "conversion").length,
+    1,
+  );
+  assert.equal(confirmationWindow.dataLayer[0].tracking_session_id, TRACKING_ID);
+  assert.equal(
+    confirmationWindow.dataLayer[0].tracking_session_id,
+    landingAttribution.tracking_session_id,
+  );
+  assert.equal(confirmationWindow.dataLayer[0].first_gclid, "session-paid-click");
 });
 
 test("booking events retain legacy landing aliases and the new first/latest contract", () => {
@@ -516,6 +551,15 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
     path.join(workspaceRoot, "src/pages/google-ads-call-booked.astro"),
     "utf8",
   );
+  const bookingConfirmationSource = readFileSync(
+    path.join(workspaceRoot, "src/pages/booking-confirmed.astro"),
+    "utf8",
+  );
+  const trackingSource = readFileSync(
+    path.join(workspaceRoot, "src/lib/booking-tracking.mjs"),
+    "utf8",
+  );
+  const servicesSource = readFileSync(path.join(workspaceRoot, "src/lib/services.ts"), "utf8");
   const sourceRoots = [
     path.join(workspaceRoot, "src/pages"),
     path.join(workspaceRoot, "public/lp"),
@@ -529,12 +573,22 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
     const matches = readFileSync(file, "utf8").match(/<form\b/gi) || [];
     return matches.map(() => file);
   });
+  const appointmentBookedPageFiles = pageFiles
+    .filter((file) => /trackAppointmentBooked/.test(readFileSync(file, "utf8")))
+    .map((file) => path.relative(path.join(workspaceRoot, "src/pages"), file));
 
   assert.equal((contactSource.match(/<iframe\b/gi) || []).length, 1);
   assert.match(
     contactSource,
     /go\.appointmentcore\.com\/frontend\/js\/app\/booking-link-embed-helper\.js/,
   );
+  assert.match(contactSource, /src=\{APPOINTMENTCORE_BOOKING_URL\}/);
+  assert.match(servicesSource, /https:\/\/go\.appointmentcore\.com\/book\/7uUZaGNRL6\?d=Slots&e=1/);
+  assert.doesNotMatch(
+    trackingSource,
+    /turnkey-internal-automations|appointmentcore\/handoff|fetch\s*\(/,
+  );
+  assert.doesNotMatch(trackingSource, /custom_map|custom_dimension|dimension\d+/i);
   assert.match(paidLandingSource, /leadconnectorhq\.com\/widget\/booking\/6tmXrJxmo6AUsMP2ja9d/);
   assert.match(paidLandingSource, /\/lp\/ghl-attribution\.js/);
   assert.ok(
@@ -543,11 +597,21 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   );
   assert.doesNotMatch(baseLayoutSource, /G-1468YCTQJ3/);
   assert.doesNotMatch(paidLandingSource, /G-1468YCTQJ3/);
+  assert.equal((baseLayoutSource.match(/gtag\/js\?id=G-XJZ35N9FWG/g) || []).length, 1);
+  assert.equal((baseLayoutSource.match(/gtag\("config", "G-XJZ35N9FWG"\)/g) || []).length, 1);
+  assert.equal((paidLandingSource.match(/gtag\/js\?id=G-XJZ35N9FWG/g) || []).length, 1);
+  assert.equal((paidLandingSource.match(/gtag\("config", "G-XJZ35N9FWG"\)/g) || []).length, 1);
   assert.doesNotMatch(paidLandingSource, /appointmentcore\.com\/book\//i);
   assert.match(paidConfirmationSource, /attributionFunnel="google_ads"/);
   assert.doesNotMatch(paidConfirmationSource, /trackAppointmentBooked/);
   assert.match(paidConfirmationSource, /booking_provider: "ghl_calendar"/);
   assert.match(paidConfirmationSource, /send_to:\s*"AW-18358810922\/8Oy4CJqVtuMcEKrylLJE"/);
+  assert.match(
+    bookingConfirmationSource,
+    /trackAppointmentBooked\(window, "\/booking-confirmed"\)/,
+  );
+  assert.deepEqual(appointmentBookedPageFiles, ["booking-confirmed.astro"]);
+  assert.match(baseLayoutSource, /target\.dataset\.trackEvent/);
   assert.equal(nativeForms.length, 0, `Unexpected native forms: ${nativeForms.join(", ")}`);
 });
 

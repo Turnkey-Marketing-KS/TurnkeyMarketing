@@ -21,8 +21,7 @@ const MAX_CAMPAIGN_VALUE_LENGTH = 200;
 const BOOKING_EVENT_DEDUPE_WINDOW_MS = 30 * 60 * 1000;
 const DEFAULT_SITE_ORIGIN = "https://www.turnkeyautomarketing.com";
 const GA4_MEASUREMENT_ID = "G-XJZ35N9FWG";
-const ATTRIBUTION_HANDOFF_ENDPOINT =
-  "https://turnkey-internal-automations.vercel.app/api/attribution/appointmentcore/handoff";
+const APPOINTMENTCORE_CALENDAR_VIEW_FLAG = "__tkAppointmentCoreCalendarViewed";
 const PII_QUERY_KEY_PATTERN =
   /(?:^|[_-])(?:e-?mail|phone|mobile|tel|telephone|name|first_?name|last_?name|full_?name|address|street|city|state|zip|postal(?:_?code)?|dob|birth(?:day|date)?|ssn|message|details)(?:$|[_-])/i;
 const EMAIL_VALUE_PATTERN = /\b[^\s@]+@[^\s@]+\.[^\s@]+\b/i;
@@ -385,6 +384,8 @@ export function decorateUrlWithAttribution(
 ) {
   const url = safeUrl(href, baseHref || DEFAULT_SITE_ORIGIN);
   if (!url) return href;
+  const siteUrl = safeUrl(baseHref || DEFAULT_SITE_ORIGIN, DEFAULT_SITE_ORIGIN);
+  if (!siteUrl || url.origin !== siteUrl.origin) return href;
 
   stripPiiQueryParams(url);
   buildAttributionQueryParams(attribution, { includeRaw }).forEach((value, key) => {
@@ -421,42 +422,12 @@ export function buildBookingEventParams(attribution, confirmationPath) {
   const params = {
     appointment_type: "30_minute_marketing_consultation",
     booking_provider: "appointmentcore",
+    booking_funnel: "main_website",
     lead_source: "appointment_booking",
     confirmation_path: cleanValue(confirmationPath) || "/booking-confirmed",
   };
   appendEventAttribution(params, attribution);
   return params;
-}
-
-export function buildAnonymousAttributionPayload(attribution, siteOrigin = DEFAULT_SITE_ORIGIN) {
-  const cleaned = normalizeStoredAttribution(attribution);
-  const payload = {};
-  ATTRIBUTION_PARAM_KEYS.forEach((key) => {
-    const value = cleanCampaignValue(key, cleaned.latest_touch?.[key] || cleaned[key]);
-    if (value) payload[key] = value;
-  });
-
-  const absoluteUrl = (value) => {
-    const url = safeUrl(value, siteOrigin);
-    return url ? sanitizeUrlForAttribution(url.toString()) : "";
-  };
-  const scalarValues = {
-    tracking_session_id: cleanIdentifier(cleaned.tracking_session_id, {
-      requireTkPrefix: true,
-    }),
-    ga4_client_id: cleanIdentifier(cleaned.ga_client_id),
-    ga4_session_id: cleanIdentifier(cleaned.ga_session_id),
-    first_touch_at: cleanTimestamp(cleaned.first_touch_at),
-    latest_touch_at: cleanTimestamp(cleaned.latest_touch_at),
-    first_landing_page: absoluteUrl(cleaned.first_landing_page),
-    latest_landing_page: absoluteUrl(cleaned.latest_landing_page),
-    first_referrer: absoluteUrl(cleaned.first_referrer),
-    latest_referrer: absoluteUrl(cleaned.latest_referrer),
-  };
-  Object.entries(scalarValues).forEach(([key, value]) => {
-    if (value) payload[key] = value;
-  });
-  return payload;
 }
 
 export function isGooglePaidAttribution(attribution) {
@@ -487,34 +458,6 @@ function persistAttribution(targetWindow, attribution) {
   } catch (_) {}
 }
 
-function decorateConsultationLinks(targetWindow, attribution) {
-  targetWindow.document.querySelectorAll('a[href^="/contact"]').forEach((link) => {
-    const originalHref = link.getAttribute("href");
-    if (!originalHref) return;
-    const decoratedUrl = new URL(
-      decorateUrlWithAttribution(originalHref, attribution, targetWindow.location.href, {
-        includeRaw: false,
-      }),
-    );
-    link.setAttribute("href", `${decoratedUrl.pathname}${decoratedUrl.search}${decoratedUrl.hash}`);
-  });
-}
-
-function decorateAppointmentCoreFrames(targetWindow, attribution) {
-  targetWindow.document
-    .querySelectorAll('iframe[src*="appointmentcore.com/book/"]')
-    .forEach((frame) => {
-      const originalSrc = frame.getAttribute("src");
-      if (!originalSrc) return;
-      const decoratedSrc = decorateUrlWithAttribution(
-        originalSrc,
-        attribution,
-        targetWindow.location.href,
-      );
-      if (decoratedSrc !== frame.src) frame.setAttribute("src", decoratedSrc);
-    });
-}
-
 function readGaClientIdFromCookie(cookieValue) {
   const gaCookie = cleanValue(cookieValue)
     .split(";")
@@ -543,9 +486,6 @@ function enrichWithGaIdentifiers(targetWindow, attribution) {
     }
     persistAttribution(targetWindow, attribution);
     targetWindow.tkAttribution = attribution;
-    decorateConsultationLinks(targetWindow, attribution);
-    decorateAppointmentCoreFrames(targetWindow, attribution);
-    storeAnonymousAttribution(targetWindow, attribution);
   };
   const setTimer = targetWindow.setTimeout || globalThis.setTimeout;
   refreshTimer = setTimer(finishEnrichment, 250);
@@ -568,42 +508,6 @@ function enrichWithGaIdentifiers(targetWindow, attribution) {
   });
 }
 
-function storeAnonymousAttribution(targetWindow, attribution) {
-  if (typeof targetWindow.fetch !== "function") return;
-  const payload = buildAnonymousAttributionPayload(
-    attribution,
-    targetWindow.location?.origin || DEFAULT_SITE_ORIGIN,
-  );
-  if (!payload.tracking_session_id) return;
-  const fingerprint = [
-    payload.tracking_session_id,
-    payload.latest_touch_at || "",
-    payload.latest_landing_page || "",
-    payload.gclid || "",
-    payload.gbraid || "",
-    payload.wbraid || "",
-    payload.utm_source || "",
-    payload.utm_medium || "",
-    payload.utm_campaign || "",
-  ].join("|");
-  if (targetWindow.__tkAttributionHandoffFingerprint === fingerprint) return;
-  targetWindow.__tkAttributionHandoffFingerprint = fingerprint;
-  try {
-    const request = targetWindow.fetch(ATTRIBUTION_HANDOFF_ENDPOINT, {
-      method: "POST",
-      mode: "cors",
-      credentials: "omit",
-      keepalive: true,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Turnkey-Attribution-Version": "2",
-      },
-      body: JSON.stringify({ attribution: payload }),
-    });
-    if (request && typeof request.catch === "function") request.catch(() => {});
-  } catch (_) {}
-}
-
 export function initializeAttributionTracking(targetWindow) {
   const attribution = mergeAttribution({
     href: targetWindow.location.href,
@@ -614,11 +518,7 @@ export function initializeAttributionTracking(targetWindow) {
   enrichWithGaIdentifiers(targetWindow, attribution);
   persistAttribution(targetWindow, attribution);
   targetWindow.tkAttribution = attribution;
-  decorateConsultationLinks(targetWindow, attribution);
-  decorateAppointmentCoreFrames(targetWindow, attribution);
-  if (typeof targetWindow.gtag !== "function") {
-    storeAnonymousAttribution(targetWindow, attribution);
-  }
+  trackAppointmentCoreCalendarViewed(targetWindow);
   return attribution;
 }
 
@@ -629,6 +529,25 @@ function dispatchAnalyticsEvent(targetWindow, eventName, params) {
   }
   targetWindow.dataLayer = targetWindow.dataLayer || [];
   targetWindow.dataLayer.push({ event: eventName, ...params });
+}
+
+export function trackAppointmentCoreCalendarViewed(targetWindow) {
+  if (targetWindow[APPOINTMENTCORE_CALENDAR_VIEW_FLAG]) return false;
+
+  const currentUrl = safeUrl(targetWindow.location?.href, DEFAULT_SITE_ORIGIN);
+  if (currentUrl?.pathname !== "/contact") return false;
+
+  const appointmentCoreFrames = targetWindow.document.querySelectorAll(
+    'iframe[src*="appointmentcore.com/book/"]',
+  );
+  if (!appointmentCoreFrames.length) return false;
+
+  targetWindow[APPOINTMENTCORE_CALENDAR_VIEW_FLAG] = true;
+  dispatchAnalyticsEvent(targetWindow, "appointmentcore_calendar_viewed", {
+    booking_provider: "appointmentcore",
+    booking_funnel: "main_website",
+  });
+  return true;
 }
 
 function wasRecentlyTracked(targetWindow, now) {
