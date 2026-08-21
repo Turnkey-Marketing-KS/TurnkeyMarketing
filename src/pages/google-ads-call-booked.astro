@@ -83,7 +83,7 @@ import { siteMedia } from "@/lib/site-media";
   </section>
 </BaseLayout>
 
-<!-- Temporary browser-side Ads conversion. Remove this block immediately before enabling GHL Add-to-Google-Ads. -->
+<!-- GA4 diagnostic event only. The primary Ads conversion is sent by the GHL booking workflow. -->
 <script is:inline>
   (function () {
     var storageKey = "turnkey_google_ads_call_booked_sent";
@@ -102,12 +102,6 @@ import { siteMedia } from "@/lib/site-media";
       booking_provider: "ghl_calendar",
       funnel: "google_ads_landing_page",
       lead_event: "appointment_booked",
-    });
-
-    window.gtag("event", "conversion", {
-      send_to: "AW-18358810922/8Oy4CJqVtuMcEKrylLJE",
-      value: 1.0,
-      currency: "USD",
     });
   })();
 </script>
