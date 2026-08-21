@@ -11,6 +11,7 @@ import { siteMedia } from "@/lib/site-media";
   ogTitle="Your Consultation Is Booked"
   ogImage={siteMedia.team.visionExpoConversation.src}
   noindex={true}
+  attributionFunnel="google_ads"
 >
   <section class="container-page flex min-h-[calc(100vh-168px)] items-center py-14 md:py-24">
     <div
@@ -82,6 +83,7 @@ import { siteMedia } from "@/lib/site-media";
   </section>
 </BaseLayout>
 
+<!-- Temporary browser-side Ads conversion. Remove this block immediately before enabling GHL Add-to-Google-Ads. -->
 <script is:inline>
   (function () {
     var storageKey = "turnkey_google_ads_call_booked_sent";
@@ -97,6 +99,9 @@ import { siteMedia } from "@/lib/site-media";
     window.gtag("event", "google_ads_call_booked", {
       appointment_type: "30_minute_consultation",
       lead_source: "google_ads_landing_page",
+      booking_provider: "ghl_calendar",
+      funnel: "google_ads_landing_page",
+      lead_event: "appointment_booked",
     });
 
     window.gtag("event", "conversion", {
@@ -105,12 +110,4 @@ import { siteMedia } from "@/lib/site-media";
       currency: "USD",
     });
   })();
-</script>
-
-<script>
-  import { trackAppointmentBooked } from "@/lib/booking-tracking.mjs";
-
-  trackAppointmentBooked(window, "/google-ads-call-booked", {
-    trackGoogleAdsConversion: false,
-  });
 </script>

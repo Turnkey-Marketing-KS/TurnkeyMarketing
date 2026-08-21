@@ -377,6 +377,43 @@ test("captures GA4 identifiers only when available through first-party cookie or
   assert.equal(attribution.ga_session_id, "1760000000");
 });
 
+test("does not duplicate the anonymous handoff when the main layout initializes twice", () => {
+  const requests = [];
+  const trackingWindow = createTrackingWindow(
+    "https://www.turnkeyautomarketing.com/?gclid=click-1&utm_source=google&utm_medium=cpc",
+    {
+      fetch: (url, options) => {
+        requests.push({ url, options });
+        return Promise.resolve({ ok: true });
+      },
+      gtag: (_command, _measurementId, field, callback) => {
+        callback(field === "client_id" ? "123456789.1760000000" : "1760000000");
+      },
+    },
+  );
+
+  initializeAttributionTracking(trackingWindow);
+  initializeAttributionTracking(trackingWindow);
+  assert.equal(requests.length, 1);
+});
+
+test("a paid first touch remains eligible after a later direct return", () => {
+  const paid = mergeAttribution({
+    href: "https://www.turnkeyautomarketing.com/?gclid=paid-click&utm_source=google&utm_medium=cpc",
+    referrer: "https://www.google.com/",
+    now: FIRST_TIME,
+    trackingSessionId: TRACKING_ID,
+  });
+  const returnedDirect = mergeAttribution({
+    href: "https://www.turnkeyautomarketing.com/contact",
+    referrer: "",
+    existing: paid,
+    now: LATEST_TIME,
+  });
+
+  assert.equal(isGooglePaidAttribution(returnedDirect), true);
+});
+
 test("missing or malformed GA identifiers are ignored without breaking attribution", () => {
   const trackingWindow = createTrackingWindow(
     "https://www.turnkeyautomarketing.com/?gbraid=click-1",
@@ -464,9 +501,21 @@ test("booking events retain legacy landing aliases and the new first/latest cont
   assert.equal(params.latest_touch_at, FIRST_TIME);
 });
 
-test("public page sources expose one AppointmentCore calendar and no competing native form", () => {
+test("public page sources keep the two booking funnels scoped correctly", () => {
   const workspaceRoot = path.resolve(import.meta.dirname, "..");
+  const baseLayoutSource = readFileSync(
+    path.join(workspaceRoot, "src/layouts/BaseLayout.astro"),
+    "utf8",
+  );
   const contactSource = readFileSync(path.join(workspaceRoot, "src/pages/contact.astro"), "utf8");
+  const paidLandingSource = readFileSync(
+    path.join(workspaceRoot, "public/lp/auto-repair-marketing/index.html"),
+    "utf8",
+  );
+  const paidConfirmationSource = readFileSync(
+    path.join(workspaceRoot, "src/pages/google-ads-call-booked.astro"),
+    "utf8",
+  );
   const sourceRoots = [
     path.join(workspaceRoot, "src/pages"),
     path.join(workspaceRoot, "public/lp"),
@@ -486,6 +535,18 @@ test("public page sources expose one AppointmentCore calendar and no competing n
     contactSource,
     /go\.appointmentcore\.com\/frontend\/js\/app\/booking-link-embed-helper\.js/,
   );
+  assert.match(paidLandingSource, /leadconnectorhq\.com\/widget\/booking\/6tmXrJxmo6AUsMP2ja9d/);
+  assert.match(paidLandingSource, /\/lp\/ghl-attribution\.js/);
+  assert.ok(
+    (paidLandingSource.match(/data-tk-booking-provider="ghl_calendar"/g) || []).length,
+    "The GHL iframe or fallback link must be marked for attribution decoration",
+  );
+  assert.doesNotMatch(baseLayoutSource, /G-1468YCTQJ3/);
+  assert.doesNotMatch(paidLandingSource, /G-1468YCTQJ3/);
+  assert.doesNotMatch(paidLandingSource, /appointmentcore\.com\/book\//i);
+  assert.match(paidConfirmationSource, /attributionFunnel="google_ads"/);
+  assert.doesNotMatch(paidConfirmationSource, /trackAppointmentBooked/);
+  assert.match(paidConfirmationSource, /booking_provider: "ghl_calendar"/);
   assert.equal(nativeForms.length, 0, `Unexpected native forms: ${nativeForms.join(", ")}`);
 });
 

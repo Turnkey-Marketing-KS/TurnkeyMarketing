@@ -461,12 +461,14 @@ export function buildAnonymousAttributionPayload(attribution, siteOrigin = DEFAU
 
 export function isGooglePaidAttribution(attribution) {
   const cleaned = normalizeStoredAttribution(attribution);
-  const latestTouch = hasValues(cleaned.latest_touch) ? cleaned.latest_touch : cleaned;
-  if (latestTouch.gclid || latestTouch.gbraid || latestTouch.wbraid) return true;
-
-  const source = (latestTouch.utm_source || "").toLowerCase();
-  const medium = (latestTouch.utm_medium || "").toLowerCase();
-  return source === "google" && ["cpc", "ppc", "paid", "paid_search"].includes(medium);
+  const touches = [cleaned.latest_touch, cleaned.first_touch, cleaned];
+  return touches.some((touch) => {
+    if (!touch || typeof touch !== "object") return false;
+    if (touch.gclid || touch.gbraid || touch.wbraid) return true;
+    const source = (touch.utm_source || "").toLowerCase();
+    const medium = (touch.utm_medium || "").toLowerCase();
+    return source === "google" && ["cpc", "ppc", "paid", "paid_search"].includes(medium);
+  });
 }
 
 function readStoredAttribution(targetWindow) {
@@ -532,6 +534,8 @@ function enrichWithGaIdentifiers(targetWindow, attribution) {
   let pendingCallbacks = 2;
   let refreshTimer;
   const finishEnrichment = () => {
+    if (targetWindow.__tkAttributionEnrichmentFinished) return;
+    targetWindow.__tkAttributionEnrichmentFinished = true;
     if (refreshTimer) {
       const clearTimer = targetWindow.clearTimeout || globalThis.clearTimeout;
       clearTimer(refreshTimer);
@@ -571,6 +575,19 @@ function storeAnonymousAttribution(targetWindow, attribution) {
     targetWindow.location?.origin || DEFAULT_SITE_ORIGIN,
   );
   if (!payload.tracking_session_id) return;
+  const fingerprint = [
+    payload.tracking_session_id,
+    payload.latest_touch_at || "",
+    payload.latest_landing_page || "",
+    payload.gclid || "",
+    payload.gbraid || "",
+    payload.wbraid || "",
+    payload.utm_source || "",
+    payload.utm_medium || "",
+    payload.utm_campaign || "",
+  ].join("|");
+  if (targetWindow.__tkAttributionHandoffFingerprint === fingerprint) return;
+  targetWindow.__tkAttributionHandoffFingerprint = fingerprint;
   try {
     const request = targetWindow.fetch(ATTRIBUTION_HANDOFF_ENDPOINT, {
       method: "POST",
@@ -599,7 +616,9 @@ export function initializeAttributionTracking(targetWindow) {
   targetWindow.tkAttribution = attribution;
   decorateConsultationLinks(targetWindow, attribution);
   decorateAppointmentCoreFrames(targetWindow, attribution);
-  storeAnonymousAttribution(targetWindow, attribution);
+  if (typeof targetWindow.gtag !== "function") {
+    storeAnonymousAttribution(targetWindow, attribution);
+  }
   return attribution;
 }
 

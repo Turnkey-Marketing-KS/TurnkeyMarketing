@@ -14,6 +14,7 @@ interface Props {
   ogImage?: string;
   schema?: Schema | Schema[];
   noindex?: boolean;
+  attributionFunnel?: "main_website" | "google_ads";
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   ogImage = "/turnkey-brand-icon.png",
   schema = [],
   noindex = false,
+  attributionFunnel = "main_website",
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL("https://www.turnkeyautomarketing.com");
@@ -113,17 +115,18 @@ const jsonLd = [...sitewideSchema, ...schemaItems].filter(Boolean);
       window.gtag = gtag;
       gtag("js", new Date());
       gtag("config", "G-XJZ35N9FWG");
-      gtag("config", "G-1468YCTQJ3");
       gtag("config", "AW-18358810922");
       gtag("config", "AW-18358810922/PAbVCOamquMcEKrylLJE", {
         phone_conversion_number: "(913) 427-0674",
       });
     </script>
-    <script>
-      import { initializeAttributionTracking } from "@/lib/booking-tracking.mjs";
+    {attributionFunnel === "main_website" && (
+      <script>
+        import { initializeAttributionTracking } from "@/lib/booking-tracking.mjs";
 
-      initializeAttributionTracking(window);
-    </script>
+        initializeAttributionTracking(window);
+      </script>
+    )}
     <!-- Meta Pixel Code -->
     <script is:inline>
       !function(f,b,e,v,n,t,s)
