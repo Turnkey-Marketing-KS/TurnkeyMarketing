@@ -20,17 +20,17 @@ const reportSchema = {
   schema={reportSchema}
 >
   <main class="min-h-screen bg-[var(--off-white)]">
-    <section class="relative overflow-hidden bg-[linear-gradient(135deg,#fff_0%,#f6faff_62%,#edf4fc_100%)] py-14 md:py-20 lg:py-24">
+    <section class="ai-scan-hero relative overflow-hidden bg-[linear-gradient(135deg,#fff_0%,#f6faff_62%,#edf4fc_100%)] py-14 md:py-20 lg:py-24">
       <span class="pointer-events-none absolute -right-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-[var(--key-blue-soft)]/60 blur-3xl" aria-hidden="true"></span>
       <span class="pointer-events-none absolute -bottom-48 left-1/3 h-80 w-80 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
       <div class="container-page relative">
-        <div class="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.96fr_1.04fr] lg:items-center lg:gap-14 xl:gap-20">
-          <div class="relative z-10 text-center md:text-left">
+        <div class="ai-scan-hero-grid relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.96fr_1.04fr] lg:items-center lg:gap-14 xl:gap-20">
+          <div class="ai-scan-hero-copy relative z-10 text-center md:text-left">
             <p class="eyebrow text-[var(--key-blue)]">Free AI visibility scan</p>
             <h1 class="display-1 mt-6 max-w-[11ch] text-charcoal md:max-w-[12ch]">Does AI <span class="text-[var(--key-blue)]">Recommend Your Shop?</span></h1>
             <p class="mx-auto mt-7 max-w-[42ch] text-lg leading-relaxed text-charcoal/65 md:mx-0 md:text-xl">See where your shop appears in AI search—and which nearby shops may be winning the call.</p>
             <div class="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm text-charcoal/55 md:justify-start">
-              <span class="inline-flex items-center gap-2"><ShieldCheck class="h-4 w-4 text-[var(--green)]" /> Built for auto repair</span>
+              <span class="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[var(--key-blue)]" /> Built for auto repair</span>
               <span class="inline-flex items-center gap-2"><span class="scan-icon scan-icon-clock h-4 w-4 text-[var(--key-blue)]" aria-hidden="true"></span> About 60 seconds</span>
             </div>
           </div>
@@ -38,12 +38,11 @@ const reportSchema = {
           <div class="relative z-10 mx-auto w-full max-w-[470px] lg:mr-4">
             <form id="scan-form" class="relative overflow-hidden rounded-[30px] border border-[rgba(35,46,102,.12)] bg-white shadow-[0_34px_90px_-42px_rgba(20,30,78,.62)]">
               <div class="p-6 md:p-8 lg:p-9">
-                <div><p class="eyebrow text-[var(--key-blue)]">Start your scan</p><h2 class="mt-2 font-display text-2xl font-semibold tracking-tight text-charcoal">Run your free scan</h2><p class="mt-1 text-sm text-charcoal/48">Takes about 60 seconds.</p></div>
-                <label class="mt-8 block text-sm font-medium text-charcoal" for="shop-name">Shop name</label>
+                <label class="block text-sm font-medium text-charcoal" for="shop-name">Shop name</label>
                 <input id="shop-name" name="shopName" required autocomplete="organization" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Smith Auto Care" />
                 <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-location">City and state</label>
                 <input id="shop-location" name="location" required autocomplete="address-level2" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Scottsdale, AZ" />
-                <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-specialty">What work do you want more of? <span class="font-normal text-charcoal/40">Optional</span></label>
+                <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-specialty">Work you want more of <span class="font-normal text-charcoal/40">Optional</span></label>
                 <input id="shop-specialty" name="specialty" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. European repair, brakes, diagnostics" />
                 <button id="scan-submit" type="submit" class="btn-primary mt-7 h-13 w-full !bg-[linear-gradient(100deg,var(--key-blue),var(--navy))] !px-5 shadow-[0_18px_38px_-22px_rgba(35,46,102,.75)] hover:!bg-[var(--navy-deep)] disabled:cursor-wait disabled:opacity-70"><span data-scan-submit-label>Run My Free Scan</span> <ArrowRight class="h-4 w-4" /></button>
                 <p id="scan-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
@@ -52,12 +51,12 @@ const reportSchema = {
           </div>
         </div>
 
-        <div class="relative z-10 mx-auto mt-12 flex max-w-6xl flex-col gap-4 rounded-[22px] border border-[rgba(35,46,102,.1)] bg-white/90 px-5 py-4 shadow-[0_18px_55px_-42px_rgba(35,46,102,.45)] backdrop-blur sm:flex-row sm:items-center sm:justify-between md:px-7">
+        <div class="ai-scan-platform relative z-10 mx-auto mt-12 flex max-w-6xl flex-col gap-4 rounded-[22px] border border-[rgba(35,46,102,.1)] bg-white/90 px-5 py-4 shadow-[0_18px_55px_-42px_rgba(35,46,102,.45)] backdrop-blur sm:flex-row sm:items-center sm:justify-between md:px-7">
           <p class="text-sm font-semibold text-[var(--navy)]">We check your shop across</p>
-          <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-charcoal/58">
-            <span class="inline-flex items-center gap-2"><img src="/images/logos/google-search.webp" alt="" width="200" height="200" class="h-8 w-8 object-contain" loading="lazy" decoding="async" aria-hidden="true" /> Google Search</span>
-            <span class="inline-flex items-center gap-2"><img src="/images/logos/google-ai-overviews.png" alt="" width="800" height="449" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> AI Overviews</span>
-            <span class="inline-flex items-center gap-2"><img src="/images/logos/chatgpt-logo.png" alt="" width="3840" height="2160" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> ChatGPT</span>
+          <div class="ai-scan-platform-list flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-charcoal/58">
+            <span class="ai-scan-platform-item inline-flex items-center gap-2"><img src="/images/logos/google-search.webp" alt="" role="presentation" width="200" height="200" class="h-8 w-8 object-contain" loading="lazy" decoding="async" aria-hidden="true" /> Google Search</span>
+            <span class="ai-scan-platform-item inline-flex items-center gap-2"><img src="/images/logos/google-ai-overviews.png" alt="" role="presentation" width="800" height="449" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> AI Overviews</span>
+            <span class="ai-scan-platform-item inline-flex items-center gap-2"><img src="/images/logos/chatgpt-logo.png" alt="" role="presentation" width="3840" height="2160" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> ChatGPT</span>
           </div>
         </div>
       </div>
@@ -117,9 +116,9 @@ const reportSchema = {
             </div>
           </div>
 
-          <div class="overflow-hidden rounded-[36px] bg-[linear-gradient(140deg,var(--navy)_0%,var(--navy-deep)_100%)] shadow-[0_38px_100px_-58px_rgba(20,22,28,.7)]">
+          <div class="report-gate-shell overflow-hidden rounded-[36px] bg-[linear-gradient(140deg,var(--navy)_0%,var(--navy-deep)_100%)] shadow-[0_38px_100px_-58px_rgba(20,22,28,.7)]">
             <div class="grid lg:grid-cols-[1.08fr_.92fr]">
-              <div class="relative overflow-hidden p-7 text-white md:p-11 lg:p-14">
+              <div class="report-gate-summary relative overflow-hidden p-7 text-white md:p-11 lg:p-14">
                 <span class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
                 <span class="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
                 <div class="relative">
@@ -135,7 +134,7 @@ const reportSchema = {
                 </div>
               </div>
 
-              <div class="m-2 rounded-[30px] bg-white p-6 md:m-3 md:p-9 lg:flex lg:flex-col lg:justify-center lg:p-11">
+              <div class="report-gate-unlock m-2 rounded-[30px] bg-white p-6 md:m-3 md:p-9 lg:flex lg:flex-col lg:justify-center lg:p-11">
                 <div class="flex items-center justify-between gap-5">
                   <p class="eyebrow text-[var(--key-blue)]">Unlock your report</p>
                   <LockKeyhole class="h-7 w-7 text-[var(--navy)]" />
@@ -170,9 +169,9 @@ const reportSchema = {
             </div>
           </div>
 
-          <article class="overflow-hidden rounded-[36px] border border-[var(--hairline)] bg-white shadow-[0_38px_100px_-64px_rgba(20,22,28,.42)]">
+          <article class="scan-results-report overflow-hidden rounded-[36px] border border-[var(--hairline)] bg-white shadow-[0_38px_100px_-64px_rgba(20,22,28,.42)]">
             <div class="grid lg:grid-cols-[340px_1fr]">
-              <div class="relative overflow-hidden bg-[linear-gradient(155deg,var(--navy)_0%,var(--navy-deep)_100%)] p-8 text-white md:p-10">
+              <div class="scan-score-panel relative overflow-hidden bg-[linear-gradient(155deg,var(--navy)_0%,var(--navy-deep)_100%)] p-8 text-white md:p-10">
                 <span class="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[var(--key-blue)]/25 blur-3xl"></span>
                 <div class="relative">
                   <div class="flex items-center gap-2 text-sm font-medium text-white/60"><Gauge class="h-4 w-4" /> AI visibility</div>
@@ -187,7 +186,7 @@ const reportSchema = {
                 </div>
               </div>
 
-              <div class="flex flex-col justify-center p-8 md:p-12 lg:p-14">
+              <div class="scan-verdict-panel flex flex-col justify-center p-8 md:p-12 lg:p-14">
                 <p class="eyebrow text-[var(--key-blue)]">Your verdict</p>
                 <h3 data-result-verdict class="mt-5 max-w-[22ch] font-display text-[clamp(2rem,4vw,3.7rem)] font-semibold leading-[1.03] tracking-[-.045em] text-charcoal">Your result will appear here.</h3>
                 <div class="mt-8 flex flex-wrap gap-2">
@@ -235,10 +234,10 @@ const reportSchema = {
             </div>
           </article>
 
-          <div class="relative mt-8 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy))] p-7 text-white shadow-[0_28px_70px_-48px_rgba(35,46,102,.8)] md:flex md:items-center md:justify-between md:gap-10 md:p-10">
+          <div class="scan-results-cta relative mt-8 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy))] p-7 text-white shadow-[0_28px_70px_-48px_rgba(35,46,102,.8)] md:flex md:items-center md:justify-between md:gap-10 md:p-10">
             <span class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl"></span>
             <div class="relative max-w-2xl"><h3 class="font-display text-3xl font-semibold tracking-tight">Make your shop the easier recommendation.</h3><p data-result-cta class="mt-3 leading-relaxed text-white/70"></p></div>
-            <a href={CONSULTATION_URL} class="report-cta-pulse relative mt-6 inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal shadow-[0_16px_38px_-20px_rgba(0,0,0,.4)] transition hover:-translate-y-0.5 hover:bg-white md:mt-0" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Schedule A Consultation <ArrowRight class="h-4 w-4" /></a>
+            <a href={CONSULTATION_URL} class="report-cta-pulse relative mt-6 inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 text-center font-semibold text-charcoal shadow-[0_16px_38px_-20px_rgba(0,0,0,.4)] transition hover:-translate-y-0.5 hover:bg-white sm:w-auto md:mt-0" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Schedule A Consultation <ArrowRight class="h-4 w-4" /></a>
           </div>
         </div>
       </div>
@@ -664,6 +663,229 @@ const reportSchema = {
       100% {
         opacity: 0;
         transform: scale(1.16, 1.45);
+      }
+    }
+
+    @media (max-width: 639px) {
+      .ai-scan-hero {
+        padding-block: 2.5rem 2.75rem;
+      }
+
+      .ai-scan-hero-grid {
+        gap: 2.25rem;
+      }
+
+      .ai-scan-hero-copy .eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+      }
+
+      .ai-scan-hero-copy h1 {
+        max-width: 10ch;
+        margin-top: 1rem;
+        margin-inline: auto;
+        font-size: clamp(2.65rem, 14vw, 3.45rem);
+        line-height: 0.98;
+      }
+
+      .ai-scan-hero-copy > p:nth-of-type(2) {
+        margin-top: 1.25rem;
+        font-size: 1rem;
+        line-height: 1.55;
+      }
+
+      .ai-scan-hero-copy > div {
+        margin-top: 1.4rem;
+        gap: 0.7rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      #scan-form {
+        border-radius: 1.5rem;
+      }
+
+      #scan-form > div {
+        padding: 1.25rem;
+      }
+
+      #scan-form label {
+        margin-top: 1rem;
+      }
+
+      #scan-form label:first-of-type {
+        margin-top: 0;
+      }
+
+      #scan-form input {
+        height: 3.25rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+      }
+
+      #scan-submit {
+        margin-top: 1.25rem;
+      }
+
+      .ai-scan-platform {
+        margin-top: 2rem;
+        gap: 0.9rem;
+        border-radius: 1.15rem;
+        padding: 0.95rem;
+        text-align: center;
+      }
+
+      .ai-scan-platform > p {
+        font-size: 0.75rem;
+      }
+
+      .ai-scan-platform-list {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.4rem;
+      }
+
+      .ai-scan-platform-item {
+        min-width: 0;
+        flex-direction: column;
+        gap: 0.2rem;
+        font-size: 0.66rem;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .ai-scan-platform-item img {
+        width: 1.7rem;
+        height: 1.7rem;
+      }
+
+      #scan-progress {
+        padding-block: 2.5rem;
+      }
+
+      .scan-progress-panel {
+        border-radius: 1.5rem;
+        padding: 1.5rem 1.1rem;
+      }
+
+      .scan-stage-hero-icon {
+        width: 4.25rem;
+        height: 3.75rem;
+      }
+
+      #scan-stage-title {
+        font-size: 2rem;
+      }
+
+      #scan-stage-detail {
+        font-size: 0.95rem;
+      }
+
+      .scan-stage-grid {
+        margin-top: 1.75rem;
+      }
+
+      .scan-stage-item {
+        grid-template-columns: 2.5rem 1fr;
+        gap: 0.7rem;
+        padding: 0.75rem 0;
+      }
+
+      .scan-stage-marker {
+        width: 2.35rem;
+        height: 2.35rem;
+      }
+
+      .scan-progress-note {
+        align-items: flex-start;
+        margin-top: 1.5rem;
+        font-size: 0.75rem;
+        line-height: 1.45;
+        text-align: left;
+      }
+
+      #report-gate,
+      #scan-results {
+        padding-block: 2.5rem;
+      }
+
+      #report-gate .container-page,
+      #scan-results .container-page {
+        padding-inline: 0.75rem;
+      }
+
+      .report-gate-shell,
+      .scan-results-report {
+        border-radius: 1.6rem;
+      }
+
+      .report-gate-summary {
+        padding: 1.5rem 1.25rem;
+      }
+
+      .report-gate-summary h2 {
+        margin-top: 1rem;
+        font-size: 2.55rem;
+        line-height: 0.98;
+      }
+
+      .report-gate-summary > .relative > p:nth-of-type(2) {
+        margin-top: 1.25rem;
+        font-size: 0.95rem;
+      }
+
+      .report-gate-summary .mt-9 {
+        margin-top: 1.5rem;
+      }
+
+      .report-gate-summary .py-4 {
+        padding-block: 0.75rem;
+        font-size: 0.86rem;
+      }
+
+      .report-gate-unlock {
+        margin: 0.4rem;
+        border-radius: 1.25rem;
+        padding: 1.25rem;
+      }
+
+      .report-gate-unlock h3 {
+        font-size: 2rem;
+      }
+
+      .report-gate-unlock input {
+        font-size: 1rem;
+      }
+
+      .scan-score-panel,
+      .scan-verdict-panel {
+        padding: 1.5rem 1.25rem;
+      }
+
+      .score-ring {
+        width: 9.5rem;
+      }
+
+      .scan-verdict-panel h3 {
+        font-size: 2rem;
+      }
+
+      .scan-results-report > div:nth-of-type(2),
+      .scan-results-report > div:nth-of-type(3) {
+        padding: 1.25rem;
+      }
+
+      .scan-results-report section {
+        border-radius: 1.25rem;
+      }
+
+      .scan-results-cta {
+        border-radius: 1.5rem;
+        padding: 1.5rem 1.25rem;
+      }
+
+      .scan-results-cta h3 {
+        font-size: 1.75rem;
       }
     }
 
