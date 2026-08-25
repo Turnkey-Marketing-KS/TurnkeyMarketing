@@ -16,12 +16,12 @@ const featuredServices = services.slice(0, 6);
   <div class="footer-glow footer-glow-blue" aria-hidden="true"></div>
   <div class="footer-glow footer-glow-green" aria-hidden="true"></div>
 
-  <div class="container-page relative py-6 md:py-10 lg:py-12">
+  <div class="container-page relative py-6 md:py-8 lg:py-10">
     <section
-      class="relative px-5 py-7 md:px-9 md:py-10 lg:px-12 lg:py-12"
+      class="relative border-b border-white/10 px-1 pb-10 pt-7 md:px-4 md:pb-12 md:pt-9 lg:pb-14 lg:pt-10"
       aria-labelledby="footer-cta-title"
     >
-      <div class="relative grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
+      <div class="relative grid gap-9 lg:grid-cols-[minmax(0,1.12fr)_minmax(300px,.88fr)] lg:items-center lg:gap-16 xl:gap-24">
         <div>
           <div class="flex flex-wrap items-center gap-x-5 gap-y-4">
             <a href="/" class="site-logo-link inline-flex" aria-label="Turnkey Marketing home">
@@ -30,7 +30,7 @@ const featuredServices = services.slice(0, 6);
                 alt="Turnkey Marketing"
                 width="7500"
                 height="1875"
-                class="h-10 w-auto max-w-[190px] object-contain object-left sm:h-12 sm:max-w-[230px]"
+                class="h-9 w-auto max-w-[180px] object-contain object-left sm:h-10 sm:max-w-[205px]"
                 loading="lazy"
                 decoding="async"
               />
@@ -42,41 +42,43 @@ const featuredServices = services.slice(0, 6);
             </span>
           </div>
 
-          <h2 id="footer-cta-title" class="mt-8 max-w-4xl font-display text-[clamp(2.15rem,5.4vw,4.9rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-balance text-white md:mt-10">
+          <h2 id="footer-cta-title" class="mt-7 max-w-3xl font-display text-[clamp(2.4rem,4.2vw,4.2rem)] font-semibold leading-[0.94] tracking-[-0.05em] text-balance text-white md:mt-8">
             <span class="block">More calls.</span>
             <span class="block">More cars.</span>
             <span class="block text-[var(--green)]">More revenue.</span>
           </h2>
-          <p class="mt-5 max-w-2xl text-sm leading-relaxed text-white/64 sm:text-base md:mt-6 md:text-lg">
-            One experienced team to plan the work, keep it moving, and show you what is actually working for your shop.
-          </p>
         </div>
 
-        <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-stretch">
-          <a
-            href={CONSULTATION_URL}
-            class="group inline-flex min-h-13 items-center justify-center gap-2.5 rounded-full bg-[var(--key-blue)] px-5 py-4 text-[0.93rem] font-semibold text-white shadow-[0_18px_44px_-20px_rgba(63,140,203,0.72)] transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-[var(--navy)] hover:shadow-[0_24px_52px_-22px_rgba(255,255,255,0.38)] sm:px-6 sm:text-base lg:min-w-[250px]"
-            data-track-event="consultation_cta_click"
-            data-track-placement="footer"
-          >
-            <span class="sm:hidden">Book a consultation</span>
-            <span class="hidden sm:inline">Schedule a consultation</span>
-            <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-          </a>
-          <a
-            href="tel:+19134270674"
-            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white bg-white px-5 py-3 text-sm font-medium text-[var(--navy)] transition hover:border-white hover:bg-[var(--off-white)] hover:text-[var(--navy)]"
-            data-track-event="phone_click"
-            data-track-placement="footer"
-          >
-            <SolidPhoneIcon class="h-6 w-6 text-[var(--navy)]" />
-            (913) 427-0674
-          </a>
+        <div class="lg:border-l lg:border-white/12 lg:pl-10 xl:pl-14">
+          <p class="max-w-md text-base leading-relaxed text-white/72 md:text-lg">
+            One experienced team to plan the work, keep it moving, and show you what is actually working for your shop.
+          </p>
+          <div class="mt-6 flex max-w-sm flex-col items-stretch gap-2">
+            <a
+              href={CONSULTATION_URL}
+              class="group inline-flex min-h-13 items-center justify-between gap-2.5 rounded-full bg-[var(--key-blue)] px-6 py-4 text-[0.93rem] font-semibold text-white shadow-[0_18px_44px_-20px_rgba(63,140,203,0.72)] transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-[var(--navy)] hover:shadow-[0_24px_52px_-22px_rgba(255,255,255,0.38)] sm:text-base"
+              data-track-event="consultation_cta_click"
+              data-track-placement="footer"
+            >
+              <span class="sm:hidden">Book a consultation</span>
+              <span class="hidden sm:inline">Schedule a consultation</span>
+              <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              href="tel:+19134270674"
+              class="inline-flex min-h-12 items-center gap-2 px-2 text-sm font-medium text-white/76 transition hover:text-white"
+              data-track-event="phone_click"
+              data-track-placement="footer"
+            >
+              <SolidPhoneIcon class="h-5 w-5 text-[var(--green)]" />
+              (913) 427-0674
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="grid gap-10 px-1 pb-9 pt-12 md:px-2 md:pb-11 md:pt-16 lg:grid-cols-12 lg:gap-8 lg:px-4 lg:pt-20">
+    <div class="grid gap-10 px-1 pb-9 pt-11 md:px-2 md:pb-11 md:pt-14 lg:grid-cols-12 lg:gap-8 lg:px-4 lg:pt-16">
       <div class="lg:col-span-4 lg:pr-10">
         <p class="text-[0.67rem] font-semibold uppercase tracking-[0.19em] text-[var(--green)]">Let’s talk shop</p>
 
