@@ -2,7 +2,7 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import { resolve, relative, sep } from "node:path";
 
 const projectRoot = resolve(import.meta.dirname, "..");
-const distRoot = resolve(projectRoot, "dist");
+let distRoot = resolve(projectRoot, "dist");
 const canonicalOrigin = "https://www.turnkeyautomarketing.com";
 const primaryFaviconPath = "/favicon-search.png";
 const failures = [];
@@ -91,6 +91,14 @@ try {
 if (!distInfo.isDirectory()) {
   console.error("SEO check requires dist to be a directory. Run `pnpm build` first.");
   process.exit(1);
+}
+
+try {
+  const clientRoot = resolve(distRoot, "client");
+  const clientInfo = await stat(clientRoot);
+  if (clientInfo.isDirectory()) distRoot = clientRoot;
+} catch {
+  // Static builds without a server adapter emit directly into dist.
 }
 
 const files = await walk(distRoot);

@@ -1,197 +1,301 @@
 ---
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+} from "lucide-react";
+import EmailEnvelopeIcon from "@/components/site/EmailEnvelopeIcon.astro";
+import LocationPinIcon from "@/components/site/LocationPinIcon.astro";
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
 import { CONSULTATION_URL, services } from "@/lib/services";
 
-const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark background.png";
+const LOGO_SRC = "/images/logos/Turnkey Marketing Logo - full color-dark background-01.png";
+const featuredServices = services.slice(0, 6);
 ---
 
-<footer class="site-footer" style="background: var(--navy); color: #fff;">
-  <div class="container-page py-12 md:py-20">
-    <div class="grid gap-8 md:gap-16 lg:grid-cols-12">
-      <div class="lg:col-span-5">
-        <a
-          href="/"
-          class="hidden md:inline-flex"
-          aria-label="Turnkey Marketing home"
-        >
-          <img
-            src={LOGO_SRC}
-            alt="Turnkey Marketing"
-            width="7300"
-            height="1567"
-            class="h-12 w-auto max-w-[220px] md:h-16 md:max-w-[280px]"
-            loading="lazy"
-            decoding="async"
-          />
-        </a>
-        <h2 class="display-2 mt-0 text-balance text-white md:mt-4">
-          More calls.<br />
-          More cars.<br />
-          More revenue.
-        </h2>
-        <a
-          href={CONSULTATION_URL}
-          class="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-5 py-3.5 text-center font-medium transition hover:-translate-y-px hover:brightness-105 md:mt-8 md:min-h-0 md:w-auto md:px-6 md:py-4"
-          style="background: var(--green); color: var(--charcoal);"
-          data-track-event="consultation_cta_click"
-          data-track-placement="footer"
-        >
-          Schedule a Consultation <span class="motion-arrow">→</span>
-        </a>
-        <div
-          class="relative mt-5 overflow-hidden rounded-[22px] border border-white/15 bg-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_45px_-32px_rgba(0,0,0,0.55)] md:hidden"
-          aria-label="Turnkey Marketing trust indicators"
-        >
-          <span class="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-[var(--green)] to-transparent"></span>
-          <div class="flex items-center gap-2 px-4 py-3">
-            <span class="h-1.5 w-1.5 rounded-full bg-[var(--green)] shadow-[0_0_0_4px_rgba(147,200,69,0.12)]"></span>
-            <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/65">
-              Trusted where it matters
-            </p>
+<footer class="site-footer relative overflow-hidden bg-[var(--navy-deep)] text-white">
+  <div class="footer-glow footer-glow-blue" aria-hidden="true"></div>
+  <div class="footer-glow footer-glow-green" aria-hidden="true"></div>
+
+  <div class="container-page relative py-6 md:py-10 lg:py-12">
+    <section
+      class="relative px-5 py-7 md:px-9 md:py-10 lg:px-12 lg:py-12"
+      aria-labelledby="footer-cta-title"
+    >
+      <div class="relative grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
+        <div>
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-4">
+            <a href="/" class="site-logo-link inline-flex" aria-label="Turnkey Marketing home">
+              <img
+                src={LOGO_SRC}
+                alt="Turnkey Marketing"
+                width="7500"
+                height="1875"
+                class="h-10 w-auto max-w-[190px] object-contain object-left sm:h-12 sm:max-w-[230px]"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <span class="hidden h-8 w-px bg-white/15 sm:block" aria-hidden="true"></span>
+            <span class="inline-flex items-center gap-2 text-[0.67rem] font-semibold uppercase tracking-[0.19em] text-white/58">
+              <span class="h-1.5 w-1.5 rounded-full bg-[var(--green)] shadow-[0_0_0_5px_rgba(147,200,69,0.1)]"></span>
+              Auto Repair Marketing Agency
+            </span>
           </div>
-          <dl class="grid grid-cols-[0.9fr_0.9fr_1.2fr] divide-x divide-white/10 border-t border-white/10">
-            <div class="px-3 py-4">
-              <dt class="font-display text-xl font-semibold leading-none tracking-[-0.03em] text-white">300+</dt>
-              <dd class="mt-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-white/55">Shops served</dd>
-            </div>
-            <div class="px-3 py-4">
-              <dt class="font-display text-xl font-semibold leading-none tracking-[-0.03em] text-white">13+</dt>
-              <dd class="mt-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-white/55">Years focused</dd>
-            </div>
-            <div class="px-3 py-4">
-              <dt class="whitespace-nowrap font-display text-[13px] font-semibold leading-none tracking-[-0.01em] text-white">ATI + ShopFix</dt>
-              <dd class="mt-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-white/55">Industry partners</dd>
-            </div>
-          </dl>
+
+          <h2 id="footer-cta-title" class="mt-8 max-w-4xl font-display text-[clamp(2.15rem,5.4vw,4.9rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-balance text-white md:mt-10">
+            <span class="block">More calls.</span>
+            <span class="block">More cars.</span>
+            <span class="block text-[var(--green)]">More revenue.</span>
+          </h2>
+          <p class="mt-5 max-w-2xl text-sm leading-relaxed text-white/64 sm:text-base md:mt-6 md:text-lg">
+            One experienced team to plan the work, keep it moving, and show you what is actually working for your shop.
+          </p>
         </div>
-        <p class="mt-6 hidden text-sm text-white/50 md:block">
-          Trusted by 300+ shops · 13+ years · ATI & ShopFix partners
-        </p>
+
+        <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-stretch">
+          <a
+            href={CONSULTATION_URL}
+            class="group inline-flex min-h-13 items-center justify-center gap-2.5 rounded-full bg-[var(--key-blue)] px-5 py-4 text-[0.93rem] font-semibold text-white shadow-[0_18px_44px_-20px_rgba(63,140,203,0.72)] transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-[var(--navy)] hover:shadow-[0_24px_52px_-22px_rgba(255,255,255,0.38)] sm:px-6 sm:text-base lg:min-w-[250px]"
+            data-track-event="consultation_cta_click"
+            data-track-placement="footer"
+          >
+            <span class="sm:hidden">Book a consultation</span>
+            <span class="hidden sm:inline">Schedule a consultation</span>
+            <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
+          </a>
+          <a
+            href="tel:+19134270674"
+            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white bg-white px-5 py-3 text-sm font-medium text-[var(--navy)] transition hover:border-white hover:bg-[var(--off-white)] hover:text-[var(--navy)]"
+            data-track-event="phone_click"
+            data-track-placement="footer"
+          >
+            <SolidPhoneIcon class="h-6 w-6 text-[var(--navy)]" />
+            (913) 427-0674
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid gap-10 px-1 pb-9 pt-12 md:px-2 md:pb-11 md:pt-16 lg:grid-cols-12 lg:gap-8 lg:px-4 lg:pt-20">
+      <div class="lg:col-span-4 lg:pr-10">
+        <p class="text-[0.67rem] font-semibold uppercase tracking-[0.19em] text-[var(--green)]">Let’s talk shop</p>
+
+        <div class="mt-7 space-y-3 text-sm">
+          <a
+            href="mailto:hello@turnkeyautomarketing.com"
+            class="group flex min-h-11 items-center gap-3 text-white/68 hover:text-white"
+            data-track-event="email_click"
+            data-track-placement="footer"
+          >
+            <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center text-[var(--green)]">
+              <EmailEnvelopeIcon class="h-6 w-6 md:h-7 md:w-7" />
+            </span>
+            <span class="min-w-0 break-all sm:break-normal">hello@turnkeyautomarketing.com</span>
+          </a>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=9401+Indian+Creek+Pkwy+%231300%2C+Overland+Park%2C+KS+66210"
+            class="group flex min-h-11 items-center gap-3 text-white/68 hover:text-white"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center text-[var(--green)]">
+              <LocationPinIcon class="h-6 w-6 md:h-7 md:w-7" />
+            </span>
+            <address class="not-italic leading-relaxed">
+              9401 Indian Creek Pkwy #1300<br />Overland Park, KS 66210
+            </address>
+          </a>
+        </div>
+
+        <div class="mt-8 flex items-center gap-2" role="group" aria-label="Turnkey Marketing social media">
+          <a
+            href="https://www.facebook.com/turnkeymarketingks"
+            class="inline-flex h-11 w-11 items-center justify-center text-white/80 transition hover:-translate-y-0.5 hover:text-[var(--green)]"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Turnkey Marketing on Facebook"
+            data-track-event="social_link_click"
+            data-track-platform="facebook"
+            data-track-placement="footer"
+          >
+            <img
+              src="/images/icons/social/facebook.svg"
+              alt=""
+              width="28"
+              height="28"
+              loading="lazy"
+              decoding="async"
+              class="h-7 w-7 brightness-0 invert"
+              aria-hidden="true"
+              role="presentation"
+            />
+          </a>
+          <a
+            href="https://www.instagram.com/turnkey_marketing/"
+            class="inline-flex h-11 w-11 items-center justify-center text-white/80 transition hover:-translate-y-0.5 hover:text-[var(--green)]"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Turnkey Marketing on Instagram"
+            data-track-event="social_link_click"
+            data-track-platform="instagram"
+            data-track-placement="footer"
+          >
+            <img
+              src="/images/icons/social/instagram.svg"
+              alt=""
+              width="28"
+              height="28"
+              loading="lazy"
+              decoding="async"
+              class="h-7 w-7 brightness-0 invert"
+              aria-hidden="true"
+              role="presentation"
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/turnkey-marketing-for-auto-repair-shops"
+            class="inline-flex h-11 w-11 items-center justify-center text-white/80 transition hover:-translate-y-0.5 hover:text-[var(--green)]"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Turnkey Marketing on LinkedIn"
+            data-track-event="social_link_click"
+            data-track-platform="linkedin"
+            data-track-placement="footer"
+          >
+            <img
+              src="/images/icons/social/linkedin.svg"
+              alt=""
+              width="28"
+              height="28"
+              loading="lazy"
+              decoding="async"
+              class="h-7 w-7"
+              aria-hidden="true"
+              role="presentation"
+            />
+          </a>
+          <a
+            href="https://www.tiktok.com/@turnkey.marketing3?_r=1&_t=ZP-992hU1aqbvy"
+            class="inline-flex h-11 w-11 items-center justify-center text-white/80 transition hover:-translate-y-0.5 hover:text-[var(--green)]"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Turnkey Marketing on TikTok"
+            data-track-event="social_link_click"
+            data-track-platform="tiktok"
+            data-track-placement="footer"
+          >
+            <img
+              src="/images/icons/social/tiktok.svg"
+              alt=""
+              width="28"
+              height="28"
+              loading="lazy"
+              decoding="async"
+              class="h-7 w-7 brightness-0 invert"
+              aria-hidden="true"
+              role="presentation"
+            />
+          </a>
+        </div>
       </div>
 
-      <nav
-        class="grid min-w-0 grid-cols-2 gap-x-6 gap-y-6 text-sm md:grid-cols-[0.75fr_1fr_1.35fr] md:gap-10 lg:col-span-7"
-        aria-label="Footer navigation"
-      >
+      <nav class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-[0.75fr_1.5fr_0.85fr] lg:gap-8" aria-label="Footer navigation">
         <div>
-          <p class="mb-2 text-xs uppercase tracking-widest text-white/65 md:mb-4 md:text-white/50">Company</p>
-          <ul class="space-y-0 md:space-y-3">
-            <li><a href="/about" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">About</a></li>
-            <li><a href="/results" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">Results</a></li>
-            <li><a href="/resources" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">Resources</a></li>
-            <li><a href="/contact" class="inline-flex min-h-11 items-center text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white">Contact</a></li>
+          <p class="text-[0.67rem] font-semibold uppercase tracking-[0.19em] text-white/55">Company</p>
+          <ul class="mt-4 space-y-1 text-sm">
+            <li><a href="/about" class="group inline-flex min-h-11 items-center gap-2 text-white/70 hover:text-white md:min-h-10"><span>About</span><ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" /></a></li>
+            <li><a href="/results" class="group inline-flex min-h-11 items-center gap-2 text-white/70 hover:text-white md:min-h-10"><span>Results</span><ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" /></a></li>
+            <li><a href="/resources" class="group inline-flex min-h-11 items-center gap-2 text-white/70 hover:text-white md:min-h-10"><span>Resources</span><ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" /></a></li>
+            <li><a href="/contact" class="group inline-flex min-h-11 items-center gap-2 text-white/70 hover:text-white md:min-h-10"><span>Contact</span><ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" /></a></li>
           </ul>
         </div>
-        <div>
-          <p class="mb-2 text-xs uppercase tracking-widest text-white/65 md:mb-4 md:text-white/50">Services</p>
-          <ul class="space-y-0 md:space-y-3">
-            {services.slice(0, 6).map((service) => (
+
+        <div class="col-span-2 sm:col-span-1">
+          <p class="text-[0.67rem] font-semibold uppercase tracking-[0.19em] text-white/55">Services</p>
+          <ul class="mt-4 grid grid-cols-2 gap-x-5 gap-y-1 text-sm sm:grid-cols-1 xl:grid-cols-2">
+            {featuredServices.map((service) => (
               <li>
-                <a
-                  href={`/services/${service.slug}`}
-                  class="inline-flex min-h-11 items-center leading-snug text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white"
-                >
+                <a href={`/services/${service.slug}`} class="inline-flex min-h-11 items-center leading-snug text-white/70 hover:text-white md:min-h-10">
                   {service.name}
                 </a>
               </li>
             ))}
           </ul>
+          <a href="/services" class="group mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--green)] hover:text-white md:min-h-10">
+            View all services
+            <ArrowRight className="motion-arrow h-3.5 w-3.5" aria-hidden="true" />
+          </a>
         </div>
-        <div class="col-span-2 border-t border-white/10 pt-6 md:col-span-1 md:border-0 md:pt-0">
-          <p class="mb-2 text-xs uppercase tracking-widest text-white/65 md:mb-4 md:text-white/50">Contact</p>
-          <ul class="space-y-0 md:space-y-3">
-            <li>
-              <a
-                href="tel:+19134270674"
-                class="inline-flex min-h-11 items-center whitespace-nowrap text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white"
-                data-track-event="phone_click"
-                data-track-placement="footer"
-              >
-                (913) 427-0674
-              </a>
-            </li>
-            <li>
-              <a
-                href="mailto:hello@turnkeyautomarketing.com"
-                class="inline-flex min-h-11 max-w-full items-center break-all text-white/90 hover:text-[var(--green)] md:min-h-0 md:whitespace-nowrap md:text-white"
-                data-track-event="email_click"
-                data-track-placement="footer"
-              >
-                hello@turnkeyautomarketing.com
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=9401+Indian+Creek+Pkwy+%231300%2C+Overland+Park%2C+KS+66210"
-                class="inline-flex min-h-11 items-center leading-relaxed text-white/90 hover:text-[var(--green)] md:min-h-0 md:text-white"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <address class="not-italic">
-                  9401 Indian Creek Pkwy #1300<br />
-                  Overland Park, KS 66210
-                </address>
-              </a>
-            </li>
-          </ul>
-          <div class="mt-5 border-t border-white/10 pt-5 md:mt-7">
-            <p class="text-xs uppercase tracking-widest text-white/65 md:text-white/50">Follow us</p>
-            <div class="mt-3 flex items-center gap-2" role="group" aria-label="Turnkey Marketing social media">
-              <a
-                href="https://www.facebook.com/turnkeymarketingks"
-                class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/90 transition hover:border-[var(--green)] hover:bg-white/[0.06] hover:text-[var(--green)]"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Turnkey Marketing on Facebook"
-                data-track-event="social_link_click"
-                data-track-platform="facebook"
-                data-track-placement="footer"
-              >
-                <Facebook size={18} strokeWidth={1.8} aria-hidden="true" />
-              </a>
-              <a
-                href="https://www.instagram.com/turnkey_marketing/"
-                class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/90 transition hover:border-[var(--green)] hover:bg-white/[0.06] hover:text-[var(--green)]"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Turnkey Marketing on Instagram"
-                data-track-event="social_link_click"
-                data-track-platform="instagram"
-                data-track-placement="footer"
-              >
-                <Instagram size={18} strokeWidth={1.8} aria-hidden="true" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/turnkey-marketing-for-auto-repair-shops"
-                class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/90 transition hover:border-[var(--green)] hover:bg-white/[0.06] hover:text-[var(--green)]"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Turnkey Marketing on LinkedIn"
-                data-track-event="social_link_click"
-                data-track-platform="linkedin"
-                data-track-placement="footer"
-              >
-                <Linkedin size={18} strokeWidth={1.8} aria-hidden="true" />
-              </a>
+
+        <div>
+          <p class="text-[0.67rem] font-semibold uppercase tracking-[0.19em] text-white/55">Why Turnkey</p>
+          <dl class="mt-5 space-y-5">
+            <div>
+              <dt class="font-display text-2xl font-semibold leading-none tracking-[-0.035em] text-white">300+</dt>
+              <dd class="mt-1.5 text-xs leading-relaxed text-white/58">Shops served</dd>
             </div>
-          </div>
+            <div>
+              <dt class="font-display text-2xl font-semibold leading-none tracking-[-0.035em] text-white">13+ years</dt>
+              <dd class="mt-1.5 text-xs leading-relaxed text-white/58">Focused on auto repair</dd>
+            </div>
+            <div>
+              <dt class="font-display text-sm font-semibold leading-none tracking-[-0.01em] text-white">ATI + ShopFix</dt>
+              <dd class="mt-1.5 text-xs leading-relaxed text-white/58">Trusted industry partners</dd>
+            </div>
+          </dl>
         </div>
       </nav>
     </div>
 
-    <div class="mt-8 flex flex-col items-start justify-between gap-2 border-t border-white/10 pt-5 text-xs text-white/60 md:mt-16 md:flex-row md:items-center md:gap-4 md:pt-8 md:text-white/50">
-      <div class="space-y-1">
+    <div class="flex flex-col gap-5 border-t border-white/10 px-1 py-6 text-xs text-white/55 md:flex-row md:items-center md:justify-between md:px-4 md:py-7">
+      <div class="space-y-1.5">
         <p>© {new Date().getFullYear()} Turnkey Marketing. Built for auto repair shops.</p>
         <p>Turnkey Marketing is operated by CL Business Coaching LLC.</p>
       </div>
-      <div class="flex flex-wrap items-center gap-x-4">
-        <a href="/privacy-policy" class="inline-flex min-h-11 items-center hover:text-[var(--green)] md:min-h-0">
-          Privacy Policy
-        </a>
-        <a href="/terms-of-service" class="inline-flex min-h-11 items-center hover:text-[var(--green)] md:min-h-0">
-          Terms of Service
-        </a>
+      <div class="flex flex-wrap items-center gap-x-5">
+        <a href="/privacy-policy" class="inline-flex min-h-11 items-center hover:text-white md:min-h-0">Privacy Policy</a>
+        <a href="/terms-of-service" class="inline-flex min-h-11 items-center hover:text-white md:min-h-0">Terms of Service</a>
       </div>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-glow {
+    pointer-events: none;
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(84px);
+    opacity: 0.2;
+  }
+
+  .footer-glow-blue {
+    right: -12rem;
+    top: 8rem;
+    width: 30rem;
+    height: 30rem;
+    background: var(--key-blue);
+  }
+
+  .footer-glow-green {
+    bottom: -15rem;
+    left: -10rem;
+    width: 28rem;
+    height: 28rem;
+    background: var(--green);
+    opacity: 0.07;
+  }
+
+  @media (max-width: 639px) {
+    .footer-glow-blue {
+      right: -15rem;
+      top: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer a {
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

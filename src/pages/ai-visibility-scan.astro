@@ -1,0 +1,463 @@
+---
+import { ArrowRight, CircleCheckBig, Gauge, Search, ShieldCheck, Trophy, TriangleAlert } from "lucide-react";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { APPOINTMENTCORE_BOOKING_URL, CONSULTATION_URL } from "@/lib/services";
+
+const reportSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "AI Visibility Scan for Auto Repair Shops",
+  description: "See how clearly AI-powered searches understand your auto repair shop.",
+  url: "https://www.turnkeyautomarketing.com/ai-visibility-scan",
+};
+---
+
+<BaseLayout
+  title="AI Visibility Scan for Auto Repair Shops | Turnkey Marketing"
+  description="See how clearly AI-powered searches understand and recommend your auto repair shop."
+  path="/ai-visibility-scan"
+  ogTitle="AI Visibility Scan for Auto Repair Shops | Turnkey Marketing"
+  schema={reportSchema}
+>
+  <main class="min-h-screen bg-[var(--off-white)] pb-20">
+    <section class="relative overflow-hidden bg-white py-14 md:py-24">
+      <span class="pointer-events-none absolute -right-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-[var(--key-blue-soft)]/70 blur-3xl" aria-hidden="true"></span>
+      <span class="pointer-events-none absolute -bottom-48 left-1/3 h-80 w-80 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
+      <div class="container-page">
+        <div class="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.02fr_.98fr] lg:items-center lg:gap-16">
+          <div class="relative z-10 text-center md:text-left">
+            <p class="eyebrow text-[var(--key-blue)]">Free AI visibility scan</p>
+            <h1 class="display-1 mt-6 max-w-[11ch] text-charcoal md:max-w-[12ch]">Does AI <span class="text-[var(--key-blue)]">recommend your shop?</span></h1>
+            <p class="mx-auto mt-7 max-w-[44ch] text-lg leading-relaxed text-charcoal/65 md:mx-0 md:text-xl">See what AI tells local drivers about your shop—and where competitors may be <span class="whitespace-nowrap">winning the call.</span></p>
+            <div class="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm text-charcoal/55 md:justify-start">
+              <span class="inline-flex items-center gap-2"><ShieldCheck class="h-4 w-4 text-[var(--green)]" /> Built for auto repair</span>
+              <span class="inline-flex items-center gap-2"><Search class="h-4 w-4 text-[var(--key-blue)]" /> About 60 seconds</span>
+            </div>
+          </div>
+
+          <div class="relative z-10 mx-auto w-full max-w-[430px] lg:mr-5">
+            <form id="scan-form" class="relative overflow-hidden rounded-[32px] bg-[linear-gradient(145deg,var(--key-blue),var(--navy))] p-1 shadow-[0_34px_90px_-42px_rgba(35,46,102,.65)]">
+              <div class="rounded-[28px] bg-white p-6 md:p-8">
+                <div class="flex items-center justify-between gap-4">
+                  <div><p class="eyebrow text-[var(--key-blue)]">Start here</p><h2 class="mt-2 font-display text-2xl font-semibold tracking-tight text-charcoal">Run your scan</h2></div>
+                  <span class="inline-flex h-11 w-11 items-center justify-center text-[var(--navy)]"><Search class="h-6 w-6" /></span>
+                </div>
+                <label class="mt-7 block text-sm font-medium text-charcoal" for="shop-name">Shop name</label>
+                <input id="shop-name" name="shopName" required autocomplete="organization" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Smith Auto Care" />
+                <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-location">City and state</label>
+                <input id="shop-location" name="location" required autocomplete="address-level2" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Scottsdale, AZ" />
+                <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-specialty">What work do you want more of? <span class="font-normal text-charcoal/40">Optional</span></label>
+                <input id="shop-specialty" name="specialty" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. European repair, brakes, diagnostics" />
+                <button id="scan-submit" type="submit" class="btn-primary mt-7 h-13 w-full !bg-[var(--navy)] !px-5 hover:!bg-[var(--navy-deep)] disabled:cursor-wait disabled:opacity-70">Run My Scan <ArrowRight class="h-4 w-4" /></button>
+                <p id="scan-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scan-progress" class="hidden border-b border-[var(--hairline)] bg-[var(--navy-deep)] py-16 text-white">
+      <div class="container-page">
+        <div class="mx-auto max-w-xl rounded-[30px] border border-white/10 bg-white/[0.06] p-7 md:p-9">
+          <div class="flex items-center gap-4">
+            <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--green)]/15">
+              <span class="dots-ring text-[var(--green)]" role="status" aria-label="Scan in progress">
+                <span class="dots-ring-track" aria-hidden="true">
+                  {Array.from({ length: 8 }, (_, index) => (
+                    <span class="dots-ring-position" style={`--dot-index:${index};--dot-angle:${index * 45}deg`}>
+                      <span class="dots-ring-dot"></span>
+                    </span>
+                  ))}
+                </span>
+              </span>
+            </span>
+            <div><p class="eyebrow text-[#9ed8f0]">Scan in progress</p><h2 id="scan-stage-title" class="mt-1 font-display text-2xl font-semibold">Searching for your shop</h2></div>
+          </div>
+          <p id="scan-stage-detail" class="mt-6 leading-relaxed text-white/65">Checking the public information AI can find about your business.</p>
+          <div class="mt-7 space-y-3" aria-live="polite">
+            <div data-scan-stage="0" class="flex items-center gap-3 text-sm text-white/90"><span class="scan-stage-dot"></span> Finding your shop and location</div>
+            <div data-scan-stage="1" class="flex items-center gap-3 text-sm text-white/45"><span class="scan-stage-dot"></span> Checking service and specialty signals</div>
+            <div data-scan-stage="2" class="flex items-center gap-3 text-sm text-white/45"><span class="scan-stage-dot"></span> Comparing nearby recommendations</div>
+            <div data-scan-stage="3" class="flex items-center gap-3 text-sm text-white/45"><span class="scan-stage-dot"></span> Preparing your visibility snapshot</div>
+          </div>
+          <p class="mt-7 border-t border-white/10 pt-5 text-xs text-white/40">This usually takes less than a minute. You can keep this tab open while we work.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="scan-results" class="hidden bg-[linear-gradient(180deg,var(--off-white)_0%,#fff_100%)] py-12 md:py-24">
+      <div class="container-page">
+        <div class="mx-auto max-w-6xl">
+          <div class="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p class="eyebrow text-[var(--key-blue)]">Your AI visibility snapshot</p>
+              <h2 class="display-3 mt-3 text-charcoal"><span data-result-shop>Your shop</span></h2>
+            </div>
+            <div class="inline-flex w-fit items-center gap-3 rounded-[18px] bg-[var(--navy)] py-2 pl-2 pr-4 text-white shadow-[0_18px_40px_-24px_rgba(35,46,102,.8)] ring-1 ring-white/10">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--green)] text-[var(--navy-deep)] shadow-sm"><CircleCheckBig class="h-5 w-5" /></span>
+              <span class="text-left"><span class="block text-[9px] font-semibold uppercase tracking-[.18em] text-white/50">Status</span><span class="mt-0.5 block text-sm font-semibold leading-none">Scan complete</span></span>
+            </div>
+          </div>
+
+          <article class="overflow-hidden rounded-[36px] border border-[var(--hairline)] bg-white shadow-[0_38px_100px_-64px_rgba(20,22,28,.42)]">
+            <div class="grid lg:grid-cols-[340px_1fr]">
+              <div class="relative overflow-hidden bg-[linear-gradient(155deg,var(--navy)_0%,var(--navy-deep)_100%)] p-8 text-white md:p-10">
+                <span class="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[var(--key-blue)]/25 blur-3xl"></span>
+                <div class="relative">
+                  <div class="flex items-center gap-2 text-sm font-medium text-white/60"><Gauge class="h-4 w-4" /> AI visibility</div>
+                  <div data-score-ring class="score-ring mt-8" style="--score:0">
+                    <div class="score-ring-inner"><span data-result-score class="font-display text-6xl font-semibold tracking-[-.07em]">—</span><span class="mt-1 text-xs text-white/45">out of 100</span></div>
+                  </div>
+                  <div class="mt-8 border-t border-white/15 pt-5">
+                    <p class="text-[10px] uppercase tracking-[.16em] text-white/45">Current signal</p>
+                    <p data-result-status class="mt-2 font-display text-2xl font-semibold">Scan complete</p>
+                  </div>
+                  <p class="mt-5 text-xs leading-relaxed text-white/45">Directional snapshot—not an official ranking.</p>
+                </div>
+              </div>
+
+              <div class="flex flex-col justify-center p-8 md:p-12 lg:p-14">
+                <p class="eyebrow text-[var(--key-blue)]">Your verdict</p>
+                <h3 data-result-verdict class="mt-5 max-w-[22ch] font-display text-[clamp(2rem,4vw,3.7rem)] font-semibold leading-[1.03] tracking-[-.045em] text-charcoal">Your result will appear here.</h3>
+                <div class="mt-8 flex flex-wrap gap-2">
+                  <span class="rounded-full bg-[var(--key-blue-soft)] px-3 py-1.5 text-xs font-semibold text-[var(--navy)]">AI search</span>
+                  <span class="rounded-full bg-[var(--off-white)] px-3 py-1.5 text-xs font-semibold text-charcoal/60">Local visibility</span>
+                  <span class="rounded-full bg-[#eaf3dc] px-3 py-1.5 text-xs font-semibold text-charcoal/65">Auto repair</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-[var(--hairline)] p-6 md:p-10">
+              <div class="grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-12">
+                <section>
+                  <div class="flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#eaf3dc] text-[#5f8f22]"><CircleCheckBig class="h-5 w-5" /></span><div><p class="eyebrow text-[#6d9b2f]">Signals AI picked up</p><h4 class="mt-1 font-display text-xl font-semibold text-charcoal">What is already clear</h4></div></div>
+                  <ul data-result-understood class="mt-6 divide-y divide-[var(--hairline)]"></ul>
+                </section>
+
+                <section class="relative overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)] p-6 text-white shadow-[0_24px_55px_-38px_rgba(35,46,102,.85)] md:p-7">
+                  <span class="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
+                  <div class="relative flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-[var(--green)] ring-1 ring-white/10"><TriangleAlert class="h-5 w-5" /></span><div><p class="eyebrow text-[#9ed8f0]">Priority signal</p><h4 class="mt-1 font-display text-xl font-semibold text-white">Biggest visibility gap</h4></div></div>
+                  <p data-result-gap class="relative mt-6 text-lg font-medium leading-relaxed text-white/80"></p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-t border-[var(--hairline)] bg-[var(--cream)] p-6 md:p-10">
+              <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                <div class="flex items-center gap-4"><span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[var(--navy)] shadow-sm"><Trophy class="h-6 w-6" /></span><div><p class="eyebrow text-charcoal/45">Competitive position</p><h4 class="mt-1 font-display text-2xl font-semibold text-charcoal">Where your shop appeared</h4></div></div>
+                <span class="w-fit rounded-full border border-[var(--hairline)] bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.14em] text-charcoal/45">Based on this scan</span>
+              </div>
+
+              <div class="mt-7 grid gap-7 md:grid-cols-[220px_1fr] md:items-center">
+                <div class="rounded-[24px] bg-white p-5 shadow-[0_20px_50px_-38px_rgba(20,22,28,.4)]">
+                  <p class="text-xs font-semibold uppercase tracking-[.14em] text-charcoal/40">Estimated rank</p>
+                  <p class="mt-3 font-display text-6xl font-semibold leading-none tracking-[-.06em] text-[var(--navy)]">#<span data-rank-position>—</span></p>
+                  <p class="mt-2 text-sm text-charcoal/50">of <span data-rank-total>—</span> shops checked</p>
+                  <div class="mt-4 border-t border-[var(--hairline)] pt-4 text-sm font-semibold text-charcoal"><span data-shops-ahead>—</span> recommended before you</div>
+                </div>
+
+                <div>
+                  <div data-rank-track class="rank-track" aria-label="Competitive recommendation order"></div>
+                  <p data-result-competitor class="mt-6 max-w-2xl text-base leading-relaxed text-charcoal/60"></p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="relative mt-8 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy))] p-7 text-white shadow-[0_28px_70px_-48px_rgba(35,46,102,.8)] md:flex md:items-center md:justify-between md:gap-10 md:p-10">
+            <span class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl"></span>
+            <div class="relative max-w-2xl"><h3 class="font-display text-3xl font-semibold tracking-tight">Make your shop the easier recommendation.</h3><p data-result-cta class="mt-3 leading-relaxed text-white/70"></p></div>
+            <a href={CONSULTATION_URL} class="relative mt-6 inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal shadow-[0_16px_38px_-20px_rgba(0,0,0,.4)] transition hover:-translate-y-0.5 hover:bg-white md:mt-0" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Schedule My Review <ArrowRight class="h-4 w-4" /></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule" class="hidden scroll-mt-24 bg-white py-14 md:py-20"><div class="container-page"><div class="mx-auto max-w-5xl text-center"><p class="eyebrow text-[var(--key-blue)]">Go deeper with Turnkey</p><h2 class="display-2 mt-4 text-charcoal">Let’s review what AI found.</h2><p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/65">We’ll connect the snapshot to your website, reviews, positioning, local search presence, and broader marketing strategy.</p><div class="mt-9 overflow-hidden rounded-[30px] bg-[var(--off-white)] text-left shadow-[0_28px_70px_-48px_rgba(20,22,28,.35)] ring-1 ring-black/5"><iframe src={APPOINTMENTCORE_BOOKING_URL} title="Schedule an AI visibility review with Turnkey Marketing" width="100%" height="800" class="block min-h-[800px] w-full border-0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div></div><script is:inline src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786635857"></script></section>
+  </main>
+
+  <script is:inline>
+    const form = document.querySelector("#scan-form");
+    const submit = document.querySelector("#scan-submit");
+    const error = document.querySelector("#scan-error");
+    const progress = document.querySelector("#scan-progress");
+    const results = document.querySelector("#scan-results");
+    const schedule = document.querySelector("#schedule");
+    const stageTitle = document.querySelector("#scan-stage-title");
+    const stageDetail = document.querySelector("#scan-stage-detail");
+    const stageMessages = [
+      ["Searching for your shop", "Checking the public information AI can find about your business."],
+      ["Reading your service signals", "Looking at how your location, services, and specialty are described."],
+      ["Comparing nearby recommendations", "Checking which local alternatives are easier for AI to understand."],
+      ["Building your snapshot", "Turning the findings into a clear score, gap, and next step."],
+    ];
+    let stageTimer;
+    let stageIndex = 0;
+    const setText = (selector, value) => document.querySelector(selector)?.replaceChildren(document.createTextNode(value ?? ""));
+    const cleanResultText = (value) => String(value || "")
+      .replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/gi, "$1")
+      .replace(/https?:\/\/\S+/gi, "")
+      .replace(/\s*\([^)]*\b(?:\.com|\.net|\.org|\.co|\.io)\b[^)]*\)/gi, "")
+      .replace(/【[^】]+】/g, "")
+      .replace(/\s+/g, " ")
+      .replace(/\s+([,.;:!?])/g, "$1")
+      .trim();
+    const shortText = (value, max = 260) => {
+      const text = cleanResultText(value);
+      return text.length > max ? `${text.slice(0, max - 1).trim()}…` : text;
+    };
+    const showList = (items) => {
+      const list = document.querySelector("[data-result-understood]");
+      if (!list) return;
+      list.replaceChildren(...(items || []).slice(0, 3).map((item, index) => {
+        const li = document.createElement("li");
+        li.className = "grid grid-cols-[38px_1fr] gap-3 py-5 first:pt-0 last:pb-0";
+        const number = document.createElement("span");
+        number.className = "inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--off-white)] text-xs font-bold text-[#6d9b2f]";
+        number.textContent = String(index + 1).padStart(2, "0");
+        const copy = document.createElement("p");
+        copy.className = "text-[15px] leading-relaxed text-charcoal/65";
+        copy.textContent = shortText(item, 125);
+        li.append(number, copy);
+        return li;
+      }));
+    };
+    const scoreStatus = (score) => score < 40 ? "Needs attention" : score < 60 ? "Incomplete signal" : score < 80 ? "Solid foundation" : "Strong visibility";
+    const showRank = (aheadValue, comparedValue) => {
+      const shopsAhead = Math.max(0, Number(aheadValue) || 0);
+      const total = Math.max(shopsAhead + 1, Number(comparedValue) || 0);
+      const position = shopsAhead + 1;
+      setText("[data-rank-position]", String(position));
+      setText("[data-rank-total]", String(total));
+      setText("[data-shops-ahead]", String(shopsAhead));
+      const track = document.querySelector("[data-rank-track]");
+      if (!track) return;
+      const nodes = [];
+      const visibleAhead = Math.min(shopsAhead, 5);
+      for (let index = 1; index <= visibleAhead; index += 1) {
+        const node = document.createElement("div");
+        node.className = "rank-node rank-node-ahead";
+        node.innerHTML = `<span>#${index}</span><small>Shop</small>`;
+        nodes.push(node);
+      }
+      if (shopsAhead > visibleAhead) {
+        const more = document.createElement("div");
+        more.className = "rank-node-more";
+        more.textContent = `+${shopsAhead - visibleAhead}`;
+        nodes.push(more);
+      }
+      const current = document.createElement("div");
+      current.className = "rank-node rank-node-current";
+      current.innerHTML = `<span>#${position}</span><small>Your shop</small>`;
+      nodes.push(current);
+      const shopsAfter = Math.max(0, total - position);
+      if (shopsAfter > 0) {
+        const after = document.createElement("div");
+        after.className = "rank-node-after";
+        after.textContent = `+${shopsAfter} after`;
+        nodes.push(after);
+      }
+      track.replaceChildren(...nodes);
+      track.setAttribute("aria-label", `Your shop appeared number ${position} of ${total}; ${shopsAhead} shops were recommended before it.`);
+    };
+    const updateStage = () => { const [title, detail] = stageMessages[stageIndex]; if (stageTitle) stageTitle.textContent = title; if (stageDetail) stageDetail.textContent = detail; document.querySelectorAll("[data-scan-stage]").forEach((item, index) => { item.classList.toggle("text-white/90", index === stageIndex); item.classList.toggle("text-white/45", index !== stageIndex); item.querySelector(".scan-stage-dot")?.classList.toggle("scan-stage-dot-active", index === stageIndex); }); };
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault(); const data = Object.fromEntries(new FormData(form).entries()); error.classList.add("hidden"); submit.disabled = true; submit.textContent = "Running scan…"; progress.classList.remove("hidden"); progress.scrollIntoView({ behavior: "smooth", block: "center" }); stageIndex = 0; updateStage(); stageTimer = window.setInterval(() => { stageIndex = Math.min(stageIndex + 1, stageMessages.length - 1); updateStage(); }, 2200);
+      try { const response = await fetch("/api/visibility-scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); const payload = await response.json(); if (!response.ok) throw new Error(payload.error || "We could not complete the scan."); window.clearInterval(stageTimer); progress.classList.add("hidden"); results.classList.remove("hidden"); schedule.classList.remove("hidden"); const score = Math.max(0, Math.min(100, Number(payload.score) || 0)); setText("[data-result-shop]", shortText(payload.shopName, 90)); setText("[data-result-score]", String(score)); setText("[data-result-status]", scoreStatus(score)); setText("[data-result-verdict]", shortText(payload.verdict, 125)); setText("[data-result-gap]", shortText(payload.gap, 190)); setText("[data-result-competitor]", shortText(payload.competitor, 170)); setText("[data-result-cta]", shortText(payload.cta, 170)); document.querySelector("[data-score-ring]")?.setAttribute("style", `--score:${score}`); showList(payload.understood); showRank(payload.shopsAhead ?? payload.competitors, payload.shopsCompared); submit.disabled = false; submit.textContent = "Run Another Scan"; results.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (scanError) { window.clearInterval(stageTimer); progress.classList.add("hidden"); error.textContent = scanError.message || "Something went wrong. Please try again."; error.classList.remove("hidden"); submit.disabled = false; submit.textContent = "Run My Scan →"; }
+    });
+  </script>
+
+  <style is:global>
+    .dots-ring {
+      position: relative;
+      display: inline-flex;
+      width: 1.9rem;
+      aspect-ratio: 1;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dots-ring-track {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .dots-ring-position {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0.32rem;
+      height: 0.32rem;
+      transform: translate(-50%, -50%) rotate(var(--dot-angle)) translateY(-0.68rem);
+    }
+
+    .dots-ring-dot {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      background: currentColor;
+      animation: scan-dots-ring-pulse 1s linear infinite;
+      animation-delay: calc((var(--dot-index) - 8) * 0.125s);
+    }
+
+    @keyframes scan-dots-ring-pulse {
+      0%,
+      100% {
+        opacity: 0.25;
+        transform: scale(0.65);
+      }
+
+      12.5% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      25% {
+        opacity: 0.75;
+        transform: scale(0.85);
+      }
+
+      50% {
+        opacity: 0.35;
+        transform: scale(0.7);
+      }
+    }
+
+    .scan-stage-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      transition: background-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .scan-stage-dot-active {
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(147, 200, 69, 0.12);
+    }
+
+    .score-ring {
+      display: grid;
+      width: 11.5rem;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 999px;
+      background: conic-gradient(var(--green) calc(var(--score) * 1%), rgba(255, 255, 255, 0.12) 0);
+      box-shadow: 0 28px 60px -34px rgba(0, 0, 0, 0.65);
+      position: relative;
+    }
+
+    .score-ring::after {
+      content: "";
+      position: absolute;
+      inset: 0.6rem;
+      border-radius: inherit;
+      background: var(--navy-deep);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .score-ring-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .rank-track {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      max-width: 100%;
+      overflow-x: auto;
+      padding: 0.2rem 0 0.55rem;
+      scrollbar-width: thin;
+    }
+
+    .rank-node {
+      display: flex;
+      min-width: 4.25rem;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      position: relative;
+    }
+
+    .rank-node:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: calc(50% + 1.55rem);
+      top: 1.45rem;
+      width: 1.7rem;
+      height: 1px;
+      background: var(--hairline);
+    }
+
+    .rank-node span {
+      display: inline-flex;
+      width: 3rem;
+      height: 3rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+
+    .rank-node small {
+      color: rgba(20, 22, 28, 0.42);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rank-node-ahead span {
+      background: #fff;
+      box-shadow: inset 0 0 0 1px var(--hairline);
+      color: rgba(20, 22, 28, 0.5);
+    }
+
+    .rank-node-current span {
+      background: var(--green);
+      color: var(--charcoal);
+      box-shadow: 0 12px 28px -16px rgba(95, 143, 34, 0.75);
+    }
+
+    .rank-node-current small {
+      color: var(--navy);
+    }
+
+    .rank-node-more,
+    .rank-node-after {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: rgba(35, 46, 102, 0.06);
+      padding: 0.55rem 0.75rem;
+      color: rgba(20, 22, 28, 0.46);
+      font-size: 0.7rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1023px) {
+      .score-ring {
+        width: 10.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dots-ring-dot {
+        animation: none;
+        opacity: 0.75;
+      }
+    }
+  </style>
+</BaseLayout>

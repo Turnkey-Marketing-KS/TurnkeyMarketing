@@ -1,0 +1,18 @@
+---
+interface Props {
+  src: string;
+  class?: string;
+  label?: string;
+}
+
+const { src, class: className = "h-5 w-5", label } = Astro.props;
+const maskStyle = `background-color: currentColor; -webkit-mask: url("${src}") center / contain no-repeat; mask: url("${src}") center / contain no-repeat;`;
+---
+
+<span
+  class:list={["inline-block shrink-0", className]}
+  style={maskStyle}
+  aria-hidden={label ? undefined : "true"}
+  role={label ? "img" : "presentation"}
+  aria-label={label}
+></span>
