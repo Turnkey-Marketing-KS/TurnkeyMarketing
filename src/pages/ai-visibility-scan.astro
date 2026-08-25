@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, CircleCheckBig, Gauge, LockKeyhole, Search, ShieldCheck, Sparkles, Trophy, TriangleAlert } from "lucide-react";
+import { ArrowRight, CircleCheckBig, Gauge, LockKeyhole, Search, ShieldCheck, Trophy, TriangleAlert } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { APPOINTMENTCORE_BOOKING_URL, CONSULTATION_URL } from "@/lib/services";
 
@@ -125,7 +125,6 @@ const reportSchema = {
                   <label class="block text-sm font-semibold text-charcoal" for="report-email">Business email</label>
                   <input id="report-email" name="email" type="email" required autocomplete="email" inputmode="email" maxlength="254" class="mt-2 h-13 w-full rounded-2xl border border-[rgba(35,46,102,.24)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.4)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="you@yourshop.com" />
                   <button id="report-gate-submit" type="submit" class="btn-primary mt-4 h-13 w-full !bg-[var(--green)] !px-5 !text-charcoal shadow-[0_16px_36px_-20px_rgba(95,143,34,.75)] hover:!bg-[var(--key-blue)] hover:!text-white disabled:cursor-wait disabled:opacity-70"><span data-gate-submit-label>Reveal My Report</span> <ArrowRight class="h-4 w-4" /></button>
-                  <p class="mt-3 flex items-center justify-center gap-2 text-xs text-charcoal/42"><Sparkles class="h-3.5 w-3.5 text-[var(--key-blue)]" /> Opens instantly on this page.</p>
                   <p id="report-gate-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
                 </form>
               </div>
