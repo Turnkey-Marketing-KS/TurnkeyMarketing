@@ -636,8 +636,9 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   );
   assert.deepEqual(appointmentBookedPageFiles, ["booking-confirmed.astro"]);
   assert.match(baseLayoutSource, /target\.dataset\.trackEvent/);
-  assert.equal((visibilityScanSource.match(/<form\b/gi) || []).length, 1);
+  assert.equal((visibilityScanSource.match(/<form\b/gi) || []).length, 2);
   assert.match(visibilityScanSource, /<form id="scan-form"/);
+  assert.match(visibilityScanSource, /<form id="report-gate-form"/);
   assert.equal(
     unexpectedNativeForms.length,
     0,

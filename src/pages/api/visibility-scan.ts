@@ -1,16 +1,10 @@
 import type { APIRoute } from "astro";
+import { sealVisibilityReport } from "@/lib/visibility-report-token";
 
-type ScanRequest = { email?: string; shopName?: string; location?: string; specialty?: string };
+type ScanRequest = { shopName?: string; location?: string; specialty?: string };
 type OpenAIContent = { type?: string; text?: string };
 type OpenAIOutputItem = { content?: OpenAIContent[] };
 type OpenAIResponsePayload = { output_text?: string; output?: OpenAIOutputItem[] };
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const normalizeEmail = (value: unknown) =>
-  String(value ?? "")
-    .trim()
-    .toLowerCase();
 
 const cleanScanText = (value: unknown, maxLength: number) => {
   const cleaned = String(value ?? "")
@@ -37,10 +31,6 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const { shopName, location, specialty } = body;
-  const email = normalizeEmail(body.email);
-  if (!email || email.length > 254 || !EMAIL_PATTERN.test(email) || /[\r\n]/.test(email)) {
-    return Response.json({ error: "A valid email address is required." }, { status: 400 });
-  }
   if (
     typeof shopName !== "string" ||
     typeof location !== "string" ||
@@ -53,39 +43,11 @@ export const POST: APIRoute = async ({ request }) => {
     return Response.json({ error: "Please check the form and try again." }, { status: 400 });
   }
 
-  const leadEndpoint = import.meta.env.AI_VISIBILITY_SCAN_LEAD_ENDPOINT;
-  const leadSecret = import.meta.env.AI_VISIBILITY_SCAN_SHARED_SECRET;
-  if (!leadEndpoint || !leadSecret) {
+  const reportSecret = import.meta.env.AI_VISIBILITY_SCAN_REPORT_SECRET;
+  if (!reportSecret) {
     return Response.json(
       { error: "The scan is temporarily unavailable. Please try again soon." },
       { status: 503 },
-    );
-  }
-
-  try {
-    const leadResponse = await fetch(leadEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Origin: request.headers.get("origin") || new URL(request.url).origin,
-        "X-Turnkey-Visibility-Scan-Version": "1",
-        "X-Turnkey-Visibility-Scan-Secret": leadSecret,
-      },
-      body: JSON.stringify({ email, companyName: shopName.trim() }),
-    });
-
-    if (!leadResponse.ok) {
-      const status = leadResponse.status === 400 ? 400 : leadResponse.status === 502 ? 502 : 503;
-      const error =
-        status === 400
-          ? "A valid email address is required."
-          : "We couldn't save your scan yet. Please try again.";
-      return Response.json({ error }, { status });
-    }
-  } catch {
-    return Response.json(
-      { error: "We couldn't save your scan yet. Please try again." },
-      { status: 502 },
     );
   }
 
@@ -181,7 +143,7 @@ Do not include URLs, domains, citations, markdown links, brackets, source names,
     const parsed = JSON.parse(outputText);
     const shopsAhead = Math.max(0, Number(parsed.shopsAhead) || 0);
     const shopsCompared = Math.max(shopsAhead + 1, Number(parsed.shopsCompared) || 0);
-    return Response.json({
+    const report = {
       shopName: shopName.trim(),
       score: Math.max(0, Math.min(100, Number(parsed.score) || 0)),
       verdict: cleanScanText(parsed.verdict, 140),
@@ -193,6 +155,12 @@ Do not include URLs, domains, citations, markdown links, brackets, source names,
       shopsCompared,
       competitor: cleanScanText(parsed.competitor, 180),
       cta: cleanScanText(parsed.cta, 180),
+    };
+
+    return Response.json({
+      ready: true,
+      shopName: report.shopName,
+      reportToken: sealVisibilityReport(report, reportSecret),
     });
   } catch {
     return Response.json({ error: "The scan returned an invalid result." }, { status: 502 });

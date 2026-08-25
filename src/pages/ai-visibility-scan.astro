@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, CircleCheckBig, Gauge, Search, ShieldCheck, Trophy, TriangleAlert } from "lucide-react";
+import { ArrowRight, CircleCheckBig, Gauge, LockKeyhole, Search, ShieldCheck, Sparkles, Trophy, TriangleAlert } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { APPOINTMENTCORE_BOOKING_URL, CONSULTATION_URL } from "@/lib/services";
 
@@ -48,9 +48,7 @@ const reportSchema = {
                 <input id="shop-location" name="location" required autocomplete="address-level2" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Scottsdale, AZ" />
                 <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-specialty">What work do you want more of? <span class="font-normal text-charcoal/40">Optional</span></label>
                 <input id="shop-specialty" name="specialty" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. European repair, brakes, diagnostics" />
-                <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-email">Email for your report</label>
-                <input id="shop-email" name="email" type="email" required autocomplete="email" inputmode="email" maxlength="254" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="you@yourshop.com" />
-                <button id="scan-submit" type="submit" class="btn-primary mt-7 h-13 w-full !bg-[var(--navy)] !px-5 hover:!bg-[var(--navy-deep)] disabled:cursor-wait disabled:opacity-70">Run My Scan <ArrowRight class="h-4 w-4" /></button>
+                <button id="scan-submit" type="submit" class="btn-primary mt-7 h-13 w-full !bg-[var(--navy)] !px-5 hover:!bg-[var(--navy-deep)] disabled:cursor-wait disabled:opacity-70"><span data-scan-submit-label>Run My Scan</span> <ArrowRight class="h-4 w-4" /></button>
                 <p id="scan-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
               </div>
             </form>
@@ -84,6 +82,55 @@ const reportSchema = {
             <div data-scan-stage="3" class="flex items-center gap-3 text-sm text-white/45"><span class="scan-stage-dot"></span> Preparing your visibility snapshot</div>
           </div>
           <p class="mt-7 border-t border-white/10 pt-5 text-xs text-white/40">This usually takes less than a minute. You can keep this tab open while we work.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="report-gate" class="hidden bg-[linear-gradient(180deg,var(--off-white)_0%,#fff_100%)] py-14 md:py-24">
+      <div class="container-page">
+        <div class="mx-auto max-w-6xl">
+          <div class="mb-7 flex justify-center">
+            <div class="inline-flex items-center gap-2 rounded-full bg-[#eaf3dc] px-4 py-2 text-sm font-semibold text-[#557f20] ring-1 ring-[#6d9b2f]/15">
+              <CircleCheckBig class="h-4 w-4" /> Analysis complete
+            </div>
+          </div>
+
+          <div class="overflow-hidden rounded-[36px] bg-[linear-gradient(140deg,var(--navy)_0%,var(--navy-deep)_100%)] shadow-[0_38px_100px_-58px_rgba(20,22,28,.7)]">
+            <div class="grid lg:grid-cols-[1.08fr_.92fr]">
+              <div class="relative overflow-hidden p-7 text-white md:p-11 lg:p-14">
+                <span class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
+                <span class="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
+                <div class="relative">
+                  <p class="eyebrow text-[#9ed8f0]">Your report is built</p>
+                  <h2 class="mt-5 max-w-[13ch] font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[.98] tracking-[-.055em]">Your shop’s answer is ready.</h2>
+                  <p class="mt-6 max-w-[42rem] text-lg leading-relaxed text-white/68">We found how AI sees <strong data-gate-shop class="font-semibold text-white">your shop</strong>, where it appeared against nearby shops, and the clearest opportunity to improve.</p>
+
+                  <div class="mt-9 max-w-xl border-y border-white/12">
+                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">AI visibility score calculated</span></div>
+                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Recommendation position mapped</span></div>
+                    <div class="flex items-center gap-3 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Biggest visibility gap identified</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="m-2 rounded-[30px] bg-white p-6 md:m-3 md:p-9 lg:flex lg:flex-col lg:justify-center lg:p-11">
+                <div class="flex items-center justify-between gap-5">
+                  <p class="eyebrow text-[var(--key-blue)]">Unlock your report</p>
+                  <LockKeyhole class="h-7 w-7 text-[var(--navy)]" />
+                </div>
+                <h3 class="mt-5 font-display text-[clamp(2rem,3.6vw,3rem)] font-semibold leading-[1.02] tracking-[-.04em] text-charcoal">See what AI may be telling local drivers.</h3>
+                <p class="mt-5 leading-relaxed text-charcoal/62">Your score and competitive position are ready. Enter your business email to reveal the full report instantly.</p>
+
+                <form id="report-gate-form" class="mt-7">
+                  <label class="block text-sm font-semibold text-charcoal" for="report-email">Business email</label>
+                  <input id="report-email" name="email" type="email" required autocomplete="email" inputmode="email" maxlength="254" class="mt-2 h-13 w-full rounded-2xl border border-[rgba(35,46,102,.24)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.4)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="you@yourshop.com" />
+                  <button id="report-gate-submit" type="submit" class="btn-primary mt-4 h-13 w-full !bg-[var(--green)] !px-5 !text-charcoal shadow-[0_16px_36px_-20px_rgba(95,143,34,.75)] hover:!bg-[var(--key-blue)] hover:!text-white disabled:cursor-wait disabled:opacity-70"><span data-gate-submit-label>Reveal My Report</span> <ArrowRight class="h-4 w-4" /></button>
+                  <p class="mt-3 flex items-center justify-center gap-2 text-xs text-charcoal/42"><Sparkles class="h-3.5 w-3.5 text-[var(--key-blue)]" /> Opens instantly on this page.</p>
+                  <p id="report-gate-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -182,8 +229,14 @@ const reportSchema = {
   <script is:inline>
     const form = document.querySelector("#scan-form");
     const submit = document.querySelector("#scan-submit");
+    const submitLabel = document.querySelector("[data-scan-submit-label]");
     const error = document.querySelector("#scan-error");
     const progress = document.querySelector("#scan-progress");
+    const gate = document.querySelector("#report-gate");
+    const gateForm = document.querySelector("#report-gate-form");
+    const gateSubmit = document.querySelector("#report-gate-submit");
+    const gateSubmitLabel = document.querySelector("[data-gate-submit-label]");
+    const gateError = document.querySelector("#report-gate-error");
     const results = document.querySelector("#scan-results");
     const schedule = document.querySelector("#schedule");
     const stageTitle = document.querySelector("#scan-stage-title");
@@ -196,6 +249,7 @@ const reportSchema = {
     ];
     let stageTimer;
     let stageIndex = 0;
+    let pendingReportToken = "";
     const setText = (selector, value) => document.querySelector(selector)?.replaceChildren(document.createTextNode(value ?? ""));
     const cleanResultText = (value) => String(value || "")
       .replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/gi, "$1")
@@ -263,10 +317,99 @@ const reportSchema = {
       track.replaceChildren(...nodes);
       track.setAttribute("aria-label", `Your shop appeared number ${position} of ${total}; ${shopsAhead} shops were recommended before it.`);
     };
+    const renderReport = (payload) => {
+      const score = Math.max(0, Math.min(100, Number(payload.score) || 0));
+      setText("[data-result-shop]", shortText(payload.shopName, 90));
+      setText("[data-result-score]", String(score));
+      setText("[data-result-status]", scoreStatus(score));
+      setText("[data-result-verdict]", shortText(payload.verdict, 125));
+      setText("[data-result-gap]", shortText(payload.gap, 190));
+      setText("[data-result-competitor]", shortText(payload.competitor, 170));
+      setText("[data-result-cta]", shortText(payload.cta, 170));
+      document.querySelector("[data-score-ring]")?.setAttribute("style", `--score:${score}`);
+      showList(payload.understood);
+      showRank(payload.shopsAhead ?? payload.competitors, payload.shopsCompared);
+    };
     const updateStage = () => { const [title, detail] = stageMessages[stageIndex]; if (stageTitle) stageTitle.textContent = title; if (stageDetail) stageDetail.textContent = detail; document.querySelectorAll("[data-scan-stage]").forEach((item, index) => { item.classList.toggle("text-white/90", index === stageIndex); item.classList.toggle("text-white/45", index !== stageIndex); item.querySelector(".scan-stage-dot")?.classList.toggle("scan-stage-dot-active", index === stageIndex); }); };
     form?.addEventListener("submit", async (event) => {
-      event.preventDefault(); const data = Object.fromEntries(new FormData(form).entries()); error.classList.add("hidden"); submit.disabled = true; submit.textContent = "Running scan…"; progress.classList.remove("hidden"); progress.scrollIntoView({ behavior: "smooth", block: "center" }); stageIndex = 0; updateStage(); stageTimer = window.setInterval(() => { stageIndex = Math.min(stageIndex + 1, stageMessages.length - 1); updateStage(); }, 2200);
-      try { const response = await fetch("/api/visibility-scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); const payload = await response.json(); if (!response.ok) throw new Error(payload.error || "We could not complete the scan."); window.clearInterval(stageTimer); progress.classList.add("hidden"); results.classList.remove("hidden"); schedule.classList.remove("hidden"); const score = Math.max(0, Math.min(100, Number(payload.score) || 0)); setText("[data-result-shop]", shortText(payload.shopName, 90)); setText("[data-result-score]", String(score)); setText("[data-result-status]", scoreStatus(score)); setText("[data-result-verdict]", shortText(payload.verdict, 125)); setText("[data-result-gap]", shortText(payload.gap, 190)); setText("[data-result-competitor]", shortText(payload.competitor, 170)); setText("[data-result-cta]", shortText(payload.cta, 170)); document.querySelector("[data-score-ring]")?.setAttribute("style", `--score:${score}`); showList(payload.understood); showRank(payload.shopsAhead ?? payload.competitors, payload.shopsCompared); submit.disabled = false; submit.textContent = "Run Another Scan"; results.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (scanError) { window.clearInterval(stageTimer); progress.classList.add("hidden"); error.textContent = scanError.message || "Something went wrong. Please try again."; error.classList.remove("hidden"); submit.disabled = false; submit.textContent = "Run My Scan →"; }
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      pendingReportToken = "";
+      error.classList.add("hidden");
+      gateError?.classList.add("hidden");
+      gate?.classList.add("hidden");
+      results.classList.add("hidden");
+      schedule.classList.add("hidden");
+      submit.disabled = true;
+      if (submitLabel) submitLabel.textContent = "Running scan…";
+      progress.classList.remove("hidden");
+      progress.scrollIntoView({ behavior: "smooth", block: "center" });
+      stageIndex = 0;
+      updateStage();
+      stageTimer = window.setInterval(() => {
+        stageIndex = Math.min(stageIndex + 1, stageMessages.length - 1);
+        updateStage();
+      }, 2200);
+
+      try {
+        const response = await fetch("/api/visibility-scan", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const payload = await response.json();
+        if (!response.ok || !payload.reportToken) {
+          throw new Error(payload.error || "We could not complete the scan.");
+        }
+
+        window.clearInterval(stageTimer);
+        pendingReportToken = payload.reportToken;
+        setText("[data-gate-shop]", shortText(payload.shopName, 90));
+        progress.classList.add("hidden");
+        gate?.classList.remove("hidden");
+        submit.disabled = false;
+        if (submitLabel) submitLabel.textContent = "Run Another Scan";
+        gate?.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.setTimeout(() => document.querySelector("#report-email")?.focus({ preventScroll: true }), 650);
+      } catch (scanError) {
+        window.clearInterval(stageTimer);
+        progress.classList.add("hidden");
+        error.textContent = scanError.message || "Something went wrong. Please try again.";
+        error.classList.remove("hidden");
+        submit.disabled = false;
+        if (submitLabel) submitLabel.textContent = "Run My Scan";
+      }
+    });
+
+    gateForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      gateError?.classList.add("hidden");
+      gateSubmit.disabled = true;
+      if (gateSubmitLabel) gateSubmitLabel.textContent = "Unlocking report…";
+
+      try {
+        const email = new FormData(gateForm).get("email");
+        const response = await fetch("/api/visibility-scan-unlock", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, reportToken: pendingReportToken }),
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error || "We couldn't unlock your report yet.");
+
+        renderReport(payload);
+        gate?.classList.add("hidden");
+        results.classList.remove("hidden");
+        schedule.classList.remove("hidden");
+        pendingReportToken = "";
+        if (gateSubmitLabel) gateSubmitLabel.textContent = "Report Unlocked";
+        results.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (unlockError) {
+        gateError.textContent = unlockError.message || "We couldn't unlock your report yet. Please try again.";
+        gateError.classList.remove("hidden");
+        gateSubmit.disabled = false;
+        if (gateSubmitLabel) gateSubmitLabel.textContent = "Reveal My Report";
+      }
     });
   </script>
 
