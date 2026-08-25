@@ -578,6 +578,8 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
     path.join(workspaceRoot, "src/lib/booking-tracking.mjs"),
     "utf8",
   );
+  const visibilityScanPath = path.join(workspaceRoot, "src/pages/ai-visibility-scan.astro");
+  const visibilityScanSource = readFileSync(visibilityScanPath, "utf8");
   const servicesSource = readFileSync(path.join(workspaceRoot, "src/lib/services.ts"), "utf8");
   const sourceRoots = [
     path.join(workspaceRoot, "src/pages"),
@@ -592,6 +594,7 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
     const matches = readFileSync(file, "utf8").match(/<form\b/gi) || [];
     return matches.map(() => file);
   });
+  const unexpectedNativeForms = nativeForms.filter((file) => file !== visibilityScanPath);
   const appointmentBookedPageFiles = pageFiles
     .filter((file) => /trackAppointmentBooked/.test(readFileSync(file, "utf8")))
     .map((file) => path.relative(path.join(workspaceRoot, "src/pages"), file));
@@ -633,7 +636,13 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   );
   assert.deepEqual(appointmentBookedPageFiles, ["booking-confirmed.astro"]);
   assert.match(baseLayoutSource, /target\.dataset\.trackEvent/);
-  assert.equal(nativeForms.length, 0, `Unexpected native forms: ${nativeForms.join(", ")}`);
+  assert.equal((visibilityScanSource.match(/<form\b/gi) || []).length, 1);
+  assert.match(visibilityScanSource, /<form id="scan-form"/);
+  assert.equal(
+    unexpectedNativeForms.length,
+    0,
+    `Unexpected native forms: ${unexpectedNativeForms.join(", ")}`,
+  );
 });
 
 test("invalid persisted attribution is ignored", () => {
