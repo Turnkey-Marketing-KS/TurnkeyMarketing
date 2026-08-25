@@ -238,7 +238,7 @@ const reportSchema = {
           <div class="relative mt-8 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy))] p-7 text-white shadow-[0_28px_70px_-48px_rgba(35,46,102,.8)] md:flex md:items-center md:justify-between md:gap-10 md:p-10">
             <span class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl"></span>
             <div class="relative max-w-2xl"><h3 class="font-display text-3xl font-semibold tracking-tight">Make your shop the easier recommendation.</h3><p data-result-cta class="mt-3 leading-relaxed text-white/70"></p></div>
-            <a href={CONSULTATION_URL} class="relative mt-6 inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal shadow-[0_16px_38px_-20px_rgba(0,0,0,.4)] transition hover:-translate-y-0.5 hover:bg-white md:mt-0" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Schedule My Review <ArrowRight class="h-4 w-4" /></a>
+            <a href={CONSULTATION_URL} class="report-cta-pulse relative mt-6 inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal shadow-[0_16px_38px_-20px_rgba(0,0,0,.4)] transition hover:-translate-y-0.5 hover:bg-white md:mt-0" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Schedule A Consultation <ArrowRight class="h-4 w-4" /></a>
           </div>
         </div>
       </div>
@@ -640,6 +640,33 @@ const reportSchema = {
       color: var(--green);
     }
 
+    .report-cta-pulse::after {
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--green);
+      border-radius: inherit;
+      content: "";
+      pointer-events: none;
+      animation: report-cta-pulse 2.8s ease-out infinite;
+    }
+
+    @keyframes report-cta-pulse {
+      0%,
+      58% {
+        opacity: 0;
+        transform: scale(1);
+      }
+
+      66% {
+        opacity: 0.62;
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.16, 1.45);
+      }
+    }
+
     @media (min-width: 768px) {
       .scan-stage-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -792,6 +819,11 @@ const reportSchema = {
 
       .scan-progress-bar {
         transition: none;
+      }
+
+      .report-cta-pulse::after {
+        animation: none;
+        display: none;
       }
     }
   </style>
