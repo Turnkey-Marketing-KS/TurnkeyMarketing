@@ -57,31 +57,31 @@ const reportSchema = {
       </div>
     </section>
 
-    <section id="scan-progress" class="hidden border-b border-[var(--hairline)] bg-[var(--navy-deep)] py-16 text-white">
+    <section id="scan-progress" class="hidden border-b border-[var(--navy)] bg-[var(--navy-deep)] py-20 text-white md:py-28">
       <div class="container-page">
-        <div class="mx-auto max-w-xl rounded-[30px] border border-white/10 bg-white/[0.06] p-7 md:p-9">
-          <div class="flex items-center gap-4">
-            <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--green)]/15">
-              <span class="dots-ring text-[var(--green)]" role="status" aria-label="Scan in progress">
-                <span class="dots-ring-track" aria-hidden="true">
-                  {Array.from({ length: 8 }, (_, index) => (
-                    <span class="dots-ring-position" style={`--dot-index:${index};--dot-angle:${index * 45}deg`}>
-                      <span class="dots-ring-dot"></span>
-                    </span>
-                  ))}
-                </span>
+        <div class="mx-auto max-w-5xl">
+          <div class="text-center">
+            <span class="dots-ring scan-progress-ring text-[var(--green)]" role="status" aria-label="Scan in progress">
+              <span class="dots-ring-track" aria-hidden="true">
+                {Array.from({ length: 8 }, (_, index) => (
+                  <span class="dots-ring-position" style={`--dot-index:${index};--dot-angle:${index * 45}deg`}>
+                    <span class="dots-ring-dot"></span>
+                  </span>
+                ))}
               </span>
             </span>
-            <div><p class="eyebrow text-[#9ed8f0]">Scan in progress</p><h2 id="scan-stage-title" class="mt-1 font-display text-2xl font-semibold">Searching for your shop</h2></div>
+            <p class="eyebrow mt-7 text-[#9ed8f0]">Scan in progress</p>
+            <h2 id="scan-stage-title" class="mx-auto mt-3 max-w-[18ch] font-display text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[1] tracking-[-.05em]">Searching for your shop</h2>
+            <p id="scan-stage-detail" class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">Checking the public information AI can find about your business.</p>
           </div>
-          <p id="scan-stage-detail" class="mt-6 leading-relaxed text-white/65">Checking the public information AI can find about your business.</p>
-          <div class="mt-7 space-y-3" aria-live="polite">
-            <div data-scan-stage="0" class="flex items-center gap-3 text-sm text-white/90"><span class="scan-stage-dot"></span> Finding your shop and location</div>
-            <div data-scan-stage="1" class="flex items-center gap-3 text-sm text-white/45"><span class="scan-stage-dot"></span> Checking service and specialty signals</div>
-            <div data-scan-stage="2" class="flex items-center gap-3 text-sm text-white/45"><span class="scan-stage-dot"></span> Comparing nearby recommendations</div>
-            <div data-scan-stage="3" class="flex items-center gap-3 text-sm text-white/45"><span class="scan-stage-dot"></span> Preparing your visibility snapshot</div>
+
+          <div class="scan-stage-grid mt-12" aria-live="polite">
+            <div data-scan-stage="0" class="scan-stage-item scan-stage-active"><span class="scan-stage-number">01</span><span>Finding your shop and location</span></div>
+            <div data-scan-stage="1" class="scan-stage-item"><span class="scan-stage-number">02</span><span>Checking service and specialty signals</span></div>
+            <div data-scan-stage="2" class="scan-stage-item"><span class="scan-stage-number">03</span><span>Comparing nearby recommendations</span></div>
+            <div data-scan-stage="3" class="scan-stage-item"><span class="scan-stage-number">04</span><span>Preparing your visibility snapshot</span></div>
           </div>
-          <p class="mt-7 border-t border-white/10 pt-5 text-xs text-white/40">This usually takes less than a minute. You can keep this tab open while we work.</p>
+          <p class="mt-7 text-center text-sm text-white/65">This usually takes less than a minute. Keep this tab open while we work.</p>
         </div>
       </div>
     </section>
@@ -330,7 +330,7 @@ const reportSchema = {
       showList(payload.understood);
       showRank(payload.shopsAhead ?? payload.competitors, payload.shopsCompared);
     };
-    const updateStage = () => { const [title, detail] = stageMessages[stageIndex]; if (stageTitle) stageTitle.textContent = title; if (stageDetail) stageDetail.textContent = detail; document.querySelectorAll("[data-scan-stage]").forEach((item, index) => { item.classList.toggle("text-white/90", index === stageIndex); item.classList.toggle("text-white/45", index !== stageIndex); item.querySelector(".scan-stage-dot")?.classList.toggle("scan-stage-dot-active", index === stageIndex); }); };
+    const updateStage = () => { const [title, detail] = stageMessages[stageIndex]; if (stageTitle) stageTitle.textContent = title; if (stageDetail) stageDetail.textContent = detail; document.querySelectorAll("[data-scan-stage]").forEach((item, index) => { item.classList.toggle("scan-stage-active", index === stageIndex); }); };
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
@@ -472,18 +472,103 @@ const reportSchema = {
       }
     }
 
-    .scan-stage-dot {
-      width: 0.55rem;
-      height: 0.55rem;
-      flex: 0 0 auto;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.2);
-      transition: background-color 220ms ease, box-shadow 220ms ease;
+    .scan-progress-ring {
+      width: 3.25rem;
     }
 
-    .scan-stage-dot-active {
+    .scan-progress-ring .dots-ring-position {
+      width: 0.42rem;
+      height: 0.42rem;
+      transform: translate(-50%, -50%) rotate(var(--dot-angle)) translateY(-1.15rem);
+    }
+
+    .scan-stage-grid {
+      display: grid;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .scan-stage-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.45;
+      transition: color 220ms ease;
+    }
+
+    .scan-stage-item:last-child {
+      border-bottom: 0;
+    }
+
+    .scan-stage-number {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      transition: color 220ms ease;
+    }
+
+    .scan-stage-active {
+      color: #fff;
+    }
+
+    .scan-stage-active::before {
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 4rem;
+      height: 2px;
       background: var(--green);
-      box-shadow: 0 0 0 5px rgba(147, 200, 69, 0.12);
+      content: "";
+    }
+
+    .scan-stage-active .scan-stage-number {
+      color: var(--green);
+    }
+
+    @media (min-width: 640px) {
+      .scan-stage-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .scan-stage-item {
+        padding: 1.5rem;
+      }
+
+      .scan-stage-item:nth-child(odd) {
+        border-right: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .scan-stage-item:nth-child(3) {
+        border-bottom: 0;
+      }
+
+      .scan-stage-active::before {
+        left: 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .scan-stage-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .scan-stage-item,
+      .scan-stage-item:nth-child(3) {
+        border-right: 1px solid rgba(255, 255, 255, 0.16);
+        border-bottom: 0;
+      }
+
+      .scan-stage-item:last-child {
+        border-right: 0;
+      }
     }
 
     .score-ring {
