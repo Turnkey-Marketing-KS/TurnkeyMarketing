@@ -20,68 +20,90 @@ const reportSchema = {
   schema={reportSchema}
 >
   <main class="min-h-screen bg-[var(--off-white)] pb-20">
-    <section class="relative overflow-hidden bg-white py-14 md:py-24">
-      <span class="pointer-events-none absolute -right-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-[var(--key-blue-soft)]/70 blur-3xl" aria-hidden="true"></span>
+    <section class="relative overflow-hidden bg-[linear-gradient(135deg,#fff_0%,#f6faff_62%,#edf4fc_100%)] py-14 md:py-20 lg:py-24">
+      <span class="pointer-events-none absolute -right-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-[var(--key-blue-soft)]/60 blur-3xl" aria-hidden="true"></span>
       <span class="pointer-events-none absolute -bottom-48 left-1/3 h-80 w-80 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
-      <div class="container-page">
-        <div class="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.02fr_.98fr] lg:items-center lg:gap-16">
+      <div class="container-page relative">
+        <div class="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.96fr_1.04fr] lg:items-center lg:gap-14 xl:gap-20">
           <div class="relative z-10 text-center md:text-left">
-            <p class="eyebrow text-[var(--key-blue)]">Free AI visibility scan</p>
+            <p class="eyebrow inline-flex rounded-full bg-[var(--key-blue-soft)] px-4 py-2 text-[var(--key-blue)]">Free AI visibility scan</p>
             <h1 class="display-1 mt-6 max-w-[11ch] text-charcoal md:max-w-[12ch]">Does AI <span class="text-[var(--key-blue)]">Recommend Your Shop?</span></h1>
-            <p class="mx-auto mt-7 max-w-[44ch] text-lg leading-relaxed text-charcoal/65 md:mx-0 md:text-xl">See what AI tells local drivers about your shop—and where competitors may be <span class="whitespace-nowrap">winning the call.</span></p>
+            <p class="mx-auto mt-7 max-w-[42ch] text-lg leading-relaxed text-charcoal/65 md:mx-0 md:text-xl">See where your shop appears in AI search—and which nearby shops may be winning the call.</p>
             <div class="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm text-charcoal/55 md:justify-start">
               <span class="inline-flex items-center gap-2"><ShieldCheck class="h-4 w-4 text-[var(--green)]" /> Built for auto repair</span>
-              <span class="inline-flex items-center gap-2"><Search class="h-4 w-4 text-[var(--key-blue)]" /> About 60 seconds</span>
+              <span class="inline-flex items-center gap-2"><span class="scan-icon scan-icon-clock h-4 w-4 text-[var(--key-blue)]" aria-hidden="true"></span> About 60 seconds</span>
             </div>
           </div>
 
-          <div class="relative z-10 mx-auto w-full max-w-[430px] lg:mr-5">
-            <form id="scan-form" class="relative overflow-hidden rounded-[32px] bg-[linear-gradient(145deg,var(--key-blue),var(--navy))] p-1 shadow-[0_34px_90px_-42px_rgba(35,46,102,.65)]">
-              <div class="rounded-[28px] bg-white p-6 md:p-8">
-                <div class="flex items-center justify-between gap-4">
-                  <div><p class="eyebrow text-[var(--key-blue)]">Start here</p><h2 class="mt-2 font-display text-2xl font-semibold tracking-tight text-charcoal">Run your scan</h2></div>
-                  <span class="inline-flex h-11 w-11 items-center justify-center text-[var(--navy)]"><Search class="h-6 w-6" /></span>
-                </div>
-                <label class="mt-7 block text-sm font-medium text-charcoal" for="shop-name">Shop name</label>
+          <div class="relative z-10 mx-auto w-full max-w-[470px] lg:mr-4">
+            <form id="scan-form" class="relative overflow-hidden rounded-[30px] border border-[rgba(35,46,102,.12)] bg-white shadow-[0_34px_90px_-42px_rgba(20,30,78,.62)]">
+              <div class="p-6 md:p-8 lg:p-9">
+                <div><p class="eyebrow text-[var(--key-blue)]">Start your scan</p><h2 class="mt-2 font-display text-2xl font-semibold tracking-tight text-charcoal">Run your free scan</h2><p class="mt-1 text-sm text-charcoal/48">Takes about 60 seconds.</p></div>
+                <label class="mt-8 block text-sm font-medium text-charcoal" for="shop-name">Shop name</label>
                 <input id="shop-name" name="shopName" required autocomplete="organization" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Smith Auto Care" />
                 <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-location">City and state</label>
                 <input id="shop-location" name="location" required autocomplete="address-level2" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Scottsdale, AZ" />
                 <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-specialty">What work do you want more of? <span class="font-normal text-charcoal/40">Optional</span></label>
                 <input id="shop-specialty" name="specialty" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. European repair, brakes, diagnostics" />
-                <button id="scan-submit" type="submit" class="btn-primary mt-7 h-13 w-full !bg-[var(--navy)] !px-5 hover:!bg-[var(--navy-deep)] disabled:cursor-wait disabled:opacity-70"><span data-scan-submit-label>Run My Scan</span> <ArrowRight class="h-4 w-4" /></button>
+                <button id="scan-submit" type="submit" class="btn-primary mt-7 h-13 w-full !bg-[linear-gradient(100deg,var(--key-blue),var(--navy))] !px-5 shadow-[0_18px_38px_-22px_rgba(35,46,102,.75)] hover:!bg-[var(--navy-deep)] disabled:cursor-wait disabled:opacity-70"><span data-scan-submit-label>Run My Free Scan</span> <ArrowRight class="h-4 w-4" /></button>
                 <p id="scan-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
               </div>
             </form>
           </div>
         </div>
+
+        <div class="relative z-10 mx-auto mt-12 flex max-w-6xl flex-col gap-4 rounded-[22px] border border-[rgba(35,46,102,.1)] bg-white/90 px-5 py-4 shadow-[0_18px_55px_-42px_rgba(35,46,102,.45)] backdrop-blur sm:flex-row sm:items-center sm:justify-between md:px-7">
+          <p class="text-sm font-semibold text-[var(--navy)]">We check your shop across</p>
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-charcoal/58">
+            <span class="inline-flex items-center gap-2"><img src="/images/logos/google-search.webp" alt="" width="200" height="200" class="h-8 w-8 object-contain" loading="lazy" decoding="async" aria-hidden="true" /> Google Search</span>
+            <span class="inline-flex items-center gap-2"><img src="/images/logos/google-ai-overviews.png" alt="" width="800" height="449" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> AI Overviews</span>
+            <span class="inline-flex items-center gap-2"><img src="/images/logos/chatgpt-logo.png" alt="" width="3840" height="2160" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> ChatGPT</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="scan-progress" class="hidden border-b border-[var(--navy)] bg-[var(--navy-deep)] py-20 text-white md:py-28">
-      <div class="container-page">
-        <div class="mx-auto max-w-5xl">
+    <section id="scan-progress" class="relative hidden overflow-hidden bg-[#f3f7fd] py-14 md:py-20">
+      <span class="pointer-events-none absolute -left-28 top-0 h-80 w-80 rounded-full bg-[var(--key-blue)]/8 blur-3xl" aria-hidden="true"></span>
+      <span class="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-[var(--green)]/8 blur-3xl" aria-hidden="true"></span>
+      <div class="container-page relative">
+        <div class="scan-progress-panel mx-auto max-w-5xl rounded-[32px] border border-[rgba(35,46,102,.1)] bg-white px-5 py-9 shadow-[0_34px_85px_-52px_rgba(35,46,102,.45)] sm:px-8 md:rounded-[38px] md:px-12 md:py-12 lg:px-16">
           <div class="text-center">
-            <span class="dots-ring scan-progress-ring text-[var(--green)]" role="status" aria-label="Scan in progress">
-              <span class="dots-ring-track" aria-hidden="true">
-                {Array.from({ length: 8 }, (_, index) => (
-                  <span class="dots-ring-position" style={`--dot-index:${index};--dot-angle:${index * 45}deg`}>
-                    <span class="dots-ring-dot"></span>
-                  </span>
-                ))}
-              </span>
+            <span id="scan-stage-hero-icon" class="scan-stage-hero-icon" role="status" aria-label="Scan in progress">
+              <span class="scan-stage-pulse scan-stage-pulse-left" aria-hidden="true"></span>
+              <span class="scan-stage-pulse scan-stage-pulse-right" aria-hidden="true"></span>
+              <span class="scan-icon scan-icon-location" aria-hidden="true"></span>
             </span>
-            <p class="eyebrow mt-7 text-[#9ed8f0]">Scan in progress</p>
-            <h2 id="scan-stage-title" class="mx-auto mt-3 max-w-[18ch] font-display text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[1] tracking-[-.05em]">Searching for your shop</h2>
-            <p id="scan-stage-detail" class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">Checking the public information AI can find about your business.</p>
+            <p class="eyebrow mt-6 text-[var(--key-blue)]">Scan in progress</p>
+            <h2 id="scan-stage-title" class="mx-auto mt-3 max-w-[19ch] font-display text-[clamp(2.15rem,4.2vw,3.65rem)] font-semibold leading-[1.02] tracking-[-.045em] text-[var(--navy-deep)]">Finding your shop</h2>
+            <p id="scan-stage-detail" class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-charcoal/62 md:text-lg">Checking the public information AI can find about your business.</p>
           </div>
 
-          <div class="scan-stage-grid mt-12" aria-live="polite">
-            <div data-scan-stage="0" class="scan-stage-item scan-stage-active"><span class="scan-stage-number">01</span><span>Finding your shop and location</span></div>
-            <div data-scan-stage="1" class="scan-stage-item"><span class="scan-stage-number">02</span><span>Checking service and specialty signals</span></div>
-            <div data-scan-stage="2" class="scan-stage-item"><span class="scan-stage-number">03</span><span>Comparing nearby recommendations</span></div>
-            <div data-scan-stage="3" class="scan-stage-item"><span class="scan-stage-number">04</span><span>Preparing your visibility snapshot</span></div>
+          <div class="mx-auto mt-8 max-w-2xl">
+            <div class="scan-progress-track" role="progressbar" aria-label="AI visibility scan progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25">
+              <span id="scan-progress-bar" class="scan-progress-bar" style="--scan-progress:25%"></span>
+            </div>
           </div>
-          <p class="mt-7 text-center text-sm text-white/65">This usually takes less than a minute. Keep this tab open while we work.</p>
+
+          <div class="scan-stage-grid mt-9" aria-live="polite">
+            <div data-scan-stage="0" class="scan-stage-item scan-stage-active">
+              <span class="scan-stage-marker"><span class="scan-icon scan-icon-location" aria-hidden="true"></span><span class="sr-only">Step 1</span></span>
+              <span class="scan-stage-label">Finding your shop and location</span>
+            </div>
+            <div data-scan-stage="1" class="scan-stage-item">
+              <span class="scan-stage-marker"><span class="scan-icon scan-icon-search" aria-hidden="true"></span><span class="sr-only">Step 2</span></span>
+              <span class="scan-stage-label">Checking service and specialty signals</span>
+            </div>
+            <div data-scan-stage="2" class="scan-stage-item">
+              <span class="scan-stage-marker"><span class="scan-icon scan-icon-pages" aria-hidden="true"></span><span class="sr-only">Step 3</span></span>
+              <span class="scan-stage-label">Comparing nearby recommendations</span>
+            </div>
+            <div data-scan-stage="3" class="scan-stage-item">
+              <span class="scan-stage-marker"><span class="scan-icon scan-icon-ai" aria-hidden="true"></span><span class="sr-only">Step 4</span></span>
+              <span class="scan-stage-label">Preparing your visibility snapshot</span>
+            </div>
+          </div>
+          <p class="scan-progress-note mt-8 text-center text-sm text-charcoal/52"><span class="scan-icon scan-icon-ai" aria-hidden="true"></span>This usually takes less than a minute. You can keep this tab open.</p>
         </div>
       </div>
     </section>
@@ -102,7 +124,7 @@ const reportSchema = {
                 <span class="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
                 <div class="relative">
                   <p class="eyebrow text-[#9ed8f0]">Your report is built</p>
-                  <h2 class="mt-5 max-w-[13ch] font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[.98] tracking-[-.055em]">Your shop’s answer is ready.</h2>
+                  <h2 class="mt-5 max-w-[13ch] font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[.98] tracking-[-.055em]">Your AI Visibility Report Is Ready.</h2>
                   <p class="mt-6 max-w-[42rem] text-lg leading-relaxed text-white/68">We found how AI sees <strong data-gate-shop class="font-semibold text-white">your shop</strong>, where it appeared against nearby shops, and the clearest opportunity to improve.</p>
 
                   <div class="mt-9 max-w-xl border-y border-white/12">
@@ -194,7 +216,7 @@ const reportSchema = {
             <div class="border-t border-[var(--hairline)] bg-[var(--cream)] p-6 md:p-10">
               <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                 <div class="flex items-center gap-4"><span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[var(--navy)] shadow-sm"><Trophy class="h-6 w-6" /></span><div><p class="eyebrow text-charcoal/45">Competitive position</p><h4 class="mt-1 font-display text-2xl font-semibold text-charcoal">Where your shop appeared</h4></div></div>
-                <span class="w-fit rounded-full border border-[var(--hairline)] bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.14em] text-charcoal/45">Based on this scan</span>
+                <span class="w-fit rounded-full border border-[var(--navy)] bg-[var(--navy)] px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[.14em] text-white shadow-[0_8px_20px_-12px_rgba(30,45,102,0.9)]">Based on this scan</span>
               </div>
 
               <div class="mt-7 grid gap-7 md:grid-cols-[220px_1fr] md:items-center">
@@ -240,12 +262,17 @@ const reportSchema = {
     const schedule = document.querySelector("#schedule");
     const stageTitle = document.querySelector("#scan-stage-title");
     const stageDetail = document.querySelector("#scan-stage-detail");
+    const stageHeroIcon = document.querySelector("#scan-stage-hero-icon .scan-icon");
+    const progressBar = document.querySelector("#scan-progress-bar");
+    const progressTrack = document.querySelector("[role='progressbar']");
     const stageMessages = [
-      ["Searching for your shop", "Checking the public information AI can find about your business."],
-      ["Reading your service signals", "Looking at how your location, services, and specialty are described."],
+      ["Finding your shop", "Checking the public information AI can find about your business."],
+      ["Reading your service signals", "Looking at how your location, services, and specialty are described online."],
       ["Comparing nearby recommendations", "Checking which local alternatives are easier for AI to understand."],
       ["Building your snapshot", "Turning the findings into a clear score, gap, and next step."],
     ];
+    const stageIcons = ["location", "search", "pages", "ai"];
+    const stageProgress = [25, 50, 75, 96];
     let stageTimer;
     let stageIndex = 0;
     let pendingReportToken = "";
@@ -329,7 +356,19 @@ const reportSchema = {
       showList(payload.understood);
       showRank(payload.shopsAhead ?? payload.competitors, payload.shopsCompared);
     };
-    const updateStage = () => { const [title, detail] = stageMessages[stageIndex]; if (stageTitle) stageTitle.textContent = title; if (stageDetail) stageDetail.textContent = detail; document.querySelectorAll("[data-scan-stage]").forEach((item, index) => { item.classList.toggle("scan-stage-active", index === stageIndex); }); };
+    const updateStage = () => {
+      const [title, detail] = stageMessages[stageIndex];
+      const percent = stageProgress[stageIndex];
+      if (stageTitle) stageTitle.textContent = title;
+      if (stageDetail) stageDetail.textContent = detail;
+      if (stageHeroIcon) stageHeroIcon.className = `scan-icon scan-icon-${stageIcons[stageIndex]}`;
+      if (progressBar) progressBar.style.setProperty("--scan-progress", `${percent}%`);
+      progressTrack?.setAttribute("aria-valuenow", String(percent));
+      document.querySelectorAll("[data-scan-stage]").forEach((item, index) => {
+        item.classList.toggle("scan-stage-active", index === stageIndex);
+        item.classList.toggle("scan-stage-complete", index < stageIndex);
+      });
+    };
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
@@ -376,7 +415,7 @@ const reportSchema = {
         error.textContent = scanError.message || "Something went wrong. Please try again.";
         error.classList.remove("hidden");
         submit.disabled = false;
-        if (submitLabel) submitLabel.textContent = "Run My Scan";
+        if (submitLabel) submitLabel.textContent = "Run My Free Scan";
       }
     });
 
@@ -413,160 +452,223 @@ const reportSchema = {
   </script>
 
   <style is:global>
-    .dots-ring {
-      position: relative;
-      display: inline-flex;
-      width: 1.9rem;
-      aspect-ratio: 1;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .dots-ring-track {
-      position: relative;
+    .scan-icon {
       display: block;
-      width: 100%;
-      height: 100%;
+      width: 1rem;
+      height: 1rem;
+      flex: 0 0 auto;
+      background: currentColor;
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: contain;
     }
 
-    .dots-ring-position {
+    .scan-icon-location {
+      mask-image: url("/images/icons/ai-scan/location.svg");
+    }
+
+    .scan-icon-search {
+      mask-image: url("/images/icons/ai-scan/search.svg");
+    }
+
+    .scan-icon-pages {
+      mask-image: url("/images/icons/ai-scan/pages.svg");
+    }
+
+    .scan-icon-ai {
+      mask-image: url("/images/icons/ai-scan/ai.svg");
+    }
+
+    .scan-icon-clock {
+      mask-image: url("/images/icons/ai-scan/clock.svg");
+    }
+
+    .scan-stage-hero-icon {
+      position: relative;
+      display: inline-grid;
+      width: 5rem;
+      height: 4.5rem;
+      place-items: center;
+      color: var(--green);
+    }
+
+    .scan-stage-hero-icon > .scan-icon {
+      position: relative;
+      z-index: 2;
+      width: 1.9rem;
+      height: 1.9rem;
+      filter: drop-shadow(0 9px 12px rgba(95, 143, 34, 0.2));
+    }
+
+    .scan-stage-pulse {
       position: absolute;
       top: 50%;
-      left: 50%;
-      width: 0.32rem;
-      height: 0.32rem;
-      transform: translate(-50%, -50%) rotate(var(--dot-angle)) translateY(-0.68rem);
+      width: 2rem;
+      height: 3.25rem;
+      border: 3px solid rgba(63, 140, 203, 0.15);
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      animation: scan-signal-pulse 1.7s ease-in-out infinite;
     }
 
-    .dots-ring-dot {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      background: currentColor;
-      animation: scan-dots-ring-pulse 1s linear infinite;
-      animation-delay: calc((var(--dot-index) - 8) * 0.125s);
+    .scan-stage-pulse-left {
+      left: 0.25rem;
+      border-right: 0;
+      border-radius: 3rem 0 0 3rem;
+      transform: translateY(-50%);
     }
 
-    @keyframes scan-dots-ring-pulse {
+    .scan-stage-pulse-right {
+      right: 0.25rem;
+      border-left: 0;
+      border-radius: 0 3rem 3rem 0;
+      transform: translateY(-50%);
+      animation-delay: 0.18s;
+    }
+
+    @keyframes scan-signal-pulse {
       0%,
       100% {
-        opacity: 0.25;
-        transform: scale(0.65);
-      }
-
-      12.5% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      25% {
-        opacity: 0.75;
-        transform: scale(0.85);
+        opacity: 0.45;
+        scale: 0.84;
       }
 
       50% {
-        opacity: 0.35;
-        transform: scale(0.7);
+        opacity: 1;
+        scale: 1;
       }
     }
 
-    .scan-progress-ring {
-      width: 3.25rem;
+    .scan-progress-track {
+      height: 0.55rem;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e8edf6;
+      box-shadow: inset 0 1px 2px rgba(35, 46, 102, 0.08);
     }
 
-    .scan-progress-ring .dots-ring-position {
-      width: 0.42rem;
-      height: 0.42rem;
-      transform: translate(-50%, -50%) rotate(var(--dot-angle)) translateY(-1.15rem);
+    .scan-progress-bar {
+      display: block;
+      width: var(--scan-progress);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), #80d91f);
+      box-shadow: 0 0 18px rgba(147, 200, 69, 0.28);
+      transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .scan-stage-grid {
       display: grid;
-      border-top: 1px solid rgba(255, 255, 255, 0.22);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+      border-top: 1px solid rgba(35, 46, 102, 0.11);
+      border-bottom: 1px solid rgba(35, 46, 102, 0.11);
     }
 
     .scan-stage-item {
       position: relative;
       display: grid;
-      grid-template-columns: 2rem 1fr;
-      gap: 0.75rem;
-      align-items: start;
-      padding: 1.25rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-      color: rgba(255, 255, 255, 0.62);
-      font-size: 0.875rem;
-      font-weight: 600;
-      line-height: 1.45;
-      transition: color 220ms ease;
+      grid-template-columns: 2.8rem 1fr;
+      gap: 0.9rem;
+      align-items: center;
+      padding: 0.95rem 0;
+      border-bottom: 1px solid rgba(35, 46, 102, 0.09);
+      color: rgba(35, 46, 102, 0.36);
+      transition: color 260ms ease;
     }
 
     .scan-stage-item:last-child {
       border-bottom: 0;
     }
 
-    .scan-stage-number {
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      transition: color 220ms ease;
+    .scan-stage-marker {
+      position: relative;
+      z-index: 1;
+      display: inline-grid;
+      width: 2.75rem;
+      height: 2.75rem;
+      place-items: center;
+      border: 1.5px solid rgba(35, 46, 102, 0.2);
+      border-radius: 999px;
+      background: #fff;
+      color: rgba(35, 46, 102, 0.42);
+      transition: border-color 260ms ease, background 260ms ease, color 260ms ease, transform 260ms ease;
     }
 
-    .scan-stage-active {
+    .scan-stage-marker .scan-icon {
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+
+    .scan-stage-label {
+      max-width: 13rem;
+      font-size: 0.78rem;
+      font-weight: 650;
+      line-height: 1.35;
+    }
+
+    .scan-stage-complete {
+      color: rgba(35, 46, 102, 0.68);
+    }
+
+    .scan-stage-complete .scan-stage-marker {
+      border-color: var(--navy);
+      background: var(--navy);
       color: #fff;
     }
 
-    .scan-stage-active::before {
-      position: absolute;
-      top: -1px;
-      left: 0;
-      width: 4rem;
-      height: 2px;
-      background: var(--green);
-      content: "";
+    .scan-stage-active {
+      color: var(--navy-deep);
     }
 
-    .scan-stage-active .scan-stage-number {
+    .scan-stage-active .scan-stage-marker {
+      border-color: var(--green);
+      background: var(--green);
+      color: #fff;
+      transform: scale(1.08);
+      box-shadow: 0 12px 25px -15px rgba(95, 143, 34, 0.8);
+    }
+
+    .scan-progress-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+    }
+
+    .scan-progress-note .scan-icon {
+      width: 0.85rem;
+      height: 0.85rem;
       color: var(--green);
     }
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       .scan-stage-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border: 0;
       }
 
       .scan-stage-item {
-        padding: 1.5rem;
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 0.7rem;
+        padding: 0;
+        border: 0;
+        text-align: center;
       }
 
-      .scan-stage-item:nth-child(odd) {
-        border-right: 1px solid rgba(255, 255, 255, 0.16);
+      .scan-stage-item:not(:last-child)::after {
+        position: absolute;
+        z-index: 0;
+        top: 1.35rem;
+        left: calc(50% + 1.75rem);
+        width: calc(100% - 3.5rem);
+        height: 1px;
+        background: rgba(35, 46, 102, 0.16);
+        content: "";
       }
 
-      .scan-stage-item:nth-child(3) {
-        border-bottom: 0;
-      }
-
-      .scan-stage-active::before {
-        left: 1.5rem;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .scan-stage-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .scan-stage-item,
-      .scan-stage-item:nth-child(3) {
-        border-right: 1px solid rgba(255, 255, 255, 0.16);
-        border-bottom: 0;
-      }
-
-      .scan-stage-item:last-child {
-        border-right: 0;
+      .scan-stage-label {
+        max-width: 11.5rem;
       }
     }
 
@@ -683,9 +785,13 @@ const reportSchema = {
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .dots-ring-dot {
+      .scan-stage-pulse {
         animation: none;
         opacity: 0.75;
+      }
+
+      .scan-progress-bar {
+        transition: none;
       }
     }
   </style>
