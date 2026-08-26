@@ -185,7 +185,11 @@ const reportSchema = {
                     <p class="eyebrow text-white/45">In plain English</p>
                     <p data-result-status class="mt-2 font-display text-2xl font-semibold">Scan complete</p>
                   </div>
-                  <p class="mt-5 text-xs leading-relaxed text-white/48">This score is based on what the scan could find online today.</p>
+                  <div class="mt-5 grid grid-cols-2 gap-3 border-t border-white/15 pt-5 text-xs leading-relaxed text-white/58">
+                    <span>Public facts <strong class="block text-base text-white"><span data-foundation-score>—</span>/40</strong></span>
+                    <span>Recommendation checks <strong class="block text-base text-white"><span data-recommendation-score>—</span>/60</strong></span>
+                  </div>
+                  <p class="mt-4 text-xs leading-relaxed text-white/48">The same fixed rubric is used for every scan.</p>
                 </div>
               </section>
 
@@ -195,6 +199,7 @@ const reportSchema = {
                   <p class="eyebrow text-[var(--key-blue)]">The short answer</p>
                   <h3 data-result-verdict class="mt-5 max-w-[26ch] font-display text-[clamp(2rem,3.4vw,3.15rem)] font-semibold leading-[1.03] tracking-[-.045em] text-charcoal">Your result will appear here.</h3>
                   <p class="mt-6 max-w-[58ch] leading-relaxed text-charcoal/62">This is one scan, not a permanent ranking. It shows whether AI found enough clear information and proof to suggest your shop to a driver.</p>
+                  <div class="mt-6 max-w-[58ch] rounded-2xl border border-[rgba(35,46,102,.12)] bg-[var(--off-white)] p-4 text-sm leading-relaxed text-charcoal/65"><strong class="text-[var(--navy)]">Business match: <span data-match-confidence>—</span>.</strong> <span data-confidence-note></span></div>
                   <a href="/resources/ai-search-for-auto-repair-shops" class="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">Learn how AI chooses which shops to mention <ArrowRight class="h-4 w-4" /></a>
                 </div>
               </section>
@@ -220,18 +225,16 @@ const reportSchema = {
                 <span class="w-fit rounded-full bg-[var(--navy)] px-4 py-2 text-[10px] font-semibold uppercase tracking-[.14em] text-white">Today’s scan</span>
               </div>
 
-              <div class="mt-8 grid gap-7 md:grid-cols-[220px_1fr] md:items-center md:gap-10">
+              <div class="mt-8 grid gap-7 md:grid-cols-[220px_1fr] md:items-start md:gap-10">
                 <div class="rounded-[26px] bg-[var(--navy)] p-6 text-white shadow-[0_24px_56px_-42px_rgba(35,46,102,.8)]">
-                  <p class="eyebrow text-[#9ed8f0]">Your result</p>
-                  <p data-rank-found class="mt-4 font-display text-6xl font-semibold leading-none tracking-[-.06em]">#<span data-rank-position>—</span></p>
-                  <p data-rank-missing class="mt-4 hidden font-display text-4xl font-semibold leading-[.95] tracking-[-.045em]">Not mentioned</p>
-                  <p class="mt-2 text-sm text-white/58">of <span data-rank-total>—</span> shops checked</p>
-                  <div data-rank-ahead-copy class="mt-5 border-t border-white/15 pt-4 text-sm font-semibold text-white"><span data-shops-ahead>—</span> recommended before you</div>
-                  <div data-rank-missing-copy class="mt-5 hidden border-t border-white/15 pt-4 text-sm font-semibold text-white">AI suggested other nearby shops instead</div>
+                  <p class="eyebrow text-[#9ed8f0]">Checks that mentioned you</p>
+                  <p class="mt-4 font-display text-6xl font-semibold leading-none tracking-[-.06em]"><span data-checks-appeared>—</span><span class="text-3xl text-white/38">/</span><span data-checks-total>3</span></p>
+                  <p class="mt-2 text-sm text-white/58">recommendation checks</p>
+                  <div class="mt-5 border-t border-white/15 pt-4 text-sm font-semibold text-white" data-check-summary>Scan complete</div>
                 </div>
 
                 <div>
-                  <div data-rank-track class="rank-track" aria-label="Competitive recommendation order"></div>
+                  <div data-recommendation-checks class="recommendation-checks" aria-label="Recommendation checks"></div>
                   <p data-result-competitor class="mt-6 max-w-2xl text-base leading-relaxed text-charcoal/65"></p>
                 </div>
               </div>
@@ -314,77 +317,83 @@ const reportSchema = {
       }));
     };
     const scoreStatus = (score) => score < 40 ? "Not showing up yet" : score < 60 ? "Some important gaps" : score < 80 ? "Good starting point" : "Easy to understand";
-    const showRank = (appearedValue, aheadValue, comparedValue) => {
-      const shopAppeared = appearedValue === true;
-      const shopsAhead = Math.max(0, Number(aheadValue) || 0);
-      const total = Math.max(shopsAhead + 1, Number(comparedValue) || 0);
-      const position = shopsAhead + 1;
-      document.querySelector("[data-rank-found]")?.classList.toggle("hidden", !shopAppeared);
-      document.querySelector("[data-rank-missing]")?.classList.toggle("hidden", shopAppeared);
-      document.querySelector("[data-rank-ahead-copy]")?.classList.toggle("hidden", !shopAppeared);
-      document.querySelector("[data-rank-missing-copy]")?.classList.toggle("hidden", shopAppeared);
-      setText("[data-rank-position]", String(position));
-      setText("[data-rank-total]", String(total));
-      setText("[data-shops-ahead]", String(shopsAhead));
-      const track = document.querySelector("[data-rank-track]");
-      if (!track) return;
-      const nodes = [];
-      if (!shopAppeared) {
-        const current = document.createElement("div");
-        current.className = "rank-node rank-node-current rank-node-missing";
-        current.innerHTML = "<span>—</span><small>Your shop</small>";
-        nodes.push(current);
-        const alternatives = Math.max(0, total - 1);
-        if (alternatives > 0) {
-          const after = document.createElement("div");
-          after.className = "rank-node-after";
-          after.textContent = `${alternatives} alternative${alternatives === 1 ? "" : "s"} appeared`;
-          nodes.push(after);
-        }
-        track.replaceChildren(...nodes);
-        track.setAttribute("aria-label", `Your shop was not included in the reviewed recommendations; ${total} shops were checked.`);
-        return;
-      }
-      const visibleAhead = Math.min(shopsAhead, 5);
-      for (let index = 1; index <= visibleAhead; index += 1) {
-        const node = document.createElement("div");
-        node.className = "rank-node rank-node-ahead";
-        node.innerHTML = `<span>#${index}</span><small>Shop</small>`;
-        nodes.push(node);
-      }
-      if (shopsAhead > visibleAhead) {
-        const more = document.createElement("div");
-        more.className = "rank-node-more";
-        more.textContent = `+${shopsAhead - visibleAhead}`;
-        nodes.push(more);
-      }
-      const current = document.createElement("div");
-      current.className = "rank-node rank-node-current";
-      current.innerHTML = `<span>#${position}</span><small>Your shop</small>`;
-      nodes.push(current);
-      const shopsAfter = Math.max(0, total - position);
-      if (shopsAfter > 0) {
-        const after = document.createElement("div");
-        after.className = "rank-node-after";
-        after.textContent = `+${shopsAfter} after`;
-        nodes.push(after);
-      }
-      track.replaceChildren(...nodes);
-      track.setAttribute("aria-label", `Your shop appeared number ${position} of ${total}; ${shopsAhead} shops were recommended before it.`);
+    const showRecommendationChecks = (items, appearedValue) => {
+      const checks = Array.isArray(items) ? items.slice(0, 3) : [];
+      const appeared = Math.max(0, Math.min(checks.length, Number(appearedValue) || 0));
+      setText("[data-checks-appeared]", String(appeared));
+      setText("[data-checks-total]", String(checks.length));
+      const summaries = ["Not mentioned in these checks", "Mentioned once", "Mentioned in most checks", "Mentioned in every check"];
+      setText("[data-check-summary]", summaries[appeared] || summaries[0]);
+      const list = document.querySelector("[data-recommendation-checks]");
+      if (!list) return;
+      list.replaceChildren(...checks.map((check) => {
+        const row = document.createElement("article");
+        row.className = "recommendation-check";
+        const marker = document.createElement("span");
+        marker.className = `recommendation-check-marker ${check.appeared ? "recommendation-check-found" : "recommendation-check-missing"}`;
+        marker.textContent = check.appeared ? "✓" : "—";
+        marker.setAttribute("aria-label", check.appeared ? "Shop mentioned" : "Shop not mentioned");
+        const content = document.createElement("div");
+        const heading = document.createElement("h5");
+        heading.className = "recommendation-check-query";
+        heading.textContent = shortText(check.query, 100);
+        const finding = document.createElement("p");
+        finding.className = "recommendation-check-finding";
+        finding.textContent = shortText(check.finding, 150);
+        const context = document.createElement("p");
+        context.className = "recommendation-check-context";
+        const alternatives = Math.max(0, Number(check.alternativesShown) || 0);
+        context.textContent = `${alternatives} other shop${alternatives === 1 ? "" : "s"} considered`;
+        content.append(heading, finding, context);
+        row.append(marker, content);
+        return row;
+      }));
     };
     const renderReport = (payload) => {
-      const score = Math.max(0, Math.min(100, Number(payload.score) || 0));
+      const hasScore = payload.score !== null && Number.isFinite(Number(payload.score));
+      const score = hasScore ? Math.max(0, Math.min(100, Number(payload.score))) : 0;
       setText("[data-result-shop]", shortText(payload.shopName, 90));
-      setText("[data-result-score]", String(score));
-      setText("[data-result-status]", scoreStatus(score));
+      setText("[data-result-score]", hasScore ? String(score) : "—");
+      setText("[data-foundation-score]", hasScore ? String(Number(payload.foundationScore) || 0) : "—");
+      setText("[data-recommendation-score]", hasScore ? String(Number(payload.recommendationScore) || 0) : "—");
+      setText("[data-result-status]", hasScore ? scoreStatus(score) : "Shop match needs review");
+      const confidence = ["high", "medium", "low"].includes(payload.matchConfidence) ? payload.matchConfidence : "low";
+      setText("[data-match-confidence]", `${confidence.charAt(0).toUpperCase()}${confidence.slice(1)}`);
+      setText("[data-confidence-note]", shortText(payload.confidenceNote, 150));
       setText("[data-result-verdict]", shortText(payload.verdict, 125));
       setText("[data-result-gap]", shortText(payload.gap, 190));
       setText("[data-result-competitor]", shortText(payload.competitor, 170));
       setText("[data-result-cta]", shortText(payload.cta, 170));
       document.querySelector("[data-score-ring]")?.setAttribute("style", `--score:${score}`);
       showList(payload.understood);
-      showRank(payload.shopAppeared, payload.shopsAhead, payload.shopsCompared);
+      showRecommendationChecks(payload.recommendationChecks, payload.checksAppeared);
     };
+    if (window.location.hostname === "127.0.0.1" && new URLSearchParams(window.location.search).get("preview") === "report") {
+      renderReport({
+        shopName: "Snyder Automotive Inc",
+        score: 60,
+        foundationScore: 40,
+        recommendationScore: 20,
+        matchConfidence: "high",
+        confidenceNote: "The business name, Blue Springs location, and official website align.",
+        verdict: "Your shop appeared once, but nearby repair shops were easier to verify and recommend.",
+        gap: "Brake repair is not described clearly enough across the website and public listings.",
+        understood: [
+          "The shop name and Blue Springs location are easy to confirm.",
+          "The official website lists general automotive service and repair.",
+          "Public reviews show an established history with local drivers.",
+        ],
+        recommendationChecks: [
+          { query: "Auto repair shop in Blue Springs", appeared: false, alternativesShown: 5, finding: "Other local shops had clearer repair categories and review coverage." },
+          { query: "Brake repair in Blue Springs", appeared: true, alternativesShown: 4, finding: "Your shop appeared alongside four nearby brake-service options." },
+          { query: "Where to get brake repair near Blue Springs", appeared: false, alternativesShown: 5, finding: "Specialists gave drivers more specific brake-service proof." },
+        ],
+        checksAppeared: 1,
+        competitor: "Nearby shops described brake work more clearly and had stronger service-specific review language.",
+        cta: "Add a focused brake-repair page and reinforce that service in listings and review requests.",
+      });
+      results?.classList.remove("hidden");
+    }
     const updateStage = () => {
       const [title, detail] = stageMessages[stageIndex];
       const percent = stageProgress[stageIndex];
@@ -948,87 +957,63 @@ const reportSchema = {
       justify-content: center;
     }
 
-    .rank-track {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      max-width: 100%;
-      overflow-x: auto;
-      padding: 0.2rem 0 0.55rem;
-      scrollbar-width: thin;
+    .recommendation-checks {
+      display: grid;
+      gap: 0.75rem;
     }
 
-    .rank-node {
-      display: flex;
-      min-width: 4.25rem;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.35rem;
-      position: relative;
+    .recommendation-check {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0.9rem;
+      align-items: start;
+      border: 1px solid rgba(35, 46, 102, 0.11);
+      border-radius: 1.15rem;
+      background: #fff;
+      padding: 1rem;
     }
 
-    .rank-node:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      left: calc(50% + 1.55rem);
-      top: 1.45rem;
-      width: 1.7rem;
-      height: 1px;
-      background: var(--hairline);
-    }
-
-    .rank-node span {
+    .recommendation-check-marker {
       display: inline-flex;
-      width: 3rem;
-      height: 3rem;
+      width: 2.5rem;
+      height: 2.5rem;
       align-items: center;
       justify-content: center;
       border-radius: 999px;
-      font-family: var(--font-display);
-      font-weight: 600;
+      font-weight: 800;
     }
 
-    .rank-node small {
-      color: rgba(20, 22, 28, 0.42);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      white-space: nowrap;
+    .recommendation-check-found {
+      background: #eaf3dc;
+      color: #557f20;
     }
 
-    .rank-node-ahead span {
-      background: #fff;
-      box-shadow: inset 0 0 0 1px var(--hairline);
-      color: rgba(20, 22, 28, 0.5);
+    .recommendation-check-missing {
+      background: rgba(35, 46, 102, 0.07);
+      color: var(--navy);
     }
 
-    .rank-node-current span {
-      background: var(--green);
+    .recommendation-check-query {
       color: var(--charcoal);
-      box-shadow: 0 12px 28px -16px rgba(95, 143, 34, 0.75);
-    }
-
-    .rank-node-current small {
-      color: var(--navy);
-    }
-
-    .rank-node-missing span {
-      background: #fff;
-      color: var(--navy);
-      box-shadow: inset 0 0 0 2px rgba(35, 46, 102, 0.22);
-    }
-
-    .rank-node-more,
-    .rank-node-after {
-      flex: 0 0 auto;
-      border-radius: 999px;
-      background: rgba(35, 46, 102, 0.06);
-      padding: 0.55rem 0.75rem;
-      color: rgba(20, 22, 28, 0.46);
-      font-size: 0.7rem;
+      font-size: 0.92rem;
       font-weight: 700;
-      white-space: nowrap;
+      line-height: 1.35;
+    }
+
+    .recommendation-check-finding {
+      margin-top: 0.3rem;
+      color: rgba(20, 22, 28, 0.62);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .recommendation-check-context {
+      margin-top: 0.45rem;
+      color: rgba(20, 22, 28, 0.42);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     @media (max-width: 1023px) {
