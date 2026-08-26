@@ -38,6 +38,10 @@ export type ResourcePost = {
     description: string;
   }[];
   relatedSlugs?: string[];
+  faq?: Array<{
+    question: string;
+    answer: string;
+  }>;
 };
 
 const resourcePath = (slug: string) => `/resources/${slug}`;
@@ -55,7 +59,7 @@ export const resourcePosts: ResourcePost[] = [
       "Learn how AI search may compare auto repair shops, what Google’s automated calls mean, and which practical improvements can help your shop stand out.",
     description:
       "A plain-English guide to how AI search may affect independent auto repair shops and what owners can improve now.",
-    dek: "Drivers are starting to ask AI which shop to call, who works on their vehicle, and who can see them soon. Here is what that changes—and how to make your shop the easy choice.",
+    dek: "Your next customer may ask AI who to call before they ever see your website. Let’s talk about what that actually changes, what it does not, and how to make your shop the easy choice.",
     image: {
       src: "/images/resources/ai-search-abstract-sports-car.jpg",
       alt: "Abstract blurred silhouette of a sports car glowing in blue and coral light",
@@ -69,7 +73,39 @@ export const resourcePosts: ResourcePost[] = [
     takeaways: [
       "Make it clear which repairs, vehicles, and customers your shop serves best.",
       "Keep your website, Google profile, reviews, photos, and contact information consistent.",
-      "Focus on qualified calls and booked work—not on chasing a secret AI ranking.",
+      "Focus on qualified calls and booked work instead of chasing a secret AI ranking.",
+    ],
+    faq: [
+      {
+        question: "Is there an AI for automotive repair?",
+        answer:
+          "Yes. AI tools now help with repair information, inspections, estimates, scheduling, customer communication, and shop operations. Drivers also use tools such as Google, ChatGPT, Gemini, and Perplexity to research symptoms and find nearby shops. These tools can organize information and suggest possibilities, but they do not replace a qualified technician inspecting the vehicle.",
+      },
+      {
+        question: "Which AI is best for automotive?",
+        answer:
+          "There is no single best AI for every automotive job. A repair information platform may be useful to a technician, while Google or ChatGPT may be where a customer starts looking for a shop. Choose a tool based on the job it needs to do, the quality of its automotive data, and how well it fits your existing process. Never treat a general-purpose chatbot as the final authority on a repair diagnosis.",
+      },
+      {
+        question: "Is there a free AI mechanic app available?",
+        answer:
+          "Several apps and general AI assistants offer free symptom explanations or basic car-care guidance. They can help a driver prepare better questions, but they may be incomplete or confidently wrong. For a repair shop, the safest message is simple: use the AI answer as background information, then verify the concern with a proper inspection before recommending work.",
+      },
+      {
+        question: "How can an auto repair shop appear in AI search results?",
+        answer:
+          "Make the shop easy to understand and verify. Publish clear service and vehicle-specialty pages, keep the same name, address, phone number, hours, and booking information everywhere, earn recent detailed reviews, show real proof of the team and work, and make the next step obvious. AI visibility grows from a strong public record, not from one special file or trick.",
+      },
+      {
+        question: "Does AI search replace local SEO or a Google Business Profile?",
+        answer:
+          "No. AI search often depends on the same public information that supports local SEO: a complete Google Business Profile, accurate directories, useful website pages, reviews, local mentions, and strong technical foundations. The goal is not to abandon local search. It is to make those same signals easier for both customers and AI systems to understand.",
+      },
+      {
+        question: "How long does it take to improve AI visibility?",
+        answer:
+          "There is no fixed timeline or permanent AI ranking. Correcting shop information can improve clarity quickly, while new pages, reviews, citations, and authority take time to be discovered and trusted. Measure progress over months, test the real questions customers ask, and focus on qualified calls and booked work instead of chasing a single screenshot.",
+      },
     ],
     sections: [],
     serviceLinks: [

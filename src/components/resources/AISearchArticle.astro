@@ -27,34 +27,36 @@ const relatedPosts = (post.relatedSlugs ?? [])
 const navLinks = [
   { href: "#what-changed", label: "What changed" },
   { href: "#three-gates", label: "What AI looks for" },
+  { href: "#technical-foundation", label: "Technical basics" },
   { href: "#ai-calls", label: "AI calls" },
   { href: "#action-plan", label: "30-day plan" },
   { href: "#how-turnkey-helps", label: "How Turnkey helps" },
+  { href: "#faq", label: "FAQ" },
   { href: "#sources", label: "Sources" },
 ];
 
 const evidence = [
   {
     value: "Multiple shops",
-    label: "Google can contact several nearby repair shops to compare price and availability.",
+    label: "Google can contact several nearby shops while the driver waits for one answer.",
     href: "https://support.google.com/websearch/answer/16421135",
     source: "Google Search Help",
   },
   {
     value: "3× longer",
-    label: "People ask AI longer, more detailed questions than they type into traditional search.",
+    label: "People give AI the whole story, not just “brake shop near me.”",
     href: "https://blog.google/products-and-platforms/products/search/ai-mode-us-insights/",
     source: "Google, 2025",
   },
   {
     value: "8% vs. 15%",
-    label: "When an AI summary appeared, fewer people clicked a traditional search result.",
+    label: "When an AI summary appeared, fewer searchers bothered clicking a traditional result.",
     href: "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
     source: "Pew Research Center, 2025",
   },
   {
     value: "45% / 88%",
-    label: "Customers may ask AI for recommendations, but most still check reviews before choosing.",
+    label: "Customers may ask AI who to call, but most still read the reviews before handing over the keys.",
     href: "https://www.brightlocal.com/research/lcrs-ai-trust/",
     source: "BrightLocal, 2026",
   },
@@ -64,7 +66,7 @@ const gates = [
   {
     title: "Understand",
     question: "Can AI tell what your shop is best at?",
-    body: "Your shop should be easy to describe: what you repair, which vehicles you work on, where you are, when you are open, and which problems you handle especially well.",
+    body: "If I asked what your shop is known for, I doubt you would say, “Everything for everyone.” Your website should be just as clear about the vehicles, repairs, and problems your team handles best.",
     checks: [
       "Clear services and vehicle specialties",
       "Correct location, hours, and phone number",
@@ -78,7 +80,7 @@ const gates = [
   {
     title: "Verify",
     question: "Does the rest of the internet back you up?",
-    body: "AI can compare your website with your Google Business Profile, reviews, directories, and photos. Those sources should tell the same story and show that your shop is active and credible.",
+    body: "AI can compare your website with your Google Business Profile, reviews, directories, and photos. If one says you close at 5 and another says 7, nobody is going to solve the mystery. Make every source tell the same story.",
     checks: [
       "Matching shop information everywhere",
       "Recent reviews that mention real repairs",
@@ -92,7 +94,7 @@ const gates = [
   {
     title: "Act",
     question: "Is it easy to call or book the next step?",
-    body: "A recommendation only matters if the customer can reach you. Your phone, scheduling process, and explanation of what happens next should make it easy to move forward.",
+    body: "Getting recommended is nice. Getting the appointment is better. Your phone, scheduling process, and explanation of what happens next should make it easy for a worried driver to say yes.",
     checks: [
       "A phone that is answered consistently",
       "Clear availability and scheduling",
@@ -108,22 +110,22 @@ const gates = [
 const callJourney = [
   {
     title: "Driver asks",
-    body: "A question about a repair, price, or appointment",
+    body: "“Who can look at this warning light before Friday?”",
     icon: Search,
   },
   {
     title: "Google checks shops",
-    body: "Nearby options are compared using public information",
+    body: "Nearby shops are compared using what is already online",
     icon: Bot,
   },
   {
     title: "Your advisor answers",
-    body: "The shop explains price, timing, and the next step",
+    body: "Your team explains timing, price, and what must be inspected",
     icon: PhoneCall,
   },
   {
     title: "Driver chooses",
-    body: "The clearest, most credible answer has an advantage",
+    body: "The clearest, most trustworthy next step has the edge",
     icon: CheckCircle2,
   },
 ];
@@ -132,37 +134,37 @@ const actionSteps = [
   {
     label: "Target",
     title: "Choose the work you want more of.",
-    body: "Start with profitable jobs and customer situations—not a list of marketing keywords. Be specific about the vehicles, repairs, and diagnostic work your team is built to handle.",
+    body: "Start with profitable jobs and the customers you are genuinely equipped to help, rather than a giant keyword list someone exported from a marketing tool. Name the vehicles, repairs, and diagnostic work your team wants in the bays.",
   },
   {
     label: "Identity",
     title: "Make your shop information match everywhere.",
-    body: "Use the same business name, address, phone number, hours, and appointment link on your website, Google Business Profile, and major directories.",
+    body: "Use the same business name, address, phone number, hours, and appointment link everywhere. If your website says one thing and Google says another, the customer will not investigate. They will call someone else.",
   },
   {
     label: "Service pages",
     title: "Answer the questions customers ask before they call.",
-    body: "Explain the symptoms you handle, which vehicles you service, what your team checks, and what the customer should expect next. That is more useful than another thin page stuffed with city names.",
+    body: "Explain the symptoms you handle, which vehicles you service, what your team checks, and what happens next. Seven thin pages that repeat “brake repair” with seven city names do not make you seven times more convincing.",
   },
   {
     label: "Reviews",
     title: "Build a steady flow of specific reviews.",
-    body: "Ask soon after a positive experience. Do not script the review, but make the request while the vehicle, repair, communication, and outcome are still fresh in the customer’s mind.",
+    body: "Ask soon after a good experience, while the repair and your communication are still fresh. “Great shop!” is nice. A review that mentions the misfire, the clear updates, and the fix is far more useful.",
   },
   {
     label: "Proof",
     title: "Show the real people and work behind the shop.",
-    body: "Use original photos, technician credentials, inspection explanations, community involvement, and first-hand advice. Real proof gives customers—and AI—more reason to trust you.",
+    body: "Show your actual team, bays, inspections, credentials, and community work. Stock photos of suspiciously spotless mechanics fool no one. Real proof gives customers and AI something credible to work with.",
   },
   {
     label: "Phone readiness",
     title: "Give service advisors a clear response plan.",
-    body: "Decide what can be quoted, what requires an inspection, how diagnostic fees are explained, and which questions help the advisor recommend a useful next step.",
+    body: "Agree on what can be quoted, what needs an inspection, how diagnostic fees are explained, and which questions move the call forward. Confidence at the counter should not depend on which advisor happens to answer.",
   },
   {
     label: "Measurement",
-    title: "Track calls and booked work—not just traffic.",
-    body: "Watch qualified calls, appointment requests, and the work that reaches the schedule. Being mentioned by AI is encouraging; attracting the right customer is what matters to the business.",
+    title: "Track calls and booked work, not just traffic.",
+    body: "Watch qualified calls, appointment requests, and the work that actually reaches the schedule. A flashy traffic chart cannot pay a technician. The right repair orders can.",
   },
 ];
 
@@ -176,6 +178,11 @@ const sources = [
     title: "Optimizing your website for generative AI features on Google Search",
     publisher: "Google Search Central · official 2026 guidance",
     href: "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+  },
+  {
+    title: "Local business structured data",
+    publisher: "Google Search Central · official technical documentation",
+    href: "https://developers.google.com/search/docs/appearance/structured-data/local-business",
   },
   {
     title: "Tips to improve your local ranking on Google",
@@ -214,7 +221,7 @@ const sources = [
       <div class="mt-9 grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14 xl:gap-20">
         <header class="lg:col-span-7">
           <p class="eyebrow text-[var(--key-blue)]">AI Search · Field Guide · <time datetime={post.updatedDate ?? post.originalDate}>{post.date}</time></p>
-          <h1 class="mt-6 max-w-[11ch] text-balance font-display text-[clamp(3.35rem,6.1vw,6.35rem)] font-semibold leading-[.91] tracking-[-.065em] text-charcoal">
+          <h1 class="mt-6 max-w-[11ch] text-balance font-display text-[clamp(3rem,6.1vw,6.35rem)] font-semibold leading-[.91] tracking-[-.065em] text-charcoal">
             Will AI <span class="text-[var(--key-blue)]">Recommend Your Auto Repair Shop?</span>
           </h1>
           <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/68 md:text-xl">{post.dek}</p>
@@ -255,7 +262,7 @@ const sources = [
         <h2 id="short-answer-heading" class="article-summary-heading text-charcoal">
           AI is more likely to recommend a shop it can clearly understand and trust.
         </h2>
-        <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">The basics still win: clear services, accurate shop information, strong reviews, real proof, and an easy next step. The difference is that AI can compare those things before a customer ever reaches your website.</p>
+        <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">Yes, if AI can quickly understand what you do and find enough evidence to trust it. The good news is that the fundamentals still win: clear services, accurate information, strong reviews, real proof, and an easy next step. No secret handshake required.</p>
       </div>
     </div>
   </section>
@@ -275,9 +282,9 @@ const sources = [
       </aside>
 
       <div class="min-w-0">
-        <nav class="-mx-4 mb-12 overflow-x-auto px-4 lg:hidden" aria-label="Article sections">
+        <nav class="article-mobile-nav -mx-4 mb-12 snap-x snap-proximity overflow-x-auto px-4 lg:hidden" aria-label="Article sections">
           <div class="flex w-max gap-2 pb-2">
-            {navLinks.map((link) => <a href={link.href} class="rounded-full border border-[var(--hairline)] bg-[var(--off-white)] px-4 py-2 text-sm font-medium text-charcoal/65">{link.label}</a>)}
+            {navLinks.map((link) => <a href={link.href} class="article-mobile-nav-link inline-flex min-h-11 snap-start items-center rounded-full border border-[rgba(35,46,102,.22)] bg-white px-4 py-2 text-sm font-medium text-[var(--navy)] shadow-[0_8px_20px_-18px_rgba(35,46,102,.7)] transition hover:border-[var(--navy)] hover:bg-[var(--navy)] hover:text-white" data-article-nav>{link.label}</a>)}
           </div>
         </nav>
 
@@ -287,9 +294,9 @@ const sources = [
             Customers can compare shops <span class="block">without visiting them.</span>
           </h2>
           <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.75] text-charcoal/68">
-            <p>A driver used to search “auto repair near me,” open a few websites, read reviews, and make a call. Now that same driver can ask: “Which shop near me is good with European electrical problems, has strong reviews, and can see the car this week?”</p>
-            <p>AI can check several sources, compare nearby shops, and give the driver a short answer. That means part of the buying decision may happen before the customer visits your website—or even knows your shop by name.</p>
-            <p>Google can also contact multiple nearby repair shops for price and availability, then report back to the customer. Your shop may be compared on both the information online and the way your team handles the call.</p>
+            <p>Picture a driver in the parking lot at work. The check-engine light is on, the car has started doing “that weird thing again,” and they need help before Friday. They are not in the mood to study six shop websites. They want a trustworthy answer.</p>
+            <p>So instead of searching “auto repair near me,” they ask AI: “Which shop nearby is good with European electrical problems, has strong reviews, and can see me this week?” AI can check several sources and hand back a shortlist. Just like that, part of the buying decision happens before the driver knows your shop by name.</p>
+            <p>Google can even contact multiple nearby shops about price and availability. That means your marketing is no longer just what appears on a page. It is also whether your information makes sense and whether your team gives a clear, helpful answer when the phone rings.</p>
           </div>
 
           <div class="mt-10 grid gap-5 md:grid-cols-2">
@@ -307,7 +314,7 @@ const sources = [
               </div>
 
               <p class="mt-4 max-w-sm text-[0.96rem] leading-relaxed text-charcoal/75">
-                Your website had a chance to explain the shop before the customer decided.
+                Your website got to make the introduction before the customer decided.
               </p>
 
               <ol class="mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-1.5" aria-label="Website-led customer journey">
@@ -342,7 +349,7 @@ const sources = [
               </div>
 
               <p class="relative mt-4 max-w-sm text-[0.96rem] leading-relaxed text-white/78">
-                AI may compare your shop before the customer sees your website.
+                AI may form the shortlist before the customer ever sees your homepage.
               </p>
 
               <ol class="relative mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-1.5" aria-label="AI-assisted customer journey">
@@ -380,8 +387,8 @@ const sources = [
             AI can recommend a shop. <span class="block">It cannot diagnose the car.</span>
           </h2>
           <div class="mt-6 max-w-[65ch] space-y-5 text-lg leading-[1.72] text-white/68">
-            <p>AI can help a driver find nearby options or ask about basic pricing. It cannot hear the noise, inspect the vehicle, confirm what caused a trouble code, or responsibly promise a final repair price from a vague description.</p>
-            <p>That gives a well-run shop an advantage. Be clear about what you service, how diagnosis works, what can be estimated over the phone, and what requires the vehicle. A useful, honest answer builds more trust than a fast guess.</p>
+            <p>AI can find nearby options and ask about basic pricing. It cannot hear the noise, smell the smell, put the car on a lift, or confirm what caused a trouble code. And despite what a very confident customer may tell you, a screenshot from an AI chat is not a completed inspection.</p>
+            <p>I see that as an advantage for a well-run shop. Explain what you service, how diagnosis works, what can be estimated over the phone, and what requires the vehicle. A useful, honest answer earns more trust than a fast guess dressed up as certainty.</p>
           </div>
           <div class="mt-9 grid gap-3 sm:grid-cols-2">
             {["Customers need help quickly", "Diagnosis still requires the vehicle", "Most drivers choose nearby shops", "Trust matters before price"].map((label) => (
@@ -395,7 +402,7 @@ const sources = [
           <h2 id="three-gates-heading" class="article-section-heading mt-4 text-charcoal">
             Three things make a shop <span class="block">easier to recommend.</span>
           </h2>
-          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">Do not chase a secret AI ranking. Make your shop clear, consistent, and easy to contact. Those improvements help customers and traditional search, too.</p>
+          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">Let me save you from the rabbit hole: there is no magic “rank me in AI” button. Make your shop clear, consistent, and easy to contact. Those improvements help real customers and <a href="/services/digital-marketing" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">traditional local search</a>, too.</p>
 
           <div class="mt-10 grid gap-5">
             {gates.map((gate) => {
@@ -447,6 +454,36 @@ const sources = [
               );
             })}
           </div>
+
+          <p class="mt-6 max-w-[66ch] text-sm leading-relaxed text-charcoal/58">If the shop is difficult to describe, start with an <a href="/resources/ideal-customer-profile-auto-repair-shop" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">ideal customer profile for your repair shop</a>. If the story is clear but the proof is thin, use our <a href="/resources/auto-repair-shop-photography-guide" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">shop photography guide</a> to show the real team and work behind it.</p>
+        </section>
+
+        <section id="technical-foundation" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="technical-foundation-heading">
+          <p class="eyebrow text-[var(--key-blue)]">The behind-the-scenes work</p>
+          <h2 id="technical-foundation-heading" class="article-section-heading mt-4 text-charcoal">
+            The technical part, <span class="block">without the tech headache.</span>
+          </h2>
+          <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.72] text-charcoal/67">
+            <p>Your shop does not need to become a software company. It does need a <a href="/services/digital-marketing" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">digital marketing foundation</a> that search systems can open, read, and understand without piecing together a scavenger hunt.</p>
+            <p>This is where crawlability and structured data matter. They sound technical because they are technical, but the business goal is simple: clearly label the facts your customers care about, then make sure those facts are available in ordinary page text.</p>
+          </div>
+
+          <div class="mt-9 divide-y divide-[rgba(35,46,102,.12)] border-y border-[rgba(35,46,102,.12)]">
+            <div class="grid gap-3 py-6 md:grid-cols-[190px_1fr] md:gap-8">
+              <h3 class="font-display text-xl font-semibold text-[var(--navy)]">Readable pages</h3>
+              <p class="leading-relaxed text-charcoal/65">Services, locations, credentials, warranties, and answers should appear as real text on fast, mobile-friendly pages. Important information should not live only inside an image, video, social post, or widget that a search system may never see.</p>
+            </div>
+            <div class="grid gap-3 py-6 md:grid-cols-[190px_1fr] md:gap-8">
+              <h3 class="font-display text-xl font-semibold text-[var(--navy)]">Structured facts</h3>
+              <p class="leading-relaxed text-charcoal/65">LocalBusiness, AutoRepair, Service, and opening-hours markup can label key business details for search engines. This code does not buy a recommendation or guarantee a ranking. It simply reduces ambiguity, which is exactly what good marketing should do.</p>
+            </div>
+            <div class="grid gap-3 py-6 md:grid-cols-[190px_1fr] md:gap-8">
+              <h3 class="font-display text-xl font-semibold text-[var(--navy)]">A clear source of truth</h3>
+              <p class="leading-relaxed text-charcoal/65">Your website, Google Business Profile, directories, and review platforms should agree on the basics. When they do, customers have less reason to hesitate and AI has more reason to trust the information it finds.</p>
+            </div>
+          </div>
+
+          <p class="mt-6 max-w-[66ch] text-sm leading-relaxed text-charcoal/55"><strong class="font-semibold text-charcoal">Our opinion:</strong> your marketing partner should handle the code and explain the business impact in plain English. You should not need to learn schema vocabulary just to keep your bays full.</p>
         </section>
 
         <section class="relative mt-16 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy)_55%,var(--navy-deep))] p-7 text-white shadow-[0_36px_80px_-52px_rgba(35,46,102,.9)] md:mt-20 md:p-11" aria-labelledby="scan-cta-heading">
@@ -457,7 +494,7 @@ const sources = [
               <h2 id="scan-cta-heading" class="mt-4 max-w-none font-display text-[1.4rem] font-semibold leading-[1.05] tracking-[-.035em] sm:text-3xl md:text-4xl">
                 Would AI know when your shop is the right fit?
               </h2>
-              <p class="mt-4 max-w-2xl leading-relaxed text-white/68">Run a free scan to see what public information AI can find about your shop and which area may need attention first.</p>
+              <p class="mt-4 max-w-2xl leading-relaxed text-white/68">Let’s see the version of your shop AI can piece together from public information, then find where a little cleanup could make a meaningful difference.</p>
             </div>
             <a href="/ai-visibility-scan" class="btn-primary w-full justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white md:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_inline_scan">Run my free scan <ArrowRight className="h-4 w-4" /></a>
           </div>
@@ -469,8 +506,8 @@ const sources = [
             Google may call your shop <span class="block">for the customer.</span>
           </h2>
           <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.72] text-charcoal/67">
-            <p>Google now offers a feature that can contact several local shops to ask about price and availability. The automated caller identifies itself, explains that it is calling for a user, and may record the call.</p>
-            <p>For an owner, the takeaway is simple: how your phone is answered can affect whether the shop makes the shortlist. Make sure advisors know how to explain diagnostic charges, appointment windows, and what information they need before giving an answer.</p>
+            <p>Imagine the front counter on a busy Tuesday morning. Two customers are waiting, a technician needs an answer, and now an automated caller wants price and availability. That is not the moment to invent the shop’s response from scratch.</p>
+            <p>Google says its automated caller identifies itself, explains that it is calling for a user, and may record the call. My takeaway is simple: the way your phone is answered is now part of your visibility. Give advisors a clear way to explain diagnostic charges, appointment windows, and what they need to know before promising anything.</p>
           </div>
 
           <ol class="mt-10 grid gap-3 md:grid-cols-4" aria-label="AI-assisted local service journey">
@@ -495,8 +532,8 @@ const sources = [
               <span class="flex h-11 w-11 flex-none items-center justify-center rounded-2xl bg-[var(--green)] text-white"><Wrench className="h-6 w-6" /></span>
               <div>
                 <p class="eyebrow text-[var(--green)]">Service advisor standard</p>
-                <h3 class="mt-2 font-display text-2xl font-semibold text-white">Treat the AI answer as a clue—not a diagnosis.</h3>
-                <p class="mt-3 leading-relaxed text-white/72">A customer may arrive convinced that AI already found the problem. Acknowledge the information, explain what still needs to be inspected, and show how your team will verify the cause before recommending a repair.</p>
+                <h3 class="mt-2 font-display text-2xl font-semibold text-white">Treat the AI answer as a clue, not a diagnosis.</h3>
+                <p class="mt-3 leading-relaxed text-white/72">You do not need to argue with the customer or roll your eyes at the robot. Acknowledge what they found, explain what still needs to be inspected, and show how your team will verify the cause before recommending a repair.</p>
               </div>
             </div>
           </div>
@@ -507,7 +544,7 @@ const sources = [
           <h2 id="action-plan-heading" class="article-section-heading mt-4 text-charcoal">
             Seven practical moves <span class="block">for the next 30 days.</span>
           </h2>
-          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">No hacks or gimmicks. These are practical improvements that help the right customers find, trust, and choose your shop.</p>
+          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">You do not need to rebuild your entire <a href="/resources/auto-repair-marketing-plan" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">auto repair marketing plan</a> by next Tuesday. Start with these seven practical moves. Each one makes it easier for the right customer to find, trust, and choose you.</p>
           <ul class="mt-10 divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
             {actionSteps.map((step) => (
               <li class="grid gap-3 py-7 md:grid-cols-[48px_1fr] md:gap-5 md:py-8">
@@ -520,7 +557,7 @@ const sources = [
               </li>
             ))}
           </ul>
-          <div class="mt-7 flex gap-3 rounded-2xl border border-[var(--hairline)] bg-white p-5 text-sm leading-relaxed text-charcoal/65 shadow-[0_16px_36px_-34px_rgba(20,22,28,.55)]"><CircleDot className="mt-0.5 h-5 w-5 flex-none text-[var(--key-blue)]" /><p><strong class="font-semibold text-charcoal">Ignore the supposed AI shortcuts.</strong> You do not need special files or gimmicks. Clear pages, correct shop information, helpful content, strong reviews, and real proof will do more for the business.</p></div>
+          <div class="mt-7 flex gap-3 rounded-2xl border border-[var(--hairline)] bg-white p-5 text-sm leading-relaxed text-charcoal/65 shadow-[0_16px_36px_-34px_rgba(20,22,28,.55)]"><CircleDot className="mt-0.5 h-5 w-5 flex-none text-[var(--key-blue)]" /><p><strong class="font-semibold text-charcoal">Please ignore the breathless AI hacks.</strong> You do not need to sprinkle magic files across your website. Clear pages, correct shop information, useful content, strong reviews, and real proof will do far more for the business.</p></div>
         </section>
 
         <section id="how-turnkey-helps" class="-mx-4 mt-16 scroll-mt-28 bg-[var(--off-white)] px-4 py-12 sm:rounded-[32px] sm:px-8 md:mt-20 md:px-11 md:py-14" aria-labelledby="turnkey-heading">
@@ -528,7 +565,7 @@ const sources = [
           <h2 id="turnkey-heading" class="article-section-heading mt-4 text-charcoal">
             Turnkey keeps the whole <span class="block">marketing system working together.</span>
           </h2>
-          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">You should not have to manage a website company, an SEO vendor, review tools, content, and reporting by yourself. Turnkey coordinates those pieces around the repairs you want more of and the customers your shop serves best.</p>
+          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">You already have enough moving parts inside the shop. You should not also have to referee a website company, an SEO vendor, review tools, content, and reporting. We bring those pieces together around the repairs you want more of and the customers your shop serves best.</p>
           <div class="mt-9 grid gap-4 md:grid-cols-2">
             <a href="/services/digital-marketing" class="motion-card group rounded-[24px] bg-white p-6 ring-1 ring-black/[0.06]">
               <FileSearch className="h-7 w-7 text-[var(--navy)]" />
@@ -544,6 +581,24 @@ const sources = [
             </a>
           </div>
         </section>
+
+        {post.faq && post.faq.length > 0 && (
+          <section id="faq" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="faq-heading">
+            <p class="eyebrow text-[var(--key-blue)]">Questions shop owners are asking</p>
+            <h2 id="faq-heading" class="article-section-heading mt-4 text-charcoal">
+              AI search questions, <span class="block">answered without the hype.</span>
+            </h2>
+            <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">These questions come from Google’s People Also Ask results and the questions showing up across the top-ranking guides as the market keeps changing.</p>
+            <div class="mt-9 divide-y divide-[rgba(35,46,102,.13)] border-y border-[rgba(35,46,102,.13)]">
+              {post.faq.map((item) => (
+                <section class="py-7 md:py-8">
+                  <h3 class="font-display text-2xl font-semibold leading-tight text-charcoal">{item.question}</h3>
+                  <p class="mt-3 max-w-[68ch] leading-[1.72] text-charcoal/65">{item.answer}</p>
+                </section>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section id="sources" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="sources-heading">
           <p class="eyebrow text-[var(--key-blue)]">Research notes</p>
@@ -568,7 +623,7 @@ const sources = [
       <h2 class="mx-auto mt-4 max-w-none font-display text-[1.85rem] font-semibold leading-[1.02] tracking-[-.05em] sm:text-5xl lg:text-[4.4rem]">
         Would AI put your shop <span class="block">on the shortlist?</span>
       </h2>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/65">See what an AI-powered search can find about your shop and where the biggest missed opportunity may be.</p>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/65">Let’s find out what AI can see, what it may be missing, and which improvement deserves your attention first.</p>
       <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         <a href="/ai-visibility-scan" class="btn-primary w-full justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white sm:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_final_scan">Run my free AI Visibility Scan <ArrowRight className="h-4 w-4" /></a>
         <a href="/services/digital-marketing" class="btn-ghost w-full justify-center !border-white !bg-white !text-[var(--navy)] hover:!bg-[var(--key-blue-soft)] hover:!text-[var(--navy-deep)] sm:w-auto">Explore digital marketing</a>
@@ -643,6 +698,20 @@ const sources = [
     border-left-color: var(--key-blue);
     color: var(--navy);
     font-weight: 600;
+  }
+
+  .article-mobile-nav {
+    scrollbar-width: none;
+  }
+
+  .article-mobile-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .article-mobile-nav-link.is-active {
+    border-color: var(--navy);
+    background: var(--navy);
+    color: white;
   }
 
   .article-section-heading {

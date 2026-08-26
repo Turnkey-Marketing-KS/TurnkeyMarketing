@@ -31,7 +31,7 @@ export function GET() {
   }));
   const resourceEntries: SitemapEntry[] = resourcePosts.map((post) => ({
     path: post.href,
-    lastmod: phaseThreeRefreshDate,
+    lastmod: post.updatedDate ?? post.originalDate ?? phaseThreeRefreshDate,
   }));
   const entries = [...staticEntries, ...serviceEntries, ...resourceEntries];
   const urls = entries.map(({ path, lastmod }) => {

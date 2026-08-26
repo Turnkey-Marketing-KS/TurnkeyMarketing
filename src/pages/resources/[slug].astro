@@ -80,6 +80,23 @@ const breadcrumbSchema = {
     },
   ],
 };
+
+const faqSchema = currentPost.faq?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: currentPost.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    }
+  : undefined;
+
+const pageSchema = faqSchema ? [articleSchema, breadcrumbSchema, faqSchema] : [articleSchema, breadcrumbSchema];
 ---
 
 <BaseLayout
@@ -89,7 +106,7 @@ const breadcrumbSchema = {
   ogTitle={currentPost.seoTitle ?? `${currentPost.title} — Turnkey Marketing`}
   ogType="article"
   ogImage={currentPost.image.src}
-  schema={[articleSchema, breadcrumbSchema]}
+  schema={pageSchema}
 >
   {isAISearch ? (
     <AISearchArticle post={currentPost} />
