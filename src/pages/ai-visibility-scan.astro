@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, CircleCheckBig, Gauge, ListChecks, LockKeyhole, Search, ShieldCheck, Trophy, TriangleAlert } from "lucide-react";
+import { ArrowRight, CircleCheckBig, ListChecks, LockKeyhole, Search, ShieldCheck, Trophy, TriangleAlert } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { APPOINTMENTCORE_BOOKING_URL, CONSULTATION_URL } from "@/lib/services";
 
@@ -155,89 +155,97 @@ const reportSchema = {
       </div>
     </section>
 
-    <section id="scan-results" class="hidden bg-[linear-gradient(180deg,var(--off-white)_0%,#fff_100%)] py-12 md:py-24">
+    <section id="scan-results" class="hidden scroll-mt-28 bg-white py-12 md:py-24">
       <div class="container-page">
         <div class="mx-auto max-w-6xl">
-          <div class="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <div>
-              <p class="eyebrow text-[var(--key-blue)]">Your AI visibility snapshot</p>
-              <h2 class="display-3 mt-3 text-charcoal"><span data-result-shop>Your shop</span></h2>
-            </div>
-            <div class="inline-flex w-fit items-center gap-3 rounded-[18px] bg-[var(--navy)] py-2 pl-2 pr-4 text-white shadow-[0_18px_40px_-24px_rgba(35,46,102,.8)] ring-1 ring-white/10">
-              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--green)] text-[var(--navy-deep)] shadow-sm"><CircleCheckBig class="h-5 w-5" /></span>
-              <span class="text-left"><span class="block text-[9px] font-semibold uppercase tracking-[.18em] text-white/50">Status</span><span class="mt-0.5 block text-sm font-semibold leading-none">Scan complete</span></span>
+          <div class="report-heading mb-9 border-b border-[var(--hairline)] pb-8 md:mb-12 md:pb-10">
+            <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+              <div>
+                <p class="eyebrow text-[var(--key-blue)]">Your AI visibility report</p>
+                <h2 class="mt-4 max-w-[18ch] font-display text-[clamp(2.45rem,5.2vw,4.8rem)] font-semibold leading-[.96] tracking-[-.055em] text-charcoal"><span data-result-shop>Your shop</span></h2>
+                <p class="mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/65">Here is what AI can understand about your shop, what may be holding it back, and where we would focus first.</p>
+              </div>
+              <div class="inline-flex w-fit items-center gap-3 rounded-full bg-[var(--navy)] py-2 pl-2 pr-4 text-white shadow-[0_16px_34px_-24px_rgba(35,46,102,.75)]">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-[var(--navy)]"><CircleCheckBig class="h-5 w-5" /></span>
+                <span class="text-sm font-semibold">Scan complete</span>
+              </div>
             </div>
           </div>
 
-          <article class="scan-results-report overflow-hidden rounded-[36px] border border-[var(--hairline)] bg-white shadow-[0_38px_100px_-64px_rgba(20,22,28,.42)]">
-            <div class="grid lg:grid-cols-[340px_1fr]">
-              <div class="scan-score-panel relative overflow-hidden bg-[linear-gradient(155deg,var(--navy)_0%,var(--navy-deep)_100%)] p-8 text-white md:p-10">
+          <article class="scan-results-report space-y-6 md:space-y-8">
+            <div class="grid gap-6 lg:grid-cols-[340px_1fr] md:gap-8">
+              <section class="scan-score-panel relative overflow-hidden rounded-[32px] bg-[linear-gradient(155deg,var(--navy)_0%,var(--navy-deep)_100%)] p-8 text-white shadow-[0_32px_72px_-50px_rgba(35,46,102,.9)] md:p-10">
                 <span class="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[var(--key-blue)]/25 blur-3xl"></span>
                 <div class="relative">
-                  <div class="flex items-center gap-2 text-sm font-medium text-white/60"><Gauge class="h-4 w-4" /> AI visibility</div>
-                  <div data-score-ring class="score-ring mt-8" style="--score:0">
+                  <p class="eyebrow text-[#9ed8f0]">AI visibility score</p>
+                  <div data-score-ring class="score-ring mx-auto mt-8 lg:mx-0" style="--score:0">
                     <div class="score-ring-inner"><span data-result-score class="font-display text-6xl font-semibold tracking-[-.07em]">—</span><span class="mt-1 text-xs text-white/45">out of 100</span></div>
                   </div>
                   <div class="mt-8 border-t border-white/15 pt-5">
-                    <p class="text-[10px] uppercase tracking-[.16em] text-white/45">Current signal</p>
+                    <p class="eyebrow text-white/45">What the score means</p>
                     <p data-result-status class="mt-2 font-display text-2xl font-semibold">Scan complete</p>
                   </div>
-                  <p class="mt-5 text-xs leading-relaxed text-white/45">Directional snapshot—not an official ranking.</p>
+                  <p class="mt-5 text-xs leading-relaxed text-white/48">A point-in-time view of the public signals available during this scan.</p>
                 </div>
-              </div>
+              </section>
 
-              <div class="scan-verdict-panel flex flex-col justify-center p-8 md:p-12 lg:p-14">
-                <p class="eyebrow text-[var(--key-blue)]">Your verdict</p>
-                <h3 data-result-verdict class="mt-5 max-w-[22ch] font-display text-[clamp(2rem,4vw,3.7rem)] font-semibold leading-[1.03] tracking-[-.045em] text-charcoal">Your result will appear here.</h3>
-                <div class="mt-8 flex flex-wrap gap-2">
-                  <span class="rounded-full bg-[var(--key-blue-soft)] px-3 py-1.5 text-xs font-semibold text-[var(--navy)]">AI search</span>
-                  <span class="rounded-full bg-[var(--off-white)] px-3 py-1.5 text-xs font-semibold text-charcoal/60">Local visibility</span>
-                  <span class="rounded-full bg-[#eaf3dc] px-3 py-1.5 text-xs font-semibold text-charcoal/65">Auto repair</span>
+              <section class="scan-verdict-panel relative overflow-hidden rounded-[32px] border border-[rgba(35,46,102,.14)] bg-white p-8 shadow-[0_30px_70px_-56px_rgba(35,46,102,.6)] md:p-12 lg:p-14">
+                <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--key-blue)]" aria-hidden="true"></span>
+                <div class="relative">
+                  <p class="eyebrow text-[var(--key-blue)]">The short version</p>
+                  <h3 data-result-verdict class="mt-5 max-w-[26ch] font-display text-[clamp(2rem,3.4vw,3.15rem)] font-semibold leading-[1.03] tracking-[-.045em] text-charcoal">Your result will appear here.</h3>
+                  <p class="mt-6 max-w-[58ch] leading-relaxed text-charcoal/62">This is not a permanent ranking. It is a practical look at whether your public information gives AI enough clarity and proof to recommend the shop confidently.</p>
+                  <a href="/resources/ai-search-for-auto-repair-shops" class="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">See how AI search evaluates repair shops <ArrowRight class="h-4 w-4" /></a>
                 </div>
-              </div>
+              </section>
             </div>
 
-            <div class="border-t border-[var(--hairline)] p-6 md:p-10">
-              <div class="grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-12">
-                <section>
-                  <div class="flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#eaf3dc] text-[#5f8f22]"><CircleCheckBig class="h-5 w-5" /></span><div><p class="eyebrow text-[#6d9b2f]">Signals AI picked up</p><h4 class="mt-1 font-display text-xl font-semibold text-charcoal">What is already clear</h4></div></div>
-                  <ul data-result-understood class="mt-6 divide-y divide-[var(--hairline)]"></ul>
-                </section>
+            <div class="grid gap-6 lg:grid-cols-[1.08fr_.92fr] md:gap-8">
+              <section class="relative overflow-hidden rounded-[30px] border border-[rgba(35,46,102,.13)] bg-white p-6 shadow-[0_26px_64px_-52px_rgba(35,46,102,.58)] md:p-8">
+                <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--key-blue)]" aria-hidden="true"></span>
+                <div class="flex items-center gap-3"><span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><CircleCheckBig class="h-5 w-5" /></span><div><p class="eyebrow text-[var(--key-blue)]">Confirmed strengths</p><h4 class="mt-1 font-display text-2xl font-semibold text-charcoal">What AI already understands</h4></div></div>
+                <ul data-result-understood class="mt-7 divide-y divide-[var(--hairline)]"></ul>
+              </section>
 
-                <section class="relative overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)] p-6 text-white shadow-[0_24px_55px_-38px_rgba(35,46,102,.85)] md:p-7">
-                  <span class="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
-                  <div class="relative flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-[var(--green)] ring-1 ring-white/10"><TriangleAlert class="h-5 w-5" /></span><div><p class="eyebrow text-[#9ed8f0]">Priority signal</p><h4 class="mt-1 font-display text-xl font-semibold text-white">Biggest visibility gap</h4></div></div>
-                  <p data-result-gap class="relative mt-6 text-lg font-medium leading-relaxed text-white/80"></p>
-                </section>
-              </div>
+              <section class="relative overflow-hidden rounded-[30px] bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)] p-6 text-white shadow-[0_30px_68px_-48px_rgba(35,46,102,.9)] md:p-8">
+                <div class="relative flex items-center gap-3"><span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[var(--navy)]"><TriangleAlert class="h-5 w-5" /></span><div><p class="eyebrow text-[#9ed8f0]">First place to focus</p><h4 class="mt-1 font-display text-2xl font-semibold text-white">Your biggest visibility gap</h4></div></div>
+                <p data-result-gap class="relative mt-7 text-lg font-medium leading-relaxed text-white/82"></p>
+                <p class="relative mt-6 border-t border-white/15 pt-5 text-sm leading-relaxed text-white/58">Fixing the clearest gap is usually more valuable than chasing every AI platform at once.</p>
+              </section>
             </div>
 
-            <div class="border-t border-[var(--hairline)] bg-[var(--cream)] p-6 md:p-10">
+            <section class="rounded-[32px] border border-[rgba(35,46,102,.13)] bg-white p-6 shadow-[0_28px_70px_-56px_rgba(35,46,102,.55)] md:p-10" aria-labelledby="competitive-position-heading">
               <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                <div class="flex items-center gap-4"><span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[var(--navy)] shadow-sm"><Trophy class="h-6 w-6" /></span><div><p class="eyebrow text-charcoal/45">Competitive position</p><h4 class="mt-1 font-display text-2xl font-semibold text-charcoal">Where your shop appeared</h4></div></div>
-                <span class="w-fit rounded-full border border-[var(--navy)] bg-[var(--navy)] px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[.14em] text-white shadow-[0_8px_20px_-12px_rgba(30,45,102,0.9)]">Based on this scan</span>
+                <div class="flex items-center gap-4"><span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><Trophy class="h-6 w-6" /></span><div><p class="eyebrow text-[var(--key-blue)]">Nearby context</p><h4 id="competitive-position-heading" class="mt-1 font-display text-2xl font-semibold text-charcoal">Where your shop appeared</h4></div></div>
+                <span class="w-fit rounded-full bg-[var(--navy)] px-4 py-2 text-[10px] font-semibold uppercase tracking-[.14em] text-white">This scan only</span>
               </div>
 
-              <div class="mt-7 grid gap-7 md:grid-cols-[220px_1fr] md:items-center">
-                <div class="rounded-[24px] bg-white p-5 shadow-[0_20px_50px_-38px_rgba(20,22,28,.4)]">
-                  <p class="text-xs font-semibold uppercase tracking-[.14em] text-charcoal/40">Estimated rank</p>
-                  <p class="mt-3 font-display text-6xl font-semibold leading-none tracking-[-.06em] text-[var(--navy)]">#<span data-rank-position>—</span></p>
-                  <p class="mt-2 text-sm text-charcoal/50">of <span data-rank-total>—</span> shops checked</p>
-                  <div class="mt-4 border-t border-[var(--hairline)] pt-4 text-sm font-semibold text-charcoal"><span data-shops-ahead>—</span> recommended before you</div>
+              <div class="mt-8 grid gap-7 md:grid-cols-[220px_1fr] md:items-center md:gap-10">
+                <div class="rounded-[26px] bg-[var(--navy)] p-6 text-white shadow-[0_24px_56px_-42px_rgba(35,46,102,.8)]">
+                  <p class="eyebrow text-[#9ed8f0]">Recommendation position</p>
+                  <p data-rank-found class="mt-4 font-display text-6xl font-semibold leading-none tracking-[-.06em]">#<span data-rank-position>—</span></p>
+                  <p data-rank-missing class="mt-4 hidden font-display text-4xl font-semibold leading-[.95] tracking-[-.045em]">Not found</p>
+                  <p class="mt-2 text-sm text-white/58">of <span data-rank-total>—</span> shops checked</p>
+                  <div data-rank-ahead-copy class="mt-5 border-t border-white/15 pt-4 text-sm font-semibold text-white"><span data-shops-ahead>—</span> recommended before you</div>
+                  <div data-rank-missing-copy class="mt-5 hidden border-t border-white/15 pt-4 text-sm font-semibold text-white">Not included in reviewed recommendations</div>
                 </div>
 
                 <div>
                   <div data-rank-track class="rank-track" aria-label="Competitive recommendation order"></div>
-                  <p data-result-competitor class="mt-6 max-w-2xl text-base leading-relaxed text-charcoal/60"></p>
+                  <p data-result-competitor class="mt-6 max-w-2xl text-base leading-relaxed text-charcoal/65"></p>
                 </div>
               </div>
-            </div>
+            </section>
           </article>
 
-          <div class="scan-results-cta relative mt-8 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy))] p-7 text-white shadow-[0_28px_70px_-48px_rgba(35,46,102,.8)] md:flex md:items-center md:justify-between md:gap-10 md:p-10">
-            <span class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl"></span>
-            <div class="relative max-w-2xl"><h3 class="font-display text-3xl font-semibold tracking-tight">Make your shop the easier recommendation.</h3><p data-result-cta class="mt-3 leading-relaxed text-white/70"></p></div>
-            <a href={CONSULTATION_URL} class="report-cta-pulse relative mt-6 inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 text-center font-semibold text-charcoal shadow-[0_16px_38px_-20px_rgba(0,0,0,.4)] transition hover:-translate-y-0.5 hover:bg-white sm:w-auto md:mt-0" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Schedule A Consultation <ArrowRight class="h-4 w-4" /></a>
+          <div class="scan-results-cta relative mt-8 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy)_58%,var(--navy-deep))] p-7 text-white shadow-[0_30px_72px_-48px_rgba(35,46,102,.85)] md:p-10">
+            <div class="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-end md:gap-10">
+              <div class="max-w-2xl"><p class="eyebrow text-[#b7e3f4]">Your next best move</p><h3 class="mt-4 font-display text-3xl font-semibold leading-tight tracking-[-.035em] md:text-4xl">Make your shop the easier recommendation.</h3><p data-result-cta class="mt-4 leading-relaxed text-white/72"></p></div>
+              <div class="flex flex-col gap-3 sm:flex-row md:flex-col">
+                <a href={CONSULTATION_URL} class="btn-primary w-full shrink-0 justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white sm:w-auto" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Talk through my report <ArrowRight class="h-4 w-4" /></a>
+                <a href="/resources/ai-search-for-auto-repair-shops#action-plan" class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-white bg-transparent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white hover:text-[var(--navy)] sm:w-auto">Use the 30-day plan</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -291,30 +299,52 @@ const reportSchema = {
     const showList = (items) => {
       const list = document.querySelector("[data-result-understood]");
       if (!list) return;
-      list.replaceChildren(...(items || []).slice(0, 3).map((item, index) => {
+      list.replaceChildren(...(items || []).slice(0, 3).map((item) => {
         const li = document.createElement("li");
         li.className = "grid grid-cols-[38px_1fr] gap-3 py-5 first:pt-0 last:pb-0";
-        const number = document.createElement("span");
-        number.className = "inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--off-white)] text-xs font-bold text-[#6d9b2f]";
-        number.textContent = String(index + 1).padStart(2, "0");
+        const check = document.createElement("span");
+        check.className = "inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--navy)] text-sm font-bold text-white";
+        check.textContent = "✓";
+        check.setAttribute("aria-hidden", "true");
         const copy = document.createElement("p");
-        copy.className = "text-[15px] leading-relaxed text-charcoal/65";
+        copy.className = "text-[15px] leading-relaxed text-charcoal/68";
         copy.textContent = shortText(item, 125);
-        li.append(number, copy);
+        li.append(check, copy);
         return li;
       }));
     };
     const scoreStatus = (score) => score < 40 ? "Needs attention" : score < 60 ? "Incomplete signal" : score < 80 ? "Solid foundation" : "Strong visibility";
-    const showRank = (aheadValue, comparedValue) => {
+    const showRank = (appearedValue, aheadValue, comparedValue) => {
+      const shopAppeared = appearedValue === true;
       const shopsAhead = Math.max(0, Number(aheadValue) || 0);
       const total = Math.max(shopsAhead + 1, Number(comparedValue) || 0);
       const position = shopsAhead + 1;
+      document.querySelector("[data-rank-found]")?.classList.toggle("hidden", !shopAppeared);
+      document.querySelector("[data-rank-missing]")?.classList.toggle("hidden", shopAppeared);
+      document.querySelector("[data-rank-ahead-copy]")?.classList.toggle("hidden", !shopAppeared);
+      document.querySelector("[data-rank-missing-copy]")?.classList.toggle("hidden", shopAppeared);
       setText("[data-rank-position]", String(position));
       setText("[data-rank-total]", String(total));
       setText("[data-shops-ahead]", String(shopsAhead));
       const track = document.querySelector("[data-rank-track]");
       if (!track) return;
       const nodes = [];
+      if (!shopAppeared) {
+        const current = document.createElement("div");
+        current.className = "rank-node rank-node-current rank-node-missing";
+        current.innerHTML = "<span>—</span><small>Your shop</small>";
+        nodes.push(current);
+        const alternatives = Math.max(0, total - 1);
+        if (alternatives > 0) {
+          const after = document.createElement("div");
+          after.className = "rank-node-after";
+          after.textContent = `${alternatives} alternative${alternatives === 1 ? "" : "s"} appeared`;
+          nodes.push(after);
+        }
+        track.replaceChildren(...nodes);
+        track.setAttribute("aria-label", `Your shop was not included in the reviewed recommendations; ${total} shops were checked.`);
+        return;
+      }
       const visibleAhead = Math.min(shopsAhead, 5);
       for (let index = 1; index <= visibleAhead; index += 1) {
         const node = document.createElement("div");
@@ -353,7 +383,7 @@ const reportSchema = {
       setText("[data-result-cta]", shortText(payload.cta, 170));
       document.querySelector("[data-score-ring]")?.setAttribute("style", `--score:${score}`);
       showList(payload.understood);
-      showRank(payload.shopsAhead ?? payload.competitors, payload.shopsCompared);
+      showRank(payload.shopAppeared, payload.shopsAhead, payload.shopsCompared);
     };
     const updateStage = () => {
       const [title, detail] = stageMessages[stageIndex];
@@ -639,33 +669,6 @@ const reportSchema = {
       color: var(--green);
     }
 
-    .report-cta-pulse::after {
-      position: absolute;
-      inset: 0;
-      border: 2px solid var(--green);
-      border-radius: inherit;
-      content: "";
-      pointer-events: none;
-      animation: report-cta-pulse 2.8s ease-out infinite;
-    }
-
-    @keyframes report-cta-pulse {
-      0%,
-      58% {
-        opacity: 0;
-        transform: scale(1);
-      }
-
-      66% {
-        opacity: 0.62;
-      }
-
-      100% {
-        opacity: 0;
-        transform: scale(1.16, 1.45);
-      }
-    }
-
     @media (max-width: 639px) {
       .ai-scan-hero {
         padding-block: 2.5rem 2.75rem;
@@ -870,11 +873,6 @@ const reportSchema = {
         font-size: 2rem;
       }
 
-      .scan-results-report > div:nth-of-type(2),
-      .scan-results-report > div:nth-of-type(3) {
-        padding: 1.25rem;
-      }
-
       .scan-results-report section {
         border-radius: 1.25rem;
       }
@@ -1043,10 +1041,6 @@ const reportSchema = {
         transition: none;
       }
 
-      .report-cta-pulse::after {
-        animation: none;
-        display: none;
-      }
     }
   </style>
 </BaseLayout>
