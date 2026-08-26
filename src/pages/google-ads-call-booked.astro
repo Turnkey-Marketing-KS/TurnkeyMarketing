@@ -1,6 +1,7 @@
 ---
-import { ArrowRight, CalendarCheck, Mail, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import MarketingIcon from "@/components/site/MarketingIcon.astro";
 import { siteMedia } from "@/lib/site-media";
 ---
 
@@ -29,7 +30,7 @@ import { siteMedia } from "@/lib/site-media";
           style="background: var(--navy);"
           aria-hidden="true"
         >
-          <CalendarCheck className="h-8 w-8" strokeWidth={1.8} />
+          <MarketingIcon name="booked-appointments" tone="dark" class="h-12 w-12" />
         </span>
 
         <p class="eyebrow mt-7" style="color: var(--key-blue);">Consultation confirmed</p>
@@ -49,7 +50,7 @@ import { siteMedia } from "@/lib/site-media";
               style="background: var(--key-blue-soft); color: var(--navy);"
               aria-hidden="true"
             >
-              <Mail className="h-5 w-5" />
+              <MarketingIcon name="email-marketing" class="h-8 w-8" />
             </span>
             <div>
               <h2 class="font-display text-lg font-semibold text-charcoal">What happens next</h2>
@@ -75,7 +76,7 @@ import { siteMedia } from "@/lib/site-media";
             class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-6 py-3 font-semibold text-charcoal transition hover:-translate-y-0.5"
             style="border-color: var(--hairline); background: white;"
           >
-            <Phone className="h-4 w-4" /> (913) 427-0674
+            <MarketingIcon name="phone-calls" class="h-7 w-7" /> (913) 427-0674
           </a>
         </div>
       </div>

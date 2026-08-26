@@ -1,40 +1,13 @@
 ---
 import {
   ArrowRight,
-  BarChart3,
-  Calendar,
   Check,
   ChevronRight,
-  ClipboardList,
-  Compass,
-  DollarSign,
-  Facebook,
-  FileText,
-  Globe,
-  Heart,
-  Instagram,
-  Layers,
-  Mail,
-  MapPin,
-  Megaphone,
-  MessageSquare,
-  Palette,
-  PenLine,
-  Phone,
-  RefreshCw,
-  Repeat,
-  Search,
-  Share2,
   Star,
-  Target,
-  TrendingUp,
-  Tv,
-  UserRound,
-  Users,
   X,
-  Zap,
 } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import MarketingIcon, { type IconName } from "@/components/site/MarketingIcon.astro";
 import { CONSULTATION_URL, services, type Service } from "@/lib/services";
 import { getServiceDetail } from "@/lib/service-details";
 
@@ -76,47 +49,47 @@ const supportingResources: Record<string, { href: string; label: string; lead: s
 const supportingResource = supportingResources[service.slug];
 const relatedProof = detail.relatedProof ?? [];
 
-const deliverableIcons: Record<string, typeof Check> = {
-  layers: Layers,
-  user: UserRound,
-  users: Users,
-  share: Share2,
-  palette: Palette,
-  pen: PenLine,
-  clipboard: ClipboardList,
-  calendar: Calendar,
-  search: Search,
-  compass: Compass,
-  trending: TrendingUp,
-  mail: Mail,
-  tv: Tv,
-  "map-pin": MapPin,
-  chart: BarChart3,
-  dollar: DollarSign,
-  target: Target,
-  repeat: Repeat,
-  facebook: Facebook,
-  instagram: Instagram,
-  megaphone: Megaphone,
-  message: MessageSquare,
-  heart: Heart,
-  refresh: RefreshCw,
-  star: Star,
-  globe: Globe,
-  zap: Zap,
-  phone: Phone,
-  file: FileText,
+const deliverableIcons: Record<string, IconName> = {
+  layers: "weekly-execution",
+  user: "customer-acquisition",
+  users: "team-support",
+  share: "social-media",
+  palette: "content-creation",
+  pen: "content-creation",
+  clipboard: "analytics-dashboard",
+  calendar: "booked-appointments",
+  search: "website-optimization",
+  compass: "strategy",
+  trending: "revenue-growth",
+  mail: "email-marketing",
+  tv: "digital-ads",
+  "map-pin": "location-targeting",
+  chart: "reporting",
+  dollar: "marketing-roi",
+  target: "customer-acquisition",
+  repeat: "customer-retention",
+  facebook: "social-media",
+  instagram: "social-media",
+  megaphone: "digital-ads",
+  message: "sms-marketing",
+  heart: "reviews",
+  refresh: "customer-reactivation",
+  star: "reviews",
+  globe: "local-seo",
+  zap: "marketing-automation",
+  phone: "phone-calls",
+  file: "content-creation",
 };
 
-const serviceCardIcons: Record<string, typeof Check> = {
-  "vip-marketing-manager": Users,
-  "directtrack-marketing": Target,
-  "marketing-consulting": Compass,
-  "direct-mail": Mail,
-  "social-media-marketing": Share2,
-  "retention-marketing": Repeat,
-  "digital-marketing": Globe,
-  "boost-days": Zap,
+const serviceCardIcons: Record<string, IconName> = {
+  "vip-marketing-manager": "team-support",
+  "directtrack-marketing": "call-tracking",
+  "marketing-consulting": "strategy",
+  "direct-mail": "direct-mail",
+  "social-media-marketing": "social-media",
+  "retention-marketing": "customer-retention",
+  "digital-marketing": "local-seo",
+  "boost-days": "campaign-launch",
 };
 
 const relatedServices = detail.pairsWith
@@ -366,11 +339,11 @@ const faqSchema = {
         <div class="lg:col-span-8">
           <div class="grid gap-4 sm:grid-cols-2">
             {detail.deliverables.map((item) => {
-              const Icon = deliverableIcons[item.icon] ?? Check;
+              const iconName = deliverableIcons[item.icon] ?? "strategy";
               return (
                 <div class="motion-card rounded-[24px] border border-[var(--hairline)] bg-[var(--cream)] p-6 md:p-7">
                   <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--navy)]">
-                    <Icon className="h-5 w-5 text-white" />
+                    <MarketingIcon name={iconName} tone="dark" class="h-8 w-8" />
                   </span>
                   <p class="mt-5 font-display text-xl font-semibold leading-tight tracking-normal text-charcoal">
                     {item.title}
@@ -546,7 +519,7 @@ const faqSchema = {
 
       <div class="mt-10 grid gap-5 md:grid-cols-3">
         {relatedServices.map((related) => {
-          const RelatedIcon = serviceCardIcons[related.slug] ?? ArrowRight;
+          const relatedIconName = serviceCardIcons[related.slug] ?? "strategy";
 
           return (
             <a
@@ -558,7 +531,7 @@ const faqSchema = {
 
               <div class="relative z-10 flex items-start justify-between gap-4">
                 <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--key-blue)]/10 bg-[var(--key-blue-soft)] text-[var(--navy)] transition-colors duration-300 group-hover/related:border-white/10 group-hover/related:bg-white/10 group-hover/related:text-[var(--green)]">
-                  <RelatedIcon className="h-5 w-5" aria-hidden="true" />
+                  <MarketingIcon name={relatedIconName} class="h-9 w-9" />
                 </span>
                 <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--navy)]/10 bg-white text-[var(--navy)] shadow-[0_10px_24px_-18px_rgba(35,46,102,0.7)] transition duration-300 group-hover/related:border-white/12 group-hover/related:bg-white/10 group-hover/related:text-white">
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/related:translate-x-0.5" aria-hidden="true" />

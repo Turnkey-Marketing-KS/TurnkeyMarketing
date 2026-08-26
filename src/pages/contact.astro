@@ -1,6 +1,6 @@
 ---
-import { Mail, MapPin, Phone } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import MarketingIcon from "@/components/site/MarketingIcon.astro";
 import { APPOINTMENTCORE_BOOKING_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 ---
@@ -62,7 +62,7 @@ import { siteMedia } from "@/lib/site-media";
         data-track-placement="contact"
       >
         <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-          <Phone className="h-5 w-5" />
+          <MarketingIcon name="phone-calls" class="h-9 w-9" />
         </span>
         <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
           Call the team
@@ -77,7 +77,7 @@ import { siteMedia } from "@/lib/site-media";
         data-track-placement="contact"
       >
         <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-          <Mail className="h-5 w-5" />
+          <MarketingIcon name="email-marketing" class="h-9 w-9" />
         </span>
         <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
           Email us
@@ -94,7 +94,7 @@ import { siteMedia } from "@/lib/site-media";
         rel="noopener noreferrer"
       >
         <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-          <MapPin className="h-5 w-5" />
+          <MarketingIcon name="location-targeting" class="h-9 w-9" />
         </span>
         <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
           Office

@@ -1,0 +1,32 @@
+---
+export type IconName = "analytics-dashboard" | "booked-appointments" | "call-tracking" | "campaign-launch" | "content-creation" | "customer-acquisition" | "customer-reactivation" | "customer-retention" | "digital-ads" | "direct-mail" | "email-marketing" | "local-seo" | "location-targeting" | "marketing-automation" | "marketing-roi" | "offers-promotions" | "phone-calls" | "quotes" | "reporting" | "revenue-growth" | "reviews" | "sms-marketing" | "social-media" | "strategy" | "team-support" | "vendor-coordination" | "website-optimization" | "weekly-execution";
+
+interface Props {
+  name: IconName;
+  class?: string;
+  label?: string;
+  tone?: "light" | "dark";
+}
+
+const {
+  name,
+  class: className = "h-5 w-5",
+  label,
+  tone = "light",
+} = Astro.props;
+
+const directory = tone === "dark" ? "turnkey-modern-on-navy" : "turnkey-modern";
+const source = `/images/icons/${directory}/${name}.webp`;
+---
+
+<img
+  src={source}
+  alt={label ?? ""}
+  width="512"
+  height="512"
+  loading="lazy"
+  decoding="async"
+  class:list={["marketing-icon inline-block shrink-0 object-contain", className]}
+  aria-hidden={label ? undefined : "true"}
+  role={label ? "img" : "presentation"}
+/> 

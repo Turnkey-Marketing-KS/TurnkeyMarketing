@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" width="260" height="200" role="img" aria-label="Flat illustration of a monthly marketing report chart">
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <rect x="0" y="168" width="260" height="32" rx="0" fill="#E6E1D4" />
+    <line x1="0" y1="168" x2="260" y2="168" stroke="#1E2330" stroke-width="3" stroke-linecap="round" />
+    <rect x="30" y="34" width="200" height="120" rx="10" fill="#F4F2ED" stroke="#1E2330" stroke-width="3.4" />
+    <rect x="46" y="116" width="30" height="24" rx="3" fill="#9CC4E2" stroke="#1E2330" stroke-width="2.8" />
+    <rect x="88" y="92" width="30" height="48" rx="3" fill="#3F8CCB" stroke="#1E2330" stroke-width="2.8" />
+    <rect x="130" y="70" width="30" height="70" rx="3" fill="#232E66" stroke="#1E2330" stroke-width="2.8" />
+    <rect x="172" y="50" width="30" height="90" rx="3" fill="#93C845" stroke="#1E2330" stroke-width="2.8" />
+    <line x1="40" y1="142" x2="216" y2="142" stroke="#1E2330" stroke-width="3" stroke-linecap="round" />
+    <path d="M 50 84 L 96 66 L 138 48 L 190 30" fill="none" stroke="#5E8F2A" stroke-width="3.4" />
+    <circle cx="190" cy="30" r="7" fill="#C7B497" stroke="#1E2330" stroke-width="2.8" />
+  </g>
+</svg>

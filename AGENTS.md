@@ -1,5 +1,17 @@
 # Turnkey Launchpad repository instructions
 
+## Booking and attribution source of truth
+
+Before changing booking pages, calendar embeds, analytics, attribution, conversion events, or related tests, read `docs/BOOKING_ATTRIBUTION_SOURCE_OF_TRUTH.md` in full.
+
+Its funnel separation and conversion boundaries are repository invariants:
+
+- Main website CTAs use AppointmentCore through `/contact`, finish at `/booking-confirmed`, and send GA4 booking events only.
+- `/lp/auto-repair-marketing` uses the GHL calendar, finishes at `/google-ads-call-booked`, and is the only booking funnel allowed to send the booked-consultation Google Ads conversion.
+- Do not add a form before either calendar, decorate the cross-origin AppointmentCore iframe, send PII in analytics or tracking URLs, or reintroduce a non-canonical GA4 measurement ID.
+
+If a booking provider, confirmation URL, event name, conversion label, GA4 measurement ID, or attribution behavior changes, update the source-of-truth document in the same change.
+
 ## New page design standard
 
 The homepage at `src/pages/index.astro` is the canonical visual and formatting reference for every new public-facing marketing, service, resource, results, campaign, and landing page.

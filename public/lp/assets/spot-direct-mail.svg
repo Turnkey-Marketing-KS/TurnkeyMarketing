@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" width="260" height="200" role="img" aria-label="Flat illustration of a mailer and mailbox">
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <rect x="0" y="168" width="260" height="32" rx="0" fill="#E0D2BB" />
+    <line x1="0" y1="168" x2="260" y2="168" stroke="#1E2330" stroke-width="3" stroke-linecap="round" />
+    <rect x="58" y="40" width="116" height="78" rx="6" fill="#F1ECE1" stroke="#1E2330" stroke-width="3.4" />
+    <rect x="70" y="52" width="52" height="30" rx="3" fill="#9CC4E2" stroke="#1E2330" stroke-width="2.6" />
+    <line x1="70" y1="96" x2="160" y2="96" stroke="#1E2330" stroke-width="2.6" stroke-linecap="round" />
+    <line x1="70" y1="106" x2="132" y2="106" stroke="#1E2330" stroke-width="2.6" stroke-linecap="round" />
+    <rect x="140" y="52" width="24" height="24" rx="3" fill="#93C845" stroke="#1E2330" stroke-width="2.6" />
+    <rect x="34" y="92" width="150" height="76" rx="6" fill="#F4F2ED" stroke="#1E2330" stroke-width="3.4" />
+    <path d="M 34 100 L 109 146 L 184 100" fill="none" stroke="#1E2330" stroke-width="3.4" />
+    <rect x="186" y="66" width="54" height="54" rx="8" fill="#93C845" stroke="#1E2330" stroke-width="3.4" />
+    <circle cx="200" cy="80" r="5" fill="#F4F2ED" stroke="#1E2330" stroke-width="2.4" />
+    <line x1="196" y1="108" x2="230" y2="76" stroke="#1E2330" stroke-width="2.8" stroke-linecap="round" />
+  </g>
+</svg>

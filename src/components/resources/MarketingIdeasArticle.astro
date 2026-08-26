@@ -4,14 +4,10 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUp,
-  CalendarDays,
   ChevronRight,
-  Repeat2,
-  ShieldCheck,
-  Target,
-  Users,
   X,
 } from "lucide-react";
+import MarketingIcon, { type IconName } from "@/components/site/MarketingIcon.astro";
 import { getResourcePost, type ResourcePost } from "@/lib/resource-posts";
 import { CONSULTATION_URL } from "@/lib/services";
 
@@ -34,7 +30,7 @@ const groupLinks = [
 
 const situations = [
   {
-    icon: Users,
+    icon: "customer-acquisition" as IconName,
     need: "Attract better-fit new customers",
     startingPoint: "Local visibility, proof, targeted mail, and referrals",
     measure: "Qualified first appointments",
@@ -42,7 +38,7 @@ const situations = [
     linkLabel: "See the new-customer ideas",
   },
   {
-    icon: CalendarDays,
+    icon: "booked-appointments" as IconName,
     need: "Fill a known schedule gap",
     startingPoint: "Capacity campaigns, reactivation, and declined work",
     measure: "Appointments in the target window",
@@ -50,7 +46,7 @@ const situations = [
     linkLabel: "See the slow-bay ideas",
   },
   {
-    icon: Repeat2,
+    icon: "customer-retention" as IconName,
     need: "Earn the second and third visit",
     startingPoint: "Next-step scheduling, welcome follow-up, and reminders",
     measure: "Return rate and time to next visit",
@@ -58,7 +54,7 @@ const situations = [
     linkLabel: "See the retention ideas",
   },
   {
-    icon: ShieldCheck,
+    icon: "reviews" as IconName,
     need: "Build trust before the call",
     startingPoint: "Real photos, honest reviews, clear process, and useful answers",
     measure: "Profile actions and call-to-book rate",
@@ -66,7 +62,7 @@ const situations = [
     linkLabel: "See the trust ideas",
   },
   {
-    icon: Target,
+    icon: "strategy" as IconName,
     need: "Improve customer and repair-order fit",
     startingPoint: "A focused audience, service promise, and advisor script",
     measure: "Target-service mix and repair-order quality",
@@ -434,11 +430,10 @@ const readMinutes = Math.max(1, Math.round(wordSource.split(/\s+/).length / 225)
 
       <div class="mt-9 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {situations.map((situation) => {
-          const SituationIcon = situation.icon;
           return (
             <a href={situation.href} class="motion-card group flex min-h-full flex-col rounded-[24px] border border-black/[0.06] bg-white p-6 shadow-[0_18px_45px_-42px_rgba(20,22,28,0.5)] transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_28px_64px_-46px_rgba(20,22,28,0.55)]">
               <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-                <SituationIcon className="h-5 w-5" />
+                <MarketingIcon name={situation.icon} class="h-8 w-8" />
               </span>
               <h3 class="mt-5 text-xl font-semibold leading-tight text-charcoal">{situation.need}</h3>
               <p class="mt-4 text-sm leading-relaxed text-charcoal/70">Start with: {situation.startingPoint}.</p>

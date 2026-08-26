@@ -1,0 +1,12 @@
+---
+import ProvidedIcon from "./ProvidedIcon.astro";
+
+interface Props {
+  class?: string;
+  label?: string;
+}
+
+const { class: className = "h-5 w-5", label } = Astro.props;
+---
+
+<ProvidedIcon src="/images/icons/noun/direct.svg" class={className} label={label} />

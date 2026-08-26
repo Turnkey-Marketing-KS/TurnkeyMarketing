@@ -649,15 +649,11 @@ html.motion-ready [data-reveal="fade"] {
 
 .feature-icon-badge {
   position: relative;
-  box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.7);
-  transition:
-    transform var(--duration-standard) var(--ease-emphasized),
-    box-shadow var(--duration-standard) var(--ease-emphasized);
+  transition: transform var(--duration-standard) var(--ease-emphasized);
   will-change: transform;
 }
 
 .feature-icon-badge:hover {
-  box-shadow: 0 16px 30px -15px rgba(0, 0, 0, 0.78);
   transform: translateY(-3px) rotate(-2deg);
 }
 

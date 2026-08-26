@@ -1,0 +1,41 @@
+---
+import MarketingIcon, { type IconName } from "@/components/site/MarketingIcon.astro";
+
+interface Props {
+  name:
+    | "calendar-check"
+    | "chat-text"
+    | "check"
+    | "globe"
+    | "heart"
+    | "line-growth"
+    | "location"
+    | "mail"
+    | "megaphone"
+    | "phone-incoming"
+    | "route"
+    | "star";
+  class?: string;
+  label?: string;
+  tone?: "light" | "dark";
+}
+
+const { name, class: className = "h-5 w-5", label, tone = "light" } = Astro.props;
+
+const iconNames: Record<Props["name"], IconName> = {
+  "calendar-check": "booked-appointments",
+  "chat-text": "social-media",
+  check: "reviews",
+  globe: "local-seo",
+  heart: "customer-retention",
+  "line-growth": "revenue-growth",
+  location: "location-targeting",
+  mail: "email-marketing",
+  megaphone: "digital-ads",
+  "phone-incoming": "phone-calls",
+  route: "vendor-coordination",
+  star: "reviews",
+} as const;
+---
+
+<MarketingIcon name={iconNames[name]} class={className} label={label} tone={tone} />

@@ -1,7 +1,8 @@
 ---
-import { ArrowRight, ArrowUpRight, Check, Star } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/site/PageHero.astro";
+import MarketingIcon, { type IconName } from "@/components/site/MarketingIcon.astro";
 import { CONSULTATION_URL, services } from "@/lib/services";
 import { getServiceDetail } from "@/lib/service-details";
 import { siteMedia } from "@/lib/site-media";
@@ -9,6 +10,16 @@ import { siteMedia } from "@/lib/site-media";
 const vip = services.find((service) => service.featured) ?? services[0];
 const rest = services.filter((service) => !service.featured);
 const vipDetail = getServiceDetail(vip.slug);
+const serviceMarketingIcons: Record<string, IconName> = {
+  "vip-marketing-manager": "team-support",
+  "directtrack-marketing": "call-tracking",
+  "marketing-consulting": "strategy",
+  "direct-mail": "direct-mail",
+  "social-media-marketing": "social-media",
+  "retention-marketing": "customer-retention",
+  "digital-marketing": "local-seo",
+  "boost-days": "campaign-launch",
+};
 const serviceNeeds = [
   {
     title: "You need a clearer plan before spending more.",
@@ -75,7 +86,7 @@ const servicesSchema = {
   >
     <div slot="badge" class="card-float floaty absolute -left-3 bottom-8 px-5 py-4 md:left-4">
       <div class="flex items-center gap-2">
-        <Star className="h-4 w-4 text-[var(--green)]" fill="currentColor" />
+        <MarketingIcon name="reviews" class="h-7 w-7" />
         <p class="text-xs font-medium text-charcoal/60">300+ shops</p>
       </div>
       <p class="mt-1 font-display text-lg font-semibold tracking-normal text-charcoal">
@@ -157,7 +168,7 @@ const servicesSchema = {
       >
         <div class="lg:col-span-5">
           <div class="flex items-center gap-2">
-            <Star className="h-4 w-4 text-[var(--green)]" fill="currentColor" />
+            <MarketingIcon name="reviews" class="h-7 w-7" />
             <p class="text-xs uppercase tracking-[0.18em] text-charcoal/60">
               Flagship service
             </p>
@@ -225,6 +236,10 @@ const servicesSchema = {
             data-track-slug={service.slug}
           >
             <div>
+              <MarketingIcon
+                name={serviceMarketingIcons[service.slug] ?? "strategy"}
+                class="mb-5 h-10 w-10 transition-transform duration-300 group-hover:scale-110"
+              />
               {service.isNew && (
                 <span
                   class="inline-flex rounded px-1.5 py-0.5 text-[0.6rem] uppercase tracking-widest"

@@ -1,29 +1,29 @@
 ---
 import {
   ArrowRight,
-  BarChart3,
   ChevronDown,
-  Compass,
-  Crown,
-  Globe,
-  Mail,
-  Phone,
-  Quote,
-  Repeat,
-  Rocket,
-  Route,
-  Share2,
   Star,
-  Target,
-  TrendingUp,
-  Zap,
 } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ChecklistCalendarIcon from "@/components/site/ChecklistCalendarIcon.astro";
+import DoubleQuoteIcon from "@/components/site/DoubleQuoteIcon.astro";
+import FastCampaignIcon from "@/components/site/FastCampaignIcon.astro";
+import GrowthChartIcon from "@/components/site/GrowthChartIcon.astro";
+import GlobalMonitorIcon from "@/components/site/GlobalMonitorIcon.astro";
+import MailboxIcon from "@/components/site/MailboxIcon.astro";
+import MarketingIcon from "@/components/site/MarketingIcon.astro";
+import PathDecisionIcon from "@/components/site/PathDecisionIcon.astro";
+import RetentionCycleIcon from "@/components/site/RetentionCycleIcon.astro";
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
+import SocialCampaignIcon from "@/components/site/SocialCampaignIcon.astro";
+import StarburstIcon from "@/components/site/StarburstIcon.astro";
+import TargetIcon from "@/components/site/TargetIcon.astro";
 import { CONSULTATION_URL, services } from "@/lib/services";
 import { getServiceDetail } from "@/lib/service-details";
 import { siteMedia } from "@/lib/site-media";
 import { resourcePosts } from "@/lib/resource-posts";
 import { ownerTestimonials } from "@/lib/proof";
+import type { IconName } from "@/components/site/MarketingIcon.astro";
 
 const heroPhrases = [
   "that increases car count.",
@@ -72,26 +72,26 @@ const logoCloudRows = [
 ];
 
 const stats = [
-  { k: "300+", v: "Auto repair shops served across the U.S." },
-  { k: "13+", v: "Years marketing exclusively for shop owners" },
-  { k: "5.0★", v: "Google rating from shop owners and clients", accent: true },
+  { k: "300+", v: "Auto repair shops served across the U.S.", mobileV: "Shops served" },
+  { k: "13+", v: "Years marketing exclusively for shop owners", mobileV: "Years in auto repair" },
+  { k: "5.0★", v: "Google rating from shop owners and clients", mobileV: "Google rating", accent: true },
 ];
 
-const serviceIcons: Record<string, typeof Crown> = {
-  "vip-marketing-manager": Crown,
-  "directtrack-marketing": Route,
-  "marketing-consulting": Compass,
-  "direct-mail": Mail,
-  "social-media-marketing": Share2,
-  "retention-marketing": Repeat,
-  "digital-marketing": Globe,
-  "boost-days": Rocket,
+const serviceMarketingIcons: Record<string, IconName> = {
+  "vip-marketing-manager": "team-support",
+  "directtrack-marketing": "call-tracking",
+  "marketing-consulting": "strategy",
+  "direct-mail": "direct-mail",
+  "social-media-marketing": "social-media",
+  "retention-marketing": "customer-retention",
+  "digital-marketing": "local-seo",
+  "boost-days": "campaign-launch",
 };
 
 const serviceIndex = services.map((service) => ({
   ...service,
   included: getServiceDetail(service.slug)?.included ?? [],
-  icon: serviceIcons[service.slug] ?? Compass,
+  marketingIcon: serviceMarketingIcons[service.slug] ?? "strategy",
 }));
 
 const homeVipService = serviceIndex.find((service) => service.featured) ?? serviceIndex[0];
@@ -103,23 +103,23 @@ const homeFocusedServices = serviceIndex.filter(
 
 const features = [
   {
-    icon: Target,
     animation: "target",
+    marketingIcon: "strategy" as const,
     color: "var(--key-blue)",
     title: "Shop-specific strategy",
     copy: "We start with proven auto-repair formulas, then adjust the plan around your market, capacity, goals, and customer mix.",
   },
   {
-    icon: Zap,
     animation: "zap",
+    marketingIcon: "campaign-launch" as const,
     color: "var(--green)",
     title: "Weekly execution",
     copy: "We don't just consult. We run the direct mail, ads, GBP, reviews, and CRM every week.",
   },
   {
-    icon: BarChart3,
     animation: "chart",
-    color: "var(--navy)",
+    marketingIcon: "reporting" as const,
+    color: "#f28c28",
     title: "Honest reporting",
     copy: "Monthly reports that tie every dollar to calls, cars, and revenue. Real accountability, no vanity metrics.",
   },
@@ -158,7 +158,7 @@ const faqItems = [
   { q: "How long does auto repair marketing take to work?", a: "Some cleanup and campaign fixes can show early signals quickly, but dependable growth usually takes months. A practical first 90-120 days should clarify budget, fix tracking, clean up vendors, launch priority campaigns, and set the next moves." },
 ];
 
-const mobileFaqPreviewCount = 6;
+const faqPreviewCount = 6;
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -204,23 +204,15 @@ const faqSchema = {
             data-reveal
             style="--reveal-delay: 90ms;"
           >
-            Know what to keep, fix, stop<span class="hidden md:inline"> funding</span>, and run
-            next.<span class="hidden md:inline"> Then Turnkey owns the moving pieces while you stay
-            focused on the shop.</span>
-          </p>
-
-          <p
-            class="mx-auto mt-4 max-w-[42ch] text-sm font-semibold leading-relaxed text-[var(--navy)] md:mx-0 md:text-[0.95rem]"
-            data-reveal
-            style="--reveal-delay: 130ms;"
-          >
-            Turnkey only works with independent auto repair shops — more than 300 served since 2013.
+            Know what to keep, fix, stop funding, and run next—while Turnkey owns the moving pieces
+            so you can stay focused on your shop. That’s all we’ve done for 300+ independent auto
+            repair shops since 2013.
           </p>
 
           <div
             class="mt-8 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center md:mt-10 md:justify-start md:gap-6"
             data-reveal
-            style="--reveal-delay: 170ms;"
+            style="--reveal-delay: 130ms;"
           >
             <a
               href={CONSULTATION_URL}
@@ -252,10 +244,6 @@ const faqSchema = {
               </span>
               5.0 on Google
             </span>
-            <span aria-hidden="true" class="text-charcoal/25">·</span>
-            <span>
-              <span class="font-semibold text-charcoal">+38%</span> booked calls
-            </span>
           </div>
         </div>
 
@@ -277,9 +265,10 @@ const faqSchema = {
             />
           </div>
 
-          <div class="floaty absolute -left-2 top-12 hidden min-w-[168px] px-4 py-3 md:-left-5 md:top-20 md:block md:min-w-[190px] md:px-5 md:py-4 card-float">
-            <div class="text-[11px] text-charcoal/60 mb-1">Booked calls</div>
-            <div class="flex items-baseline gap-2">
+          <div class="floaty absolute -left-2 top-12 hidden min-w-[168px] px-4 py-3 md:-left-5 md:top-20 md:block md:min-w-[210px] md:px-5 md:py-4 card-float">
+            <MarketingIcon name="car-count" class="absolute right-20 top-3 h-7 w-7" />
+            <div class="mb-1 pr-8 text-[11px] text-charcoal/60">Car Count</div>
+            <div class="flex items-baseline gap-2 pr-8">
               <div class="font-display text-2xl font-semibold text-charcoal leading-none">
                 +38%
               </div>
@@ -308,7 +297,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="logo-cloud-section bg-white pt-1 pb-8 md:pt-2 md:pb-12">
+  <section class="logo-cloud-section bg-white pt-4 pb-8 md:pt-5 md:pb-12">
     <div class="container-page">
       <div class="mx-auto max-w-5xl text-center">
         <h2 class="font-display mx-auto max-w-4xl text-balance text-3xl font-semibold leading-tight tracking-normal text-charcoal md:text-4xl">
@@ -382,11 +371,7 @@ const faqSchema = {
       <div class="mx-auto mt-6 max-w-[1160px] md:mt-7">
         <div class="mb-4 flex flex-wrap items-center justify-center gap-3 text-center">
           <span class="inline-flex items-center gap-2 text-sm font-semibold text-charcoal">
-            <span class="flex" style="color: #F4B400;" aria-label="5 out of 5 stars">
-              {[0, 1, 2, 3, 4].map(() => (
-                <Star className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true" />
-              ))}
-            </span>
+            <Star className="h-5 w-5 text-[#F4B400]" fill="currentColor" aria-hidden="true" />
             5.0 on Google
           </span>
           <span class="text-sm text-charcoal/60">
@@ -401,15 +386,15 @@ const faqSchema = {
             return (
               <figure
                 class:list={[
-                  "motion-card group/testimonial relative flex min-h-[250px] overflow-hidden rounded-[28px] border p-1 shadow-[0_24px_60px_-42px_rgba(17,33,69,0.58)] md:min-h-[272px]",
+                  "motion-card group/testimonial relative flex min-h-[250px] overflow-hidden rounded-[28px] shadow-[0_24px_60px_-42px_rgba(17,33,69,0.58)] md:min-h-[272px]",
                   isFeatured
-                    ? "border-[var(--navy)]/20 bg-[var(--navy)] shadow-[0_28px_64px_-40px_rgba(35,46,102,0.78)]"
-                    : "border-[rgba(63,140,203,0.24)] bg-white",
+                    ? "bg-[var(--navy)] shadow-[0_28px_64px_-40px_rgba(35,46,102,0.78)]"
+                    : "bg-white",
                 ]}
               >
                 <div
                   class:list={[
-                    "relative flex w-full flex-col overflow-hidden rounded-[23px] p-5 md:p-6",
+                    "relative flex w-full flex-col overflow-hidden rounded-[28px] p-5 md:p-6",
                     isFeatured ? "bg-[var(--navy)]" : "bg-white",
                   ]}
                 >
@@ -423,23 +408,19 @@ const faqSchema = {
                   <div class="relative z-10 flex items-start justify-between gap-4">
                     <span
                       class:list={[
-                        "inline-flex rounded-full px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.18em]",
-                        isFeatured
-                          ? "bg-[var(--green)] text-[var(--charcoal)]"
-                          : "bg-[var(--key-blue-soft)] text-[var(--key-blue)]",
+                        "inline-flex py-1.5 text-[9px] font-bold uppercase tracking-[0.18em]",
+                        isFeatured ? "text-white" : "text-[var(--key-blue)]",
                       ]}
                     >
                       {testimonial.marker}
                     </span>
                     <span
                       class:list={[
-                        "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border",
-                        isFeatured
-                          ? "border-white/12 bg-white/10 text-[var(--green)]"
-                          : "border-[var(--key-blue)]/12 bg-[var(--off-white)] text-[var(--key-blue)]",
+                        "inline-flex h-10 w-10 shrink-0 items-center justify-center",
+                        isFeatured ? "text-white" : "text-[var(--key-blue)]",
                       ]}
                     >
-                      <Quote className="h-4.5 w-4.5" fill="currentColor" aria-hidden="true" />
+                      <DoubleQuoteIcon class="h-7 w-7" />
                     </span>
                   </div>
 
@@ -510,13 +491,12 @@ const faqSchema = {
   <section class="bg-[var(--off-white)] py-14 md:py-24">
     <div class="container-page">
       <div>
-        <p class="eyebrow flex items-center gap-3">
-          <span class="h-px w-8 bg-[var(--key-blue)] md:w-10" aria-hidden="true"></span>
-          Services
-        </p>
-        <h2 class="display-2 mt-5 text-balance text-charcoal">
-          Start with one service.
-          <span class="block text-[var(--key-blue)]">Or get the whole marketing department.</span>
+        <p class="eyebrow">Services</p>
+        <h2 class="display-2 mt-5 text-charcoal max-[389px]:text-[1.7rem] max-[389px]:leading-[1.08] max-[389px]:tracking-[-0.035em] max-[339px]:text-[1.55rem] md:text-balance">
+          <span class="block">Start with one service.</span>
+          <span class="block text-[var(--key-blue)]">
+            Or get the whole <span class="whitespace-nowrap max-[389px]:block">marketing department.</span>
+          </span>
         </h2>
         <p class="mt-5 max-w-3xl text-base leading-relaxed text-charcoal/65 md:text-lg">
           Need to get your priorities straight first? Use our
@@ -562,8 +542,10 @@ const faqSchema = {
             >
               <div class="relative z-10">
                 <div class="flex items-start">
-                  <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-[var(--green)] md:h-12 md:w-12 md:rounded-2xl">
-                    <Crown className="h-6 w-6 md:h-7 md:w-7" />
+                  <span
+                    class="inline-flex h-11 w-11 items-center justify-center text-[var(--green)] md:h-12 md:w-12"
+                  >
+                    <StarburstIcon class="h-9 w-9 md:h-10 md:w-10" />
                   </span>
                 </div>
 
@@ -600,7 +582,6 @@ const faqSchema = {
 
               <div class="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 md:gap-4 lg:grid-cols-3">
                 {homeFocusedServices.map((service) => {
-                  const Icon = service.icon;
                   return (
                     <a
                       href={`/services/${service.slug}`}
@@ -609,8 +590,24 @@ const faqSchema = {
                       data-track-slug={service.slug}
                       data-track-placement="home_services"
                     >
-                      <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--key-blue-soft)] text-[var(--navy)] transition-colors duration-300 group-hover:bg-white/15 group-hover:text-white group-focus-visible:bg-white/15 group-focus-visible:text-white md:h-10 md:w-10">
-                        <Icon className="h-4 w-4 md:h-5 md:w-5" />
+                      <span
+                        class="relative inline-flex h-9 w-9 shrink-0 items-center justify-center text-[var(--navy)] transition-colors duration-300 group-hover:text-white group-focus-visible:text-white md:h-10 md:w-10"
+                      >
+                        {service.slug === "marketing-consulting" ? (
+                          <TargetIcon class="h-8 w-8 md:h-9 md:w-9" />
+                        ) : service.slug === "direct-mail" ? (
+                          <MailboxIcon class="h-8 w-8 md:h-9 md:w-9" />
+                        ) : service.slug === "social-media-marketing" ? (
+                          <SocialCampaignIcon class="h-8 w-8 md:h-9 md:w-9" />
+                        ) : service.slug === "retention-marketing" ? (
+                          <RetentionCycleIcon class="h-8 w-8 md:h-9 md:w-9" />
+                        ) : service.slug === "boost-days" ? (
+                          <FastCampaignIcon class="h-8 w-8 md:h-9 md:w-9" />
+                        ) : service.slug === "digital-marketing" ? (
+                          <GlobalMonitorIcon class="h-8 w-8 md:h-9 md:w-9" />
+                        ) : (
+                          <MarketingIcon name={service.marketingIcon} class="h-6 w-6 md:h-7 md:w-7" />
+                        )}
                       </span>
                       <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-charcoal transition-colors duration-300 group-hover:text-white group-focus-visible:text-white max-[359px]:mt-0 max-[359px]:text-base md:mt-4 md:text-xl">
                         {service.name}
@@ -640,8 +637,10 @@ const faqSchema = {
 
           <div class="relative z-10 flex flex-col justify-center py-1 lg:pr-3">
             <div class="flex items-center gap-3">
-              <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-white md:h-12 md:w-12 md:rounded-2xl">
-                <Route className="h-5 w-5 md:h-6 md:w-6" />
+              <span
+                class="inline-flex h-11 w-11 items-center justify-center text-white md:h-12 md:w-12"
+              >
+                <PathDecisionIcon class="h-8 w-8 md:h-10 md:w-10" />
               </span>
               <span class="rounded-full bg-[var(--green)] px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-charcoal">
                 New service
@@ -697,7 +696,8 @@ const faqSchema = {
               <span data-count-up={stat.k} aria-hidden="true">{stat.k}</span>
             </div>
             <p class="mx-auto mt-2 max-w-[24ch] text-xs leading-snug text-charcoal/60 md:mt-4 md:text-base md:leading-relaxed">
-              {stat.v}
+              <span class="md:hidden">{stat.mobileV}</span>
+              <span class="hidden md:inline">{stat.v}</span>
             </p>
           </div>
         ))}
@@ -708,7 +708,7 @@ const faqSchema = {
   <section class="pb-16 md:pb-32">
     <div class="container-page">
       <div
-        class="relative grid gap-8 overflow-hidden rounded-[32px] p-7 md:p-16 lg:grid-cols-2 lg:gap-10"
+        class="relative grid gap-8 overflow-hidden rounded-[32px] p-7 md:p-16 lg:grid-cols-[1.25fr_0.75fr] lg:gap-10"
         style="background: var(--charcoal); color: #fff;"
       >
         <div class="relative">
@@ -736,7 +736,7 @@ const faqSchema = {
           </div>
         </div>
 
-        <div class="relative mx-auto mt-4 w-full max-w-[420px] lg:mx-0 lg:ml-auto lg:mt-0 lg:w-[65%] lg:max-w-none">
+        <div class="relative mx-auto mt-4 w-full max-w-[420px] lg:mx-0 lg:ml-auto lg:mt-0 lg:w-[92%] lg:max-w-none">
           <div
             class="aspect-[3/4] w-full overflow-hidden rounded-[24px]"
             style="background: linear-gradient(160deg, var(--key-blue) 0%, var(--navy) 100%);"
@@ -755,10 +755,9 @@ const faqSchema = {
           <div class="absolute left-3 top-3 w-[160px] rounded-2xl bg-white/95 px-3 py-3 shadow-[0_18px_45px_-28px_rgba(20,22,28,0.5)] backdrop-blur md:left-4 md:top-4 md:w-[176px] md:px-4">
             <div class="flex items-center gap-2 text-[10px] text-charcoal/60">
               <span
-                class="inline-flex h-5 w-5 items-center justify-center rounded-md text-[var(--key-blue)]"
-                style="background: var(--key-blue-soft);"
+                class="inline-flex h-5 w-5 items-center justify-center"
               >
-                <TrendingUp className="h-3 w-3" />
+                <GrowthChartIcon class="h-5 w-5 text-[var(--navy)] md:h-6 md:w-6" />
               </span>
               Monthly revenue
             </div>
@@ -821,19 +820,23 @@ const faqSchema = {
       >
         <div class="grid gap-10 lg:grid-cols-3">
           {features.map((feature) => {
-            const Icon = feature.icon;
             return (
               <div>
                 <span
-                  class={`feature-icon-badge feature-icon-badge--${feature.animation} inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white`}
-                  style={`background: ${feature.color};`}
+                  class:list={[
+                    `feature-icon-badge feature-icon-badge--${feature.animation} inline-flex h-16 w-16 items-center justify-center`,
+                  ]}
+                  style={`color: ${feature.color};`}
                   data-feature-icon={feature.animation}
                 >
-                  <Icon className="feature-icon-svg h-5 w-5" />
-                  {feature.animation === "target" && (
-                    <span class="feature-target-projectile" aria-hidden="true">
-                      <span class="feature-target-projectile-body"></span>
-                    </span>
+                  {feature.animation === "target" ? (
+                    <TargetIcon class="h-10 w-10 md:h-12 md:w-12" />
+                  ) : feature.animation === "zap" ? (
+                    <ChecklistCalendarIcon class="h-10 w-10 md:h-12 md:w-12" />
+                  ) : feature.animation === "chart" ? (
+                    <GrowthChartIcon class="h-10 w-10 md:h-12 md:w-12" />
+                  ) : (
+                    <MarketingIcon name={feature.marketingIcon} tone="dark" class="h-12 w-12" />
                   )}
                 </span>
                 <h3 class="font-display text-2xl font-semibold text-white mt-6">
@@ -879,15 +882,16 @@ const faqSchema = {
               </p>
               {card.featured && (
                 <span
-                  class="flex-none rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest md:absolute md:right-6 md:top-6"
+                  class="inline-flex h-9 w-9 flex-none items-center justify-center rounded-full md:absolute md:right-6 md:top-6"
                   style="background: var(--green); color: var(--charcoal);"
+                  aria-hidden="true"
                 >
-                  Better path
+                  <MarketingIcon name="vendor-coordination" class="h-6 w-6" />
                 </span>
               )}
             </div>
             <h3
-              class={`mt-4 max-w-sm font-display text-3xl font-semibold leading-tight md:mt-5 ${
+              class={`mt-4 max-w-sm text-balance font-display text-3xl font-semibold leading-tight max-[389px]:text-[1.625rem] max-[389px]:leading-[1.12] max-[389px]:tracking-[-0.02em] md:mt-5 ${
                 card.featured ? "text-white" : "text-charcoal"
               }`}
             >
@@ -936,7 +940,7 @@ const faqSchema = {
     <div class="container-page">
       <div class="mb-8 flex flex-wrap items-end justify-between gap-6 md:mb-12">
         <h2 class="display-2 text-balance">Latest insights</h2>
-        <a href="/resources" class="btn-ghost min-h-11 !px-5 !py-2.5 text-sm">
+        <a href="/resources" class="btn-ghost min-h-11 !border-transparent !bg-[var(--key-blue)] !px-5 !py-2.5 text-sm !text-white hover:!bg-[var(--navy)]">
           Explore all
         </a>
       </div>
@@ -991,7 +995,7 @@ const faqSchema = {
           <details
             class:list={[
               "faq-item overflow-hidden rounded-2xl border hairline bg-white",
-              index >= mobileFaqPreviewCount && "faq-extra",
+              index >= faqPreviewCount && "faq-extra",
             ]}
             open={index === 0}
           >
@@ -1015,13 +1019,13 @@ const faqSchema = {
 
       <button
         type="button"
-        class="faq-toggle mx-auto mt-5 flex min-h-11 items-center justify-center gap-2 rounded-full border hairline bg-white px-5 py-2.5 text-sm font-medium text-charcoal shadow-[0_14px_30px_-24px_rgba(20,22,28,0.35)] md:hidden"
+        class="faq-toggle mx-auto mt-5 flex min-h-11 items-center justify-center gap-2 rounded-full border hairline bg-white px-5 py-2.5 text-sm font-medium text-charcoal shadow-[0_14px_30px_-24px_rgba(20,22,28,0.35)]"
         aria-controls="home-faq-list"
         aria-expanded="false"
         data-faq-toggle
       >
         <span data-faq-toggle-label>
-          View {faqItems.length - mobileFaqPreviewCount} more questions
+          View {faqItems.length - faqPreviewCount} more questions
         </span>
         <ChevronDown className="faq-toggle-icon h-4 w-4" aria-hidden="true" />
       </button>
@@ -1067,7 +1071,8 @@ const faqSchema = {
               data-track-event="phone_click"
               data-track-placement="final_cta"
             >
-              <Phone className="h-4 w-4" /> (913) 427-0674
+              <SolidPhoneIcon class="h-6 w-6" />
+              (913) 427-0674
             </a>
           </div>
         </div>
@@ -1166,6 +1171,14 @@ const faqSchema = {
     transform: rotate(180deg);
   }
 
+  .faq-extra {
+    display: none;
+  }
+
+  .faq-list.is-expanded .faq-extra {
+    display: block;
+  }
+
   @media (max-width: 767px) {
     .hero-typer-text {
       transition: opacity 160ms ease;
@@ -1175,13 +1188,6 @@ const faqSchema = {
       opacity: 0;
     }
 
-    .faq-extra {
-      display: none;
-    }
-
-    .faq-list.is-expanded .faq-extra {
-      display: block;
-    }
   }
 
   @media (min-width: 768px) {

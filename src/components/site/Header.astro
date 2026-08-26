@@ -1,8 +1,8 @@
 ---
-import { ArrowUpRight, ChevronDown, Menu, Star, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { BOOKING_URL, services } from "@/lib/services";
 
-const LOGO_SRC = "/turnkey-logo.png";
+const LOGO_SRC = "/turnkey-marketing-logo-2026.webp";
 const primaryNav = [
   { label: "Services", href: "/services" },
   { label: "Results", href: "/results" },
@@ -27,8 +27,8 @@ const isActive = (href: string) =>
         <img
           src={LOGO_SRC}
           alt="Turnkey Marketing"
-          width="1110"
-          height="271"
+          width="1500"
+          height="375"
           class="h-12 md:h-16 w-auto"
           loading="eager"
           decoding="async"
@@ -63,7 +63,17 @@ const isActive = (href: string) =>
                 <span class="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/10 blur-2xl"></span>
                 <div class="relative z-10 flex items-center justify-between gap-3">
                   <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/12 text-[var(--green)] ring-1 ring-white/15">
-                    <Star className="h-5 w-5" />
+                    <img
+                      src="/images/icons/turnkey-modern-on-navy/vendor-coordination.webp"
+                      alt=""
+                      width="512"
+                      height="512"
+                      loading="lazy"
+                      decoding="async"
+                      class="h-10 w-10 object-contain"
+                      aria-hidden="true"
+                      role="presentation"
+                    />
                   </span>
                   <span class="rounded-full bg-[var(--green)] px-3 py-1 text-[0.61rem] font-bold uppercase tracking-[0.16em] text-[var(--charcoal)]">
                     Whole department

@@ -2,36 +2,30 @@
 import {
   ArrowDown,
   ArrowRight,
-  ChartNoAxesCombined,
-  Compass,
-  HeartHandshake,
-  Lightbulb,
-  Megaphone,
-  Palette,
-  Target,
 } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import MarketingIcon from "@/components/site/MarketingIcon.astro";
 import { CONSULTATION_URL } from "@/lib/services";
 import { siteMedia } from "@/lib/site-media";
 
 const expertise = [
   {
-    icon: Compass,
+    marketingIcon: "strategy" as const,
     title: "Strategy & account leadership",
     copy: "A clear plan, a steady point of contact, and confident next moves for your shop.",
   },
   {
-    icon: Palette,
+    marketingIcon: "content-creation" as const,
     title: "Brand, content & creative",
     copy: "Work that sounds like you, looks like you, and earns trust in your community.",
   },
   {
-    icon: Megaphone,
+    marketingIcon: "campaign-launch" as const,
     title: "Digital, media & direct mail",
     copy: "The right channels working together instead of competing for your attention and budget.",
   },
   {
-    icon: ChartNoAxesCombined,
+    marketingIcon: "reporting" as const,
     title: "Reporting & optimization",
     copy: "Plain-English insight into what is working, what is not, and where we go next.",
   },
@@ -39,19 +33,19 @@ const expertise = [
 
 const values = [
   {
-    icon: HeartHandshake,
+    marketingIcon: "team-support" as const,
     number: "01",
     title: "Care like it is our own shop.",
     copy: "Your business supports a team, a family, and a community. We never forget what is riding on the work.",
   },
   {
-    icon: Target,
+    marketingIcon: "analytics-dashboard" as const,
     number: "02",
     title: "Tell the truth about the numbers.",
     copy: "No vanity metrics or marketing fog. We focus on useful signals, sound decisions, and measurable progress.",
   },
   {
-    icon: Lightbulb,
+    marketingIcon: "strategy" as const,
     number: "03",
     title: "Bring expertise, stay curious.",
     copy: "We know this industry deeply, and we keep learning from every shop owner, campaign, and market we serve.",
@@ -265,11 +259,11 @@ const aboutSchema = {
       </figure>
 
       <div class="discipline-grid mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-12">
-        {expertise.map((item) => (
+        {expertise.map((item, index) => (
           <article class="team-discipline relative isolate flex min-h-[250px] flex-col overflow-hidden rounded-[1.75rem] p-7 md:p-9">
             <span class="discipline-orb" aria-hidden="true"></span>
             <div class="discipline-icon relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-2xl">
-              <item.icon className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />
+              <MarketingIcon name={item.marketingIcon} tone={index === 0 || index === 3 ? "dark" : "light"} class="h-8 w-8" />
             </div>
             <div class="relative z-10 mt-auto pt-12">
               <h3 class="max-w-[18ch] text-2xl font-semibold leading-tight tracking-[-0.035em] md:text-[1.7rem]">{item.title}</h3>
@@ -295,7 +289,7 @@ const aboutSchema = {
         {values.map((value) => (
           <article class="value-card bg-[var(--navy)] p-8 md:p-10">
             <div class="flex items-center justify-between">
-              <value.icon className="h-6 w-6 text-[var(--green)]" strokeWidth={1.7} aria-hidden="true" />
+              <MarketingIcon name={value.marketingIcon} tone="dark" class="h-9 w-9" />
               <span class="text-xs font-semibold tracking-[0.16em] text-white/42">{value.number}</span>
             </div>
             <h3 class="mt-12 max-w-[12ch] text-2xl font-semibold leading-tight tracking-[-0.035em] text-white md:text-3xl">
