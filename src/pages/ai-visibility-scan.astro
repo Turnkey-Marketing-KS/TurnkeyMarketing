@@ -75,7 +75,7 @@ const reportSchema = {
             </span>
             <p class="eyebrow mt-6 text-[var(--key-blue)]">Scan in progress</p>
             <h2 id="scan-stage-title" class="mx-auto mt-3 max-w-[19ch] font-display text-[clamp(2.15rem,4.2vw,3.65rem)] font-semibold leading-[1.02] tracking-[-.045em] text-[var(--navy-deep)]">Finding your shop</h2>
-            <p id="scan-stage-detail" class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-charcoal/62 md:text-lg">Checking the public information AI can find about your business.</p>
+            <p id="scan-stage-detail" class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-charcoal/62 md:text-lg">Checking what a driver can find about your business online.</p>
           </div>
 
           <div class="mx-auto mt-8 max-w-2xl">
@@ -91,15 +91,15 @@ const reportSchema = {
             </div>
             <div data-scan-stage="1" class="scan-stage-item">
               <span class="scan-stage-marker"><span class="scan-icon scan-icon-search" aria-hidden="true"></span><span class="sr-only">Step 2</span></span>
-              <span class="scan-stage-label">Checking service and specialty signals</span>
+              <span class="scan-stage-label">Checking your services and specialties</span>
             </div>
             <div data-scan-stage="2" class="scan-stage-item">
               <span class="scan-stage-marker"><span class="scan-icon scan-icon-pages" aria-hidden="true"></span><span class="sr-only">Step 3</span></span>
-              <span class="scan-stage-label">Comparing nearby recommendations</span>
+              <span class="scan-stage-label">Comparing nearby shops</span>
             </div>
             <div data-scan-stage="3" class="scan-stage-item">
               <span class="scan-stage-marker"><span class="scan-icon scan-icon-ai" aria-hidden="true"></span><span class="sr-only">Step 4</span></span>
-              <span class="scan-stage-label">Preparing your visibility snapshot</span>
+              <span class="scan-stage-label">Preparing your report</span>
             </div>
           </div>
           <p class="scan-progress-note mt-8 text-center text-sm text-charcoal/52"><span class="scan-icon scan-icon-ai" aria-hidden="true"></span>This usually takes less than a minute. You can keep this tab open.</p>
@@ -112,7 +112,7 @@ const reportSchema = {
         <div class="mx-auto max-w-6xl">
           <div class="mb-7 flex justify-center">
             <div class="inline-flex items-center gap-2 rounded-full bg-[#eaf3dc] px-4 py-2 text-sm font-semibold text-[#557f20] ring-1 ring-[#6d9b2f]/15">
-              <CircleCheckBig class="h-4 w-4" /> Analysis complete
+              <CircleCheckBig class="h-4 w-4" /> Report ready
             </div>
           </div>
 
@@ -123,13 +123,13 @@ const reportSchema = {
                 <span class="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
                 <div class="relative">
                   <p class="eyebrow text-[#9ed8f0]">Your report is built</p>
-                  <h2 class="mt-5 max-w-[13ch] font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[.98] tracking-[-.055em]">Your AI Visibility Report Is Ready.</h2>
-                  <p class="mt-6 max-w-[42rem] text-lg leading-relaxed text-white/68">We found how AI sees <strong data-gate-shop class="font-semibold text-white">your shop</strong>, where it appeared against nearby shops, and the clearest opportunity to improve.</p>
+                  <h2 class="mt-5 max-w-[13ch] font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[.98] tracking-[-.055em]">Your shop report is ready.</h2>
+                  <p class="mt-6 max-w-[42rem] text-lg leading-relaxed text-white/68">See whether AI mentioned <strong data-gate-shop class="font-semibold text-white">your shop</strong>, how it compared with nearby shops, and what to fix first.</p>
 
                   <div class="mt-9 max-w-xl border-y border-white/12">
-                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">AI visibility score calculated</span></div>
-                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Recommendation position mapped</span></div>
-                    <div class="flex items-center gap-3 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Biggest visibility gap identified</span></div>
+                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">See whether your shop showed up</span></div>
+                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Compare your shop with nearby options</span></div>
+                    <div class="flex items-center gap-3 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Know what to fix first</span></div>
                   </div>
                 </div>
               </div>
@@ -139,8 +139,8 @@ const reportSchema = {
                   <p class="eyebrow text-[var(--key-blue)]">Unlock your report</p>
                   <LockKeyhole class="h-7 w-7 text-[var(--navy)]" />
                 </div>
-                <h3 class="mt-5 font-display text-[clamp(2rem,3.6vw,3rem)] font-semibold leading-[1.02] tracking-[-.04em] text-charcoal">See what AI may be telling local drivers.</h3>
-                <p class="mt-5 leading-relaxed text-charcoal/62">Your score and competitive position are ready. Enter your business email to reveal the full report instantly.</p>
+                <h3 class="mt-5 font-display text-[clamp(2rem,3.6vw,3rem)] font-semibold leading-[1.02] tracking-[-.04em] text-charcoal">See what drivers may learn about your shop.</h3>
+                <p class="mt-5 leading-relaxed text-charcoal/62">Enter your business email to see whether your shop appeared, what AI found, and what to improve first.</p>
 
                 <form id="report-gate-form" class="mt-7">
                   <label class="block text-sm font-semibold text-charcoal" for="report-email">Business email</label>
@@ -161,9 +161,9 @@ const reportSchema = {
           <div class="report-heading mb-9 border-b border-[var(--hairline)] pb-8 md:mb-12 md:pb-10">
             <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
-                <p class="eyebrow text-[var(--key-blue)]">Your AI visibility report</p>
+                <p class="eyebrow text-[var(--key-blue)]">What AI found about your shop</p>
                 <h2 class="mt-4 max-w-[18ch] font-display text-[clamp(2.45rem,5.2vw,4.8rem)] font-semibold leading-[.96] tracking-[-.055em] text-charcoal"><span data-result-shop>Your shop</span></h2>
-                <p class="mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/65">Here is what AI can understand about your shop, what may be holding it back, and where we would focus first.</p>
+                <p class="mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/65">Here is what showed up, how your shop compared with nearby options, and the first thing we would improve.</p>
               </div>
               <div class="inline-flex w-fit items-center gap-3 rounded-full bg-[var(--navy)] py-2 pl-2 pr-4 text-white shadow-[0_16px_34px_-24px_rgba(35,46,102,.75)]">
                 <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-[var(--navy)]"><CircleCheckBig class="h-5 w-5" /></span>
@@ -177,25 +177,25 @@ const reportSchema = {
               <section class="scan-score-panel relative overflow-hidden rounded-[32px] bg-[linear-gradient(155deg,var(--navy)_0%,var(--navy-deep)_100%)] p-8 text-white shadow-[0_32px_72px_-50px_rgba(35,46,102,.9)] md:p-10">
                 <span class="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[var(--key-blue)]/25 blur-3xl"></span>
                 <div class="relative">
-                  <p class="eyebrow text-[#9ed8f0]">AI visibility score</p>
+                  <p class="eyebrow text-[#9ed8f0]">How clear your shop looks online</p>
                   <div data-score-ring class="score-ring mx-auto mt-8 lg:mx-0" style="--score:0">
                     <div class="score-ring-inner"><span data-result-score class="font-display text-6xl font-semibold tracking-[-.07em]">—</span><span class="mt-1 text-xs text-white/45">out of 100</span></div>
                   </div>
                   <div class="mt-8 border-t border-white/15 pt-5">
-                    <p class="eyebrow text-white/45">What the score means</p>
+                    <p class="eyebrow text-white/45">In plain English</p>
                     <p data-result-status class="mt-2 font-display text-2xl font-semibold">Scan complete</p>
                   </div>
-                  <p class="mt-5 text-xs leading-relaxed text-white/48">A point-in-time view of the public signals available during this scan.</p>
+                  <p class="mt-5 text-xs leading-relaxed text-white/48">This score is based on what the scan could find online today.</p>
                 </div>
               </section>
 
               <section class="scan-verdict-panel relative overflow-hidden rounded-[32px] border border-[rgba(35,46,102,.14)] bg-white p-8 shadow-[0_30px_70px_-56px_rgba(35,46,102,.6)] md:p-12 lg:p-14">
                 <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--key-blue)]" aria-hidden="true"></span>
                 <div class="relative">
-                  <p class="eyebrow text-[var(--key-blue)]">The short version</p>
+                  <p class="eyebrow text-[var(--key-blue)]">The short answer</p>
                   <h3 data-result-verdict class="mt-5 max-w-[26ch] font-display text-[clamp(2rem,3.4vw,3.15rem)] font-semibold leading-[1.03] tracking-[-.045em] text-charcoal">Your result will appear here.</h3>
-                  <p class="mt-6 max-w-[58ch] leading-relaxed text-charcoal/62">This is not a permanent ranking. It is a practical look at whether your public information gives AI enough clarity and proof to recommend the shop confidently.</p>
-                  <a href="/resources/ai-search-for-auto-repair-shops" class="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">See how AI search evaluates repair shops <ArrowRight class="h-4 w-4" /></a>
+                  <p class="mt-6 max-w-[58ch] leading-relaxed text-charcoal/62">This is one scan, not a permanent ranking. It shows whether AI found enough clear information and proof to suggest your shop to a driver.</p>
+                  <a href="/resources/ai-search-for-auto-repair-shops" class="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">Learn how AI chooses which shops to mention <ArrowRight class="h-4 w-4" /></a>
                 </div>
               </section>
             </div>
@@ -203,31 +203,31 @@ const reportSchema = {
             <div class="grid gap-6 lg:grid-cols-[1.08fr_.92fr] md:gap-8">
               <section class="relative overflow-hidden rounded-[30px] border border-[rgba(35,46,102,.13)] bg-white p-6 shadow-[0_26px_64px_-52px_rgba(35,46,102,.58)] md:p-8">
                 <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--key-blue)]" aria-hidden="true"></span>
-                <div class="flex items-center gap-3"><span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><CircleCheckBig class="h-5 w-5" /></span><div><p class="eyebrow text-[var(--key-blue)]">Confirmed strengths</p><h4 class="mt-1 font-display text-2xl font-semibold text-charcoal">What AI already understands</h4></div></div>
+                <div class="flex items-center gap-3"><span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><CircleCheckBig class="h-5 w-5" /></span><div><p class="eyebrow text-[var(--key-blue)]">What is working</p><h4 class="mt-1 font-display text-2xl font-semibold text-charcoal">What AI could clearly find</h4></div></div>
                 <ul data-result-understood class="mt-7 divide-y divide-[var(--hairline)]"></ul>
               </section>
 
               <section class="relative overflow-hidden rounded-[30px] bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)] p-6 text-white shadow-[0_30px_68px_-48px_rgba(35,46,102,.9)] md:p-8">
-                <div class="relative flex items-center gap-3"><span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[var(--navy)]"><TriangleAlert class="h-5 w-5" /></span><div><p class="eyebrow text-[#9ed8f0]">First place to focus</p><h4 class="mt-1 font-display text-2xl font-semibold text-white">Your biggest visibility gap</h4></div></div>
+                <div class="relative flex items-center gap-3"><span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[var(--navy)]"><TriangleAlert class="h-5 w-5" /></span><div><p class="eyebrow text-[#9ed8f0]">What to fix first</p><h4 class="mt-1 font-display text-2xl font-semibold text-white">What may be costing you calls</h4></div></div>
                 <p data-result-gap class="relative mt-7 text-lg font-medium leading-relaxed text-white/82"></p>
-                <p class="relative mt-6 border-t border-white/15 pt-5 text-sm leading-relaxed text-white/58">Fixing the clearest gap is usually more valuable than chasing every AI platform at once.</p>
+                <p class="relative mt-6 border-t border-white/15 pt-5 text-sm leading-relaxed text-white/58">Fix this one issue first. A clear improvement here is worth more than chasing every new AI tool.</p>
               </section>
             </div>
 
             <section class="rounded-[32px] border border-[rgba(35,46,102,.13)] bg-white p-6 shadow-[0_28px_70px_-56px_rgba(35,46,102,.55)] md:p-10" aria-labelledby="competitive-position-heading">
               <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                <div class="flex items-center gap-4"><span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><Trophy class="h-6 w-6" /></span><div><p class="eyebrow text-[var(--key-blue)]">Nearby context</p><h4 id="competitive-position-heading" class="mt-1 font-display text-2xl font-semibold text-charcoal">Where your shop appeared</h4></div></div>
-                <span class="w-fit rounded-full bg-[var(--navy)] px-4 py-2 text-[10px] font-semibold uppercase tracking-[.14em] text-white">This scan only</span>
+                <div class="flex items-center gap-4"><span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><Trophy class="h-6 w-6" /></span><div><p class="eyebrow text-[var(--key-blue)]">How you compared</p><h4 id="competitive-position-heading" class="mt-1 font-display text-2xl font-semibold text-charcoal">Did AI mention your shop?</h4></div></div>
+                <span class="w-fit rounded-full bg-[var(--navy)] px-4 py-2 text-[10px] font-semibold uppercase tracking-[.14em] text-white">Today’s scan</span>
               </div>
 
               <div class="mt-8 grid gap-7 md:grid-cols-[220px_1fr] md:items-center md:gap-10">
                 <div class="rounded-[26px] bg-[var(--navy)] p-6 text-white shadow-[0_24px_56px_-42px_rgba(35,46,102,.8)]">
-                  <p class="eyebrow text-[#9ed8f0]">Recommendation position</p>
+                  <p class="eyebrow text-[#9ed8f0]">Your result</p>
                   <p data-rank-found class="mt-4 font-display text-6xl font-semibold leading-none tracking-[-.06em]">#<span data-rank-position>—</span></p>
-                  <p data-rank-missing class="mt-4 hidden font-display text-4xl font-semibold leading-[.95] tracking-[-.045em]">Not found</p>
+                  <p data-rank-missing class="mt-4 hidden font-display text-4xl font-semibold leading-[.95] tracking-[-.045em]">Not mentioned</p>
                   <p class="mt-2 text-sm text-white/58">of <span data-rank-total>—</span> shops checked</p>
                   <div data-rank-ahead-copy class="mt-5 border-t border-white/15 pt-4 text-sm font-semibold text-white"><span data-shops-ahead>—</span> recommended before you</div>
-                  <div data-rank-missing-copy class="mt-5 hidden border-t border-white/15 pt-4 text-sm font-semibold text-white">Not included in reviewed recommendations</div>
+                  <div data-rank-missing-copy class="mt-5 hidden border-t border-white/15 pt-4 text-sm font-semibold text-white">AI suggested other nearby shops instead</div>
                 </div>
 
                 <div>
@@ -240,9 +240,9 @@ const reportSchema = {
 
           <div class="scan-results-cta relative mt-8 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy)_58%,var(--navy-deep))] p-7 text-white shadow-[0_30px_72px_-48px_rgba(35,46,102,.85)] md:p-10">
             <div class="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-end md:gap-10">
-              <div class="max-w-2xl"><p class="eyebrow text-[#b7e3f4]">Your next best move</p><h3 class="mt-4 font-display text-3xl font-semibold leading-tight tracking-[-.035em] md:text-4xl">Make your shop the easier recommendation.</h3><p data-result-cta class="mt-4 leading-relaxed text-white/72"></p></div>
+              <div class="max-w-2xl"><p class="eyebrow text-[#b7e3f4]">What to do next</p><h3 class="mt-4 font-display text-3xl font-semibold leading-tight tracking-[-.035em] md:text-4xl">Help more drivers find and choose your shop.</h3><p data-result-cta class="mt-4 leading-relaxed text-white/72"></p></div>
               <div class="flex flex-col gap-3 sm:flex-row md:flex-col">
-                <a href={CONSULTATION_URL} class="btn-primary w-full shrink-0 justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white sm:w-auto" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Talk through my report <ArrowRight class="h-4 w-4" /></a>
+                <a href={CONSULTATION_URL} class="btn-primary w-full shrink-0 justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white sm:w-auto" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Review this with Turnkey <ArrowRight class="h-4 w-4" /></a>
                 <a href="/resources/ai-search-for-auto-repair-shops#action-plan" class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-white bg-transparent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white hover:text-[var(--navy)] sm:w-auto">Use the 30-day plan</a>
               </div>
             </div>
@@ -251,7 +251,7 @@ const reportSchema = {
       </div>
     </section>
 
-    <section id="schedule" class="hidden scroll-mt-24 bg-white py-14 md:py-20"><div class="container-page"><div class="mx-auto max-w-5xl text-center"><p class="eyebrow text-[var(--key-blue)]">Go deeper with Turnkey</p><h2 class="display-2 mt-4 text-charcoal">Let’s review what AI found.</h2><p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/65">We’ll connect the snapshot to your website, reviews, positioning, local search presence, and broader marketing strategy.</p><div class="mt-9 overflow-hidden rounded-[30px] bg-[var(--off-white)] text-left shadow-[0_28px_70px_-48px_rgba(20,22,28,.35)] ring-1 ring-black/5"><iframe src={APPOINTMENTCORE_BOOKING_URL} title="Schedule an AI visibility review with Turnkey Marketing" width="100%" height="800" class="block min-h-[800px] w-full border-0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div></div><script is:inline src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786635857"></script></section>
+    <section id="schedule" class="hidden scroll-mt-24 bg-white py-14 md:py-20"><div class="container-page"><div class="mx-auto max-w-5xl text-center"><p class="eyebrow text-[var(--key-blue)]">Want help fixing it?</p><h2 class="display-2 mt-4 text-charcoal">Let’s turn this report into a practical plan.</h2><p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/65">We’ll show you what to update first, what can wait, and how to make your shop easier for the right drivers to find.</p><div class="mt-9 overflow-hidden rounded-[30px] bg-[var(--off-white)] text-left shadow-[0_28px_70px_-48px_rgba(20,22,28,.35)] ring-1 ring-black/5"><iframe src={APPOINTMENTCORE_BOOKING_URL} title="Schedule an AI visibility review with Turnkey Marketing" width="100%" height="800" class="block min-h-[800px] w-full border-0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div></div><script is:inline src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786635857"></script></section>
   </main>
 
   <script is:inline>
@@ -273,10 +273,10 @@ const reportSchema = {
     const progressBar = document.querySelector("#scan-progress-bar");
     const progressTrack = document.querySelector("[role='progressbar']");
     const stageMessages = [
-      ["Finding your shop", "Checking the public information AI can find about your business."],
-      ["Reading your service signals", "Looking at how your location, services, and specialty are described online."],
-      ["Comparing nearby recommendations", "Checking which local alternatives are easier for AI to understand."],
-      ["Building your snapshot", "Turning the findings into a clear score, gap, and next step."],
+      ["Finding your shop", "Checking what a driver can find about your business online."],
+      ["Checking your services", "Looking for clear information about your location, repairs, and specialties."],
+      ["Comparing nearby shops", "Seeing which local shops are easiest for AI to understand and suggest."],
+      ["Building your report", "Summing up what is working and what to fix first."],
     ];
     const stageIcons = ["location", "search", "pages", "ai"];
     const stageProgress = [25, 50, 75, 96];
@@ -313,7 +313,7 @@ const reportSchema = {
         return li;
       }));
     };
-    const scoreStatus = (score) => score < 40 ? "Needs attention" : score < 60 ? "Incomplete signal" : score < 80 ? "Solid foundation" : "Strong visibility";
+    const scoreStatus = (score) => score < 40 ? "Not showing up yet" : score < 60 ? "Some important gaps" : score < 80 ? "Good starting point" : "Easy to understand";
     const showRank = (appearedValue, aheadValue, comparedValue) => {
       const shopAppeared = appearedValue === true;
       const shopsAhead = Math.max(0, Number(aheadValue) || 0);
@@ -1011,6 +1011,12 @@ const reportSchema = {
 
     .rank-node-current small {
       color: var(--navy);
+    }
+
+    .rank-node-missing span {
+      background: #fff;
+      color: var(--navy);
+      box-shadow: inset 0 0 0 2px rgba(35, 46, 102, 0.22);
     }
 
     .rank-node-more,

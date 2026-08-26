@@ -1,22 +1,11 @@
 import type { APIRoute } from "astro";
 import { sealVisibilityReport } from "@/lib/visibility-report-token";
+import { normalizeVisibilityReport, type RawVisibilityReport } from "@/lib/visibility-report";
 
 type ScanRequest = { shopName?: string; location?: string; specialty?: string };
 type OpenAIContent = { type?: string; text?: string };
 type OpenAIOutputItem = { content?: OpenAIContent[] };
 type OpenAIResponsePayload = { output_text?: string; output?: OpenAIOutputItem[] };
-
-const cleanScanText = (value: unknown, maxLength: number) => {
-  const cleaned = String(value ?? "")
-    .replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/gi, "$1")
-    .replace(/https?:\/\/\S+/gi, "")
-    .replace(/\s*\([^)]*\b(?:\.com|\.net|\.org|\.co|\.io)\b[^)]*\)/gi, "")
-    .replace(/【[^】]+】/g, "")
-    .replace(/\s+/g, " ")
-    .replace(/\s+([,.;:!?])/g, "$1")
-    .trim();
-  return cleaned.length > maxLength ? `${cleaned.slice(0, maxLength - 1).trim()}…` : cleaned;
-};
 
 export const prerender = false;
 
@@ -66,16 +55,23 @@ Desired work (optional): ${specialty?.trim() || "not provided"}
 
 Search for the shop and nearby alternatives, then return only evidence-supported findings. Never invent competitors, rankings, specialties, reviews, or problems. If evidence is weak, say so plainly. The score is directional, not an official ranking.
 
-Write for a busy shop owner. Make every field short, decisive, and easy to scan:
-- verdict: one plain-language sentence, 18 words maximum
-- gap: one plain-language sentence, 28 words maximum
-- understood: exactly three short findings, each 16 words maximum
-- shopsAhead: how many distinct nearby shops were recommended or presented before this shop in the AI responses reviewed
-- shopsCompared: total distinct shops compared in the scan, including this shop; it must be at least shopsAhead plus one
-- competitor: one short sentence explaining why shops ahead were easier to recommend, 24 words maximum
-- cta: one short sentence based on the score, 22 words maximum
+Write like an experienced auto repair marketing advisor speaking directly to a busy shop owner. Use everyday shop language such as drivers, calls, appointments, repairs, website, and reviews. Every sentence should quickly answer, "What does this mean for my shop?"
 
-Only count a shop as ahead when the responses reviewed actually placed or recommended it before the scanned shop. Do not count every nearby competitor automatically.
+Avoid marketing and AI jargon. Do not use words such as visibility, signals, evidence, entity, optimization, query, SERP, schema, ranking factors, or citations in the returned fields. Do not sound technical, dramatic, or salesy.
+
+Make every field short, direct, and easy to scan:
+- verdict: say whether AI mentioned the shop and what that means, 18 words maximum
+- gap: name the one unclear or missing item most likely to cost the shop calls, 28 words maximum
+- understood: exactly three concrete facts AI could find about the shop, each 16 words maximum
+- shopAppeared: true only when the scanned shop itself appeared as a recommendation for the requested work in a response reviewed; finding its website or business details alone does not count
+- shopsAhead: if shopAppeared is true, how many distinct nearby shops were recommended before this shop; otherwise return 0
+- shopsCompared: total distinct shops compared in the scan, including this shop; it must be at least shopsAhead plus one
+- competitor: explain in ordinary language why other nearby shops were easier to mention or choose, 24 words maximum
+- cta: begin with an action verb and tell the owner the first thing to fix, 22 words maximum
+
+Only count a shop as ahead when the same response actually placed or recommended it before the scanned shop. Never infer a #1 position from zero shopsAhead. When the scanned shop is absent from recommendations, shopAppeared must be false.
+
+Keep the score consistent with recommendation visibility: 0–39 when the shop did not appear, 40–59 for weak or inconsistent visibility, 60–79 for solid visibility, and 80–100 only for strong repeated visibility.
 
 Do not include URLs, domains, citations, markdown links, brackets, source names, street addresses, phone numbers, or implementation instructions in any field. Do not provide a DIY marketing plan.`;
 
@@ -105,6 +101,7 @@ Do not include URLs, domains, citations, markdown links, brackets, source names,
                 minItems: 3,
                 maxItems: 3,
               },
+              shopAppeared: { type: "boolean" },
               shopsAhead: { type: "integer", minimum: 0 },
               shopsCompared: { type: "integer", minimum: 1 },
               competitor: { type: "string", maxLength: 180 },
@@ -115,6 +112,7 @@ Do not include URLs, domains, citations, markdown links, brackets, source names,
               "verdict",
               "gap",
               "understood",
+              "shopAppeared",
               "shopsAhead",
               "shopsCompared",
               "competitor",
@@ -140,22 +138,8 @@ Do not include URLs, domains, citations, markdown links, brackets, source names,
     return Response.json({ error: "The scan returned no readable result." }, { status: 502 });
 
   try {
-    const parsed = JSON.parse(outputText);
-    const shopsAhead = Math.max(0, Number(parsed.shopsAhead) || 0);
-    const shopsCompared = Math.max(shopsAhead + 1, Number(parsed.shopsCompared) || 0);
-    const report = {
-      shopName: shopName.trim(),
-      score: Math.max(0, Math.min(100, Number(parsed.score) || 0)),
-      verdict: cleanScanText(parsed.verdict, 140),
-      gap: cleanScanText(parsed.gap, 220),
-      understood: Array.isArray(parsed.understood)
-        ? parsed.understood.slice(0, 3).map((item: unknown) => cleanScanText(item, 140))
-        : [],
-      shopsAhead,
-      shopsCompared,
-      competitor: cleanScanText(parsed.competitor, 180),
-      cta: cleanScanText(parsed.cta, 180),
-    };
+    const parsed = JSON.parse(outputText) as RawVisibilityReport;
+    const report = normalizeVisibilityReport(parsed, shopName);
 
     return Response.json({
       ready: true,
