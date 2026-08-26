@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, CircleCheckBig, Gauge, LockKeyhole, Search, ShieldCheck, Trophy, TriangleAlert } from "lucide-react";
+import { ArrowRight, CircleCheckBig, Gauge, ListChecks, LockKeyhole, Search, ShieldCheck, Trophy, TriangleAlert } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { APPOINTMENTCORE_BOOKING_URL, CONSULTATION_URL } from "@/lib/services";
 
@@ -52,11 +52,11 @@ const reportSchema = {
         </div>
 
         <div class="ai-scan-platform relative z-10 mx-auto mt-12 flex max-w-6xl flex-col gap-4 rounded-[22px] border border-[rgba(35,46,102,.1)] bg-white/90 px-5 py-4 shadow-[0_18px_55px_-42px_rgba(35,46,102,.45)] backdrop-blur sm:flex-row sm:items-center sm:justify-between md:px-7">
-          <p class="text-sm font-semibold text-[var(--navy)]">We check your shop across</p>
+          <p class="text-sm font-semibold text-[var(--navy)]">Built from a live, AI-powered search of public signals</p>
           <div class="ai-scan-platform-list flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-charcoal/58">
-            <span class="ai-scan-platform-item inline-flex items-center gap-2"><img src="/images/logos/google-search.webp" alt="" role="presentation" width="200" height="200" class="h-8 w-8 object-contain" loading="lazy" decoding="async" aria-hidden="true" /> Google Search</span>
-            <span class="ai-scan-platform-item inline-flex items-center gap-2"><img src="/images/logos/google-ai-overviews.png" alt="" role="presentation" width="800" height="449" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> AI Overviews</span>
-            <span class="ai-scan-platform-item inline-flex items-center gap-2"><img src="/images/logos/chatgpt-logo.png" alt="" role="presentation" width="3840" height="2160" class="h-8 w-8 object-cover object-center" loading="lazy" decoding="async" aria-hidden="true" /> ChatGPT</span>
+            <span class="ai-scan-platform-item inline-flex items-center gap-2"><Search className="h-4 w-4 text-[var(--key-blue)]" /> Shop identity</span>
+            <span class="ai-scan-platform-item inline-flex items-center gap-2"><ListChecks className="h-4 w-4 text-[var(--key-blue)]" /> Service clarity</span>
+            <span class="ai-scan-platform-item inline-flex items-center gap-2"><Trophy className="h-4 w-4 text-[var(--key-blue)]" /> Nearby context</span>
           </div>
         </div>
       </div>

@@ -1,0 +1,725 @@
+---
+import {
+  ArrowLeft,
+  ArrowRight,
+  Bot,
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  CircleDot,
+  FileSearch,
+  PhoneCall,
+  Search,
+  ShieldCheck,
+  Wrench,
+} from "lucide-react";
+import { getResourcePost, type ResourcePost } from "@/lib/resource-posts";
+
+interface Props {
+  post: ResourcePost;
+}
+
+const { post } = Astro.props;
+const relatedPosts = (post.relatedSlugs ?? [])
+  .map((slug) => getResourcePost(slug))
+  .filter((relatedPost) => relatedPost !== undefined);
+
+const navLinks = [
+  { href: "#what-changed", label: "What changed" },
+  { href: "#three-gates", label: "What AI looks for" },
+  { href: "#ai-calls", label: "AI calls" },
+  { href: "#action-plan", label: "30-day plan" },
+  { href: "#how-turnkey-helps", label: "How Turnkey helps" },
+  { href: "#sources", label: "Sources" },
+];
+
+const evidence = [
+  {
+    value: "Multiple shops",
+    label: "Google can contact several nearby repair shops to compare price and availability.",
+    href: "https://support.google.com/websearch/answer/16421135",
+    source: "Google Search Help",
+  },
+  {
+    value: "3× longer",
+    label: "People ask AI longer, more detailed questions than they type into traditional search.",
+    href: "https://blog.google/products-and-platforms/products/search/ai-mode-us-insights/",
+    source: "Google, 2025",
+  },
+  {
+    value: "8% vs. 15%",
+    label: "When an AI summary appeared, fewer people clicked a traditional search result.",
+    href: "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+    source: "Pew Research Center, 2025",
+  },
+  {
+    value: "45% / 88%",
+    label: "Customers may ask AI for recommendations, but most still check reviews before choosing.",
+    href: "https://www.brightlocal.com/research/lcrs-ai-trust/",
+    source: "BrightLocal, 2026",
+  },
+];
+
+const gates = [
+  {
+    title: "Understand",
+    question: "Can AI tell what your shop is best at?",
+    body: "Your shop should be easy to describe: what you repair, which vehicles you work on, where you are, when you are open, and which problems you handle especially well.",
+    checks: [
+      "Clear services and vehicle specialties",
+      "Correct location, hours, and phone number",
+      "Straight answers to common questions",
+    ],
+    icon: Search,
+    customIcon: null,
+    dark: false,
+    greenAccent: false,
+  },
+  {
+    title: "Verify",
+    question: "Does the rest of the internet back you up?",
+    body: "AI can compare your website with your Google Business Profile, reviews, directories, and photos. Those sources should tell the same story and show that your shop is active and credible.",
+    checks: [
+      "Matching shop information everywhere",
+      "Recent reviews that mention real repairs",
+      "Real photos, people, and credentials",
+    ],
+    icon: ShieldCheck,
+    customIcon: null,
+    dark: true,
+    greenAccent: true,
+  },
+  {
+    title: "Act",
+    question: "Is it easy to call or book the next step?",
+    body: "A recommendation only matters if the customer can reach you. Your phone, scheduling process, and explanation of what happens next should make it easy to move forward.",
+    checks: [
+      "A phone that is answered consistently",
+      "Clear availability and scheduling",
+      "A confident handoff to inspection",
+    ],
+    icon: PhoneCall,
+    customIcon: "/images/icons/phone-call.svg",
+    dark: false,
+    greenAccent: true,
+  },
+];
+
+const callJourney = [
+  {
+    title: "Driver asks",
+    body: "A question about a repair, price, or appointment",
+    icon: Search,
+  },
+  {
+    title: "Google checks shops",
+    body: "Nearby options are compared using public information",
+    icon: Bot,
+  },
+  {
+    title: "Your advisor answers",
+    body: "The shop explains price, timing, and the next step",
+    icon: PhoneCall,
+  },
+  {
+    title: "Driver chooses",
+    body: "The clearest, most credible answer has an advantage",
+    icon: CheckCircle2,
+  },
+];
+
+const actionSteps = [
+  {
+    label: "Target",
+    title: "Choose the work you want more of.",
+    body: "Start with profitable jobs and customer situations—not a list of marketing keywords. Be specific about the vehicles, repairs, and diagnostic work your team is built to handle.",
+  },
+  {
+    label: "Identity",
+    title: "Make your shop information match everywhere.",
+    body: "Use the same business name, address, phone number, hours, and appointment link on your website, Google Business Profile, and major directories.",
+  },
+  {
+    label: "Service pages",
+    title: "Answer the questions customers ask before they call.",
+    body: "Explain the symptoms you handle, which vehicles you service, what your team checks, and what the customer should expect next. That is more useful than another thin page stuffed with city names.",
+  },
+  {
+    label: "Reviews",
+    title: "Build a steady flow of specific reviews.",
+    body: "Ask soon after a positive experience. Do not script the review, but make the request while the vehicle, repair, communication, and outcome are still fresh in the customer’s mind.",
+  },
+  {
+    label: "Proof",
+    title: "Show the real people and work behind the shop.",
+    body: "Use original photos, technician credentials, inspection explanations, community involvement, and first-hand advice. Real proof gives customers—and AI—more reason to trust you.",
+  },
+  {
+    label: "Phone readiness",
+    title: "Give service advisors a clear response plan.",
+    body: "Decide what can be quoted, what requires an inspection, how diagnostic fees are explained, and which questions help the advisor recommend a useful next step.",
+  },
+  {
+    label: "Measurement",
+    title: "Track calls and booked work—not just traffic.",
+    body: "Watch qualified calls, appointment requests, and the work that reaches the schedule. Being mentioned by AI is encouraging; attracting the right customer is what matters to the business.",
+  },
+];
+
+const sources = [
+  {
+    title: "How to check pricing for local businesses with AI in Google Search",
+    publisher: "Google Search Help · current product documentation",
+    href: "https://support.google.com/websearch/answer/16421135",
+  },
+  {
+    title: "Optimizing your website for generative AI features on Google Search",
+    publisher: "Google Search Central · official 2026 guidance",
+    href: "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+  },
+  {
+    title: "Tips to improve your local ranking on Google",
+    publisher: "Google Business Profile Help · official guidance",
+    href: "https://support.google.com/business/answer/7091",
+  },
+  {
+    title: "Publishers and developers FAQ",
+    publisher: "OpenAI Help Center · crawler and referral guidance",
+    href: "https://help.openai.com/en/articles/12627856",
+  },
+  {
+    title: "Google users are less likely to click when an AI summary appears",
+    publisher: "Pew Research Center · 68,879 searches observed in March 2025",
+    href: "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+  },
+  {
+    title: "Local Consumer Review Survey: AI and trust",
+    publisher: "BrightLocal · vendor survey; 1,002 US adults, AI-user subgroup 455",
+    href: "https://www.brightlocal.com/research/lcrs-ai-trust/",
+  },
+];
+---
+
+<article class="bg-white">
+  <div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
+
+  <section class="relative overflow-hidden bg-[linear-gradient(135deg,#fff_0%,#f6faff_58%,#edf4fc_100%)] py-10 md:py-14 lg:py-20">
+    <span class="pointer-events-none absolute -right-28 -top-24 h-[30rem] w-[30rem] rounded-full bg-[var(--key-blue-soft)]/65 blur-3xl" aria-hidden="true"></span>
+    <span class="pointer-events-none absolute -bottom-44 left-1/3 h-80 w-80 rounded-full bg-[var(--green)]/8 blur-3xl" aria-hidden="true"></span>
+    <div class="container-page relative">
+      <a href="/resources" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/65 transition hover:text-charcoal">
+        <ArrowLeft className="h-4 w-4" /> All resources
+      </a>
+
+      <div class="mt-9 grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14 xl:gap-20">
+        <header class="lg:col-span-7">
+          <p class="eyebrow text-[var(--key-blue)]">AI Search · Field Guide · <time datetime={post.updatedDate ?? post.originalDate}>{post.date}</time></p>
+          <h1 class="mt-6 max-w-[11ch] text-balance font-display text-[clamp(3.35rem,6.1vw,6.35rem)] font-semibold leading-[.91] tracking-[-.065em] text-charcoal">
+            Will AI <span class="text-[var(--key-blue)]">Recommend Your Auto Repair Shop?</span>
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/68 md:text-xl">{post.dek}</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a href="/ai-visibility-scan" class="btn-primary w-full justify-center sm:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_hero_scan">
+              Scan your shop’s AI visibility <ArrowRight className="h-4 w-4" />
+            </a>
+            <a href="#what-changed" class="btn-ghost w-full justify-center sm:w-auto">Read the field guide</a>
+          </div>
+        </header>
+
+        <figure class="lg:col-span-5">
+          <div class="rounded-[30px] border border-[rgba(35,46,102,.1)] bg-white p-2.5 shadow-[0_38px_90px_-46px_rgba(35,46,102,.5)] md:rounded-[38px] md:p-3">
+            <div class="aspect-[4/3] overflow-hidden rounded-[22px] bg-[var(--navy)] md:rounded-[29px]">
+              <img
+                src={post.image.src}
+                alt={post.image.alt}
+                width={post.imageWidth ?? 2400}
+                height={post.imageHeight ?? 1600}
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                class="h-full w-full object-cover"
+                style={`object-position: ${post.image.position};`}
+              />
+            </div>
+          </div>
+        </figure>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="border-y border-[var(--hairline)] bg-white py-10 md:py-12" aria-labelledby="short-answer-heading">
+    <div class="container-page grid gap-5 md:grid-cols-[180px_1fr] md:gap-10 lg:max-w-6xl">
+      <p class="eyebrow pt-1 text-[var(--key-blue)]">The short answer</p>
+      <div>
+        <h2 id="short-answer-heading" class="article-summary-heading text-charcoal">
+          AI is more likely to recommend a shop it can clearly understand and trust.
+        </h2>
+        <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">The basics still win: clear services, accurate shop information, strong reviews, real proof, and an easy next step. The difference is that AI can compare those things before a customer ever reaches your website.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-white">
+    <div class="container-page py-14 md:py-20 lg:grid lg:grid-cols-[210px_minmax(0,1fr)] lg:gap-14">
+      <aside class="hidden lg:block">
+        <nav class="sticky top-28" aria-label="Article sections">
+          <p class="eyebrow text-charcoal/40">In this guide</p>
+          <div class="mt-5 border-l border-[var(--hairline)]">
+            {navLinks.map((link) => (
+              <a href={link.href} class="article-nav-link block border-l-2 border-transparent py-2.5 pl-4 text-sm text-charcoal/55 transition hover:text-charcoal" data-article-nav>{link.label}</a>
+            ))}
+          </div>
+          <a href="/ai-visibility-scan" class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_sticky_scan">Run the scan <ArrowRight className="h-4 w-4" /></a>
+        </nav>
+      </aside>
+
+      <div class="min-w-0">
+        <nav class="-mx-4 mb-12 overflow-x-auto px-4 lg:hidden" aria-label="Article sections">
+          <div class="flex w-max gap-2 pb-2">
+            {navLinks.map((link) => <a href={link.href} class="rounded-full border border-[var(--hairline)] bg-[var(--off-white)] px-4 py-2 text-sm font-medium text-charcoal/65">{link.label}</a>)}
+          </div>
+        </nav>
+
+        <section id="what-changed" class="scroll-mt-28" aria-labelledby="what-changed-heading">
+          <p class="eyebrow text-[var(--key-blue)]">The shift</p>
+          <h2 id="what-changed-heading" class="article-section-heading mt-4 text-charcoal">
+            Customers can compare shops <span class="block">without visiting them.</span>
+          </h2>
+          <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.75] text-charcoal/68">
+            <p>A driver used to search “auto repair near me,” open a few websites, read reviews, and make a call. Now that same driver can ask: “Which shop near me is good with European electrical problems, has strong reviews, and can see the car this week?”</p>
+            <p>AI can check several sources, compare nearby shops, and give the driver a short answer. That means part of the buying decision may happen before the customer visits your website—or even knows your shop by name.</p>
+            <p>Google can also contact multiple nearby repair shops for price and availability, then report back to the customer. Your shop may be compared on both the information online and the way your team handles the call.</p>
+          </div>
+
+          <div class="mt-10 grid gap-5 md:grid-cols-2">
+            <article class="relative overflow-hidden rounded-[30px] border border-[rgba(35,46,102,.16)] bg-[linear-gradient(145deg,#fff_0%,#f4faff_100%)] p-6 shadow-[0_28px_70px_-52px_rgba(35,46,102,.58)] md:p-8">
+              <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--key-blue)]" aria-hidden="true"></span>
+
+              <div class="flex items-start gap-4">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--key-blue)] text-white shadow-sm" aria-hidden="true"><Search className="h-5 w-5" /></span>
+                <div>
+                  <p class="eyebrow text-[var(--key-blue)]">Traditional search</p>
+                  <h3 class="mt-3 font-display text-[1.75rem] font-semibold leading-[1.05] tracking-[-.035em] text-[var(--navy)]">
+                    The customer visited first
+                  </h3>
+                </div>
+              </div>
+
+              <p class="mt-4 max-w-sm text-[0.96rem] leading-relaxed text-charcoal/75">
+                Your website had a chance to explain the shop before the customer decided.
+              </p>
+
+              <ol class="mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-1.5" aria-label="Website-led customer journey">
+                {["Search", "Click", "Compare", "Call"].map((label) => (
+                  <li class="rounded-[14px] border border-[rgba(35,46,102,.11)] bg-white px-2 py-3.5 text-center shadow-[0_10px_24px_-22px_rgba(35,46,102,.8)]">
+                    <span class="mx-auto block h-1 w-6 rounded-full bg-[var(--key-blue)]" aria-hidden="true"></span>
+                    <span class="mt-2 block text-xs font-semibold text-charcoal sm:text-sm">{label}</span>
+                  </li>
+                ))}
+              </ol>
+
+              <div class="mt-7 border-t border-[rgba(35,46,102,.12)] pt-5">
+                <p class="text-[0.67rem] font-semibold uppercase tracking-[.18em] text-[var(--navy)]/55">Where trust was built</p>
+                <p class="mt-2 font-display text-lg font-semibold leading-snug text-charcoal">
+                  On your website, after the customer arrived.
+                </p>
+              </div>
+            </article>
+
+            <article class="relative overflow-hidden rounded-[30px] bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)] p-6 text-white shadow-[0_30px_75px_-48px_rgba(25,37,94,.92)] md:p-8">
+              <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--green)]" aria-hidden="true"></span>
+              <span class="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-[var(--key-blue)]/20 blur-3xl" aria-hidden="true"></span>
+
+              <div class="relative flex items-start gap-4">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--green)] text-[var(--navy)]" aria-hidden="true"><Bot className="h-5 w-5" /></span>
+                <div>
+                  <p class="eyebrow text-[#9ed8f0]">AI-assisted search</p>
+                  <h3 class="mt-3 font-display text-[1.75rem] font-semibold leading-[1.05] tracking-[-.035em] text-white">
+                    The comparison happens first
+                  </h3>
+                </div>
+              </div>
+
+              <p class="relative mt-4 max-w-sm text-[0.96rem] leading-relaxed text-white/78">
+                AI may compare your shop before the customer sees your website.
+              </p>
+
+              <ol class="relative mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-1.5" aria-label="AI-assisted customer journey">
+                {["Ask", "Check", "Compare", "Contact"].map((label) => (
+                  <li class="rounded-[14px] border border-[#45538d] bg-[#303d79] px-2 py-3.5 text-center">
+                    <span class="mx-auto block h-1 w-6 rounded-full bg-[var(--green)]" aria-hidden="true"></span>
+                    <span class="mt-2 block text-xs font-semibold text-white lg:text-sm">{label}</span>
+                  </li>
+                ))}
+              </ol>
+
+              <div class="relative mt-7 border-t border-white/15 pt-5">
+                <p class="text-[0.67rem] font-semibold uppercase tracking-[.18em] text-[#9ed8f0]">Where trust is built</p>
+                <p class="mt-2 font-display text-lg font-semibold leading-snug text-white">
+                  In the information already online, before the customer clicks.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="AI search evidence">
+            {evidence.map((item) => (
+              <a href={item.href} target="_blank" rel="noreferrer" class="motion-card group rounded-[24px] border border-black/[0.07] bg-white p-5 shadow-[0_22px_50px_-44px_rgba(20,22,28,.55)]">
+                <p class="font-display text-3xl font-semibold tracking-[-.04em] text-[var(--navy)]">{item.value}</p>
+                <p class="mt-3 text-sm leading-relaxed text-charcoal/65">{item.label}</p>
+                <p class="mt-5 text-[11px] font-semibold uppercase tracking-[.12em] text-charcoal/38">{item.source} ↗</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section class="-mx-4 mt-16 overflow-hidden bg-[var(--navy)] px-4 py-12 text-white sm:rounded-[32px] sm:px-8 md:mt-20 md:px-12 md:py-14" aria-labelledby="automotive-stakes-heading">
+          <p class="eyebrow text-[#9ed8f0]">Why auto repair is different</p>
+          <h2 id="automotive-stakes-heading" class="article-section-heading mt-4 text-white">
+            AI can recommend a shop. <span class="block">It cannot diagnose the car.</span>
+          </h2>
+          <div class="mt-6 max-w-[65ch] space-y-5 text-lg leading-[1.72] text-white/68">
+            <p>AI can help a driver find nearby options or ask about basic pricing. It cannot hear the noise, inspect the vehicle, confirm what caused a trouble code, or responsibly promise a final repair price from a vague description.</p>
+            <p>That gives a well-run shop an advantage. Be clear about what you service, how diagnosis works, what can be estimated over the phone, and what requires the vehicle. A useful, honest answer builds more trust than a fast guess.</p>
+          </div>
+          <div class="mt-9 grid gap-3 sm:grid-cols-2">
+            {["Customers need help quickly", "Diagnosis still requires the vehicle", "Most drivers choose nearby shops", "Trust matters before price"].map((label) => (
+              <div class="flex items-center gap-3 rounded-2xl border border-[#39467f] bg-[var(--navy-deep)] px-4 py-3.5"><CheckCircle2 className="h-5 w-5 flex-none text-[var(--green)]" /><span class="font-medium text-white/85">{label}</span></div>
+            ))}
+          </div>
+        </section>
+
+        <section id="three-gates" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="three-gates-heading">
+          <p class="eyebrow text-[var(--key-blue)]">A practical model</p>
+          <h2 id="three-gates-heading" class="article-section-heading mt-4 text-charcoal">
+            Three things make a shop <span class="block">easier to recommend.</span>
+          </h2>
+          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">Do not chase a secret AI ranking. Make your shop clear, consistent, and easy to contact. Those improvements help customers and traditional search, too.</p>
+
+          <div class="mt-10 grid gap-5">
+            {gates.map((gate) => {
+              const Icon = gate.icon;
+              return (
+                <section
+                  class:list={[
+                    "relative overflow-hidden rounded-[28px] p-6 md:grid md:grid-cols-[82px_1fr] md:gap-7 md:p-8",
+                    gate.dark
+                      ? "bg-[linear-gradient(135deg,var(--navy)_0%,var(--navy-deep)_100%)] text-white shadow-[0_34px_80px_-54px_rgba(25,37,94,.95)]"
+                      : "border border-[rgba(35,46,102,.13)] bg-white shadow-[0_26px_64px_-52px_rgba(35,46,102,.58)]",
+                  ]}
+                >
+                  <span
+                    class:list={[
+                      "absolute inset-y-0 left-0 w-1.5",
+                      gate.title === "Act"
+                        ? "bg-[var(--navy)]"
+                        : gate.greenAccent
+                          ? "bg-[var(--green)]"
+                          : "bg-[var(--key-blue)]",
+                    ]}
+                    aria-hidden="true"
+                  ></span>
+                  {gate.dark && <span class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[var(--key-blue)]/20 blur-3xl" aria-hidden="true"></span>}
+                  <div class="md:block">
+                    <span
+                      class="relative inline-flex h-13 w-13 items-center justify-center rounded-2xl border border-white bg-white text-[var(--navy)] shadow-[0_10px_24px_-14px_rgba(18,31,82,.5)]"
+                    >
+                      {gate.customIcon ? (
+                        <img src={gate.customIcon} alt="" role="presentation" width="1200" height="1200" loading="lazy" decoding="async" class="h-6 w-6" aria-hidden="true" />
+                      ) : (
+                        <Icon className="h-6 w-6" />
+                      )}
+                    </span>
+                  </div>
+                  <div class="relative mt-5 md:mt-0">
+                    <h3 class:list={["font-display text-2xl font-semibold leading-tight md:text-3xl", gate.dark ? "text-white" : "text-charcoal"]}>{gate.question}</h3>
+                    <p class:list={["mt-4 max-w-[62ch] leading-relaxed", gate.dark ? "text-white/72" : "text-charcoal/68"]}>{gate.body}</p>
+                    <ul class="mt-5 grid gap-2.5 sm:grid-cols-3">
+                      {gate.checks.map((check) => (
+                        <li class:list={["flex gap-2 text-sm leading-relaxed", gate.dark ? "text-white/78" : "text-charcoal/68"]}>
+                          <Check className="mt-0.5 h-4 w-4 flex-none text-[var(--green)]" />{check}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        </section>
+
+        <section class="relative mt-16 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy)_55%,var(--navy-deep))] p-7 text-white shadow-[0_36px_80px_-52px_rgba(35,46,102,.9)] md:mt-20 md:p-11" aria-labelledby="scan-cta-heading">
+          <span class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true"></span>
+          <div class="relative grid gap-7 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <p class="eyebrow text-[#b7e3f4]">Start with evidence</p>
+              <h2 id="scan-cta-heading" class="mt-4 max-w-none font-display text-[1.4rem] font-semibold leading-[1.05] tracking-[-.035em] sm:text-3xl md:text-4xl">
+                Would AI know when your shop is the right fit?
+              </h2>
+              <p class="mt-4 max-w-2xl leading-relaxed text-white/68">Run a free scan to see what public information AI can find about your shop and which area may need attention first.</p>
+            </div>
+            <a href="/ai-visibility-scan" class="btn-primary w-full justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white md:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_inline_scan">Run my free scan <ArrowRight className="h-4 w-4" /></a>
+          </div>
+        </section>
+
+        <section id="ai-calls" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="ai-calls-heading">
+          <p class="eyebrow text-[var(--key-blue)]">The phone still matters</p>
+          <h2 id="ai-calls-heading" class="article-section-heading mt-4 text-charcoal">
+            Google may call your shop <span class="block">for the customer.</span>
+          </h2>
+          <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.72] text-charcoal/67">
+            <p>Google now offers a feature that can contact several local shops to ask about price and availability. The automated caller identifies itself, explains that it is calling for a user, and may record the call.</p>
+            <p>For an owner, the takeaway is simple: how your phone is answered can affect whether the shop makes the shortlist. Make sure advisors know how to explain diagnostic charges, appointment windows, and what information they need before giving an answer.</p>
+          </div>
+
+          <ol class="mt-10 grid gap-3 md:grid-cols-4" aria-label="AI-assisted local service journey">
+            {callJourney.map((item, index) => {
+              const JourneyIcon = item.icon;
+              return (
+                <li class="relative rounded-[24px] border border-[var(--hairline)] bg-white p-5 shadow-[0_18px_44px_-42px_rgba(20,22,28,.6)]">
+                  <div class="flex items-center justify-between">
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><JourneyIcon className="h-5 w-5" /></span>
+                    {index < callJourney.length - 1 && <ChevronRight className="hidden h-5 w-5 text-[var(--key-blue)] md:block" />}
+                  </div>
+                  <h3 class="mt-5 font-display text-xl font-semibold text-charcoal">{item.title}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-charcoal/58">{item.body}</p>
+                </li>
+              );
+            })}
+          </ol>
+
+          <div class="relative mt-8 overflow-hidden rounded-[26px] bg-[var(--charcoal)] p-6 text-white shadow-[0_26px_62px_-46px_rgba(20,22,28,.9)] md:p-7">
+            <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--green)]" aria-hidden="true"></span>
+            <div class="relative flex gap-4">
+              <span class="flex h-11 w-11 flex-none items-center justify-center rounded-2xl bg-[var(--green)] text-white"><Wrench className="h-6 w-6" /></span>
+              <div>
+                <p class="eyebrow text-[var(--green)]">Service advisor standard</p>
+                <h3 class="mt-2 font-display text-2xl font-semibold text-white">Treat the AI answer as a clue—not a diagnosis.</h3>
+                <p class="mt-3 leading-relaxed text-white/72">A customer may arrive convinced that AI already found the problem. Acknowledge the information, explain what still needs to be inspected, and show how your team will verify the cause before recommending a repair.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="action-plan" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="action-plan-heading">
+          <p class="eyebrow text-[var(--key-blue)]">The 30-day foundation</p>
+          <h2 id="action-plan-heading" class="article-section-heading mt-4 text-charcoal">
+            Seven practical moves <span class="block">for the next 30 days.</span>
+          </h2>
+          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">No hacks or gimmicks. These are practical improvements that help the right customers find, trust, and choose your shop.</p>
+          <ul class="mt-10 divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
+            {actionSteps.map((step) => (
+              <li class="grid gap-3 py-7 md:grid-cols-[48px_1fr] md:gap-5 md:py-8">
+                <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--navy)] text-white" aria-hidden="true"><Check className="h-5 w-5" /></span>
+                <div>
+                  <p class="eyebrow text-[var(--key-blue)]">{step.label}</p>
+                  <h3 class="mt-2 font-display text-2xl font-semibold leading-tight text-charcoal">{step.title}</h3>
+                  <p class="mt-3 max-w-[65ch] leading-relaxed text-charcoal/65">{step.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-7 flex gap-3 rounded-2xl border border-[var(--hairline)] bg-white p-5 text-sm leading-relaxed text-charcoal/65 shadow-[0_16px_36px_-34px_rgba(20,22,28,.55)]"><CircleDot className="mt-0.5 h-5 w-5 flex-none text-[var(--key-blue)]" /><p><strong class="font-semibold text-charcoal">Ignore the supposed AI shortcuts.</strong> You do not need special files or gimmicks. Clear pages, correct shop information, helpful content, strong reviews, and real proof will do more for the business.</p></div>
+        </section>
+
+        <section id="how-turnkey-helps" class="-mx-4 mt-16 scroll-mt-28 bg-[var(--off-white)] px-4 py-12 sm:rounded-[32px] sm:px-8 md:mt-20 md:px-11 md:py-14" aria-labelledby="turnkey-heading">
+          <p class="eyebrow text-[var(--key-blue)]">How Turnkey helps</p>
+          <h2 id="turnkey-heading" class="article-section-heading mt-4 text-charcoal">
+            Turnkey keeps the whole <span class="block">marketing system working together.</span>
+          </h2>
+          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">You should not have to manage a website company, an SEO vendor, review tools, content, and reporting by yourself. Turnkey coordinates those pieces around the repairs you want more of and the customers your shop serves best.</p>
+          <div class="mt-9 grid gap-4 md:grid-cols-2">
+            <a href="/services/digital-marketing" class="motion-card group rounded-[24px] bg-white p-6 ring-1 ring-black/[0.06]">
+              <FileSearch className="h-7 w-7 text-[var(--navy)]" />
+              <h3 class="mt-5 font-display text-2xl font-semibold text-charcoal">Make your shop easier to find and trust</h3>
+              <p class="mt-3 leading-relaxed text-charcoal/62">Keep your website, Google Business Profile, reviews, and content accurate, useful, and focused on the work you want.</p>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">Explore digital marketing <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+            </a>
+            <a href="/services/vip-marketing-manager" class="motion-card group rounded-[24px] bg-white p-6 ring-1 ring-black/[0.06]">
+              <Bot className="h-7 w-7 text-[var(--navy)]" />
+              <h3 class="mt-5 font-display text-2xl font-semibold text-charcoal">Put one experienced team in charge</h3>
+              <p class="mt-3 leading-relaxed text-charcoal/62">Bring strategy, vendors, campaigns, reporting, and follow-through under one practical plan built for the shop.</p>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">Meet the VIP marketing manager <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+            </a>
+          </div>
+        </section>
+
+        <section id="sources" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="sources-heading">
+          <p class="eyebrow text-[var(--key-blue)]">Research notes</p>
+          <h2 id="sources-heading" class="display-3 mt-4 text-charcoal">What this guide is based on</h2>
+          <p class="mt-5 max-w-[65ch] leading-relaxed text-charcoal/62">AI search changes quickly. We checked current Google and OpenAI documentation, then used outside research only where it added useful context. Claims were reviewed on August 26, 2026.</p>
+          <ul class="mt-7 divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
+            {sources.map((source) => (
+              <li><a href={source.href} target="_blank" rel="noreferrer" class="group flex min-h-16 items-center justify-between gap-5 py-4"><span><span class="block font-semibold leading-snug text-charcoal group-hover:text-[var(--navy)]">{source.title}</span><span class="mt-1 block text-xs leading-relaxed text-charcoal/45">{source.publisher}</span></span><ArrowRight className="h-4 w-4 flex-none text-charcoal/35 transition group-hover:translate-x-1 group-hover:text-[var(--navy)]" /></a></li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <section class="relative overflow-hidden bg-[var(--navy)] py-14 text-white md:py-20">
+    <span class="pointer-events-none absolute -left-24 -top-28 h-80 w-80 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
+    <span class="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
+    <div class="container-page relative text-center">
+      <img src="/images/icons/ai-search-spark-white.svg" alt="" role="presentation" width="1200" height="1200" loading="lazy" decoding="async" class="ai-spark-icon mx-auto h-9 w-9" aria-hidden="true" />
+      <p class="eyebrow mt-5 text-[#9ed8f0]">See the starting point</p>
+      <h2 class="mx-auto mt-4 max-w-none font-display text-[1.85rem] font-semibold leading-[1.02] tracking-[-.05em] sm:text-5xl lg:text-[4.4rem]">
+        Would AI put your shop <span class="block">on the shortlist?</span>
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/65">See what an AI-powered search can find about your shop and where the biggest missed opportunity may be.</p>
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/ai-visibility-scan" class="btn-primary w-full justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white sm:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_final_scan">Run my free AI Visibility Scan <ArrowRight className="h-4 w-4" /></a>
+        <a href="/services/digital-marketing" class="btn-ghost w-full justify-center !border-white !bg-white !text-[var(--navy)] hover:!bg-[var(--key-blue-soft)] hover:!text-[var(--navy-deep)] sm:w-auto">Explore digital marketing</a>
+      </div>
+    </div>
+  </section>
+
+  {relatedPosts.length > 0 && (
+    <section class="bg-[var(--off-white)] py-14 md:py-20" aria-labelledby="related-reading-heading">
+      <div class="container-page">
+        <div class="flex items-end justify-between gap-5">
+          <div><p class="eyebrow text-[var(--key-blue)]">Keep building</p><h2 id="related-reading-heading" class="display-3 mt-3 text-charcoal">Related field guides</h2></div>
+          <a href="/resources" class="hidden items-center gap-2 text-sm font-semibold text-[var(--navy)] sm:inline-flex">All resources <ArrowRight className="h-4 w-4" /></a>
+        </div>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          {relatedPosts.map((relatedPost) => (
+            <a href={relatedPost.href} class="motion-card group overflow-hidden rounded-[26px] bg-white shadow-[0_22px_55px_-45px_rgba(20,22,28,.55)]">
+              <div class="aspect-[16/10] overflow-hidden bg-[var(--navy)]"><img src={relatedPost.image.src} alt={relatedPost.image.alt} width={relatedPost.imageWidth ?? 1200} height={relatedPost.imageHeight ?? 800} loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" style={`object-position:${relatedPost.image.position};`} /></div>
+              <div class="p-6"><p class="eyebrow text-[var(--key-blue)]">{relatedPost.tag}</p><h3 class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">{relatedPost.title}</h3><span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">Read guide <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span></div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</article>
+
+<script>
+  const progress = document.querySelector<HTMLElement>("[data-reading-progress]");
+  const sections = [...document.querySelectorAll<HTMLElement>("main section[id]")];
+  const navItems = [...document.querySelectorAll<HTMLAnchorElement>("[data-article-nav]")];
+
+  const updateArticleState = () => {
+    const article = document.querySelector<HTMLElement>("main article");
+    if (progress && article) {
+      const start = article.offsetTop;
+      const distance = Math.max(1, article.offsetHeight - window.innerHeight);
+      const percentage = Math.min(100, Math.max(0, ((window.scrollY - start) / distance) * 100));
+      progress.style.width = `${percentage}%`;
+    }
+
+    const marker = window.scrollY + 180;
+    let activeId = "";
+    for (const section of sections) {
+      if (section.offsetTop <= marker) activeId = section.id;
+    }
+    navItems.forEach((item) => item.classList.toggle("is-active", item.hash === `#${activeId}`));
+  };
+
+  window.addEventListener("scroll", updateArticleState, { passive: true });
+  window.addEventListener("resize", updateArticleState);
+  updateArticleState();
+</script>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 70;
+    height: 3px;
+    pointer-events: none;
+  }
+
+  .reading-progress span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--key-blue), var(--green));
+  }
+
+  .article-nav-link.is-active {
+    border-left-color: var(--key-blue);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .article-section-heading {
+    max-width: none;
+    text-wrap: balance;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+
+  .article-summary-heading {
+    max-width: none;
+    text-wrap: balance;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  @media (min-width: 640px) {
+    .article-summary-heading {
+      font-size: 2rem;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .article-section-heading {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .article-section-heading {
+      font-size: 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .article-section-heading {
+      font-size: 3.5rem;
+    }
+  }
+
+  .ai-spark-icon {
+    transform-origin: center;
+    animation: ai-spark-twinkle 4.2s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @keyframes ai-spark-twinkle {
+    0%,
+    18%,
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+
+    7% {
+      transform: rotate(10deg) scale(1.18);
+    }
+
+    12% {
+      transform: rotate(-4deg) scale(0.97);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress span,
+    .motion-card,
+    .motion-card img {
+      transition: none !important;
+    }
+
+    .ai-spark-icon {
+      animation: none !important;
+    }
+  }
+</style>

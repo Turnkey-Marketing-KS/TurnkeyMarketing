@@ -14,7 +14,7 @@ export type ResourcePost = {
   image: SiteImage;
   imageWidth?: number;
   imageHeight?: number;
-  layout?: "article" | "client-proof" | "marketing-ideas";
+  layout?: "article" | "client-proof" | "marketing-ideas" | "ai-search";
   client?: {
     name: string;
     company: string;
@@ -43,6 +43,55 @@ export type ResourcePost = {
 const resourcePath = (slug: string) => `/resources/${slug}`;
 
 export const resourcePosts: ResourcePost[] = [
+  {
+    slug: "ai-search-for-auto-repair-shops",
+    date: "Aug 2026",
+    originalDate: "2026-08-26",
+    updatedDate: "2026-08-26",
+    tag: "AI Search",
+    title: "Will AI Recommend Your Auto Repair Shop?",
+    seoTitle: "AI Search for Auto Repair Shops: How to Get Found | Turnkey",
+    seoDescription:
+      "Learn how AI search may compare auto repair shops, what Google’s automated calls mean, and which practical improvements can help your shop stand out.",
+    description:
+      "A plain-English guide to how AI search may affect independent auto repair shops and what owners can improve now.",
+    dek: "Drivers are starting to ask AI which shop to call, who works on their vehicle, and who can see them soon. Here is what that changes—and how to make your shop the easy choice.",
+    image: {
+      src: "/images/resources/ai-search-abstract-sports-car.jpg",
+      alt: "Abstract blurred silhouette of a sports car glowing in blue and coral light",
+      position: "50% 50%",
+    },
+    imageWidth: 2000,
+    imageHeight: 1119,
+    layout: "ai-search",
+    href: resourcePath("ai-search-for-auto-repair-shops"),
+    sourceAsset: "User-provided artwork.",
+    takeaways: [
+      "Make it clear which repairs, vehicles, and customers your shop serves best.",
+      "Keep your website, Google profile, reviews, photos, and contact information consistent.",
+      "Focus on qualified calls and booked work—not on chasing a secret AI ranking.",
+    ],
+    sections: [],
+    serviceLinks: [
+      {
+        href: "/services/digital-marketing",
+        label: "Strengthen local visibility",
+        description:
+          "Coordinate reviews, Google Business Profile work, website audits, and digital vendors.",
+      },
+      {
+        href: "/services/vip-marketing-manager",
+        label: "Put one team in charge",
+        description:
+          "Bring strategy, content, execution, vendor coordination, and reporting under one accountable team.",
+      },
+    ],
+    relatedSlugs: [
+      "auto-repair-marketing-ideas",
+      "auto-repair-shop-photography-guide",
+      "know-like-trust-marketing-filter",
+    ],
+  },
   {
     slug: "auto-repair-marketing-ideas",
     date: "Aug 2026",

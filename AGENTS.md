@@ -33,6 +33,10 @@ New pages must feel like part of the homepage design system. Reuse its visual la
 - Reuse `eyebrow`, `display-1`, `display-2`, `display-3`, `page-title`, `btn-primary`, `btn-ghost`, `motion-card`, and `card-float` before inventing new utilities.
 - Use the existing brand tokens from `src/styles.css`, including `--navy`, `--navy-deep`, `--key-blue`, `--green`, `--charcoal`, `--off-white`, and `--hairline`.
 - Use the homepage's rounded geometry: approximately 20–36px radii for cards, media, proof blocks, and feature panels; use pill shapes for primary buttons and small labels.
+- Do not use neutral light-gray fills for standalone cards or comparison panels. Use a crisp white surface with a deliberate border or shadow, an approved brand-tinted surface, or a dark brand panel instead. Off-white section bands may still be used when they create intentional page rhythm.
+- Do not use translucent or very low-opacity fills as card, callout, badge, or comparison-panel backgrounds. Choose an intentional solid brand color, crisp white, or a clearly defined brand gradient with readable contrast. Reserve opacity effects for non-content decoration such as ambient glows.
+- In constrained article columns, do not combine oversized display type with narrow character-width caps. Keep primary section headings to one or two intentional lines at desktop widths, using a controlled break and responsive type scale when needed.
+- Use visible numeric step markers only when exact order or dependency is essential. Do not stack multiple `01 / 02 / 03` design systems on one page; use descriptive category labels, icons, path markers, or directional layout for unordered concepts and supporting frameworks.
 - Prefer strong editorial hierarchy, short line lengths, balanced headings, generous whitespace, and clear contrast over dense grids or dashboard-like layouts.
 - Use existing Lucide icons and approved images from `src/lib/site-media.ts` where possible. Every meaningful image needs accurate alt text, explicit dimensions, and an appropriate loading strategy.
 - Motion must be subtle, use the shared motion classes/timings, and respect reduced-motion preferences. Do not add animation that delays reading or interaction.
@@ -40,6 +44,7 @@ New pages must feel like part of the homepage design system. Reuse its visual la
 ### Content and conversion pattern
 
 - Lead with the shop owner's problem or desired outcome, then explain the solution, process, proof, and next action.
+- Write automotive marketing copy for a busy independent shop owner, not an AI engineer or marketing specialist. Use plain language, connect ideas to calls, appointments, repair work, reviews, capacity, and revenue, and remove technical jargon that does not help the owner make a decision.
 - Include useful proof, specifics, or examples instead of unsupported marketing claims.
 - Add descriptive contextual links to the page's owning service and related resources.
 - Keep calls to action specific and consistent with the page's intent; do not place competing primary actions in the same section.
