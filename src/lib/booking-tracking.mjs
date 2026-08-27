@@ -1,6 +1,9 @@
 export const ATTRIBUTION_STORAGE_KEY = "turnkey_attribution_v2";
 export const LEGACY_ATTRIBUTION_STORAGE_KEYS = ["turnkey_attribution_v1"];
 export const BOOKING_EVENT_STORAGE_KEY = "turnkey_appointment_booked_sent_at";
+export const MAIN_WEBSITE_GHL_BOOKING_EVENT_STORAGE_KEY = "turnkey_main_website_ghl_booking_sent";
+export const MAIN_WEBSITE_GHL_CALENDAR_ID = "wDWczTxA5kEbkEWoqzLC";
+export const MAIN_WEBSITE_GHL_BOOKING_URL = `https://api.leadconnectorhq.com/widget/booking/${MAIN_WEBSITE_GHL_CALENDAR_ID}`;
 
 export const ATTRIBUTION_PARAM_KEYS = [
   "utm_source",
@@ -22,6 +25,7 @@ const BOOKING_EVENT_DEDUPE_WINDOW_MS = 30 * 60 * 1000;
 const DEFAULT_SITE_ORIGIN = "https://www.turnkeyautomarketing.com";
 const GA4_MEASUREMENT_ID = "G-XJZ35N9FWG";
 const APPOINTMENTCORE_CALENDAR_VIEW_FLAG = "__tkAppointmentCoreCalendarViewed";
+const MAIN_WEBSITE_GHL_CALENDAR_VIEW_FLAG = "__tkMainWebsiteGhlCalendarViewed";
 const PII_QUERY_KEY_PATTERN =
   /(?:^|[_-])(?:e-?mail|phone|mobile|tel|telephone|name|first_?name|last_?name|full_?name|address|street|city|state|zip|postal(?:_?code)?|dob|birth(?:day|date)?|ssn|message|details)(?:$|[_-])/i;
 const EMAIL_VALUE_PATTERN = /\b[^\s@]+@[^\s@]+\.[^\s@]+\b/i;
@@ -394,6 +398,34 @@ export function decorateUrlWithAttribution(
   return url.toString();
 }
 
+export function decorateGhlCalendarUrlWithAttribution(
+  href,
+  attribution,
+  expectedCalendarId = MAIN_WEBSITE_GHL_CALENDAR_ID,
+) {
+  const url = safeUrl(href, MAIN_WEBSITE_GHL_BOOKING_URL);
+  const cleanedCalendarId = cleanIdentifier(expectedCalendarId);
+  if (
+    !url ||
+    url.protocol !== "https:" ||
+    url.hostname !== "api.leadconnectorhq.com" ||
+    url.pathname !== `/widget/booking/${cleanedCalendarId}`
+  ) {
+    return href;
+  }
+
+  stripPiiQueryParams(url);
+  const params = buildAttributionQueryParams(attribution);
+  const gaClientId = params.get("tk_ga_client_id");
+  const gaSessionId = params.get("tk_ga_session_id");
+  params.delete("tk_ga_client_id");
+  params.delete("tk_ga_session_id");
+  if (gaClientId) params.set("tk_ga4_client_id", gaClientId);
+  if (gaSessionId) params.set("tk_ga4_session_id", gaSessionId);
+  params.forEach((value, key) => url.searchParams.set(key, value));
+  return url.toString();
+}
+
 function appendEventAttribution(params, attribution) {
   const cleaned = normalizeStoredAttribution(attribution);
   ATTRIBUTION_PARAM_KEYS.forEach((key) => {
@@ -418,11 +450,15 @@ function appendEventAttribution(params, attribution) {
   if (cleaned.first_referrer) params.landing_referrer = cleaned.first_referrer;
 }
 
-export function buildBookingEventParams(attribution, confirmationPath) {
+export function buildBookingEventParams(
+  attribution,
+  confirmationPath,
+  { bookingProvider = "appointmentcore", bookingFunnel = "main_website" } = {},
+) {
   const params = {
     appointment_type: "30_minute_marketing_consultation",
-    booking_provider: "appointmentcore",
-    booking_funnel: "main_website",
+    booking_provider: bookingProvider,
+    booking_funnel: bookingFunnel,
     lead_source: "appointment_booking",
     confirmation_path: cleanValue(confirmationPath) || "/booking-confirmed",
   };
@@ -550,23 +586,53 @@ export function trackAppointmentCoreCalendarViewed(targetWindow) {
   return true;
 }
 
-function wasRecentlyTracked(targetWindow, now) {
+export function trackMainWebsiteGhlCalendarViewed(targetWindow) {
+  if (targetWindow[MAIN_WEBSITE_GHL_CALENDAR_VIEW_FLAG]) return false;
+
+  const currentUrl = safeUrl(targetWindow.location?.href, DEFAULT_SITE_ORIGIN);
+  if (currentUrl?.pathname !== "/contact") return false;
+
+  const calendarFrames = targetWindow.document.querySelectorAll(
+    'iframe[data-tk-booking-provider="ghl_calendar"]',
+  );
+  const hasMainWebsiteCalendar = [...calendarFrames].some((frame) => {
+    const source = frame.getAttribute("data-src") || frame.getAttribute("src") || "";
+    return source.includes(`/widget/booking/${MAIN_WEBSITE_GHL_CALENDAR_ID}`);
+  });
+  if (!hasMainWebsiteCalendar) return false;
+
+  targetWindow[MAIN_WEBSITE_GHL_CALENDAR_VIEW_FLAG] = true;
+  dispatchAnalyticsEvent(targetWindow, "booking_calendar_viewed", {
+    booking_provider: "ghl_calendar",
+    booking_funnel: "main_website",
+  });
+  return true;
+}
+
+function wasRecentlyTracked(targetWindow, now, storageKey) {
   try {
-    const trackedAt = Number(targetWindow.sessionStorage.getItem(BOOKING_EVENT_STORAGE_KEY) || 0);
+    const trackedAt = Number(targetWindow.sessionStorage.getItem(storageKey) || 0);
     return trackedAt > 0 && now - trackedAt < BOOKING_EVENT_DEDUPE_WINDOW_MS;
   } catch (_) {
     return false;
   }
 }
 
-export function trackAppointmentBooked(targetWindow, confirmationPath) {
+function trackConfirmedBooking(
+  targetWindow,
+  confirmationPath,
+  { bookingProvider, bookingFunnel, storageKey },
+) {
   const now = Date.now();
-  if (wasRecentlyTracked(targetWindow, now)) return false;
+  if (wasRecentlyTracked(targetWindow, now, storageKey)) return false;
 
   const attribution = initializeAttributionTracking(targetWindow);
-  const eventParams = buildBookingEventParams(attribution, confirmationPath);
+  const eventParams = buildBookingEventParams(attribution, confirmationPath, {
+    bookingProvider,
+    bookingFunnel,
+  });
   try {
-    targetWindow.sessionStorage.setItem(BOOKING_EVENT_STORAGE_KEY, String(now));
+    targetWindow.sessionStorage.setItem(storageKey, String(now));
   } catch (_) {}
 
   dispatchAnalyticsEvent(targetWindow, "appointment_booked", eventParams);
@@ -574,9 +640,28 @@ export function trackAppointmentBooked(targetWindow, confirmationPath) {
   if (typeof targetWindow.fbq === "function") {
     targetWindow.fbq("track", "Lead", {
       content_name: "Strategy Call",
-      booking_provider: "appointmentcore",
+      booking_provider: bookingProvider,
       lead_source: "appointment_booking",
     });
   }
   return true;
+}
+
+export function trackAppointmentBooked(targetWindow, confirmationPath) {
+  return trackConfirmedBooking(targetWindow, confirmationPath, {
+    bookingProvider: "appointmentcore",
+    bookingFunnel: "main_website",
+    storageKey: BOOKING_EVENT_STORAGE_KEY,
+  });
+}
+
+export function trackMainWebsiteGhlBooking(
+  targetWindow,
+  confirmationPath = "/website-call-booked",
+) {
+  return trackConfirmedBooking(targetWindow, confirmationPath, {
+    bookingProvider: "ghl_calendar",
+    bookingFunnel: "main_website",
+    storageKey: MAIN_WEBSITE_GHL_BOOKING_EVENT_STORAGE_KEY,
+  });
 }

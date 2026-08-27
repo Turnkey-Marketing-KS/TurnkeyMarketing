@@ -5,7 +5,10 @@ import test from "node:test";
 
 import {
   ATTRIBUTION_STORAGE_KEY,
+  MAIN_WEBSITE_GHL_BOOKING_EVENT_STORAGE_KEY,
+  MAIN_WEBSITE_GHL_BOOKING_URL,
   buildBookingEventParams,
+  decorateGhlCalendarUrlWithAttribution,
   decorateUrlWithAttribution,
   initializeAttributionTracking,
   isGooglePaidAttribution,
@@ -14,6 +17,8 @@ import {
   sanitizeUrlForAttribution,
   trackAppointmentCoreCalendarViewed,
   trackAppointmentBooked,
+  trackMainWebsiteGhlBooking,
+  trackMainWebsiteGhlCalendarViewed,
 } from "../src/lib/booking-tracking.mjs";
 
 const FIRST_TIME = "2026-08-20T15:00:00.000Z";
@@ -28,8 +33,8 @@ function createStorage(values = new Map()) {
   };
 }
 
-function createElement(attribute, value) {
-  const attributes = new Map([[attribute, value]]);
+function createElement(attribute, value, extraAttributes = {}) {
+  const attributes = new Map([[attribute, value], ...Object.entries(extraAttributes)]);
   return {
     get src() {
       return attributes.get("src") || "";
@@ -59,6 +64,7 @@ function createTrackingWindow(
       querySelectorAll: (selector) => {
         if (selector === 'a[href^="/contact"]') return links;
         if (selector === 'iframe[src*="appointmentcore.com/book/"]') return frames;
+        if (selector === 'iframe[data-tk-booking-provider="ghl_calendar"]') return frames;
         return [];
       },
     },
@@ -186,6 +192,49 @@ test("never decorates the cross-origin AppointmentCore URL", () => {
   );
 
   assert.equal(decorated, appointmentCoreUrl);
+});
+
+test("decorates only the allowlisted main-site GHL calendar without PII", () => {
+  const attribution = mergeAttribution({
+    href: "https://www.turnkeyautomarketing.com/?gclid=click-1&utm_source=google&utm_medium=cpc&utm_campaign=shops",
+    referrer: "https://www.google.com/",
+    now: FIRST_TIME,
+    trackingSessionId: TRACKING_ID,
+  });
+  attribution.ga_client_id = "12345.67890";
+  attribution.ga_session_id = "1760000000";
+
+  const decorated = new URL(
+    decorateGhlCalendarUrlWithAttribution(
+      `${MAIN_WEBSITE_GHL_BOOKING_URL}?name=Kyle&email=owner%40shop.com&phone=9134270674`,
+      attribution,
+    ),
+  );
+
+  assert.equal(decorated.origin, "https://api.leadconnectorhq.com");
+  assert.equal(decorated.pathname, "/widget/booking/wDWczTxA5kEbkEWoqzLC");
+  assert.equal(decorated.searchParams.get("gclid"), "click-1");
+  assert.equal(decorated.searchParams.get("utm_source"), "google");
+  assert.equal(decorated.searchParams.get("tk_tracking_session_id"), TRACKING_ID);
+  assert.equal(decorated.searchParams.get("tk_ga4_client_id"), "12345.67890");
+  assert.equal(decorated.searchParams.get("tk_ga4_session_id"), "1760000000");
+  assert.equal(decorated.searchParams.get("name"), null);
+  assert.equal(decorated.searchParams.get("email"), null);
+  assert.equal(decorated.searchParams.get("phone"), null);
+  assert.doesNotMatch(decorated.toString(), /owner%40shop|owner@shop|9134270674/i);
+
+  const paidCalendarUrl = "https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d";
+  assert.equal(
+    decorateGhlCalendarUrlWithAttribution(paidCalendarUrl, attribution),
+    paidCalendarUrl,
+  );
+  assert.equal(
+    decorateGhlCalendarUrlWithAttribution(
+      "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1",
+      attribution,
+    ),
+    "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1",
+  );
 });
 
 test("initialization leaves internal links and the existing iframe unchanged", () => {
@@ -351,7 +400,7 @@ test("repeat initialization never makes an attribution network request", () => {
   assert.equal(requests.length, 0);
 });
 
-test("contact records one low-cardinality AppointmentCore calendar view per page load", () => {
+test("legacy AppointmentCore view tracking remains available during the transition", () => {
   const storage = createStorage();
   const frame = createElement("src", "https://go.appointmentcore.com/book/7uUZaGNRL6?d=Slots&e=1");
   const contactWindow = createTrackingWindow("https://www.turnkeyautomarketing.com/contact#book", {
@@ -379,6 +428,38 @@ test("contact records one low-cardinality AppointmentCore calendar view per page
   });
   initializeAttributionTracking(reloadedWindow);
   assert.equal(reloadedWindow.dataLayer.length, 1);
+});
+
+test("contact records one provider-neutral main-site GHL calendar view per page load", () => {
+  const frame = createElement("data-src", MAIN_WEBSITE_GHL_BOOKING_URL, {
+    "data-tk-booking-provider": "ghl_calendar",
+  });
+  const contactWindow = createTrackingWindow("https://www.turnkeyautomarketing.com/contact#book", {
+    referrer: "https://www.turnkeyautomarketing.com/",
+    frames: [frame],
+  });
+
+  assert.equal(trackMainWebsiteGhlCalendarViewed(contactWindow), true);
+  assert.equal(trackMainWebsiteGhlCalendarViewed(contactWindow), false);
+  assert.deepEqual(contactWindow.dataLayer, [
+    {
+      event: "booking_calendar_viewed",
+      booking_provider: "ghl_calendar",
+      booking_funnel: "main_website",
+    },
+  ]);
+
+  const paidFrame = createElement(
+    "data-src",
+    "https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d",
+    { "data-tk-booking-provider": "ghl_calendar" },
+  );
+  const paidPageWindow = createTrackingWindow(
+    "https://www.turnkeyautomarketing.com/lp/auto-repair-marketing/book",
+    { frames: [paidFrame] },
+  );
+  assert.equal(trackMainWebsiteGhlCalendarViewed(paidPageWindow), false);
+  assert.deepEqual(paidPageWindow.dataLayer, []);
 });
 
 test("a consultation CTA alone does not emit calendar or booked events", () => {
@@ -480,6 +561,43 @@ test("booking confirmation preserves event semantics and dedupe without Ads conv
     ["appointment_booked", "generate_lead"],
   );
   assert.equal(isGooglePaidAttribution(organicWindow.tkAttribution), false);
+});
+
+test("main-site GHL confirmation uses isolated metadata and dedupe without Ads conversion", () => {
+  const storage = createStorage();
+  const mainWebsiteWindow = createTrackingWindow(
+    "https://www.turnkeyautomarketing.com/website-call-booked?gclid=paid-click&utm_source=google&utm_medium=cpc&utm_campaign=shops",
+    {
+      referrer: "https://api.leadconnectorhq.com/",
+      storage,
+    },
+  );
+
+  assert.equal(trackMainWebsiteGhlBooking(mainWebsiteWindow), true);
+  assert.deepEqual(
+    mainWebsiteWindow.dataLayer.map((event) => event.event),
+    ["appointment_booked", "generate_lead"],
+  );
+  assert.equal(mainWebsiteWindow.dataLayer[0].booking_provider, "ghl_calendar");
+  assert.equal(mainWebsiteWindow.dataLayer[0].booking_funnel, "main_website");
+  assert.equal(mainWebsiteWindow.dataLayer[0].confirmation_path, "/website-call-booked");
+  assert.equal(mainWebsiteWindow.dataLayer[0].gclid, "paid-click");
+  assert.equal(
+    mainWebsiteWindow.dataLayer.some(
+      (event) => event.send_to === "AW-18358810922/8Oy4CJqVtuMcEKrylLJE",
+    ),
+    false,
+  );
+  assert.ok(storage.getItem(MAIN_WEBSITE_GHL_BOOKING_EVENT_STORAGE_KEY));
+  assert.equal(trackMainWebsiteGhlBooking(mainWebsiteWindow), false);
+  assert.equal(mainWebsiteWindow.dataLayer.length, 2);
+
+  const legacyWindow = createTrackingWindow(
+    "https://www.turnkeyautomarketing.com/booking-confirmed",
+    { referrer: "https://go.appointmentcore.com/", storage },
+  );
+  assert.equal(trackAppointmentBooked(legacyWindow, "/booking-confirmed"), true);
+  assert.equal(legacyWindow.dataLayer[0].booking_provider, "appointmentcore");
 });
 
 test("booking confirmation retains paid attribution without emitting Ads conversion", () => {
@@ -586,6 +704,10 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
     path.join(workspaceRoot, "src/pages/booking-confirmed.astro"),
     "utf8",
   );
+  const mainWebsiteConfirmationSource = readFileSync(
+    path.join(workspaceRoot, "src/pages/website-call-booked.astro"),
+    "utf8",
+  );
   const trackingSource = readFileSync(
     path.join(workspaceRoot, "src/lib/booking-tracking.mjs"),
     "utf8",
@@ -610,13 +732,21 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   const appointmentBookedPageFiles = pageFiles
     .filter((file) => /trackAppointmentBooked/.test(readFileSync(file, "utf8")))
     .map((file) => path.relative(path.join(workspaceRoot, "src/pages"), file));
+  const mainWebsiteGhlBookedPageFiles = pageFiles
+    .filter((file) => /trackMainWebsiteGhlBooking/.test(readFileSync(file, "utf8")))
+    .map((file) => path.relative(path.join(workspaceRoot, "src/pages"), file));
+  const bookedConsultationConversionPageFiles = pageFiles
+    .filter((file) => /AW-18358810922\/8Oy4CJqVtuMcEKrylLJE/.test(readFileSync(file, "utf8")))
+    .map((file) => path.relative(path.join(workspaceRoot, "src/pages"), file));
 
   assert.equal((contactSource.match(/<iframe\b/gi) || []).length, 1);
-  assert.match(
-    contactSource,
-    /go\.appointmentcore\.com\/frontend\/js\/app\/booking-link-embed-helper\.js/,
-  );
-  assert.match(contactSource, /src=\{APPOINTMENTCORE_BOOKING_URL\}/);
+  assert.match(contactSource, /leadconnectorhq\.com\/widget\/booking\/wDWczTxA5kEbkEWoqzLC/);
+  assert.match(contactSource, /data-tk-booking-provider="ghl_calendar"/);
+  assert.match(contactSource, /booking_calendar_viewed|trackMainWebsiteGhlCalendarViewed/);
+  assert.match(contactSource, /booking_funnel|trackMainWebsiteGhlCalendarViewed/);
+  assert.doesNotMatch(contactSource, /appointmentcore\.com/i);
+  assert.doesNotMatch(contactSource, /booking-link-embed-helper/i);
+  assert.doesNotMatch(contactSource, /<form\b/i);
   assert.match(servicesSource, /https:\/\/go\.appointmentcore\.com\/book\/7uUZaGNRL6\?d=Slots&e=1/);
   assert.doesNotMatch(
     trackingSource,
@@ -659,6 +789,8 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   assert.match(paidBookingControllerSource, /booking_funnel: "google_ads_landing_page"/);
   assert.match(paidBookingControllerSource, /window\.location\.assign\(destination\)/);
   assert.doesNotMatch(baseLayoutSource, /G-1468YCTQJ3/);
+  assert.doesNotMatch(contactSource, /G-1468YCTQJ3/);
+  assert.doesNotMatch(mainWebsiteConfirmationSource, /G-1468YCTQJ3/);
   assert.doesNotMatch(paidLandingSource, /G-1468YCTQJ3/);
   assert.doesNotMatch(paidBookingPageSource, /G-1468YCTQJ3/);
   assert.equal((baseLayoutSource.match(/gtag\/js\?id=G-XJZ35N9FWG/g) || []).length, 1);
@@ -677,7 +809,17 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
     bookingConfirmationSource,
     /trackAppointmentBooked\(window, "\/booking-confirmed"\)/,
   );
+  assert.match(
+    mainWebsiteConfirmationSource,
+    /trackMainWebsiteGhlBooking\(window, "\/website-call-booked"\)/,
+  );
+  assert.doesNotMatch(
+    mainWebsiteConfirmationSource,
+    /8Oy4CJqVtuMcEKrylLJE|send_to|google_ads_call_booked/,
+  );
   assert.deepEqual(appointmentBookedPageFiles, ["booking-confirmed.astro"]);
+  assert.deepEqual(mainWebsiteGhlBookedPageFiles, ["website-call-booked.astro"]);
+  assert.deepEqual(bookedConsultationConversionPageFiles, ["google-ads-call-booked.astro"]);
   assert.match(baseLayoutSource, /target\.dataset\.trackEvent/);
   assert.equal((visibilityScanSource.match(/<form\b/gi) || []).length, 2);
   assert.match(visibilityScanSource, /<form id="scan-form"/);
