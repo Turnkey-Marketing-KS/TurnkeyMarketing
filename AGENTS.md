@@ -41,6 +41,13 @@ New pages must feel like part of the homepage design system. Reuse its visual la
 - Use existing Lucide icons and approved images from `src/lib/site-media.ts` where possible. Every meaningful image needs accurate alt text, explicit dimensions, and an appropriate loading strategy.
 - Motion must be subtle, use the shared motion classes/timings, and respect reduced-motion preferences. Do not add animation that delays reading or interaction.
 
+### Heading line-break quality
+
+- Treat heading wraps as an editorial design decision, not an accidental result of a narrow `max-width`.
+- Verify every display heading at narrow mobile, tablet, and desktop widths. Avoid orphaned words, dangling articles, single-word final lines, and breaks that separate closely related phrases such as adjective–noun or noun–noun pairs.
+- Prefer responsive widths and balanced wrapping. Use deliberate block spans or a narrowly scoped `whitespace-nowrap` only when the phrase remains readable without causing overflow at every tested width.
+- Do not use unconditional `<br>` elements that create awkward mobile wraps. Adjust the copy, font sizing, or responsive width when one forced break cannot work across breakpoints.
+
 ### Content and conversion pattern
 
 - Lead with the shop owner's problem or desired outcome, then explain the solution, process, proof, and next action.
@@ -70,3 +77,4 @@ Before considering a new page complete:
 3. Confirm one visible H1, valid metadata, canonical URL, sitemap inclusion when indexable, and intentional internal links.
 4. Confirm images have dimensions, alt text, and sensible loading behavior.
 5. Confirm CTA and analytics attributes match existing site conventions.
+6. Review every display heading at mobile, tablet, and desktop widths and correct awkward or misleading line breaks.

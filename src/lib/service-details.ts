@@ -294,12 +294,22 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   "directtrack-marketing": {
     image: siteMedia.graphics.serviceDirectTrack,
+    sectionHeadings: {
+      problems: "More advertising does not fix a plan nobody is directing.",
+      included: "A targeted acquisition lane Turnkey manages directly.",
+      process: "Set the direction, launch the lane, then connect it to the whole plan.",
+    },
+    scope: {
+      title: "What DirectTrack is—and how it fits",
+      description:
+        "Turnkey directly plans and manages DirectTrack's targeted email, streaming TV, and geofenced display campaigns. When your broader plan also uses Google Ads, LSA, a website partner, or another media vendor, Consulting or VIP can coordinate the goals, message, handoffs, and reporting so those channels stop operating in separate silos.",
+    },
     hero: {
       badge: "New service",
       headline: "New customers you can",
       headlineAccent: "track to the dollar.",
       subhead:
-        "DirectTrack combines targeted email, streaming TV commercials, and geofenced display ads into one acquisition lane — with monthly ROI reporting that shows exactly what your spend brought back.",
+        "DirectTrack is the part of your auto repair advertising plan Turnkey delivers directly: targeted email, streaming TV, and geofenced display working as one acquisition lane, with monthly reporting that connects spend to real shop activity.",
       stats: [
         {
           value: "3 channels",
@@ -381,7 +391,11 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "Does this replace my Google Ads?",
-        a: "No — it runs alongside search. Google Ads catches people already searching for a shop; DirectTrack builds demand in households before they search.",
+        a: "No. DirectTrack is designed to run alongside search. Google Ads can reach people already looking for a shop; DirectTrack builds and measures demand among targeted local households before and beyond that search. If you want Turnkey to oversee both lanes, we confirm the right Consulting or VIP scope before work begins.",
+      },
+      {
+        q: "Can Turnkey coordinate my Google Ads, LSA, website, or other advertising vendors?",
+        a: "Yes, when vendor oversight is included in your Consulting or VIP relationship. We give each partner a clearer objective, audience, message, handoff, and reporting expectation while DirectTrack remains the targeted acquisition lane Turnkey runs directly.",
       },
       {
         q: "How long until I see results?",

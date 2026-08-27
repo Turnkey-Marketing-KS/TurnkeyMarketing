@@ -141,6 +141,11 @@ export const siteMedia = {
       alt: "Stylized blue mailbox representing direct mail marketing campaigns",
       position: "50% 50%",
     },
+    advertisingGoogleSearch: {
+      src: "/images/resources/auto-repair-advertising-google-search.webp",
+      alt: "Person researching Google Search on a laptop beside a cup of coffee",
+      position: "50% 50%",
+    },
     serviceVipMarketing: {
       src: "/images/services/vip-marketing-manager-hero.jpg",
       alt: "Stylized marketing command center representing Turnkey's VIP Marketing Manager service",

@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import MarketingIcon, { type IconName } from "@/components/site/MarketingIcon.astro";
 import { getResourcePost, type ResourcePost } from "@/lib/resource-posts";
-import { CONSULTATION_URL } from "@/lib/services";
 
 interface Props {
   post: ResourcePost;
@@ -138,6 +137,10 @@ const ideaGroups = [
         body: "Define the exact days, services, technician capacity, and number of appointments the shop can accept. Then choose an audience and message that can act inside that window. A modest email, text, direct-mail, or targeted digital campaign tied to a real schedule gap is more defensible than a broad discount launched after the bays are already empty.",
         measure: "Booked and completed appointments inside the target dates.",
         watch: "Marketing cannot rescue a gap if creative, approvals, lists, or staff preparation begin too late.",
+        link: {
+          href: "/services/directtrack-marketing",
+          label: "Explore targeted campaigns with DirectTrack",
+        },
       },
       {
         number: "6",
@@ -184,6 +187,10 @@ const ideaGroups = [
         body: "Send a brief thank-you, explain how to reach the shop, remind the customer where inspections or records can be found, and introduce the next appropriate service touchpoint. A simple 30-, 60-, and 90-day sequence can build familiarity without sending three sales offers. Each message should have one job and one obvious next action.",
         measure: "Message engagement, second-visit rate, and time to the next appointment.",
         watch: "Automation should sound like the shop and stop when the message is no longer relevant.",
+        link: {
+          href: "/services/retention-marketing",
+          label: "See how Turnkey supports customer retention",
+        },
       },
       {
         number: "10",
@@ -235,6 +242,10 @@ const ideaGroups = [
         body: "Thank the customer, reflect a specific part of the experience when appropriate, and show the shop's communication style. For a negative review, stay calm, avoid discussing private repair details, and offer a direct path to continue the conversation. The response is not only for the reviewer; it helps future customers understand how the shop handles praise and problems.",
         measure: "Response coverage, response time, recurring themes, and recovered relationships.",
         watch: "Do not argue, reveal customer information, or paste the same promotional paragraph under every review.",
+        link: {
+          href: "/services/digital-marketing",
+          label: "See how Turnkey supports reviews and local visibility",
+        },
       },
       {
         number: "14",
@@ -273,6 +284,10 @@ const ideaGroups = [
         body: "Align the audience, offer, landing page, phone greeting, advisor explanation, and follow-up around the same customer need. Give the team the exact campaign details before launch and listen to a sample of real calls. When the front counter understands who the message is for and why it matters, the marketing promise has a better chance of becoming the right repair order.",
         measure: "Qualified-call rate, booking rate, show rate, and completed targeted work.",
         watch: "More traffic will not fix a confusing offer, a weak handoff, or a schedule that cannot accept the work.",
+        link: {
+          href: "/services/directtrack-marketing",
+          label: "See how DirectTrack connects targeting and measurement",
+        },
       },
     ],
   },
@@ -404,7 +419,10 @@ const readMinutes = Math.max(1, Math.round(wordSource.split(/\s+/).length / 225)
         </div>
         <div>
           <p class="max-w-[62ch] text-xl leading-relaxed text-charcoal/70">
-            Effective auto repair marketing usually has one of five jobs: attract a better-fit new customer, fill a known capacity gap, earn another visit, reduce uncertainty, or improve the work mix. Decide which job matters now before choosing a channel.
+            This guide helps you choose an idea based on the shop problem in front of you. Effective auto repair marketing usually has one of five jobs: attract a better-fit new customer, fill a known capacity gap, earn another visit, reduce uncertainty, or improve the work mix. Decide which job matters now before choosing a channel. For the commercial overview,
+            <a href="/" class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]">
+              see how Turnkey approaches auto repair marketing for independent shops
+            </a>.
           </p>
           <ul class="mt-9 grid gap-6 sm:grid-cols-3">
             {post.takeaways.map((takeaway) => (
@@ -531,6 +549,9 @@ const readMinutes = Math.max(1, Math.round(wordSource.split(/\s+/).length / 225)
                         class="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/35 underline-offset-4 transition hover:decoration-[var(--key-blue)]"
                         target={idea.link.external ? "_blank" : undefined}
                         rel={idea.link.external ? "noreferrer" : undefined}
+                        data-track-event={idea.link.href.startsWith("/services/") ? "service_cta_click" : undefined}
+                        data-track-slug={idea.link.href.startsWith("/services/") ? idea.link.href.replace("/services/", "") : undefined}
+                        data-track-placement={idea.link.href.startsWith("/services/") ? "resource_marketing_ideas_inline" : undefined}
                       >
                         {idea.link.label}
                         <ArrowRight className="h-4 w-4" />
@@ -659,19 +680,20 @@ const readMinutes = Math.max(1, Math.round(wordSource.split(/\s+/).length / 225)
           <div>
             <p class="eyebrow !text-[var(--green)]">Your next move</p>
             <h2 class="mt-4 max-w-[16ch] font-display text-3xl font-semibold leading-tight md:text-5xl">
-              Not sure which idea fits your shop?
+              Need someone to own the full marketing plan?
             </h2>
             <p class="mt-5 max-w-[58ch] text-base leading-relaxed text-white/70 md:text-lg">
-              Bring us your goals, capacity, current vendors, and recent results. We will help you identify what to keep, fix, stop, and run next.
+              A VIP Marketing Manager builds the plan, coordinates the people and vendors, keeps the work moving, and turns reporting into the next decision while you stay focused on the shop.
             </p>
           </div>
           <a
-            href={CONSULTATION_URL}
+            href="/services/vip-marketing-manager"
             class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[var(--green)] px-7 py-4 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105 sm:w-fit"
-            data-track-event="consultation_cta_click"
+            data-track-event="service_cta_click"
+            data-track-slug="vip-marketing-manager"
             data-track-placement="resource_marketing_ideas_bottom"
           >
-            Choose What to Run Next
+            See VIP Marketing Manager
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>

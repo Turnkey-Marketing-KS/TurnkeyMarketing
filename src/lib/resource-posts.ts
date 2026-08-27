@@ -14,7 +14,7 @@ export type ResourcePost = {
   image: SiteImage;
   imageWidth?: number;
   imageHeight?: number;
-  layout?: "article" | "client-proof" | "marketing-ideas" | "ai-search";
+  layout?: "article" | "client-proof" | "marketing-ideas" | "ai-search" | "advertising-guide";
   client?: {
     name: string;
     company: string;
@@ -32,22 +32,26 @@ export type ResourcePost = {
     body: string;
     bullets?: string[];
   }[];
+  faqs?: {
+    q: string;
+    a: string;
+  }[];
   serviceLinks?: {
     href: string;
     label: string;
     description: string;
   }[];
   relatedSlugs?: string[];
-  externalSources: {
+  faq?: Array<{
+    question: string;
+    answer: string;
+  }>;
+  externalSources?: {
     href: string;
     label: string;
     publisher: string;
     description: string;
   }[];
-  faq?: Array<{
-    question: string;
-    answer: string;
-  }>;
 };
 
 const resourcePath = (slug: string) => `/resources/${slug}`;
@@ -159,9 +163,9 @@ export const resourcePosts: ResourcePost[] = [
   },
   {
     slug: "auto-repair-marketing-ideas",
-    date: "Aug 2026",
+    date: "Updated Aug 2026",
     originalDate: "2026-08-14",
-    updatedDate: "2026-08-14",
+    updatedDate: "2026-08-27",
     tag: "Planning",
     title: "Auto Repair Marketing Ideas for the Problem in Front of You",
     seoTitle: "Auto Repair Marketing Ideas for Independent Shops | Turnkey",
@@ -169,7 +173,7 @@ export const resourcePosts: ResourcePost[] = [
       "Find practical auto repair marketing ideas for attracting better customers, filling slow bays, earning trust, and bringing past customers back.",
     description:
       "A decision guide for choosing the right marketing move based on the problem your shop needs to solve.",
-    dek: "The best marketing idea is not the newest channel. It is the move that addresses the constraint currently holding back your shop.",
+    dek: "Use this decision guide to choose the right marketing idea for the specific shop problem in front of you—not simply the newest channel.",
     image: siteMedia.hero,
     imageWidth: 1200,
     imageHeight: 800,
@@ -182,6 +186,28 @@ export const resourcePosts: ResourcePost[] = [
       "Measure the path from response to booked work and the next visit—not only impressions or leads.",
     ],
     sections: [],
+    faq: [
+      {
+        question: "What is the best marketing idea for an auto repair shop?",
+        answer:
+          "The best idea is the one that solves the shop's current constraint. A shop that needs new customers may need stronger local visibility or targeted acquisition, while a shop with an active customer base may get a faster return from retention, reactivation, or declined-work follow-up.",
+      },
+      {
+        question: "How should a repair shop choose which marketing channel to use?",
+        answer:
+          "Start with the audience, the result the shop needs, and the timeframe. Then choose a channel that can reach that audience in time, assign one person to own the campaign, and decide how calls, appointments, and completed work will be measured before launch.",
+      },
+      {
+        question: "What are some low-cost marketing ideas for an auto repair shop?",
+        answer:
+          "Useful low-cost options include improving the Google Business Profile, asking eligible customers for honest reviews, following up on declined work, reactivating past customers, and turning common advisor questions into helpful content. These ideas still require staff time and consistent follow-through, so they should be planned like any other campaign.",
+      },
+      {
+        question: "How do you know whether an auto repair marketing idea is working?",
+        answer:
+          "Track the path from the response to the business result: calls or forms, booked appointments, show rate, completed repair orders, customer fit, and revenue. Impressions and clicks can explain what happened, but they should not be the only evidence used to keep funding a campaign.",
+      },
+    ],
     externalSources: [
       {
         href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
@@ -205,31 +231,104 @@ export const resourcePosts: ResourcePost[] = [
           "USPS guidance for selecting local routes, audience characteristics, mailpiece formats, and drop dates.",
       },
     ],
-    faq: [
+    relatedSlugs: [
+      "auto-repair-advertising",
+      "auto-repair-marketing-plan",
+      "ideal-customer-profile-auto-repair-shop",
+      "direct-mail-for-repair-shops",
+    ],
+  },
+  {
+    slug: "auto-repair-advertising",
+    date: "Aug 2026",
+    originalDate: "2026-08-27",
+    updatedDate: "2026-08-27",
+    tag: "Advertising",
+    title: "Auto Repair Advertising: One Plan for Every Channel",
+    seoTitle: "Auto Repair Advertising: Strategy for Every Channel",
+    seoDescription:
+      "Build a coordinated auto repair advertising plan with clear channel roles, vendor oversight, stronger offers, and measurement from calls to repair orders.",
+    description:
+      "A shop-owner guide to choosing advertising channels, directing vendors, and measuring what turns into booked and completed work.",
+    dek: "You should not have to become the marketing manager for every ad vendor. Start with one plan, give each channel a job, and hold the entire system accountable to the shop.",
+    image: siteMedia.graphics.advertisingGoogleSearch,
+    imageWidth: 1600,
+    imageHeight: 1067,
+    layout: "advertising-guide",
+    href: resourcePath("auto-repair-advertising"),
+    sourceAsset: "public/images/resources/auto-repair-advertising-google-search.webp",
+    takeaways: [
+      "Start with the shop problem, customer, capacity, and offer before selecting an advertising channel.",
+      "Give paid search, LSA, DirectTrack, direct mail, social, retention, and local SEO distinct jobs inside one plan.",
+      "Measure the path from response to qualified call, booked appointment, completed repair order, and next visit.",
+    ],
+    sections: [],
+    externalSources: [
       {
-        question: "What is the best marketing idea for an auto repair shop?",
-        answer:
-          "The best idea is the one that solves the shop's current constraint. A shop that needs new customers may need stronger local visibility or targeted acquisition, while a shop with an active customer base may get a faster return from retention, reactivation, or declined-work follow-up.",
+        href: "https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business",
+        label: "Review truth-in-advertising rules for small businesses",
+        publisher: "Federal Trade Commission",
+        description:
+          "Plain-language guidance on substantiating claims, pricing, endorsements, warranties, and other advertising practices.",
       },
       {
-        question: "How should a repair shop choose which marketing channel to use?",
-        answer:
-          "Start with the audience, the result the shop needs, and the timeframe. Then choose a channel that can reach that audience in time, assign one person to own the campaign, and decide how calls, appointments, and completed work will be measured before launch.",
+        href: "https://support.google.com/localservices/answer/6224841?hl=en",
+        label: "Check Local Services Ads eligibility and account features",
+        publisher: "Google Local Services Help",
+        description:
+          "Google's current U.S. category list includes auto repair shops and explains lead, booking, budget, and reporting tools.",
       },
       {
-        question: "What are some low-cost marketing ideas for an auto repair shop?",
-        answer:
-          "Useful low-cost options include improving the Google Business Profile, asking eligible customers for honest reviews, following up on declined work, reactivating past customers, and turning common advisor questions into helpful content. These ideas still require staff time and consistent follow-through, so they should be planned like any other campaign.",
+        href: "https://support.google.com/analytics/answer/10597962?hl=en",
+        label: "Understand cross-channel attribution settings",
+        publisher: "Google Analytics Help",
+        description:
+          "Official documentation for attribution models, eligible channels, and lookback windows used in conversion reporting.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the best advertising for an auto repair shop?",
+        a: "There is no universal best channel. The right starting point depends on whether the shop needs immediate demand, stronger local visibility, better-fit new customers, repeat visits, or support for a known slow period. The channel should follow the business problem, audience, capacity, and measurement plan.",
       },
       {
-        question: "How do you know whether an auto repair marketing idea is working?",
-        answer:
-          "Track the path from the response to the business result: calls or forms, booked appointments, show rate, completed repair orders, customer fit, and revenue. Impressions and clicks can explain what happened, but they should not be the only evidence used to keep funding a campaign.",
+        q: "How much should an auto repair shop spend on advertising?",
+        a: "Start with the result the shop needs, the capacity it can accept, and the economics of a qualified repair order. Budget should include media, creative, landing experience, call handling, follow-up, and measurement. A percentage alone cannot show whether the plan is affordable or useful.",
+      },
+      {
+        q: "Does Turnkey manage Google Ads or Local Services Ads?",
+        a: "Turnkey can oversee the broader advertising plan and coordinate outside Google Ads, LSA, website, or media vendors through the right service relationship. DirectTrack is the targeted email, streaming TV, and geofenced display acquisition lane Turnkey delivers directly. Scope is confirmed before work begins so ownership is clear.",
+      },
+      {
+        q: "What is DirectTrack Marketing?",
+        a: "DirectTrack combines super-targeted email, streaming TV commercials, geofenced display advertising, transparent ROI tracking, and a monthly reporting meeting. It is designed to create and measure local demand alongside search, direct mail, retention, and other parts of the shop's plan.",
+      },
+      {
+        q: "How do you know whether auto repair advertising is working?",
+        a: "Connect campaign source and spend to qualified calls or responses, booked appointments, show rate, completed repair orders, new-customer quality, attributable revenue when the data supports it, and the next visit. Impressions and clicks explain delivery; they do not prove shop results by themselves.",
+      },
+      {
+        q: "Can Turnkey work with the advertising vendors I already have?",
+        a: "Yes, when vendor oversight is part of the selected Turnkey service. The goal is to give each partner a clear objective, audience, offer, handoff, and reporting expectation so the owner is not left reconciling disconnected recommendations.",
+      },
+    ],
+    serviceLinks: [
+      {
+        href: "/services/directtrack-marketing",
+        label: "Explore DirectTrack Marketing",
+        description:
+          "See the targeted email, streaming TV, geofenced display, and reporting lane Turnkey delivers directly.",
+      },
+      {
+        href: "/services/marketing-consulting",
+        label: "Get experienced advertising direction",
+        description:
+          "Review spend, vendors, reporting, and the next move with an auto-repair marketing strategist.",
       },
     ],
     relatedSlugs: [
+      "auto-repair-marketing-ideas",
       "auto-repair-marketing-plan",
-      "ideal-customer-profile-auto-repair-shop",
       "direct-mail-for-repair-shops",
     ],
   },
@@ -292,6 +391,28 @@ export const resourcePosts: ResourcePost[] = [
         body: "Treat the first profile as a working hypothesis. Compare it with repair-order quality, vehicle mix, retention, declined work, call recordings, reviews, and customer feedback. Revisit it when capacity, staffing, specialty, geography, or business goals change. The useful profile is the one that keeps improving real decisions.",
       },
     ],
+    faq: [
+      {
+        question: "What is an ideal customer profile for an auto repair shop?",
+        answer:
+          "It is a practical description of the customers, vehicles, repair work, values, and service expectations that create a strong fit for the shop. It should help the team make better decisions about marketing, offers, scheduling, and the customer experience.",
+      },
+      {
+        question: "How can a repair shop identify its best customers?",
+        answer:
+          "Start with customers the advisors and technicians would gladly serve again, then compare patterns in repair-order quality, retention, vehicle mix, communication, and referrals. The goal is to find evidence of a healthy relationship, not simply the customers who spent the most on one visit.",
+      },
+      {
+        question: "Can an ideal customer profile be too narrow?",
+        answer:
+          "Yes. A profile becomes unhelpful when it excludes viable customers without a business reason or depends on stereotypes instead of shop data. Keep the focus on service fit, customer needs, geography, vehicle types, and the experience the shop can consistently deliver.",
+      },
+      {
+        question: "How often should a repair shop update its customer profile?",
+        answer:
+          "Review it at least once a year and whenever capacity, staffing, specialties, location, or business goals change. Use current repair-order data, call recordings, reviews, and advisor feedback to confirm whether the profile still describes the relationships the shop wants more of.",
+      },
+    ],
     externalSources: [
       {
         href: "https://www.sba.gov/business-guide/plan-your-business/market-research-competitive-analysis",
@@ -313,28 +434,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "U.S. Small Business Administration",
         description:
           "Official planning guidance connecting audience, competitive advantage, marketing goals, channels, and customer support.",
-      },
-    ],
-    faq: [
-      {
-        question: "What is an ideal customer profile for an auto repair shop?",
-        answer:
-          "It is a practical description of the customers, vehicles, repair work, values, and service expectations that create a strong fit for the shop. It should help the team make better decisions about marketing, offers, scheduling, and the customer experience.",
-      },
-      {
-        question: "How can a repair shop identify its best customers?",
-        answer:
-          "Start with customers the advisors and technicians would gladly serve again, then compare patterns in repair-order quality, retention, vehicle mix, communication, and referrals. The goal is to find evidence of a healthy relationship, not simply the customers who spent the most on one visit.",
-      },
-      {
-        question: "Can an ideal customer profile be too narrow?",
-        answer:
-          "Yes. A profile becomes unhelpful when it excludes viable customers without a business reason or depends on stereotypes instead of shop data. Keep the focus on service fit, customer needs, geography, vehicle types, and the experience the shop can consistently deliver.",
-      },
-      {
-        question: "How often should a repair shop update its customer profile?",
-        answer:
-          "Review it at least once a year and whenever capacity, staffing, specialties, location, or business goals change. Use current repair-order data, call recordings, reviews, and advisor feedback to confirm whether the profile still describes the relationships the shop wants more of.",
       },
     ],
     serviceLinks: [
@@ -405,6 +504,28 @@ export const resourcePosts: ResourcePost[] = [
         body: "Ask for full-resolution originals plus web-ready exports. Sort files by people, facility, service, equipment, community, and orientation, then use descriptive filenames. Refresh staff and facility photography when the team or customer experience changes; a smaller current library is more credible than a large outdated one.",
       },
     ],
+    faq: [
+      {
+        question: "What photos should an auto repair shop website include?",
+        answer:
+          "Show the exterior and entrance, front counter, waiting area, owner, advisors, technicians, inspections, equipment, common vehicle types, and the key handoff. The library should help a new customer understand who they will meet, where they will go, and how the shop cares for a vehicle.",
+      },
+      {
+        question: "Should a repair shop hire a professional photographer?",
+        answer:
+          "A professional is useful when the shop needs a coordinated library for its website, ads, print, recruiting, and social media. A capable team member can still capture timely day-to-day images, but the shop should maintain consistent quality, lighting, framing, and permission practices.",
+      },
+      {
+        question: "Do employees and customers need to sign photo releases?",
+        answer:
+          "Get written permission before using recognizable employees or customers in marketing, and confirm how the images may be used. Requirements can vary by situation and location, so the release process should be reviewed with qualified legal counsel when needed.",
+      },
+      {
+        question: "How often should an auto repair shop update its photos?",
+        answer:
+          "Refresh the library when the team, building, branding, equipment, or customer experience changes. Review prominent website and Google Business Profile images at least yearly so customers are not introduced to people or facilities they will no longer see.",
+      },
+    ],
     externalSources: [
       {
         href: "https://support.google.com/business/answer/7213077?hl=en",
@@ -426,28 +547,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "W3C Web Accessibility Initiative",
         description:
           "A practical decision tree for deciding when an image needs descriptive alt text and when it should be treated as decorative.",
-      },
-    ],
-    faq: [
-      {
-        question: "What photos should an auto repair shop website include?",
-        answer:
-          "Show the exterior and entrance, front counter, waiting area, owner, advisors, technicians, inspections, equipment, common vehicle types, and the key handoff. The library should help a new customer understand who they will meet, where they will go, and how the shop cares for a vehicle.",
-      },
-      {
-        question: "Should a repair shop hire a professional photographer?",
-        answer:
-          "A professional is useful when the shop needs a coordinated library for its website, ads, print, recruiting, and social media. A capable team member can still capture timely day-to-day images, but the shop should maintain consistent quality, lighting, framing, and permission practices.",
-      },
-      {
-        question: "Do employees and customers need to sign photo releases?",
-        answer:
-          "Get written permission before using recognizable employees or customers in marketing, and confirm how the images may be used. Requirements can vary by situation and location, so the release process should be reviewed with qualified legal counsel when needed.",
-      },
-      {
-        question: "How often should an auto repair shop update its photos?",
-        answer:
-          "Refresh the library when the team, building, branding, equipment, or customer experience changes. Review prominent website and Google Business Profile images at least yearly so customers are not introduced to people or facilities they will no longer see.",
       },
     ],
     serviceLinks: [
@@ -517,6 +616,28 @@ export const resourcePosts: ResourcePost[] = [
         body: "The guide role cannot stop at the website. Use the same clear language in phone scripts, appointment confirmations, inspections, estimates, follow-up, social content, and review responses. Consistency turns a marketing promise into an experience customers can recognize and recommend.",
       },
     ],
+    faq: [
+      {
+        question: "What does it mean for a repair shop to be the guide?",
+        answer:
+          "It means the customer remains the main character while the shop provides empathy, expertise, and a clear path forward. The message should show that the team understands the driver's concern, can solve it, and will make the next step easy to understand.",
+      },
+      {
+        question: "What should an auto repair shop say on its homepage?",
+        answer:
+          "Lead with the customer problem or outcome, explain who the shop helps, show relevant proof, and give one clear next action. Services, credentials, and equipment matter, but they work best when they support a customer-centered promise instead of replacing it.",
+      },
+      {
+        question: "How can a repair shop show authority without sounding self-centered?",
+        answer:
+          "Connect every credential to a customer benefit. Reviews, technician certifications, warranties, original photos, and a clear inspection process build authority when they help the driver understand why the shop is prepared to solve the problem.",
+      },
+      {
+        question: "How can a shop tell whether its message is clear?",
+        answer:
+          "Ask someone unfamiliar with the business to review the page for a few seconds and explain who it serves, what problem it solves, and what to do next. Call quality, booking rate, repeated customer questions, and advisor feedback can then show where the message still creates confusion.",
+      },
+    ],
     externalSources: [
       {
         href: "https://digital.gov/guides/plain-language",
@@ -538,28 +659,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "Google Business Profile Help",
         description:
           "Official advice for requesting genuine feedback and writing relevant, professional review responses.",
-      },
-    ],
-    faq: [
-      {
-        question: "What does it mean for a repair shop to be the guide?",
-        answer:
-          "It means the customer remains the main character while the shop provides empathy, expertise, and a clear path forward. The message should show that the team understands the driver's concern, can solve it, and will make the next step easy to understand.",
-      },
-      {
-        question: "What should an auto repair shop say on its homepage?",
-        answer:
-          "Lead with the customer problem or outcome, explain who the shop helps, show relevant proof, and give one clear next action. Services, credentials, and equipment matter, but they work best when they support a customer-centered promise instead of replacing it.",
-      },
-      {
-        question: "How can a repair shop show authority without sounding self-centered?",
-        answer:
-          "Connect every credential to a customer benefit. Reviews, technician certifications, warranties, original photos, and a clear inspection process build authority when they help the driver understand why the shop is prepared to solve the problem.",
-      },
-      {
-        question: "How can a shop tell whether its message is clear?",
-        answer:
-          "Ask someone unfamiliar with the business to review the page for a few seconds and explain who it serves, what problem it solves, and what to do next. Call quality, booking rate, repeated customer questions, and advisor feedback can then show where the message still creates confusion.",
       },
     ],
     serviceLinks: [
@@ -630,6 +729,28 @@ export const resourcePosts: ResourcePost[] = [
         ],
       },
     ],
+    faq: [
+      {
+        question: "What is know-like-trust marketing?",
+        answer:
+          "Know-like-trust is a simple way to evaluate whether customers can recognize a business, relate to its message, and find enough proof to act. For a repair shop, those stages should work together across search, the website, reviews, mail, social content, and the service experience.",
+      },
+      {
+        question: "Which part of know-like-trust should a repair shop fix first?",
+        answer:
+          "Fix the weakest stage that blocks the next action. More awareness will not help if customers cannot tell what the shop does, and a friendly message will not convert if the hours, address, reviews, or booking process create doubt.",
+      },
+      {
+        question: "Can the know-like-trust filter be used for ads and direct mail?",
+        answer:
+          "Yes. The piece should make the sender recognizable, use language relevant to the intended customer, provide believable proof, and lead to a landing page or phone experience that matches the promise. A discount alone rarely covers all three stages.",
+      },
+      {
+        question: "How do you measure know, like, and trust?",
+        answer:
+          "Use a combination of signals instead of one score. Search visibility and reach can indicate recognition; engagement and response quality can show relevance; reviews, call-to-book rate, repeat visits, and customer feedback can reveal whether the shop is earning trust.",
+      },
+    ],
     externalSources: [
       {
         href: "https://support.google.com/business/answer/3038177?hl=en",
@@ -651,28 +772,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "Federal Trade Commission",
         description:
           "Current guidance on honest endorsements, review solicitation, disclosures, and the Consumer Reviews and Testimonials Rule.",
-      },
-    ],
-    faq: [
-      {
-        question: "What is know-like-trust marketing?",
-        answer:
-          "Know-like-trust is a simple way to evaluate whether customers can recognize a business, relate to its message, and find enough proof to act. For a repair shop, those stages should work together across search, the website, reviews, mail, social content, and the service experience.",
-      },
-      {
-        question: "Which part of know-like-trust should a repair shop fix first?",
-        answer:
-          "Fix the weakest stage that blocks the next action. More awareness will not help if customers cannot tell what the shop does, and a friendly message will not convert if the hours, address, reviews, or booking process create doubt.",
-      },
-      {
-        question: "Can the know-like-trust filter be used for ads and direct mail?",
-        answer:
-          "Yes. The piece should make the sender recognizable, use language relevant to the intended customer, provide believable proof, and lead to a landing page or phone experience that matches the promise. A discount alone rarely covers all three stages.",
-      },
-      {
-        question: "How do you measure know, like, and trust?",
-        answer:
-          "Use a combination of signals instead of one score. Search visibility and reach can indicate recognition; engagement and response quality can show relevance; reviews, call-to-book rate, repeat visits, and customer feedback can reveal whether the shop is earning trust.",
       },
     ],
     serviceLinks: [
@@ -723,6 +822,28 @@ export const resourcePosts: ResourcePost[] = [
         body: "A useful marketing plan connects calls, booked appointments, customer mix, retention, and spend. That makes the next move easier to defend because every channel is working toward the same shop goal.",
       },
     ],
+    faq: [
+      {
+        question: "What is the most common auto repair shop marketing mistake?",
+        answer:
+          "A common mistake is running disconnected tactics without one shop-level goal or accountable owner. Mail, ads, reviews, social media, and CRM activity can all stay busy while nobody connects them to calls, booked appointments, customer fit, and completed work.",
+      },
+      {
+        question: "How can a shop owner tell whether marketing money is being wasted?",
+        answer:
+          "Start by checking whether each campaign has a defined audience, offer, owner, timeframe, and measurable business result. If the team cannot connect spend to responses, appointments, repair orders, or a clear strategic purpose, the next step is to repair the tracking before increasing the budget.",
+      },
+      {
+        question: "Is weak marketing always the vendor's fault?",
+        answer:
+          "No. The leak may be in targeting, the offer, the landing page, call handling, scheduling, capacity, or follow-up after the first visit. Review the whole customer path before deciding that the channel or vendor is the only problem.",
+      },
+      {
+        question: "Who should own marketing in an independent repair shop?",
+        answer:
+          "One person or team should be accountable for the overall plan, even when specialists handle individual channels. Ownership means coordinating deadlines and vendors, reviewing results, and making clear keep, fix, stop, or start decisions so the shop owner is not the default project manager.",
+      },
+    ],
     externalSources: [
       {
         href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
@@ -744,28 +865,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "Federal Trade Commission",
         description:
           "Truth-in-advertising guidance covering claims, pricing, guarantees, endorsements, and promotional practices.",
-      },
-    ],
-    faq: [
-      {
-        question: "What is the most common auto repair shop marketing mistake?",
-        answer:
-          "A common mistake is running disconnected tactics without one shop-level goal or accountable owner. Mail, ads, reviews, social media, and CRM activity can all stay busy while nobody connects them to calls, booked appointments, customer fit, and completed work.",
-      },
-      {
-        question: "How can a shop owner tell whether marketing money is being wasted?",
-        answer:
-          "Start by checking whether each campaign has a defined audience, offer, owner, timeframe, and measurable business result. If the team cannot connect spend to responses, appointments, repair orders, or a clear strategic purpose, the next step is to repair the tracking before increasing the budget.",
-      },
-      {
-        question: "Is weak marketing always the vendor's fault?",
-        answer:
-          "No. The leak may be in targeting, the offer, the landing page, call handling, scheduling, capacity, or follow-up after the first visit. Review the whole customer path before deciding that the channel or vendor is the only problem.",
-      },
-      {
-        question: "Who should own marketing in an independent repair shop?",
-        answer:
-          "One person or team should be accountable for the overall plan, even when specialists handle individual channels. Ownership means coordinating deadlines and vendors, reviewing results, and making clear keep, fix, stop, or start decisions so the shop owner is not the default project manager.",
       },
     ],
     serviceLinks: [
@@ -850,6 +949,28 @@ export const resourcePosts: ResourcePost[] = [
         body: "The campaign continues after the postcard arrives. Someone has to answer the phone well, capture the customer's information, book the appointment, and bring that customer back a second time. Connect the mail to the shop's email, text, and CRM follow-up so a first visit generated by a postcard turns into a retained customer. This is where most disappointing direct mail campaigns actually fail — not at the mailbox.",
       },
     ],
+    faq: [
+      {
+        question: "Does direct mail still work for auto repair shops?",
+        answer:
+          "It can work when the list, offer, timing, creative, tracking, and front-counter follow-up support the same goal. A postcard sent once to a broad list is much harder to evaluate than a repeated, trackable campaign aimed at households the shop can realistically serve.",
+      },
+      {
+        question: "How often should an auto repair shop send direct mail?",
+        answer:
+          "There is no universal schedule, but repeated contact with a qualified list usually provides a better test than one large drop. Plan the cadence around seasonal demand, shop capacity, postal timing, budget, and enough space between drops to measure response.",
+      },
+      {
+        question: "How should a repair shop choose a direct mail list?",
+        answer:
+          "Begin with a realistic drive-time area, then use household and vehicle characteristics that resemble the shop's best current customers. Keep new movers, prospects, current customers, and lapsed customers in separate groups because each audience needs a different message and measurement plan.",
+      },
+      {
+        question: "How do you track direct mail return on investment?",
+        answer:
+          "Use a trackable phone number or campaign-specific response path, record the source during calls and check-in, and connect responses to booked and completed repair orders. Review show rate, repair-order value, customer acquisition cost, and whether first-time customers return—not only coupon redemptions or print cost.",
+      },
+    ],
     externalSources: [
       {
         href: "https://www.usps.com/business/every-door-direct-mail.htm",
@@ -871,28 +992,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "Federal Trade Commission",
         description:
           "Federal guidance for advertising claims, prices, guarantees, disclosures, and endorsements across media, including print.",
-      },
-    ],
-    faq: [
-      {
-        question: "Does direct mail still work for auto repair shops?",
-        answer:
-          "It can work when the list, offer, timing, creative, tracking, and front-counter follow-up support the same goal. A postcard sent once to a broad list is much harder to evaluate than a repeated, trackable campaign aimed at households the shop can realistically serve.",
-      },
-      {
-        question: "How often should an auto repair shop send direct mail?",
-        answer:
-          "There is no universal schedule, but repeated contact with a qualified list usually provides a better test than one large drop. Plan the cadence around seasonal demand, shop capacity, postal timing, budget, and enough space between drops to measure response.",
-      },
-      {
-        question: "How should a repair shop choose a direct mail list?",
-        answer:
-          "Begin with a realistic drive-time area, then use household and vehicle characteristics that resemble the shop's best current customers. Keep new movers, prospects, current customers, and lapsed customers in separate groups because each audience needs a different message and measurement plan.",
-      },
-      {
-        question: "How do you track direct mail return on investment?",
-        answer:
-          "Use a trackable phone number or campaign-specific response path, record the source during calls and check-in, and connect responses to booked and completed repair orders. Review show rate, repair-order value, customer acquisition cost, and whether first-time customers return—not only coupon redemptions or print cost.",
       },
     ],
     serviceLinks: [
@@ -987,6 +1086,28 @@ export const resourcePosts: ResourcePost[] = [
         ],
       },
     ],
+    faq: [
+      {
+        question: "What should an auto repair shop marketing plan include?",
+        answer:
+          "Include the business result, target customers and repair work, baseline performance, budget, channel roles, offers, a 12-month calendar, campaign owners, and the metrics used to make decisions. The plan should also account for shop capacity and front-counter follow-up so marketing does not promise work the team cannot support.",
+      },
+      {
+        question: "How much should an auto repair shop spend on marketing?",
+        answer:
+          "There is no percentage that fits every shop. Build the budget from growth goals, current revenue and margin, customer value, local competition, existing demand, and the number of additional appointments the shop can profitably handle.",
+      },
+      {
+        question: "How often should a repair shop review its marketing plan?",
+        answer:
+          "Review campaign performance monthly and revisit the larger plan at least quarterly. Seasonal demand, staffing, capacity, vehicle mix, and business priorities can change, so the calendar and budget should be adjusted with evidence rather than left untouched for a full year.",
+      },
+      {
+        question: "Which marketing channels should an auto repair shop use?",
+        answer:
+          "Choose channels by the job they need to perform. Local search, reviews, the website, and paid search can capture demand; direct mail and targeted campaigns can create demand; email, reminders, reactivation, and follow-up can help retain customers the shop already earned.",
+      },
+    ],
     externalSources: [
       {
         href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
@@ -1008,28 +1129,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "Google Analytics Help",
         description:
           "Official documentation for attribution models, conversion windows, and which paid and organic channels receive credit.",
-      },
-    ],
-    faq: [
-      {
-        question: "What should an auto repair shop marketing plan include?",
-        answer:
-          "Include the business result, target customers and repair work, baseline performance, budget, channel roles, offers, a 12-month calendar, campaign owners, and the metrics used to make decisions. The plan should also account for shop capacity and front-counter follow-up so marketing does not promise work the team cannot support.",
-      },
-      {
-        question: "How much should an auto repair shop spend on marketing?",
-        answer:
-          "There is no percentage that fits every shop. Build the budget from growth goals, current revenue and margin, customer value, local competition, existing demand, and the number of additional appointments the shop can profitably handle.",
-      },
-      {
-        question: "How often should a repair shop review its marketing plan?",
-        answer:
-          "Review campaign performance monthly and revisit the larger plan at least quarterly. Seasonal demand, staffing, capacity, vehicle mix, and business priorities can change, so the calendar and budget should be adjusted with evidence rather than left untouched for a full year.",
-      },
-      {
-        question: "Which marketing channels should an auto repair shop use?",
-        answer:
-          "Choose channels by the job they need to perform. Local search, reviews, the website, and paid search can capture demand; direct mail and targeted campaigns can create demand; email, reminders, reactivation, and follow-up can help retain customers the shop already earned.",
       },
     ],
     serviceLinks: [
@@ -1078,6 +1177,28 @@ export const resourcePosts: ResourcePost[] = [
         body: "The better path is one team coordinating vendors, campaigns, reporting, and next steps. The owner should understand the why without having to manage every small decision.",
       },
     ],
+    faq: [
+      {
+        question: "Why is my auto repair shop marketing not working?",
+        answer:
+          "The problem may be unclear goals, disconnected vendors, weak targeting, inconsistent tracking, poor call handling, or follow-up that stops after the first response. Review the complete path from the campaign to the booked and completed repair order before blaming one channel.",
+      },
+      {
+        question: "Can too many marketing vendors hurt results?",
+        answer:
+          "Specialists can be valuable, but results suffer when each vendor works toward a different definition of success and nobody coordinates the customer journey. One accountable owner should align the message, timing, tracking, landing experience, reporting, and next decisions across vendors.",
+      },
+      {
+        question: "Which marketing numbers should a repair shop review?",
+        answer:
+          "Track calls and forms, booked appointments, show rate, completed repair orders, customer source, repair-order quality, repeat visits, revenue, and spend. Channel metrics such as impressions and clicks are useful diagnostics, but they should connect to outcomes the shop can recognize.",
+      },
+      {
+        question: "When should a repair shop stop a marketing campaign?",
+        answer:
+          "Stop when the audience or goal is wrong, the economics cannot work, or no one can own the campaign well enough to learn from it. If the channel has potential but the leak is specific—such as the offer, tracking, landing page, or call handling—fix and retest that problem before abandoning it.",
+      },
+    ],
     externalSources: [
       {
         href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
@@ -1099,28 +1220,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "Google Business Profile Help",
         description:
           "Official owner and manager roles for giving vendors appropriate access while the business retains control.",
-      },
-    ],
-    faq: [
-      {
-        question: "Why is my auto repair shop marketing not working?",
-        answer:
-          "The problem may be unclear goals, disconnected vendors, weak targeting, inconsistent tracking, poor call handling, or follow-up that stops after the first response. Review the complete path from the campaign to the booked and completed repair order before blaming one channel.",
-      },
-      {
-        question: "Can too many marketing vendors hurt results?",
-        answer:
-          "Specialists can be valuable, but results suffer when each vendor works toward a different definition of success and nobody coordinates the customer journey. One accountable owner should align the message, timing, tracking, landing experience, reporting, and next decisions across vendors.",
-      },
-      {
-        question: "Which marketing numbers should a repair shop review?",
-        answer:
-          "Track calls and forms, booked appointments, show rate, completed repair orders, customer source, repair-order quality, repeat visits, revenue, and spend. Channel metrics such as impressions and clicks are useful diagnostics, but they should connect to outcomes the shop can recognize.",
-      },
-      {
-        question: "When should a repair shop stop a marketing campaign?",
-        answer:
-          "Stop when the audience or goal is wrong, the economics cannot work, or no one can own the campaign well enough to learn from it. If the channel has potential but the leak is specific—such as the offer, tracking, landing page, or call handling—fix and retest that problem before abandoning it.",
       },
     ],
     serviceLinks: [
@@ -1177,6 +1276,28 @@ export const resourcePosts: ResourcePost[] = [
         body: "Turnkey pairs the strategy with execution and reporting, so the owner gets a clear direction without becoming the project manager for every campaign. The result is accountability, fewer last-minute decisions, and marketing that supports the shop's actual goals.",
       },
     ],
+    faq: [
+      {
+        question: "What is a yearly marketing plan for an auto repair shop?",
+        answer:
+          "It is a 12-month view of the shop's acquisition, retention, reputation, seasonal campaigns, budget, deadlines, and review rhythm. The plan gives each activity a purpose and helps the team prepare before a slow week or service opportunity becomes urgent.",
+      },
+      {
+        question: "What should go on an annual auto repair marketing calendar?",
+        answer:
+          "Include recurring campaigns, seasonal service opportunities, customer follow-up, review and reputation work, direct-mail dates, creative deadlines, budget checkpoints, and reporting meetings. Add the person responsible for each task so the calendar shows ownership as well as timing.",
+      },
+      {
+        question: "How far in advance should a repair shop plan marketing?",
+        answer:
+          "Set the annual direction before the year or planning cycle begins, then work at least several weeks ahead of each campaign. Direct mail, creative approvals, landing pages, lists, tracking, and staff preparation all need lead time, while monthly reviews keep the plan responsive.",
+      },
+      {
+        question: "Who should manage the yearly marketing plan?",
+        answer:
+          "One accountable person or team should coordinate the plan, vendors, approvals, reporting, and next actions. The owner should set goals and understand the decisions without having to chase every deadline or translate separate vendor reports alone.",
+      },
+    ],
     externalSources: [
       {
         href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
@@ -1198,28 +1319,6 @@ export const resourcePosts: ResourcePost[] = [
         publisher: "U.S. Census Bureau",
         description:
           "A free source of local demographic, economic, business, and consumer-spending data for planning and expansion.",
-      },
-    ],
-    faq: [
-      {
-        question: "What is a yearly marketing plan for an auto repair shop?",
-        answer:
-          "It is a 12-month view of the shop's acquisition, retention, reputation, seasonal campaigns, budget, deadlines, and review rhythm. The plan gives each activity a purpose and helps the team prepare before a slow week or service opportunity becomes urgent.",
-      },
-      {
-        question: "What should go on an annual auto repair marketing calendar?",
-        answer:
-          "Include recurring campaigns, seasonal service opportunities, customer follow-up, review and reputation work, direct-mail dates, creative deadlines, budget checkpoints, and reporting meetings. Add the person responsible for each task so the calendar shows ownership as well as timing.",
-      },
-      {
-        question: "How far in advance should a repair shop plan marketing?",
-        answer:
-          "Set the annual direction before the year or planning cycle begins, then work at least several weeks ahead of each campaign. Direct mail, creative approvals, landing pages, lists, tracking, and staff preparation all need lead time, while monthly reviews keep the plan responsive.",
-      },
-      {
-        question: "Who should manage the yearly marketing plan?",
-        answer:
-          "One accountable person or team should coordinate the plan, vendors, approvals, reporting, and next actions. The owner should set goals and understand the decisions without having to chase every deadline or translate separate vendor reports alone.",
       },
     ],
     serviceLinks: [

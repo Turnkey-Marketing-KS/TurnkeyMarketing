@@ -35,12 +35,13 @@ export const services: Service[] = [
   {
     slug: "directtrack-marketing",
     name: "DirectTrack Marketing",
-    tagline: "A complete, data-driven acquisition lane for shops that need new customer growth.",
+    tagline:
+      "A targeted acquisition lane we plan, run, and measure inside your shop's broader advertising strategy.",
     summary:
-      "DirectTrack uses precision-targeted digital campaigns, transparent ROI tracking, and monthly reporting to show what is actually moving new customer acquisition.",
-    seoTitle: "DirectTrack Marketing Services for Auto Repair Shops",
+      "DirectTrack combines targeted email, streaming TV, and geofenced display advertising with transparent ROI tracking and monthly review. Turnkey manages this lane directly and helps connect it to the other vendors and channels in your plan.",
+    seoTitle: "Targeted Auto Repair Advertising | DirectTrack",
     seoDescription:
-      "Win more local customers with targeted email, streaming, display, and geofencing campaigns backed by transparent ROI tracking and monthly reporting.",
+      "Reach local households with targeted email, streaming TV, and geofenced display advertising, then connect the results to your broader shop marketing plan.",
     schemaType: "Targeted digital acquisition marketing for auto repair shops",
     outcomes: [
       "Super targeted email campaigns",

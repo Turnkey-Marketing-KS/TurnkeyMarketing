@@ -144,6 +144,7 @@ const opportunityCards = [
 const insightPosts = resourcePosts.slice(0, 3);
 
 const faqItems = [
+  { q: "What does an auto repair marketing company actually do?", a: "An auto repair marketing company should connect the shop’s business goals to a practical plan, coordinate the people and vendors responsible for executing it, and measure whether the work creates the right calls, appointments, customers, and repair orders. Turnkey can provide focused services or function as the shop’s outsourced marketing department." },
   { q: "What is the best marketing strategy for an auto repair shop?", a: "The best strategy is a coordinated plan that matches your market, capacity, customer mix, and budget. For most shops, that means Google visibility, reviews, paid search, retention, direct mail, and reporting working together instead of as separate vendor tasks." },
   { q: "How do I get more customers for my auto repair shop?", a: "Start by deciding which customers and jobs you actually want more of. Then connect search, Google Business Profile, reviews, offers, follow-up, and call handling so demand turns into booked appointments." },
   { q: "How can my auto repair shop show up higher on Google Maps?", a: "Google Maps visibility usually improves when your profile, reviews, photos, location signals, website, and local relevance are stronger. No agency can guarantee rankings, but complete shop information, steady review activity, accurate listings, and useful local content give Google clearer trust signals." },
@@ -507,21 +508,45 @@ const faqSchema = {
           </span>
         </h2>
         <p class="mt-5 max-w-3xl text-base leading-relaxed text-charcoal/65 md:text-lg">
-          Need to get your priorities straight first? Use our
+          Effective auto repair marketing is more than choosing a channel. It connects the shop’s
+          goals, ideal customers, offers, campaigns, vendors, follow-up, and reporting. Turnkey
+          helps independent repair shops
           <a href="/resources/auto-repair-marketing-plan" class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]">
-            seven-step auto repair marketing plan guide
-          </a>.
-          Want an experienced second opinion? Our
+            build that plan
+          </a>
+          and carry it forward—whether the immediate need is
           <a
             href="/services/marketing-consulting"
             class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]"
             data-track-event="service_cta_click"
             data-track-slug="marketing-consulting"
-            data-track-placement="home_service_pathways"
+            data-track-placement="home_service_intro"
           >
-            marketing consulting
-          </a>
-          gives you a clear next move. If a local acquisition campaign is the priority, explore
+            better strategy
+          </a>,
+          <a
+            href="/services/directtrack-marketing"
+            class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]"
+            data-track-event="service_cta_click"
+            data-track-slug="directtrack-marketing"
+            data-track-placement="home_service_intro"
+          >
+            targeted customer acquisition
+          </a>, retention, direct mail, social media, or a
+          <a
+            href="/services/vip-marketing-manager"
+            class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]"
+            data-track-event="service_cta_click"
+            data-track-slug="vip-marketing-manager"
+            data-track-placement="home_service_intro"
+          >
+            complete outsourced marketing department
+          </a>. Every channel gets a clear job,
+          every vendor works toward the same priorities, and reporting leads to a defensible next
+          move instead of another disconnected activity report.
+        </p>
+        <p class="mt-5 max-w-3xl text-base leading-relaxed text-charcoal/65 md:text-lg">
+          If a local acquisition campaign is the priority, explore
           <a
             href="/services/direct-mail"
             class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]"
@@ -685,7 +710,7 @@ const faqSchema = {
     <div class="container-page">
       <div class="text-center max-w-3xl mx-auto">
         <h2 class="display-2 text-balance">
-          Everything you need to <span class="text-[var(--key-blue)]">grow your shop.</span>
+          Auto repair marketing that connects <span class="text-[var(--key-blue)]">strategy to execution.</span>
         </h2>
         <p class="mt-6 text-charcoal/65 text-lg leading-relaxed">
           From strategy to execution, we run the marketing playbook that has
@@ -716,16 +741,13 @@ const faqSchema = {
   <section class="pb-16 md:pb-32">
     <div class="container-page">
       <div
-        class="relative grid gap-8 overflow-hidden rounded-[32px] p-7 md:p-16 lg:grid-cols-[1.25fr_0.75fr] lg:gap-10"
+        class="relative grid gap-8 overflow-hidden rounded-[32px] p-7 md:p-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,0.9fr)] lg:gap-10"
         style="background: var(--charcoal); color: #fff;"
       >
         <div class="relative">
-          <h3 class="display-2 leading-tight text-white max-[479px]:text-[1.75rem] max-[479px]:leading-[1.08]">
-            You hired help.<br />
-            <span class="text-[var(--key-blue)]">
-              <span class="max-[479px]:block">Why is the marketing</span>
-              <span class="max-[479px]:block">still on you?</span>
-            </span>
+          <h3 class="display-2 text-[clamp(2.25rem,3vw,3rem)] leading-tight text-white max-[479px]:text-[1.75rem] max-[479px]:leading-[1.08]">
+            <span class="block">You hired help.</span>
+            <span class="block text-[var(--key-blue)] md:whitespace-nowrap">Why is the marketing still on you?</span>
           </h3>
           <p class="mt-5 max-w-md text-base leading-relaxed text-white/70 md:mt-6 md:text-lg">
             If you are still chasing updates, approving every detail, and wondering what is
@@ -877,9 +899,8 @@ const faqSchema = {
         {opportunityCards.map((card) => (
           <article
             class={`relative flex min-h-0 flex-col overflow-hidden rounded-[28px] p-6 md:min-h-[390px] md:p-9 ${
-              card.featured ? "text-white" : "text-charcoal"
+              card.featured ? "vip-gradient-surface text-white" : "border-2 border-[var(--navy)] bg-white text-charcoal"
             }`}
-            style={`background: ${card.featured ? "var(--navy)" : "var(--off-white)"};`}
           >
             <div class="flex items-center justify-between gap-3 md:block">
               <p
@@ -899,29 +920,35 @@ const faqSchema = {
               )}
             </div>
             <h3
-              class={`mt-4 max-w-sm text-balance font-display text-3xl font-semibold leading-tight max-[389px]:text-[1.625rem] max-[389px]:leading-[1.12] max-[389px]:tracking-[-0.02em] md:mt-5 ${
-                card.featured ? "text-white" : "text-charcoal"
+              class={`mt-4 max-w-sm font-display text-3xl font-semibold leading-tight max-[479px]:text-[1.75rem] md:mt-5 ${
+                card.featured ? "text-white" : "text-[var(--navy)]"
               }`}
             >
-              {card.title}
+              {card.featured ? card.title : (
+                <>
+                  <span class="block whitespace-nowrap">The weight of success</span>
+                  <span class="block">is all on you.</span>
+                </>
+              )}
             </h3>
-            <p class={`mt-4 text-sm leading-relaxed ${card.featured ? "text-white/70" : "text-charcoal/65"}`}>
+            <p class={`mt-4 text-sm leading-relaxed ${card.featured ? "text-white/70" : "text-charcoal/70"}`}>
               {card.cost}
             </p>
             <ul
               class={`mt-auto grid gap-2.5 pt-6 text-sm leading-relaxed md:gap-3 md:pt-8 ${
-                card.featured ? "text-white/85" : "text-charcoal/75"
+                card.featured ? "text-[var(--navy)]" : "text-white"
               }`}
             >
               {card.points.map((point) => (
                 <li
                   class={`flex items-center gap-3 rounded-2xl px-4 py-2.5 md:py-3 ${
-                    card.featured ? "bg-white/10" : "bg-white"
+                    card.featured ? "bg-white" : ""
                   }`}
+                  style={card.featured ? undefined : "background: color-mix(in srgb, var(--key-blue) 72%, var(--navy));"}
                 >
                   <span
                     class="h-2 w-2 flex-none rounded-full"
-                    style={`background: ${card.featured ? "var(--green)" : "var(--key-blue)"};`}
+                    style={`background: ${card.featured ? "var(--green)" : "white"};`}
                   ></span>
                   <span>{point}</span>
                 </li>

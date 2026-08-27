@@ -540,7 +540,8 @@ html.motion-ready [data-reveal="fade"] {
     0 34px 90px -46px rgba(35, 46, 102, 0.82);
 }
 
-.vip-suite-lead {
+.vip-suite-lead,
+.vip-gradient-surface {
   background:
     radial-gradient(circle at 18% 18%, rgba(63, 140, 203, 0.82), transparent 44%),
     radial-gradient(circle at 82% 74%, rgba(52, 76, 139, 0.9), transparent 52%),

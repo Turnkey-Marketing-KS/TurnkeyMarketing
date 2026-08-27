@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import MarketingIdeasArticle from "@/components/resources/MarketingIdeasArticle.astro";
 import AISearchArticle from "@/components/resources/AISearchArticle.astro";
+import AdvertisingGuide from "@/components/resources/AdvertisingGuide.astro";
 import ExternalSources from "@/components/resources/ExternalSources.astro";
 import { getResourcePost, resourcePosts } from "@/lib/resource-posts";
 import { CONSULTATION_URL } from "@/lib/services";
@@ -30,6 +31,7 @@ const relatedPosts = (currentPost.relatedSlugs ?? [])
 const isClientProof = currentPost.layout === "client-proof" && currentPost.client;
 const isMarketingIdeas = currentPost.layout === "marketing-ideas";
 const isAISearch = currentPost.layout === "ai-search";
+const isAdvertisingGuide = currentPost.layout === "advertising-guide";
 
 const articleSchema = {
   "@context": "https://schema.org",
@@ -82,11 +84,19 @@ const breadcrumbSchema = {
   ],
 };
 
-const faqSchema = currentPost.faq?.length
+const schemaFaqs = currentPost.faq?.map((item) => ({
+  question: item.question,
+  answer: item.answer,
+})) ?? currentPost.faqs?.map((item) => ({
+  question: item.q,
+  answer: item.a,
+}));
+
+const faqSchema = schemaFaqs?.length
   ? {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: currentPost.faq.map((item) => ({
+      mainEntity: schemaFaqs.map((item) => ({
         "@type": "Question",
         name: item.question,
         acceptedAnswer: {
@@ -97,7 +107,9 @@ const faqSchema = currentPost.faq?.length
     }
   : undefined;
 
-const pageSchema = faqSchema ? [articleSchema, breadcrumbSchema, faqSchema] : [articleSchema, breadcrumbSchema];
+const pageSchemas = faqSchema
+  ? [articleSchema, breadcrumbSchema, faqSchema]
+  : [articleSchema, breadcrumbSchema];
 ---
 
 <BaseLayout
@@ -107,12 +119,14 @@ const pageSchema = faqSchema ? [articleSchema, breadcrumbSchema, faqSchema] : [a
   ogTitle={currentPost.seoTitle ?? `${currentPost.title} — Turnkey Marketing`}
   ogType="article"
   ogImage={currentPost.image.src}
-  schema={pageSchema}
+  schema={pageSchemas}
 >
   {isAISearch ? (
     <AISearchArticle post={currentPost} />
   ) : isMarketingIdeas ? (
     <MarketingIdeasArticle post={currentPost} />
+  ) : isAdvertisingGuide ? (
+    <AdvertisingGuide post={currentPost} />
   ) : isClientProof ? (
     <>
       <section class="overflow-hidden bg-[var(--off-white)] py-8 md:py-12 lg:py-16">
@@ -444,7 +458,6 @@ const pageSchema = faqSchema ? [articleSchema, breadcrumbSchema, faqSchema] : [a
   </section>
     </>
   )}
-
   {!isAISearch && currentPost.faq && currentPost.faq.length > 0 && (
     <section
       id="faq"
@@ -477,5 +490,7 @@ const pageSchema = faqSchema ? [articleSchema, breadcrumbSchema, faqSchema] : [a
       </div>
     </section>
   )}
-  <ExternalSources sources={currentPost.externalSources} />
+  {currentPost.externalSources && currentPost.externalSources.length > 0 && (
+    <ExternalSources sources={currentPost.externalSources} />
+  )}
 </BaseLayout>
