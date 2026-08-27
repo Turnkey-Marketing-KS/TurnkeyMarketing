@@ -103,8 +103,7 @@
       iframe.setAttribute("aria-busy", "false");
       if (statusRow) statusRow.hidden = true;
       if (fallbackCopy)
-        fallbackCopy.textContent =
-          "Prefer a separate page? The same attributed calendar is available here.";
+        fallbackCopy.textContent = "Having trouble with the calendar? Open it directly.";
       window.requestAnimationFrame(observeVisibleCalendar);
     }
 

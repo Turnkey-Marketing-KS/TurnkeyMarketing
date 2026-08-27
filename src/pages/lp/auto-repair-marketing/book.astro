@@ -1,0 +1,201 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const bookingUrl = "https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d";
+---
+
+<BaseLayout
+  title="Schedule a Strategy Call — Turnkey Marketing"
+  description="Choose a time for a 30-minute strategy call with Turnkey Marketing about your auto repair shop."
+  path="/lp/auto-repair-marketing/book"
+  noindex
+  attributionFunnel="google_ads"
+  minimalChrome
+>
+  <section class="min-h-screen bg-[var(--off-white)] pb-8">
+    <header class="border-b hairline bg-white">
+      <div class="container-page flex min-h-[76px] items-center justify-between gap-5 py-3 md:min-h-[88px]">
+        <span class="block w-[148px] md:w-[176px]">
+          <img
+            src="/turnkey-logo.png"
+            alt="Turnkey Marketing"
+            width="1110"
+            height="271"
+            class="h-auto w-full"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </span>
+        <a
+          href="tel:+19134270674"
+          class="rounded-full border border-[var(--hairline)] bg-white px-4 py-2 text-sm font-semibold text-[var(--navy)] transition hover:border-[var(--key-blue)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--key-blue)] md:text-base"
+          data-track-event="phone_call_click"
+          data-track-placement="booking_page_header"
+        >
+          <span class="hidden sm:inline">Questions? </span>(913) 427-0674
+        </a>
+      </div>
+    </header>
+
+    <div class="container-page py-8 md:py-12">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="eyebrow" style="color: var(--key-blue);">30-minute strategy call</p>
+        <h1 class="page-title mt-4 text-balance">Choose a time that works for you.</h1>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          Pick a time below. We will talk through your shop, your current marketing, and the clearest next move.
+        </p>
+      </div>
+
+      <div class="sheet mx-auto mt-8 max-w-7xl" data-booking-state="idle">
+        <div class="booking-status" role="status" aria-live="polite">
+          <span class="booking-spinner" aria-hidden="true"></span>
+          <span data-booking-status>Loading the booking calendar&hellip;</span>
+        </div>
+
+        <iframe
+          class="booking-widget"
+          data-src={bookingUrl}
+          data-tk-booking-provider="ghl_calendar"
+          allow="payment"
+          scrolling="yes"
+          id="6tmXrJxmo6AUsMP2ja9d_1786654590837"
+          title="Schedule a strategy call with Turnkey Marketing"
+          aria-busy="true"
+          hidden
+        ></iframe>
+
+        <div class="booking-fallback">
+          <p data-booking-fallback-copy>If the calendar takes too long, open it directly.</p>
+          <a
+            class="btn-primary inline-flex min-h-11 items-center justify-center px-5 py-3 text-sm"
+            href={bookingUrl}
+            data-tk-booking-provider="ghl_calendar"
+            data-track-placement="calendar_fallback"
+          >
+            Open the Booking Calendar
+          </a>
+        </div>
+
+        <noscript>
+          <p class="p-6 text-center">
+            <a class="font-semibold text-[var(--key-blue)] underline" href={bookingUrl}>
+              Open the Booking Calendar
+            </a>
+          </p>
+        </noscript>
+      </div>
+
+      <p class="mx-auto mt-5 max-w-3xl text-center text-xs leading-relaxed text-muted-foreground md:text-sm">
+        No pressure and no obligation. If none of the available times work, call us at
+        <a class="font-semibold text-[var(--navy)] underline underline-offset-4" href="tel:+19134270674">(913) 427-0674</a>.
+      </p>
+    </div>
+  </section>
+
+  <script is:inline src="/lp/ghl-attribution.js" defer></script>
+  <script is:inline src="/lp/ghl-booking.js" defer></script>
+</BaseLayout>
+
+<style>
+  .sheet {
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    border-radius: 28px;
+    background: white;
+    padding: 0.75rem;
+    box-shadow: 0 28px 70px -48px rgba(20, 22, 28, 0.35);
+  }
+
+  .booking-widget {
+    display: block;
+    width: 100%;
+    height: max(1000px, calc(100vh - 190px));
+    border: 0;
+    border-radius: 18px;
+    background: white;
+  }
+
+  .booking-widget[hidden],
+  .booking-status[hidden] {
+    display: none;
+  }
+
+  .booking-status {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 1rem;
+    color: var(--charcoal);
+    font-size: 0.9rem;
+  }
+
+  .booking-spinner {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    border: 2px solid var(--key-blue-soft);
+    border-top-color: var(--key-blue);
+    border-radius: 50%;
+    animation: booking-spin 700ms linear infinite;
+  }
+
+  .booking-fallback {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    border-radius: 18px;
+    background: var(--key-blue-soft);
+    padding: 0.85rem 1rem;
+  }
+
+  .booking-fallback p {
+    color: var(--charcoal);
+    font-size: 0.875rem;
+  }
+
+  .sheet[data-booking-state="ready"] .booking-fallback {
+    margin-top: 0.75rem;
+    border: 1px solid var(--hairline);
+    background: white;
+  }
+
+  .sheet[data-booking-state="failed"] .booking-status {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .sheet[data-booking-state="failed"] .booking-spinner {
+    display: none;
+  }
+
+  @keyframes booking-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .sheet {
+      margin-inline: -0.5rem;
+      border-radius: 22px;
+      padding: 0.5rem;
+    }
+
+    .booking-widget {
+      height: max(1080px, calc(100vh - 130px));
+      border-radius: 16px;
+    }
+
+    .booking-fallback a {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .booking-spinner {
+      animation: none;
+    }
+  }
+</style>

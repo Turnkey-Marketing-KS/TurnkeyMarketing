@@ -15,6 +15,7 @@ interface Props {
   schema?: Schema | Schema[];
   noindex?: boolean;
   attributionFunnel?: "main_website" | "google_ads";
+  minimalChrome?: boolean;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   schema = [],
   noindex = false,
   attributionFunnel = "main_website",
+  minimalChrome = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL("https://www.turnkeyautomarketing.com");
@@ -195,11 +197,11 @@ const jsonLd = [...sitewideSchema, ...schemaItems].filter(Boolean);
     </noscript>
     <!-- End Meta Pixel Code -->
     <div class="flex min-h-screen flex-col" style="background: var(--background);">
-      <Header />
-      <main class="flex-1 pt-[76px] md:pt-[92px]">
+      {!minimalChrome && <Header />}
+      <main class={minimalChrome ? "flex-1" : "flex-1 pt-[76px] md:pt-[92px]"}>
         <slot />
       </main>
-      <Footer />
+      {!minimalChrome && <Footer />}
     </div>
     <script is:inline>
       (function () {

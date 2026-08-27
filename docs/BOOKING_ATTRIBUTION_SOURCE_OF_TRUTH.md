@@ -9,10 +9,10 @@
 
 Turnkey has **two separate booking funnels**. They must remain separate.
 
-| Funnel | Entry point | Booking system | Confirmation page | Google Ads conversion? |
-|---|---|---|---|---:|
-| Main website | Homepage, service pages, other normal site CTAs -> `/contact` | AppointmentCore | `/booking-confirmed` | **No** |
-| Paid Google Ads landing page | `/lp/auto-repair-marketing` | Existing GHL calendar/form | `/google-ads-call-booked` | **Yes** |
+| Funnel                       | Entry point                                                     | Booking system             | Confirmation page         | Google Ads conversion? |
+| ---------------------------- | --------------------------------------------------------------- | -------------------------- | ------------------------- | ---------------------: |
+| Main website                 | Homepage, service pages, other normal site CTAs -> `/contact`   | AppointmentCore            | `/booking-confirmed`      |                 **No** |
+| Paid Google Ads landing page | `/lp/auto-repair-marketing` -> `/lp/auto-repair-marketing/book` | Existing GHL calendar/form | `/google-ads-call-booked` |                **Yes** |
 
 Do not add a form before either calendar. A visitor should fill out only the form belonging to the booking system they are using.
 
@@ -53,12 +53,12 @@ This record is browser-session attribution only. It does not ask the visitor for
 
 ### AppointmentCore GA4 events
 
-| Event | When it fires | Required parameters | Completed conversion? |
-|---|---|---|---:|
-| `consultation_cta_click` | Existing main-site booking CTA is clicked | Existing placement value | No |
-| `appointmentcore_calendar_viewed` | `/contact` loads and contains the AppointmentCore iframe | `booking_provider=appointmentcore`, `booking_funnel=main_website` | No |
-| `appointment_booked` | AppointmentCore reaches `/booking-confirmed` | `booking_provider=appointmentcore`, `booking_funnel=main_website`, retained attribution | **Yes** |
-| `generate_lead` | Same confirmed booking; retained for compatibility | Same booking metadata | No |
+| Event                             | When it fires                                            | Required parameters                                                                     | Completed conversion? |
+| --------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------: |
+| `consultation_cta_click`          | Existing main-site booking CTA is clicked                | Existing placement value                                                                |                    No |
+| `appointmentcore_calendar_viewed` | `/contact` loads and contains the AppointmentCore iframe | `booking_provider=appointmentcore`, `booking_funnel=main_website`                       |                    No |
+| `appointment_booked`              | AppointmentCore reaches `/booking-confirmed`             | `booking_provider=appointmentcore`, `booking_funnel=main_website`, retained attribution |               **Yes** |
+| `generate_lead`                   | Same confirmed booking; retained for compatibility       | Same booking metadata                                                                   |                    No |
 
 `appointment_booked` and `generate_lead` have a 30-minute browser deduplication guard. Refreshing or returning to the confirmation page during that window should not create a second event.
 
@@ -76,14 +76,16 @@ Even if a main-site visitor has a GCLID or paid attribution, reaching `/booking-
 
 1. A paid-search visitor lands directly on `/lp/auto-repair-marketing`.
 2. The standalone landing page captures and sanitizes available click IDs, UTMs, landing page, referrer, and session identifiers.
-3. The existing GHL iframe URL is decorated before the booking widget uses it.
-4. The visitor completes the existing GHL calendar/form—there is no AppointmentCore step.
-5. The GHL calendar redirects a successful booking to `/google-ads-call-booked`.
-6. That confirmation page sends the Google Ads booked-consultation conversion.
+3. A consultation CTA takes the visitor to the dedicated, same-origin `/lp/auto-repair-marketing/book` page.
+4. The booking page decorates the existing GHL iframe URL before the widget uses it.
+5. The visitor completes the existing GHL calendar/form—there is no AppointmentCore step.
+6. The GHL calendar redirects a successful booking to `/google-ads-call-booked`.
+7. That confirmation page sends the Google Ads booked-consultation conversion.
 
 ### Current GHL calendar
 
 - Landing page: `public/lp/auto-repair-marketing/index.html`
+- Dedicated booking page: `src/pages/lp/auto-repair-marketing/book.astro`
 - Attribution helper: `public/lp/ghl-attribution.js`
 - Booking readiness/fallback helper: `public/lp/ghl-booking.js`
 - Calendar ID: `6tmXrJxmo6AUsMP2ja9d`
@@ -91,13 +93,15 @@ Even if a main-site visitor has a GCLID or paid attribution, reaching `/booking-
 - GHL widget URL: `https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d`
 - Confirmation page: `src/pages/google-ads-call-booked.astro`
 
-The iframe and external fallback must retain `data-tk-booking-provider="ghl_calendar"`; the attribution helper uses that marker to find and decorate the correct booking URLs. The iframe's attributed URL is staged in `data-src` and assigned to `src` by `ghl-booking.js` when the booking section approaches the viewport or a consultation CTA is clicked.
+The landing page captures the paid session's sanitized attribution before its consultation CTAs navigate to the same-origin booking page. The iframe and external fallback on the booking page must retain `data-tk-booking-provider="ghl_calendar"`; the attribution helper uses that marker to find and decorate the correct booking URLs. The iframe's attributed URL is staged in `data-src` and assigned to `src` by `ghl-booking.js` when the calendar approaches the viewport.
+
+The GHL calendar must not be embedded back into the long-form landing page. The dedicated booking page intentionally uses minimal site chrome, an internally scrollable iframe, and a viewport-aware height so the date, time, and contact-details steps are not clipped inside a short conversion card.
 
 Do not restore `https://link.msgsndr.com/js/form_embed.js` on this page without retesting its reveal handshake. As of 2026-08-26, that script hid the calendar and waited for a provider-specific `fetch-query-params` message that the current GHL booking widget did not send. `ghl-booking.js` instead reveals the iframe only after a message from the expected LeadConnector iframe confirms that its application code is running; a bare iframe `load` event is not treated as readiness because browsers can fire it for an unreachable or failed frame. The helper switches to a prominent, same-tab, fully attributed fallback after four seconds if the provider signal does not arrive. The fallback remains available even after a successful inline load because the parent page cannot inspect later failures inside a cross-origin calendar application.
 
 ### GHL landing-page view event
 
-The paid landing page sends `ghl_calendar_viewed` with `booking_provider=ghl_calendar` and `booking_funnel=google_ads_landing_page` only when either:
+The paid booking page sends `ghl_calendar_viewed` with `booking_provider=ghl_calendar` and `booking_funnel=google_ads_landing_page` only when either:
 
 - the successfully loaded inline calendar actually intersects the viewport; or
 - the visitor chooses the attributed external calendar fallback.
@@ -135,17 +139,18 @@ The duplicate page-level measurement ID `G-1468YCTQJ3` was removed from the webs
 
 ## Files that control the setup
 
-| File | Responsibility |
-|---|---|
-| `src/layouts/BaseLayout.astro` | Canonical GA4/Ads tags and main-site attribution initialization |
-| `src/lib/booking-tracking.mjs` | Main-site first-party attribution and AppointmentCore GA4 events |
-| `scripts/booking-tracking.test.mjs` | Automated regression tests for main-site attribution and funnel isolation |
-| `src/pages/contact.astro` | Existing AppointmentCore iframe |
-| `src/pages/booking-confirmed.astro` | AppointmentCore confirmed-booking GA4 event |
-| `public/lp/auto-repair-marketing/index.html` | Standalone Google Ads landing page and GHL iframe |
-| `public/lp/ghl-attribution.js` | GHL-only landing-page attribution capture and iframe decoration |
-| `public/lp/ghl-booking.js` | GHL iframe start/readiness state, four-second failure fallback, and calendar-view tracking |
-| `src/pages/google-ads-call-booked.astro` | GHL confirmation and the sole booked-consultation Google Ads conversion |
+| File                                            | Responsibility                                                                             |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `src/layouts/BaseLayout.astro`                  | Canonical GA4/Ads tags and main-site attribution initialization                            |
+| `src/lib/booking-tracking.mjs`                  | Main-site first-party attribution and AppointmentCore GA4 events                           |
+| `scripts/booking-tracking.test.mjs`             | Automated regression tests for main-site attribution and funnel isolation                  |
+| `src/pages/contact.astro`                       | Existing AppointmentCore iframe                                                            |
+| `src/pages/booking-confirmed.astro`             | AppointmentCore confirmed-booking GA4 event                                                |
+| `public/lp/auto-repair-marketing/index.html`    | Standalone Google Ads landing page, CTA routing, and paid-session attribution capture      |
+| `src/pages/lp/auto-repair-marketing/book.astro` | Dedicated conversion-focused GHL booking page and iframe                                   |
+| `public/lp/ghl-attribution.js`                  | GHL-only landing-page attribution capture and iframe decoration                            |
+| `public/lp/ghl-booking.js`                      | GHL iframe start/readiness state, four-second failure fallback, and calendar-view tracking |
+| `src/pages/google-ads-call-booked.astro`        | GHL confirmation and the sole booked-consultation Google Ads conversion                    |
 
 ## Guardrails for future website work
 
@@ -156,8 +161,8 @@ Before merging any booking or analytics change, verify all of the following:
 - `/contact` still contains the AppointmentCore iframe and its embed helper.
 - The AppointmentCore iframe URL has not been decorated with attribution or PII.
 - `/booking-confirmed` sends GA4 booking events but no Google Ads conversion.
-- `/lp/auto-repair-marketing` still loads `/lp/ghl-attribution.js`.
-- `/lp/auto-repair-marketing` still loads `/lp/ghl-booking.js` and does not load GHL's handshake-dependent `form_embed.js`.
+- `/lp/auto-repair-marketing` still loads `/lp/ghl-attribution.js`, and every consultation CTA routes to `/lp/auto-repair-marketing/book`.
+- `/lp/auto-repair-marketing/book` loads both `/lp/ghl-attribution.js` and `/lp/ghl-booking.js` and does not load GHL's handshake-dependent `form_embed.js`.
 - The GHL iframe still has `data-tk-booking-provider="ghl_calendar"`.
 - `/google-ads-call-booked` remains the only booking page that sends `8Oy4CJqVtuMcEKrylLJE`.
 - Only canonical GA4 ID `G-XJZ35N9FWG` is configured for Turnkey reporting.

@@ -60,9 +60,8 @@
       });
     </script>
 
-    <!-- GHL-only attribution capture. This paid LP uses the GHL calendar. -->
+    <!-- Capture paid-session attribution before the visitor opens the booking page. -->
     <script src="/lp/ghl-attribution.js" defer></script>
-    <script src="/lp/ghl-booking.js" defer></script>
 
     <script type="application/ld+json">
       {
@@ -1018,109 +1017,6 @@
       }
 
       /* ==================================================================
-         Embedded booking calendar
-         ================================================================== */
-      .start {
-        padding-bottom: 2.75rem;
-        scroll-margin-top: calc(var(--header-h) + 12px);
-      }
-      .start-grid {
-        width: 100%;
-        max-width: 62rem;
-        margin-inline: auto;
-      }
-
-      .sheet {
-        background: #fff;
-        border: 1px solid var(--hairline);
-        border-radius: 24px;
-        padding: 0.75rem;
-        box-shadow: 0 24px 60px -34px rgba(20, 22, 28, 0.22);
-        overflow: hidden;
-      }
-      .booking-widget {
-        display: block;
-        width: 100%;
-        min-height: 760px;
-        border: 0;
-        overflow: hidden;
-      }
-      .booking-widget[hidden] {
-        display: none;
-      }
-      .booking-status {
-        display: flex;
-        align-items: center;
-        gap: 0.65rem;
-        padding: 1rem;
-        color: rgba(20, 22, 28, 0.72);
-        font-size: 0.9rem;
-      }
-      .booking-status[hidden] {
-        display: none;
-      }
-      .booking-spinner {
-        width: 1rem;
-        height: 1rem;
-        flex: none;
-        border: 2px solid var(--key-blue-soft);
-        border-top-color: var(--key-blue);
-        border-radius: 50%;
-        animation: booking-spin 700ms linear infinite;
-      }
-      @keyframes booking-spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .booking-spinner { animation: none; }
-      }
-      .booking-fallback {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem 1.5rem;
-        padding: 1rem;
-        background: var(--key-blue-soft);
-        border-radius: 16px;
-      }
-      .booking-fallback p {
-        font-size: 0.875rem;
-        color: rgba(20, 22, 28, 0.72);
-      }
-      .booking-fallback .booking-fallback-button {
-        min-height: 44px;
-        padding: 0.7rem 1.1rem;
-        font-size: 0.875rem;
-        white-space: nowrap;
-      }
-      .sheet[data-booking-state="ready"] .booking-fallback {
-        margin-bottom: 0.75rem;
-        background: #fff;
-        border: 1px solid var(--hairline);
-      }
-      .sheet[data-booking-state="failed"] .booking-status {
-        color: var(--navy);
-        font-weight: 600;
-      }
-      .sheet[data-booking-state="failed"] .booking-spinner {
-        display: none;
-      }
-      @media (max-width: 639px) {
-        .booking-fallback {
-          align-items: stretch;
-        }
-        .booking-fallback p {
-          width: 100%;
-        }
-        .booking-fallback .booking-fallback-button {
-          width: 100%;
-        }
-      }
-
-      /* ==================================================================
          Final CTA + footer
          ================================================================== */
       .close { padding-bottom: 2.25rem; }
@@ -1383,8 +1279,8 @@
         </a>
 
         <a
-          class="btn btn-primary cta-head js-book"
-          href="#start"
+          class="btn btn-primary cta-head"
+          href="/lp/auto-repair-marketing/book"
           data-track-event="consultation_cta_click"
           data-track-placement="header"
           aria-label="Schedule a consultation"
@@ -1419,8 +1315,8 @@
 
               <div class="hero-acts" data-reveal style="--reveal-delay: 170ms;">
                 <a
-                  class="btn btn-primary btn-lg btn-block js-book"
-                  href="#start"
+                  class="btn btn-primary btn-lg btn-block"
+                  href="/lp/auto-repair-marketing/book"
                   data-track-event="consultation_cta_click"
                   data-track-placement="hero_primary"
                 >
@@ -1637,8 +1533,8 @@
               </p>
               <div class="pain-cta">
                 <a
-                  class="btn btn-light js-book"
-                  href="#start"
+                  class="btn btn-light"
+                  href="/lp/auto-repair-marketing/book"
                   data-track-event="consultation_cta_click"
                   data-track-placement="pain_panel"
                 >
@@ -1757,8 +1653,8 @@
             </div>
             <div>
               <a
-                class="btn btn-go btn-lg js-book"
-                href="#start"
+                class="btn btn-go btn-lg"
+                href="/lp/auto-repair-marketing/book"
                 data-track-event="consultation_cta_click"
                 data-track-placement="mid_page"
               >
@@ -1965,8 +1861,8 @@
             </p>
             <div class="close-acts">
               <a
-                class="btn btn-go btn-lg js-book"
-                href="#start"
+                class="btn btn-go btn-lg"
+                href="/lp/auto-repair-marketing/book"
                 data-track-event="consultation_cta_click"
                 data-track-placement="final"
               >
@@ -1991,49 +1887,6 @@
         </div>
       </section>
 
-      <!-- =========================================================
-           EMBEDDED BOOKING CALENDAR — final page section
-           ========================================================= -->
-      <section class="start" id="start" aria-label="Schedule a consultation">
-        <div class="container-page">
-          <div class="start-grid">
-            <div class="sheet" data-reveal data-booking-state="idle">
-              <div class="booking-status" role="status" aria-live="polite">
-                <span class="booking-spinner" aria-hidden="true"></span>
-                <span data-booking-status>Loading the booking calendar&hellip;</span>
-              </div>
-              <div class="booking-fallback">
-                <p data-booking-fallback-copy>If the calendar takes too long, open it directly.</p>
-                <a
-                  class="btn btn-primary booking-fallback-button"
-                  href="https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d"
-                  data-tk-booking-provider="ghl_calendar"
-                  data-track-placement="calendar_fallback"
-                  >Open the Booking Calendar</a
-                >
-              </div>
-              <iframe
-                class="booking-widget"
-                data-src="https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d"
-                data-tk-booking-provider="ghl_calendar"
-                allow="payment"
-                scrolling="no"
-                id="6tmXrJxmo6AUsMP2ja9d_1786654590837"
-                title="Schedule a consultation with Turnkey Marketing"
-                aria-busy="true"
-                hidden
-              ></iframe>
-              <noscript>
-                <p>
-                  <a href="https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d"
-                    >Open the Booking Calendar</a
-                  >
-                </p>
-              </noscript>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
     <!-- =========================================================
@@ -2063,8 +1916,8 @@
         Call
       </a>
       <a
-        class="btn btn-primary js-book"
-        href="#start"
+        class="btn btn-primary"
+        href="/lp/auto-repair-marketing/book"
         data-track-event="consultation_cta_click"
         data-track-placement="sticky_bar"
       >
@@ -2097,25 +1950,6 @@
           if (el.dataset.trackPlacement) params.placement = el.dataset.trackPlacement;
           track(el.dataset.trackEvent, params);
 
-          if (el.classList.contains("js-book")) {
-            var booking = document.getElementById("start");
-            if (!booking) return;
-
-            event.preventDefault();
-            if (window.turnkeyGhlBooking && typeof window.turnkeyGhlBooking.start === "function") {
-              window.turnkeyGhlBooking.start();
-            }
-            Array.prototype.forEach.call(booking.querySelectorAll("[data-reveal]"), function (item) {
-              item.classList.add("is-visible");
-            });
-            booking.scrollIntoView({
-              behavior: reduced ? "auto" : "smooth",
-              block: "start"
-            });
-            if (window.history && window.history.replaceState) {
-              window.history.replaceState(null, "", "#start");
-            }
-          }
         });
 
         /* ---- Center play controls for testimonial videos ---- */
@@ -2156,7 +1990,6 @@
 
         var bar = document.getElementById("lp-action-bar");
         var hero = document.querySelector(".hero");
-        var startBlock = document.getElementById("start");
 
         function revealAll() {
           revealTargets.forEach(function (el) { el.classList.add("is-visible"); });
@@ -2177,16 +2010,10 @@
             });
           }
 
-          /* Action bar: on once the hero is mostly gone, off while the calendar
-             is on screen so it never covers the submit button. */
+          /* Action bar: on once the hero is mostly gone. */
           if (bar && hero) {
             var pastHero = hero.getBoundingClientRect().bottom < vh * 0.6;
-            var onForm = false;
-            if (startBlock) {
-              var f = startBlock.getBoundingClientRect();
-              onForm = f.top < vh * 0.85 && f.bottom > vh * 0.15;
-            }
-            bar.classList.toggle("is-on", pastHero && !onForm);
+            bar.classList.toggle("is-on", pastHero);
           }
         }
 
