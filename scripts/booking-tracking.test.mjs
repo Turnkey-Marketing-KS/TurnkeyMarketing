@@ -566,6 +566,14 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
     path.join(workspaceRoot, "public/lp/auto-repair-marketing/index.html"),
     "utf8",
   );
+  const paidBookingControllerSource = readFileSync(
+    path.join(workspaceRoot, "public/lp/ghl-booking.js"),
+    "utf8",
+  );
+  const paidAttributionSource = readFileSync(
+    path.join(workspaceRoot, "public/lp/ghl-attribution.js"),
+    "utf8",
+  );
   const paidConfirmationSource = readFileSync(
     path.join(workspaceRoot, "src/pages/google-ads-call-booked.astro"),
     "utf8",
@@ -613,10 +621,31 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
   assert.doesNotMatch(trackingSource, /custom_map|custom_dimension|dimension\d+/i);
   assert.match(paidLandingSource, /leadconnectorhq\.com\/widget\/booking\/6tmXrJxmo6AUsMP2ja9d/);
   assert.match(paidLandingSource, /\/lp\/ghl-attribution\.js/);
+  assert.match(paidLandingSource, /\/lp\/ghl-booking\.js/);
   assert.ok(
     (paidLandingSource.match(/data-tk-booking-provider="ghl_calendar"/g) || []).length,
     "The GHL iframe or fallback link must be marked for attribution decoration",
   );
+  assert.match(
+    paidLandingSource,
+    /data-src="https:\/\/api\.leadconnectorhq\.com\/widget\/booking\//,
+  );
+  assert.doesNotMatch(paidLandingSource, /link\.msgsndr\.com\/js\/form_embed\.js/);
+  assert.match(paidLandingSource, /Open the Booking Calendar/);
+  assert.doesNotMatch(paidLandingSource, /target="_blank"/);
+  assert.match(paidAttributionSource, /hasAttribute\("data-src"\) \? "data-src" : "src"/);
+  assert.match(paidBookingControllerSource, /READY_TIMEOUT_MS = 4000/);
+  assert.match(
+    paidBookingControllerSource,
+    /window\.addEventListener\("message", onProviderMessage\)/,
+  );
+  assert.match(paidBookingControllerSource, /event\.source !== iframe\.contentWindow/);
+  assert.match(paidBookingControllerSource, /leadconnectorhq\.com/);
+  assert.match(paidBookingControllerSource, /highlevel\.setHeight/);
+  assert.match(paidBookingControllerSource, /iframe\.addEventListener\("error", markFailed/);
+  assert.match(paidBookingControllerSource, /track\("ghl_calendar_viewed"/);
+  assert.match(paidBookingControllerSource, /booking_funnel: "google_ads_landing_page"/);
+  assert.match(paidBookingControllerSource, /window\.location\.assign\(destination\)/);
   assert.doesNotMatch(baseLayoutSource, /G-1468YCTQJ3/);
   assert.doesNotMatch(paidLandingSource, /G-1468YCTQJ3/);
   assert.equal((baseLayoutSource.match(/gtag\/js\?id=G-XJZ35N9FWG/g) || []).length, 1);

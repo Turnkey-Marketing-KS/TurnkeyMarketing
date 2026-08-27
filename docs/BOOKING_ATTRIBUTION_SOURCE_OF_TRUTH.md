@@ -1,6 +1,6 @@
 # Website Booking and Attribution — Source of Truth
 
-**Last updated:** 2026-08-21 (America/Chicago)  
+**Last updated:** 2026-08-27 (America/Chicago)
 **Website repository:** `Turnkey-Marketing-KS/TurnkeyMarketing`  
 **Implemented on GitHub `main`:** commit `565e1ea3012395c425a8775a2353377c514125b4`  
 **Purpose:** This is the handoff document for anyone changing the Turnkey website, booking pages, analytics, or conversion tracking.
@@ -85,12 +85,24 @@ Even if a main-site visitor has a GCLID or paid attribution, reaching `/booking-
 
 - Landing page: `public/lp/auto-repair-marketing/index.html`
 - Attribution helper: `public/lp/ghl-attribution.js`
+- Booking readiness/fallback helper: `public/lp/ghl-booking.js`
 - Calendar ID: `6tmXrJxmo6AUsMP2ja9d`
 - Calendar name at last audit: `Schedule A Strategy Call`
 - GHL widget URL: `https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d`
 - Confirmation page: `src/pages/google-ads-call-booked.astro`
 
-The iframe must retain `data-tk-booking-provider="ghl_calendar"`; the attribution helper uses that marker to find and decorate the correct booking widget.
+The iframe and external fallback must retain `data-tk-booking-provider="ghl_calendar"`; the attribution helper uses that marker to find and decorate the correct booking URLs. The iframe's attributed URL is staged in `data-src` and assigned to `src` by `ghl-booking.js` when the booking section approaches the viewport or a consultation CTA is clicked.
+
+Do not restore `https://link.msgsndr.com/js/form_embed.js` on this page without retesting its reveal handshake. As of 2026-08-26, that script hid the calendar and waited for a provider-specific `fetch-query-params` message that the current GHL booking widget did not send. `ghl-booking.js` instead reveals the iframe only after a message from the expected LeadConnector iframe confirms that its application code is running; a bare iframe `load` event is not treated as readiness because browsers can fire it for an unreachable or failed frame. The helper switches to a prominent, same-tab, fully attributed fallback after four seconds if the provider signal does not arrive. The fallback remains available even after a successful inline load because the parent page cannot inspect later failures inside a cross-origin calendar application.
+
+### GHL landing-page view event
+
+The paid landing page sends `ghl_calendar_viewed` with `booking_provider=ghl_calendar` and `booking_funnel=google_ads_landing_page` only when either:
+
+- the successfully loaded inline calendar actually intersects the viewport; or
+- the visitor chooses the attributed external calendar fallback.
+
+The fallback click is not another `consultation_cta_click`, and the ordinary consultation CTA is not counted as a lead. The parent page cannot reliably send `booking_form_start` from the cross-origin GHL UI unless GHL exposes a stable provider message for the contact-details step. Do not infer form start from a CTA click, iframe load, resize, or elapsed time.
 
 ### GHL confirmation events
 
@@ -132,6 +144,7 @@ The duplicate page-level measurement ID `G-1468YCTQJ3` was removed from the webs
 | `src/pages/booking-confirmed.astro` | AppointmentCore confirmed-booking GA4 event |
 | `public/lp/auto-repair-marketing/index.html` | Standalone Google Ads landing page and GHL iframe |
 | `public/lp/ghl-attribution.js` | GHL-only landing-page attribution capture and iframe decoration |
+| `public/lp/ghl-booking.js` | GHL iframe start/readiness state, four-second failure fallback, and calendar-view tracking |
 | `src/pages/google-ads-call-booked.astro` | GHL confirmation and the sole booked-consultation Google Ads conversion |
 
 ## Guardrails for future website work
@@ -144,12 +157,19 @@ Before merging any booking or analytics change, verify all of the following:
 - The AppointmentCore iframe URL has not been decorated with attribution or PII.
 - `/booking-confirmed` sends GA4 booking events but no Google Ads conversion.
 - `/lp/auto-repair-marketing` still loads `/lp/ghl-attribution.js`.
+- `/lp/auto-repair-marketing` still loads `/lp/ghl-booking.js` and does not load GHL's handshake-dependent `form_embed.js`.
 - The GHL iframe still has `data-tk-booking-provider="ghl_calendar"`.
 - `/google-ads-call-booked` remains the only booking page that sends `8Oy4CJqVtuMcEKrylLJE`.
 - Only canonical GA4 ID `G-XJZ35N9FWG` is configured for Turnkey reporting.
 - No email address, phone number, name, or other PII is sent in analytics event parameters or tracking URLs.
 - `npm run test:booking-tracking` passes.
 - The production Astro build passes.
+
+## Google Ads call-number replacement on the paid landing page
+
+The canonical business number in page markup is `(913) 427-0674`, including every matching `tel:+19134270674` link. The Google Ads call conversion configuration also declares that number as `phone_conversion_number` for conversion action `AW-18358810922/PAbVCOamquMcEKrylLJE`.
+
+Eligible ad sessions can replace the visible number and matching `tel:` destination with a Google forwarding number. During the 2026-08-26 production audit, Chrome displayed `(913) 374-4351` and linked it to `tel:+19133744351`; a fresh session without replacement can continue to show `(913) 427-0674`. This difference is intentional dynamic-number insertion. If the Google call-conversion tag or canonical number changes, verify both the displayed number and `tel:` destination together.
 
 ## Production verification checklist
 
