@@ -38,6 +38,12 @@ export type ResourcePost = {
     description: string;
   }[];
   relatedSlugs?: string[];
+  externalSources: {
+    href: string;
+    label: string;
+    publisher: string;
+    description: string;
+  }[];
   faq?: Array<{
     question: string;
     answer: string;
@@ -108,6 +114,29 @@ export const resourcePosts: ResourcePost[] = [
       },
     ],
     sections: [],
+    externalSources: [
+      {
+        href: "https://support.google.com/websearch/answer/13572151?hl=en",
+        label: "Understand generative AI experiences in Google Search",
+        publisher: "Google Search Help",
+        description:
+          "Google's official overview of generative AI search features, how responses are produced, and why important information should be checked.",
+      },
+      {
+        href: "https://support.google.com/business/answer/3038177?hl=en",
+        label: "Represent your shop accurately on Google",
+        publisher: "Google Business Profile Help",
+        description:
+          "Official rules for consistent business names, locations, categories, service areas, and profile information.",
+      },
+      {
+        href: "https://www.nist.gov/itl/ai-risk-management-framework",
+        label: "Review the NIST AI Risk Management Framework",
+        publisher: "National Institute of Standards and Technology",
+        description:
+          "A voluntary framework for understanding and managing the reliability, transparency, privacy, and other risks of AI systems.",
+      },
+    ],
     serviceLinks: [
       {
         href: "/services/digital-marketing",
@@ -153,6 +182,29 @@ export const resourcePosts: ResourcePost[] = [
       "Measure the path from response to booked work and the next visit—not only impressions or leads.",
     ],
     sections: [],
+    externalSources: [
+      {
+        href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
+        label: "Build a practical small-business marketing plan",
+        publisher: "U.S. Small Business Administration",
+        description:
+          "A planning framework for target markets, goals, channels, budgets, sales, and post-sale customer support.",
+      },
+      {
+        href: "https://support.google.com/business/answer/3474122?hl=en",
+        label: "Follow Google's guidance for earning and managing reviews",
+        publisher: "Google Business Profile Help",
+        description:
+          "Official recommendations for requesting genuine reviews and responding to customer feedback.",
+      },
+      {
+        href: "https://www.usps.com/business/every-door-direct-mail.htm",
+        label: "Explore neighborhood targeting with Every Door Direct Mail",
+        publisher: "U.S. Postal Service",
+        description:
+          "USPS guidance for selecting local routes, audience characteristics, mailpiece formats, and drop dates.",
+      },
+    ],
     faq: [
       {
         question: "What is the best marketing idea for an auto repair shop?",
@@ -238,6 +290,29 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "Validate the profile with shop data.",
         body: "Treat the first profile as a working hypothesis. Compare it with repair-order quality, vehicle mix, retention, declined work, call recordings, reviews, and customer feedback. Revisit it when capacity, staffing, specialty, geography, or business goals change. The useful profile is the one that keeps improving real decisions.",
+      },
+    ],
+    externalSources: [
+      {
+        href: "https://www.sba.gov/business-guide/plan-your-business/market-research-competitive-analysis",
+        label: "Use market research to find and understand customers",
+        publisher: "U.S. Small Business Administration",
+        description:
+          "A guide to demand, market size, location, saturation, pricing, and direct customer research.",
+      },
+      {
+        href: "https://www.census.gov/programs-surveys/sis/resources/data-tools/business-builder.html",
+        label: "Research local customers with Census Business Builder",
+        publisher: "U.S. Census Bureau",
+        description:
+          "A free tool for exploring local demographic, socioeconomic, business, and consumer-spending data.",
+      },
+      {
+        href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
+        label: "Turn a target market into a marketing action plan",
+        publisher: "U.S. Small Business Administration",
+        description:
+          "Official planning guidance connecting audience, competitive advantage, marketing goals, channels, and customer support.",
       },
     ],
     faq: [
@@ -330,6 +405,29 @@ export const resourcePosts: ResourcePost[] = [
         body: "Ask for full-resolution originals plus web-ready exports. Sort files by people, facility, service, equipment, community, and orientation, then use descriptive filenames. Refresh staff and facility photography when the team or customer experience changes; a smaller current library is more credible than a large outdated one.",
       },
     ],
+    externalSources: [
+      {
+        href: "https://support.google.com/business/answer/7213077?hl=en",
+        label: "Review Google Business Profile photo and video policies",
+        publisher: "Google Business Profile Help",
+        description:
+          "Google's official requirements for imagery and other content published to a Business Profile.",
+      },
+      {
+        href: "https://www.copyright.gov/circs/circ42.pdf",
+        label: "Understand copyright registration for photographs",
+        publisher: "U.S. Copyright Office",
+        description:
+          "The Copyright Office's guide to authorship, ownership, publication, and registration of photographic work.",
+      },
+      {
+        href: "https://www.w3.org/WAI/tutorials/images/decision-tree/",
+        label: "Choose appropriate alternative text for website images",
+        publisher: "W3C Web Accessibility Initiative",
+        description:
+          "A practical decision tree for deciding when an image needs descriptive alt text and when it should be treated as decorative.",
+      },
+    ],
     faq: [
       {
         question: "What photos should an auto repair shop website include?",
@@ -417,6 +515,29 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "Carry the message through the whole experience.",
         body: "The guide role cannot stop at the website. Use the same clear language in phone scripts, appointment confirmations, inspections, estimates, follow-up, social content, and review responses. Consistency turns a marketing promise into an experience customers can recognize and recommend.",
+      },
+    ],
+    externalSources: [
+      {
+        href: "https://digital.gov/guides/plain-language",
+        label: "Write clear, useful customer-facing content",
+        publisher: "Digital.gov",
+        description:
+          "Federal plain-language guidelines for organizing information, choosing words, writing sentences, and designing readable content.",
+      },
+      {
+        href: "https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business",
+        label: "Keep marketing claims truthful and supportable",
+        publisher: "Federal Trade Commission",
+        description:
+          "Small-business guidance on the evidence needed for advertising claims and the proper use of endorsements.",
+      },
+      {
+        href: "https://support.google.com/business/answer/3474122?hl=en",
+        label: "Use reviews as honest, customer-centered proof",
+        publisher: "Google Business Profile Help",
+        description:
+          "Official advice for requesting genuine feedback and writing relevant, professional review responses.",
       },
     ],
     faq: [
@@ -509,6 +630,29 @@ export const resourcePosts: ResourcePost[] = [
         ],
       },
     ],
+    externalSources: [
+      {
+        href: "https://support.google.com/business/answer/3038177?hl=en",
+        label: "Represent your shop consistently on Google",
+        publisher: "Google Business Profile Help",
+        description:
+          "Google's official rules for accurate business names, addresses, categories, service areas, and profile content.",
+      },
+      {
+        href: "https://support.google.com/business/answer/3474122?hl=en",
+        label: "Build trust with genuine reviews and thoughtful replies",
+        publisher: "Google Business Profile Help",
+        description:
+          "Best practices for asking for reviews, responding publicly, and avoiding prohibited incentives.",
+      },
+      {
+        href: "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews",
+        label: "Follow federal guidance for reviews and testimonials",
+        publisher: "Federal Trade Commission",
+        description:
+          "Current guidance on honest endorsements, review solicitation, disclosures, and the Consumer Reviews and Testimonials Rule.",
+      },
+    ],
     faq: [
       {
         question: "What is know-like-trust marketing?",
@@ -577,6 +721,29 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "The fix is a single scoreboard.",
         body: "A useful marketing plan connects calls, booked appointments, customer mix, retention, and spend. That makes the next move easier to defend because every channel is working toward the same shop goal.",
+      },
+    ],
+    externalSources: [
+      {
+        href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
+        label: "Connect marketing goals, costs, and sales results",
+        publisher: "U.S. Small Business Administration",
+        description:
+          "A small-business framework for setting goals, choosing channels, planning customer support, and comparing marketing cost with revenue.",
+      },
+      {
+        href: "https://support.google.com/analytics/answer/9267568?hl=en",
+        label: "Measure the actions that matter with key events",
+        publisher: "Google Analytics Help",
+        description:
+          "Official guidance for identifying important actions and evaluating the channels that contribute to them.",
+      },
+      {
+        href: "https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business",
+        label: "Avoid unsupported claims and deceptive offers",
+        publisher: "Federal Trade Commission",
+        description:
+          "Truth-in-advertising guidance covering claims, pricing, guarantees, endorsements, and promotional practices.",
       },
     ],
     faq: [
@@ -681,6 +848,29 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "6. Plan the follow-up before the mail drops.",
         body: "The campaign continues after the postcard arrives. Someone has to answer the phone well, capture the customer's information, book the appointment, and bring that customer back a second time. Connect the mail to the shop's email, text, and CRM follow-up so a first visit generated by a postcard turns into a retained customer. This is where most disappointing direct mail campaigns actually fail — not at the mailbox.",
+      },
+    ],
+    externalSources: [
+      {
+        href: "https://www.usps.com/business/every-door-direct-mail.htm",
+        label: "Plan a targeted Every Door Direct Mail campaign",
+        publisher: "U.S. Postal Service",
+        description:
+          "The official EDDM workflow for choosing routes and demographics, preparing mailpieces, scheduling, and drop-off.",
+      },
+      {
+        href: "https://pe.usps.com/MailpieceDesign",
+        label: "Check USPS mailpiece design requirements",
+        publisher: "U.S. Postal Service Postal Explorer",
+        description:
+          "Design resources that help mail qualify for the intended postage rates and move through processing accurately.",
+      },
+      {
+        href: "https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business",
+        label: "Make direct-mail offers clear and supportable",
+        publisher: "Federal Trade Commission",
+        description:
+          "Federal guidance for advertising claims, prices, guarantees, disclosures, and endorsements across media, including print.",
       },
     ],
     faq: [
@@ -797,6 +987,29 @@ export const resourcePosts: ResourcePost[] = [
         ],
       },
     ],
+    externalSources: [
+      {
+        href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
+        label: "Structure a small-business marketing plan",
+        publisher: "U.S. Small Business Administration",
+        description:
+          "A practical outline for target market, competitive advantage, goals, action plans, budgets, and return on investment.",
+      },
+      {
+        href: "https://www.census.gov/programs-surveys/sis/resources/data-tools/business-builder.html",
+        label: "Use local market data to refine the plan",
+        publisher: "U.S. Census Bureau",
+        description:
+          "Census Business Builder combines local demographic, socioeconomic, business, and consumer-spending information.",
+      },
+      {
+        href: "https://support.google.com/analytics/answer/10597962?hl=en",
+        label: "Choose and document an attribution approach",
+        publisher: "Google Analytics Help",
+        description:
+          "Official documentation for attribution models, conversion windows, and which paid and organic channels receive credit.",
+      },
+    ],
     faq: [
       {
         question: "What should an auto repair shop marketing plan include?",
@@ -863,6 +1076,29 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "Leadership removes the drag.",
         body: "The better path is one team coordinating vendors, campaigns, reporting, and next steps. The owner should understand the why without having to manage every small decision.",
+      },
+    ],
+    externalSources: [
+      {
+        href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
+        label: "Give the marketing plan shared goals and actions",
+        publisher: "U.S. Small Business Administration",
+        description:
+          "A framework for aligning audience, channels, budget, customer support, sales goals, and the work required to reach them.",
+      },
+      {
+        href: "https://support.google.com/analytics/answer/10597962?hl=en",
+        label: "Understand why channel reports assign credit differently",
+        publisher: "Google Analytics Help",
+        description:
+          "Google's explanation of attribution models, lookback windows, and channel eligibility in conversion reporting.",
+      },
+      {
+        href: "https://support.google.com/business/answer/3403100?hl=en",
+        label: "Assign Business Profile access without sharing passwords",
+        publisher: "Google Business Profile Help",
+        description:
+          "Official owner and manager roles for giving vendors appropriate access while the business retains control.",
       },
     ],
     faq: [
@@ -939,6 +1175,29 @@ export const resourcePosts: ResourcePost[] = [
       {
         heading: "A plan is only useful when someone owns it.",
         body: "Turnkey pairs the strategy with execution and reporting, so the owner gets a clear direction without becoming the project manager for every campaign. The result is accountability, fewer last-minute decisions, and marketing that supports the shop's actual goals.",
+      },
+    ],
+    externalSources: [
+      {
+        href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
+        label: "Map annual marketing goals into an action plan",
+        publisher: "U.S. Small Business Administration",
+        description:
+          "SBA guidance for defining the target market, annual goals, channels, budget, customer support, and sales process.",
+      },
+      {
+        href: "https://support.google.com/analytics/answer/9267568?hl=en",
+        label: "Choose measurable actions for the yearly scorecard",
+        publisher: "Google Analytics Help",
+        description:
+          "Official guidance for tracking important actions and evaluating how marketing touchpoints contribute to them.",
+      },
+      {
+        href: "https://www.census.gov/programs-surveys/sis/resources/data-tools/business-builder.html",
+        label: "Ground yearly decisions in local market data",
+        publisher: "U.S. Census Bureau",
+        description:
+          "A free source of local demographic, economic, business, and consumer-spending data for planning and expansion.",
       },
     ],
     faq: [

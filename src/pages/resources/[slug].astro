@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import MarketingIdeasArticle from "@/components/resources/MarketingIdeasArticle.astro";
 import AISearchArticle from "@/components/resources/AISearchArticle.astro";
+import ExternalSources from "@/components/resources/ExternalSources.astro";
 import { getResourcePost, resourcePosts } from "@/lib/resource-posts";
 import { CONSULTATION_URL } from "@/lib/services";
 
@@ -476,4 +477,5 @@ const pageSchema = faqSchema ? [articleSchema, breadcrumbSchema, faqSchema] : [a
       </div>
     </section>
   )}
+  <ExternalSources sources={currentPost.externalSources} />
 </BaseLayout>
