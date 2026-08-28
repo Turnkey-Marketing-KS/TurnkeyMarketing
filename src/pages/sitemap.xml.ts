@@ -1,5 +1,6 @@
 import { services } from "@/lib/services";
 import { resourcePosts } from "@/lib/resource-posts";
+import { audiences } from "@/lib/audiences";
 
 const canonicalSite = new URL("https://www.turnkeyautomarketing.com");
 
@@ -33,7 +34,11 @@ export function GET() {
     path: post.href,
     lastmod: post.updatedDate ?? post.originalDate ?? phaseThreeRefreshDate,
   }));
-  const entries = [...staticEntries, ...serviceEntries, ...resourceEntries];
+  const audienceEntries: SitemapEntry[] = audiences.map((audience) => ({
+    path: `/who-we-help/${audience.slug}`,
+    lastmod: "2026-08-28",
+  }));
+  const entries = [...staticEntries, ...serviceEntries, ...resourceEntries, ...audienceEntries];
   const urls = entries.map(({ path, lastmod }) => {
     const loc = new URL(path, canonicalSite).toString();
     return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`;

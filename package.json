@@ -12,6 +12,7 @@
     "test:tracking": "node --test scripts/booking-tracking.test.mjs",
     "test:visibility-report": "node --test scripts/visibility-report.test.mjs scripts/visibility-report-token.test.mjs",
     "seo:check": "node scripts/seo-check.mjs",
+    "seo:geo-check": "node scripts/seo-geo-audit.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
