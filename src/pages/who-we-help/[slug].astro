@@ -251,16 +251,25 @@ const faqSchema = {
   </section>
 
   <section class="bg-[var(--off-white)] py-14 md:py-24">
-    <div class="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-5">
-        <p class="eyebrow text-[var(--key-blue)]">Questions</p>
-        <h2 class="display-3 mt-5 text-balance text-charcoal">What shop owners ask first.</h2>
+    <div class="container-page">
+      <div class="mx-auto mb-8 max-w-4xl text-center md:mb-14">
+        <h2 class="display-2 text-balance text-charcoal">Frequently asked questions</h2>
       </div>
-      <div class="space-y-3 lg:col-span-7">
+      <div class="faq-list mx-auto max-w-3xl space-y-3">
         {currentAudience.faqs.map((faq, index) => (
-          <details class="overflow-hidden rounded-[22px] border border-[var(--hairline)] bg-white" open={index === 0}>
-            <summary class="cursor-pointer px-6 py-5 font-display text-lg font-semibold text-charcoal">{faq.question}</summary>
-            <p class="px-6 pb-6 leading-relaxed text-charcoal/70">{faq.answer}</p>
+          <details class="faq-item overflow-hidden rounded-2xl border hairline bg-white" open={index === 0}>
+            <summary class="faq-summary group flex w-full cursor-pointer items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--key-blue)] md:px-6 md:py-5">
+              <span class="faq-question pr-5 font-display text-base font-semibold text-charcoal transition-colors group-hover:text-white md:pr-8 md:text-lg">
+                {faq.question}
+              </span>
+              <span class="faq-icon inline-flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[var(--off-white)] text-charcoal transition-colors group-hover:bg-white/15 group-hover:text-white" aria-hidden="true">
+                <span class="faq-plus">+</span>
+                <span class="faq-minus">−</span>
+              </span>
+            </summary>
+            <div class="faq-answer px-5 pb-5 leading-relaxed text-charcoal/70 transition-colors md:px-6 md:pb-6">
+              {faq.answer}
+            </div>
           </details>
         ))}
       </div>
@@ -292,3 +301,40 @@ const faqSchema = {
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .faq-item > summary {
+    list-style: none;
+  }
+
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item[open] > .faq-summary,
+  .faq-item[open] > .faq-answer {
+    background: var(--key-blue);
+  }
+
+  .faq-item[open] .faq-question,
+  .faq-item[open] > .faq-answer {
+    color: white;
+  }
+
+  .faq-item[open] .faq-icon {
+    background: rgb(255 255 255 / 0.15);
+    color: white;
+  }
+
+  .faq-minus {
+    display: none;
+  }
+
+  .faq-item[open] .faq-plus {
+    display: none;
+  }
+
+  .faq-item[open] .faq-minus {
+    display: inline;
+  }
+</style>

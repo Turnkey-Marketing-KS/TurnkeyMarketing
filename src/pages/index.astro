@@ -662,13 +662,9 @@ const faqSchema = {
           </div>
         </div>
 
-        <a
-          href={`/services/${homeDirectTrackService.slug}`}
-          class="group relative grid overflow-hidden rounded-[32px] border border-white/10 p-6 text-white shadow-[0_24px_64px_-46px_rgba(35,46,102,0.72)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_34px_80px_-44px_rgba(35,46,102,0.82)] md:p-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:gap-8 lg:p-9"
+        <div
+          class="relative grid overflow-hidden rounded-[32px] border border-white/10 p-6 text-white shadow-[0_24px_64px_-46px_rgba(35,46,102,0.72)] md:p-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-14 lg:p-10"
           style="background: linear-gradient(135deg, var(--key-blue) 0%, var(--navy) 100%);"
-          data-track-event="service_cta_click"
-          data-track-slug={homeDirectTrackService.slug}
-          data-track-placement="home_services"
         >
           <span class="pointer-events-none absolute -left-24 -top-32 h-72 w-72 rounded-full bg-white/10 blur-3xl"></span>
           <span class="pointer-events-none absolute -bottom-24 right-24 h-56 w-56 rounded-full bg-[var(--key-blue)]/25 blur-3xl"></span>
@@ -689,25 +685,47 @@ const faqSchema = {
               {homeDirectTrackService.name}
             </h3>
             <p class="mt-4 max-w-xl text-base leading-relaxed text-white/80 md:mt-5 md:text-lg">
-              Trackable campaigns for shops that need targeted demand, clearer
-              attribution, and a better read on what is moving.
+              One coordinated customer-acquisition campaign that reaches the right local households across email, streaming TV, and display—then connects the response to real shop activity.
             </p>
           </div>
 
-          <div class="relative z-10 mt-7 flex flex-col justify-center rounded-[24px] border border-white/10 bg-white/[0.08] p-5 backdrop-blur-sm lg:mt-0 lg:p-6">
-            <div class="flex flex-wrap gap-2">
-              {homeDirectTrackService.outcomes.slice(0, 3).map((outcome) => (
-                <span class="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90">
-                  {outcome}
-                </span>
-              ))}
-            </div>
-            <span class="mt-6 inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-white px-5 font-semibold text-[var(--navy)] shadow-[0_14px_30px_-18px_rgba(17,33,69,0.65)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_18px_34px_-18px_rgba(17,33,69,0.75)]">
-              See DirectTrack
+          <div class="relative z-10 mt-8 lg:mt-0">
+            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">How DirectTrack works</p>
+            <ol class="mt-5 space-y-5">
+              <li class="grid grid-cols-[2.5rem_1fr] gap-4">
+                <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 font-display text-sm font-semibold text-white">01</span>
+                <div>
+                  <h4 class="font-display text-lg font-semibold text-white">Choose the right households</h4>
+                  <p class="mt-1 text-sm leading-relaxed text-white/70">We define the geography and customer profile around the work and capacity your shop wants.</p>
+                </div>
+              </li>
+              <li class="grid grid-cols-[2.5rem_1fr] gap-4">
+                <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 font-display text-sm font-semibold text-white">02</span>
+                <div>
+                  <h4 class="font-display text-lg font-semibold text-white">Run one coordinated campaign</h4>
+                  <p class="mt-1 text-sm leading-relaxed text-white/70">The same audience sees your shop through targeted email, streaming TV, and geofenced display ads.</p>
+                </div>
+              </li>
+              <li class="grid grid-cols-[2.5rem_1fr] gap-4">
+                <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 font-display text-sm font-semibold text-white">03</span>
+                <div>
+                  <h4 class="font-display text-lg font-semibold text-white">Measure, review, and improve</h4>
+                  <p class="mt-1 text-sm leading-relaxed text-white/70">Monthly reporting connects campaign response to reported revenue so we can adjust the audience, message, and spend.</p>
+                </div>
+              </li>
+            </ol>
+            <a
+              href={`/services/${homeDirectTrackService.slug}`}
+              class="group mt-7 inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-white px-5 font-semibold text-[var(--navy)] shadow-[0_14px_30px_-18px_rgba(17,33,69,0.65)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_34px_-18px_rgba(17,33,69,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--navy)]"
+              data-track-event="service_cta_click"
+              data-track-slug={homeDirectTrackService.slug}
+              data-track-placement="home_services"
+            >
+              Explore DirectTrack
               <ArrowRight className="motion-arrow h-4 w-4" />
-            </span>
+            </a>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
