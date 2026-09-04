@@ -165,7 +165,7 @@ export const audiences: AudiencePage[] = [
     heroTitle: "Marketing for multi-location repair shops.",
     heroAccent: "One plan. Every shop visible.",
     heroCopy:
-      "A second location does not just double the marketing workload. Each shop has its own capacity, local demand, reviews, profile, team, and performance—while the ownership group still needs one brand and one defensible plan.",
+      "A second location does not just double the marketing workload. Each shop has its own capacity, local demand, reviews, profile, team, and performance—while the ownership group still needs one brand and a clear plan for every location.",
     image: {
       ...siteMedia.clients.steveKillian,
       alt: "Steve Killian, owner of the multi-location Killian Auto Pros group",

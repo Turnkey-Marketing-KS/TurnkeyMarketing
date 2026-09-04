@@ -1,3 +1,12 @@
+// Verified directly on Google Maps on September 4, 2026.
+// Refresh the rating and count together.
+export const googleReviewSummary = {
+  rating: "5.0",
+  count: 33,
+  checkedAt: "2026-09-04",
+  url: "https://www.google.com/maps?place_id=ChIJo-v2fL_twIcRuI-HPDKWbMY&q=place_id%3AChIJo-v2fL_twIcRuI-HPDKWbMY",
+};
+
 export type GoogleReviewHighlight = {
   author: string;
   detail: string;

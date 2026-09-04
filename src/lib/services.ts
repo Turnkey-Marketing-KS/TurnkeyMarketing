@@ -19,13 +19,13 @@ export const services: Service[] = [
     shortName: "VIP Marketing Manager",
     tagline: "Your outside marketing department, with the plan and execution owned by one team.",
     summary:
-      "VIP brings the full Turnkey service stack together with account management, creative, copy, social coordination, reporting, and admin support, so your shop has a marketing department without building one in-house.",
+      "VIP brings marketing planning, account management, creative, copy, social coordination, reporting, and administrative support together. One team manages your plan and coordinates your vendors.",
     seoTitle: "Outsourced Marketing Department for Auto Repair Shops",
     seoDescription:
       "An outsourced marketing department and marketing director for your auto repair shop — strategy, creative, execution, and reporting from one accountable team.",
     schemaType: "Outsourced auto repair marketing department",
     outcomes: [
-      "All core services coordinated",
+      "Marketing plan and vendor coordination",
       "Account management and reporting",
       "Creative, copy, and social support",
       "Execution without vendor chasing",
@@ -36,15 +36,15 @@ export const services: Service[] = [
     slug: "directtrack-marketing",
     name: "DirectTrack Marketing",
     tagline:
-      "A targeted acquisition lane we plan, run, and measure inside your shop's broader advertising strategy.",
+      "Reach local drivers through targeted email, streaming TV, and display ads.",
     summary:
-      "DirectTrack combines targeted email, streaming TV, and geofenced display advertising with transparent ROI tracking and monthly review. Turnkey manages this lane directly and helps connect it to the other vendors and channels in your plan.",
+      "Turnkey plans and manages your targeted email, streaming TV, and geofenced display campaigns. Monthly reviews cover campaign response and reported revenue where tracking and shop records support the connection.",
     seoTitle: "Targeted Auto Repair Advertising | DirectTrack",
     seoDescription:
       "Reach local households with targeted email, streaming TV, and geofenced display advertising, then connect the results to your broader shop marketing plan.",
     schemaType: "Targeted digital acquisition marketing for auto repair shops",
     outcomes: [
-      "Super targeted email campaigns",
+      "Targeted email campaigns",
       "Commercials on streaming services",
       "Geofencing banner and display ads",
       "ROI tracking and reporting",
@@ -106,7 +106,7 @@ export const services: Service[] = [
     tagline:
       "Newsletter, thank-you, and CRM follow-up that keeps customers connected after the first visit.",
     summary:
-      "Retention Marketing protects the money you already spent earning customers by keeping newsletter, thank-you, and CRM follow-up activity on a steady rhythm.",
+      "Stay in touch after the first visit with email newsletters, thank-you notes, and customer follow-up that gives people a reason to return.",
     seoTitle: "Customer Retention Marketing for Auto Repair Shops",
     seoDescription:
       "Bring customers back with coordinated email newsletters, thank-you notes, and CRM follow-up designed specifically for independent auto repair shops.",
@@ -115,7 +115,7 @@ export const services: Service[] = [
       "Monthly email newsletter",
       "Thank-you note creation",
       "CRM audit refresh",
-      "Repeat-customer rhythm",
+      "Follow-up that brings customers back",
     ],
   },
   {

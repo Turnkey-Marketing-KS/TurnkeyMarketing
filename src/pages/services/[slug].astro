@@ -189,7 +189,7 @@ const faqSchema = {
             data-track-slug={service.slug}
             data-track-placement="service_hero"
           >
-            Schedule a Consultation
+            Book a Strategy Call
             <ArrowRight className="h-4 w-4" />
           </a>
           <a
@@ -293,7 +293,7 @@ const faqSchema = {
               data-track-slug={service.slug}
               data-track-placement="service_includes"
             >
-              Schedule a Consultation
+              Book a Strategy Call
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
@@ -429,7 +429,7 @@ const faqSchema = {
             data-track-slug={service.slug}
             data-track-placement="service_faq"
           >
-            Ask us directly
+            Book a Strategy Call
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>
@@ -466,8 +466,9 @@ const faqSchema = {
     <div class="container-page">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p class="eyebrow" style={`color: ${accentColor};`}>Pairs well with</p>
-          <h2 class="display-3 mt-4 text-balance text-charcoal">Shops rarely run just one piece.</h2>
+          <p class="eyebrow" style={`color: ${accentColor};`}>{detail.relatedServicesHeading?.eyebrow ?? "Pairs well with"}</p>
+          <h2 class="display-3 mt-4 text-balance text-charcoal">{detail.relatedServicesHeading?.title ?? "Shops rarely run just one piece."}</h2>
+          {detail.relatedServicesHeading && <p class="mt-5 max-w-2xl leading-relaxed text-charcoal/65">{detail.relatedServicesHeading.description}</p>}
         </div>
         <a href="/services" class="group inline-flex min-h-11 items-center gap-2 font-medium text-charcoal">
           All services
@@ -486,7 +487,7 @@ const faqSchema = {
 
               <div class="relative z-10 flex items-center justify-between gap-4">
                 <p class="text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--key-blue)] transition-colors group-hover/related:text-[var(--green)]">
-                  Recommended pairing
+                  {detail.relatedServicesHeading?.cardLabel ?? "Recommended pairing"}
                 </p>
                 <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--navy)]/10 bg-white text-[var(--navy)] shadow-[0_10px_24px_-18px_rgba(35,46,102,0.7)] transition duration-300 group-hover/related:border-white/12 group-hover/related:bg-white/10 group-hover/related:text-white">
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/related:translate-x-0.5" aria-hidden="true" />
@@ -520,7 +521,7 @@ const faqSchema = {
           See how {shortName} would fit your shop.
         </h2>
         <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-white/78">
-          Book a consultation — we'll look at your market, your current marketing, and whether
+          Book a Strategy Call — we'll look at your market, your current marketing, and whether
           this is the right move for your shop.
         </p>
         <div class="mt-8 flex flex-col items-center gap-5 sm:flex-row">
@@ -531,7 +532,7 @@ const faqSchema = {
             data-track-slug={service.slug}
             data-track-placement="service_bottom"
           >
-            Schedule a Consultation
+            Book a Strategy Call
             <ArrowRight className="h-4 w-4" />
           </a>
           <a

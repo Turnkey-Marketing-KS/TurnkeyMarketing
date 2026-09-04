@@ -297,7 +297,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         q: "Does Turnkey manage Google Ads or Local Services Ads?",
-        a: "Turnkey can oversee the broader advertising plan and coordinate outside Google Ads, LSA, website, or media vendors through the right service relationship. DirectTrack is the targeted email, streaming TV, and geofenced display acquisition lane Turnkey delivers directly. Scope is confirmed before work begins so ownership is clear.",
+        a: "Turnkey can oversee the broader advertising plan and coordinate outside Google Ads, LSA, website, or media vendors through the right service relationship. Turnkey directly manages DirectTrack's targeted email, streaming TV, and geofenced display campaigns. Scope is confirmed before work begins so ownership is clear.",
       },
       {
         q: "What is DirectTrack Marketing?",
@@ -317,7 +317,7 @@ export const resourcePosts: ResourcePost[] = [
         href: "/services/directtrack-marketing",
         label: "Explore DirectTrack Marketing",
         description:
-          "See the targeted email, streaming TV, geofenced display, and reporting lane Turnkey delivers directly.",
+          "See the targeted email, streaming TV, geofenced display campaigns, and reporting Turnkey manages directly.",
       },
       {
         href: "/services/marketing-consulting",
@@ -1030,7 +1030,7 @@ export const resourcePosts: ResourcePost[] = [
     takeaways: [
       "Start with a specific shop result, such as better-fit work, stronger retention, or more booked appointments.",
       "Give acquisition, retention, reputation, and seasonal campaigns clear jobs in a 12-month calendar.",
-      "Track the path from marketing source to calls, appointments, repair orders, and revenue so the next move is defensible.",
+      "Track the path from marketing source to calls, appointments, repair orders, and revenue so you can decide what to keep, change, or stop.",
     ],
     sections: [
       {
@@ -1077,7 +1077,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "7. Review the plan with keep, fix, stop, and start decisions.",
-        body: "Review the marketing plan on a regular monthly rhythm and make a clear call on each active campaign. Keep what is producing a defensible result. Fix the message, targeting, tracking, landing page, call handling, or follow-up when the channel has potential but the system is leaking. Stop work that cannot support the goal, and start the next priority only when someone can own it. Good reporting makes the next move obvious instead of merely proving that activity happened.",
+        body: "Review the marketing plan each month and make a clear call on each active campaign. Keep campaigns that produce the shop results you planned for. Fix the message, targeting, tracking, landing page, call handling, or follow-up when the channel has potential but the system is leaking. Stop work that cannot support the goal, and start the next priority only when someone can own it. Good reporting makes the next move obvious instead of merely proving that activity happened.",
         bullets: [
           "Keep: producing the intended shop outcome at a cost the business can defend.",
           "Fix: promising channel with a specific, correctable leak.",
@@ -1136,7 +1136,7 @@ export const resourcePosts: ResourcePost[] = [
         href: "/services/marketing-consulting",
         label: "Get an experienced auto repair marketing consultant",
         description:
-          "Build a defensible plan around your goals, capacity, priorities, and measures.",
+          "Build a clear plan around your goals, capacity, budget, and the results you want to measure.",
       },
       {
         href: "/services/vip-marketing-manager",
@@ -1170,7 +1170,7 @@ export const resourcePosts: ResourcePost[] = [
     sections: [
       {
         heading: "The owner becomes the connector.",
-        body: "When every vendor reports in its own lane, the owner still has to connect spend, calls, appointments, capacity, and customer quality. That is usually where momentum slows down.",
+        body: "When each vendor only reports on its own work, the owner still has to connect spend, calls, appointments, capacity, and customer quality. That is usually where momentum slows down.",
       },
       {
         heading: "Leadership removes the drag.",
@@ -1269,7 +1269,7 @@ export const resourcePosts: ResourcePost[] = [
     sections: [
       {
         heading: "The plan made the whole year visible.",
-        body: "A yearly marketing plan gives the shop a rhythm for acquisition, retention, reputation, seasonal pushes, and budget decisions. Instead of restarting the strategy conversation every month, Jason and his team could see how the pieces worked together and what needed to happen next.",
+        body: "A yearly marketing plan sets a schedule for attracting customers, encouraging repeat visits, managing reviews, and planning seasonal campaigns and spending. Instead of restarting the strategy conversation every month, Jason and his team could see how the pieces worked together and what needed to happen next.",
       },
       {
         heading: "A plan is only useful when someone owns it.",
@@ -1280,7 +1280,7 @@ export const resourcePosts: ResourcePost[] = [
       {
         question: "What is a yearly marketing plan for an auto repair shop?",
         answer:
-          "It is a 12-month view of the shop's acquisition, retention, reputation, seasonal campaigns, budget, deadlines, and review rhythm. The plan gives each activity a purpose and helps the team prepare before a slow week or service opportunity becomes urgent.",
+          "It is a 12-month view of the shop's acquisition, retention, reputation, seasonal campaigns, budget, deadlines, and dates to review results. The plan gives each activity a purpose and helps the team prepare before a slow week or service opportunity becomes urgent.",
       },
       {
         question: "What should go on an annual auto repair marketing calendar?",

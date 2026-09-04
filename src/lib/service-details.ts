@@ -47,6 +47,12 @@ export type ServiceDetail = {
     a: string;
   }[];
   pairsWith: string[];
+  relatedServicesHeading?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    cardLabel: string;
+  };
   included: string[];
   bestFor: string;
 };
@@ -55,6 +61,15 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "vip-marketing-manager": {
     image: siteMedia.graphics.serviceVipMarketing,
     accent: "green",
+    sectionHeadings: {
+      included: "Your team, with clear responsibilities.",
+      process: "From your first plan to monthly reviews.",
+    },
+    scope: {
+      title: "One team to manage the work",
+      description:
+        "VIP covers marketing leadership, account management, creative, copy, social coordination, execution support, reporting, and vendor coordination. Your shop’s plan defines the campaigns and services your team manages. Existing website and Google Ads specialists can stay involved, with Turnkey coordinating their work.",
+    },
     hero: {
       badge: "Flagship service",
       headline: "A full marketing department.",
@@ -75,7 +90,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         {
           value: "Monthly reporting",
           label:
-            "You always know what ran, what it cost, and what it brought back through the door.",
+            "Review what ran, what it cost, and the calls and revenue the available data connects to it.",
         },
       ],
     },
@@ -87,9 +102,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     deliverables: [
       {
         icon: "layers",
-        title: "The full Turnkey stack",
+        title: "Marketing leadership and planning",
         description:
-          "Every service we offer — direct mail, social, digital, retention, and Boost Days — coordinated under one plan.",
+          "One plan connects your shop’s goals, campaigns, vendors, and reporting. Your team coordinates the services in that plan and keeps the work moving.",
       },
       {
         icon: "user",
@@ -123,19 +138,19 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     process: [
       {
-        title: "Build your marketing plan",
+        title: "Start with your shop and current marketing",
         description:
-          "We look at what you're running today, your market, and your capacity — then build a year-long plan around your goals.",
+          "We review your goals, market, capacity, current campaigns, and existing vendors, then build a year-long marketing plan for you to review.",
       },
       {
         title: "Your team gets to work",
         description:
-          "Account manager, designer, copywriter, and coordinator run the plan week by week. You approve — we execute.",
+          "You approve the plan and major campaign decisions. Your account manager coordinates the creative, copy, social content, and vendor follow-through week by week.",
       },
       {
         title: "Review, report, adjust",
         description:
-          "Monthly reporting shows what ran, what it cost, and what it returned — and the plan adjusts with your schedule.",
+          "Monthly reporting reviews campaign activity, spending, and tracked results. Your account manager helps connect those results to what the team should keep, change, or run next.",
       },
     ],
     testimonial: {
@@ -145,8 +160,16 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     },
     faqs: [
       {
+        q: "How do we get started with VIP?",
+        a: "We start by reviewing your shop’s goals, capacity, current marketing, and vendors. That review informs your marketing plan. You review the plan before the team moves into ongoing execution and monthly reporting.",
+      },
+      {
+        q: "Do I need Marketing Consulting as well as VIP?",
+        a: "VIP already includes marketing leadership and planning. Standalone Marketing Consulting is for owners who want advice while their own team or vendors handle execution. VIP adds ongoing coordination and execution support.",
+      },
+      {
         q: "How much of my time does this take?",
-        a: "You approve the plan and the big swings — we handle the execution. Most owners spend more time reviewing results than producing marketing.",
+        a: "You review the marketing plan and approve major campaign decisions. Your account manager coordinates the day-to-day work and vendor follow-through, and you stay involved in reviewing results. The time needed depends on your shop and the campaigns in your plan.",
       },
       {
         q: "What happens to the vendors I already use?",
@@ -161,14 +184,22 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         a: "Yes. VIP is built for independent shops — it fits owners who want marketing led and executed for them, whether that's one location or several.",
       },
     ],
-    pairsWith: ["marketing-consulting", "directtrack-marketing", "boost-days"],
+    pairsWith: ["direct-mail", "social-media-marketing", "retention-marketing"],
+    relatedServicesHeading: {
+      eyebrow: "Coordinated through VIP",
+      title: "Services your VIP team coordinates.",
+      description:
+        "Explore how these services work within a coordinated marketing plan. Your VIP team manages the work selected for your shop.",
+      cardLabel: "Managed within your plan",
+    },
     included: [
-      "All services listed in the Turnkey stack",
+      "Marketing planning and vendor coordination",
       "Account Manager",
       "Social Media Coordinator",
       "Graphic Designer",
       "Copywriter",
       "Administrative Assistant",
+      "Monthly reporting",
     ],
     bestFor:
       "Best when you want your own marketing department without hiring one, and you still want a clear view of what is happening.",
@@ -184,7 +215,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     sectionHeadings: {
       problems: "When every vendor sees one channel, the owner is left guessing.",
       included: "Auto repair marketing consulting for clearer decisions.",
-      process: "From scattered reports to a defensible next move.",
+      process: "Know what to keep, change, or stop.",
     },
     scope: {
       title: "Clear advice, with a clear boundary",
@@ -208,7 +239,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         },
         {
           value: "ROI-first advice",
-          label: "Recommendations framed around car count and revenue, not vanity metrics.",
+          label: "Recommendations based on your goals, campaign costs, car count, and reported revenue.",
         },
       ],
     },
@@ -233,7 +264,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         icon: "compass",
         title: "Keep, fix, stop, start calls",
-        description: "Clear recommendations on every dollar, in plain language.",
+        description: "Clear recommendations on where to keep spending, where to adjust, and what to stop.",
       },
       {
         icon: "trending",
@@ -296,8 +327,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     image: siteMedia.graphics.serviceDirectTrack,
     sectionHeadings: {
       problems: "More advertising does not fix a plan nobody is directing.",
-      included: "A targeted acquisition lane Turnkey manages directly.",
-      process: "Set the direction, launch the lane, then connect it to the whole plan.",
+      included: "Email, streaming TV, and display ads, managed together.",
+      process: "Choose your audience, launch your campaign, and review the response.",
     },
     scope: {
       title: "What DirectTrack is—and how it fits",
@@ -306,17 +337,17 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     },
     hero: {
       badge: "New service",
-      headline: "New customers you can",
-      headlineAccent: "track to the dollar.",
+      headline: "Reach local drivers.",
+      headlineAccent: "Track campaign response.",
       subhead:
-        "DirectTrack is the part of your auto repair advertising plan Turnkey delivers directly: targeted email, streaming TV, and geofenced display working as one acquisition lane, with monthly reporting that connects spend to real shop activity.",
+        "We reach local households through targeted email, streaming TV, and geofenced display ads. Each month, we review campaign response and the shop activity we can connect to it.",
       stats: [
         {
           value: "3 channels",
           label: "Email, streaming TV, and geofenced display working together as one campaign.",
         },
         {
-          value: "Super-targeted",
+          value: "Locally targeted",
           label: "Aimed at the local households most likely to become your customers.",
         },
         {
@@ -333,7 +364,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     deliverables: [
       {
         icon: "mail",
-        title: "Super-targeted email campaigns",
+        title: "Locally targeted email campaigns",
         description: "Sent to the local households most likely to need a shop like yours.",
       },
       {
@@ -350,7 +381,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         icon: "chart",
         title: "Transparent ROI tracking",
-        description: "Response and revenue tracked so you can defend every dollar of spend.",
+        description: "Review campaign response and reported revenue where tracking and shop records support the connection.",
       },
       {
         icon: "calendar",
@@ -365,14 +396,14 @@ export const serviceDetails: Record<string, ServiceDetail> = {
           "We map the households, neighborhoods, and audiences most likely to become your customers.",
       },
       {
-        title: "Launch the lane",
+        title: "Launch your campaign",
         description:
           "Email, streaming commercials, and geofenced display go live as one coordinated campaign — not three disconnected ads.",
       },
       {
-        title: "Track and tighten",
+        title: "Review results and adjust",
         description:
-          "Monthly ROI reporting shows what your spend returned, and the targeting sharpens every cycle.",
+          "We review campaign costs, tracked response, and reported revenue each month, then decide whether to adjust the audience, message, or spending.",
       },
     ],
     testimonial: {
@@ -383,19 +414,19 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     faqs: [
       {
         q: "How do you track ROI?",
-        a: "Campaign response is tracked back to real activity — calls, appointments, and revenue — and reviewed with you in a monthly reporting meeting, not buried in a dashboard.",
+        a: "We review campaign costs alongside calls, appointments, and reported revenue where the tracking and shop records support that connection. In your monthly meeting, we explain what the data shows, where information is missing, and what to adjust next.",
       },
       {
         q: "How is this different from boosting posts or running Google Ads?",
-        a: "DirectTrack is a coordinated acquisition lane — email, streaming TV, and geofenced display aimed at the same targeted households — rather than one channel working alone.",
+        a: "DirectTrack reaches the same selected households through targeted email, streaming TV, and geofenced display ads. We plan and review those campaigns together.",
       },
       {
         q: "Does this replace my Google Ads?",
-        a: "No. DirectTrack is designed to run alongside search. Google Ads can reach people already looking for a shop; DirectTrack builds and measures demand among targeted local households before and beyond that search. If you want Turnkey to oversee both lanes, we confirm the right Consulting or VIP scope before work begins.",
+        a: "No. DirectTrack is designed to run alongside search. Google Ads can reach people already looking for a shop; DirectTrack builds and measures demand among targeted local households before and beyond that search. If you want Turnkey to coordinate both campaigns, we confirm the right Consulting or VIP scope before work begins.",
       },
       {
         q: "Can Turnkey coordinate my Google Ads, LSA, website, or other advertising vendors?",
-        a: "Yes, when vendor oversight is included in your Consulting or VIP relationship. We give each partner a clearer objective, audience, message, handoff, and reporting expectation while DirectTrack remains the targeted acquisition lane Turnkey runs directly.",
+        a: "Yes, when vendor oversight is included in your Consulting or VIP relationship. We give each partner a clearer objective, audience, message, handoff, and reporting expectation while Turnkey directly manages the DirectTrack email, streaming TV, and display campaigns.",
       },
       {
         q: "How long until I see results?",
@@ -404,7 +435,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     pairsWith: ["direct-mail", "digital-marketing", "retention-marketing"],
     included: [
-      "Super-targeted email campaigns",
+      "Locally targeted email campaigns",
       "Commercials on streaming services",
       "Geofencing banner and display ads",
       "Transparent ROI tracking",
@@ -740,7 +771,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         description: "A CRM audit makes sure follow-up reaches real customers at real addresses.",
       },
       {
-        title: "Start the rhythm",
+        title: "Start your customer follow-up",
         description: "Newsletter and thank-you touchpoints go out on a steady monthly schedule.",
       },
       {
