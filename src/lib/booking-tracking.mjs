@@ -398,6 +398,28 @@ export function decorateUrlWithAttribution(
   return url.toString();
 }
 
+// Acquisition label for the booking touch. Raw evidence stays in separate fields.
+export function bookingSourceLabel(attribution) {
+  const record = normalizeStoredAttribution(attribution);
+  const touch = record.latest_touch || {};
+  const source = (touch.utm_source || "").toLowerCase();
+  const medium = (touch.utm_medium || "").toLowerCase();
+  const campaign = (touch.utm_campaign || "").toLowerCase();
+  const paid = /^(cpc|ppc|paidsearch|paid_search|paid-search|paid_social|paid-social|paidsocial|paid)$/.test(medium);
+  if (touch.gclid || touch.gbraid || touch.wbraid || (source === "google" && paid)) return "Google Ads";
+  if (source === "google" && medium === "organic" && campaign === "gbp") return "Google Business Profile";
+  if (source === "google" && medium === "organic") return "Google Organic Search";
+  if (/^(facebook|instagram|meta|fb|ig)$/.test(source)) return paid ? "Meta Ads" : "Facebook / Instagram";
+  if (medium === "email") return "Email";
+  if (source) return `${touch.utm_source}${medium ? ` / ${touch.utm_medium}` : ""}`;
+  const referrer = safeUrl(record.latest_referrer || record.first_referrer);
+  if (referrer && referrer.origin !== DEFAULT_SITE_ORIGIN) {
+    if (/^(www\.)?google\.[a-z.]+$/.test(referrer.hostname)) return "Google Organic Search";
+    return `Referral — ${referrer.hostname}`;
+  }
+  return "Website — Direct / unattributed";
+}
+
 export function decorateGhlCalendarUrlWithAttribution(
   href,
   attribution,
@@ -416,6 +438,9 @@ export function decorateGhlCalendarUrlWithAttribution(
 
   stripPiiQueryParams(url);
   const params = buildAttributionQueryParams(attribution);
+  // GHL's native hidden Source element accepts this query key. This must be
+  // mapped explicitly: the calendar title is not an acquisition source.
+  params.set("source", bookingSourceLabel(attribution));
   const gaClientId = params.get("tk_ga_client_id");
   const gaSessionId = params.get("tk_ga_session_id");
   params.delete("tk_ga_client_id");

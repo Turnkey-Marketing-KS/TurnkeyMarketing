@@ -16,6 +16,7 @@ interface Props {
   noindex?: boolean;
   attributionFunnel?: "main_website" | "google_ads";
   minimalChrome?: boolean;
+  manualPageView?: boolean;
 }
 
 const {
@@ -29,6 +30,7 @@ const {
   noindex = false,
   attributionFunnel = "main_website",
   minimalChrome = false,
+  manualPageView = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL("https://www.turnkeyautomarketing.com");
@@ -109,14 +111,18 @@ const jsonLd = [...sitewideSchema, ...schemaItems].filter(Boolean);
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-XJZ35N9FWG"
     ></script>
-    <script is:inline>
+    <script is:inline define:vars={{ manualPageView }}>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         window.dataLayer.push(arguments);
       }
       window.gtag = gtag;
       gtag("js", new Date());
-      gtag("config", "G-XJZ35N9FWG");
+      if (manualPageView) {
+        gtag("config", "G-XJZ35N9FWG", { send_page_view: false });
+      } else {
+        gtag("config", "G-XJZ35N9FWG");
+      }
       gtag("config", "AW-18358810922");
       gtag("config", "AW-18358810922/PAbVCOamquMcEKrylLJE", {
         phone_conversion_number: "(913) 427-0674",

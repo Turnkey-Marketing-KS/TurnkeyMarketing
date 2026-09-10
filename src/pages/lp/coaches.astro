@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { COACHES_CALENDAR_URL } from '@/lib/coaches-tracking.mjs';
+---
+<BaseLayout title="ATI Coaches | Turnkey Marketing" description="Talk with Turnkey about a shop owner you coach. Choose a time to discuss marketing that fits the shop’s goals and capacity." path="/lp/coaches" minimalChrome manualPageView>
+  <div class="coaches-page">
+    <header class="wrap"><img src="/turnkey-marketing-logo-2026.webp" width="1500" height="375" alt="Turnkey Marketing" /><span>FOR ATI COACHES</span></header>
+    <section class="intro">
+      <div class="wrap">
+        <h1>Your Coaching. Our Marketing.<br /><span>Stronger Shops.</span></h1>
+        <p>You help shop owners build stronger businesses. We help bring in the right customers to support the growth you’re coaching toward.</p>
+        <a class="cta" href="#schedule" data-coaches-cta="hero">Schedule a Conversation <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+    <section id="schedule" class="wrap schedule" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading" class="sr-only">Choose a time for your conversation</h2>
+      <div class="calendar-shell">
+        <p class="calendar-status" role="status" data-calendar-status>Loading available times…</p>
+        <iframe data-coaches-calendar data-src={COACHES_CALENDAR_URL} title="Schedule a conversation with Turnkey Marketing" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <p class="fallback">Prefer the full calendar? <a href={COACHES_CALENDAR_URL} data-coaches-cta="calendar_fallback" data-calendar-link>Open it here ↗</a></p>
+      <noscript><p><a class="cta" href={COACHES_CALENDAR_URL}>Open the Booking Calendar ↗</a></p></noscript>
+    </section>
+    <footer class="wrap"><span>© {new Date().getFullYear()} Turnkey Marketing</span><a href="/privacy-policy">Privacy Policy</a></footer>
+  </div>
+  <script>
+    import { initializeCoachesTracking } from '@/lib/coaches-tracking.mjs';
+    initializeCoachesTracking(window);
+  </script>
+</BaseLayout>
+<style>
+  .coaches-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, rgba(17, 31, 76, .46), rgba(17, 31, 76, .28)), url('/images/coaches/soft-blue-background.jpg') center top / cover no-repeat;
+    color: #fff;
+    font-family: Inter, sans-serif;
+  }
+  .wrap { width: min(1060px, calc(100% - 64px)); margin-inline: auto; }
+  header { display: flex; align-items: center; justify-content: space-between; padding-block: 25px; }
+  header img { width: 180px; height: auto; filter: brightness(0) invert(1); }
+  header > span { font-size: 10px; font-weight: 600; letter-spacing: .12em; }
+  .intro { text-align: center; padding: 30px 0 28px; }
+  h1 { font-size: clamp(32px, 4.1vw, 52px); line-height: 1.13; letter-spacing: -.045em; font-weight: 600; margin: 0; }
+  .intro p { max-width: 640px; margin: 18px auto 22px; font-size: 16px; line-height: 1.7; }
+  .cta { display: inline-flex; align-items: center; justify-content: center; gap: 24px; background: #94c83d; color: #282f67; padding: 14px 23px; border-radius: 5px; font-size: 14px; font-weight: 700; min-height: 48px; }
+  .cta:hover { background: #a5d653; }
+  a:focus-visible { outline: 3px solid white; outline-offset: 5px; }
+  .schedule { text-align: center; scroll-margin-top: 18px; }
+  .calendar-shell { background: #fff; border-radius: 10px; overflow: hidden; }
+  .calendar-status { font-size: 13px; padding: 12px; margin: 0; background: #eaf3fa; color: #282f67; }
+  iframe { display: block; width: 100%; height: 760px; border: 0; background: white; }
+  .fallback { font-size: 12px; line-height: 1.6; margin: 16px 0 28px; }
+  .fallback a, footer a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+  footer { display: flex; justify-content: space-between; gap: 20px; padding-block: 20px; font-size: 11px; border-top: 1px solid #ffffff25; }
+  @media (max-width: 700px) {
+    .wrap { width: calc(100% - 32px); }
+    header { padding-block: 20px; }
+    header img { width: 148px; }
+    header > span { font-size: 9px; letter-spacing: .04em; }
+    .intro { padding-block: 20px 25px; }
+    h1 { font-size: 33px; }
+    .intro p { font-size: 15px; }
+    .cta { width: 100%; gap: 18px; }
+    iframe { height: 820px; }
+  }
+</style>
