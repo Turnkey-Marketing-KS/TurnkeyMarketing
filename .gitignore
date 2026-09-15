@@ -39,3 +39,6 @@ public/social-creatives/
 *.sw?
 .vercel
 .env*
+
+# Editorial drafts stay local until their scheduled publication.
+content-plans/**/drafts/
