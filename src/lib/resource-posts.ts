@@ -68,9 +68,9 @@ export const resourcePosts: ResourcePost[] = [
     date: "Sep 2026",
     originalDate: "2026-09-15",
     updatedDate: "2026-09-15",
-    tag: "AI & Reviews",
-    title: "How to Use AI to Learn What Your Shop’s Google Reviews Are Telling You",
-    seoTitle: "Analyze Google Reviews with AI: A Shop Owner’s Guide | Turnkey",
+    tag: "Auto Repair Reputation",
+    title: "How to Use AI to Analyze Your Auto Repair Shop’s Google Reviews",
+    seoTitle: "AI Google Review Analysis for Auto Repair Shops | Turnkey",
     seoDescription:
       "Use AI to find patterns in your auto repair shop’s Google reviews, improve customer experiences, and build marketing around what customers value.",
     description:

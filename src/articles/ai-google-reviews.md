@@ -1,6 +1,6 @@
-You can use AI to analyze your shop’s Google reviews, group recurring compliments and complaints, and identify opportunities to improve your customer experience and marketing. Give it the actual reviews, ask it to show the evidence behind each pattern, then use your knowledge of the shop to decide what deserves action.
+You can use AI to analyze your auto repair shop’s Google reviews, group recurring compliments and complaints, and identify opportunities to improve your customer experience and marketing. Give it the actual reviews, ask it to show the evidence behind each pattern, then use your knowledge of the shop to decide what deserves action.
 
-Because there is a difference between reading a review and doing something useful with it.
+This is one part of reputation management for auto repair shops: learning whether the experience customers describe matches the promises your marketing makes. The useful outcome is a change your team can deliver, or a strength you can confidently put in your message.
 
 The five-star review makes your day. The one-star review follows you home. Meanwhile, several customers may be telling you the same thing about your estimates, updates, or service advisors. Read those comments together, and you have something worth bringing to your next team meeting.
 
