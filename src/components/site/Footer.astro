@@ -13,8 +13,6 @@ const featuredServices = services.slice(0, 6);
 ---
 
 <footer class="site-footer relative overflow-hidden bg-[var(--navy-deep)] text-white">
-  <div class="footer-glow footer-glow-blue" aria-hidden="true"></div>
-  <div class="footer-glow footer-glow-green" aria-hidden="true"></div>
 
   <div class="container-page relative py-6 md:py-8 lg:py-10">
     <section
@@ -262,36 +260,11 @@ const featuredServices = services.slice(0, 6);
 </footer>
 
 <style>
-  .footer-glow {
-    pointer-events: none;
-    position: absolute;
-    border-radius: 999px;
-    filter: blur(84px);
-    opacity: 0.2;
-  }
-
-  .footer-glow-blue {
-    right: -12rem;
-    top: 8rem;
-    width: 30rem;
-    height: 30rem;
-    background: var(--key-blue);
-  }
-
-  .footer-glow-green {
-    bottom: -15rem;
-    left: -10rem;
-    width: 28rem;
-    height: 28rem;
-    background: var(--green);
-    opacity: 0.07;
-  }
-
-  @media (max-width: 639px) {
-    .footer-glow-blue {
-      right: -15rem;
-      top: 1rem;
-    }
+  .site-footer {
+    background-image: linear-gradient(rgba(24, 36, 79, 0.72), rgba(24, 36, 79, 0.72)), url("/images/footer-soft-cover.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   @media (prefers-reduced-motion: reduce) {
