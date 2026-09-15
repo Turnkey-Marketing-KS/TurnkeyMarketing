@@ -14,7 +14,13 @@ export type ResourcePost = {
   image: SiteImage;
   imageWidth?: number;
   imageHeight?: number;
-  layout?: "article" | "client-proof" | "marketing-ideas" | "ai-search" | "advertising-guide";
+  layout?:
+    | "ai-reviews"
+    | "article"
+    | "client-proof"
+    | "marketing-ideas"
+    | "ai-search"
+    | "advertising-guide";
   client?: {
     name: string;
     company: string;
@@ -57,6 +63,49 @@ export type ResourcePost = {
 const resourcePath = (slug: string) => `/resources/${slug}`;
 
 export const resourcePosts: ResourcePost[] = [
+  {
+    slug: "analyze-google-reviews-with-ai",
+    date: "Sep 2026",
+    originalDate: "2026-09-15",
+    updatedDate: "2026-09-15",
+    tag: "AI & Reviews",
+    title: "How to Use AI to Learn What Your Shop’s Google Reviews Are Telling You",
+    seoTitle: "Analyze Google Reviews with AI: A Shop Owner’s Guide | Turnkey",
+    seoDescription:
+      "Use AI to find patterns in your auto repair shop’s Google reviews, improve customer experiences, and build marketing around what customers value.",
+    description:
+      "A practical guide to turning customer feedback into operational improvements and stronger marketing, with a reusable AI prompt.",
+    dek: "Find what customers value, fix recurring problems, and turn your shop’s Google reviews into a practical plan. Includes a copy-and-paste AI prompt.",
+    image: {
+      src: "/images/resources/ai-google-review-insights.png",
+      alt: "Illustration of review cards grouped into strengths to keep, problems to fix, and messages to share",
+      position: "50% 50%",
+    },
+    imageWidth: 1200,
+    imageHeight: 900,
+    layout: "ai-reviews",
+    href: resourcePath("analyze-google-reviews-with-ai"),
+    sourceAsset: "Original Turnkey editorial illustration created for this article.",
+    takeaways: [
+      "Ask AI to show the reviews behind each pattern.",
+      "Choose one operational improvement and measure what changes.",
+      "Build marketing around strengths your team can consistently deliver.",
+    ],
+    sections: [],
+    faq: [
+      {
+        question: "How can I analyze Google reviews?",
+        answer:
+          "Choose a date range, collect the reviews, and group written comments by topic. AI can help organize the feedback. Check its counts and supporting examples, then choose a specific improvement or marketing opportunity to test.",
+      },
+      {
+        question: "Is there an AI that can respond to Google reviews?",
+        answer:
+          "Yes. AI assistants and review management tools can draft replies. Check each reply for accuracy and tone before posting. A polite response matters, and the underlying complaint still needs attention. Google says helpful replies can help a business stand out.",
+      },
+    ],
+    relatedSlugs: ["be-the-guide-auto-repair-shop-messaging", "ai-search-for-auto-repair-shops"],
+  },
   {
     slug: "ai-search-for-auto-repair-shops",
     date: "Aug 2026",

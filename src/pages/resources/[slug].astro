@@ -2,6 +2,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import MarketingIdeasArticle from "@/components/resources/MarketingIdeasArticle.astro";
+import AIReviewsArticle from "@/components/resources/AIReviewsArticle.astro";
 import AISearchArticle from "@/components/resources/AISearchArticle.astro";
 import AdvertisingGuide from "@/components/resources/AdvertisingGuide.astro";
 import ExternalSources from "@/components/resources/ExternalSources.astro";
@@ -30,6 +31,7 @@ const relatedPosts = (currentPost.relatedSlugs ?? [])
   .filter((relatedPost) => relatedPost !== undefined);
 const isClientProof = currentPost.layout === "client-proof" && currentPost.client;
 const isMarketingIdeas = currentPost.layout === "marketing-ideas";
+const isAIReviews = currentPost.layout === "ai-reviews";
 const isAISearch = currentPost.layout === "ai-search";
 const isAdvertisingGuide = currentPost.layout === "advertising-guide";
 
@@ -121,7 +123,9 @@ const pageSchemas = faqSchema
   ogImage={currentPost.image.src}
   schema={pageSchemas}
 >
-  {isAISearch ? (
+  {isAIReviews ? (
+    <AIReviewsArticle post={currentPost} />
+  ) : isAISearch ? (
     <AISearchArticle post={currentPost} />
   ) : isMarketingIdeas ? (
     <MarketingIdeasArticle post={currentPost} />
@@ -472,7 +476,7 @@ const pageSchemas = faqSchema
   </section>
     </>
   )}
-  {!isAISearch && currentPost.faq && currentPost.faq.length > 0 && (
+  {!isAISearch && !isAIReviews && currentPost.faq && currentPost.faq.length > 0 && (
     <section
       id="faq"
       class="scroll-mt-28 bg-[var(--off-white)] py-14 md:py-20"
