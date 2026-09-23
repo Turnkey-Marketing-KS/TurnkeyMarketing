@@ -1,0 +1,1129 @@
+---
+// Redesign mockup, version 6. Not linked, not in the sitemap, and noindex.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { CONSULTATION_URL, services } from "@/lib/services";
+import { ownerTestimonials, videoTestimonials } from "@/lib/proof";
+import { googleReviewSummary } from "@/lib/google-reviews";
+import { resourcePosts } from "@/lib/resource-posts";
+import { audiences } from "@/lib/audiences";
+import Footer from "@/components/site/Footer.astro";
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
+
+const phrases = [
+  "that increases car count.",
+  "that gets the phone ringing.",
+  "that brings customers back.",
+  "that proves what is working.",
+  "that gets it off your plate.",
+];
+
+const navLinks = [
+  { label: "Services", href: "/services" },
+  { label: "Results", href: "/results" },
+  { label: "Resources", href: "/resources" },
+  { label: "About", href: "/about" },
+];
+
+const logoFiles = [
+  "01-d-and-e-auto-repair", "02-super-service-of-aliso-viejo", "03-cdt-automotive",
+  "04-fast-lane-automotive", "05-budd-and-company-automotive-mlk", "06-keeton-euro-repair",
+  "07-ingolstadt-west", "08-chris-matthews-automotive", "09-japanese-car-care-east",
+  "10-cherry-lane-auto-repair", "11-carfix-mast-dr", "12-pristal-s-automotive-inc",
+  "13-boradori-automotive-marysville", "14-al-huss-auto-and-truck", "15-autoworks-of-tampa",
+  "16-pit-shop-auto-repair-libertyville", "17-eurotech-car-care", "18-kay-jay-s-auto-repair",
+  "19-koffman-autoworks", "20-pro-automotive-191-west-main-dudley", "21-keeton-auto-repair",
+  "22-horizon-auto-center", "23-garage-guys-automotive-richmond",
+  "24-choisser-automotive-services-of-davidsonville", "25-craftsman-auto-care",
+  "26-apex-auto-and-rv-repair", "27-inmotion-auto-care", "28-gene-s-112-auto-service-center",
+  "29-killian-auto-pros-greenville", "30-certified-auto-repair",
+].map((file) => `/images/trust-logos/vip/${file}.webp`);
+const logoRows = [logoFiles.slice(0, 15), logoFiles.slice(15)];
+
+const iconSrc = (name: string) => `/images/icons/noun/${name}.svg`;
+
+// Headline helper: each word is masked and revealed in sequence.
+type Seg = { t: string; accent?: boolean };
+const split = (segs: Seg[]) => {
+  let i = 0;
+  return segs
+    .map((seg) =>
+      seg.t
+        .split(" ")
+        .filter(Boolean)
+        .map((word) => `<span class="v6-w${seg.accent ? " v6-accent" : ""}" style="--i:${i++}"><span>${word}</span></span>`)
+        .join(" "),
+    )
+    .join(" ");
+};
+
+const steps = [
+  { icon: "target", title: "Shop-specific strategy", copy: "We start with proven auto-repair formulas, then adjust the plan around your market, capacity, goals, and customer mix." },
+  { icon: "weekly-planner", title: "Weekly execution", copy: "We don't just consult. We run the direct mail, ads, GBP, reviews, and CRM every week." },
+  { icon: "report", title: "Honest reporting", copy: "See campaign spending, tracked calls, and reported revenue where the data connects them." },
+];
+
+const serviceIcons: Record<string, string> = {
+  "marketing-consulting": "target",
+  "direct-mail": "direct-mail",
+  "social-media-marketing": "social-media-marketing",
+  "retention-marketing": "retention",
+  "digital-marketing": "internet",
+  "boost-days": "boost",
+};
+const vip = services.find((service) => service.slug === "vip-marketing-manager")!;
+const directTrack = services.find((service) => service.slug === "directtrack-marketing")!;
+const included = services.filter((service) => serviceIcons[service.slug]);
+const dtSteps = [
+  { icon: "location", title: "Choose the right households" },
+  { icon: "email", title: "Run one coordinated campaign" },
+  { icon: "report", title: "Measure, review, and improve" },
+];
+
+// Odometer markup: digits roll through a full turn to their target.
+const odometer = (value: string) =>
+  value
+    .split("")
+    .map((ch, index) => {
+      if (!/\d/.test(ch)) return `<span class="v6-odo__sym">${ch}</span>`;
+      const strip = Array.from({ length: 20 }, (_, n) => `<span>${n % 10}</span>`).join("");
+      return `<span class="v6-odo__col" style="--n:${10 + Number(ch)};--i:${index}"><span class="v6-odo__strip">${strip}</span></span>`;
+    })
+    .join("");
+
+const scoreboard = [
+  { logo: "/images/results/shop-logos/legendary-automotive-diesel-repair.png", shop: "Legendary Automotive & Diesel Repair", metric: "Monthly revenue", when: "Aug 2024 to June 2026", before: "$260,534", after: "$701,725", delta: "+169%" },
+  { logo: "/images/results/shop-logos/torque-european.png", shop: "Torque European", metric: "Monthly revenue", when: "Since August 2025", before: "≈ $110K", after: "$220K+", delta: "2×" },
+  { logo: "/images/results/shop-logos/asap-auto-repair.png", logoDark: true, shop: "ASAP Auto Repair", metric: "Monthly revenue", when: "Oct 2024 to June 2026", before: "$125K", after: "$200K", delta: "+60%" },
+  { logo: "/images/results/shop-logos/dempsters-quality-car-care.jpg", shop: "Dempster's Quality Car Care", metric: "Monthly revenue", when: "Since August 2025", before: "$105K", after: "$160K", delta: "+52%" },
+  { logo: "/images/results/shop-logos/sports-car-shop.png", shop: "Sports Car Shop", metric: "Cars per month", when: "Since August 2025", before: "≈ 115", after: "150+", delta: "+30%+" },
+  { logo: "/images/results/shop-logos/killian-auto-pros.png", shop: "Killian Auto Pros", metric: "Locations", when: "Upstate South Carolina", before: "1", after: "4", delta: "+3 shops" },
+];
+
+// Results option A: scroll story. Same verified figures as the Results page.
+const storySteps = [
+  { logo: "/images/results/shop-logos/legendary-automotive-diesel-repair.png", shop: "Legendary Automotive & Diesel Repair", stat: "+169%", label: "reported revenue", when: "Aug 2024 to June 2026", before: "$260,534", after: "$701,725", ratio: 37, line: "Total cars served nearly tripled, and returning cars grew more than five-fold." },
+  { logo: "/images/results/shop-logos/killian-auto-pros.png", shop: "Killian Auto Pros", stat: "1 → 4", label: "locations", when: "Upstate South Carolina", before: "1 shop", after: "4 shops", pins: true, line: "The growth funded a second, a third, and a fourth location.", quote: { text: "We got to $300,000/month within one year at a brand new shop.", by: "Steve Killian" } },
+  { logo: "/images/results/shop-logos/torque-european.png", shop: "Torque European", stat: "2×", label: "monthly revenue", when: "Since August 2025", before: "≈ $110K", after: "$220K+", ratio: 48, line: "From about $110K a month to a consistent $220K to $230K." },
+  { logo: "/images/results/shop-logos/asap-auto-repair.png", logoDark: true, shop: "ASAP Auto Repair", stat: "+60%", label: "monthly revenue", when: "Oct 2024 to June 2026", before: "$125K", after: "$200K", ratio: 62, line: "Car count grew from 240 to 340 a month.", quote: { text: "They have absolutely perfected marketing for auto repair.", by: "Terrie Walters" } },
+  { logo: "/images/results/shop-logos/dempsters-quality-car-care.jpg", shop: "Dempster's Quality Car Care", stat: "+52%", label: "monthly revenue", when: "Since August 2025", before: "$105K", after: "$160K", ratio: 66, line: "Four straight record months." },
+  { logo: "/images/results/shop-logos/pro-automotive-services.png", shop: "Pro Automotive", stat: "3.74×", label: "revenue per ad dollar", when: "First full month of DirectTrack", before: "$1 in ads", after: "$3.74 revenue", ratio: 27, labels: ["Spent", "Earned"], line: "Every advertising dollar matched to $3.74 in tracked revenue." },
+];
+
+const mix = (a: number[], b: number[], t: number) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+const statChars = (value: string) => {
+  const chars = [...value];
+  return chars
+    .map((ch, i) => {
+      const t = chars.length > 1 ? i / (chars.length - 1) : 0;
+      const [r, g, b] = mix([35, 46, 102], [63, 140, 203], t);
+      const glyph = ch === " " ? "&nbsp;" : ch;
+      return `<span class="v6-char" style="--c:${i};color:rgb(${r},${g},${b})">${glyph}</span>`;
+    })
+    .join("");
+};
+
+const alone = {
+  title: "The weight of success is all on you.",
+  points: ["Every empty bay becomes your problem", "Every ad and design needs your attention", "Every vendor needs to be chased"],
+};
+const together = {
+  title: "One team owns the whole strategy.",
+  points: ["Shop-specific strategy", "Weekly execution", "Honest reporting"],
+};
+
+const rail = [
+  { type: "video" as const, ...videoTestimonials[0] },
+  { type: "quote" as const, ...ownerTestimonials[0] },
+  { type: "video" as const, ...videoTestimonials[1] },
+  { type: "video" as const, ...videoTestimonials[2] },
+  { type: "quote" as const, ...ownerTestimonials[1] },
+  { type: "video" as const, ...videoTestimonials[3] },
+  { type: "video" as const, ...videoTestimonials[4] },
+  { type: "video" as const, ...videoTestimonials[5] },
+];
+
+const audienceRows = audiences.map((audience) => ({
+  href: `/who-we-help/${audience.slug}`,
+  name: audience.name.charAt(0).toUpperCase() + audience.name.slice(1),
+  line: audience.heroCopy.split(". ")[0] + ".",
+}));
+const insights = resourcePosts.slice(0, 3);
+const faqs = [
+  { q: "What does an auto repair marketing company actually do?", a: "An auto repair marketing company should connect the shop’s business goals to a practical plan, coordinate the people and vendors responsible for executing it, and measure whether the work creates the right calls, appointments, customers, and repair orders. Turnkey can provide focused services or function as the shop’s outsourced marketing department." },
+  { q: "What is the best marketing strategy for an auto repair shop?", a: "The best strategy is a coordinated plan that matches your market, capacity, customer mix, and budget. For most shops, that means Google visibility, reviews, paid search, retention, direct mail, and reporting working together instead of as separate vendor tasks." },
+  { q: "How do I get more customers for my auto repair shop?", a: "Start by deciding which customers and jobs you actually want more of. Then connect search, Google Business Profile, reviews, offers, follow-up, and call handling so demand turns into booked appointments." },
+  { q: "How can my auto repair shop show up higher on Google Maps?", a: "Google Maps visibility usually improves when your profile, reviews, photos, location signals, website, and local relevance are stronger. No agency can guarantee rankings, but complete shop information, steady review activity, accurate listings, and useful local content give Google clearer trust signals." },
+  { q: "How do I know if my auto repair marketing is actually working?", a: "Marketing is working when it creates the right calls, booked appointments, returning customers, and customer mix at a cost the shop can defend. The report should explain what to keep, what to fix, what to stop spending on, and what to run next." },
+  { q: "How long does auto repair marketing take to work?", a: "Some cleanup and campaign fixes can show early signals quickly, but dependable growth usually takes months. A practical first 90-120 days should clarify budget, fix tracking, clean up vendors, launch priority campaigns, and set the next moves." },
+];
+
+const arrow = `<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const arrowUp = `<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>`;
+---
+
+<BaseLayout
+  title="Homepage Redesign Mockup v6 | Turnkey Marketing"
+  description="Design mockup, version 6, for the Turnkey Marketing homepage redesign."
+  path="/mockup/homepage-v6"
+  noindex
+  minimalChrome
+>
+  <div class="v6" data-v6>
+    <header class="v6-header" data-header>
+      <div class="v6-wrap v6-header__inner">
+        <a href="/" class="v6-header__logo" aria-label="Turnkey Marketing home"><img src="/turnkey-marketing-logo-2026.webp" alt="Turnkey Marketing" width="170" height="45" /></a>
+        <nav class="v6-header__nav" aria-label="Primary">{navLinks.map((link) => <a href={link.href}>{link.label}</a>)}</nav>
+        <div class="v6-header__end">
+          <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--sm"><span>Book a Strategy Call</span></a>
+          <button type="button" class="v6-burger" data-menu-btn aria-expanded="false" aria-controls="v6-menu"><span class="v6-sr">Menu</span><i></i><i></i></button>
+        </div>
+      </div>
+    </header>
+    <div class="v6-menu" id="v6-menu" data-menu hidden>
+      <nav class="v6-wrap v6-menu__nav" aria-label="Mobile">
+        {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+        <a href="/contact">Contact</a>
+        <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy"><span>Book a Strategy Call</span></a>
+      </nav>
+    </div>
+
+    <main>
+      <!-- HERO -->
+      <section class="v6-hero" data-hero>
+        <div class="v6-hero__sticky">
+          <div class="v6-wrap v6-hero__intro" data-hero-intro>
+            <h1 class="v6-hero__title">
+              <span class="v6-sr">Auto repair marketing that increases car count.</span>
+              <span aria-hidden="true">
+                <span class="v6-mask"><span class="v6-mask__in" style="--d:0">Auto repair marketing</span></span>
+                <span class="v6-typer" data-typer data-phrases={JSON.stringify(phrases)} data-fade style="--d:1"><span class="v6-typer__text" data-typer-text>{phrases[0]}</span></span>
+              </span>
+            </h1>
+            <p class="v6-hero__lead" data-fade style="--d:3">We plan your marketing, coordinate your vendors, and manage campaigns for your independent repair shop.</p>
+            <div class="v6-hero__actions" data-fade style="--d:4">
+              <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--lg"><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+              <a href="/results" class="v6-link">See Shop Results <i set:html={arrow} /></a>
+            </div>
+          </div>
+          <div class="v6-hero__stage" data-hero-stage>
+            <img src="/site-media/hero-shop-handshake.webp" alt="Auto repair technician shaking hands with a smiling customer in the shop" width="2400" height="1600" fetchpriority="high" data-hero-img data-focus-x="0.55" data-focus-y="0.22" />
+            <div class="v6-hero__shade" data-hero-shade></div>
+            <p class="v6-hero__caption" data-hero-caption><span class="v6-wrap">Serving 300+ independent shops <span class="v6-nowrap">since 2013.</span></span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGOS -->
+      <section class="v6-logos" aria-labelledby="v6-logos-title">
+        <h2 id="v6-logos-title" class="v6-logos__title">Trusted by 300+ shops and industry-leading partners</h2>
+        {logoRows.map((row, rowIndex) => (
+          <div class="v6-marquee">
+            <div class:list={["v6-marquee__track", rowIndex === 1 && "v6-marquee__track--reverse"]}>
+              {[...row, ...row].map((src, index) => <img src={src} alt="" width="160" height="64" loading="lazy" decoding="async" aria-hidden={index >= row.length ? "true" : undefined} />)}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <!-- CONNECT -->
+      <section class="v6-connect">
+        <div class="v6-wrap v6-connect__grid">
+          <h2 class="v6-h2 v6-connect__title" data-words set:html={split([{ t: "Auto repair marketing that connects strategy to" }, { t: "execution.", accent: true }])} />
+          <ol class="v6-steps" data-steps>
+            <span class="v6-steps__rail" aria-hidden="true"><span data-steps-fill></span></span>
+            {steps.map((step) => (
+              <li class="v6-step" data-step>
+                <span class="v6-step__node"><span class="v6-icon" style={`--icon:url(${iconSrc(step.icon)})`}></span></span>
+                <div><h3 class="v6-step__title">{step.title}</h3><p class="v6-step__copy">{step.copy}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section class="v6-services">
+        <div class="v6-wrap">
+          <h2 class="v6-h2 v6-center" data-words set:html={split([{ t: "Start with one service. Or get the whole" }, { t: "marketing department.", accent: true }])} />
+
+          <div class="v6-suite" data-rise>
+            <div class="v6-suite__lead">
+              <div class="v6-suite__content">
+                <span class="v6-suite__badge"><span class="v6-icon" style={`--icon:url(${iconSrc("vip")})`}></span></span>
+                <p class="v6-suite__name">{vip.name}</p>
+                <p class="v6-suite__copy">Stop chasing vendors. We make the plan, manage the people, and keep the work moving so it stops landing back on you.</p>
+                <a href={`/services/${vip.slug}`} class="v6-btn v6-btn--green"><span>See how VIP works</span><i set:html={arrow} /></a>
+              </div>
+            </div>
+            <div class="v6-suite__list">
+              <p class="v6-suite__label">All included with our VIP plan. Also available on their own.</p>
+              <ul>
+                {included.map((service) => (
+                  <li>
+                    <a href={`/services/${service.slug}`} class="v6-svc">
+                      <span class="v6-svc__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[service.slug])})`}></span></span>
+                      <span class="v6-svc__text"><span class="v6-svc__name">{service.name}</span><span class="v6-svc__tagline">{service.tagline}</span></span>
+                      <span class="v6-svc__go" set:html={arrowUp} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="v6-dt" data-rise>
+            <div class="v6-dt__intro">
+              <span class="v6-dt__new">New service</span>
+              <p class="v6-dt__name">{directTrack.name}</p>
+              <p class="v6-dt__copy">{directTrack.tagline}</p>
+              <a href={`/services/${directTrack.slug}`} class="v6-link v6-link--light">Explore DirectTrack <i set:html={arrow} /></a>
+            </div>
+            <ol class="v6-dt__flow">
+              {dtSteps.map((step, index) => (
+                <li>
+                  <span class="v6-dt__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(step.icon)})`}></span></span>
+                  <span class="v6-dt__row"><span class="v6-dt__num">{index + 1}</span><span class="v6-dt__title">{step.title}</span></span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section class="v6-results">
+        <div class="v6-wrap">
+          <div class="v6-results__hero" data-odo-group>
+            <h2 class="v6-h2 v6-center" data-words set:html={split([{ t: "Over $1 billion in revenue for" }, { t: "independent shops.", accent: true }])} />
+            <p class="v6-odo v6-odo--xl" aria-label="Over $1,000,000,000 in revenue" set:html={odometer("$1,000,000,000+")} />
+          </div>
+
+          <div class="v6-story" data-story data-variant="story">
+            <div class="v6-story__pin" aria-hidden="true">
+              <div class="v6-story__stats">
+                {storySteps.map((step, index) => (
+                  <div class:list={["v6-story__stat", index === 0 && "is-active"]} data-story-stat>
+                    <span class="v6-story__num" set:html={statChars(step.stat)} />
+                    <span class="v6-story__label">{step.label}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="v6-story__progress"><span data-story-progress></span></div>
+            </div>
+            <ol class="v6-story__list">
+              {storySteps.map((step, index) => (
+                <li class:list={["v6-story__card", index === 0 && "is-active"]} data-story-card>
+                  <div class="v6-story__inner">
+                    <div class="v6-story__head">
+                      <span class:list={["v6-story__logo", step.logoDark && "v6-story__logo--dark"]}><img src={step.logo} alt={`${step.shop} logo`} loading="lazy" /></span>
+                      <span class="v6-story__who"><strong>{step.shop}</strong><span>{step.when}</span></span>
+                    </div>
+                    <p class="v6-story__mobile-stat">{step.stat} <span>{step.label}</span></p>
+                    {step.pins ? (
+                      <div class="v6-story__pins">
+                        {["Mauldin", "Greenville", "Fountain Inn", "Spartanburg"].map((name, i) => (
+                          <span class="v6-story__pinitem" style={`--i:${i}`}><span class="v6-story__pinicon"><span class="v6-icon" style={`--icon:url(${iconSrc("location")})`}></span></span>{name}</span>
+                        ))}
+                      </div>
+                    ) : (
+                      <div class="v6-story__bars">
+                        <div class="v6-story__bar"><span class="v6-story__bar-label">{step.labels?.[0] ?? "Before"}</span><span class="v6-story__track"><span class="v6-story__fill v6-story__fill--before" style={`--w:${step.ratio}%`}></span></span><span class="v6-story__bar-value">{step.before}</span></div>
+                        <div class="v6-story__bar"><span class="v6-story__bar-label">{step.labels?.[1] ?? "After"}</span><span class="v6-story__track"><span class="v6-story__fill v6-story__fill--after" style="--w:100%"></span></span><span class="v6-story__bar-value v6-story__bar-value--after">{step.after}</span></div>
+                      </div>
+                    )}
+                    <p class="v6-story__line">{step.line}</p>
+                    {step.quote && <blockquote class="v6-story__quote">“{step.quote.text}”<cite>{step.quote.by}</cite></blockquote>}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <ol class="v6-board" data-variant="scoreboard" hidden>
+            {scoreboard.map((row) => (
+              <li class="v6-board__row" data-odo-group>
+                <span class:list={["v6-board__logo", row.logoDark && "v6-board__logo--dark"]}><img src={row.logo} alt={`${row.shop} logo`} loading="lazy" /></span>
+                <span class="v6-board__who"><strong>{row.shop}</strong><span>{row.metric} · {row.when}</span></span>
+                <span class="v6-board__before">{row.before}</span>
+                <span class="v6-board__arrow" set:html={arrow} />
+                <span class="v6-odo v6-board__after" aria-label={row.after} set:html={odometer(row.after)} />
+                <span class="v6-board__delta">{row.delta}</span>
+              </li>
+            ))}
+          </ol>
+          <div class="v6-results__foot">
+            <p class="v6-fine">Client-specific examples. Results vary by shop, market, investment, and execution.</p>
+            <a href="/results" class="v6-link">See every result <i set:html={arrow} /></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIME -->
+      <section class="v6-time" data-time>
+        <div class="v6-wrap v6-time__grid">
+          <div>
+            <h2 class="v6-h2" data-words set:html={split([{ t: "What is your" }, { t: "time worth?", accent: true }])} />
+            <div class="v6-switch" role="tablist" aria-label="Compare" data-rise>
+              <button type="button" role="tab" aria-selected="true" data-mode="alone">On your own</button>
+              <button type="button" role="tab" aria-selected="false" data-mode="together">With Turnkey</button>
+              <span class="v6-switch__thumb" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="v6-time__card" data-time-card data-rise>
+            {[alone, together].map((state, index) => (
+              <div class:list={["v6-time__state", index === 0 && "is-active"]} data-state={index === 0 ? "alone" : "together"}>
+                <p class="v6-time__title">{state.title}</p>
+                <ul class="v6-time__points">
+                  {state.points.map((point) => <li><span class:list={["v6-mark", index === 0 ? "v6-mark--x" : "v6-mark--check"]} aria-hidden="true"></span>{point}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- VOICES -->
+      <section class="v6-voices">
+        <div class="v6-wrap v6-row-head">
+          <h2 class="v6-h2" data-words set:html={split([{ t: "Hear it from" }, { t: "shop owners.", accent: true }])} />
+          <div class="v6-arrows" data-rise>
+            <button type="button" data-rail-prev aria-label="Previous"><i set:html={arrow} /></button>
+            <button type="button" data-rail-next aria-label="Next"><i set:html={arrow} /></button>
+          </div>
+        </div>
+        <ul class="v6-rail" data-rail>
+          {rail.map((item) => item.type === "video" ? (
+            <li class="v6-reel">
+              <button type="button" class="v6-reel__frame" data-video={item.videoSrc} aria-label={`Play ${item.name}'s testimonial`}>
+                <img src={item.posterSrc} alt="" loading="lazy" decoding="async" />
+                <video muted playsinline loop preload="none" data-preview={item.videoSrc}></video>
+                <span class="v6-reel__play" set:html={play} />
+                <span class="v6-reel__who"><strong>{item.name}</strong>{item.shop}</span>
+              </button>
+            </li>
+          ) : (
+            <li class="v6-reel v6-reel--quote">
+              <figure><blockquote>“{item.quote}”</blockquote><figcaption><strong>{item.name}</strong>{item.shop}</figcaption></figure>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- AUDIENCES -->
+      <section class="v6-aud">
+        <div class="v6-wrap">
+          <h2 class="v6-h2" data-words set:html={split([{ t: "Bring in more of the work" }, { t: "your shop wants.", accent: true }])} />
+          <ul class="v6-aud__list">
+            {audienceRows.map((row) => (
+              <li data-rise><a href={row.href} class="v6-aud__row"><span class="v6-aud__name">{row.name}</span><span class="v6-aud__line">{row.line}</span><span class="v6-aud__go" set:html={arrowUp} /></a></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- INSIGHTS -->
+      <section class="v6-insights">
+        <div class="v6-wrap">
+          <div class="v6-row-head">
+            <h2 class="v6-h2" data-words set:html={split([{ t: "Latest insights" }])} />
+            <a href="/resources" class="v6-link" data-rise>Explore all <i set:html={arrow} /></a>
+          </div>
+          <ul class="v6-posts">
+            {insights.map((post) => (
+              <li data-rise><a href={post.href} class="v6-post"><span class="v6-post__media"><img src={post.image.src} alt="" loading="lazy" decoding="async" /></span><span class="v6-post__tag">{post.tag}</span><span class="v6-post__title">{post.title}</span></a></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="v6-faq">
+        <div class="v6-wrap v6-faq__grid">
+          <h2 class="v6-h2 v6-faq__title" data-words set:html={split([{ t: "Frequently asked" }, { t: "questions", accent: true }])} />
+          <ul class="v6-acc">
+            {faqs.map((item, index) => (
+              <li class:list={["v6-acc__item", index === 0 && "is-open"]} data-acc-item>
+                <button type="button" class="v6-acc__head" aria-expanded={index === 0 ? "true" : "false"} data-acc-head><span>{item.q}</span><span class="v6-acc__icon" aria-hidden="true"></span></button>
+                <div class="v6-acc__panel"><div><p>{item.a}</p></div></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- CTA (current site's version) -->
+      <section class="v6-cta">
+        <div class="v6-wrap">
+          <div class="v6-cta__panel" data-rise>
+            <a href={googleReviewSummary.url} class="v6-cta__rating">
+              <span class="v6-stars" aria-hidden="true">★★★★★</span>
+              {googleReviewSummary.rating} on Google · {googleReviewSummary.count} reviews
+            </a>
+            <h2 class="v6-cta__title" data-words set:html={split([{ t: "Stop carrying" }, { t: "the marketing burden.", accent: true }])} />
+            <p class="v6-cta__text">
+              30 minutes with our team. No pitch deck. Just a real conversation about what is working,
+              what is leaking, and what the next few months should realistically focus on.
+            </p>
+            <div class="v6-cta__actions">
+              <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--lg"><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+              <a href="tel:+19134270674" class="v6-btn v6-btn--ghost v6-btn--lg"><SolidPhoneIcon class="h-6 w-6" /><span>(913) 427-0674</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <dialog class="v6-lightbox" data-lightbox>
+      <button type="button" class="v6-lightbox__close" data-lightbox-close>Close</button>
+      <video controls playsinline preload="none" data-lightbox-video></video>
+    </dialog>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .v6 {
+    --gutter: clamp(1.25rem, 3.2vw, 3rem);
+    --max: 1360px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --muted: #5b6070;
+    --space: clamp(5.5rem, 10vw, 10rem);
+    --grad: linear-gradient(90deg, var(--key-blue), var(--green));
+    --grad-v: linear-gradient(180deg, var(--key-blue), var(--green));
+    background: #fff;
+    color: var(--charcoal);
+  }
+  .v6-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .v6-wrap { width: 100%; max-width: calc(var(--max) + var(--gutter) * 2); margin-inline: auto; padding-inline: var(--gutter); }
+  .v6-center { text-align: center; margin-inline: auto; }
+  .v6-h2 { font-size: clamp(2.3rem, 4.6vw, 4.6rem); line-height: 1.02; letter-spacing: -0.05em; font-weight: 600; text-wrap: balance; max-width: 18ch; }
+  .v6-accent { color: var(--key-blue); }
+  .v6-row-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; }
+  .v6-stars { color: #f5a623; letter-spacing: 0.06em; }
+  .v6-fine { font-size: 0.8rem; color: var(--muted); }
+  .v6-icon { display: inline-block; width: 100%; height: 100%; background: currentColor; -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
+
+  /* Word reveal */
+  .v6-w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  .v6-w > span { display: inline-block; transform: translateY(105%); transition: transform 1s var(--ease); transition-delay: calc(var(--i) * 0.045s); }
+  [data-words].is-in .v6-w > span { transform: none; }
+
+  /* Buttons */
+  .v6-btn { position: relative; display: inline-flex; align-items: center; gap: 0.75rem; min-height: 3rem; padding: 0 1.5rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; overflow: hidden; isolation: isolate; transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+  .v6-btn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--grad); opacity: 0; transition: opacity 0.5s var(--ease); }
+  .v6-btn:hover { transform: translateY(-2px); }
+  .v6-btn i { display: inline-grid; transition: transform 0.5s var(--ease); }
+  .v6-btn:hover i { transform: translateX(3px); }
+  .v6-btn--sm { min-height: 2.6rem; padding: 0 1.2rem; font-size: 0.875rem; }
+  .v6-btn--lg { min-height: 3.5rem; padding: 0 1.85rem; font-size: 1rem; }
+  .v6-btn--navy { background: var(--navy); color: #fff; box-shadow: 0 14px 30px -18px rgba(35, 46, 102, 0.8); }
+  .v6-btn--navy:hover::before { opacity: 1; }
+  .v6-btn--green { background: var(--green); color: var(--charcoal); }
+  .v6-btn--green:hover { box-shadow: 0 16px 36px -18px rgba(147, 200, 69, 0.9); }
+  .v6-link { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--navy); background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; padding-block: 0.3rem; transition: background-size 0.5s var(--ease); }
+  .v6-link:hover { background-size: 100% 1.5px; }
+  .v6-link i { display: inline-grid; transition: transform 0.5s var(--ease); }
+  .v6-link:hover i { transform: translateX(3px); }
+  .v6-link--light { color: #fff; }
+
+  /* Header */
+  .v6-header { position: fixed; inset: 0 0 auto; z-index: 50; background: #fff; padding-top: env(safe-area-inset-top, 0px); transition: box-shadow 0.4s, transform 0.6s var(--ease); }
+  .v6-header.is-scrolled { box-shadow: 0 1px 0 var(--hairline); }
+  .v6-header.is-hidden { transform: translateY(-105%); }
+  .v6-header__inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 4.75rem; }
+  .v6-header__logo img { height: 2.3rem; width: auto; }
+  .v6-header__nav { display: flex; gap: 2.4rem; font-size: 0.95rem; font-weight: 500; }
+  .v6-header__nav a { position: relative; padding-block: 0.4rem; }
+  .v6-header__nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease); }
+  .v6-header__nav a:hover::after { transform: none; }
+  .v6-header__end { display: flex; justify-content: flex-end; gap: 0.75rem; }
+  .v6-burger { display: none; position: relative; width: 2.6rem; height: 2.6rem; border-radius: 999px; background: var(--navy); }
+  .v6-burger i { position: absolute; left: 50%; top: 50%; width: 15px; height: 1.5px; margin: -0.75px 0 0 -7.5px; background: #fff; transition: transform 0.45s var(--ease); }
+  .v6-burger i:first-of-type { transform: translateY(-3px); }
+  .v6-burger i:last-of-type { transform: translateY(3px); }
+  .v6-burger[aria-expanded="true"] i:first-of-type { transform: rotate(45deg); }
+  .v6-burger[aria-expanded="true"] i:last-of-type { transform: rotate(-45deg); }
+  .v6-menu { position: fixed; inset: 0; z-index: 45; background: #fff; padding-top: 6.5rem; }
+  .v6-menu__nav { display: grid; gap: 0.3rem; }
+  .v6-menu__nav a:not(.v6-btn) { font-size: 2.4rem; font-weight: 600; letter-spacing: -0.045em; }
+  .v6-menu__nav .v6-btn { margin-top: 1.75rem; justify-self: start; }
+
+  /* Hero */
+  .v6-hero { position: relative; height: 240vh; }
+  .v6-hero__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .v6-hero__intro { position: absolute; inset: 0 0 auto; margin-inline: auto; z-index: 3; padding-top: clamp(7.5rem, 16vh, 10rem); text-align: center; display: grid; justify-items: center; will-change: transform, opacity; }
+  .v6-hero__title { font-size: clamp(3rem, 6.6vw, 7.25rem); line-height: 0.98; letter-spacing: -0.058em; font-weight: 600; }
+  .v6-mask { display: block; overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  .v6-mask__in { display: block; transform: translateY(110%); transition: transform 1.2s var(--ease); transition-delay: calc(0.1s + var(--d, 0) * 0.1s); }
+  .v6.is-loaded .v6-mask__in { transform: none; }
+  .v6-typer { display: block; min-height: 1.02em; color: var(--key-blue); white-space: nowrap; }
+  .v6-typer__text::after { content: ""; display: inline-block; width: 0.07em; height: 0.8em; margin-left: 0.06em; border-radius: 999px; background: currentColor; vertical-align: -0.04em; animation: v6-caret 780ms steps(1, end) infinite; }
+  @keyframes v6-caret { 0%, 46% { opacity: 1; } 47%, 100% { opacity: 0; } }
+  .v6-nowrap { white-space: nowrap; }
+  .v6-hero__lead { margin-top: 1.5rem; max-width: 34rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.55; color: var(--muted); }
+  .v6-hero__actions { display: flex; align-items: center; gap: 1.75rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; }
+  [data-fade] { opacity: 0; transform: translateY(14px); transition: opacity 0.9s var(--ease), transform 1.1s var(--ease); transition-delay: calc(0.15s + var(--d, 0) * 0.1s); }
+  .v6.is-loaded [data-fade] { opacity: 1; transform: none; }
+  .v6-hero__stage { position: absolute; inset: 0; z-index: 1; overflow: hidden; clip-path: inset(66% 13% 0% 13% round 32px 32px 0 0); will-change: clip-path; }
+  .v6-hero__stage img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; will-change: transform; }
+  .v6-hero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 22, 28, 0) 50%, rgba(20, 22, 28, 0.6)); opacity: 0; }
+  .v6-hero__caption { position: absolute; left: 0; right: 0; bottom: 9vh; color: #fff; font-size: clamp(2rem, 4.4vw, 4.4rem); font-weight: 600; letter-spacing: -0.048em; line-height: 1.02; opacity: 0; transform: translateY(24px); }
+  .v6-hero__caption > span { display: block; text-wrap: balance; }
+
+  /* Logos */
+  .v6-logos { padding-block: clamp(4rem, 7vw, 6rem) clamp(2rem, 4vw, 3rem); display: grid; gap: 1.5rem; }
+  .v6-logos__title { text-align: center; font-size: clamp(1.15rem, 1.6vw, 1.45rem); letter-spacing: -0.03em; font-weight: 600; margin-bottom: 1rem; padding-inline: var(--gutter); }
+  .v6-marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .v6-marquee__track { display: flex; align-items: center; gap: clamp(3rem, 5vw, 4.5rem); width: max-content; animation: v6-marquee 65s linear infinite; }
+  .v6-marquee__track--reverse { animation-direction: reverse; animation-duration: 75s; }
+  .v6-marquee:hover .v6-marquee__track { animation-play-state: paused; }
+  .v6-marquee img { height: 3.5rem; width: auto; max-width: 9.5rem; object-fit: contain; transition: transform 0.5s var(--ease); }
+  .v6-marquee img:hover { transform: scale(1.08); }
+  @keyframes v6-marquee { to { transform: translateX(-50%); } }
+
+  /* Connect */
+  .v6-connect { padding-block: var(--space); }
+  .v6-connect__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(3rem, 7vw, 7rem); align-items: start; }
+  .v6-connect__title { position: sticky; top: 8rem; }
+  .v6-steps { position: relative; display: grid; gap: clamp(4rem, 9vw, 7.5rem); padding-block: 1rem 2rem; }
+  .v6-steps__rail { position: absolute; left: 2rem; top: 2rem; bottom: 3rem; width: 3px; border-radius: 3px; background: var(--hairline); overflow: hidden; }
+  .v6-steps__rail span { position: absolute; inset: 0; background: var(--grad-v); transform: scaleY(0); transform-origin: top; }
+  .v6-step { position: relative; display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.75rem; align-items: start; opacity: 0.35; transition: opacity 0.6s var(--ease); }
+  .v6-step.is-active { opacity: 1; }
+  .v6-step__node { position: relative; z-index: 1; display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 999px; background: #fff; color: var(--navy); box-shadow: 0 0 0 1px var(--hairline); transition: background-color 0.5s, color 0.5s, box-shadow 0.5s; }
+  .v6-step__node .v6-icon { width: 1.7rem; height: 1.7rem; }
+  .v6-step.is-active .v6-step__node { background: var(--navy); color: #fff; box-shadow: 0 0 0 8px var(--key-blue-soft); }
+  .v6-step__title { font-size: clamp(1.6rem, 2.4vw, 2.3rem); letter-spacing: -0.045em; font-weight: 600; line-height: 1.05; margin-top: 0.7rem; }
+  .v6-step__copy { margin-top: 0.8rem; max-width: 28rem; font-size: 1.05rem; line-height: 1.6; color: var(--muted); }
+
+  /* Services suite */
+  .v6-services { padding-block: var(--space); background: var(--off-white); }
+  .v6-services .v6-h2 { max-width: 20ch; }
+  @property --v6-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+  .v6-suite { --v6-angle: 0deg; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr); gap: 0.6rem; margin-top: clamp(3rem, 6vw, 5rem); padding: 0.6rem; border: 6px solid transparent; border-radius: 44px; background: linear-gradient(#fff, #fff) padding-box, conic-gradient(from var(--v6-angle), var(--key-blue) 0deg 60deg, #79d5f6 95deg, var(--green) 125deg 180deg, #79d5f6 210deg, var(--key-blue) 245deg 360deg) border-box; box-shadow: 0 0 18px rgba(63, 140, 203, 0.35), 0 0 40px rgba(147, 200, 69, 0.14), 0 30px 80px -46px rgba(35, 46, 102, 0.8); animation: v6-spin 8s linear infinite; }
+  .v6-suite:hover { animation-duration: 2.4s; }
+  @keyframes v6-spin { to { --v6-angle: 360deg; } }
+  .v6-suite__lead { position: relative; isolation: isolate; overflow: hidden; display: flex; border-radius: 32px; background: var(--navy); color: #fff; min-height: 30rem; }
+  .v6-suite__lead::before { content: ""; position: absolute; inset: -38%; z-index: -1; background: radial-gradient(circle at 24% 30%, rgba(63, 140, 203, 0.82) 0, rgba(63, 140, 203, 0.36) 22%, transparent 47%), radial-gradient(circle at 78% 64%, rgba(52, 76, 139, 0.92) 0, rgba(35, 46, 102, 0.4) 30%, transparent 58%), conic-gradient(from 205deg at 54% 46%, #17204d, #2d4d8c, #232e66, #192454, #3f8ccb, #232e66, #17204d); filter: blur(28px) saturate(118%); animation: v6-drift 11s ease-in-out infinite alternate; }
+  .v6-suite__lead::after { content: ""; position: absolute; inset: -38%; z-index: -1; background: radial-gradient(ellipse at 58% 42%, rgba(255, 255, 255, 0.11), transparent 42%), linear-gradient(118deg, transparent 26%, rgba(63, 140, 203, 0.2) 43%, rgba(147, 200, 69, 0.12) 51%, transparent 67%); mix-blend-mode: screen; opacity: 0.6; animation: v6-sheen 7.5s ease-in-out infinite alternate; }
+  @keyframes v6-drift { 0% { transform: translate3d(3%, -3%, 0) scale(1.04) rotate(-4deg); } 48% { transform: translate3d(-4%, 2%, 0) scale(1.12) rotate(2deg); } 100% { transform: translate3d(4%, 5%, 0) scale(1.07) rotate(8deg); } }
+  @keyframes v6-sheen { 0% { transform: translate3d(4%, -3%, 0) scale(1); opacity: 0.42; } 55% { transform: translate3d(-5%, 3%, 0) scale(1.12); opacity: 0.78; } 100% { transform: translate3d(3%, 5%, 0) scale(1.05); opacity: 0.54; } }
+  .v6-suite__content { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 1.25rem; padding: clamp(2rem, 4vw, 3rem); }
+  .v6-suite__badge { display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 999px; background: rgba(255, 255, 255, 0.14); color: #fff; margin-bottom: auto; }
+  .v6-suite__badge .v6-icon { width: 1.8rem; height: 1.8rem; }
+  .v6-suite__name { margin-top: 5rem; font-size: clamp(2.4rem, 4.2vw, 4rem); font-weight: 600; letter-spacing: -0.055em; line-height: 0.98; max-width: 9ch; }
+  .v6-suite__copy { max-width: 26rem; line-height: 1.6; color: rgba(255, 255, 255, 0.78); }
+  .v6-suite__list { padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2.5vw, 2rem); }
+  .v6-suite__label { font-size: 0.9rem; font-weight: 600; color: var(--muted); padding-inline: 1rem; }
+  .v6-suite__list ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem; margin-top: 1.25rem; }
+  .v6-svc { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem; align-items: start; padding: 1.2rem 1.1rem 1.3rem; border-radius: 22px; transition: background-color 0.35s, transform 0.35s var(--ease), box-shadow 0.35s; }
+  .v6-svc:hover { background: var(--key-blue); color: #fff; transform: translateY(-2px); box-shadow: 0 20px 44px -34px rgba(35, 46, 102, 0.6); }
+  .v6-svc__icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; color: var(--navy); transition: color 0.35s; }
+  .v6-svc:hover .v6-svc__icon { color: #fff; }
+  .v6-svc__icon .v6-icon { width: 2.25rem; height: 2.25rem; }
+  .v6-svc__text { display: grid; gap: 0.3rem; padding-right: 1.5rem; }
+  .v6-svc__name { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.025em; }
+  .v6-svc__tagline { font-size: 0.9rem; line-height: 1.5; color: var(--muted); transition: color 0.35s; }
+  .v6-svc:hover .v6-svc__tagline { color: rgba(255, 255, 255, 0.78); }
+  .v6-svc__go { position: absolute; top: 1.2rem; right: 1rem; color: #fff; opacity: 0; transform: translate(-4px, 4px); transition: opacity 0.3s, transform 0.5s var(--ease); }
+  .v6-svc:hover .v6-svc__go { opacity: 1; transform: none; }
+  .v6-dt { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; margin-top: 1.25rem; padding: clamp(2rem, 4vw, 3rem); border-radius: 40px; background: linear-gradient(135deg, var(--key-blue) 0%, var(--navy) 100%); color: #fff; }
+  .v6-dt__new { display: inline-block; padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--green); color: var(--charcoal); font-size: 0.75rem; font-weight: 700; }
+  .v6-dt__name { margin-top: 1rem; font-size: clamp(1.9rem, 3vw, 2.75rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1.05; }
+  .v6-dt__copy { margin-block: 0.75rem 1.25rem; line-height: 1.55; color: rgba(255, 255, 255, 0.78); max-width: 26rem; }
+  .v6-dt__flow { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .v6-dt__flow::before { content: ""; position: absolute; left: 1.75rem; right: calc((100% - 2rem) / 3 - 1.75rem); top: 1.75rem; height: 2px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), var(--green)); }
+  .v6-dt__flow li { position: relative; display: grid; gap: 0.6rem; justify-items: start; align-content: start; }
+  .v6-dt__icon { position: relative; z-index: 1; display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 999px; background: #fff; color: var(--navy); }
+  .v6-dt__icon .v6-icon { width: 1.5rem; height: 1.5rem; }
+  .v6-dt__row { display: flex; align-items: baseline; gap: 0.6rem; margin-top: 0.5rem; }
+  .v6-dt__num { flex: none; font-size: 1.1rem; font-weight: 700; color: var(--green); }
+  .v6-dt__title { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; line-height: 1.25; }
+
+  /* Odometer */
+  .v6-odo { --cell: 1.2em; display: inline-flex; align-items: flex-start; line-height: var(--cell); font-variant-numeric: tabular-nums; font-weight: 600; letter-spacing: -0.03em; }
+  .v6-odo__col { display: inline-block; height: var(--cell); overflow: hidden; padding-inline: 0.05em; margin-inline: -0.035em; }
+  .v6-odo__strip { display: flex; flex-direction: column; transform: translateY(0); transition: transform 2.2s cubic-bezier(0.2, 0.9, 0.1, 1); transition-delay: calc(var(--i) * 0.07s); }
+  .v6-odo__strip span { display: block; height: var(--cell); line-height: var(--cell); letter-spacing: 0; text-align: center; }
+  .v6-odo__sym { display: inline-block; height: var(--cell); line-height: var(--cell); }
+  .is-counted .v6-odo__strip { transform: translateY(calc(var(--n) * var(--cell) * -1)); }
+  .v6-odo--xl { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 3rem); font-size: clamp(3.4rem, 11vw, 11.5rem); letter-spacing: -0.06em; color: var(--navy); }
+  .v6-odo--xl .v6-odo__sym:first-child { color: var(--key-blue); }
+  .v6-odo--xl .v6-odo__sym:last-child { color: var(--green); }
+
+  /* Results scoreboard */
+  .v6-results { padding-block: var(--space); }
+  .v6-results .v6-h2 { max-width: 20ch; }
+  .v6-board { margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--hairline); }
+  .v6-board__row { display: grid; grid-template-columns: 5rem minmax(0, 1.3fr) minmax(6rem, 0.6fr) 2rem minmax(0, 0.9fr) 5rem; align-items: center; gap: 1.5rem; padding-block: 1.4rem; border-bottom: 1px solid var(--hairline); opacity: 0; transform: translateY(20px); transition: opacity 0.8s var(--ease), transform 1s var(--ease), background-color 0.4s; }
+  .v6-board__row.is-in { opacity: 1; transform: none; }
+  .v6-board__logo { display: flex; align-items: center; justify-content: center; height: 3.5rem; }
+  .v6-board__logo--dark { background: var(--navy); border-radius: 12px; padding: 0.35rem; }
+  .v6-board__logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
+  .v6-board__who { display: grid; gap: 0.25rem; }
+  .v6-board__who strong { font-size: 1.1rem; letter-spacing: -0.02em; }
+  .v6-board__who span { font-size: 0.88rem; color: var(--muted); }
+  .v6-board__before { justify-self: end; font-size: clamp(1.2rem, 1.8vw, 1.6rem); font-weight: 600; letter-spacing: -0.03em; color: #9aa0ad; text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: rgba(154, 160, 173, 0.6); }
+  .v6-board__arrow { color: var(--key-blue); justify-self: center; }
+  .v6-board__after { font-size: clamp(2rem, 3.4vw, 3.25rem); letter-spacing: -0.05em; color: var(--navy); }
+  .v6-board__delta { justify-self: end; white-space: nowrap; padding: 0.4rem 0.8rem; border-radius: 999px; background: var(--green); font-weight: 700; font-size: 0.9rem; }
+  .v6-results__foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+
+  .v6 [data-variant][hidden] { display: none !important; }
+  /* Results option A: scroll story */
+  .v6-story { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: clamp(2rem, 6vw, 6rem); margin-top: clamp(3.5rem, 7vw, 6rem); }
+  .v6-story__pin { position: sticky; top: calc(50vh - 11rem); align-self: start; height: 22rem; display: flex; flex-direction: column; justify-content: center; }
+  .v6-story__stats { position: relative; display: grid; }
+  .v6-story__stat { grid-area: 1 / 1; display: grid; gap: 0.75rem; pointer-events: none; }
+  .v6-story__num { display: block; font-size: clamp(5rem, 11vw, 11rem); font-weight: 600; letter-spacing: -0.065em; line-height: 0.95; white-space: nowrap; }
+  .v6-char { display: inline-block; opacity: 0; transform: translateY(0.28em); filter: blur(10px); transition: opacity 0.25s ease-out, transform 0.45s var(--ease), filter 0.3s ease-out; transition-delay: calc(var(--c) * 0.015s); }
+  .v6-story__stat.is-active .v6-char { opacity: 1; transform: none; filter: none; transition: opacity 0.5s var(--ease), transform 0.8s var(--ease), filter 0.6s var(--ease); transition-delay: calc(0.22s + var(--c) * 0.05s); }
+  .v6-story__stat.is-past .v6-char { transform: translateY(-0.22em); }
+  .v6-story__label { font-size: clamp(1.1rem, 1.6vw, 1.4rem); font-weight: 600; letter-spacing: -0.02em; opacity: 0; transform: translateY(8px); transition: opacity 0.4s var(--ease), transform 0.6s var(--ease); }
+  .v6-story__stat.is-active .v6-story__label { opacity: 1; transform: none; transition-delay: 0.35s; }
+  .v6-story__progress { position: relative; height: 3px; margin-top: 2rem; max-width: 22rem; border-radius: 3px; background: var(--hairline); overflow: hidden; }
+  .v6-story__progress span { position: absolute; inset: 0; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform 0.4s linear; }
+  .v6-story__list { display: grid; gap: 1.5rem; padding-block: 12vh 20vh; }
+  .v6-story__card { --v6-angle: 0deg; padding: 4px; border-radius: 34px; background: var(--hairline); opacity: 0.4; transform: scale(0.97); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease), background 0.4s; }
+  .v6-story__card.is-active { opacity: 1; transform: none; background: conic-gradient(from var(--v6-angle), var(--key-blue) 0deg 60deg, #79d5f6 95deg, var(--green) 125deg 180deg, #79d5f6 210deg, var(--key-blue) 245deg 360deg); animation: v6-spin 8s linear infinite; box-shadow: 0 0 22px rgba(63, 140, 203, 0.28), 0 30px 70px -44px rgba(35, 46, 102, 0.7); }
+  .v6-story__inner { display: grid; gap: 1.5rem; padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: 30px; background: #fff; }
+  .v6-story__head { display: flex; align-items: center; gap: 1rem; }
+  .v6-story__logo { display: flex; align-items: center; justify-content: center; height: 3.5rem; width: 5.5rem; flex: none; }
+  .v6-story__logo--dark { background: var(--navy); border-radius: 12px; padding: 0.4rem; }
+  .v6-story__logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
+  .v6-story__who { display: grid; gap: 0.2rem; }
+  .v6-story__who strong { font-size: 1.15rem; letter-spacing: -0.02em; }
+  .v6-story__who span { font-size: 0.88rem; color: var(--muted); }
+  .v6-story__mobile-stat { display: none; }
+  .v6-story__bars { display: grid; gap: 0.9rem; }
+  .v6-story__bar { display: grid; grid-template-columns: 3.75rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; }
+  .v6-story__bar-label { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+  .v6-story__track { height: 0.9rem; border-radius: 999px; background: var(--off-white); overflow: hidden; }
+  .v6-story__fill { display: block; height: 100%; width: 0; border-radius: 999px; transition: width 1.2s var(--ease) 0.2s; }
+  .v6-story__fill--before { background: #c9d6e5; }
+  .v6-story__fill--after { background: var(--grad); transition-delay: 0.45s; }
+  .v6-story__card.is-active .v6-story__fill { width: var(--w); }
+  .v6-story__bar-value { min-width: 7rem; text-align: right; font-weight: 600; color: var(--muted); }
+  .v6-story__bar-value--after { font-size: 1.35rem; letter-spacing: -0.03em; color: var(--navy); }
+  .v6-story__pins { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+  .v6-story__pinitem { position: relative; display: grid; justify-items: center; gap: 0.6rem; font-size: 0.85rem; font-weight: 600; text-align: center; opacity: 0.25; transition: opacity 0.5s; transition-delay: calc(0.2s + var(--i) * 0.3s); }
+  .v6-story__card.is-active .v6-story__pinitem { opacity: 1; }
+  .v6-story__pinicon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--key-blue-soft); color: var(--navy); }
+  .v6-story__pinitem:first-child .v6-story__pinicon { background: var(--green); color: var(--charcoal); }
+  .v6-story__pinicon .v6-icon { width: 1.3rem; height: 1.3rem; }
+  .v6-story__line { font-size: 1.05rem; line-height: 1.55; color: var(--muted); }
+  .v6-story__quote { padding-left: 1rem; border-left: 3px solid var(--green); font-weight: 600; line-height: 1.45; }
+  .v6-story__quote cite { display: block; margin-top: 0.3rem; font-style: normal; font-weight: 400; font-size: 0.88rem; color: var(--muted); }
+  @media (max-width: 900px) {
+    .v6-story { grid-template-columns: 1fr; }
+    .v6-story__pin { display: none; }
+    .v6-story__list { padding-block: 0; }
+    .v6-story__card { opacity: 1; transform: none; }
+    .v6-story__fill { width: var(--w); }
+    .v6-story__pinitem { opacity: 1; }
+    .v6-story__mobile-stat { display: block; font-size: 3rem; font-weight: 600; letter-spacing: -0.05em; line-height: 1; color: var(--navy); }
+    .v6-story__mobile-stat span { display: block; margin-top: 0.4rem; font-size: 1rem; letter-spacing: -0.01em; color: var(--muted); }
+    .v6-story__pins { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1rem; }
+    .v6-story__bar { grid-template-columns: 3.25rem minmax(0, 1fr); }
+    .v6-story__bar-value { grid-column: 2; text-align: left; min-width: 0; }
+  }
+
+  /* Time */
+  .v6-time { padding-block: var(--space); background: var(--off-white); }
+  .v6-time__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  .v6-switch { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; margin-top: 2.5rem; padding: 0.35rem; border-radius: 999px; background: #fff; box-shadow: 0 10px 30px -22px rgba(20, 22, 28, 0.45); }
+  .v6-switch button { position: relative; z-index: 1; padding: 0.85rem 1.5rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; color: var(--muted); transition: color 0.4s; }
+  .v6-switch button[aria-selected="true"] { color: #fff; }
+  .v6-switch__thumb { position: absolute; top: 0.35rem; bottom: 0.35rem; left: 0.35rem; width: calc(50% - 0.35rem); border-radius: 999px; background: var(--charcoal); transition: transform 0.6s var(--ease), background-color 0.5s; }
+  .v6-switch.is-together .v6-switch__thumb { transform: translateX(100%); background: var(--navy); }
+  .v6-time__card { display: grid; padding: clamp(2rem, 4vw, 3.25rem); border-radius: 40px; background: var(--charcoal); color: #fff; transition: background-color 0.7s var(--ease); }
+  .v6-time__card.is-together { background: var(--navy); }
+  .v6-time__state { grid-area: 1 / 1; opacity: 0; transform: translateY(18px); transition: opacity 0.45s, transform 0.8s var(--ease); pointer-events: none; }
+  .v6-time__state.is-active { opacity: 1; transform: none; pointer-events: auto; transition-delay: 0.1s; }
+  .v6-time__title { font-size: clamp(2rem, 3.4vw, 3.4rem); font-weight: 600; letter-spacing: -0.05em; line-height: 1.02; max-width: 15ch; }
+  .v6-time__points { margin-top: 2rem; display: grid; }
+  .v6-time__points li { display: flex; align-items: center; gap: 0.9rem; padding-block: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.12); font-weight: 600; font-size: 1.1rem; }
+  .v6-mark { position: relative; flex: none; width: 1.75rem; height: 1.75rem; border-radius: 999px; }
+  .v6-mark--x { background: rgba(255, 138, 122, 0.16); }
+  .v6-mark--x::before, .v6-mark--x::after { content: ""; position: absolute; left: 30%; right: 30%; top: 50%; height: 1.5px; margin-top: -0.75px; background: #ff8a7a; transform: rotate(45deg); }
+  .v6-mark--x::after { transform: rotate(-45deg); }
+  .v6-mark--check { background: var(--green); }
+  .v6-mark--check::after { content: ""; position: absolute; left: 36%; top: 24%; width: 26%; height: 44%; border: solid var(--charcoal); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+  /* Voices */
+  .v6-voices { padding-block: var(--space); overflow: hidden; }
+  .v6-arrows { display: flex; gap: 0.5rem; }
+  .v6-arrows button { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: #fff; color: var(--navy); box-shadow: 0 0 0 1px var(--hairline); transition: background-color 0.3s, color 0.3s; }
+  .v6-arrows button:hover { background: var(--navy); color: #fff; }
+  .v6-arrows button:first-child i { transform: rotate(180deg); }
+  .v6-arrows i { display: inline-grid; }
+  .v6-rail { display: flex; gap: 1rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2)); scroll-padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2)); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .v6-rail::-webkit-scrollbar { display: none; }
+  .v6-reel { flex: none; width: clamp(15rem, 20vw, 18rem); scroll-snap-align: start; }
+  .v6-reel__frame { position: relative; display: block; width: 100%; aspect-ratio: 9 / 15; border-radius: 28px; overflow: hidden; background: var(--navy); text-align: left; }
+  .v6-reel__frame img, .v6-reel__frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .v6-reel__frame video { opacity: 0; transition: opacity 0.4s; }
+  .v6-reel__frame.is-previewing video { opacity: 1; }
+  .v6-reel__frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 22, 28, 0) 55%, rgba(20, 22, 28, 0.78)); }
+  .v6-reel__play { position: absolute; top: 1rem; right: 1rem; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: #fff; color: var(--navy); transition: transform 0.5s var(--ease); }
+  .v6-reel__frame:hover .v6-reel__play { transform: scale(1.1); }
+  .v6-reel__who { position: absolute; left: 1.1rem; right: 1.1rem; bottom: 1.1rem; z-index: 1; display: grid; color: rgba(255, 255, 255, 0.78); font-size: 0.85rem; }
+  .v6-reel__who strong { color: #fff; font-size: 1.05rem; }
+  .v6-reel--quote figure { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; aspect-ratio: 9 / 15; padding: 1.75rem; border-radius: 28px; background: var(--key-blue-soft); color: var(--navy); }
+  .v6-reel--quote blockquote { font-size: clamp(1.45rem, 2vw, 1.85rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.12; }
+  .v6-reel--quote figcaption { display: grid; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(35, 46, 102, 0.16); font-size: 0.85rem; color: var(--muted); }
+  .v6-reel--quote figcaption strong { color: var(--navy); font-size: 1rem; }
+
+  /* Audiences, insights, FAQ */
+  .v6-aud { padding-bottom: var(--space); }
+  .v6-aud__list { margin-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--hairline); }
+  .v6-aud__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 2rem; align-items: center; padding-block: clamp(1.5rem, 3vw, 2.25rem); border-bottom: 1px solid var(--hairline); transition: padding 0.5s var(--ease); }
+  .v6-aud__row:hover { padding-left: 1rem; }
+  .v6-aud__name { font-size: clamp(1.6rem, 3vw, 2.75rem); font-weight: 600; letter-spacing: -0.05em; line-height: 1.05; transition: color 0.4s; }
+  .v6-aud__row:hover .v6-aud__name { color: var(--key-blue); }
+  .v6-aud__line { line-height: 1.55; color: var(--muted); }
+  .v6-aud__go { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: var(--navy); color: #fff; transition: transform 0.6s var(--ease), background-color 0.4s, color 0.4s; }
+  .v6-aud__row:hover .v6-aud__go { background: var(--green); color: var(--charcoal); transform: rotate(45deg); }
+  .v6-insights { padding-bottom: var(--space); }
+  .v6-posts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.75rem); margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .v6-post { display: grid; gap: 0.7rem; }
+  .v6-post__media { aspect-ratio: 4 / 3; border-radius: 26px; overflow: hidden; background: var(--off-white); }
+  .v6-post__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .v6-post:hover .v6-post__media img { transform: scale(1.05); }
+  .v6-post__tag { margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--key-blue); }
+  .v6-post__title { font-size: clamp(1.2rem, 1.6vw, 1.5rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; text-wrap: balance; }
+  .v6-faq { padding-block: var(--space); background: var(--off-white); }
+  .v6-faq__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .v6-faq__title { position: sticky; top: 8rem; }
+  .v6-acc { border-top: 1px solid rgba(20, 22, 28, 0.12); }
+  .v6-acc__item { border-bottom: 1px solid rgba(20, 22, 28, 0.12); }
+  .v6-acc__head { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 1.5rem; padding-block: 1.5rem; text-align: left; font-size: clamp(1.05rem, 1.5vw, 1.3rem); font-weight: 600; letter-spacing: -0.025em; }
+  .v6-acc__icon { position: relative; flex: none; width: 2.25rem; height: 2.25rem; border-radius: 999px; background: #fff; transition: background-color 0.4s, transform 0.6s var(--ease); }
+  .v6-acc__icon::before, .v6-acc__icon::after { content: ""; position: absolute; left: 32%; right: 32%; top: 50%; height: 1.5px; margin-top: -0.75px; background: var(--navy); transition: transform 0.6s var(--ease), background-color 0.4s; }
+  .v6-acc__icon::after { transform: rotate(90deg); }
+  .v6-acc__item.is-open .v6-acc__icon { background: var(--navy); transform: rotate(180deg); }
+  .v6-acc__item.is-open .v6-acc__icon::before, .v6-acc__item.is-open .v6-acc__icon::after { background: #fff; }
+  .v6-acc__item.is-open .v6-acc__icon::after { transform: rotate(0deg); }
+  .v6-acc__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s var(--ease); }
+  .v6-acc__item.is-open .v6-acc__panel { grid-template-rows: 1fr; }
+  .v6-acc__panel > div { overflow: hidden; }
+  .v6-acc__panel p { padding-bottom: 1.5rem; max-width: 42rem; line-height: 1.65; color: var(--muted); }
+
+  /* CTA (current site's version, refined) */
+  .v6-cta { padding-block: var(--space); }
+  .v6-cta__panel { position: relative; overflow: hidden; display: grid; justify-items: center; text-align: center; padding: clamp(4rem, 9vw, 8rem) clamp(1.5rem, 4vw, 3rem); border-radius: 40px; background: linear-gradient(160deg, #eef4fa 0%, #dfeaf5 60%, #e6ecdb 100%); }
+  .v6-cta__rating { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 2.75rem; font-size: 0.85rem; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; }
+  .v6-cta__rating .v6-stars { color: #f4b400; text-decoration: none; }
+  .v6-cta__title { margin-top: 1rem; max-width: 14ch; font-size: clamp(2.8rem, 6.2vw, 6rem); line-height: 1; letter-spacing: -0.055em; font-weight: 600; text-wrap: balance; }
+  .v6-cta__text { margin-top: 1.5rem; max-width: 36rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: var(--muted); }
+  .v6-cta__actions { display: flex; justify-content: center; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 2.5rem; }
+  .v6-btn--ghost { background: #fff; color: var(--navy); box-shadow: inset 0 0 0 1px rgba(35, 46, 102, 0.14); }
+  .v6-btn--ghost:hover { box-shadow: inset 0 0 0 1px var(--navy), 0 16px 32px -22px rgba(35, 46, 102, 0.6); }
+
+  .v6-lightbox { padding: 0; border: 0; background: transparent; width: min(92vw, 28rem); overflow: visible; }
+  .v6-lightbox::backdrop { background: rgba(20, 22, 28, 0.88); }
+  .v6-lightbox video { display: block; width: 100%; max-height: 86vh; border-radius: 20px; background: #000; }
+  .v6-lightbox__close { position: absolute; top: -2.75rem; right: 0; color: #fff; font-weight: 600; }
+
+  [data-rise] { opacity: 0; transform: translateY(32px); transition: opacity 0.9s var(--ease), transform 1.1s var(--ease); }
+  [data-rise].is-in { opacity: 1; transform: none; }
+
+  @media (max-width: 1100px) {
+    .v6-connect__grid, .v6-time__grid, .v6-faq__grid, .v6-cta__panel, .v6-suite, .v6-dt { grid-template-columns: 1fr; }
+    .v6-connect__title, .v6-faq__title { position: static; }
+    .v6-suite__lead { min-height: 22rem; }
+    .v6-board__row { grid-template-columns: 4rem minmax(0, 1fr) auto; row-gap: 0.75rem; }
+    .v6-board__before { grid-column: 2; justify-self: start; }
+    .v6-board__arrow { display: none; }
+    .v6-board__after { grid-column: 2; grid-row: 3; }
+    .v6-board__delta { grid-column: 3; grid-row: 1; }
+  }
+  @media (max-width: 900px) {
+    .v6-header__inner { grid-template-columns: 1fr auto; }
+    .v6-header__nav, .v6-header__end .v6-btn { display: none; }
+    .v6-burger { display: block; }
+    .v6-hero { height: auto; }
+    .v6-hero__sticky { position: relative; height: auto; overflow: visible; padding-bottom: 1rem; }
+    .v6-hero__intro { position: relative; padding-top: 7rem; }
+    .v6-hero__title { font-size: 12.5vw; }
+    .v6-typer { font-size: 0.62em; min-height: 2.08em; white-space: normal; text-wrap: balance; }
+        .v6-hero__stage { position: relative; inset: auto; margin: 2.5rem 0.75rem 0; aspect-ratio: 4 / 5; border-radius: 28px; clip-path: none !important; }
+    .v6-hero__stage img { transform: none !important; }
+    .v6-hero__shade, .v6-hero__caption { opacity: 1 !important; transform: none !important; }
+    .v6-hero__caption { bottom: 1.5rem; font-size: 1.75rem; }
+        .v6-marquee img { height: 2.75rem; }
+    .v6-hero { padding-bottom: 1rem; }
+    .v6-steps__rail { left: 1.5rem; }
+    .v6-step { grid-template-columns: 3rem minmax(0, 1fr); gap: 1.25rem; }
+    .v6-step__node { width: 3rem; height: 3rem; }
+    .v6-step__node .v6-icon { width: 1.3rem; height: 1.3rem; }
+    .v6-suite { border-width: 4px; border-radius: 32px; padding: 0.4rem; }
+    .v6-suite__list ul { grid-template-columns: 1fr; }
+    .v6-dt__flow { grid-template-columns: 1fr; }
+    .v6-dt__flow::before { left: 1.75rem; right: auto; top: 1.75rem; bottom: 1.75rem; width: 2px; height: auto; background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), var(--green)); }
+    .v6-dt__flow li { grid-template-columns: auto 1fr; align-items: center; column-gap: 1rem; }
+    .v6-dt__row { margin-top: 0; }
+    .v6-aud__row { grid-template-columns: minmax(0, 1fr) auto; }
+    .v6-aud__line { grid-column: 1; grid-row: 2; }
+    .v6-aud__go { grid-row: 1; grid-column: 2; }
+    .v6-posts { grid-template-columns: 1fr; }
+      }
+  @media (prefers-reduced-motion: reduce) {
+    .v6 *, .v6 *::before, .v6 *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .v6-marquee__track { animation: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-v6]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  const desktop = window.matchMedia("(min-width: 901px)");
+
+  if (root) {
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+    requestAnimationFrame(() => setTimeout(() => root.classList.add("is-loaded"), 60));
+
+    // Typing headline: same timing as the current homepage
+    const typer = root.querySelector<HTMLElement>("[data-typer]");
+    const typerText = typer?.querySelector<HTMLElement>("[data-typer-text]");
+    if (typer && typerText && !reduceMotion) {
+      let phrases: string[] = [];
+      try { phrases = JSON.parse(typer.dataset.phrases || "[]"); } catch { phrases = []; }
+      let phraseIndex = 0;
+      let charIndex = phrases[0]?.length ?? 0;
+      let deleting = true;
+      const tick = () => {
+        const phrase = phrases[phraseIndex] || "";
+        charIndex = deleting ? Math.max(0, charIndex - 1) : Math.min(phrase.length, charIndex + 1);
+        typerText.textContent = phrase.slice(0, charIndex);
+        if (deleting && charIndex === 0) {
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          deleting = false;
+          return window.setTimeout(tick, 260);
+        }
+        if (!deleting && charIndex === phrases[phraseIndex].length) {
+          deleting = true;
+          return window.setTimeout(tick, 1650);
+        }
+        return window.setTimeout(tick, deleting ? 28 : 52);
+      };
+      if (phrases.length > 1) window.setTimeout(tick, 2600);
+    }
+
+    const menu = root.querySelector<HTMLElement>("[data-menu]");
+    const menuBtn = root.querySelector<HTMLButtonElement>("[data-menu-btn]");
+    menuBtn?.addEventListener("click", () => {
+      if (!menu) return;
+      const open = menu.hidden;
+      menu.hidden = !open;
+      menuBtn.setAttribute("aria-expanded", String(open));
+      document.body.style.overflow = open ? "hidden" : "";
+    });
+
+    // Reveals, word headlines, scoreboard rows, odometers
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        if (entry.target.hasAttribute("data-odo-group")) {
+          setTimeout(() => entry.target.classList.add("is-counted"), reduceMotion ? 0 : 250);
+        }
+        io.unobserve(entry.target);
+      }),
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    root.querySelectorAll("[data-rise], [data-words], [data-odo-group]").forEach((el) => io.observe(el));
+    root.querySelectorAll<HTMLElement>(".v6-board__row").forEach((row, i) => { row.style.transitionDelay = `${(i % 6) * 0.06}s`; });
+
+    const header = root.querySelector<HTMLElement>("[data-header]");
+    const hero = root.querySelector<HTMLElement>("[data-hero]");
+    const intro = root.querySelector<HTMLElement>("[data-hero-intro]");
+    const stage = root.querySelector<HTMLElement>("[data-hero-stage]");
+    const heroImg = root.querySelector<HTMLImageElement>("[data-hero-img]");
+    const shade = root.querySelector<HTMLElement>("[data-hero-shade]");
+    const caption = root.querySelector<HTMLElement>("[data-hero-caption]");
+    const chips = Array.from(root.querySelectorAll<HTMLElement>("[data-hero-chip]"));
+    const stepsEl = root.querySelector<HTMLElement>("[data-steps]");
+    const stepsFill = root.querySelector<HTMLElement>("[data-steps-fill]");
+    const stepItems = Array.from(root.querySelectorAll<HTMLElement>("[data-step]"));
+    const stepsRail = root.querySelector<HTMLElement>(".v6-steps__rail");
+    // Run the rail from the center of the first icon to the center of the last icon
+    const sizeRail = () => {
+      if (!stepsEl || !stepsRail || stepItems.length < 2) return;
+      const box = stepsEl.getBoundingClientRect();
+      const nodes = stepItems.map((item) => item.querySelector<HTMLElement>(".v6-step__node")!.getBoundingClientRect());
+      const first = nodes[0].top + nodes[0].height / 2 - box.top;
+      const last = nodes[nodes.length - 1].top + nodes[nodes.length - 1].height / 2 - box.top;
+      stepsRail.style.top = `${first}px`;
+      stepsRail.style.bottom = "auto";
+      stepsRail.style.height = `${last - first}px`;
+    };
+    sizeRail();
+    window.addEventListener("resize", sizeRail);
+    window.addEventListener("load", sizeRail);
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      header?.classList.toggle("is-scrolled", window.scrollY > 10);
+      let hidden = false;
+      if (hero && stage && heroImg && intro && desktop.matches && !reduceMotion) {
+        const rect = hero.getBoundingClientRect();
+        const p = clamp(-rect.top / (rect.height - vh));
+        const e = 1 - Math.pow(1 - p, 3);
+        const r = lerp(32, 0, e);
+        stage.style.clipPath = `inset(${lerp(66, 0, e)}% ${lerp(13, 0, e)}% 0% ${lerp(13, 0, e)}% round ${r}px ${r}px 0 0)`;
+        const ratio = (heroImg.naturalWidth || 2400) / (heroImg.naturalHeight || 1600);
+        const coverW = Math.max(vw, vh * ratio);
+        const coverH = coverW / ratio;
+        const faceX = (vw - coverW) / 2 + coverW * Number(heroImg.dataset.focusX || 0.5);
+        const faceY = (vh - coverH) * 0.3 + coverH * Number(heroImg.dataset.focusY || 0.3);
+        const winY = vh * 0.83;
+        heroImg.style.transform = `translate3d(${(vw / 2 - faceX) * (1 - e)}px, ${(winY - faceY) * (1 - e)}px, 0) scale(${lerp(1.12, 1, e)})`;
+        intro.style.transform = `translate3d(0, ${-e * 30}vh, 0)`;
+        intro.style.opacity = String(clamp(1 - p * 4));
+        chips.forEach((chip, i) => {
+          chip.style.transform = `translate3d(${(i === 0 ? -1 : 1) * e * 120}px, ${-e * 60}px, 0)`;
+          chip.style.opacity = String(clamp(1 - p * 5));
+        });
+        if (shade) shade.style.opacity = String(clamp((p - 0.5) / 0.35));
+        if (caption) {
+          const c = clamp((p - 0.62) / 0.3);
+          caption.style.opacity = String(c);
+          caption.style.transform = `translateY(${(1 - c) * 24}px)`;
+        }
+        hidden = p > 0.3 && p < 1;
+      }
+      header?.classList.toggle("is-hidden", hidden);
+      if (stepsEl && stepsFill) {
+        const rect = stepsEl.getBoundingClientRect();
+        const railRect = stepsRail?.getBoundingClientRect() ?? rect;
+        stepsFill.style.transform = `scaleY(${reduceMotion ? 1 : clamp((vh * 0.62 - railRect.top) / railRect.height)})`;
+        stepItems.forEach((item) => item.classList.toggle("is-active", reduceMotion || item.getBoundingClientRect().top < vh * 0.62));
+      }
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    heroImg?.addEventListener("load", onScroll);
+
+    // Results variants: ?results=scoreboard shows the odometer scoreboard instead of the scroll story
+    const variant = new URLSearchParams(location.search).get("results") === "scoreboard" ? "scoreboard" : "story";
+    root.querySelectorAll<HTMLElement>("[data-variant]").forEach((el) => { el.hidden = el.dataset.variant !== variant; });
+
+    // Scroll story: the card nearest the middle of the screen drives the big number
+    const storyCards = Array.from(root.querySelectorAll<HTMLElement>("[data-story-card]"));
+    const storyStats = Array.from(root.querySelectorAll<HTMLElement>("[data-story-stat]"));
+    const storyIndex = root.querySelector<HTMLElement>("[data-story-index]");
+    const storyProgress = root.querySelector<HTMLElement>("[data-story-progress]");
+    let activeStory = -1;
+    const updateStory = () => {
+      if (!storyCards.length || variant !== "story") return;
+      const mid = window.innerHeight / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      storyCards.forEach((card, i) => {
+        const r = card.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      if (best !== activeStory) {
+        activeStory = best;
+        storyCards.forEach((card, i) => card.classList.toggle("is-active", i === best));
+        storyStats.forEach((stat, i) => {
+          stat.classList.toggle("is-active", i === best);
+          stat.classList.toggle("is-past", i < best);
+        });
+        if (storyIndex) storyIndex.textContent = String(best + 1);
+      }
+      if (storyProgress) {
+        const first = storyCards[0].getBoundingClientRect();
+        const last = storyCards[storyCards.length - 1].getBoundingClientRect();
+        const span = last.top + last.height / 2 - (first.top + first.height / 2);
+        const p = span > 0 ? (mid - (first.top + first.height / 2)) / span : 0;
+        storyProgress.style.transform = `scaleX(${Math.min(1, Math.max(0, p))})`;
+      }
+    };
+    window.addEventListener("scroll", () => requestAnimationFrame(updateStory), { passive: true });
+    window.addEventListener("resize", updateStory);
+    updateStory();
+
+    // Time switch
+    const timeSection = root.querySelector<HTMLElement>("[data-time]");
+    const timeCard = root.querySelector<HTMLElement>("[data-time-card]");
+    const switchEl = timeSection?.querySelector<HTMLElement>(".v6-switch");
+    timeSection?.querySelectorAll<HTMLButtonElement>("[data-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const mode = button.dataset.mode;
+        timeSection.querySelectorAll<HTMLButtonElement>("[data-mode]").forEach((b) => b.setAttribute("aria-selected", String(b === button)));
+        timeSection.querySelectorAll<HTMLElement>("[data-state]").forEach((state) => state.classList.toggle("is-active", state.dataset.state === mode));
+        switchEl?.classList.toggle("is-together", mode === "together");
+        timeCard?.classList.toggle("is-together", mode === "together");
+      });
+    });
+
+    // Rail
+    const rail = root.querySelector<HTMLElement>("[data-rail]");
+    const railStep = () => (rail?.querySelector<HTMLElement>(".v6-reel")?.offsetWidth ?? 280) + 16;
+    root.querySelector("[data-rail-prev]")?.addEventListener("click", () => rail?.scrollBy({ left: -railStep() * 2, behavior: "smooth" }));
+    root.querySelector("[data-rail-next]")?.addEventListener("click", () => rail?.scrollBy({ left: railStep() * 2, behavior: "smooth" }));
+    if (finePointer && !reduceMotion) {
+      root.querySelectorAll<HTMLElement>(".v6-reel__frame").forEach((frame) => {
+        const video = frame.querySelector<HTMLVideoElement>("video");
+        if (!video) return;
+        let hoverTimer = 0;
+        frame.addEventListener("mouseenter", () => {
+          hoverTimer = window.setTimeout(() => {
+            if (!video.src) video.src = video.dataset.preview ?? "";
+            video.play().then(() => frame.classList.add("is-previewing")).catch(() => {});
+          }, 250);
+        });
+        frame.addEventListener("mouseleave", () => {
+          clearTimeout(hoverTimer);
+          frame.classList.remove("is-previewing");
+          video.pause();
+        });
+      });
+    }
+
+    root.querySelectorAll<HTMLElement>("[data-acc-item]").forEach((item) => {
+      item.querySelector("[data-acc-head]")?.addEventListener("click", () => {
+        const open = !item.classList.contains("is-open");
+        item.classList.toggle("is-open", open);
+        item.querySelector("[data-acc-head]")?.setAttribute("aria-expanded", String(open));
+      });
+    });
+
+    const lightbox = root.querySelector<HTMLDialogElement>("[data-lightbox]");
+    const lightboxVideo = root.querySelector<HTMLVideoElement>("[data-lightbox-video]");
+    root.querySelectorAll<HTMLButtonElement>("[data-video]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!lightbox || !lightboxVideo) return;
+        button.querySelector("video")?.pause();
+        lightboxVideo.src = button.dataset.video ?? "";
+        lightbox.showModal();
+        lightboxVideo.play().catch(() => {});
+      });
+    });
+    const close = () => {
+      lightboxVideo?.pause();
+      lightboxVideo?.removeAttribute("src");
+      lightboxVideo?.load();
+      if (lightbox?.open) lightbox.close();
+    };
+    root.querySelector("[data-lightbox-close]")?.addEventListener("click", close);
+    lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) close(); });
+    lightbox?.addEventListener("close", () => lightboxVideo?.pause());
+  }
+</script>
