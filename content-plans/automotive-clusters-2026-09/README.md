@@ -9,7 +9,7 @@ Tuesday releases at 9:00 a.m. America/Chicago. These are scheduled agent work se
 | Date | Work | Cluster | Status |
 |---|---|---|---|
 | September 15 | Refine the live AI review tutorial's title, metadata, and introduction; preserve URL | Auto Repair Reputation Management | Implementation completed; see release verification |
-| September 22 | Finish pre-publication research and implement/publish Reputation Management for Auto Repair Shops: A Practical Guide | Auto Repair Reputation Management | Draft in drafts/auto-repair-reputation-management.md |
+| September 22 | Finish pre-publication research and implement/publish Reputation Management for Auto Repair Shops: A Practical Guide | Auto Repair Reputation Management | Published September 22, 2026; live URL verified |
 | September 29 | Finish pre-publication research and implement/publish How to Improve the Customer Experience at Your Auto Repair Shop | Auto Repair Customer Experience | Draft in drafts/auto-repair-customer-experience.md |
 | October 6 | Research and publish How to Manage Google Reviews for Your Auto Repair Shop if it serves a distinct daily-workflow intent | Auto Repair Reputation Management | Brief below; not drafted |
 | October 13 | Check indexing, available query data, and coverage. Recommend next article; do not automatically publish complaints | Both | Review checkpoint |
