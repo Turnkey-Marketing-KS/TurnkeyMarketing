@@ -96,6 +96,8 @@ Also check whether the message supports the work you want more of. Praise for a 
 
 ## Check whether the change helped
 
+For the bigger process around collecting reviews, assigning replies, and following through with customers, use our [reputation management guide for auto repair shops](/resources/auto-repair-reputation-management). This analysis gives you evidence to bring into that plan.
+
 Save your original review set and analysis. After implementing a change, examine new reviews separately using the same theme definitions. Compare similar periods, show the number of reviews in each, and avoid announcing a trend from a handful of comments.
 
 Pair the feedback with a shop measure:

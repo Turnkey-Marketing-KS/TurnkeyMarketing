@@ -15,6 +15,7 @@ export type ResourcePost = {
   imageWidth?: number;
   imageHeight?: number;
   layout?:
+    | "reputation-guide"
     | "ai-reviews"
     | "article"
     | "client-proof"
@@ -64,10 +65,47 @@ const resourcePath = (slug: string) => `/resources/${slug}`;
 
 export const resourcePosts: ResourcePost[] = [
   {
+    slug: "auto-repair-reputation-management",
+    date: "Sep 2026",
+    originalDate: "2026-09-22",
+    updatedDate: "2026-09-22",
+    tag: "Auto Repair Reputation",
+    title: "Reputation Management for Auto Repair Shops: A Practical Guide",
+    seoTitle: "Auto Repair Reputation Management Guide | Turnkey",
+    seoDescription:
+      "Build a practical reputation management plan for your auto repair shop, from honest review requests and replies to customer feedback and better marketing.",
+    description:
+      "Build trust with honest reviews, clear follow-through, and marketing that matches your shop's customer experience.",
+    dek: "Earn trust at every visit. Make honest feedback, thoughtful replies, and better follow-through part of your shop's routine.",
+    image: {
+      ...siteMedia.shops.mikes,
+      alt: "A Turnkey Marketing team member discussing a plan across an auto shop counter",
+    },
+    imageWidth: 1200,
+    imageHeight: 900,
+    layout: "reputation-guide",
+    href: resourcePath("auto-repair-reputation-management"),
+    sourceAsset: "Existing approved Turnkey site photo: public/site-media/mikes-auto-works.webp",
+    takeaways: [
+      "Make accurate information and honest review requests a habit.",
+      "Assign customer follow-up separately from public replies.",
+      "Build marketing around strengths your team can deliver.",
+    ],
+    sections: [],
+    faq: [
+      {
+        question: "How much do reputation management services typically cost?",
+        answer:
+          "Cost depends on the number of locations, platforms, software features, and how much work a provider handles. Request an itemized quote separating software, setup, monitoring, replies, and reporting. Compare the work included and your team's remaining responsibilities before comparing prices.",
+      },
+    ],
+    relatedSlugs: ["analyze-google-reviews-with-ai", "auto-repair-marketing-plan"],
+  },
+  {
     slug: "analyze-google-reviews-with-ai",
     date: "Sep 2026",
     originalDate: "2026-09-15",
-    updatedDate: "2026-09-15",
+    updatedDate: "2026-09-22",
     tag: "Auto Repair Reputation",
     title: "How to Use AI to Analyze Your Auto Repair Shop’s Google Reviews",
     seoTitle: "AI Google Review Analysis for Auto Repair Shops | Turnkey",

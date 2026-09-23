@@ -44,3 +44,19 @@ Additional source read: https://www.uber.com/us/en/business/articles/automotive-
 Neither Google search displayed a People Also Ask block in the observed snapshot. People also search for was visible; it is not PAA. No FAQ questions are attributed to PAA, and neither new draft includes an invented PAA FAQ. Recheck at the scheduled publication session. If no relevant PAA is available, document the limitation and use clearly identified reader questions only if they improve the article; never falsely label them observed PAA.
 
 Before publishing, recheck sources and available PAA, verify exact internal routes and context, add links between guides only when destinations exist, implement the design, and run live verification. Draft frontmatter is an editorial specification, not wired to an automated site CMS. The weekly Codex sessions perform that implementation.
+
+## September 22 reputation-guide release research
+
+Google was queried directly again for automotive reputation management with gl=us and hl=en. The page reported non-personalized results and 66210, Overland Park, KS from IP address. Commercial pages, ads, AI Overview sources, and forums were excluded. Current first three editorial results were InMoment, TrueReview, and SMG, all guides:
+
+- https://inmoment.com/blog/automotive-reputation-management/: 2,266 words, from introductory standfirst through conclusion before References, excluding the embedded report promotion.
+- https://www.truereview.co/post/automotive-reputation-management: 919 words, short answer through conclusion before collapsed FAQ. Hidden FAQ answers are not counted.
+- https://smg.com/blog/automotive-reputation-management-a-quick-start-guide-on-navigating-online-reviews: 1,191 words, introduction through closing invitation before Share this; standalone download promotion excluded.
+
+All three pages were read through the browser. Counts split main rendered text on whitespace; exclude H1, navigation, bios, footers, related content, and unrelated widgets. Mean approximately 1,459; 80–120% range approximately 1,167–1,750. The release copy is about 1,570 words excluding Markdown markers and link destinations. It was tightened from the original local draft to fit the refreshed benchmark rather than preserve repetitive handoff advice.
+
+Common relevant topics: accurate public listings, customer trust, monitoring feedback, professional responses, and making customer experience visible. Review generation and improvement recur across the set. Retained shop-specific contributions: separating public replies from privately owned follow-up, and measuring a defined operational change alongside customer themes. Dealer sales, financing, and rental-specific advice are excluded. The existing AI tutorial retains the full analysis prompt.
+
+Observed PAA questions: How much do reputation management services typically cost? What is the best CRM system for car dealerships? Is reputation a good company? Why do used car salesmen have a bad reputation? The first is used as an inline FAQ in the tools section; the other three are not relevant to independent repair-shop operations. The answer explains cost factors and quote comparison without inventing prices. Visible answer and FAQ schema match.
+
+Rechecked Google's primary ranking, review-request, and contribution-policy pages listed above. Updated policy language includes optional participation, no prescribed review content, no selective positive solicitation, no incentives, and no staff solicitation quotas. No claim that response speed or a fixed review cadence guarantees rankings. Publication image reuses an approved first-party site asset, with descriptive alt text corrected to reflect the visible Turnkey marketing discussion rather than claiming a repair-customer transaction.
