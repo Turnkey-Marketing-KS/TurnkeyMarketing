@@ -72,7 +72,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     },
     hero: {
       badge: "Flagship service",
-      headline: "A full marketing department.",
+      headline: "Your auto repair marketing department.",
       headlineAccent: "Without the payroll.",
       subhead:
         "VIP gives your shop an account manager, designer, copywriter, and social coordinator — one team that plans your marketing, runs it every week, and reports what it did for car count.",
@@ -337,8 +337,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     },
     hero: {
       badge: "New service",
-      headline: "Reach local drivers.",
-      headlineAccent: "Track campaign response.",
+      headline: "Targeted auto repair advertising",
+      headlineAccent: "you can actually track.",
       subhead:
         "We reach local households through targeted email, streaming TV, and geofenced display ads. Each month, we review campaign response and the shop activity we can connect to it.",
       stats: [
@@ -723,8 +723,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     image: siteMedia.graphics.serviceRetention,
     hero: {
       badge: "Repeat business",
-      headline: "Make the first visit",
-      headlineAccent: "the first of many.",
+      headline: "Auto repair retention marketing.",
+      headlineAccent: "Make the first visit the first of many.",
       subhead:
         "You already paid to earn every customer in your CRM. Newsletters, thank-you notes, and steady follow-up keep them coming back to you — not drifting to the shop down the road.",
       stats: [
@@ -936,8 +936,8 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     image: siteMedia.graphics.serviceBoostDays,
     hero: {
       badge: "Focused demand push",
-      headline: "Slow week coming?",
-      headlineAccent: "Fill it on purpose.",
+      headline: "Boost Days for auto repair shops.",
+      headlineAccent: "Fill a slow week on purpose.",
       subhead:
         "Boost Days concentrate email, text, and social around one offer with a deadline — a controlled demand push for open bays and soft weeks, without creating chaos at the counter.",
       stats: [

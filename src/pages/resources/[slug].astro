@@ -364,12 +364,14 @@ const pageSchemas = faqSchema
         <div class="rounded-[32px] bg-white p-7 md:p-10">
           {currentPost.sections.map((section, index) => (
             <section class={index === 0 ? "" : "mt-10 border-t hairline pt-10"}>
-              <h2 class="font-display text-3xl font-semibold leading-tight text-charcoal">
+              <h2 class="font-display text-3xl font-semibold leading-tight text-balance text-charcoal">
                 {section.heading}
               </h2>
-              <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">
-                {section.body}
-              </p>
+              {section.body.split("\n\n").map((paragraph) => (
+                <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">
+                  {paragraph}
+                </p>
+              ))}
               {section.bullets && (
                 <ul class="mt-5 grid max-w-3xl gap-3 text-base leading-relaxed text-charcoal/65">
                   {section.bullets.map((bullet) => (
@@ -379,6 +381,12 @@ const pageSchemas = faqSchema
                     </li>
                   ))}
                 </ul>
+              )}
+              {section.link && (
+                <a href={section.link.href} class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)] transition hover:text-[var(--key-blue)]">
+                  {section.link.label}
+                  <ArrowRight className="motion-arrow h-4 w-4 flex-none" aria-hidden="true" />
+                </a>
               )}
             </section>
           ))}

@@ -28,11 +28,38 @@
 
 ## Resources
 
-- [Auto Repair Marketing Resources](https://www.turnkeyautomarketing.com/resources): Practical articles and guides for repair shop owners.
-- [How to Build an Auto Repair Marketing Plan](https://www.turnkeyautomarketing.com/resources/auto-repair-marketing-plan)
-- [Why Direct Mail Still Works for Repair Shops](https://www.turnkeyautomarketing.com/resources/direct-mail-for-repair-shops)
-- [How to Build an Ideal Customer Profile for Your Repair Shop](https://www.turnkeyautomarketing.com/resources/ideal-customer-profile-auto-repair-shop)
-- [The Auto Repair Shop Photography Guide](https://www.turnkeyautomarketing.com/resources/auto-repair-shop-photography-guide)
+- [Auto Repair Marketing Resources](https://www.turnkeyautomarketing.com/resources): Practical articles, guides, and tools for independent repair shop owners.
+
+### Planning and strategy
+
+- [How to Build an Auto Repair Marketing Plan](https://www.turnkeyautomarketing.com/resources/auto-repair-marketing-plan): A seven-step guide covering shop goals, ideal customers, budget, channel roles, a 12-month calendar, and performance metrics.
+- [Auto Repair Marketing Ideas for the Problem in Front of You](https://www.turnkeyautomarketing.com/resources/auto-repair-marketing-ideas): Marketing ideas organized by the job they need to do, from attracting better-fit customers to filling slow bays and bringing past customers back.
+- [Auto Repair Advertising: One Plan for Every Channel](https://www.turnkeyautomarketing.com/resources/auto-repair-advertising): How to give each advertising channel a clear role, oversee vendors, strengthen offers, and measure from calls to repair orders.
+- [How to Build an Ideal Customer Profile for Your Repair Shop](https://www.turnkeyautomarketing.com/resources/ideal-customer-profile-auto-repair-shop): How to define the customers a shop wants more of and turn that profile into clearer offers, content, and campaigns.
+- [Why Auto Repair Marketing Breaks Down](https://www.turnkeyautomarketing.com/resources/why-auto-repair-marketing-breaks): How to find the stage where customers drop out, from mixed messages and vendor reports to phone calls and capacity, and how to reconnect the system.
+- [5 Marketing Mistakes Shop Owners Make and How to Fix Them](https://www.turnkeyautomarketing.com/resources/5-marketing-mistakes-shop-owners-make): Five common marketing mistakes, covering stop-start timing, generic messaging, separate vendor reports, lost calls, and forgotten past customers, with a practical fix for each.
+
+### Reputation, reviews, and AI search
+
+- [Reputation Management for Auto Repair Shops: A Practical Guide](https://www.turnkeyautomarketing.com/resources/auto-repair-reputation-management): How to build honest review requests, thoughtful replies, customer follow-up, and marketing around strengths the team can deliver.
+- [Will AI Recommend Your Auto Repair Shop?](https://www.turnkeyautomarketing.com/resources/ai-search-for-auto-repair-shops): How AI search may compare repair shops, what Google's automated calls to businesses mean, and practical steps to become easier to recommend.
+- [How to Use AI to Analyze Your Auto Repair Shop's Google Reviews](https://www.turnkeyautomarketing.com/resources/analyze-google-reviews-with-ai): A step-by-step method and reusable prompt for finding patterns in Google reviews, fixing recurring problems, and building marketing around what customers value.
+
+### Channels and messaging
+
+- [Direct Mail for Auto Repair Shops: A Campaign Guide](https://www.turnkeyautomarketing.com/resources/direct-mail-for-repair-shops): How to plan the mailing list, offer, timing, postcard creative, call tracking, and follow-up for a repair shop direct mail campaign.
+- [Make Your Repair Shop the Guide in Your Customer's Story](https://www.turnkeyautomarketing.com/resources/be-the-guide-auto-repair-shop-messaging): How to write shop messaging that makes the customer the hero and the shop the trusted guide.
+- [The Know-Like-Trust Filter for Repair Shop Marketing](https://www.turnkeyautomarketing.com/resources/know-like-trust-marketing-filter): A checklist for reviewing a shop's website, ads, mail, email, and social content before asking customers to book.
+- [The Auto Repair Shop Photography Guide](https://www.turnkeyautomarketing.com/resources/auto-repair-shop-photography-guide): How to plan a shop photo shoot, including preparation, usage rights, and where to use the images.
+
+### Client story
+
+- [The Yearly Marketing Plan Jason Smith Had Never Had](https://www.turnkeyautomarketing.com/resources/jason-smith-marketing-plan): How building a yearly marketing plan with Turnkey changed the way Jason Smith of M&M Car Care Center approached marketing.
+
+### Tools
+
+- [AI Visibility Scan](https://www.turnkeyautomarketing.com/ai-visibility-scan): A free scan showing how clearly AI-powered search understands and recommends a specific auto repair shop.
+- [Auto Repair Shop Photo Shot List](https://www.turnkeyautomarketing.com/photos): A photo-day checklist covering the team, customer areas, service bays, repairs, exterior, and community.
 
 ## Site index
 

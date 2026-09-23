@@ -38,6 +38,10 @@ export type ResourcePost = {
     heading: string;
     body: string;
     bullets?: string[];
+    link?: {
+      href: string;
+      label: string;
+    };
   }[];
   faqs?: {
     q: string;
@@ -883,75 +887,170 @@ export const resourcePosts: ResourcePost[] = [
   },
   {
     slug: "5-marketing-mistakes-shop-owners-make",
-    date: "Jul 2023",
+    date: "Updated Sep 2026",
+    updatedDate: "2026-09-22",
     tag: "Guide",
     title: "5 Marketing Mistakes Shop Owners Make & How to Fix Them",
-    seoTitle: "5 Marketing Mistakes for Shop Owners | Turnkey Marketing",
+    seoTitle: "5 Auto Repair Marketing Mistakes (and Fixes) | Turnkey",
+    seoDescription:
+      "Five common auto repair marketing mistakes that waste money, plus practical fixes for timing, messaging, tracking, phone calls, and customer follow-up.",
     description:
-      "A Turnkey resource for shop owners who want to spot common marketing leaks and correct them.",
-    dek: "A practical checklist for spotting common marketing problems before they turn into wasted spend, weak calls, or confusing vendor conversations.",
-    image: siteMedia.graphics.leadGenerator,
+      "The five places auto repair marketing usually leaks, and a practical fix for each one.",
+    dek: "Most shop marketing does not fail because of one bad channel. It leaks in a few predictable places, and most of them can be fixed without spending more.",
+    image: {
+      ...siteMedia.graphics.leadGenerator,
+      alt: "Cover of the Turnkey guide 5 Marketing Mistakes Shop Owners Make and How to Fix Them, featuring two repair shop owners",
+    },
+    imageWidth: 1000,
+    imageHeight: 1000,
     href: resourcePath("5-marketing-mistakes-shop-owners-make"),
     sourceAsset:
       "https://turnkeyautomarketing.com/wp-content/uploads/2023/07/lead-generator-web-graphic.png",
     takeaways: [
-      "Marketing needs one accountable plan, not disconnected tactics.",
-      "Tracking should explain what to keep, fix, stop, and run next.",
-      "The best fixes are usually practical: clearer offers, better follow-up, and cleaner reporting.",
+      "Keep a steady baseline running and plan the extra pushes before the slow weeks arrive.",
+      "Pick the customers and work you want more of, then say something the shop down the street cannot.",
+      "Judge marketing on one shop scoreboard, from the call to the completed repair order.",
+      "Treat the phone and the front counter as part of the marketing, because they are.",
+      "Give past customers a reason to come back before you pay to replace them.",
     ],
     sections: [
       {
-        heading: "The mistake is not always spending too much.",
-        body: "Many shops are already investing in mail, Google, reviews, social, CRM, or ads. The problem is that each channel is often judged separately, so the owner still has to figure out what is actually moving calls and cars.",
+        heading: "Most marketing leaks in the same five places.",
+        body: "Here is the short version. When a shop owner tells me the marketing is not working, the problem usually falls into one of five buckets: the marketing only runs when the bays are empty, the message tries to reach every driver in town, each channel is judged on its own report, callers get lost at the front counter, or past customers never hear from the shop again.\n\nNone of these require a bigger budget to fix. Most of them require a decision, a simple habit, and someone who owns it. Let's walk through each one, what it costs you, and what I would do instead.",
       },
       {
-        heading: "The fix is a single scoreboard.",
-        body: "A useful marketing plan connects calls, booked appointments, customer mix, retention, and spend. That makes the next move easier to defend because every channel is working toward the same shop goal.",
+        heading: "1. Marketing only when the bays are empty.",
+        body: "This one is so common it almost feels like a tradition. The schedule gets thin, the owner panics a little, and a discount goes out the door. But marketing takes time to land. Mail needs design, printing, and delivery time. Digital campaigns need time to find the right people. By the time the calls pick up, the shop is busy again, so the marketing gets turned off. A few months later, the bays are quiet, and the whole cycle starts over.\n\nThe cost is bigger than it looks. You pay for rushed creative, you train customers to wait for a coupon, and you never run anything long enough to learn whether it works. The fix is to separate your baseline from your boosts. Keep a steady level of marketing running every month, then plan the extra pushes on the calendar before the slow weeks you already know are coming.",
+        bullets: [
+          "Baseline: the work that keeps running every month, such as reviews, customer follow-up, and your local visibility.",
+          "Boosts: planned campaigns for known slow periods, seasonal services, or open bays you can see coming.",
+          "Guardrail: decide how long a campaign runs and what it needs to prove before it launches, not after a quiet week.",
+        ],
+        link: {
+          href: "/resources/auto-repair-marketing-plan",
+          label: "Build a 12-month marketing calendar for your shop",
+        },
+      },
+      {
+        heading: "2. Trying to sell every repair to every driver.",
+        body: '"Honest, reliable service at fair prices. We fix all makes and models." I would bet you have seen that line on a dozen shop ads, and the problem is exactly that. When everyone says it, nobody hears it. It also pushes the conversation toward price, which invites the customers who will happily leave you for a $10 cheaper oil change.\n\nTry this quick test. Cover your logo on your last ad, postcard, or homepage. Could it belong to the shop down the street? If the answer is yes, the message needs work. Start by deciding which customers and repairs you want more of. Then lead with the specifics that matter to them: the makes you know best, how your diagnosis works, your warranty, your wait times, and real reviews that sound like those customers.',
+        bullets: [
+          "Name the vehicles, services, or customer situations you want more of.",
+          "Replace general claims with proof: certifications, warranty terms, photos of your real team, and specific reviews.",
+          "Use offers to invite the right work, not to discount the work you would get anyway.",
+        ],
+        link: {
+          href: "/resources/ideal-customer-profile-auto-repair-shop",
+          label: "Define the customer your marketing should attract",
+        },
+      },
+      {
+        heading: "3. Grading every channel on its own report card.",
+        body: "Here is a fun exercise. Add up the new customers every vendor says they brought you last month. Do not be surprised if the total is bigger than the number of cars that actually came through the door. That is not always anyone lying. Every platform counts differently and gives itself credit when it touched the customer somewhere along the way.\n\nThe problem is that separate reports make it almost impossible to decide what to keep. The fix is one shop scoreboard that every channel gets measured against. Pull it from your shop management system, not from vendor dashboards, and review it on the same day every month.",
+        bullets: [
+          "Calls and online requests by source.",
+          "Booked appointments and show rate.",
+          "Completed repair orders and average repair order.",
+          "New versus returning customers.",
+          "Spend by channel, so cost per completed repair order is visible.",
+        ],
+        link: {
+          href: "/resources/why-auto-repair-marketing-breaks",
+          label: "Find where your marketing is breaking down",
+        },
+      },
+      {
+        heading: "4. Paying for calls the front counter cannot convert.",
+        body: "Marketing's job is to make the phone ring. The shop's job is to turn that call into an appointment. When a call goes to voicemail at 12:15, or the first thing a caller hears is a price with no explanation, the ad did its job and the shop lost the customer anyway. The owner usually never hears about it, because missed opportunities do not show up on a report.\n\nIf you have call recording, listen to five first-time calls every week. You will learn more in 20 minutes than from most monthly reports. Then give your team a simple, friendly way to handle the calls that matter most, especially the \"how much will it cost?\" question. Explain what you can estimate over the phone, what needs an inspection, and how diagnosis works, then offer a specific time.",
+        bullets: [
+          "Track how many first-time callers book an appointment, not just how many call.",
+          "Cover the phone at lunch, in the morning rush, and after hours.",
+          "Make sure the counter knows about every current offer before the marketing goes out.",
+        ],
+        link: {
+          href: "/resources/ai-search-for-auto-repair-shops",
+          label: "See why the way you answer the phone now affects your visibility",
+        },
+      },
+      {
+        heading: "5. Forgetting the customers you already paid to earn.",
+        body: "Most marketing budgets chase new customers. Meanwhile, the people who already know your shop, trust your team, and have your number in their phone hear nothing until they get a reminder from the dealership. Those customers are usually the easiest cars to earn back, and they are the most expensive to replace.\n\nThe fix does not need to be fancy. Thank people after the visit. Remind them when the next service is due. Send useful updates they will actually read. Reach out to customers you have not seen in a year. And ask every customer for an honest review, the same way, every time. Google does not allow incentives in exchange for reviews, so keep the request simple and send the link.",
+        bullets: [
+          "A thank-you message or note after the visit.",
+          "Service reminders based on time or mileage.",
+          "A regular newsletter with useful, shop-specific information.",
+          "A reactivation message for customers you have not seen in 12 months or more.",
+          "A consistent, honest review request with a direct link.",
+        ],
+        link: {
+          href: "/resources/auto-repair-reputation-management",
+          label: "Build a reputation routine your team can keep",
+        },
+      },
+      {
+        heading: "Check your shop for all five this week.",
+        body: "You can find most of these leaks in about an hour. Grab your last three months of marketing, your shop management reports, and a cup of coffee. Then answer these questions honestly. Anything you cannot answer is a good place to start.\n\nIf every fix on this list ends up on your desk, that is worth noticing too. The biggest mistake I see is not any single tactic. It is expecting the busiest person in the building to plan, coordinate, and measure the marketing in the evenings. The fixes work best when someone owns them.",
+        bullets: [
+          "Timing: Which campaigns ran every month, and which ones only ran when it got slow?",
+          "Message: Would your last ad still make sense with another shop's logo on it?",
+          "Scoreboard: Do you know how many completed repair orders came from each channel?",
+          "Phone: What share of first-time callers booked an appointment last month?",
+          "Retention: When did your past customers last hear from you, and what did you say?",
+        ],
+        link: {
+          href: "/results",
+          label: "See what changes when someone owns the plan",
+        },
       },
     ],
     faq: [
       {
         question: "What is the most common auto repair shop marketing mistake?",
         answer:
-          "A common mistake is running disconnected tactics without one shop-level goal or accountable owner. Mail, ads, reviews, social media, and CRM activity can all stay busy while nobody connects them to calls, booked appointments, customer fit, and completed work.",
+          "Running marketing only when the shop gets slow is one of the most common and most expensive. Campaigns take time to reach customers, so stop-start marketing usually arrives after the slow period has passed and never runs long enough to learn what works. A steady monthly baseline with planned seasonal pushes is more reliable.",
       },
       {
         question: "How can a shop owner tell whether marketing money is being wasted?",
         answer:
-          "Start by checking whether each campaign has a defined audience, offer, owner, timeframe, and measurable business result. If the team cannot connect spend to responses, appointments, repair orders, or a clear strategic purpose, the next step is to repair the tracking before increasing the budget.",
+          "Check whether each campaign has a defined audience, offer, owner, timeframe, and measurable result. Then compare spend against calls, booked appointments, and completed repair orders by source in your shop management system. If you cannot connect a campaign to any of those numbers, fix the tracking before increasing the budget.",
+      },
+      {
+        question: "How long should I wait before judging a marketing campaign?",
+        answer:
+          "It depends on the channel. Customer follow-up and reminders can show results within weeks, while direct mail, local visibility, and awareness campaigns usually need a few months of consistent effort. Decide the test length and the numbers that define success before the campaign starts, then review it on schedule.",
+      },
+      {
+        question: "Should an auto repair shop stop marketing when it is busy?",
+        answer:
+          "Usually not. Stopping everything creates the next slow period. It is reasonable to pause promotions for work you cannot take, but keep your baseline running: reviews, customer follow-up, and local visibility. Use busy periods to promote the higher-value work you want more of instead.",
       },
       {
         question: "Is weak marketing always the vendor's fault?",
         answer:
-          "No. The leak may be in targeting, the offer, the landing page, call handling, scheduling, capacity, or follow-up after the first visit. Review the whole customer path before deciding that the channel or vendor is the only problem.",
-      },
-      {
-        question: "Who should own marketing in an independent repair shop?",
-        answer:
-          "One person or team should be accountable for the overall plan, even when specialists handle individual channels. Ownership means coordinating deadlines and vendors, reviewing results, and making clear keep, fix, stop, or start decisions so the shop owner is not the default project manager.",
+          "No. The leak may be in the targeting or offer, but it can also be in call handling, scheduling, capacity, or follow-up after the first visit. Review the whole customer path, from the first response to the completed repair order, before deciding a channel or vendor is the only problem.",
       },
     ],
     externalSources: [
       {
-        href: "https://www.sba.gov/business-guide/manage-your-business/marketing-sales",
-        label: "Connect marketing goals, costs, and sales results",
-        publisher: "U.S. Small Business Administration",
-        description:
-          "A small-business framework for setting goals, choosing channels, planning customer support, and comparing marketing cost with revenue.",
-      },
-      {
-        href: "https://support.google.com/analytics/answer/9267568?hl=en",
-        label: "Measure the actions that matter with key events",
+        href: "https://support.google.com/analytics/answer/10597962?hl=en",
+        label: "Understand why platforms give themselves credit",
         publisher: "Google Analytics Help",
         description:
-          "Official guidance for identifying important actions and evaluating the channels that contribute to them.",
+          "Google's explanation of attribution models and how paid and organic channels can receive credit for the same conversion.",
       },
       {
-        href: "https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business",
-        label: "Avoid unsupported claims and deceptive offers",
+        href: "https://support.google.com/business/answer/3474122?hl=en",
+        label: "Ask for Google reviews the right way",
+        publisher: "Google Business Profile Help",
+        description:
+          "Google's guidance on sharing a review link, replying to reviews, and why incentives for reviews are prohibited.",
+      },
+      {
+        href: "https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers",
+        label: "Follow the federal rules on reviews",
         publisher: "Federal Trade Commission",
         description:
-          "Truth-in-advertising guidance covering claims, pricing, guarantees, endorsements, and promotional practices.",
+          "Questions and answers on the Consumer Reviews and Testimonials Rule, including incentives and review suppression.",
       },
     ],
     serviceLinks: [
@@ -961,11 +1060,17 @@ export const resourcePosts: ResourcePost[] = [
         description: "Get a practical view of what to keep, fix, stop, and run next.",
       },
       {
-        href: "/services/vip-marketing-manager",
-        label: "Put one team in charge with a VIP Marketing Manager",
+        href: "/services/retention-marketing",
+        label: "Bring past customers back with retention marketing",
         description:
-          "Coordinate the moving parts so the owner is not left connecting every report and vendor.",
+          "Newsletters, thank-you notes, and CRM follow-up that keep customers coming back.",
       },
+    ],
+    relatedSlugs: [
+      "why-auto-repair-marketing-breaks",
+      "auto-repair-marketing-plan",
+      "ideal-customer-profile-auto-repair-shop",
+      "auto-repair-reputation-management",
     ],
   },
   {
@@ -1240,50 +1345,126 @@ export const resourcePosts: ResourcePost[] = [
   },
   {
     slug: "why-auto-repair-marketing-breaks",
-    date: "Mar 2023",
+    date: "Updated Sep 2026",
+    updatedDate: "2026-09-22",
     tag: "Strategy",
     title: "Why Auto Repair Marketing Breaks Down",
+    seoTitle: "Why Your Auto Repair Marketing Isn't Working | Turnkey",
+    seoDescription:
+      "Find where your auto repair shop's marketing is breaking down, from mixed messages and vendor reports to phone calls and capacity, and how to fix it.",
     description:
-      "A Turnkey visual resource for diagnosing the problems that keep a shop marketing plan from working.",
-    dek: "When marketing feels hard to trust, the issue is often unclear ownership: too many vendors, too many reports, and no one responsible for the whole board.",
+      "How to find the handoff where your shop's marketing is breaking down, and who should fix it.",
+    dek: "When the marketing looks busy but the bays do not show it, the problem is usually a handoff nobody owns. Here is how to find the break and fix it.",
     image: siteMedia.graphics.problems,
+    imageWidth: 1536,
+    imageHeight: 1024,
     href: resourcePath("why-auto-repair-marketing-breaks"),
     sourceAsset: "https://turnkeyautomarketing.com/wp-content/uploads/2023/03/problems.png",
     takeaways: [
-      "Disconnected vendors create extra owner work.",
-      "A shop needs reporting that explains customer movement, not just channel activity.",
-      "Marketing leadership means owning the decision, not handing more homework to the owner.",
+      "Find the stage where customers drop out before you blame a channel or a vendor.",
+      "Give every campaign one brief that the vendors and the front counter both see.",
+      "Measure with one shop scoreboard instead of separate vendor reports.",
+      "Make sure the shop owns its accounts and one person owns the coordination.",
+      "Match the marketing to the work your shop can actually take.",
     ],
     sections: [
       {
-        heading: "The owner becomes the connector.",
-        body: "When each vendor only reports on its own work, the owner still has to connect spend, calls, appointments, capacity, and customer quality. That is usually where momentum slows down.",
+        heading: "Usually, nothing is broken. It is disconnected.",
+        body: "When marketing stops working, the natural reaction is to look for the one bad piece. Fire the vendor, cancel the mailer, try the new thing a rep pitched last week. Sometimes that is the right call. More often, each piece is doing roughly what it was hired to do. The problem is what happens between them.\n\nThink about the path a new customer takes. They see a postcard, look you up on Google, visit your website, call the shop, talk to an advisor, drop off the car, approve the work, and hopefully come back. Different people and vendors handle almost every step. When nobody owns the whole path, the break usually happens in a handoff, and every report still looks fine.",
       },
       {
-        heading: "Leadership removes the drag.",
-        body: "The better path is one team coordinating vendors, campaigns, reporting, and next steps. The owner should understand the why without having to manage every small decision.",
+        heading: "Find the stage where customers drop out.",
+        body: "Before you change anything, find where people are falling out. It is the fastest way to stop the blame game, because each drop points to a different fix. Look at the last 60 to 90 days and ask where the numbers get thin.",
+        bullets: [
+          "Few calls or requests: the audience, offer, message, or reach needs work. That is a marketing conversation.",
+          "Plenty of calls, few appointments: look at phone coverage, hours, availability, and how price questions are handled.",
+          "Appointments booked, but people do not show: check confirmations, reminders, and how far out you are booking.",
+          "Cars arrive, but tickets are small: the offer may be attracting the wrong work, or the inspection and advisor process needs attention.",
+          "One visit and gone: follow-up and retention are missing.",
+        ],
+      },
+      {
+        heading: "Every piece is telling a different story.",
+        body: 'Picture this. A customer calls about the brake special on your postcard, and the advisor says, "What special?" Or the mailer says you specialize in European vehicles, the homepage says "all makes and models," and Google still shows last year\'s Saturday hours. Nobody did anything terrible, but the customer now has three reasons to hesitate.\n\nThe fix is a one-page brief for every campaign, shared with every vendor and the front counter before anything launches. It should answer who the campaign is for, what it offers, when it runs, where customers will land, what the team should say, and how the shop will know it worked.',
+        link: {
+          href: "/resources/know-like-trust-marketing-filter",
+          label: "Check every campaign with the know-like-trust filter",
+        },
+      },
+      {
+        heading: "Every vendor is winning. The shop is not.",
+        body: "Each vendor reports on its own work, in its own dashboard, using its own definitions. The mail house counts households reached. The ad platform counts clicks and calls. The review tool counts stars. Many platforms also take credit whenever they touched a customer somewhere along the way, so the same car can show up as a win in three reports.\n\nThat is why vendor reports should never be the scoreboard. Use numbers from your shop management system and track the same few things every month: calls and requests by source, booked appointments, completed repair orders, average repair order, and new versus returning customers. Ask every new customer how they heard about you, and record the answer the same way every time.",
+        link: {
+          href: "/resources/auto-repair-marketing-plan",
+          label: "Set up a scoreboard as part of your marketing plan",
+        },
+      },
+      {
+        heading: "The owner is the only one connecting the dots.",
+        body: "In a lot of shops, the owner is the unofficial marketing department. They approve the creative, relay information between vendors, dig up logins, and try to remember who promised what. That works until the shop gets busy, which is exactly when the marketing matters most. Decisions wait, deadlines slip, and campaigns go out half finished or not at all.\n\nThere is a quieter risk here, too. When vendors create and control your accounts, leaving a vendor can mean losing access to your own profile, ads, or data. Your shop should own its accounts and give vendors the access they need. Google Business Profile, for example, lets an owner add managers without sharing a password.",
+        bullets: [
+          "Google Business Profile, with the shop as owner.",
+          "Your website domain and hosting.",
+          "Ad accounts and call tracking numbers.",
+          "Your customer list and email platform.",
+        ],
+        link: {
+          href: "/services/vip-marketing-manager",
+          label: "See how a VIP Marketing Manager takes over the coordination",
+        },
+      },
+      {
+        heading: "The plan changes every time the phone gets quiet.",
+        body: "Marketing that restarts every few weeks never gets a fair test. A quiet Tuesday leads to a new idea, the new idea replaces the old one before it had time to work, and three months later nobody can say what worked. The opposite happens too. Some campaigns run for years because nobody decided what success looks like.\n\nBefore a campaign starts, write down how long it will run, which numbers it needs to move, and the date you will review it. Then make a clear call at that review: keep it, fix it, stop it, or start something else.",
+        link: {
+          href: "/resources/5-marketing-mistakes-shop-owners-make",
+          label: "Avoid the stop-start marketing mistake",
+        },
+      },
+      {
+        heading: "Marketing is promising work the shop cannot take.",
+        body: "Sometimes the marketing works and the shop still struggles. If your technicians are booked out two weeks, more calls do not create more revenue. They create frustrated customers and a stressed front counter. The opposite also happens: the shop promotes the work that is easy to advertise instead of the work it actually wants.\n\nMarketing should follow capacity. Share your booking window, technician availability, and the work you want more of with whoever runs the marketing. Turn campaigns up when bays open, point them toward higher-value work when you are busy, and use a focused push when you can see a slow stretch coming.",
+        link: {
+          href: "/services/boost-days",
+          label: "Fill a slow stretch with a focused Boost Day campaign",
+        },
+      },
+      {
+        heading: "How to put it back together.",
+        body: "You do not need more tools to fix a disconnected system. You need one owner, one scoreboard, and one regular conversation where decisions get made. Here is a simple monthly marketing meeting that fits in about 45 minutes.",
+        bullets: [
+          "Review the shop scoreboard against last month and the same month last year.",
+          "Make a keep, fix, stop, or start call on every active campaign.",
+          "Look at capacity for the next 60 days and adjust the marketing to match.",
+          "Approve the briefs for anything launching next month, including what the front counter needs to know.",
+          "Leave with one owner and one due date for every next step.",
+        ],
+        link: {
+          href: "/resources/jason-smith-marketing-plan",
+          label: "See how a yearly plan changed things for Jason Smith",
+        },
       },
     ],
     faq: [
       {
         question: "Why is my auto repair shop marketing not working?",
         answer:
-          "The problem may be unclear goals, disconnected vendors, weak targeting, inconsistent tracking, poor call handling, or follow-up that stops after the first response. Review the complete path from the campaign to the booked and completed repair order before blaming one channel.",
+          "The problem may be the targeting, offer, or message, but it is often in a handoff: mixed information across the website and Google, missed or poorly handled calls, no follow-up, or campaigns that change before they can be measured. Find the stage where customers drop out before blaming one channel.",
       },
       {
         question: "Can too many marketing vendors hurt results?",
         answer:
-          "Specialists can be valuable, but results suffer when each vendor works toward a different definition of success and nobody coordinates the customer journey. One accountable owner should align the message, timing, tracking, landing experience, reporting, and next decisions across vendors.",
+          "Specialists can be valuable, but results suffer when each vendor works toward a different definition of success and nobody coordinates the customer journey. One accountable owner should align the message, timing, tracking, and reporting across vendors and keep the front counter informed.",
       },
       {
         question: "Which marketing numbers should a repair shop review?",
         answer:
-          "Track calls and forms, booked appointments, show rate, completed repair orders, customer source, repair-order quality, repeat visits, revenue, and spend. Channel metrics such as impressions and clicks are useful diagnostics, but they should connect to outcomes the shop can recognize.",
+          "Track calls and requests by source, booked appointments, show rate, completed repair orders, average repair order, new versus returning customers, and spend. Clicks and impressions are useful for diagnosing a campaign, but they should connect to outcomes the shop can recognize.",
       },
       {
         question: "When should a repair shop stop a marketing campaign?",
         answer:
-          "Stop when the audience or goal is wrong, the economics cannot work, or no one can own the campaign well enough to learn from it. If the channel has potential but the leak is specific—such as the offer, tracking, landing page, or call handling—fix and retest that problem before abandoning it.",
+          "Stop when the audience or goal is wrong, the economics cannot work, or no one can own the campaign well enough to learn from it. If the channel has potential but the leak is specific, such as the offer, tracking, landing page, or call handling, fix and retest that problem first.",
       },
     ],
     externalSources: [
@@ -1299,7 +1480,7 @@ export const resourcePosts: ResourcePost[] = [
         label: "Understand why channel reports assign credit differently",
         publisher: "Google Analytics Help",
         description:
-          "Google's explanation of attribution models, lookback windows, and channel eligibility in conversion reporting.",
+          "Google's explanation of attribution models and how paid and organic channels can receive credit for the same conversion.",
       },
       {
         href: "https://support.google.com/business/answer/3403100?hl=en",
@@ -1322,6 +1503,12 @@ export const resourcePosts: ResourcePost[] = [
         description:
           "Bring campaigns, vendors, reporting, and next steps under one accountable team.",
       },
+    ],
+    relatedSlugs: [
+      "5-marketing-mistakes-shop-owners-make",
+      "auto-repair-marketing-plan",
+      "know-like-trust-marketing-filter",
+      "jason-smith-marketing-plan",
     ],
   },
   {
