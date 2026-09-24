@@ -1,26 +1,23 @@
 ---
-import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/site/PageHero.astro";
-import MarketingIcon, { type IconName } from "@/components/site/MarketingIcon.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
+import V6PageHero from "@/components/v6/V6PageHero.astro";
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
 import { CONSULTATION_URL, services } from "@/lib/services";
 import { getServiceDetail } from "@/lib/service-details";
 import { siteMedia } from "@/lib/site-media";
 import { audiences } from "@/lib/audiences";
+import { arrow, arrowUp, iconSrc, phoneHref, phoneLabel, serviceIcons, split } from "@/lib/v6";
 
 const vip = services.find((service) => service.featured) ?? services[0];
 const rest = services.filter((service) => !service.featured);
+const included = rest.filter((service) => !service.isNew);
+const spotlight = rest.filter((service) => service.isNew);
 const vipDetail = getServiceDetail(vip.slug);
-const serviceMarketingIcons: Record<string, IconName> = {
-  "vip-marketing-manager": "team-support",
-  "directtrack-marketing": "call-tracking",
-  "marketing-consulting": "strategy",
-  "direct-mail": "direct-mail",
-  "social-media-marketing": "social-media",
-  "retention-marketing": "customer-retention",
-  "digital-marketing": "local-seo",
-  "boost-days": "campaign-launch",
-};
+const dtSteps = [
+  { icon: "location", title: "Choose the <br />right households" },
+  { icon: "email", title: "Run one <br />coordinated campaign" },
+  { icon: "report", title: "Measure, review, <br />and improve" },
+];
 const serviceNeeds = [
   {
     title: "You need a clearer plan before spending more.",
@@ -65,46 +62,35 @@ const servicesSchema = {
     })),
   },
 };
+const heroImage = siteMedia.services.overviewHero;
 ---
 
-<BaseLayout
+<V6Layout
   title="Auto Repair Marketing Services | Turnkey Marketing"
   description="Explore auto repair marketing services from Turnkey: strategy, direct mail, retention, social media, local SEO, and coordinated vendor support."
   path="/services"
   ogTitle="Services — Turnkey Marketing"
   ogImage={siteMedia.about.team.src}
   schema={servicesSchema}
+  class="tk-svc"
 >
-  <PageHero
-    eyebrow="Services"
-    title="Auto repair marketing services built around the whole shop."
-    description="You do not need more disconnected vendors. You need an auto repair marketing agency that sees the whole board, knows the repair-shop world, and moves the plan forward every week."
-    image={siteMedia.services.overviewHero}
-    ctaHref={CONSULTATION_URL}
-    ctaLabel="Book a Strategy Call"
-    secondaryHref="#service-list"
-    secondaryLabel="See the services"
+  <V6PageHero
+    title="Auto repair marketing services"
+    accent="built around the whole shop."
+    lead="You do not need more disconnected vendors. You need an auto repair marketing agency that sees the whole board, knows the repair-shop world, and moves the plan forward every week."
+    image={{ ...heroImage, width: 950, height: 664 }}
+    class="tk-svc__hero"
   >
-    <div slot="badge" class="card-float floaty absolute -left-3 bottom-8 px-5 py-4 md:left-4">
-      <div class="flex items-center gap-2">
-        <MarketingIcon name="reviews" class="h-7 w-7" />
-        <p class="text-xs font-medium text-charcoal/60">300+ shops</p>
-      </div>
-      <p class="mt-1 font-display text-lg font-semibold tracking-normal text-charcoal">
-        One coordinated plan
-      </p>
-    </div>
-  </PageHero>
+    <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--lg"><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+    <a href="#service-list" class="v6-link">See the services <i set:html={arrow} /></a>
+    <p slot="aside" class="tk-svc__badge"><span class="v6-stars" aria-hidden="true">★★★★★</span><span>300+ shops</span><strong>One coordinated plan</strong></p>
+  </V6PageHero>
 
-  <section class="bg-white py-14 md:py-20">
-    <div class="container-page grid gap-7 lg:grid-cols-12 lg:gap-14">
-      <div class="lg:col-span-5">
-        <p class="eyebrow">Built for independent shops</p>
-        <h2 class="mt-5 max-w-[13ch] text-balance text-[clamp(2.2rem,4.2vw,3.9rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-charcoal">
-          The right work, connected to one plan.
-        </h2>
-      </div>
-      <div class="space-y-5 text-lg leading-relaxed text-muted-foreground lg:col-span-6 lg:col-start-7 lg:pt-8">
+  <!-- Intro: sticky title beside the two paragraphs -->
+  <section class="v6-sec tk-svc__intro">
+    <div class="v6-wrap tk-svc__introGrid">
+      <h2 class="v6-h2 tk-svc__introTitle" data-words set:html={split([{ t: "The right work," }, { t: "connected to one plan.", accent: true }])} />
+      <div class="tk-svc__introCopy" data-rise>
         <p>
           Turnkey helps auto shop owners connect strategy, direct mail, customer retention,
           social media, digital campaigns, and reporting. Some shops need a complete outside
@@ -122,203 +108,223 @@ const servicesSchema = {
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20">
-    <div class="container-page grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-14">
-      <div class="lg:col-span-5">
-        <p class="eyebrow text-[var(--key-blue)]">Who we help</p>
-        <h2 class="display-3 mt-5 max-w-[13ch] text-balance text-charcoal">Match the service plan to the shop.</h2>
-      </div>
-      <div class="grid gap-4 lg:col-span-7">
-        {audiences.map((audience) => (
-          <a href={`/who-we-help/${audience.slug}`} class="group rounded-[26px] border border-[var(--hairline)] bg-white p-6 transition hover:-translate-y-1 hover:border-[var(--key-blue)]/35 hover:shadow-[0_24px_65px_-50px_rgba(20,22,28,0.5)] md:p-8">
-            <h3 class="font-display text-2xl font-semibold leading-tight text-charcoal">{audience.name}</h3>
-            <p class="mt-3 leading-relaxed text-charcoal/65">{audience.heroCopy}</p>
-            <span class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)]">
-              Explore this shop type
-              <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[var(--navy)] py-14 md:py-20">
-    <div class="container-page">
-      <div class="max-w-2xl">
-        <p class="eyebrow text-[var(--green)]">Choose by what your shop needs</p>
-        <h2 class="mt-5 text-balance text-[clamp(2.2rem,4.2vw,3.9rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-white">
-          Start with the problem in front of you.
-        </h2>
-        <p class="mt-5 text-lg leading-relaxed text-white/72">
-          You can start with one service. Choose the service that fits the
-          decision your shop needs to make now.
-        </p>
-      </div>
-
-      <div class="mt-9 grid gap-4 md:mt-12 md:grid-cols-2 md:gap-5">
-        {serviceNeeds.map((need) => (
-          <a
-            href={`/services/${need.slug}`}
-            class="group flex min-h-[230px] flex-col rounded-[28px] border border-black/[0.06] bg-white p-6 shadow-[0_22px_60px_-50px_rgba(20,22,28,0.5)] transition hover:-translate-y-1 hover:border-[var(--key-blue)]/30 hover:shadow-[0_28px_70px_-46px_rgba(20,22,28,0.52)] md:p-8"
-            data-track-event="service_cta_click"
-            data-track-slug={need.slug}
-            data-track-placement="services_need_pathways"
-          >
-            <h3 class="max-w-[20ch] font-display text-2xl font-semibold leading-tight tracking-normal text-charcoal md:text-[1.75rem]">
-              {need.title}
-            </h3>
-            <p class="mt-4 max-w-xl leading-relaxed text-muted-foreground">{need.copy}</p>
-            <span class="mt-auto inline-flex min-h-11 items-end gap-2 pt-7 font-semibold text-[var(--navy)]">
-              {need.label}
-              <ArrowRight className="motion-arrow h-4 w-4" />
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[var(--off-white)] py-16 md:py-24">
-    <div class="container-page">
-      <a
-        href={`/services/${vip.slug}`}
-        class="group grid gap-10 overflow-hidden rounded-[32px] bg-white p-7 shadow-[0_30px_90px_-60px_rgba(20,22,28,0.34)] md:p-10 lg:grid-cols-12 lg:items-center"
-        data-track-event="service_cta_click"
-        data-track-slug={vip.slug}
-        data-track-placement="services_hero"
-      >
-        <div class="lg:col-span-5">
-          <div class="flex items-center gap-2">
-            <MarketingIcon name="reviews" class="h-7 w-7" />
-            <p class="text-xs uppercase tracking-[0.18em] text-charcoal/60">
-              Flagship service
-            </p>
+  <!-- The suite: VIP as the umbrella, the rest included -->
+  <section id="service-list" class="v6-sec v6-sec--tint tk-svc__suiteSec">
+    <div class="v6-wrap">
+      <div class="v6-suite tk-svc__suite" data-rise>
+        <a
+          href={`/services/${vip.slug}`}
+          class="v6-suite__lead tk-svc__lead"
+          data-track-event="service_cta_click"
+          data-track-slug={vip.slug}
+          data-track-placement="services_hero"
+        >
+          <div class="v6-suite__content tk-svc__leadContent">
+            <span class="tk-svc__flag"><span class="tk-svc__flagIcon"><span class="v6-icon" style={`--icon:url(${iconSrc("vip")})`}></span></span>Flagship service</span>
+            <h2 class="v6-suite__name">{vip.name}</h2>
+            <p class="v6-suite__copy">{vip.tagline}</p>
+            <ul class="tk-svc__vipList">
+              {vipDetail.included.map((item) => (
+                <li><span class="v6-mark v6-mark--check" aria-hidden="true"></span>{item}</li>
+              ))}
+            </ul>
+            <span class="v6-btn v6-btn--green tk-svc__leadBtn"><span>Explore VIP Marketing Manager</span><i set:html={arrow} /></span>
           </div>
-          <h2 class="display-2 mt-5 max-w-[10ch] text-balance text-charcoal">
-            {vip.name}
-          </h2>
-          <p class="mt-5 text-lg leading-relaxed text-charcoal/65">
-            {vip.tagline}
-          </p>
-          <span class="mt-8 inline-flex items-center gap-2 font-medium text-charcoal">
-            Explore VIP Marketing Manager
-            <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </span>
-        </div>
-
-        <div class="lg:col-span-4">
-          <ul class="grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-1">
-            {vipDetail.included.map((item) => (
-              <li class="flex items-center gap-3 text-[0.95rem] font-medium text-charcoal">
-                <span class="inline-flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[var(--key-blue-soft)]">
-                  <Check className="h-3.5 w-3.5 text-[var(--navy)]" />
-                </span>
-                {item}
+        </a>
+        <div class="v6-suite__list">
+          <p class="v6-suite__label">All included with our VIP plan. Also available on their own.</p>
+          <ul>
+            {included.map((service) => (
+              <li>
+                <a href={`/services/${service.slug}`} class="v6-svc tk-svc__item" data-track-event="service_cta_click" data-track-slug={service.slug}>
+                  <span class="v6-svc__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[service.slug])})`}></span></span>
+                  <span class="v6-svc__text">
+                    <h2 class="v6-svc__name tk-svc__itemName">{service.name}</h2>
+                    <span class="v6-svc__tagline">{service.tagline}</span>
+                    <span class="tk-svc__view">View service <i set:html={arrow} /></span>
+                  </span>
+                  <span class="v6-svc__go" set:html={arrowUp} />
+                </a>
               </li>
             ))}
           </ul>
         </div>
+      </div>
 
-        <div class="relative lg:col-span-3">
-          <div class="aspect-[4/3] overflow-hidden rounded-[24px] bg-[var(--off-white)]">
-            <img
-              src={vipDetail.image.src}
-              alt={vipDetail.image.alt}
-              width="900"
-              height="675"
-              loading="lazy"
-              decoding="async"
-              class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-              style={`object-position: ${vipDetail.image.position};`}
-            />
+      {spotlight.map((service) => (
+        <a href={`/services/${service.slug}`} class="v6-dt tk-svc__dt" data-track-event="service_cta_click" data-track-slug={service.slug} data-rise>
+          <div class="v6-dt__intro">
+            <span class="v6-dt__new">New</span>
+            <h2 class="v6-dt__name">{service.name}</h2>
+            <p class="v6-dt__copy">{service.tagline}</p>
+            <span class="v6-link v6-link--light">View service <i set:html={arrow} /></span>
           </div>
-        </div>
-      </a>
+          <ol class="v6-dt__flow" aria-hidden="true">
+            {dtSteps.map((step, index) => (
+              <li>
+                <span class="v6-dt__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(step.icon)})`}></span></span>
+                <span class="v6-dt__row"><span class="v6-dt__num">{index + 1}</span><span class="v6-dt__title" set:html={step.title} /></span>
+              </li>
+            ))}
+          </ol>
+        </a>
+      ))}
     </div>
   </section>
 
-  <section id="service-list" class="container-page py-16 md:py-24">
-    <div class="flex items-center gap-5">
-      <p class="text-sm font-semibold text-charcoal/70">Services</p>
-      <div class="h-px flex-1 bg-charcoal/10"></div>
-    </div>
-
-    <div class="mt-10 grid gap-5 md:grid-cols-2">
-      {rest.map((service) => {
-        const detail = getServiceDetail(service.slug);
-        return (
+  <!-- Choose by need -->
+  <section class="v6-sec v6-sec--navy tk-svc__needs">
+    <div class="v6-wrap">
+      <div class="v6-head">
+        <h2 class="v6-h2" data-words set:html={split([{ t: "Start with the problem" }, { t: "in front of you.", accent: true }])} />
+        <p class="v6-lead" data-rise>
+          You can start with one service. Choose the service that fits the
+          decision your shop needs to make now.
+        </p>
+      </div>
+      <div class="v6-swipe tk-svc__needGrid" style="--cols:2">
+        {serviceNeeds.map((need, index) => (
           <a
-            href={`/services/${service.slug}`}
-            class:list={[
-              "group grid min-h-[280px] gap-7 rounded-[28px] bg-white p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.35)] md:grid-cols-[1fr_180px]",
-              service.isNew && "ring-1 ring-[var(--green)]/45",
-            ]}
+            href={`/services/${need.slug}`}
+            class="tk-svc__need"
             data-track-event="service_cta_click"
-            data-track-slug={service.slug}
+            data-track-slug={need.slug}
+            data-track-placement="services_need_pathways"
+            data-rise
           >
-            <div>
-              <MarketingIcon
-                name={serviceMarketingIcons[service.slug] ?? "strategy"}
-                class="mb-5 h-10 w-10 transition-transform duration-300 group-hover:scale-110"
-              />
-              {service.isNew && (
-                <span
-                  class="inline-flex rounded px-1.5 py-0.5 text-[0.6rem] uppercase tracking-widest"
-                  style="background: var(--green); color: var(--charcoal);"
-                >
-                  New
-                </span>
-              )}
-              <h2 class:list={[
-                "font-display text-3xl font-semibold leading-tight tracking-normal text-charcoal",
-                service.isNew && "mt-4",
-              ]}>
-                {service.name}
-              </h2>
-              <p class="mt-4 max-w-md text-muted-foreground">
-                {service.tagline}
-              </p>
-              <span class="mt-8 inline-flex items-center gap-2 font-medium text-charcoal">
-                View service
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-              </span>
-            </div>
-            <div class="aspect-[4/3] overflow-hidden rounded-[24px] bg-[var(--off-white)] md:aspect-auto">
-              <img
-                src={detail.image.src}
-                alt={detail.image.alt}
-                width="1200"
-                height={service.slug === "direct-mail" ? 673 : 675}
-                loading="lazy"
-                decoding="async"
-                class:list={[
-                  "h-full w-full transition duration-500 group-hover:scale-[1.04]",
-                  detail.imageFit === "contain" ? "object-contain p-6" : "object-cover",
-                ]}
-                style={`object-position: ${detail.image.position};`}
-              />
-            </div>
+            <span class="tk-svc__needIcon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[need.slug])})`}></span></span>
+            <h3 class="tk-svc__needTitle">{need.title}</h3>
+            <p class="tk-svc__needCopy">{need.copy}</p>
+            <span class="v6-link tk-svc__needGo">{need.label} <i set:html={arrow} /></span>
           </a>
-        );
-      })}
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="container-page pb-24 md:pb-32">
-    <a
-      href={CONSULTATION_URL}
-      class="flex flex-col gap-8 rounded-[32px] bg-[var(--charcoal)] p-8 text-white transition hover:bg-[var(--navy)] md:flex-row md:items-center md:justify-between md:p-12"
-      data-track-event="consultation_cta_click"
-      data-track-placement="services_index"
-    >
-      <span class="font-display text-3xl font-semibold leading-tight tracking-normal md:text-4xl">
-        Want us to help sort what your shop actually needs?
-      </span>
-      <span class="inline-flex items-center gap-2 font-medium">
-        Book a Strategy Call
-        <ArrowRight className="h-4 w-4" />
-      </span>
-    </a>
+  <!-- Who we help -->
+  <section class="v6-sec tk-svc__who">
+    <div class="v6-wrap tk-svc__whoGrid">
+      <h2 class="v6-h2 tk-svc__whoTitle" data-words set:html={split([{ t: "Match the service plan" }, { t: "to the shop.", accent: true }])} />
+      <ul class="tk-svc__whoList">
+        {audiences.map((audience) => (
+          <li data-rise>
+            <a href={`/who-we-help/${audience.slug}`} class="tk-svc__whoRow">
+              <h3 class="tk-svc__whoName">{audience.name}</h3>
+              <p class="tk-svc__whoCopy">{audience.heroCopy}</p>
+              <span class="v6-link tk-svc__whoGo">Explore this shop type <i set:html={arrow} /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </section>
-</BaseLayout>
+
+  <!-- Closing call to action -->
+  <section class="v6-cta tk-svc__cta">
+    <div class="v6-wrap">
+      <div class="v6-cta__panel" data-rise>
+        <p class="v6-cta__title tk-svc__ctaTitle" data-words set:html={split([{ t: "Want us to help sort what" }, { t: "your shop actually needs?", accent: true }])} />
+        <div class="v6-cta__actions">
+          <a
+            href={CONSULTATION_URL}
+            class="v6-btn v6-btn--navy v6-btn--lg"
+            data-track-event="consultation_cta_click"
+            data-track-placement="services_index"
+          ><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+          <a href={phoneHref} class="v6-btn v6-btn--ghost v6-btn--lg" data-track-event="phone_click" data-track-placement="services_index"><SolidPhoneIcon class="h-6 w-6" /><span>{phoneLabel}</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</V6Layout>
+
+<style>
+  /* Hero */
+  .tk-svc__badge { display: grid; gap: 0.15rem; justify-self: start; padding: 1rem 1.25rem; border-radius: 22px; background: var(--off-white); font-size: 0.85rem; color: var(--muted); }
+  .tk-svc__badge strong { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; color: var(--charcoal); }
+  .tk-svc__badge .v6-stars { font-size: 0.8rem; }
+  :global(.tk-svc__hero .v6-ph__title) { max-width: 15ch; }
+  :global(.tk-svc__hero .v6-ph__actions .v6-link) { min-height: 2.75rem; }
+
+  /* Intro */
+  .tk-svc__introGrid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 7rem); align-items: start; }
+  .tk-svc__introTitle { position: sticky; top: 8rem; max-width: 12ch; }
+  .tk-svc__introCopy { display: grid; gap: 1.4rem; padding-top: 0.75rem; font-size: clamp(1.1rem, 1.35vw, 1.3rem); line-height: 1.65; color: #3a3f4b; }
+  .tk-svc__introCopy p:first-child { font-size: clamp(1.25rem, 1.7vw, 1.55rem); line-height: 1.5; letter-spacing: -0.015em; color: var(--charcoal); }
+
+  /* Suite */
+  .tk-svc__suite { margin-top: 0; }
+  .tk-svc__lead { min-height: 38rem; }
+  .tk-svc__leadContent { justify-content: flex-start; width: 100%; }
+  .tk-svc__flag { display: inline-flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.85); }
+  .tk-svc__flagIcon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--green); color: var(--navy); }
+  .tk-svc__flagIcon .v6-icon { width: 1.4rem; height: 1.4rem; }
+  .tk-svc__lead .v6-suite__name { margin-top: auto; padding-top: 2rem; }
+  .tk-svc__vipList { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1.25rem; width: 100%; margin-block: 0.5rem 0.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.16); font-size: 0.92rem; line-height: 1.4; color: rgba(255, 255, 255, 0.9); }
+  .tk-svc__vipList li { display: flex; align-items: flex-start; gap: 0.6rem; }
+  .tk-svc__vipList .v6-mark { width: 1.3rem; height: 1.3rem; }
+  .tk-svc__leadBtn { transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+  .tk-svc__lead:hover .tk-svc__leadBtn { transform: translateY(-2px); box-shadow: 0 16px 36px -18px rgba(147, 200, 69, 0.9); }
+  .tk-svc__lead:hover .tk-svc__leadBtn i { transform: translateX(3px); }
+  .tk-svc__itemName { font-weight: 600; font-size: 1.15rem; letter-spacing: -0.025em; line-height: 1.2; }
+  .tk-svc__view { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--navy); transition: color 0.35s; }
+  .tk-svc__item:hover .tk-svc__view { color: #fff; }
+  .tk-svc__item .v6-svc__go { display: none; }
+  .tk-svc__dt { transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+  .tk-svc__dt:hover { transform: translateY(-3px); box-shadow: 0 30px 70px -40px rgba(35, 46, 102, 0.9); }
+  .tk-svc__dt:hover .v6-link { background-size: 100% 1.5px; }
+
+  /* Needs */
+  .tk-svc__need { display: flex; flex-direction: column; gap: 0.9rem; min-height: 17rem; padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: 30px; background: #fff; color: var(--charcoal); box-shadow: 0 30px 60px -44px rgba(0, 0, 0, 0.55); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+  .tk-svc__need:hover { transform: translateY(-4px); box-shadow: 0 36px 70px -40px rgba(0, 0, 0, 0.6); }
+  .tk-svc__needIcon { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: var(--green); color: var(--navy); transition: background-color 0.4s, color 0.4s; }
+  .tk-svc__needIcon .v6-icon { width: 1.5rem; height: 1.5rem; }
+  .tk-svc__need:hover .tk-svc__needIcon { background: var(--navy); color: var(--green); }
+  .tk-svc__needTitle { margin-top: 0.5rem; max-width: 20ch; font-size: clamp(1.4rem, 2.1vw, 1.9rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; text-wrap: balance; }
+  .tk-svc__needCopy { max-width: 34rem; line-height: 1.6; color: var(--muted); }
+  .tk-svc__needGo { margin-top: auto; align-self: flex-start; }
+  .tk-svc__need:hover .tk-svc__needGo { background-size: 100% 1.5px; }
+  .tk-svc__need:hover .tk-svc__needGo :global(i) { transform: translateX(3px); }
+
+  /* Who we help */
+  .tk-svc__whoGrid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 7rem); align-items: start; }
+  .tk-svc__whoTitle { position: sticky; top: 8rem; max-width: 11ch; }
+  .tk-svc__whoList { border-top: 1px solid var(--hairline); }
+  .tk-svc__whoList li { border-bottom: 1px solid var(--hairline); }
+  .tk-svc__whoRow { display: grid; gap: 0.75rem; padding-block: clamp(1.75rem, 3vw, 2.5rem); transition: padding 0.5s var(--ease); }
+  .tk-svc__whoName { font-size: clamp(1.5rem, 2.4vw, 2.2rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1.08; transition: color 0.3s; }
+  .tk-svc__whoCopy { max-width: 40rem; line-height: 1.65; color: var(--muted); }
+  .tk-svc__whoGo { justify-self: start; margin-top: 0.25rem; }
+  .tk-svc__whoRow:hover .tk-svc__whoName { color: var(--key-blue); }
+  .tk-svc__whoRow:hover .tk-svc__whoGo { background-size: 100% 1.5px; }
+  .tk-svc__whoRow:hover .tk-svc__whoGo :global(i) { transform: translateX(3px); }
+
+  .tk-svc__ctaTitle { max-width: 16ch; font-size: clamp(2.5rem, 5.4vw, 5.25rem); }
+
+  @media (max-width: 1100px) {
+    .tk-svc__lead { min-height: 0; }
+    .tk-svc__lead .v6-suite__name { padding-top: 3rem; }
+  }
+  @media (max-width: 900px) {
+    .tk-svc__badge { display: none; }
+    :global(.tk-svc__hero .v6-ph__media) { aspect-ratio: 4 / 3; }
+    .tk-svc__introGrid, .tk-svc__whoGrid { grid-template-columns: 1fr; gap: 1.75rem; }
+    .tk-svc__introTitle, .tk-svc__whoTitle { position: static; }
+    .tk-svc__introCopy { padding-top: 0; font-size: 1.05rem; }
+    .tk-svc__introCopy p:first-child { font-size: 1.2rem; }
+    .tk-svc__suite { margin-inline: calc(var(--gutter) * -0.5); }
+    .tk-svc__leadContent { padding: 1.75rem 1.4rem; gap: 1rem; }
+    .tk-svc__lead .v6-suite__name { padding-top: 2.25rem; font-size: 2.6rem; }
+    .tk-svc__vipList { grid-template-columns: 1fr; gap: 0.55rem; }
+    .tk-svc__leadBtn { align-self: stretch; justify-content: center; padding-inline: 1rem; gap: 0.5rem; white-space: nowrap; font-size: 0.92rem; }
+    .tk-svc__suite .v6-suite__list { padding: 1.5rem 0.4rem 0.75rem; }
+    .tk-svc__suite .v6-suite__label { padding-inline: 1rem; }
+    .tk-svc__item { padding: 1rem; }
+    .tk-svc__dt { margin-inline: calc(var(--gutter) * -0.5); border-radius: 32px; padding: 2rem 1.5rem; }
+    .tk-svc__need { min-height: 19rem; border-radius: 26px; }
+    .tk-svc__whoRow { padding-block: 1.5rem; }
+    .tk-svc__whoName { font-size: 1.5rem; }
+    .tk-svc__ctaTitle { font-size: clamp(2.2rem, 10vw, 3rem); }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
-import { ArrowRight, BrainCircuit, Building2, ChartNoAxesColumnIncreasing, CircleCheckBig, Lightbulb, ListChecks, LockKeyhole, MapPin, Search, ShieldCheck, Target, ThumbsUp, Trophy, TriangleAlert, Wrench } from "lucide-react";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
 import { APPOINTMENTCORE_BOOKING_URL, CONSULTATION_URL } from "@/lib/services";
+import { arrow, iconSrc, split } from "@/lib/v6";
 
 const reportSchema = {
   "@context": "https://schema.org",
@@ -10,254 +10,238 @@ const reportSchema = {
   description: "See how clearly AI-powered searches understand your auto repair shop.",
   url: "https://www.turnkeyautomarketing.com/ai-visibility-scan",
 };
+const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
 ---
 
-<BaseLayout
+<V6Layout
   title="AI Visibility Scan for Auto Repair Shops | Turnkey Marketing"
   description="See how clearly AI-powered searches understand and recommend your auto repair shop."
   path="/ai-visibility-scan"
   ogTitle="AI Visibility Scan for Auto Repair Shops | Turnkey Marketing"
   schema={reportSchema}
+  dock={false}
+  class="tk-scan"
 >
-  <main class="min-h-screen bg-[var(--off-white)]">
-    <section class="ai-scan-hero relative overflow-hidden bg-[linear-gradient(135deg,#fff_0%,#f6faff_62%,#edf4fc_100%)] py-14 md:py-20 lg:py-24">
-      <span class="pointer-events-none absolute -right-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-[var(--key-blue-soft)]/60 blur-3xl" aria-hidden="true"></span>
-      <span class="pointer-events-none absolute -bottom-48 left-1/3 h-80 w-80 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
-      <div class="container-page relative">
-        <div class="ai-scan-hero-grid relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.96fr_1.04fr] lg:items-center lg:gap-14 xl:gap-20">
-          <div class="ai-scan-hero-copy relative z-10 text-center md:text-left">
-            <p class="eyebrow text-[var(--key-blue)]">Free AI visibility scan</p>
-            <h1 class="display-1 mt-6 max-w-[11ch] text-charcoal md:max-w-[12ch]">Does AI <span class="text-[var(--key-blue)]">Recommend Your Shop?</span></h1>
-            <p class="mx-auto mt-7 max-w-[42ch] text-lg leading-relaxed text-charcoal/65 md:mx-0 md:text-xl">See where your shop appears in AI search—and which nearby shops may be winning the call.</p>
-            <div class="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm text-charcoal/55 md:justify-start">
-              <span class="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[var(--key-blue)]" /> Built for auto repair</span>
-              <span class="inline-flex items-center gap-2"><span class="scan-icon scan-icon-clock h-4 w-4 text-[var(--key-blue)]" aria-hidden="true"></span> About 60 seconds</span>
-            </div>
-          </div>
+  <section class="tk-scan__hero">
+    <span class="tk-scan__wash" aria-hidden="true" data-allow-overflow></span>
+    <div class="v6-wrap tk-scan__grid">
+      <div class="tk-scan__intro">
+        <p class="v6-kicker" data-fade>Free AI visibility scan</p>
+        <h1 class="tk-scan__title" data-words set:html={split([{ t: "Does AI" }, { t: "Recommend Your Shop?", accent: true }])} />
+        <p class="tk-scan__lead" data-fade style="--d:1">See where your shop appears in AI search—and which nearby shops may be winning the call.</p>
+      </div>
 
-          <div class="relative z-10 mx-auto w-full max-w-[470px] lg:mr-4">
-            <form id="scan-form" class="relative overflow-hidden rounded-[30px] border border-[rgba(35,46,102,.12)] bg-white shadow-[0_34px_90px_-42px_rgba(20,30,78,.62)]">
-              <div class="p-6 md:p-8 lg:p-9">
-                <label class="block text-sm font-medium text-charcoal" for="shop-name">Shop name</label>
-                <input id="shop-name" name="shopName" required autocomplete="organization" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Smith Auto Care" />
-                <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-location">City and state</label>
-                <input id="shop-location" name="location" required autocomplete="address-level2" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. Scottsdale, AZ" />
-                <label class="mt-5 block text-sm font-medium text-charcoal" for="shop-specialty">Work you want more of <span class="font-normal text-charcoal/40">Optional</span></label>
-                <input id="shop-specialty" name="specialty" class="mt-2 h-12 w-full rounded-2xl border border-[rgba(35,46,102,.2)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.35)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="e.g. European repair, brakes, diagnostics" />
-                <button id="scan-submit" type="submit" class="btn-primary mt-7 h-13 w-full !bg-[linear-gradient(100deg,var(--key-blue),var(--navy))] !px-5 shadow-[0_18px_38px_-22px_rgba(35,46,102,.75)] hover:!bg-[var(--navy-deep)] disabled:cursor-wait disabled:opacity-70"><span data-scan-submit-label>Run My Free Scan</span> <ArrowRight class="h-4 w-4" /></button>
-                <p id="scan-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
+      <div class="tk-scan__meta" data-fade style="--d:2">
+        <span class="tk-scan__chip"><span class="tk-scan__chip-icon"><span class="v6-icon" style={icon("car-count")}></span></span> Built for auto repair</span>
+        <span class="tk-scan__chip"><span class="tk-scan__chip-icon"><span class="v6-icon" style={icon("boost")}></span></span> About 60 seconds</span>
+      </div>
+
+      <div class="tk-scan__formwrap" data-fade style="--d:2">
+        <div class="v6-glow tk-scan__glow">
+          <form id="scan-form" class="v6-glow__inner tk-scan__form">
+            <div class="tk-scan__field">
+              <label class="tk-scan__label" for="shop-name">Shop name</label>
+              <input id="shop-name" name="shopName" required autocomplete="organization" class="tk-scan__input" placeholder="e.g. Smith Auto Care" />
+            </div>
+            <div class="tk-scan__field">
+              <label class="tk-scan__label" for="shop-location">City and state</label>
+              <input id="shop-location" name="location" required autocomplete="address-level2" class="tk-scan__input" placeholder="e.g. Scottsdale, AZ" />
+            </div>
+            <div class="tk-scan__field">
+              <label class="tk-scan__label" for="shop-specialty">Work you want more of <span class="tk-scan__optional">Optional</span></label>
+              <input id="shop-specialty" name="specialty" class="tk-scan__input" placeholder="e.g. European repair, brakes, diagnostics" />
+            </div>
+            <button id="scan-submit" type="submit" class="v6-btn v6-btn--navy v6-btn--lg tk-scan__submit"><span data-scan-submit-label>Run My Free Scan</span> <i set:html={arrow} /></button>
+            <p id="scan-error" class="tk-scan__error hidden"></p>
+          </form>
+        </div>
+      </div>
+
+      <div class="tk-scan__signals" data-fade style="--d:3">
+        <p class="tk-scan__signals-title">Built from a live, AI-powered search of public signals</p>
+        <div class="tk-scan__signals-list">
+          <span class="tk-scan__signal"><span class="tk-scan__signal-icon"><span class="v6-icon" style={icon("location")}></span></span> Shop identity</span>
+          <span class="tk-scan__signal"><span class="tk-scan__signal-icon"><span class="v6-icon" style={icon("weekly-planner")}></span></span> Service clarity</span>
+          <span class="tk-scan__signal"><span class="tk-scan__signal-icon"><span class="v6-icon" style={icon("retention")}></span></span> Nearby context</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scan-progress" class="tk-scan__progress hidden">
+    <div class="v6-wrap">
+      <div class="scan-progress-panel">
+        <div class="tk-scan__progress-head">
+          <span id="scan-stage-hero-icon" class="scan-stage-hero-icon" role="status" aria-label="Scan in progress">
+            <span class="scan-stage-pulse scan-stage-pulse-left" aria-hidden="true"></span>
+            <span class="scan-stage-pulse scan-stage-pulse-right" aria-hidden="true"></span>
+            <span class="scan-icon scan-icon-location" aria-hidden="true"></span>
+          </span>
+          <p class="v6-kicker tk-scan__progress-kicker">Scan in progress</p>
+          <h2 id="scan-stage-title" class="tk-scan__progress-title">Finding your shop</h2>
+          <p id="scan-stage-detail" class="tk-scan__progress-detail">Checking what a driver can find about your business online.</p>
+        </div>
+
+        <div class="tk-scan__track-wrap">
+          <div class="scan-progress-track" role="progressbar" aria-label="AI visibility scan progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="7">
+            <span id="scan-progress-bar" class="scan-progress-bar" style="--scan-progress:7%"></span>
+          </div>
+        </div>
+
+        <div class="scan-stage-grid" aria-live="polite">
+          <div data-scan-stage="0" class="scan-stage-item scan-stage-active">
+            <span class="scan-stage-marker"><span class="scan-icon scan-icon-location" aria-hidden="true"></span><span class="sr-only">Step 1</span></span>
+            <span class="scan-stage-label">Finding your shop and location</span>
+          </div>
+          <div data-scan-stage="1" class="scan-stage-item">
+            <span class="scan-stage-marker"><span class="scan-icon scan-icon-search" aria-hidden="true"></span><span class="sr-only">Step 2</span></span>
+            <span class="scan-stage-label">Checking your services and specialties</span>
+          </div>
+          <div data-scan-stage="2" class="scan-stage-item">
+            <span class="scan-stage-marker"><span class="scan-icon scan-icon-pages" aria-hidden="true"></span><span class="sr-only">Step 3</span></span>
+            <span class="scan-stage-label">Comparing nearby shops</span>
+          </div>
+          <div data-scan-stage="3" class="scan-stage-item">
+            <span class="scan-stage-marker"><span class="scan-icon scan-icon-ai" aria-hidden="true"></span><span class="sr-only">Step 4</span></span>
+            <span class="scan-stage-label">Preparing your report</span>
+          </div>
+        </div>
+        <p class="scan-progress-note"><span class="scan-icon scan-icon-clock" aria-hidden="true"></span>This usually takes less than a minute. You can keep this tab open.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="report-gate" class="tk-scan__gate hidden">
+    <div class="v6-wrap">
+      <div class="report-gate-shell">
+        <div class="tk-scan__gate-head">
+          <p class="tk-scan__ready"><span class="v6-mark v6-mark--check" aria-hidden="true"></span> Report ready</p>
+          <p class="v6-kicker tk-scan__gate-kicker">Your report is built</p>
+          <h2 class="tk-scan__gate-title" data-words set:html={split([{ t: "Your shop report is ready." }])} />
+          <p class="tk-scan__gate-text">See whether AI mentioned <strong data-gate-shop>your shop</strong>, how it compared with nearby shops, and what to fix first.</p>
+        </div>
+
+        <div class="tk-scan__gate-list">
+          <div class="tk-scan__gate-item"><span class="v6-mark v6-mark--check" aria-hidden="true"></span><span>See whether your shop showed up</span></div>
+          <div class="tk-scan__gate-item"><span class="v6-mark v6-mark--check" aria-hidden="true"></span><span>Compare your shop with nearby options</span></div>
+          <div class="tk-scan__gate-item"><span class="v6-mark v6-mark--check" aria-hidden="true"></span><span>Know what to fix first</span></div>
+        </div>
+
+        <div class="report-gate-unlock">
+          <p class="v6-kicker">Unlock your report</p>
+          <h3 class="tk-scan__unlock-title">See what drivers may learn about your shop.</h3>
+          <p class="tk-scan__unlock-text">Enter your business email to see whether your shop appeared, what AI found, and what to improve first.</p>
+
+          <form id="report-gate-form" class="tk-scan__unlock-form">
+            <label class="tk-scan__label" for="report-email">Business email</label>
+            <input id="report-email" name="email" type="email" required autocomplete="email" inputmode="email" maxlength="254" class="tk-scan__input" placeholder="you@yourshop.com" />
+            <button id="report-gate-submit" type="submit" class="v6-btn v6-btn--green v6-btn--lg tk-scan__submit"><span data-gate-submit-label>Reveal My Report</span> <i set:html={arrow} /></button>
+            <p id="report-gate-error" class="tk-scan__error hidden"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scan-results" class="report-dashboard tk-scan__results hidden">
+    <div class="v6-wrap">
+      <header class="report-heading">
+        <p class="v6-kicker">Your AI visibility snapshot</p>
+        <h2 class="tk-scan__results-title" data-words set:html={split([{ t: "AI Visibility Report" }])} />
+        <div class="tk-scan__facts">
+          <span class="tk-scan__fact tk-scan__fact--shop"><span data-result-shop>Your shop</span></span>
+          <span class="tk-scan__dot" aria-hidden="true">•</span>
+          <span class="tk-scan__fact"><span class="tk-scan__fact-icon"><span class="v6-icon" style={icon("location")}></span></span><span data-result-location>Local market</span></span>
+          <span class="tk-scan__dot" aria-hidden="true">•</span>
+          <span class="tk-scan__fact tk-scan__fact--done"><span class="v6-mark v6-mark--check" aria-hidden="true"></span>Scan complete</span>
+          <span class="tk-scan__dot" aria-hidden="true">•</span>
+          <span data-analysis-label class="tk-scan__analysis">Analysis: General auto repair</span>
+        </div>
+      </header>
+
+      <article class="scan-results-report">
+        <div class="tk-scan__top">
+          <section class="report-card scan-score-panel">
+            <p class="tk-scan__score-label">Overall AI visibility score</p>
+            <div data-score-ring class="score-ring" style="--score:0">
+              <div class="score-ring-inner"><span data-result-score class="tk-scan__score">—</span><span class="tk-scan__score-of">/100</span></div>
+            </div>
+            <p data-result-status class="report-status">Scan complete</p>
+            <p class="tk-scan__score-note">A snapshot of public information and three recommendation checks—not a permanent ranking.</p>
+          </section>
+
+          <section class="scan-verdict-panel">
+            <div class="tk-scan__verdict-inner">
+              <div class="tk-scan__verdict-head"><span class="tk-scan__verdict-icon"><span class="v6-icon" style={icon("internet")}></span></span><h3>Overall verdict</h3></div>
+              <p data-result-verdict class="tk-scan__verdict">Your result will appear here.</p>
+              <div class="tk-scan__match"><span class="tk-scan__match-label">Business match: <span data-match-confidence>—</span></span><span class="tk-scan__match-dot">•</span><span data-confidence-note></span></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="tk-scan__block" aria-labelledby="understood-heading">
+          <div class="report-section-label"><span class="tk-scan__label-icon"><span class="v6-icon" style={icon("internet")}></span></span><h3 id="understood-heading">How AI understands your business</h3></div>
+          <div data-result-understood class="tk-scan__understood"></div>
+        </section>
+
+        <div class="tk-scan__pair">
+          <section class="report-card report-strip tk-scan__strip--gap">
+            <span class="report-strip-icon tk-scan__alert" aria-hidden="true"></span>
+            <div><h3 class="tk-scan__card-title">Biggest visibility gap</h3><p data-result-gap class="tk-scan__card-text"></p></div>
+          </section>
+          <section class="report-card report-strip">
+            <span class="report-strip-icon tk-scan__strip-icon--blue"><span class="v6-icon" style={icon("report")}></span></span>
+            <div class="tk-scan__grow">
+              <h3 class="tk-scan__card-title">Recommendation performance</h3>
+              <p class="tk-scan__card-text">Appeared in <strong><span data-checks-appeared>—</span> of <span data-checks-total>3</span></strong> recommendation checks.</p>
+              <div class="tk-scan__meter" role="progressbar" aria-label="Recommendation checks that mentioned this shop" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span data-recommendation-progress class="tk-scan__meter-bar" style="width:0%"></span></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="tk-scan__split">
+          <section class="tk-scan__block" aria-labelledby="competitive-position-heading">
+            <div class="report-section-label"><span class="tk-scan__label-icon"><span class="v6-icon" style={icon("retention")}></span></span><h3 id="competitive-position-heading">Competitive insight</h3></div>
+            <div class="report-card tk-scan__insight">
+              <p class="tk-scan__mini">Business confidence</p>
+              <div class="tk-scan__confidence"><span data-confidence-pill class="tk-scan__pill">High</span><span data-confidence-summary class="tk-scan__confidence-text">AI is confident it found the right business.</span></div>
+              <div class="tk-scan__rule"></div>
+              <p class="tk-scan__mini">What nearby shops did better</p>
+              <p data-result-competitor class="tk-scan__card-text"></p>
+            </div>
+          </section>
+
+          <section class="tk-scan__block" aria-labelledby="action-plan-heading">
+            <div class="report-section-label"><span class="tk-scan__label-icon"><span class="v6-icon" style={icon("target")}></span></span><h3 id="action-plan-heading">Action plan</h3></div>
+            <div class="tk-scan__actions">
+              <div class="report-action-card tk-scan__action--good">
+                <span class="report-action-icon"><span class="v6-mark v6-mark--check" aria-hidden="true"></span></span>
+                <div><h4 class="tk-scan__card-title">What is working</h4><p data-result-working class="tk-scan__card-text">AI found clear public information about your shop.</p></div>
               </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="ai-scan-platform relative z-10 mx-auto mt-12 flex max-w-6xl flex-col gap-4 rounded-[22px] border border-[rgba(35,46,102,.1)] bg-white/90 px-5 py-4 shadow-[0_18px_55px_-42px_rgba(35,46,102,.45)] backdrop-blur sm:flex-row sm:items-center sm:justify-between md:px-7">
-          <p class="text-sm font-semibold text-[var(--navy)]">Built from a live, AI-powered search of public signals</p>
-          <div class="ai-scan-platform-list flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-charcoal/58">
-            <span class="ai-scan-platform-item inline-flex items-center gap-2"><Search className="h-4 w-4 text-[var(--key-blue)]" /> Shop identity</span>
-            <span class="ai-scan-platform-item inline-flex items-center gap-2"><ListChecks className="h-4 w-4 text-[var(--key-blue)]" /> Service clarity</span>
-            <span class="ai-scan-platform-item inline-flex items-center gap-2"><Trophy className="h-4 w-4 text-[var(--key-blue)]" /> Nearby context</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="scan-progress" class="relative hidden overflow-hidden bg-[#f3f7fd] py-14 md:py-20">
-      <span class="pointer-events-none absolute -left-28 top-0 h-80 w-80 rounded-full bg-[var(--key-blue)]/8 blur-3xl" aria-hidden="true"></span>
-      <span class="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-[var(--green)]/8 blur-3xl" aria-hidden="true"></span>
-      <div class="container-page relative">
-        <div class="scan-progress-panel mx-auto max-w-5xl rounded-[32px] border border-[rgba(35,46,102,.1)] bg-white px-5 py-9 shadow-[0_34px_85px_-52px_rgba(35,46,102,.45)] sm:px-8 md:rounded-[38px] md:px-12 md:py-12 lg:px-16">
-          <div class="text-center">
-            <span id="scan-stage-hero-icon" class="scan-stage-hero-icon" role="status" aria-label="Scan in progress">
-              <span class="scan-stage-pulse scan-stage-pulse-left" aria-hidden="true"></span>
-              <span class="scan-stage-pulse scan-stage-pulse-right" aria-hidden="true"></span>
-              <span class="scan-icon scan-icon-location" aria-hidden="true"></span>
-            </span>
-            <p class="eyebrow mt-6 text-[var(--key-blue)]">Scan in progress</p>
-            <h2 id="scan-stage-title" class="mx-auto mt-3 max-w-[19ch] font-display text-[clamp(2.15rem,4.2vw,3.65rem)] font-semibold leading-[1.02] tracking-[-.045em] text-[var(--navy-deep)]">Finding your shop</h2>
-            <p id="scan-stage-detail" class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-charcoal/62 md:text-lg">Checking what a driver can find about your business online.</p>
-          </div>
-
-          <div class="mx-auto mt-8 max-w-2xl">
-            <div class="scan-progress-track" role="progressbar" aria-label="AI visibility scan progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="7">
-              <span id="scan-progress-bar" class="scan-progress-bar" style="--scan-progress:7%"></span>
-            </div>
-          </div>
-
-          <div class="scan-stage-grid mt-9" aria-live="polite">
-            <div data-scan-stage="0" class="scan-stage-item scan-stage-active">
-              <span class="scan-stage-marker"><span class="scan-icon scan-icon-location" aria-hidden="true"></span><span class="sr-only">Step 1</span></span>
-              <span class="scan-stage-label">Finding your shop and location</span>
-            </div>
-            <div data-scan-stage="1" class="scan-stage-item">
-              <span class="scan-stage-marker"><span class="scan-icon scan-icon-search" aria-hidden="true"></span><span class="sr-only">Step 2</span></span>
-              <span class="scan-stage-label">Checking your services and specialties</span>
-            </div>
-            <div data-scan-stage="2" class="scan-stage-item">
-              <span class="scan-stage-marker"><span class="scan-icon scan-icon-pages" aria-hidden="true"></span><span class="sr-only">Step 3</span></span>
-              <span class="scan-stage-label">Comparing nearby shops</span>
-            </div>
-            <div data-scan-stage="3" class="scan-stage-item">
-              <span class="scan-stage-marker"><span class="scan-icon scan-icon-ai" aria-hidden="true"></span><span class="sr-only">Step 4</span></span>
-              <span class="scan-stage-label">Preparing your report</span>
-            </div>
-          </div>
-          <p class="scan-progress-note mt-8 text-center text-sm text-charcoal/52"><span class="scan-icon scan-icon-ai" aria-hidden="true"></span>This usually takes less than a minute. You can keep this tab open.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="report-gate" class="hidden bg-[linear-gradient(180deg,var(--off-white)_0%,#fff_100%)] py-14 md:py-24">
-      <div class="container-page">
-        <div class="mx-auto max-w-6xl">
-          <div class="mb-7 flex justify-center">
-            <div class="inline-flex items-center gap-2 rounded-full bg-[#eaf3dc] px-4 py-2 text-sm font-semibold text-[#557f20] ring-1 ring-[#6d9b2f]/15">
-              <CircleCheckBig class="h-4 w-4" /> Report ready
-            </div>
-          </div>
-
-          <div class="report-gate-shell overflow-hidden rounded-[36px] bg-[linear-gradient(140deg,var(--navy)_0%,var(--navy-deep)_100%)] shadow-[0_38px_100px_-58px_rgba(20,22,28,.7)]">
-            <div class="grid lg:grid-cols-[1.08fr_.92fr]">
-              <div class="report-gate-summary relative overflow-hidden p-7 text-white md:p-11 lg:p-14">
-                <span class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
-                <span class="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
-                <div class="relative">
-                  <p class="eyebrow text-[#9ed8f0]">Your report is built</p>
-                  <h2 class="mt-5 max-w-[13ch] font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[.98] tracking-[-.055em]">Your shop report is ready.</h2>
-                  <p class="mt-6 max-w-[42rem] text-lg leading-relaxed text-white/68">See whether AI mentioned <strong data-gate-shop class="font-semibold text-white">your shop</strong>, how it compared with nearby shops, and what to fix first.</p>
-
-                  <div class="mt-9 max-w-xl border-y border-white/12">
-                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">See whether your shop showed up</span></div>
-                    <div class="flex items-center gap-3 border-b border-white/12 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Compare your shop with nearby options</span></div>
-                    <div class="flex items-center gap-3 py-4"><CircleCheckBig class="h-5 w-5 shrink-0 text-[var(--green)]" /><span class="font-medium text-white/88">Know what to fix first</span></div>
+              <div class="report-action-card tk-scan__action--fix">
+                <span class="report-action-icon"><span class="v6-icon" style={icon("weekly-planner")}></span></span>
+                <div class="tk-scan__grow">
+                  <h4 class="tk-scan__card-title">What to fix first</h4>
+                  <p data-result-cta class="tk-scan__card-text"></p>
+                  <div class="tk-scan__cta-row">
+                    <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom"><span>Book a Strategy Call</span> <i set:html={arrow} /></a>
+                    <a href="/resources/ai-search-for-auto-repair-shops#action-plan" class="v6-link">Use the 30-day plan</a>
                   </div>
                 </div>
               </div>
-
-              <div class="report-gate-unlock m-2 rounded-[30px] bg-white p-6 md:m-3 md:p-9 lg:flex lg:flex-col lg:justify-center lg:p-11">
-                <div class="flex items-center justify-between gap-5">
-                  <p class="eyebrow text-[var(--key-blue)]">Unlock your report</p>
-                  <LockKeyhole class="h-7 w-7 text-[var(--navy)]" />
-                </div>
-                <h3 class="mt-5 font-display text-[clamp(2rem,3.6vw,3rem)] font-semibold leading-[1.02] tracking-[-.04em] text-charcoal">See what drivers may learn about your shop.</h3>
-                <p class="mt-5 leading-relaxed text-charcoal/62">Enter your business email to see whether your shop appeared, what AI found, and what to improve first.</p>
-
-                <form id="report-gate-form" class="mt-7">
-                  <label class="block text-sm font-semibold text-charcoal" for="report-email">Business email</label>
-                  <input id="report-email" name="email" type="email" required autocomplete="email" inputmode="email" maxlength="254" class="mt-2 h-13 w-full rounded-2xl border border-[rgba(35,46,102,.24)] bg-white px-4 text-charcoal outline-none ring-2 ring-transparent transition placeholder:text-charcoal/35 hover:border-[rgba(35,46,102,.4)] focus:border-[var(--key-blue)] focus:ring-[var(--key-blue)]/15" placeholder="you@yourshop.com" />
-                  <button id="report-gate-submit" type="submit" class="btn-primary mt-4 h-13 w-full !bg-[var(--green)] !px-5 !text-charcoal shadow-[0_16px_36px_-20px_rgba(95,143,34,.75)] hover:!bg-[var(--key-blue)] hover:!text-white disabled:cursor-wait disabled:opacity-70"><span data-gate-submit-label>Reveal My Report</span> <ArrowRight class="h-4 w-4" /></button>
-                  <p id="report-gate-error" class="mt-4 hidden rounded-2xl bg-red-50 p-3 text-sm leading-relaxed text-red-700"></p>
-                </form>
-              </div>
             </div>
-          </div>
+          </section>
         </div>
-      </div>
-    </section>
 
-    <section id="scan-results" class="report-dashboard hidden scroll-mt-28 bg-[linear-gradient(180deg,#f5f8ff_0%,#eaf1ff_100%)] py-10 md:py-16">
-      <div class="container-page">
-        <div class="mx-auto max-w-7xl">
-          <header class="report-heading mb-7 md:mb-9">
-            <p class="eyebrow text-[var(--key-blue)]">Your AI visibility snapshot</p>
-            <h2 class="mt-3 font-display text-[clamp(2.35rem,5vw,4.25rem)] font-semibold leading-none tracking-[-.055em] text-[var(--navy-deep)]">AI Visibility Report</h2>
-            <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-charcoal/58">
-              <span class="inline-flex items-center gap-1.5 font-semibold text-[var(--navy)]"><Building2 class="h-4 w-4" /><span data-result-shop>Your shop</span></span>
-              <span class="text-charcoal/20" aria-hidden="true">•</span>
-              <span class="inline-flex items-center gap-1.5"><MapPin class="h-4 w-4 text-[var(--key-blue)]" /><span data-result-location>Local market</span></span>
-              <span class="text-charcoal/20" aria-hidden="true">•</span>
-              <span class="inline-flex items-center gap-1.5 font-medium text-[var(--key-blue)]"><CircleCheckBig class="h-4 w-4" />Scan complete</span>
-              <span class="text-charcoal/20" aria-hidden="true">•</span>
-              <span data-analysis-label class="rounded-md bg-white px-2.5 py-1 text-xs font-semibold text-charcoal/62 shadow-sm ring-1 ring-[rgba(35,46,102,.08)]">Analysis: General auto repair</span>
-            </div>
-          </header>
-
-          <article class="scan-results-report space-y-5 md:space-y-6">
-            <div class="grid gap-5 lg:grid-cols-[310px_1fr] md:gap-6">
-              <section class="report-card scan-score-panel flex min-h-[290px] flex-col items-center justify-center text-center">
-                <p class="eyebrow text-charcoal/55">Overall AI visibility score</p>
-                <div data-score-ring class="score-ring mt-4" style="--score:0">
-                  <div class="score-ring-inner"><span data-result-score class="font-display text-5xl font-semibold tracking-[-.07em] text-[var(--navy-deep)]">—</span><span class="text-xs text-charcoal/48">/100</span></div>
-                </div>
-                <p data-result-status class="report-status mt-4">Scan complete</p>
-                <p class="mt-4 max-w-[28ch] text-[11px] leading-relaxed text-charcoal/48">A snapshot of public information and three recommendation checks—not a permanent ranking.</p>
-              </section>
-
-              <section class="scan-verdict-panel relative flex min-h-[290px] items-center overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,var(--navy-deep),var(--navy))] p-7 text-white shadow-[0_24px_60px_-42px_rgba(26,35,82,.8)] md:p-10 lg:p-12">
-                <span class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-[var(--key-blue)]/18 blur-3xl" aria-hidden="true"></span>
-                <div class="relative max-w-3xl">
-                  <div class="flex items-center gap-3"><BrainCircuit class="h-6 w-6 text-[#9ed8f0]" /><h3 class="font-display text-2xl font-semibold">Overall verdict</h3></div>
-                  <p data-result-verdict class="mt-6 text-lg leading-relaxed text-white/76 md:text-xl">Your result will appear here.</p>
-                  <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-white/12 pt-5 text-sm text-white/62"><span class="font-semibold text-white">Business match: <span data-match-confidence>—</span></span><span class="hidden text-white/25 sm:inline">•</span><span data-confidence-note></span></div>
-                </div>
-              </section>
-            </div>
-
-            <section aria-labelledby="understood-heading">
-              <div class="report-section-label"><Search class="h-4 w-4" /><h3 id="understood-heading">How AI understands your business</h3></div>
-              <div data-result-understood class="mt-3 grid gap-4 md:grid-cols-3"></div>
-            </section>
-
-            <div class="grid gap-4 lg:grid-cols-[1fr_1.05fr]">
-              <section class="report-card report-strip border-[#efc9c3]">
-                <span class="report-strip-icon bg-[#fee8e4] text-[#b84d43]"><TriangleAlert class="h-5 w-5" /></span>
-                <div><h3 class="font-display text-lg font-semibold text-[var(--navy-deep)]">Biggest visibility gap</h3><p data-result-gap class="mt-1.5 leading-relaxed text-charcoal/64"></p></div>
-              </section>
-              <section class="report-card report-strip">
-                <span class="report-strip-icon bg-[#e3f0fc] text-[var(--key-blue)]"><ChartNoAxesColumnIncreasing class="h-5 w-5" /></span>
-                <div class="min-w-0 flex-1">
-                  <h3 class="font-display text-lg font-semibold text-[var(--navy-deep)]">Recommendation performance</h3>
-                  <p class="mt-1.5 leading-relaxed text-charcoal/64">Appeared in <strong class="text-[var(--navy)]"><span data-checks-appeared>—</span> of <span data-checks-total>3</span></strong> recommendation checks.</p>
-                  <div class="mt-4 h-1.5 overflow-hidden rounded-full bg-[rgba(35,46,102,.08)]" role="progressbar" aria-label="Recommendation checks that mentioned this shop" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span data-recommendation-progress class="block h-full rounded-full bg-[linear-gradient(90deg,var(--key-blue),var(--green))] transition-[width] duration-500" style="width:0%"></span></div>
-                </div>
-              </section>
-            </div>
-
-            <div class="grid gap-5 lg:grid-cols-[.82fr_1.18fr] md:gap-6">
-              <section aria-labelledby="competitive-position-heading">
-                <div class="report-section-label"><Trophy class="h-4 w-4" /><h3 id="competitive-position-heading">Competitive insight</h3></div>
-                <div class="report-card mt-3 h-[calc(100%-1.9rem)]">
-                  <p class="text-xs font-semibold uppercase tracking-[.11em] text-charcoal/48">Business confidence</p>
-                  <div class="mt-3 flex items-center gap-2"><span data-confidence-pill class="rounded-full bg-[#e7f4d5] px-3 py-1 text-xs font-semibold text-[#4c7620]">High</span><span data-confidence-summary class="text-xs leading-relaxed text-charcoal/55">AI is confident it found the right business.</span></div>
-                  <div class="my-6 h-px bg-[var(--hairline)]"></div>
-                  <p class="text-xs font-semibold uppercase tracking-[.11em] text-charcoal/48">What nearby shops did better</p>
-                  <p data-result-competitor class="mt-3 leading-relaxed text-charcoal/66"></p>
-                </div>
-              </section>
-
-              <section aria-labelledby="action-plan-heading">
-                <div class="report-section-label"><Target class="h-4 w-4" /><h3 id="action-plan-heading">Action plan</h3></div>
-                <div class="mt-3 space-y-3">
-                  <div class="report-action-card border-l-[3px] border-l-[var(--green)]">
-                    <span class="report-action-icon bg-[#eaf5dc] text-[#5b8b25]"><ThumbsUp class="h-5 w-5" /></span>
-                    <div><h4 class="font-display text-lg font-semibold text-[var(--navy-deep)]">What is working</h4><p data-result-working class="mt-1 text-sm leading-relaxed text-charcoal/62">AI found clear public information about your shop.</p></div>
-                  </div>
-                  <div class="report-action-card border-l-[3px] border-l-[var(--key-blue)]">
-                    <span class="report-action-icon bg-[#e3f0fc] text-[var(--key-blue)]"><Wrench class="h-5 w-5" /></span>
-                    <div class="min-w-0 flex-1">
-                      <h4 class="font-display text-lg font-semibold text-[var(--navy-deep)]">What to fix first</h4>
-                      <p data-result-cta class="mt-1 text-sm leading-relaxed text-charcoal/62"></p>
-                      <div class="mt-4 flex flex-wrap gap-3">
-                        <a href={CONSULTATION_URL} class="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--navy)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[var(--key-blue)]" data-track-event="consultation_cta_click" data-track-placement="ai_visibility_results_bottom">Book a Strategy Call <ArrowRight class="h-4 w-4" /></a>
-                        <a href="/resources/ai-search-for-auto-repair-shops#action-plan" class="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/35 decoration-2 underline-offset-4">Use the 30-day plan</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-
-            <div class="flex flex-col gap-3 rounded-[18px] bg-[var(--navy-deep)] px-5 py-4 text-white sm:flex-row sm:items-center sm:justify-between md:px-7">
-              <div class="flex items-center gap-3"><Lightbulb class="h-5 w-5 shrink-0 text-[var(--green)]" /><p class="text-sm leading-relaxed text-white/70"><strong class="text-white">How the score works:</strong> public facts contribute <span data-foundation-score>—</span>/40 and recommendation checks contribute <span data-recommendation-score>—</span>/60.</p></div>
-              <a href="/resources/ai-search-for-auto-repair-shops" class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-white hover:text-[#9ed8f0]">Learn about AI search <ArrowRight class="h-4 w-4" /></a>
-            </div>
-          </article>
+        <div class="tk-scan__how">
+          <p><strong>How the score works:</strong> public facts contribute <span data-foundation-score>—</span>/40 and recommendation checks contribute <span data-recommendation-score>—</span>/60.</p>
+          <a href="/resources/ai-search-for-auto-repair-shops" class="v6-link v6-link--light">Learn about AI search <i set:html={arrow} /></a>
         </div>
-      </div>
-    </section>
+      </article>
+    </div>
+  </section>
 
-    <section id="schedule" class="hidden scroll-mt-24 bg-white py-14 md:py-20"><div class="container-page"><div class="mx-auto max-w-5xl text-center"><p class="eyebrow text-[var(--key-blue)]">Want help fixing it?</p><h2 class="display-2 mt-4 text-charcoal">Let’s turn this report into a practical plan.</h2><p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-charcoal/65">We’ll show you what to update first, what can wait, and how to make your shop easier for the right drivers to find.</p><div class="mt-9 overflow-hidden rounded-[30px] bg-[var(--off-white)] text-left shadow-[0_28px_70px_-48px_rgba(20,22,28,.35)] ring-1 ring-black/5"><iframe src={APPOINTMENTCORE_BOOKING_URL} title="Schedule an AI visibility review with Turnkey Marketing" width="100%" height="800" class="block min-h-[800px] w-full border-0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div></div><script is:inline src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786635857"></script></section>
-  </main>
+  <section id="schedule" class="tk-scan__schedule hidden"><div class="v6-wrap"><div class="tk-scan__schedule-head"><p class="v6-kicker">Want help fixing it?</p><h2 class="tk-scan__schedule-title" data-words set:html={split([{ t: "Let’s turn this report into a" }, { t: "practical plan.", accent: true }])} /><p class="tk-scan__schedule-text">We’ll show you what to update first, what can wait, and how to make your shop easier for the right drivers to find.</p></div><div class="tk-scan__sheet"><iframe src={APPOINTMENTCORE_BOOKING_URL} title="Schedule an AI visibility review with Turnkey Marketing" width="100%" height="800" class="tk-scan__frame" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div><script is:inline src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786635857"></script></section>
 
   <script is:inline>
     const form = document.querySelector("#scan-form");
@@ -537,632 +521,278 @@ const reportSchema = {
   </script>
 
   <style is:global>
-    .scan-icon {
-      display: block;
-      width: 1rem;
-      height: 1rem;
-      flex: 0 0 auto;
-      background: currentColor;
-      mask-position: center;
-      mask-repeat: no-repeat;
-      mask-size: contain;
+    /* AI visibility scan. Global (not scoped) because the report markup is filled in by the page script. Everything is prefixed with .tk-scan. */
+    .tk-scan .hidden { display: none !important; }
+    .tk-scan .v6-kicker { letter-spacing: -0.005em; }
+
+    /* Icons: the tool's stage classes, drawn with the noun set */
+    .tk-scan .scan-icon { display: block; width: 1rem; height: 1rem; flex: 0 0 auto; background: currentColor; -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
+    .tk-scan .scan-icon-location { --icon: url("/images/icons/noun/location.svg"); }
+    .tk-scan .scan-icon-search { --icon: url("/images/icons/noun/internet.svg"); }
+    .tk-scan .scan-icon-pages { --icon: url("/images/icons/noun/retention.svg"); }
+    .tk-scan .scan-icon-ai { --icon: url("/images/icons/noun/weekly-planner.svg"); }
+    .tk-scan .scan-icon-clock { --icon: url("/images/icons/noun/boost.svg"); }
+
+    /* Shared form controls */
+    .tk-scan__label { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; color: var(--charcoal); }
+    .tk-scan__optional { font-size: 0.78rem; font-weight: 500; color: var(--muted); }
+    .tk-scan__input { display: block; width: 100%; height: 3.5rem; margin-top: 0.5rem; padding: 0 1.1rem; border: 1.5px solid transparent; border-radius: 16px; background: var(--off-white); color: var(--charcoal); font-size: 1.0625rem; line-height: 1.2; outline: none; transition: border-color 0.25s, background-color 0.25s, box-shadow 0.25s; }
+    .tk-scan__input::placeholder { color: #9297a3; }
+    .tk-scan__input:hover { border-color: rgba(35, 46, 102, 0.16); }
+    .tk-scan__input:focus { border-color: var(--key-blue); background: #fff; box-shadow: 0 0 0 4px rgba(63, 140, 203, 0.16); }
+    .tk-scan__input:user-invalid { border-color: #d0584d; background: #fff; box-shadow: 0 0 0 4px rgba(208, 88, 77, 0.12); }
+    .tk-scan__submit { width: 100%; justify-content: center; }
+    .tk-scan__submit:disabled { cursor: wait; opacity: 0.72; transform: none; }
+    .tk-scan__submit:disabled::before { opacity: 0; }
+    .tk-scan__error { margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 14px; background: #fdecea; color: #a53f37; font-size: 0.92rem; line-height: 1.5; }
+
+    /* Hero: headline left, the form as the page's one featured card on the right */
+    .tk-scan__hero { position: relative; overflow: hidden; padding-block: clamp(2.5rem, 5.5vw, 5.5rem) clamp(3.5rem, 6vw, 6rem); }
+    .tk-scan__wash { position: absolute; top: -18rem; right: -14rem; width: 52rem; height: 52rem; border-radius: 999px; background: radial-gradient(circle, rgba(63, 140, 203, 0.14) 0%, rgba(147, 200, 69, 0.06) 42%, transparent 68%); pointer-events: none; -webkit-mask-image: linear-gradient(180deg, transparent 34%, #000 55%); mask-image: linear-gradient(180deg, transparent 34%, #000 55%); }
+    .tk-scan__grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); grid-template-areas: "intro form" "meta form" "signals signals"; grid-template-rows: 1fr auto auto; column-gap: clamp(3rem, 6vw, 7rem); row-gap: 2rem; align-items: end; }
+    .tk-scan__intro { grid-area: intro; display: grid; gap: 1.5rem; align-self: end; }
+    .tk-scan__title { font-size: clamp(3.2rem, 6.2vw, 6.4rem); line-height: 0.96; letter-spacing: -0.06em; font-weight: 600; text-wrap: balance; max-width: 11ch; }
+    .tk-scan__lead { max-width: 32rem; font-size: clamp(1.1rem, 1.35vw, 1.25rem); line-height: 1.6; color: var(--muted); }
+    .tk-scan__meta { grid-area: meta; display: flex; flex-wrap: wrap; gap: 0.5rem; align-self: start; }
+    .tk-scan__chip { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 2.6rem; padding: 0 1rem 0 0.45rem; border-radius: 999px; background: var(--off-white); color: var(--navy); font-size: 0.9rem; font-weight: 600; }
+    .tk-scan__chip-icon { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 999px; background: #fff; color: var(--key-blue); }
+    .tk-scan__chip-icon .v6-icon { width: 1rem; height: 1rem; }
+    .tk-scan__formwrap { grid-area: form; align-self: center; width: 100%; max-width: 32rem; justify-self: end; }
+    .tk-scan__form { display: grid; gap: 1.25rem; padding: clamp(1.75rem, 3vw, 2.5rem); }
+    .tk-scan__form .tk-scan__submit { margin-top: 0.5rem; }
+    .tk-scan__signals { grid-area: signals; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: clamp(1rem, 3vw, 2.5rem); padding-top: 1.75rem; border-top: 1px solid var(--hairline); }
+    .tk-scan__signals-title { font-size: 1rem; font-weight: 600; letter-spacing: -0.015em; color: var(--navy); }
+    .tk-scan__signals-list { display: flex; flex-wrap: wrap; gap: 0.75rem 2.5rem; }
+    .tk-scan__signal { display: inline-flex; align-items: center; gap: 0.7rem; font-size: 0.98rem; font-weight: 500; color: var(--charcoal); }
+    .tk-scan__signal-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--key-blue-soft); color: var(--navy); }
+    .tk-scan__signal-icon .v6-icon { width: 1.15rem; height: 1.15rem; }
+
+    /* Progress */
+    .tk-scan__progress { padding-block: clamp(3rem, 6vw, 5.5rem); background: var(--off-white); }
+    .tk-scan .scan-progress-panel { max-width: 62rem; margin-inline: auto; padding: clamp(2rem, 5vw, 3.75rem) clamp(1.25rem, 5vw, 4rem); border-radius: 40px; background: #fff; box-shadow: 0 40px 90px -60px rgba(35, 46, 102, 0.55); }
+    .tk-scan__progress-head { display: grid; justify-items: center; text-align: center; }
+    .tk-scan__progress-kicker { margin-top: 1.25rem; }
+    .tk-scan__progress-title { margin-top: 0.6rem; max-width: 19ch; font-size: clamp(2.2rem, 4.4vw, 3.8rem); font-weight: 600; letter-spacing: -0.05em; line-height: 1.02; color: var(--navy); text-wrap: balance; }
+    .tk-scan__progress-detail { margin-top: 1rem; max-width: 34rem; font-size: clamp(1rem, 1.3vw, 1.15rem); line-height: 1.6; color: var(--muted); }
+    .tk-scan__track-wrap { max-width: 40rem; margin: 2.25rem auto 0; }
+    .tk-scan .scan-stage-hero-icon { position: relative; display: inline-grid; width: 5.5rem; height: 5rem; place-items: center; color: var(--navy); }
+    .tk-scan .scan-stage-hero-icon::before { content: ""; position: absolute; inset: 0.5rem 1rem; border-radius: 999px; background: var(--key-blue-soft); }
+    .tk-scan .scan-stage-hero-icon > .scan-icon { position: relative; z-index: 2; width: 1.75rem; height: 1.75rem; }
+    .tk-scan .scan-stage-pulse { position: absolute; top: 50%; width: 1.4rem; height: 3.6rem; border: 2.5px solid rgba(63, 140, 203, 0.35); border-top-color: transparent; border-bottom-color: transparent; animation: tk-scan-pulse 1.7s ease-in-out infinite; }
+    .tk-scan .scan-stage-pulse-left { left: 0; border-right: 0; border-radius: 3rem 0 0 3rem; transform: translateY(-50%); }
+    .tk-scan .scan-stage-pulse-right { right: 0; border-left: 0; border-radius: 0 3rem 3rem 0; transform: translateY(-50%); animation-delay: 0.18s; }
+    @keyframes tk-scan-pulse { 0%, 100% { opacity: 0.35; scale: 0.86; } 50% { opacity: 1; scale: 1; } }
+    .tk-scan .scan-progress-track { height: 0.5rem; overflow: hidden; border-radius: 999px; background: #e9edf3; }
+    .tk-scan .scan-progress-bar { display: block; width: var(--scan-progress); height: 100%; border-radius: inherit; background: var(--grad); transition: width 850ms linear; }
+    .tk-scan .scan-stage-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 2.5rem; }
+    .tk-scan .scan-stage-item { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; min-width: 0; text-align: center; color: #9aa0ad; transition: color 0.3s; }
+    .tk-scan .scan-stage-item:not(:last-child)::after { content: ""; position: absolute; z-index: 0; top: 1.5rem; left: calc(50% + 2rem); width: calc(100% - 4rem); height: 2px; border-radius: 2px; background: var(--hairline); }
+    .tk-scan .scan-stage-complete:not(:last-child)::after { background: var(--grad); }
+    .tk-scan .scan-stage-marker { position: relative; z-index: 1; display: inline-grid; width: 3rem; height: 3rem; place-items: center; border-radius: 999px; background: var(--off-white); color: #9aa0ad; transition: background-color 0.3s, color 0.3s, transform 0.4s var(--ease); }
+    .tk-scan .scan-stage-marker .scan-icon { width: 1.2rem; height: 1.2rem; }
+    .tk-scan .scan-stage-label { max-width: 11rem; font-size: 0.9rem; font-weight: 600; line-height: 1.35; letter-spacing: -0.01em; }
+    .tk-scan .scan-stage-complete { color: var(--navy); }
+    .tk-scan .scan-stage-complete .scan-stage-marker { background: var(--navy); color: #fff; }
+    .tk-scan .scan-stage-active { color: var(--charcoal); }
+    .tk-scan .scan-stage-active .scan-stage-marker { background: var(--green); color: var(--navy); transform: scale(1.08); box-shadow: 0 14px 28px -16px rgba(95, 143, 34, 0.9); }
+    .tk-scan .scan-progress-note { display: flex; align-items: center; justify-content: center; gap: 0.55rem; margin-top: 2.5rem; font-size: 0.9rem; color: var(--muted); text-align: center; }
+    .tk-scan .scan-progress-note .scan-icon { width: 1rem; height: 1rem; color: var(--key-blue); }
+
+    /* Unlock step: navy panel, email card inside */
+    .tk-scan__gate { padding-block: clamp(3rem, 6vw, 6rem); background: var(--off-white); }
+    .tk-scan .report-gate-shell { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); grid-template-areas: "head unlock" "list unlock"; grid-template-rows: auto 1fr; column-gap: clamp(2rem, 4vw, 4rem); padding: clamp(0.5rem, 0.8vw, 0.75rem); padding-left: clamp(2rem, 5vw, 4.5rem); border-radius: 44px; background: var(--navy); color: #fff; box-shadow: 0 40px 90px -56px rgba(20, 22, 28, 0.8); position: relative; overflow: hidden; isolation: isolate; }
+    .tk-scan .report-gate-shell::before { content: ""; position: absolute; z-index: -1; top: -12rem; left: -10rem; width: 34rem; height: 34rem; border-radius: 999px; background: radial-gradient(circle, rgba(63, 140, 203, 0.45), transparent 65%); }
+    .tk-scan__gate-head { grid-area: head; padding-top: clamp(2.5rem, 5vw, 4.5rem); }
+    .tk-scan__ready { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 2.5rem; padding: 0 1rem 0 0.4rem; border-radius: 999px; background: #fff; font-size: 0.9rem; font-weight: 600; color: var(--navy); }
+    .tk-scan .tk-scan__gate-kicker { margin-top: 1.75rem; color: #8cc3ec; }
+    .tk-scan__gate-title { margin-top: 0.75rem; max-width: 12ch; font-size: clamp(2.6rem, 5vw, 4.9rem); font-weight: 600; line-height: 0.98; letter-spacing: -0.058em; text-wrap: balance; }
+    .tk-scan__gate-text { margin-top: 1.5rem; max-width: 34rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: rgba(255, 255, 255, 0.74); }
+    .tk-scan__gate-text strong { font-weight: 600; color: #fff; }
+    .tk-scan__gate-list { grid-area: list; align-self: end; display: grid; max-width: 34rem; margin-block: 2.5rem clamp(2.5rem, 5vw, 4.5rem); border-top: 1px solid rgba(255, 255, 255, 0.14); }
+    .tk-scan__gate-item { display: flex; align-items: center; gap: 0.9rem; padding-block: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.14); font-weight: 500; color: rgba(255, 255, 255, 0.9); }
+    .tk-scan .report-gate-unlock { grid-area: unlock; display: flex; flex-direction: column; justify-content: center; padding: clamp(1.75rem, 4vw, 3.25rem); border-radius: 36px; background: #fff; color: var(--charcoal); }
+    .tk-scan__unlock-title { margin-top: 0.75rem; font-size: clamp(1.9rem, 3vw, 2.75rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.045em; text-wrap: balance; }
+    .tk-scan__unlock-text { margin-top: 1rem; line-height: 1.6; color: var(--muted); }
+    .tk-scan__unlock-form { margin-top: 1.75rem; }
+    .tk-scan__unlock-form .tk-scan__submit { margin-top: 1rem; }
+
+    /* Report */
+    .tk-scan__results { scroll-margin-top: var(--header-h); padding-block: clamp(3rem, 6vw, 6rem); background: var(--off-white); }
+    .tk-scan .report-heading { display: grid; gap: 0.75rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+    .tk-scan__results-title { font-size: clamp(2.6rem, 5.4vw, 5.25rem); font-weight: 600; line-height: 1; letter-spacing: -0.058em; color: var(--charcoal); }
+    .tk-scan__facts { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-top: 0.5rem; font-size: 0.95rem; color: var(--muted); }
+    .tk-scan__fact { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .tk-scan__fact--shop { font-weight: 600; color: var(--navy); }
+    .tk-scan__fact--done { font-weight: 600; color: var(--navy); }
+    .tk-scan__fact .v6-mark { width: 1.3rem; height: 1.3rem; }
+    .tk-scan__fact-icon { display: inline-grid; width: 1rem; height: 1rem; color: var(--key-blue); }
+    .tk-scan__dot { color: #c3c7cf; }
+    .tk-scan__analysis { padding: 0.35rem 0.8rem; border-radius: 999px; background: #fff; font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+
+    .tk-scan .scan-results-report { display: grid; gap: clamp(1rem, 2vw, 1.5rem); }
+    .tk-scan .report-card { border-radius: 30px; background: #fff; padding: clamp(1.5rem, 2.6vw, 2.25rem); }
+    .tk-scan__top { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: inherit; }
+    .tk-scan .scan-score-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 19rem; }
+    .tk-scan__score-label { font-size: 0.95rem; font-weight: 600; color: var(--charcoal); }
+    .tk-scan .score-ring { position: relative; display: grid; width: 9.5rem; aspect-ratio: 1; margin-top: 1.25rem; place-items: center; border-radius: 999px; background: conic-gradient(var(--score-color, var(--green)) calc(var(--score) * 1%), #edf0f5 0); }
+    .tk-scan .score-ring::after { content: ""; position: absolute; inset: 0.6rem; border-radius: inherit; background: #fff; }
+    .tk-scan .score-ring-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+    .tk-scan__score { font-size: 3.25rem; font-weight: 600; line-height: 1; letter-spacing: -0.07em; color: var(--navy); }
+    .tk-scan__score-of { margin-top: 0.2rem; font-size: 0.8rem; color: var(--muted); }
+    .tk-scan .report-status { margin-top: 1.25rem; padding: 0.4rem 0.9rem; border-radius: 999px; background: #eaf5dc; color: #4f7722; font-size: 0.82rem; font-weight: 600; }
+    .tk-scan .report-status[data-score-tone="caution"] { background: #fff2cf; color: #8a6717; }
+    .tk-scan .report-status[data-score-tone="danger"] { background: #fdecea; color: #a53f37; }
+    .tk-scan__score-note { margin-top: 1rem; max-width: 26ch; font-size: 0.8rem; line-height: 1.5; color: var(--muted); }
+
+    .tk-scan .scan-verdict-panel { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; padding: clamp(1.75rem, 4vw, 3.25rem); border-radius: 30px; background: var(--navy); color: #fff; }
+    .tk-scan .scan-verdict-panel::before { content: ""; position: absolute; z-index: -1; right: -10rem; top: -12rem; width: 30rem; height: 30rem; border-radius: 999px; background: radial-gradient(circle, rgba(63, 140, 203, 0.5), transparent 65%); }
+    .tk-scan__verdict-inner { max-width: 44rem; }
+    .tk-scan__verdict-head { display: flex; align-items: center; gap: 0.75rem; }
+    .tk-scan__verdict-head h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; color: #8cc3ec; }
+    .tk-scan__verdict-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--green); color: var(--navy); }
+    .tk-scan__verdict-icon .v6-icon { width: 1.15rem; height: 1.15rem; }
+    .tk-scan__verdict { margin-top: 1.25rem; font-size: clamp(1.4rem, 2.4vw, 2.2rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.035em; text-wrap: pretty; }
+    .tk-scan__match { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 0.92rem; line-height: 1.5; color: rgba(255, 255, 255, 0.7); }
+    .tk-scan__match-label { font-weight: 600; color: #fff; }
+    .tk-scan__match-dot { color: rgba(255, 255, 255, 0.3); }
+
+    .tk-scan .report-section-label { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
+    .tk-scan .report-section-label h3 { font-size: clamp(1.3rem, 1.9vw, 1.7rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; }
+    .tk-scan__label-icon { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 999px; background: #fff; color: var(--navy); }
+    .tk-scan__label-icon .v6-icon { width: 1.1rem; height: 1.1rem; }
+    .tk-scan__block { margin-top: clamp(0.5rem, 1.5vw, 1.25rem); }
+    .tk-scan__understood { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(0.75rem, 1.5vw, 1.25rem); }
+    .tk-scan .understood-card { display: flex; flex-direction: column; gap: 1rem; min-height: 11rem; }
+    .tk-scan .understood-card > span { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px; background: var(--green); color: var(--navy); font-size: 0.9rem; font-weight: 700; }
+    .tk-scan .understood-card h4 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.03em; color: var(--charcoal); }
+    .tk-scan .understood-card p { font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+
+    .tk-scan__pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: inherit; }
+    .tk-scan .report-strip { display: flex; align-items: flex-start; gap: 1.1rem; }
+    .tk-scan .report-strip-icon, .tk-scan .report-action-icon { display: grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem; border-radius: 999px; }
+    .tk-scan .report-strip-icon .v6-icon, .tk-scan .report-action-icon .v6-icon { width: 1.2rem; height: 1.2rem; }
+    .tk-scan__alert { position: relative; background: #fdecea; }
+    .tk-scan__alert::before { content: ""; position: absolute; left: 50%; top: 28%; width: 2.5px; height: 28%; margin-left: -1.25px; border-radius: 2px; background: #c9544a; }
+    .tk-scan__alert::after { content: ""; position: absolute; left: 50%; bottom: 26%; width: 3.5px; height: 3.5px; margin-left: -1.75px; border-radius: 999px; background: #c9544a; }
+    .tk-scan__strip-icon--blue { background: var(--key-blue-soft); color: var(--navy); }
+    .tk-scan__grow { min-width: 0; flex: 1; }
+    .tk-scan__card-title { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; color: var(--charcoal); }
+    .tk-scan__card-text { margin-top: 0.5rem; line-height: 1.6; color: var(--muted); }
+    .tk-scan__card-text strong { font-weight: 600; color: var(--navy); }
+    .tk-scan__meter { height: 0.45rem; margin-top: 1rem; overflow: hidden; border-radius: 999px; background: #edf0f5; }
+    .tk-scan__meter-bar { display: block; height: 100%; border-radius: inherit; background: var(--grad); transition: width 0.5s var(--ease); }
+
+    .tk-scan__split { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: inherit; align-items: stretch; }
+    .tk-scan__split > .tk-scan__block { display: flex; flex-direction: column; }
+    .tk-scan__insight { flex: 1; }
+    .tk-scan__mini { font-size: 0.85rem; font-weight: 600; color: var(--charcoal); }
+    .tk-scan__confidence { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-top: 0.75rem; }
+    .tk-scan__pill { padding: 0.3rem 0.8rem; border-radius: 999px; background: #eaf5dc; color: #4c7620; font-size: 0.8rem; font-weight: 600; }
+    .tk-scan [data-confidence-pill][data-confidence="medium"] { background: #fff2cf; color: #8a6717; }
+    .tk-scan [data-confidence-pill][data-confidence="low"] { background: #fdecea; color: #a53f37; }
+    .tk-scan__confidence-text { font-size: 0.88rem; line-height: 1.5; color: var(--muted); }
+    .tk-scan__rule { height: 1px; margin-block: 1.5rem; background: var(--hairline); }
+    .tk-scan__actions { display: grid; gap: clamp(0.75rem, 1.5vw, 1rem); flex: 1; }
+    .tk-scan .report-action-card { display: flex; align-items: flex-start; gap: 1.1rem; padding: clamp(1.4rem, 2.4vw, 2rem); border-radius: 30px; background: #fff; }
+    .tk-scan__action--good .report-action-icon { background: #eaf5dc; }
+    .tk-scan__action--good .v6-mark { width: 1.6rem; height: 1.6rem; }
+    .tk-scan__action--fix .report-action-icon { background: var(--key-blue-soft); color: var(--navy); }
+    .tk-scan__cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1.25rem; }
+
+    .tk-scan__how { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: clamp(0.5rem, 1.5vw, 1rem); padding: 1.4rem clamp(1.5rem, 3vw, 2.25rem); border-radius: 26px; background: var(--navy); color: rgba(255, 255, 255, 0.74); line-height: 1.6; }
+    .tk-scan__how strong { font-weight: 600; color: #fff; }
+    .tk-scan__cta-row .v6-link, .tk-scan__how .v6-link { min-height: 2.75rem; }
+
+    /* Booking */
+    .tk-scan__schedule { scroll-margin-top: var(--header-h); padding-block: clamp(4rem, 8vw, 7rem); background: #fff; }
+    .tk-scan__schedule-head { display: grid; justify-items: center; gap: 1rem; text-align: center; }
+    .tk-scan__schedule-title { max-width: 16ch; font-size: clamp(2.4rem, 4.8vw, 4.6rem); font-weight: 600; line-height: 1.02; letter-spacing: -0.052em; text-wrap: balance; }
+    .tk-scan__schedule-text { max-width: 38rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: var(--muted); }
+    .tk-scan__sheet { max-width: 64rem; margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; padding: 0.6rem; border-radius: 32px; background: #fff; box-shadow: 0 40px 90px -50px rgba(35, 46, 102, 0.55), 0 0 0 1px rgba(35, 46, 102, 0.08); }
+    .tk-scan__frame { display: block; width: 100%; min-height: 800px; border: 0; border-radius: 24px; background: #fff; }
+
+    @media (max-width: 1100px) {
+      .tk-scan__grid { column-gap: 2.5rem; }
+      .tk-scan__top { grid-template-columns: 1fr; }
+      .tk-scan__split { grid-template-columns: 1fr; }
     }
 
-    .scan-icon-location {
-      mask-image: url("/images/icons/ai-scan/location.svg");
-    }
-
-    .scan-icon-search {
-      mask-image: url("/images/icons/ai-scan/search.svg");
-    }
-
-    .scan-icon-pages {
-      mask-image: url("/images/icons/ai-scan/pages.svg");
-    }
-
-    .scan-icon-ai {
-      mask-image: url("/images/icons/ai-scan/ai.svg");
-    }
-
-    .scan-icon-clock {
-      mask-image: url("/images/icons/ai-scan/clock.svg");
-    }
-
-    .scan-stage-hero-icon {
-      position: relative;
-      display: inline-grid;
-      width: 5rem;
-      height: 4.5rem;
-      place-items: center;
-      color: var(--green);
-    }
-
-    .scan-stage-hero-icon > .scan-icon {
-      position: relative;
-      z-index: 2;
-      width: 1.9rem;
-      height: 1.9rem;
-      filter: drop-shadow(0 9px 12px rgba(95, 143, 34, 0.2));
-    }
-
-    .scan-stage-pulse {
-      position: absolute;
-      top: 50%;
-      width: 2rem;
-      height: 3.25rem;
-      border: 3px solid rgba(63, 140, 203, 0.15);
-      border-top-color: transparent;
-      border-bottom-color: transparent;
-      animation: scan-signal-pulse 1.7s ease-in-out infinite;
-    }
-
-    .scan-stage-pulse-left {
-      left: 0.25rem;
-      border-right: 0;
-      border-radius: 3rem 0 0 3rem;
-      transform: translateY(-50%);
-    }
-
-    .scan-stage-pulse-right {
-      right: 0.25rem;
-      border-left: 0;
-      border-radius: 0 3rem 3rem 0;
-      transform: translateY(-50%);
-      animation-delay: 0.18s;
-    }
-
-    @keyframes scan-signal-pulse {
-      0%,
-      100% {
-        opacity: 0.45;
-        scale: 0.84;
-      }
-
-      50% {
-        opacity: 1;
-        scale: 1;
-      }
-    }
-
-    .scan-progress-track {
-      height: 0.55rem;
-      overflow: hidden;
-      border-radius: 999px;
-      background: #e8edf6;
-      box-shadow: inset 0 1px 2px rgba(35, 46, 102, 0.08);
-    }
-
-    .scan-progress-bar {
-      display: block;
-      width: var(--scan-progress);
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--green), #80d91f);
-      box-shadow: 0 0 18px rgba(147, 200, 69, 0.28);
-      transition: width 850ms linear;
-    }
-
-    .scan-stage-grid {
-      display: grid;
-      border-top: 1px solid rgba(35, 46, 102, 0.11);
-      border-bottom: 1px solid rgba(35, 46, 102, 0.11);
-    }
-
-    .scan-stage-item {
-      position: relative;
-      display: grid;
-      grid-template-columns: 2.8rem 1fr;
-      gap: 0.9rem;
-      align-items: center;
-      padding: 0.95rem 0;
-      border-bottom: 1px solid rgba(35, 46, 102, 0.09);
-      color: rgba(35, 46, 102, 0.36);
-      transition: color 260ms ease;
-    }
-
-    .scan-stage-item:last-child {
-      border-bottom: 0;
-    }
-
-    .scan-stage-marker {
-      position: relative;
-      z-index: 1;
-      display: inline-grid;
-      width: 2.75rem;
-      height: 2.75rem;
-      place-items: center;
-      border: 1.5px solid rgba(35, 46, 102, 0.2);
-      border-radius: 999px;
-      background: #fff;
-      color: rgba(35, 46, 102, 0.42);
-      transition: border-color 260ms ease, background 260ms ease, color 260ms ease, transform 260ms ease;
-    }
-
-    .scan-stage-marker .scan-icon {
-      width: 1.05rem;
-      height: 1.05rem;
-    }
-
-    .scan-stage-label {
-      max-width: 13rem;
-      font-size: 0.78rem;
-      font-weight: 650;
-      line-height: 1.35;
-    }
-
-    .scan-stage-complete {
-      color: rgba(35, 46, 102, 0.68);
-    }
-
-    .scan-stage-complete .scan-stage-marker {
-      border-color: var(--navy);
-      background: var(--navy);
-      color: #fff;
-    }
-
-    .scan-stage-active {
-      color: var(--navy-deep);
-    }
-
-    .scan-stage-active .scan-stage-marker {
-      border-color: var(--green);
-      background: var(--green);
-      color: #fff;
-      transform: scale(1.08);
-      box-shadow: 0 12px 25px -15px rgba(95, 143, 34, 0.8);
-    }
-
-    .scan-progress-note {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-    }
-
-    .scan-progress-note .scan-icon {
-      width: 0.85rem;
-      height: 0.85rem;
-      color: var(--green);
-    }
-
-    @media (max-width: 639px) {
-      .ai-scan-hero {
-        padding-block: 2.5rem 2.75rem;
-      }
-
-      .ai-scan-hero-grid {
-        gap: 2.25rem;
-      }
-
-      .ai-scan-hero-copy .eyebrow {
-        font-size: 0.68rem;
-        letter-spacing: 0.16em;
-      }
-
-      .ai-scan-hero-copy h1 {
-        max-width: 10ch;
-        margin-top: 1rem;
-        margin-inline: auto;
-        font-size: clamp(2.65rem, 14vw, 3.45rem);
-        line-height: 0.98;
-      }
-
-      .ai-scan-hero-copy > p:nth-of-type(2) {
-        margin-top: 1.25rem;
-        font-size: 1rem;
-        line-height: 1.55;
-      }
-
-      .ai-scan-hero-copy > div {
-        margin-top: 1.4rem;
-        gap: 0.7rem 1rem;
-        font-size: 0.8rem;
-      }
-
-      #scan-form {
-        border-radius: 1.5rem;
-      }
-
-      #scan-form > div {
-        padding: 1.25rem;
-      }
-
-      #scan-form label {
-        margin-top: 1rem;
-      }
-
-      #scan-form label:first-of-type {
-        margin-top: 0;
-      }
-
-      #scan-form input {
-        height: 3.25rem;
-        border-radius: 1rem;
-        font-size: 1rem;
-      }
-
-      #scan-submit {
-        margin-top: 1.25rem;
-      }
-
-      .ai-scan-platform {
-        margin-top: 2rem;
-        gap: 0.9rem;
-        border-radius: 1.15rem;
-        padding: 0.95rem;
-        text-align: center;
-      }
-
-      .ai-scan-platform > p {
-        font-size: 0.75rem;
-      }
-
-      .ai-scan-platform-list {
-        display: grid;
-        width: 100%;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.4rem;
-      }
-
-      .ai-scan-platform-item {
-        min-width: 0;
-        flex-direction: column;
-        gap: 0.2rem;
-        font-size: 0.66rem;
-        line-height: 1.2;
-        text-align: center;
-      }
-
-      .ai-scan-platform-item img {
-        width: 1.7rem;
-        height: 1.7rem;
-      }
-
-      #scan-progress {
-        padding-block: 2.5rem;
-      }
-
-      .scan-progress-panel {
-        border-radius: 1.5rem;
-        padding: 1.5rem 1.1rem;
-      }
-
-      .scan-stage-hero-icon {
-        width: 4.25rem;
-        height: 3.75rem;
-      }
-
-      #scan-stage-title {
-        font-size: 2rem;
-      }
-
-      #scan-stage-detail {
-        font-size: 0.95rem;
-      }
-
-      .scan-stage-grid {
-        margin-top: 1.75rem;
-      }
-
-      .scan-stage-item {
-        grid-template-columns: 2.5rem 1fr;
-        gap: 0.7rem;
-        padding: 0.75rem 0;
-      }
-
-      .scan-stage-marker {
-        width: 2.35rem;
-        height: 2.35rem;
-      }
-
-      .scan-progress-note {
-        align-items: flex-start;
-        margin-top: 1.5rem;
-        font-size: 0.75rem;
-        line-height: 1.45;
-        text-align: left;
-      }
-
-      #report-gate,
-      #scan-results {
-        padding-block: 2.5rem;
-      }
-
-      #report-gate .container-page,
-      #scan-results .container-page {
-        padding-inline: 0.75rem;
-      }
-
-      .report-gate-shell,
-      .scan-results-report {
-        border-radius: 1.6rem;
-      }
-
-      .report-gate-summary {
-        padding: 1.5rem 1.25rem;
-      }
-
-      .report-gate-summary h2 {
-        margin-top: 1rem;
-        font-size: 2.55rem;
-        line-height: 0.98;
-      }
-
-      .report-gate-summary > .relative > p:nth-of-type(2) {
-        margin-top: 1.25rem;
-        font-size: 0.95rem;
-      }
-
-      .report-gate-summary .mt-9 {
-        margin-top: 1.5rem;
-      }
-
-      .report-gate-summary .py-4 {
-        padding-block: 0.75rem;
-        font-size: 0.86rem;
-      }
-
-      .report-gate-unlock {
-        margin: 0.4rem;
-        border-radius: 1.25rem;
-        padding: 1.25rem;
-      }
-
-      .report-gate-unlock h3 {
-        font-size: 2rem;
-      }
-
-      .report-gate-unlock input {
-        font-size: 1rem;
-      }
-
-      .scan-score-panel,
-      .scan-verdict-panel {
-        padding: 1.5rem 1.25rem;
-      }
-
-      .score-ring {
-        width: 9.5rem;
-      }
-
-      .scan-verdict-panel h3 {
-        font-size: 2rem;
-      }
-
-      .scan-results-report section {
-        border-radius: 1.25rem;
-      }
-
-      .scan-results-cta {
-        border-radius: 1.5rem;
-        padding: 1.5rem 1.25rem;
-      }
-
-      .scan-results-cta h3 {
-        font-size: 1.75rem;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .scan-stage-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        border: 0;
-      }
-
-      .scan-stage-item {
-        display: flex;
-        min-width: 0;
-        flex-direction: column;
-        gap: 0.7rem;
-        padding: 0;
-        border: 0;
-        text-align: center;
-      }
-
-      .scan-stage-item:not(:last-child)::after {
-        position: absolute;
-        z-index: 0;
-        top: 1.35rem;
-        left: calc(50% + 1.75rem);
-        width: calc(100% - 3.5rem);
-        height: 1px;
-        background: rgba(35, 46, 102, 0.16);
-        content: "";
-      }
-
-      .scan-stage-label {
-        max-width: 11.5rem;
-      }
-    }
-
-    .report-card {
-      border: 1px solid rgba(35, 46, 102, 0.11);
-      border-radius: 1.35rem;
-      background: #fff;
-      padding: 1.35rem;
-      box-shadow: 0 24px 58px -48px rgba(26, 35, 82, 0.48);
-    }
-
-    .report-section-label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: rgba(20, 22, 28, 0.6);
-      font-size: 0.69rem;
-      font-weight: 750;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .understood-card {
-      display: flex;
-      min-height: 9.5rem;
-      align-items: flex-start;
-      gap: 0.9rem;
-    }
-
-    .report-strip {
-      display: flex;
-      min-height: 8.1rem;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .report-strip-icon,
-    .report-action-icon {
-      display: inline-flex;
-      width: 2.65rem;
-      height: 2.65rem;
-      flex: 0 0 auto;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0.75rem;
-    }
-
-    .report-action-card {
-      display: flex;
-      min-height: 6.8rem;
-      align-items: flex-start;
-      gap: 1rem;
-      border-radius: 1.1rem;
-      background: #fff;
-      padding: 1.2rem;
-      box-shadow: 0 20px 50px -45px rgba(26, 35, 82, 0.55);
-    }
-
-    .report-status {
-      border-radius: 999px;
-      background: #eaf5dc;
-      padding: 0.4rem 0.8rem;
-      color: #4f7722;
-      font-size: 0.72rem;
-      font-weight: 750;
-    }
-
-    .report-status[data-score-tone="caution"] {
-      background: #fff2cf;
-      color: #8a6717;
-    }
-
-    .report-status[data-score-tone="danger"] {
-      background: #fee8e4;
-      color: #a53f37;
-    }
-
-    [data-confidence-pill][data-confidence="medium"] {
-      background: #fff2cf;
-      color: #8a6717;
-    }
-
-    [data-confidence-pill][data-confidence="low"] {
-      background: #fee8e4;
-      color: #a53f37;
-    }
-
-    .score-ring {
-      display: grid;
-      width: 9.25rem;
-      aspect-ratio: 1;
-      place-items: center;
-      border-radius: 999px;
-      background: conic-gradient(var(--score-color, var(--green)) calc(var(--score) * 1%), #edf0f5 0);
-      box-shadow: 0 24px 50px -36px rgba(26, 35, 82, 0.52);
-      position: relative;
-    }
-
-    .score-ring::after {
-      content: "";
-      position: absolute;
-      inset: 0.62rem;
-      border-radius: inherit;
-      background: #fff;
-      box-shadow: inset 0 0 0 1px rgba(35, 46, 102, 0.04);
-    }
-
-    .score-ring-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .recommendation-checks {
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    .recommendation-check {
-      display: grid;
-      grid-template-columns: 2.5rem 1fr;
-      gap: 0.9rem;
-      align-items: start;
-      border: 1px solid rgba(35, 46, 102, 0.11);
-      border-radius: 1.15rem;
-      background: #fff;
-      padding: 1rem;
-    }
-
-    .recommendation-check-marker {
-      display: inline-flex;
-      width: 2.5rem;
-      height: 2.5rem;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      font-weight: 800;
-    }
-
-    .recommendation-check-found {
-      background: #eaf3dc;
-      color: #557f20;
-    }
-
-    .recommendation-check-missing {
-      background: rgba(35, 46, 102, 0.07);
-      color: var(--navy);
-    }
-
-    .recommendation-check-query {
-      color: var(--charcoal);
-      font-size: 0.92rem;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    .recommendation-check-finding {
-      margin-top: 0.3rem;
-      color: rgba(20, 22, 28, 0.62);
-      font-size: 0.82rem;
-      line-height: 1.5;
-    }
-
-    .recommendation-check-context {
-      margin-top: 0.45rem;
-      color: rgba(20, 22, 28, 0.42);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 1023px) {
-      .score-ring {
-        width: 9rem;
-      }
+    /* Phones: one column, the form right after the headline, big thumb-friendly fields */
+    @media (max-width: 900px) {
+      .tk-scan__hero { padding-block: 1.75rem 3rem; }
+      .tk-scan__wash { top: -20rem; right: -24rem; width: 40rem; height: 40rem; }
+      .tk-scan__grid { grid-template-columns: 1fr; grid-template-areas: "intro" "form" "meta" "signals"; grid-template-rows: none; row-gap: 1.5rem; }
+      .tk-scan__intro { gap: 0.9rem; }
+      .tk-scan__title { font-size: clamp(2.55rem, 12vw, 3.6rem); max-width: 10ch; }
+      .tk-scan__lead { font-size: 1.05rem; line-height: 1.55; }
+      .tk-scan__formwrap { max-width: none; justify-self: stretch; margin-inline: calc(var(--gutter) * -0.4); width: auto; }
+      .tk-scan__form { gap: 1.1rem; padding: 1.35rem 1.2rem 1.4rem; }
+      .tk-scan__input { height: 3.625rem; font-size: 1.0625rem; }
+      .tk-scan__meta { justify-content: center; gap: 0.25rem 1.25rem; }
+      .tk-scan__chip { min-height: 2rem; padding: 0; gap: 0.45rem; background: none; font-size: 0.85rem; }
+      .tk-scan__chip-icon { width: 1.6rem; height: 1.6rem; background: var(--key-blue-soft); }
+      .tk-scan__signals { display: grid; gap: 0.25rem; margin-top: 0.75rem; padding-top: 1.5rem; }
+      .tk-scan__signals-title { font-size: 0.95rem; margin-bottom: 0.5rem; }
+      .tk-scan__signals-list { display: grid; gap: 0; }
+      .tk-scan__signal { min-height: 3.5rem; border-bottom: 1px solid var(--hairline); }
+      .tk-scan__signal:last-child { border-bottom: 0; }
+
+      .tk-scan .scan-progress-panel { border-radius: 30px; margin-inline: calc(var(--gutter) * -0.4); padding: 2rem 1.25rem; }
+      .tk-scan__progress-title { font-size: clamp(2rem, 9vw, 2.5rem); }
+      .tk-scan__track-wrap { margin-top: 1.75rem; }
+      .tk-scan .scan-stage-grid { grid-template-columns: 1fr; margin-top: 1.5rem; }
+      .tk-scan .scan-stage-item { flex-direction: row; gap: 0.9rem; min-height: 3.75rem; padding-block: 0.4rem; text-align: left; }
+      .tk-scan .scan-stage-item:not(:last-child)::after { top: calc(50% + 1.5rem); left: 1.35rem; width: 2px; height: calc(100% - 3rem); }
+      .tk-scan .scan-stage-marker { width: 2.75rem; height: 2.75rem; flex: none; }
+      .tk-scan .scan-stage-label { max-width: none; font-size: 0.98rem; }
+      .tk-scan .scan-progress-note { align-items: flex-start; justify-content: flex-start; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--hairline); font-size: 0.88rem; line-height: 1.5; text-align: left; }
+      .tk-scan .scan-progress-note .scan-icon { margin-top: 0.2rem; }
+
+      .tk-scan .report-gate-shell { grid-template-columns: 1fr; grid-template-areas: "head" "unlock" "list"; grid-template-rows: none; margin-inline: calc(var(--gutter) * -0.4); padding: 0.4rem; border-radius: 32px; }
+      .tk-scan__gate-head { padding: 1.75rem 1.1rem 1.75rem; }
+      .tk-scan .tk-scan__gate-kicker { margin-top: 1.25rem; }
+      .tk-scan__gate-title { font-size: clamp(2.4rem, 11vw, 3.1rem); }
+      .tk-scan__gate-text { margin-top: 1rem; font-size: 1rem; }
+      .tk-scan .report-gate-unlock { padding: 1.5rem 1.2rem; border-radius: 28px; }
+      .tk-scan__unlock-title { font-size: 1.75rem; }
+      .tk-scan__unlock-form { margin-top: 1.25rem; }
+      .tk-scan__gate-list { max-width: none; margin: 0.5rem 1.1rem 1rem; border-top: 0; }
+      .tk-scan__gate-item { font-size: 0.95rem; }
+      .tk-scan__gate-item:last-child { border-bottom: 0; }
+
+      .tk-scan__results { padding-block: 2.5rem 3rem; }
+      .tk-scan__results-title { font-size: clamp(2.3rem, 10.5vw, 3rem); }
+      .tk-scan__facts { gap: 0.5rem 0.6rem; font-size: 0.9rem; }
+      .tk-scan__dot { display: none; }
+      .tk-scan__facts > .tk-scan__fact { width: 100%; }
+      .tk-scan .scan-results-report { gap: 0.75rem; margin-inline: calc(var(--gutter) * -0.4); }
+      .tk-scan .report-card, .tk-scan .report-action-card { border-radius: 24px; padding: 1.35rem 1.2rem; }
+      .tk-scan .scan-score-panel { min-height: 0; padding-block: 1.75rem; }
+      .tk-scan .scan-verdict-panel { border-radius: 24px; padding: 1.6rem 1.25rem; }
+      .tk-scan__verdict { font-size: 1.35rem; }
+      .tk-scan__match-dot { display: none; }
+      .tk-scan__match > span { width: 100%; }
+      .tk-scan__block { margin-top: 1rem; }
+      .tk-scan .report-section-label { padding-inline: 0.2rem; margin-bottom: 0.75rem; }
+      .tk-scan .report-section-label h3 { font-size: 1.3rem; }
+      .tk-scan__understood { grid-template-columns: 1fr; gap: 0.75rem; }
+      .tk-scan .understood-card { flex-direction: row; align-items: flex-start; min-height: 0; }
+      .tk-scan__pair { grid-template-columns: 1fr; }
+      .tk-scan__cta-row { flex-direction: column; align-items: stretch; gap: 0.25rem; }
+      .tk-scan__cta-row .v6-btn, .tk-scan__cta-row .v6-link { justify-content: center; }
+      .tk-scan__how { margin-top: 0.75rem; padding: 1.35rem 1.2rem; border-radius: 24px; }
+      .tk-scan__how .v6-link { min-height: 2.75rem; }
+
+      .tk-scan__schedule { padding-block: 3.5rem; }
+      .tk-scan__schedule-title { font-size: clamp(2.2rem, 10vw, 2.9rem); }
+      .tk-scan__schedule-text { font-size: 1rem; }
+      .tk-scan__sheet { margin-inline: calc(var(--gutter) * -0.6); padding: 0.4rem; border-radius: 26px; }
+      .tk-scan__frame { border-radius: 22px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .scan-stage-pulse {
-        animation: none;
-        opacity: 0.75;
-      }
-
-      .scan-progress-bar {
-        transition: none;
-      }
-
+      .tk-scan .scan-stage-pulse { animation: none; opacity: 0.75; }
+      .tk-scan .scan-progress-bar { transition: none; }
     }
   </style>
-</BaseLayout>
+</V6Layout>

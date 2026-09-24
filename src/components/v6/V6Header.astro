@@ -1,0 +1,67 @@
+---
+// v6 site header: same destinations as the current header, new design.
+import { CONSULTATION_URL, services } from "@/lib/services";
+import { chevron, iconSrc, serviceIcons, arrow } from "@/lib/v6";
+
+const navLinks = [
+  { label: "Results", href: "/results" },
+  { label: "Resources", href: "/resources" },
+  { label: "About", href: "/about" },
+];
+const vip = services.find((service) => service.featured) ?? services[0];
+const rest = services.filter((service) => service !== vip);
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isActive = (href: string) => currentPath === href || currentPath.startsWith(`${href}/`);
+const current = (href: string) => (isActive(href) ? "page" : undefined);
+---
+
+<header class="v6-header" data-header>
+  <div class="v6-wrap v6-header__inner">
+    <a href="/" class="v6-header__logo site-logo-link" aria-label="Turnkey Marketing home"><img src="/turnkey-marketing-logo-2026.webp" alt="Turnkey Marketing" width="170" height="45" /></a>
+    <nav class="v6-header__nav" aria-label="Primary">
+      <div class="v6-header__drop">
+        <a href="/services" aria-current={current("/services")}>Services <span set:html={chevron} /></a>
+        <div class="v6-drop">
+          <div class="v6-drop__panel">
+            <a href={`/services/${vip.slug}`} class="v6-drop__vip">
+              <span class="v6-drop__icon"><span class="v6-icon" style={`--icon:url(${iconSrc("vip")})`}></span></span>
+              <strong>{vip.name}</strong>
+              <span>We make the plan, keep every vendor moving, and show you what is actually working.</span>
+            </a>
+            <div class="v6-drop__list">
+              {rest.map((service) => (
+                <a href={`/services/${service.slug}`} class="v6-drop__item">
+                  <span class="v6-drop__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[service.slug] ?? "target")})`}></span></span>
+                  <span><strong>{service.name}</strong><small>{service.tagline}</small></span>
+                </a>
+              ))}
+              <a href="/services" class="v6-drop__all">Compare every service <span set:html={arrow} /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {navLinks.map((link) => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
+    </nav>
+    <div class="v6-header__end">
+      <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--sm" data-track-event="consultation_cta_click" data-track-placement="navbar"><span>Book a Strategy Call</span></a>
+      <button type="button" class="v6-burger" data-menu-btn aria-expanded="false" aria-controls="v6-menu"><span class="v6-sr">Menu</span><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="v6-menu" id="v6-menu" data-menu hidden>
+  <nav class="v6-wrap v6-menu__nav" aria-label="Mobile">
+    <a href="/services" aria-current={current("/services")}>Services</a>
+    {navLinks.map((link) => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
+    <a href="/contact" aria-current={current("/contact")}>Contact</a>
+    <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--lg" data-track-event="consultation_cta_click" data-track-placement="mobile_menu"><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+    <p class="v6-menu__label">Every service</p>
+    <div class="v6-menu__services">
+      {services.map((service) => (
+        <a href={`/services/${service.slug}`}>
+          <span class="v6-drop__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[service.slug] ?? "target")})`}></span></span>
+          {service.name}
+        </a>
+      ))}
+    </div>
+  </nav>
+</div>

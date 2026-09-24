@@ -1,26 +1,8 @@
 ---
-import {
-  ArrowRight,
-  BarChart3,
-  Building2,
-  Check,
-  ChevronRight,
-  CircleDollarSign,
-  ClipboardCheck,
-  Compass,
-  Gauge,
-  Layers3,
-  Mail,
-  MapPin,
-  Megaphone,
-  MonitorPlay,
-  PhoneCall,
-  Search,
-  Target,
-  Users,
-} from "lucide-react";
 import { CONSULTATION_URL } from "@/lib/services";
 import type { ResourcePost } from "@/lib/resource-posts";
+import ExternalSources from "@/components/resources/ExternalSources.astro";
+import { arrow, iconSrc, split } from "@/lib/v6";
 
 interface Props {
   post: ResourcePost;
@@ -30,19 +12,16 @@ const { post } = Astro.props;
 
 const problems = [
   {
-    number: "01",
     title: "Every vendor sees one channel.",
-    body: "The paid-search vendor reports clicks. The website company reports traffic. The mail company reports pieces delivered. The owner is left deciding whether any of it helped the schedule.",
+    body: "The paid-search vendor reports clicks. The website company reports traffic. The mail house reports pieces delivered. And you're the one left guessing whether any of it actually filled the schedule.",
   },
   {
-    number: "02",
     title: "The handoffs are nobody's job.",
-    body: "A promising ad still fails when the offer is unclear, the landing page changes the message, the phone is answered poorly, or the shop cannot accept the work being promoted.",
+    body: "A good ad still fails when the offer is unclear, the landing page changes the message, the phone gets answered poorly, or the shop can't take the work being promoted.",
   },
   {
-    number: "03",
     title: "Reports stop before the repair order.",
-    body: "Impressions, reach, clicks, and leads explain delivery. They do not tell you whether the right person called, booked, showed, approved work, or came back.",
+    body: "Impressions, reach, clicks, and leads prove the ads ran. They don't tell you whether the right person called, booked, showed up, approved work, or came back.",
   },
 ];
 
@@ -62,7 +41,7 @@ const ownership = [
   {
     label: "Turnkey coordinates",
     title: "Specialists already on your team",
-    body: "Google Ads, Local Services Ads, website, media, and other vendors can receive clearer direction and accountability through the right Consulting or VIP relationship.",
+    body: "Your Google Ads, Local Services Ads, website, media, and other vendors get clearer direction and real accountability through the right Consulting or VIP relationship.",
     accent: "white",
   },
   {
@@ -75,51 +54,51 @@ const ownership = [
 
 const channels = [
   {
-    icon: Search,
+    icon: "internet",
     name: "Paid search",
     job: "Capture existing demand",
-    best: "Drivers are actively searching for a nearby shop or a specific service.",
-    watch: "Cost rises quickly when geography, service intent, landing pages, and call quality are loose.",
-    owner: "Often an outside specialist; Turnkey can direct and coordinate the role.",
+    best: "Drivers are already searching for a nearby shop or a specific service.",
+    watch: "Costs climb fast when geography, service intent, landing pages, and call quality are loose.",
+    owner: "Often an outside specialist. Turnkey can direct and coordinate the role.",
   },
   {
-    icon: MapPin,
+    icon: "location",
     name: "Local Services Ads",
     job: "Generate eligible local leads",
-    best: "The shop is eligible, ready to manage lead quality, and disciplined about response and disputes.",
-    watch: "Lead volume is not booked work. Eligibility, geography, response, and dispute handling matter.",
-    owner: "Often an outside specialist or shop account; Turnkey can oversee the plan around it.",
+    best: "The shop is eligible, ready to manage lead quality, and disciplined about response time and disputes.",
+    watch: "Lead volume isn't booked work. Eligibility, geography, response, and dispute handling all matter.",
+    owner: "Often an outside specialist or the shop's own account. Turnkey can oversee the plan around it.",
   },
   {
-    icon: Target,
+    icon: "target",
     name: "DirectTrack",
     job: "Create targeted local demand",
-    best: "The shop needs better-fit new-customer acquisition beyond people already searching today.",
-    watch: "Targeting, creative, frequency, landing experience, and shop capacity must agree.",
+    best: "You need better-fit new customers beyond the people who are already searching today.",
+    watch: "Targeting, creative, frequency, the landing experience, and shop capacity all have to agree.",
     owner: "Planned, managed, measured, and reviewed directly by Turnkey.",
   },
   {
-    icon: Mail,
+    icon: "direct-mail",
     name: "Direct mail",
     job: "Reach selected households repeatedly",
-    best: "You can choose a mailing list, offer, schedule, and follow-up plan that fit the shop's market.",
-    watch: "The wrong list or a one-off drop can make good creative look ineffective.",
+    best: "You can choose a mailing list, offer, schedule, and follow-up plan that fit your market.",
+    watch: "The wrong list or a one-time drop can make good creative look like it failed.",
     owner: "Available as a managed Turnkey campaign.",
   },
   {
-    icon: Megaphone,
+    icon: "social-media-marketing",
     name: "Paid social",
     job: "Build awareness and support a campaign",
-    best: "The shop has strong real-world creative, a defined local audience, and a useful next action.",
-    watch: "Engagement is not demand. Make the path from the ad to the shop measurable.",
+    best: "You have strong real-world creative, a defined local audience, and a useful next step for the people who see it.",
+    watch: "Engagement isn't demand. Make the path from the ad to the shop measurable.",
     owner: "Turnkey scope depends on the selected service and campaign.",
   },
   {
-    icon: Users,
+    icon: "retention",
     name: "Retention",
     job: "Earn the next visit",
-    best: "The shop wants to bring existing customers back with regular follow-up.",
-    watch: "Poor data, irrelevant messages, and constant offers can train customers to ignore the shop.",
+    best: "You want existing customers coming back through regular, relevant follow-up.",
+    watch: "Poor data, irrelevant messages, and nonstop offers can train customers to ignore you.",
     owner: "Available through Turnkey Retention Marketing.",
   },
 ];
@@ -127,23 +106,23 @@ const channels = [
 const process = [
   {
     title: "Name the shop problem.",
-    body: "Is the real need more new customers, a stronger work mix, help with a slow period, better retention, or accountability for money already being spent?",
+    body: "What do you really need? More new customers, a stronger work mix, help through a slow period, better retention, or accountability for money you're already spending?",
   },
   {
     title: "Define the customer and offer.",
-    body: "Choose the household, vehicle, service need, geography, reason to trust the shop, and next action before anyone builds an ad.",
+    body: "Before anyone builds an ad, choose the household, vehicle, service need, geography, reason to trust the shop, and next step.",
   },
   {
     title: "Give every channel one job.",
-    body: "Decide what captures demand, what creates it, what supports trust, and what earns the next visit. Remove channels that have no clear role.",
+    body: "Decide what captures demand, what creates it, what builds trust, and what earns the next visit. Cut any channel that has no clear role.",
   },
   {
     title: "Direct the vendors and handoffs.",
-    body: "Align the message, landing experience, tracking, phone greeting, schedule, advisor explanation, and reporting before the campaign goes live.",
+    body: "Before the campaign goes live, line up the message, landing experience, tracking, phone greeting, schedule, advisor explanation, and reporting.",
   },
   {
     title: "Measure, decide, and adjust.",
-    body: "Review the full path to completed work. Keep, fix, stop, or expand based on useful evidence—not the loudest vendor report.",
+    body: "Review the whole path to completed work. Then keep, fix, stop, or expand based on real evidence, not whichever vendor report is loudest.",
   },
 ];
 
@@ -158,7 +137,7 @@ const measurement = [
 
 const vendorQuestions = [
   "What exact shop problem is this campaign responsible for solving?",
-  "Who is the intended customer—and who are we deliberately not targeting?",
+  "Who is the intended customer, and who are we deliberately not targeting?",
   "Which services and work mix can the shop accept right now?",
   "How will the message, landing experience, phone handoff, and advisor explanation stay aligned?",
   "Which account, data, creative, and tracking assets will the shop own?",
@@ -167,290 +146,236 @@ const vendorQuestions = [
 ];
 ---
 
-<article>
-  <section class="relative overflow-hidden bg-[var(--off-white)] py-8 md:py-12 lg:py-16">
-    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-      <span class="absolute -right-28 -top-24 h-80 w-80 rounded-full bg-[var(--key-blue)]/10 blur-3xl"></span>
-      <span class="absolute -bottom-40 left-[18%] h-80 w-80 rounded-full bg-[var(--green)]/10 blur-3xl"></span>
-    </div>
-
-    <div class="container-page relative">
-      <nav aria-label="Breadcrumb" class="flex items-center gap-1.5 text-sm text-charcoal/58">
-        <a href="/resources" class="inline-flex min-h-11 items-center transition hover:text-charcoal">Resources</a>
-        <ChevronRight className="h-3.5 w-3.5" />
-        <span class="font-medium text-charcoal">Advertising guide</span>
+<article class="tk-ad" data-art-body>
+  <section class="tk-art__hero">
+    <div class="v6-wrap">
+      <nav aria-label="Breadcrumb" class="v6-crumbs tk-ad__crumbs">
+        <a href="/resources" class="tk-ad__crumb">Resources</a>
+        <span class="tk-ad__crumb-sep" aria-hidden="true"></span>
+        <span class="tk-ad__crumb-here">Advertising guide</span>
       </nav>
 
-      <div class="mt-8 grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
-        <div class="lg:col-span-7">
-          <p class="eyebrow text-[var(--key-blue)]">Auto repair advertising guide</p>
-          <h1 class="display-1 mt-5 max-w-[12ch] text-balance text-charcoal">
-            Auto repair advertising that works as
-            <span class="text-[var(--key-blue)]">one plan.</span>
-          </h1>
-          <p class="mt-6 max-w-[59ch] text-lg leading-relaxed text-charcoal/68 md:text-xl">
-            You should not have to become the marketing manager for every vendor. Turnkey helps
-            direct your auto shop advertising—setting the strategy, doing the work that belongs in
-            our service scope, and coordinating outside partners so the whole plan serves the shop.
+      <div class="tk-art__head">
+        <div class="tk-art__head-text">
+          <h1 class="tk-art__title tk-art__title--xl" data-words set:html={split([{ t: "Auto repair advertising that works as" }, { t: "one plan.", accent: true }])} />
+          <p class="tk-art__dek" data-fade style="--d:2">
+            You shouldn't have to become the marketing manager for every vendor you hire. Turnkey
+            helps direct your auto shop advertising. We set the strategy, do the work inside our
+            service scope, and coordinate your outside partners so the whole plan serves the shop.
           </p>
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div class="tk-art__actions" data-fade style="--d:3">
             <a
               href="/services/directtrack-marketing"
-              class="btn-primary w-full sm:w-auto"
+              class="v6-btn v6-btn--navy v6-btn--lg"
               data-track-event="service_cta_click"
               data-track-slug="directtrack-marketing"
               data-track-placement="advertising_guide_hero"
             >
-              Explore DirectTrack
-              <ArrowRight className="h-4 w-4" />
+              <span>Explore DirectTrack</span>
+              <i set:html={arrow} />
             </a>
-            <a href="#build-the-plan" class="btn-ghost w-full justify-center sm:w-auto">
+            <a href="#build-the-plan" class="v6-link">
               See how the plan works
             </a>
           </div>
-          <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-charcoal/10 pt-6 text-sm text-charcoal/55">
+          <div class="tk-art__byline tk-ad__byline" data-fade style="--d:3">
             <span>For independent auto shop owners</span>
             <span aria-hidden="true">•</span>
             <time datetime={post.updatedDate ?? post.originalDate}>{post.date}</time>
             <span aria-hidden="true">•</span>
-            <a href="/about" class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4">
+            <a href="/about" class="tk-art__text-link">
               From Turnkey's auto-repair marketing team
             </a>
           </div>
         </div>
 
-        <div class="lg:col-span-5">
-          <div class="card-float relative overflow-hidden rounded-[30px] bg-[var(--navy)] p-3 shadow-[0_34px_90px_-54px_rgba(20,22,28,0.68)] md:rounded-[36px] md:p-4">
-            <div class="aspect-[16/11] overflow-hidden rounded-[24px] bg-[var(--navy-deep)] md:rounded-[29px]">
-              <img
-                src={post.image.src}
-                alt={post.image.alt}
-                width={post.imageWidth ?? 1200}
-                height={post.imageHeight ?? 675}
-                loading="eager"
-                decoding="async"
-                class="h-full w-full object-cover"
-                style={`object-position: ${post.image.position};`}
-              />
-            </div>
-            <div class="grid gap-3 px-3 pb-3 pt-5 text-white sm:grid-cols-3 md:px-4 md:pb-4">
-              <div>
-                <p class="text-2xl font-semibold">One</p>
-                <p class="mt-1 text-xs leading-relaxed text-white/60">accountable plan</p>
-              </div>
-              <div>
-                <p class="text-2xl font-semibold">Clear</p>
-                <p class="mt-1 text-xs leading-relaxed text-white/60">channel ownership</p>
-              </div>
-              <div>
-                <p class="text-2xl font-semibold">Useful</p>
-                <p class="mt-1 text-xs leading-relaxed text-white/60">shop-level reporting</p>
-              </div>
-            </div>
-          </div>
+        <div class="tk-ad__visual" data-fade style="--d:3">
+          <figure class="tk-art__media tk-ad__media">
+            <img
+              src={post.image.src}
+              alt={post.image.alt}
+              width={post.imageWidth ?? 1200}
+              height={post.imageHeight ?? 675}
+              loading="eager"
+              decoding="async"
+              style={`object-position: ${post.image.position};`}
+            />
+          </figure>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20">
-    <div class="container-page">
-      <div class="grid gap-8 lg:grid-cols-12 lg:gap-14">
-        <div class="lg:col-span-5">
-          <p class="eyebrow text-[var(--key-blue)]">The owner problem</p>
-          <h2 class="display-2 mt-4 max-w-[12ch] text-balance text-charcoal">
-            The problem is rarely a missing ad.
-          </h2>
+  <section class="v6-sec tk-ad__first">
+    <div class="v6-wrap">
+      <div class="tk-ad__split">
+        <div>
+          <h2 class="v6-h2 tk-ad__h2" data-words set:html={split([{ t: "The problem is rarely a" }, { t: "missing ad.", accent: true }])} />
         </div>
-        <div class="lg:col-span-7 lg:pt-9">
-          <p class="max-w-[60ch] text-lg leading-relaxed text-charcoal/68 md:text-xl">
-            Most automotive shop advertising breaks down between channels. Each vendor can show
-            activity inside its platform, while nobody owns the offer, the customer path, the shop
-            handoff, or the decision about what happens next.
+        <div class="tk-ad__copy">
+          <p class="tk-ad__big">
+            Most automotive shop advertising breaks down between channels, not inside them. Each
+            vendor can show you activity on its own platform. Meanwhile nobody owns the offer, the
+            customer's path to your door, the handoff to the shop, or the decision about what
+            happens next.
           </p>
-          <p class="mt-5 max-w-[60ch] leading-relaxed text-charcoal/62">
-            Turnkey's role is to see the entire system. We help decide what the advertising needs to
-            accomplish, direct the people doing the work, connect the campaign to the front counter,
-            and read the results in the language of the shop.
+          <p>
+            Turnkey's job is to see the whole system. We help decide what the advertising needs to
+            accomplish, direct the people doing the work, connect each campaign to your front
+            counter, and read the results in shop terms: calls, cars, and repair orders.
           </p>
         </div>
       </div>
 
-      <div class="mt-10 grid gap-5 md:mt-14 md:grid-cols-3">
+      <div class="v6-swipe tk-ad__problems" style="--cols:3">
         {problems.map((problem) => (
-          <section class="motion-card rounded-[24px] border border-black/[0.07] bg-[var(--off-white)] p-6 md:rounded-[28px] md:p-7">
-            <p class="text-sm font-semibold tabular-nums text-[var(--key-blue)]">{problem.number}</p>
-            <h3 class="mt-5 font-display text-2xl font-semibold leading-tight text-charcoal">{problem.title}</h3>
-            <p class="mt-4 leading-relaxed text-charcoal/62">{problem.body}</p>
+          <section class="v6-tile" data-rise>
+            <h3 class="v6-tile__title">{problem.title}</h3>
+            <p class="v6-tile__text">{problem.body}</p>
           </section>
         ))}
       </div>
     </div>
   </section>
 
-  <section id="build-the-plan" class="relative overflow-hidden bg-[var(--navy)] py-14 text-white md:py-20 lg:py-24">
-    <span class="pointer-events-none absolute -right-32 top-8 h-96 w-96 rounded-full bg-[var(--key-blue)]/20 blur-3xl" aria-hidden="true"></span>
-    <div class="container-page relative">
-      <div class="max-w-4xl">
-        <p class="eyebrow !text-[var(--green)]">How oversight works</p>
-        <h2 class="display-2 mt-4 max-w-[15ch] text-balance text-white">
-          One direction. Clear owners. No vendor free-for-all.
-        </h2>
-        <p class="mt-6 max-w-[62ch] text-lg leading-relaxed text-white/68">
-          Oversight does not mean pretending Turnkey personally operates every platform. It means
-          the owner knows who is responsible for each part, why the channel is in the plan, and how
-          the pieces are supposed to work together.
+  <section id="build-the-plan" class="v6-sec v6-sec--navy tk-ad__plan">
+    <div class="v6-wrap">
+      <div class="tk-ad__plan-head">
+        <h2 class="v6-h2 tk-ad__h2" data-words set:html={split([{ t: "One direction. Clear owners." }, { t: "No vendor free-for-all.", accent: true }])} />
+        <p class="v6-lead">
+          Oversight doesn't mean pretending Turnkey personally runs every platform. It means you
+          know who is responsible for each piece, why each channel is in the plan, and how the
+          pieces are supposed to work together.
         </p>
       </div>
 
-      <div class="mt-10 grid gap-5 md:grid-cols-2">
+      <div class="tk-ad__owners">
         {ownership.map((item, index) => (
-          <section class="rounded-[26px] border border-white/12 bg-white/[0.065] p-6 backdrop-blur-sm md:p-8">
-            <div class="flex items-center justify-between gap-4">
-              <p class:list={["text-xs font-semibold uppercase tracking-[0.16em]", item.accent === "green" ? "text-[var(--green)]" : item.accent === "blue" ? "text-[#8fc8f4]" : "text-white/58"]}>
-                {item.label}
-              </p>
-              <span class:list={["h-2.5 w-2.5 rounded-full", index === 0 ? "bg-[var(--green)]" : index === 1 ? "bg-[var(--key-blue)]" : "bg-white/35"]}></span>
-            </div>
-            <h3 class="mt-5 font-display text-2xl font-semibold text-white">{item.title}</h3>
-            <p class="mt-4 leading-relaxed text-white/64">{item.body}</p>
+          <section class:list={["tk-ad__owner", index === 0 && "tk-ad__owner--green"]} data-rise>
+            <h3 class="tk-ad__owner-h3">{item.title}</h3>
+            <p class="tk-ad__owner-text"><strong>{item.label}:</strong> {item.body}</p>
           </section>
         ))}
       </div>
 
-      <div class="mt-9 flex flex-col gap-4 rounded-[24px] border border-[var(--green)]/35 bg-[var(--green)]/10 p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+      <div class="tk-ad__consult">
         <div>
-          <p class="font-display text-2xl font-semibold">Need strategic direction without changing every vendor?</p>
-          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/65">
-            Marketing Consulting helps you evaluate the plan, spend, campaigns, vendors, and next decisions.
+          <p class="tk-ad__consult-title">Need strategic direction without changing every vendor?</p>
+          <p class="tk-ad__consult-text">
+            Marketing Consulting helps you evaluate the plan, the spend, the campaigns, the vendors, and what to decide next.
           </p>
         </div>
         <a
           href="/services/marketing-consulting"
-          class="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-white px-6 font-semibold text-[var(--navy)] transition hover:-translate-y-0.5"
+          class="v6-btn v6-btn--navy"
           data-track-event="service_cta_click"
           data-track-slug="marketing-consulting"
           data-track-placement="advertising_guide_oversight"
         >
-          Explore consulting <ArrowRight className="h-4 w-4" />
+          <span>Explore consulting</span> <i set:html={arrow} />
         </a>
       </div>
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-14 md:py-20 lg:py-24">
-    <div class="container-page">
-      <div class="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-14">
-        <div class="lg:col-span-7">
-          <p class="eyebrow text-[var(--key-blue)]">Channel roles</p>
-          <h2 class="display-2 mt-4 max-w-[14ch] text-balance text-charcoal">
-            A practical auto shop advertising mix gives every channel one job.
-          </h2>
+  <section class="v6-sec v6-sec--tint">
+    <div class="v6-wrap">
+      <div class="v6-head">
+        <div>
+          <h2 class="v6-h2 tk-ad__h2 tk-ad__h2--wide" data-words set:html={split([{ t: "A practical auto shop advertising mix gives" }, { t: "every channel one job.", accent: true }])} />
         </div>
-        <p class="max-w-[50ch] text-lg leading-relaxed text-charcoal/64 lg:col-span-5">
-          The mix should change with the shop's market, capacity, customer, and timeframe. Use this
-          as a decision framework—not a shopping list.
+        <p class="v6-lead">
+          The right mix changes with your market, your capacity, your customers, and your
+          timeframe. Use this to make decisions, not as a shopping list.
         </p>
       </div>
 
-      <div class="mt-10 grid gap-5 lg:mt-14 lg:grid-cols-2">
-        {channels.map((channel) => {
-          const Icon = channel.icon;
-          return (
-            <section class="motion-card rounded-[26px] border border-black/[0.07] bg-white p-6 shadow-[0_18px_50px_-44px_rgba(20,22,28,0.48)] md:p-8">
-              <div class="flex items-start gap-4">
-                <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <div>
-                  <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--key-blue)]">{channel.job}</p>
-                  <h3 class="mt-2 font-display text-2xl font-semibold text-charcoal">{channel.name}</h3>
-                </div>
+      <div class="tk-ad__channels">
+        {channels.map((channel) => (
+          <section class="v6-tile tk-ad__channel" data-rise>
+            <div class="tk-ad__channel-head">
+              <span class="v6-tile__icon" aria-hidden="true">
+                <span class="v6-icon" style={`--icon:url(${iconSrc(channel.icon)})`}></span>
+              </span>
+              <h3 class="v6-tile__title">{channel.name}</h3>
+            </div>
+            <p class="tk-ad__job">Its job: {channel.job.toLowerCase()}.</p>
+            <dl class="tk-ad__dl">
+              <div>
+                <dt>Best when</dt>
+                <dd>{channel.best}</dd>
               </div>
-              <dl class="mt-6 grid gap-4 border-t border-[var(--hairline)] pt-5 text-sm leading-relaxed">
-                <div>
-                  <dt class="font-semibold text-charcoal">Best when</dt>
-                  <dd class="mt-1 text-charcoal/62">{channel.best}</dd>
-                </div>
-                <div>
-                  <dt class="font-semibold text-charcoal">Watch closely</dt>
-                  <dd class="mt-1 text-charcoal/62">{channel.watch}</dd>
-                </div>
-                <div>
-                  <dt class="font-semibold text-charcoal">Ownership</dt>
-                  <dd class="mt-1 text-charcoal/62">{channel.owner}</dd>
-                </div>
-              </dl>
-            </section>
-          );
-        })}
+              <div>
+                <dt>Watch closely</dt>
+                <dd>{channel.watch}</dd>
+              </div>
+              <div>
+                <dt>Ownership</dt>
+                <dd>{channel.owner}</dd>
+              </div>
+            </dl>
+          </section>
+        ))}
       </div>
 
-      <p class="mt-8 max-w-3xl text-sm leading-relaxed text-charcoal/58">
-        Local SEO and your Google Business Profile are not paid advertising, but they support almost
-        every advertising channel by helping a prospect verify the shop. See how Turnkey approaches
-        <a href="/services/digital-marketing" class="font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/40 underline-offset-4">
+      <p class="tk-ad__footnote">
+        Local SEO and your Google Business Profile aren't paid advertising, but they support almost
+        every ad channel. They're where a prospect goes to check out the shop before calling. See
+        how Turnkey approaches
+        <a href="/services/digital-marketing" class="tk-art__text-link">
           digital marketing and local visibility for auto repair shops
         </a>.
       </p>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20 lg:py-24">
-    <div class="container-page">
-      <div class="overflow-hidden rounded-[30px] bg-[var(--navy-deep)] text-white shadow-[0_34px_90px_-54px_rgba(20,22,28,0.72)] md:rounded-[36px]">
-        <div class="grid lg:grid-cols-12">
-          <div class="relative overflow-hidden p-7 md:p-11 lg:col-span-7 lg:p-14">
-            <span class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
-            <div class="relative">
-              <p class="eyebrow !text-[var(--green)]">DirectTrack Marketing</p>
-              <h2 class="display-2 mt-4 max-w-[13ch] text-balance text-white">
-                The advertising campaigns Turnkey manages.
-              </h2>
-              <p class="mt-6 max-w-[58ch] text-lg leading-relaxed text-white/68">
-                DirectTrack combines targeted email, streaming TV commercials, and geofenced display
-                advertising around the same local audience. Turnkey plans the targeting, coordinates
-                the creative and campaign, tracks response, and reviews the results with you each month.
-              </p>
-              <p class="mt-5 max-w-[58ch] leading-relaxed text-white/58">
-                It does not need to replace Google Ads, LSA, direct mail, or local SEO. It gives the
-                broader automotive shop advertising plan a coordinated local campaign with one
-                accountable owner.
-              </p>
-              <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="/services/directtrack-marketing"
-                  class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--green)] px-6 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105"
-                  data-track-event="service_cta_click"
-                  data-track-slug="directtrack-marketing"
-                  data-track-placement="advertising_guide_directtrack"
-                >
-                  See how DirectTrack works <ArrowRight className="h-4 w-4" />
-                </a>
-                <a href="/results#pro-automotive" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-6 font-semibold text-white transition hover:border-white/55 hover:bg-white/5">
-                  Review documented results
-                </a>
-              </div>
+  <section class="v6-sec">
+    <div class="v6-wrap">
+      <div class="v6-glow tk-ad__dt" data-rise>
+        <div class="v6-glow__inner tk-ad__dt-inner">
+          <div class="tk-ad__dt-main">
+            <h2 class="v6-h2 tk-ad__h2" data-words set:html={split([{ t: "The advertising campaigns" }, { t: "Turnkey manages.", accent: true }])} />
+            <p class="tk-ad__big">
+              DirectTrack combines targeted email, streaming TV commercials, and geofenced display
+              advertising, all aimed at the same local audience. Turnkey plans the targeting,
+              coordinates the creative and the campaign, tracks response, and reviews the results
+              with you every month.
+            </p>
+            <p class="tk-ad__muted">
+              It doesn't have to replace Google Ads, LSA, direct mail, or local SEO. It gives your
+              broader automotive shop advertising plan one coordinated local campaign with one
+              accountable owner.
+            </p>
+            <div class="tk-ad__dt-actions">
+              <a
+                href="/services/directtrack-marketing"
+                class="v6-btn v6-btn--navy v6-btn--lg"
+                data-track-event="service_cta_click"
+                data-track-slug="directtrack-marketing"
+                data-track-placement="advertising_guide_directtrack"
+              >
+                <span>See how DirectTrack works</span> <i set:html={arrow} />
+              </a>
+              <a href="/results#pro-automotive" class="v6-link">
+                Review documented results
+              </a>
             </div>
           </div>
 
-          <div class="bg-white/[0.055] p-7 md:p-10 lg:col-span-5 lg:p-12">
-            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-white/50">Included in DirectTrack</p>
-            <ul class="mt-6 grid gap-5">
+          <div class="tk-ad__dt-side">
+            <ul class="tk-ad__dt-list">
               {[
-                [Mail, "Super-targeted email", "Reach selected local households with a coordinated message."],
-                [MonitorPlay, "Streaming TV commercials", "Build recognition on streaming services your market watches."],
-                [MapPin, "Geofenced display", "Serve display creative around relevant real-world geography."],
-                [BarChart3, "Transparent reporting", "Connect campaign response to real shop activity when the data supports it."],
-                [Users, "Monthly review", "Decide what moved, what did not, and what the next cycle needs."],
-              ].map(([Icon, title, body]) => (
-                <li class="flex gap-4">
-                  <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center text-[var(--green)]">
-                    <Icon className="h-[18px] w-[18px]" />
-                  </span>
+                ["email", "Super-targeted email", "Reach selected local households with one coordinated message."],
+                ["internet", "Streaming TV commercials", "Build recognition on the streaming services your market watches."],
+                ["location", "Geofenced display", "Show display ads around the real-world places that matter to your market."],
+                ["report", "Transparent reporting", "Connect campaign response to real shop activity wherever the data supports it."],
+                ["weekly-planner", "Monthly review", "Decide what moved, what didn't, and what the next cycle needs."],
+              ].map(([icon, title, body]) => (
+                <li>
+                  <span class="tk-ad__dt-icon" aria-hidden="true"><span class="v6-icon" style={`--icon:url(${iconSrc(icon)})`}></span></span>
                   <div>
-                    <p class="font-semibold text-white">{title}</p>
-                    <p class="mt-1 text-sm leading-relaxed text-white/56">{body}</p>
+                    <p class="tk-ad__dt-title">{title}</p>
+                    <p class="tk-ad__dt-body">{body}</p>
                   </div>
                 </li>
               ))}
@@ -461,199 +386,178 @@ const vendorQuestions = [
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-14 md:py-20 lg:py-24">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
-        <div class="lg:col-span-4">
-          <div class="lg:sticky lg:top-28">
-            <p class="eyebrow text-[var(--key-blue)]">How to review your campaigns</p>
-            <h2 class="display-2 mt-4 max-w-[11ch] text-balance text-charcoal">
-              From scattered ads to a directed plan.
-            </h2>
-            <p class="mt-5 max-w-[38ch] leading-relaxed text-charcoal/62">
-              The process stays grounded in what the shop can accept, what the right customer needs,
-              and what the data can honestly show.
-            </p>
-          </div>
-        </div>
-        <div class="lg:col-span-8">
-          <ul class="grid gap-4">
-            {process.map((item) => (
-              <li class="rounded-[24px] border border-black/[0.07] bg-white p-6 md:p-8">
-                <h3 class="font-display text-2xl font-semibold text-charcoal">{item.title}</h3>
-                <p class="mt-3 max-w-[58ch] leading-relaxed text-charcoal/62">{item.body}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+  <section class="v6-sec v6-sec--tint">
+    <div class="v6-wrap tk-ad__split tk-ad__split--sticky">
+      <div class="tk-ad__sticky">
+        <h2 class="v6-h2 tk-ad__h2" data-words set:html={split([{ t: "From scattered ads to a" }, { t: "directed plan.", accent: true }])} />
+        <p class="v6-lead tk-ad__lead">
+          Every step stays grounded in three things: what the shop can take on, what the right
+          customer needs, and what the data can honestly show.
+        </p>
       </div>
+      <ul class="tk-ad__process">
+        {process.map((item) => (
+          <li data-rise>
+            <h3 class="tk-ad__process-h3">{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20 lg:py-24">
-    <div class="container-page">
-      <div class="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-14">
-        <div class="lg:col-span-8">
-          <p class="eyebrow text-[var(--key-blue)]">Measurement that reaches the shop</p>
-          <h2 class="display-2 mt-4 max-w-[22ch] text-balance text-charcoal">
+  <section class="v6-sec">
+    <div class="v6-wrap">
+      <div class="v6-head">
+        <div>
+          <h2 class="v6-h2 tk-ad__h2 tk-ad__h2--wide">
             <span class="block">A click is a clue.</span>
-            <span class="block"><span class="md:whitespace-nowrap">A completed <span class="whitespace-nowrap">repair order</span></span> is a result.</span>
+            <span class="block tk-ad__accent"><span class="tk-ad__nowrap">A completed <span class="whitespace-nowrap">repair order</span></span> is a result.</span>
           </h2>
         </div>
-        <p class="max-w-[50ch] text-lg leading-relaxed text-charcoal/64 lg:col-span-4">
-          Good reporting does not erase attribution limits. It makes each step visible enough to ask
-          a better question and decide what to change next.
+        <p class="v6-lead">
+          Good reporting won't erase the limits of knowing exactly what produced each call. It
+          makes every step visible enough to ask a better question and decide what to change next.
         </p>
       </div>
 
-      <div class="mt-10 overflow-hidden rounded-[26px] border border-black/[0.07] md:mt-14 md:rounded-[30px]">
-        <div class="hidden grid-cols-[0.72fr_1.25fr_1.45fr] bg-[var(--navy)] px-7 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-white/70 md:grid">
+      <div class="tk-ad__table">
+        <div class="tk-ad__thead">
           <span>Stage</span><span>Useful evidence</span><span>Question it should answer</span>
         </div>
-        <div class="divide-y divide-[var(--hairline)] bg-white">
-          {measurement.map(([stage, evidence, question], index) => (
-            <div class="grid gap-4 px-6 py-6 md:grid-cols-[0.72fr_1.25fr_1.45fr] md:items-start md:px-7">
-              <div class="flex items-center gap-3">
-                <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--key-blue-soft)] text-xs font-bold text-[var(--navy)]">{index + 1}</span>
-                <p class="font-semibold text-charcoal">{stage}</p>
+        <div class="tk-ad__tbody">
+          {measurement.map(([stage, evidence, question]) => (
+            <div class="tk-ad__tr">
+              <div class="tk-ad__stage">
+                <p>{stage}</p>
               </div>
               <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-charcoal/40 md:hidden">Useful evidence</p>
-                <p class="mt-1 text-sm leading-relaxed text-charcoal/62 md:mt-0">{evidence}</p>
+                <p class="tk-ad__cell-label">Useful evidence</p>
+                <p class="tk-ad__cell">{evidence}</p>
               </div>
               <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-charcoal/40 md:hidden">Question</p>
-                <p class="mt-1 text-sm font-medium leading-relaxed text-charcoal/78 md:mt-0">{question}</p>
+                <p class="tk-ad__cell-label">Question</p>
+                <p class="tk-ad__cell tk-ad__cell--q">{question}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div class="mt-8 grid gap-5 md:grid-cols-3">
+      <div class="v6-swipe tk-ad__rules" style="--cols:3">
         {[
-          [Gauge, "Capacity before volume", "A campaign that overfills the wrong week or promotes work the shop cannot accept is not a win."],
-          [PhoneCall, "Call quality before lead count", "Listen for fit, intent, booking friction, and the promise the customer heard in the ad."],
-          [CircleDollarSign, "Compare costs with results", "Use revenue you can reliably connect to the campaign, then consider repair-order quality and repeat visits."],
-        ].map(([Icon, title, body]) => (
-          <section class="rounded-[22px] bg-[var(--off-white)] p-6">
-            <Icon className="h-5 w-5 text-[var(--key-blue)]" />
-            <h3 class="mt-4 font-display text-xl font-semibold text-charcoal">{title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-charcoal/60">{body}</p>
+          ["boost", "Capacity before volume", "A campaign that overfills the wrong week, or promotes work the shop can't take, is not a win."],
+          ["phone", "Call quality before lead count", "Listen for fit, intent, booking friction, and the promise the customer heard in the ad."],
+          ["report", "Compare costs with results", "Use revenue you can reliably tie to the campaign, then weigh repair-order quality and repeat visits."],
+        ].map(([icon, title, body]) => (
+          <section class="v6-tile tk-ad__rule">
+            <span class="v6-tile__icon" aria-hidden="true"><span class="v6-icon" style={`--icon:url(${iconSrc(icon)})`}></span></span>
+            <h3 class="v6-tile__title">{title}</h3>
+            <p class="v6-tile__text">{body}</p>
           </section>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-14 md:py-20 lg:py-24">
-    <div class="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-5">
-        <p class="eyebrow text-[var(--key-blue)]">Vendor accountability</p>
-        <h2 class="display-2 mt-4 max-w-[12ch] text-balance text-charcoal">
-          Seven questions every shop owner deserves answered.
-        </h2>
-        <p class="mt-5 max-w-[42ch] leading-relaxed text-charcoal/62">
-          You do not need to know every ad platform. You do need a plan that makes the people you hire
+  <section class="v6-sec v6-sec--tint">
+    <div class="v6-wrap tk-ad__split tk-ad__split--sticky">
+      <div class="tk-ad__sticky">
+        <h2 class="v6-h2 tk-ad__h2" data-words set:html={split([{ t: "Seven questions every shop owner" }, { t: "deserves answered.", accent: true }])} />
+        <p class="v6-lead tk-ad__lead">
+          You don't need to know every ad platform. You do need a plan that makes everyone you hire
           answer the same business questions.
         </p>
       </div>
-      <div class="lg:col-span-7">
-        <ol class="grid gap-3">
-          {vendorQuestions.map((question, index) => (
-            <li class="flex gap-4 rounded-[20px] border border-black/[0.07] bg-white p-5 md:p-6">
-              <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--green)]/20 text-sm font-bold text-[var(--navy)]">{index + 1}</span>
-              <p class="pt-1 font-medium leading-relaxed text-charcoal/78">{question}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
+      <ul class="tk-ad__questions">
+        {vendorQuestions.map((question) => (
+          <li>
+            <p>{question}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20 lg:py-24">
-    <div class="container-page">
-      <div class="max-w-3xl">
-        <p class="eyebrow text-[var(--key-blue)]">Questions shop owners ask</p>
-        <h2 class="display-2 mt-4 text-balance text-charcoal">Auto repair advertising FAQ</h2>
+  <section class="v6-faq tk-ad__faq">
+    <div class="v6-wrap v6-faq__grid">
+      <div class="v6-faq__title">
+        <h2 class="v6-h2 tk-ad__h2" data-words set:html={split([{ t: "Auto repair advertising" }, { t: "FAQ", accent: true }])} />
       </div>
 
-      <div class="mt-10 grid gap-4 lg:mt-12 lg:grid-cols-2">
-        {(post.faqs ?? []).map((item) => (
-          <details class="group rounded-[22px] border border-black/[0.08] bg-[var(--off-white)] p-5 open:bg-white md:p-6">
-            <summary class="flex cursor-pointer list-none items-start justify-between gap-5 font-display text-xl font-semibold leading-snug text-charcoal">
+      <ul class="v6-acc">
+        {(post.faqs ?? []).map((item, index) => (
+          <li class:list={["v6-acc__item", index === 0 && "is-open"]} data-acc-item>
+            <button type="button" class="v6-acc__head" aria-expanded={index === 0 ? "true" : "false"} data-acc-head>
               <span>{item.q}</span>
-              <span class="mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[var(--navy)] transition group-open:rotate-45" aria-hidden="true">+</span>
-            </summary>
-            <p class="mt-4 max-w-[62ch] border-t border-[var(--hairline)] pt-4 leading-relaxed text-charcoal/64">{item.a}</p>
-          </details>
+              <span class="v6-acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="v6-acc__panel"><div><p>{item.a}</p></div></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {post.externalSources && post.externalSources.length > 0 && (
+    <ExternalSources sources={post.externalSources} />
+  )}
+
+  <section class="v6-sec v6-sec--navy tk-ad__final">
+    <div class="v6-wrap">
+      <div class="tk-ad__final-grid">
+        <div>
+          <h2 class="v6-h2 tk-ad__h2" data-words set:html={split([{ t: "Stop being the person who has to" }, { t: "manage every marketer.", accent: true }])} />
+          <p class="v6-lead">
+            Bring us your goals, capacity, current spend, vendors, and reports. We'll help sort out
+            what Turnkey should run, what another specialist should own, and how the whole plan
+            gets directed around your shop.
+          </p>
+        </div>
+        <div class="tk-ad__final-actions">
+          <a
+            href={CONSULTATION_URL}
+            class="v6-btn v6-btn--green v6-btn--lg"
+            data-track-event="consultation_cta_click"
+            data-track-placement="advertising_guide_final"
+          >
+            <span>Book a Strategy Call</span> <i set:html={arrow} />
+          </a>
+          <a
+            href="/services/vip-marketing-manager"
+            class="v6-btn v6-btn--ghost v6-btn--lg"
+            data-track-event="service_cta_click"
+            data-track-slug="vip-marketing-manager"
+            data-track-placement="advertising_guide_final"
+          >
+            <span>See full-plan ownership</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="tk-ad__principles">
+        {[
+          ["target", "Strategy before channels"],
+          ["direct", "Direct work plus vendor coordination"],
+          ["report", "Decisions tied to shop outcomes"],
+        ].map(([icon, label]) => (
+          <div>
+            <span class="tk-ad__pr-icon" aria-hidden="true"><span class="v6-icon" style={`--icon:url(${iconSrc(icon)})`}></span></span>
+            <span>{label}</span>
+          </div>
         ))}
       </div>
-    </div>
-  </section>
 
-  <section class="bg-[var(--navy)] py-14 text-white md:py-20">
-    <div class="container-page">
-      <div class="relative overflow-hidden rounded-[28px] border border-white/10 bg-[var(--navy-deep)] p-7 md:rounded-[34px] md:p-11 lg:p-14">
-        <span class="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
-        <div class="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p class="eyebrow !text-[var(--green)]">Your shop. One advertising direction.</p>
-            <h2 class="display-2 mt-4 max-w-[14ch] text-balance text-white">
-              Stop being the person who has to manage every marketer.
-            </h2>
-            <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-white/68">
-              Bring us the goals, capacity, current spend, vendors, and reports. We will help identify
-              what Turnkey should run, what another specialist should own, and how the whole plan gets
-              directed around the shop.
-            </p>
-          </div>
-          <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <a
-              href={CONSULTATION_URL}
-              class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--green)] px-7 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105"
-              data-track-event="consultation_cta_click"
-              data-track-placement="advertising_guide_final"
-            >
-              Book a Strategy Call <ArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href="/services/vip-marketing-manager"
-              class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-7 font-semibold text-white transition hover:border-white/60 hover:bg-white/5"
-              data-track-event="service_cta_click"
-              data-track-slug="vip-marketing-manager"
-              data-track-placement="advertising_guide_final"
-            >
-              See full-plan ownership
-            </a>
-          </div>
-        </div>
-
-        <div class="relative mt-10 grid gap-3 border-t border-white/10 pt-7 text-sm sm:grid-cols-3">
-          {[
-            [Compass, "Strategy before channels"],
-            [Layers3, "Direct work plus vendor coordination"],
-            [ClipboardCheck, "Decisions tied to shop outcomes"],
-          ].map(([Icon, label]) => (
-            <div class="flex items-center gap-3 text-white/64">
-              <Icon className="h-4 w-4 text-[var(--green)]" />
-              <span>{label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <nav aria-label="Related advertising resources" class="mt-10 border-t border-white/10 pt-8">
-        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">Continue building the plan</p>
-        <div class="mt-5 grid gap-3 md:grid-cols-3">
+      <nav aria-label="Related advertising resources" class="tk-ad__related">
+        <div class="tk-ad__related-grid">
           {[
             ["/resources/auto-repair-marketing-plan", "Build the full auto repair marketing plan"],
             ["/resources/auto-repair-marketing-ideas", "Choose ideas for the shop problem in front of you"],
             ["/resources/direct-mail-for-repair-shops", "Plan a managed direct mail campaign"],
           ].map(([href, label]) => (
-            <a href={href} class="group flex min-h-14 items-center justify-between gap-4 rounded-[18px] bg-white/[0.065] px-5 py-4 text-sm font-semibold text-white transition hover:bg-white/10">
+            <a href={href}>
               <span>{label}</span>
-              <ArrowRight className="h-4 w-4 shrink-0 transition group-hover:translate-x-1" />
+              <i set:html={arrow} />
             </a>
           ))}
         </div>
@@ -661,3 +565,141 @@ const vendorQuestions = [
     </div>
   </section>
 </article>
+
+<style>
+  /* Readable ink for body copy; muted gray is reserved for tiny meta */
+  .tk-ad { --ink: #2b303b; }
+  .tk-ad .tk-art__dek, .tk-ad .v6-lead, .tk-ad .v6-tile__text { color: var(--ink); }
+  .tk-ad .v6-sec--navy .v6-lead { color: #e4e8f2; }
+
+  .tk-ad__crumbs { gap: 0.5rem; }
+  .tk-ad__crumb { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--navy); font-weight: 600; }
+  .tk-ad__crumb-sep::before { content: "/"; color: #8a8f9c; }
+  .tk-ad__crumb-here { color: var(--charcoal); font-weight: 500; }
+  .tk-ad__byline a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+  .tk-ad__byline { padding-top: 1.25rem; border-top: 1px solid #dcd9d2; margin-top: 2rem; }
+  .tk-ad__visual { display: grid; }
+  .tk-ad__media { aspect-ratio: 16 / 11; }
+
+  .tk-ad__first { padding-top: clamp(5.5rem, 10vw, 9rem); }
+  .tk-ad__h2 { max-width: 15ch; }
+  .tk-ad__h2--wide { max-width: 20ch; }
+  .tk-ad__split { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .tk-ad__copy { display: grid; gap: 1.25rem; padding-top: 0.5rem; font-size: 1.075rem; line-height: 1.7; color: var(--ink); max-width: 40rem; }
+  .tk-ad__big { font-size: clamp(1.1rem, 1.4vw, 1.3rem); line-height: 1.6; color: var(--charcoal); }
+  .tk-ad__muted { line-height: 1.7; color: var(--ink); }
+  .tk-ad__problems { margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .tk-ad__problems .v6-tile__title { color: var(--charcoal); }
+
+  .tk-ad__plan-head { max-width: 52rem; }
+  .tk-ad__plan-head .v6-lead { margin-top: 1.5rem; }
+  .tk-ad__owners { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .tk-ad__owner { display: flex; flex-direction: column; padding: clamp(1.5rem, 2.4vw, 2rem); border-radius: 28px; background: #fff; color: var(--charcoal); }
+  .tk-ad__owner--green { background: var(--green); color: var(--navy); }
+  .tk-ad__owner-h3 { font-size: clamp(1.3rem, 1.8vw, 1.6rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.12; color: var(--navy); }
+  .tk-ad__owner-text { margin-top: 0.9rem; font-size: 0.98rem; line-height: 1.6; color: var(--ink); }
+  .tk-ad__owner-text strong { font-weight: 700; color: var(--navy); }
+  .tk-ad__owner--green .tk-ad__owner-text { color: #1f2a17; }
+  .tk-ad__consult { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem 3rem; margin-top: 0.75rem; padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: 28px; background: var(--key-blue-soft); color: var(--charcoal); }
+  .tk-ad__consult-title { font-size: clamp(1.25rem, 1.8vw, 1.55rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.2; color: var(--navy); }
+  .tk-ad__consult-text { margin-top: 0.4rem; max-width: 40rem; line-height: 1.55; color: var(--ink); }
+  .tk-ad__consult .v6-btn { flex: none; }
+
+  .tk-ad__channels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+  .tk-ad__channel-head { display: flex; gap: 1rem; align-items: center; }
+  .tk-ad__channel-head .v6-tile__title { color: var(--charcoal); }
+  .tk-ad__job { font-size: 1rem; font-weight: 600; line-height: 1.45; color: var(--navy); }
+  .tk-ad__dl { display: grid; gap: 0.9rem; padding-top: 1.1rem; border-top: 1px solid #dcd9d2; font-size: 0.96rem; line-height: 1.55; }
+  .tk-ad__dl dt { font-weight: 700; color: var(--navy); }
+  .tk-ad__dl dd { margin-top: 0.15rem; color: var(--ink); }
+  .tk-ad__footnote { margin-top: 2rem; max-width: 46rem; line-height: 1.65; color: var(--ink); }
+
+  .tk-ad__dt-inner { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(2rem, 5vw, 5rem); padding: clamp(2rem, 5vw, 4rem); }
+  .tk-ad__dt-main { display: grid; gap: 1.25rem; align-content: start; }
+  .tk-ad__dt-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.75rem; margin-top: 0.75rem; }
+  .tk-ad__dt-side { padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: 28px; background: var(--key-blue-soft); }
+  .tk-ad__dt-list { display: grid; gap: 1.25rem; }
+  .tk-ad__dt-list li { display: flex; gap: 0.9rem; }
+  .tk-ad__dt-icon { display: grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--navy); color: #fff; }
+  .tk-ad__dt-icon .v6-icon { width: 1.15rem; height: 1.15rem; }
+  .tk-ad__dt-title { font-weight: 600; letter-spacing: -0.015em; color: var(--charcoal); }
+  .tk-ad__dt-body { margin-top: 0.15rem; font-size: 0.94rem; line-height: 1.5; color: var(--ink); }
+
+  .tk-ad__sticky { position: sticky; top: calc(var(--header-h) + 2.5rem); }
+  .tk-ad__lead { margin-top: 1.25rem; }
+  .tk-ad__process { border-top: 3px solid var(--navy); }
+  .tk-ad__process li { padding-block: clamp(1.5rem, 3vw, 2.1rem); border-bottom: 1px solid #d6d3cc; }
+  .tk-ad__process-h3 { font-size: clamp(1.35rem, 2.1vw, 1.8rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1.12; color: var(--charcoal); }
+  .tk-ad__process p { margin-top: 0.6rem; max-width: 38rem; font-size: 1.05rem; line-height: 1.65; color: var(--ink); }
+
+  .tk-ad__accent { color: var(--key-blue); }
+  .tk-ad__nowrap { white-space: nowrap; }
+  .tk-ad__table { overflow: hidden; border-radius: 28px; background: var(--off-white); }
+  .tk-ad__thead { display: grid; grid-template-columns: 0.72fr 1.25fr 1.45fr; gap: 1.5rem; padding: 1.1rem 2rem; background: var(--navy); color: #fff; font-size: 0.9rem; font-weight: 600; }
+  .tk-ad__tr { display: grid; grid-template-columns: 0.72fr 1.25fr 1.45fr; gap: 1.5rem; align-items: start; padding: 1.4rem 2rem; border-top: 1px solid #dcd9d2; }
+  .tk-ad__tr:nth-child(even) { background: #e9e6df; }
+  .tk-ad__tr:first-child { border-top: 0; }
+  .tk-ad__stage { font-weight: 700; color: var(--navy); }
+  .tk-ad__cell-label { display: none; font-size: 0.85rem; font-weight: 700; color: var(--navy); }
+  .tk-ad__cell { font-size: 0.98rem; line-height: 1.55; color: var(--ink); }
+  .tk-ad__cell--q { color: var(--charcoal); font-weight: 500; }
+  .tk-ad__rules { margin-top: 0.75rem; }
+  .tk-ad__rule .v6-tile__title { color: var(--charcoal); }
+
+  .tk-ad__questions { border-top: 3px solid var(--green); }
+  .tk-ad__questions li { padding-block: 1.35rem; border-bottom: 1px solid #d6d3cc; }
+  .tk-ad__questions p { font-size: clamp(1.08rem, 1.4vw, 1.25rem); font-weight: 500; letter-spacing: -0.015em; line-height: 1.45; color: var(--charcoal); }
+
+  .tk-ad__faq { background: #fff; }
+  .tk-ad__faq .v6-acc__icon { background: var(--off-white); }
+  .tk-ad__faq .v6-acc__item.is-open .v6-acc__icon { background: var(--navy); }
+
+  .tk-ad__final-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) auto; gap: 2rem 4rem; align-items: end; }
+  .tk-ad__final-grid .v6-lead { margin-top: 1.5rem; }
+  .tk-ad__final-actions { display: grid; gap: 0.6rem; }
+  .tk-ad__final-actions .v6-btn { justify-content: center; }
+  .tk-ad__principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: clamp(3rem, 6vw, 4.5rem); padding-top: 2rem; border-top: 1px solid #4a548a; }
+  .tk-ad__principles > div { display: flex; align-items: center; gap: 0.8rem; font-weight: 500; color: #fff; }
+  .tk-ad__pr-icon { display: grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--green); color: var(--navy); }
+  .tk-ad__pr-icon .v6-icon { width: 1.1rem; height: 1.1rem; }
+  .tk-ad__related { margin-top: 2.5rem; }
+  .tk-ad__related-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+  .tk-ad__related-grid a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 4.5rem; padding: 1rem 1.4rem; border-radius: 22px; background: #fff; color: var(--navy); font-weight: 600; line-height: 1.35; transition: background-color 0.3s, color 0.3s; }
+  .tk-ad__related-grid a i { display: inline-grid; flex: none; transition: transform 0.5s var(--ease); }
+  .tk-ad__related-grid a:hover { background: var(--green); }
+  .tk-ad__related-grid a:hover i { transform: translateX(3px); }
+
+  @media (max-width: 1100px) {
+    .tk-ad__split { grid-template-columns: 1fr; }
+    .tk-ad__sticky { position: static; }
+    .tk-ad__owners { grid-template-columns: 1fr 1fr; }
+    .tk-ad__channels { grid-template-columns: 1fr 1fr; }
+    .tk-ad__dt-inner { grid-template-columns: 1fr; }
+    .tk-ad__final-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 900px) {
+    .tk-ad__byline { margin-top: 1.5rem; }
+    .tk-ad__media { aspect-ratio: 4 / 3; }
+    .tk-ad__first { padding-top: 4.5rem; }
+    .tk-ad__copy { padding-top: 0; }
+    .tk-ad__big { font-size: 1.08rem; }
+    .tk-ad__owners { grid-template-columns: 1fr; }
+    .tk-ad__owner { border-radius: 22px; }
+    .tk-ad__consult { flex-direction: column; align-items: stretch; border-radius: 22px; }
+    .tk-ad__consult .v6-btn { justify-content: center; }
+    .tk-ad__channels { grid-template-columns: 1fr; }
+    .tk-ad__dt-inner { padding: 1.75rem 1.25rem; }
+    .tk-ad__dt-side { margin-inline: -0.5rem; border-radius: 22px; }
+    .tk-ad__dt-actions { flex-direction: column; align-items: stretch; }
+    .tk-ad__dt-actions .v6-btn, .tk-ad__dt-actions .v6-link { justify-content: center; }
+    .tk-ad__nowrap { white-space: normal; }
+    .tk-ad__table { border-radius: 22px; }
+    .tk-ad__thead { display: none; }
+    .tk-ad__tr { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.35rem 1.25rem; }
+    .tk-ad__stage { font-size: 1.15rem; }
+    .tk-ad__cell-label { display: block; margin-bottom: 0.15rem; }
+    .tk-ad__questions li { padding-block: 1.1rem; }
+    .tk-ad__principles { grid-template-columns: 1fr; gap: 0.75rem; }
+    .tk-ad__related-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,76 +1,72 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import MarketingIcon from "@/components/site/MarketingIcon.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
 import { siteMedia } from "@/lib/site-media";
+import { iconSrc, split } from "@/lib/v6";
 
 const bookingUrl = "https://api.leadconnectorhq.com/widget/booking/wDWczTxA5kEbkEWoqzLC";
+const mapsUrl = "https://www.google.com/maps/search/?api=1&query=9401+Indian+Creek+Pkwy+%231300%2C+Overland+Park%2C+KS+66210";
 ---
 
-<BaseLayout
+<V6Layout
   title="Contact — Turnkey Marketing"
   description="Contact Turnkey Marketing or book a strategy call to talk through your auto repair shop marketing."
   path="/contact"
   ogTitle="Contact Turnkey Marketing"
   ogImage={siteMedia.team.visionExpoConversation.src}
+  dock={false}
+  class="tk-contact"
 >
-  <section id="book" class="scroll-mt-24 border-b hairline bg-[var(--off-white)] py-4 md:py-10">
-    <div class="container-page">
-      <div class="mx-auto max-w-3xl text-center">
-        <h1 class="font-display text-2xl font-semibold leading-tight tracking-tight text-charcoal md:text-4xl text-balance">
-          Book a Strategy Call
-        </h1>
-        <p class="mx-auto mt-2 max-w-2xl text-sm leading-relaxed text-charcoal/75 md:text-base">
-          30 minutes with the Turnkey team to discuss your shop’s marketing.
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-x-5 text-sm">
-          <a href="tel:+19134270674" class="inline-flex min-h-11 items-center font-medium text-[var(--navy)] underline underline-offset-4" data-track-event="phone_click" data-track-placement="booking_intro">Call (913) 427-0674</a>
-          <a href="mailto:hello@turnkeyautomarketing.com" class="inline-flex min-h-11 items-center font-medium text-[var(--navy)] underline underline-offset-4" data-track-event="email_click" data-track-placement="booking_intro">Email the team</a>
+  <section id="book" class="tk-contact__book">
+    <div class="v6-wrap tk-contact__grid">
+      <div class="tk-contact__intro">
+        <h1 class="tk-contact__title" data-words set:html={split([{ t: "Book a" }, { t: "Strategy Call", accent: true }])} />
+        <p class="tk-contact__lead" data-fade style="--d:1">30 minutes with the Turnkey team to discuss your shop’s marketing.</p>
+        <div class="tk-contact__quick" data-fade style="--d:2">
+          <a href="tel:+19134270674" class="tk-contact__chip" data-track-event="phone_click" data-track-placement="booking_intro">Call (913) 427-0674</a>
+          <a href="mailto:hello@turnkeyautomarketing.com" class="tk-contact__chip" data-track-event="email_click" data-track-placement="booking_intro">Email the team</a>
         </div>
       </div>
 
-      <div class="booking-sheet mx-auto mt-2 max-w-7xl md:mt-5">
-        <iframe
-          data-src={bookingUrl}
-          data-tk-booking-provider="ghl_calendar"
-          title="Book a strategy call with Turnkey Marketing"
-          class="booking-widget"
-          allow="payment"
-          scrolling="yes"
-          loading="eager"
-          referrerpolicy="strict-origin-when-cross-origin"
-        ></iframe>
-
-        <div class="booking-fallback">
-          <p>Having trouble with the calendar?</p>
-          <a
-            class="btn-primary inline-flex min-h-11 items-center justify-center px-5 py-3 text-sm"
-            href={bookingUrl}
+      <div class="tk-contact__cal" data-fade style="--d:2">
+        <div class="booking-sheet">
+          <iframe
+            data-src={bookingUrl}
             data-tk-booking-provider="ghl_calendar"
-            data-track-placement="calendar_fallback"
-          >
-            Open the Booking Calendar
-          </a>
-        </div>
+            title="Book a strategy call with Turnkey Marketing"
+            class="booking-widget"
+            allow="payment"
+            scrolling="yes"
+            loading="eager"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
 
-        <noscript>
-          <p class="p-6 text-center">
+          <div class="booking-fallback">
+            <p>Having trouble with the calendar?</p>
             <a
-              class="font-semibold text-[var(--key-blue)] underline"
+              class="v6-btn v6-btn--navy v6-btn--sm"
               href={bookingUrl}
+              data-tk-booking-provider="ghl_calendar"
+              data-track-placement="calendar_fallback"
             >
-              Open the Booking Calendar
+              <span>Open the Booking Calendar</span>
             </a>
-          </p>
-        </noscript>
+          </div>
+
+          <noscript>
+            <p class="booking-noscript">
+              <a href={bookingUrl}>Open the Booking Calendar</a>
+            </p>
+          </noscript>
+        </div>
       </div>
 
-      <div class="mx-auto mt-5 max-w-2xl text-center text-sm leading-relaxed text-charcoal/75">
-        <h2 class="font-semibold text-charcoal">What to expect</h2>
-        <p class="mt-2">We’ll discuss your shop’s goals, current marketing, and where Turnkey could help.</p>
-        <p class="mt-2">Helpful to have in mind: what you’re running today and the questions you want to discuss.</p>
+      <div class="tk-contact__expect">
+        <h2 class="tk-contact__h2">What to expect</h2>
+        <p>We’ll discuss your shop’s goals, current marketing, and where Turnkey could help.</p>
+        <p>Helpful to have in mind: what you’re running today and the questions you want to discuss.</p>
       </div>
 
-      <p class="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
+      <p class="tk-contact__sms">
         SMS marketing consent is optional and separate from booking. If you
         choose to opt in, you agree to receive recurring marketing text
         messages about special offers, marketing services, and business updates
@@ -78,68 +74,38 @@ const bookingUrl = "https://api.leadconnectorhq.com/widget/booking/wDWczTxA5kEbk
         mobile number provided. Message frequency varies. Message and data rates
         may apply. Reply HELP for help or STOP to opt out. Consent is not a
         condition of purchase. Review our
-        <a class="font-medium text-[var(--navy)] underline underline-offset-4" href="/privacy-policy">Privacy Policy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
         and
-        <a class="font-medium text-[var(--navy)] underline underline-offset-4" href="/terms-of-service">Terms of Service</a>.
+        <a href="/terms-of-service">Terms of Service</a>.
       </p>
     </div>
-
   </section>
 
-  <section class="container-page py-14 md:py-20">
-    <div class="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-3">
-      <a
-        href="tel:+19134270674"
-        class="min-w-0 rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
-        data-track-event="phone_click"
-        data-track-placement="contact"
-      >
-        <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-          <MarketingIcon name="phone-calls" class="h-9 w-9" />
-        </span>
-        <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
-          Call the team
-        </h2>
-        <p class="mt-3 text-lg font-medium text-charcoal">(913) 427-0674</p>
-      </a>
-
-      <a
-        href="mailto:hello@turnkeyautomarketing.com"
-        class="min-w-0 rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
-        data-track-event="email_click"
-        data-track-placement="contact"
-      >
-        <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-          <MarketingIcon name="email-marketing" class="h-9 w-9" />
-        </span>
-        <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
-          Email us
-        </h2>
-        <p class="mt-3 break-words text-lg font-medium text-charcoal">
-          hello@turnkeyautomarketing.com
-        </p>
-      </a>
-
-      <a
-        href="https://www.google.com/maps/search/?api=1&query=9401+Indian+Creek+Pkwy+%231300%2C+Overland+Park%2C+KS+66210"
-        class="min-w-0 rounded-[28px] bg-[var(--off-white)] p-7 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.3)]"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-          <MarketingIcon name="location-targeting" class="h-9 w-9" />
-        </span>
-        <h2 class="mt-8 font-display text-2xl font-semibold text-charcoal">
-          Office
-        </h2>
-        <address class="mt-3 text-base font-medium not-italic leading-relaxed text-charcoal">
-          9401 Indian Creek Pkwy #1300<br />
-          Overland Park, KS 66210
-        </address>
-      </a>
+  <section class="v6-sec v6-sec--tint">
+    <div class="v6-wrap">
+      <div class="v6-tiles tk-contact__ways" style="--cols:3">
+        <a href="tel:+19134270674" class="v6-tile" data-track-event="phone_click" data-track-placement="contact" data-rise>
+          <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc("phone")})`}></span></span>
+          <h2 class="v6-tile__title">Call the team</h2>
+          <p class="tk-contact__way">(913) 427-0674</p>
+        </a>
+        <a href="mailto:hello@turnkeyautomarketing.com" class="v6-tile" data-track-event="email_click" data-track-placement="contact" data-rise>
+          <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc("email")})`}></span></span>
+          <h2 class="v6-tile__title">Email us</h2>
+          <p class="tk-contact__way tk-contact__way--email">hello@turnkeyautomarketing.com</p>
+        </a>
+        <a href={mapsUrl} class="v6-tile" target="_blank" rel="noopener noreferrer" data-rise>
+          <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc("location")})`}></span></span>
+          <h2 class="v6-tile__title">Office</h2>
+          <address class="tk-contact__way">
+            9401 Indian Creek Pkwy #1300<br />
+            Overland Park, KS 66210
+          </address>
+        </a>
+      </div>
     </div>
   </section>
-</BaseLayout>
+</V6Layout>
 
 <script>
   import {
@@ -182,56 +148,45 @@ const bookingUrl = "https://api.leadconnectorhq.com/widget/booking/wDWczTxA5kEbk
 </script>
 
 <style>
-  .booking-sheet {
-    overflow: hidden;
-    border: 1px solid var(--hairline);
-    border-radius: 28px;
-    background: white;
-    padding: 0.75rem;
-    box-shadow: 0 28px 70px -48px rgba(20, 22, 28, 0.35);
-  }
+  .tk-contact__book { scroll-margin-top: var(--header-h); padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(4rem, 7vw, 6rem); }
+  /* Desktop: intro and "what to expect" on the left, the calendar spanning the right. Phones: one column, calendar right after the intro. */
+  .tk-contact__grid { display: grid; grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr); grid-template-areas: "intro cal" "expect cal" ". cal" ". sms"; grid-template-rows: auto auto 1fr auto; column-gap: clamp(2.5rem, 5vw, 5rem); row-gap: 2rem; align-items: start; }
+  .tk-contact__intro { grid-area: intro; display: grid; gap: 1.5rem; padding-top: 1rem; }
+  .tk-contact__expect { grid-area: expect; }
+  .tk-contact__sms { grid-area: sms; }
+  .tk-contact__title { font-size: clamp(3rem, 5.6vw, 5.75rem); line-height: 0.98; letter-spacing: -0.058em; font-weight: 600; text-wrap: balance; }
+  .tk-contact__lead { font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: var(--muted); max-width: 26rem; }
+  .tk-contact__quick { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tk-contact__chip { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1.1rem; border-radius: 999px; background: var(--off-white); color: var(--navy); font-weight: 600; font-size: 0.92rem; transition: background-color 0.3s, color 0.3s; }
+  .tk-contact__chip:hover { background: var(--navy); color: #fff; }
+  .tk-contact__expect { display: grid; gap: 0.6rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); line-height: 1.6; color: var(--muted); max-width: 26rem; }
+  .tk-contact__h2 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; color: var(--charcoal); }
+  .tk-contact__cal { grid-area: cal; min-width: 0; }
+  .tk-contact__sms { font-size: 0.8rem; line-height: 1.6; color: var(--muted); }
+  .tk-contact__sms a { color: var(--navy); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .tk-contact__way { font-size: 1.1rem; font-weight: 600; font-style: normal; line-height: 1.5; color: var(--navy); }
+  .tk-contact__way--email { overflow-wrap: anywhere; }
+  .tk-contact__ways .v6-tile__title { margin-top: 1.5rem; }
 
-  .booking-widget {
-    display: block;
-    width: 100%;
-    height: clamp(760px, calc(100vh - 120px), 900px);
-    border: 0;
-    border-radius: 18px;
-    background: white;
-  }
+  .booking-sheet { overflow: hidden; border-radius: 32px; background: #fff; padding: 0.6rem; box-shadow: 0 40px 90px -50px rgba(35, 46, 102, 0.55), 0 0 0 1px rgba(35, 46, 102, 0.08); }
+  .booking-widget { display: block; width: 100%; height: clamp(760px, calc(100vh - 140px), 900px); border: 0; border-radius: 24px; background: #fff; }
+  .booking-fallback { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; margin-top: 0.6rem; border-radius: 22px; background: var(--off-white); padding: 0.7rem 0.7rem 0.7rem 1.25rem; }
+  .booking-fallback p { color: var(--charcoal); font-size: 0.9rem; font-weight: 500; }
+  .booking-noscript { padding: 1.5rem; text-align: center; }
+  .booking-noscript a { font-weight: 600; color: var(--key-blue); text-decoration: underline; }
 
-  .booking-fallback {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem 1.5rem;
-    margin-top: 0.75rem;
-    border: 1px solid var(--hairline);
-    border-radius: 18px;
-    background: white;
-    padding: 0.85rem 1rem;
-  }
-
-  .booking-fallback p {
-    color: var(--charcoal);
-    font-size: 0.875rem;
-  }
-
-  @media (max-width: 639px) {
-    .booking-sheet {
-      margin-inline: -0.5rem;
-      border-radius: 22px;
-      padding: 0.5rem;
-    }
-
-    .booking-widget {
-      height: 760px;
-      border-radius: 16px;
-    }
-
-    .booking-fallback a {
-      width: 100%;
-    }
+  @media (max-width: 900px) {
+    .tk-contact__book { padding-block: 1.75rem 3.5rem; }
+    .tk-contact__grid { grid-template-columns: 1fr; grid-template-areas: "intro" "cal" "expect" "sms"; grid-template-rows: none; row-gap: 1.5rem; }
+    .tk-contact__intro { position: static; gap: 0.9rem; text-align: center; justify-items: center; }
+    .tk-contact__title { font-size: clamp(2.5rem, 11vw, 3.25rem); }
+    .tk-contact__lead { font-size: 1rem; }
+    .tk-contact__quick { justify-content: center; }
+    .tk-contact__expect { padding-top: 0; border-top: 0; text-align: center; margin-inline: auto; }
+    .booking-sheet { margin-inline: calc(var(--gutter) * -0.6); border-radius: 26px; padding: 0.4rem; }
+    .booking-widget { height: 760px; border-radius: 22px; }
+    .booking-fallback { padding: 0.9rem; justify-content: center; text-align: center; }
+    .booking-fallback a { width: 100%; justify-content: center; }
+    .tk-contact__sms { text-align: center; }
   }
 </style>

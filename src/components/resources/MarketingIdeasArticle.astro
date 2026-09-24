@@ -1,14 +1,7 @@
 ---
-import {
-  ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
-  ChevronRight,
-  X,
-} from "lucide-react";
-import MarketingIcon, { type IconName } from "@/components/site/MarketingIcon.astro";
 import { getResourcePost, type ResourcePost } from "@/lib/resource-posts";
+import ExternalSources from "@/components/resources/ExternalSources.astro";
+import { arrow, iconSrc, split } from "@/lib/v6";
 
 interface Props {
   post: ResourcePost;
@@ -29,41 +22,41 @@ const groupLinks = [
 
 const situations = [
   {
-    icon: "customer-acquisition" as IconName,
+    icon: "target",
     need: "Attract better-fit new customers",
-    startingPoint: "Local visibility, proof, targeted mail, and referrals",
+    startingPoint: "Local visibility, real proof, targeted mail, and referrals",
     measure: "Qualified first appointments",
     href: "#new-customers",
     linkLabel: "See the new-customer ideas",
   },
   {
-    icon: "booked-appointments" as IconName,
+    icon: "weekly-planner",
     need: "Fill a known schedule gap",
     startingPoint: "Capacity campaigns, reactivation, and declined work",
-    measure: "Appointments in the target window",
+    measure: "Appointments booked inside the target window",
     href: "#slow-bays",
     linkLabel: "See the slow-bay ideas",
   },
   {
-    icon: "customer-retention" as IconName,
+    icon: "retention",
     need: "Earn the second and third visit",
     startingPoint: "Next-step scheduling, welcome follow-up, and reminders",
-    measure: "Return rate and time to next visit",
+    measure: "Return rate and time to the next visit",
     href: "#retention",
     linkLabel: "See the retention ideas",
   },
   {
-    icon: "reviews" as IconName,
+    icon: "vip",
     need: "Build trust before the call",
-    startingPoint: "Real photos, honest reviews, clear process, and useful answers",
+    startingPoint: "Real photos, honest reviews, a clear process, and useful answers",
     measure: "Profile actions and call-to-book rate",
     href: "#trust",
     linkLabel: "See the trust ideas",
   },
   {
-    icon: "strategy" as IconName,
+    icon: "car-count",
     need: "Improve customer and repair-order fit",
-    startingPoint: "A focused audience, service promise, and advisor script",
+    startingPoint: "A focused audience, a clear service promise, and an advisor script",
     measure: "Target-service mix and repair-order quality",
     href: "#better-work",
     linkLabel: "See the work-mix ideas",
@@ -73,19 +66,16 @@ const situations = [
 const ideaGroups = [
   {
     id: "new-customers",
-    number: "01",
-    eyebrow: "Create demand",
     title: "Attract better-fit new customers.",
     intro:
-      "More cars only help when the shop can serve them well and the work fits the business. Start with the customers, vehicles, and services you want—then choose the places where those drivers are already making decisions.",
+      "More cars only help when the shop can serve them well and the work fits the business. So start with the customers, vehicles, and services you want more of. Then show up where those drivers are already deciding which shop to call.",
     ideas: [
       {
-        number: "1",
         title: "Make your Google Business Profile answer the obvious questions.",
-        bestWhen: "The shop is hard to find or the profile creates uncertainty.",
-        body: "Keep the primary category, services, hours, phone number, appointment link, service area, and shop description complete and current. Add recent photos that show the exterior, entrance, front counter, team, and work environment. Google says local results are mainly based on relevance, distance, and prominence; complete information gives it a clearer picture of when the shop is relevant.",
+        bestWhen: "Drivers have a hard time finding the shop, or the profile leaves them guessing.",
+        body: "Fill in and maintain the primary category, services, hours, phone number, appointment link, service area, and shop description. Add recent photos of the exterior, the entrance, the front counter, the team, and the work environment. Google says local results are based mainly on relevance, distance, and prominence. Complete, accurate information gives Google a clearer picture of when your shop is the relevant answer, and it answers the questions a driver has before picking up the phone.",
         measure: "Profile calls, website visits, direction requests, and qualified appointments.",
-        watch: "Do not stuff the business name, duplicate locations, or promise a ranking position.",
+        watch: "Don't stuff keywords into the business name, create duplicate locations, or trust anyone who promises a ranking position.",
         link: {
           href: "https://support.google.com/business/answer/7091",
           label: "Read Google's local-ranking guidance",
@@ -93,142 +83,125 @@ const ideaGroups = [
         },
       },
       {
-        number: "2",
         title: "Strengthen the pages for work you genuinely want more of.",
-        bestWhen: "Customers search for a specialty but land on a generic service list.",
-        body: "Create or improve a useful page around the service, vehicle type, or customer situation the shop is equipped to handle. Explain the symptoms, what the shop checks, what the customer can expect, and why the team is qualified. Use original photographs and real proof. A focused page should help a driver make a decision—not repeat a city name twenty times.",
-        measure: "Qualified calls and booked repair orders tied to the targeted work.",
-        watch: "Do not publish thin pages for services the shop cannot support or locations it does not serve.",
+        bestWhen: "Drivers search for a specialty and land on a generic service list.",
+        body: "Build or improve a page around a service, vehicle type, or customer situation your shop is truly equipped to handle. Explain the symptoms, what your team checks, what the customer can expect, and why your technicians are qualified. Use original photos and real proof. A good page helps a driver make a decision. It doesn't repeat a city name twenty times.",
+        measure: "Qualified calls and booked repair orders tied to the work you targeted.",
+        watch: "Skip thin pages for services the shop can't support or locations it doesn't serve.",
       },
       {
-        number: "3",
         title: "Use direct mail as a campaign, not a print order.",
-        bestWhen: "The shop needs awareness inside a defined drive-time area.",
-        body: "Choose a tight household list, a clear customer problem, a serviceable offer, a landing path, and a repeatable drop schedule before the postcard is designed. New movers, nearby best-fit households, and a separate lapsed-customer list can each support a different campaign. The mailer is one part of the system; the phone response and follow-up determine whether it becomes good work.",
-        measure: "Tracked calls, booked appointments, show rate, and repair-order quality by drop.",
-        watch: "A broad one-time mailing usually teaches less than repeated drops to a qualified list.",
+        bestWhen: "You need to be known inside a defined drive-time area.",
+        body: "Before anyone designs a postcard, decide on a tight household list, a clear customer problem, an offer the shop can serve, a landing path, and a repeatable drop schedule. New movers, nearby best-fit households, and lapsed customers can each support their own campaign. The mailer is one piece of the system. How the phone gets answered and how the shop follows up decide whether it turns into good work.",
+        measure: "Tracked calls, booked appointments, show rate, and repair-order quality for each drop.",
+        watch: "One broad mailing usually teaches you less than repeated drops to a qualified list.",
         link: {
           href: "/resources/direct-mail-for-repair-shops",
           label: "Use the direct-mail campaign guide",
         },
       },
       {
-        number: "4",
         title: "Build a referral moment into the customer experience.",
-        bestWhen: "Happy customers already recommend the shop, but the process is accidental.",
-        body: "Choose a natural moment after the customer has received a clear win: the vehicle is ready, the problem is understood, and the service promise has been kept. Give advisors a short, comfortable way to ask for an introduction and make the next step easy. A useful referral message describes who the shop helps best instead of asking customers to send everyone they know.",
-        measure: "Referred calls, booked first visits, and the percentage that becomes a second visit.",
-        watch: "Do not turn a warm relationship into a complicated rewards program the team cannot administer.",
+        bestWhen: "Happy customers already recommend the shop, but it happens by accident.",
+        body: "Pick a natural moment right after the customer gets a clear win: the vehicle is ready, they understand what was wrong, and the shop kept its promise. Give your advisors a short, comfortable way to ask for an introduction, and make the next step easy. The best referral ask describes who the shop helps best. It doesn't ask customers to send everyone they know.",
+        measure: "Referred calls, booked first visits, and the share that turns into a second visit.",
+        watch: "Don't turn a warm relationship into a complicated rewards program your team can't keep up with.",
       },
     ],
   },
   {
     id: "slow-bays",
-    number: "02",
-    eyebrow: "Protect capacity",
     title: "Fill a predictable schedule gap.",
     intro:
-      "A soft calendar is a timing problem before it is a branding problem. Work backward from the open dates, choose people who already have a reason to respond, and prepare the front counter before the campaign reaches them.",
+      "A soft calendar is usually a timing problem before it's a branding problem. Work backward from the open dates. Reach people who already have a reason to come in, and brief the front counter before the first message goes out.",
     ideas: [
       {
-        number: "5",
         title: "Trigger a campaign from real appointment capacity.",
-        bestWhen: "The shop can see a soft window two to four weeks ahead.",
-        body: "Define the exact days, services, technician capacity, and number of appointments the shop can accept. Then choose an audience and message that can act inside that window. A modest email, text, direct-mail, or targeted digital campaign tied to a real schedule gap gives the shop a specific audience, offer, and booking window, instead of waiting for empty bays to trigger a broad discount.",
+        bestWhen: "You can see a soft window two to four weeks out.",
+        body: "Get specific. Which days are open, which services fit them, how much technician time is available, and how many appointments can the shop accept? Then choose an audience and a message that can act inside that window. A modest email, text, direct-mail, or targeted digital campaign built around a real schedule gap gives you a specific audience, offer, and booking window. That beats waiting for empty bays and reaching for a broad discount.",
         measure: "Booked and completed appointments inside the target dates.",
-        watch: "Marketing cannot rescue a gap if creative, approvals, lists, or staff preparation begin too late.",
+        watch: "Marketing can't rescue a gap when the creative, approvals, lists, or staff prep start too late.",
         link: {
           href: "/services/directtrack-marketing",
           label: "Explore targeted campaigns with DirectTrack",
         },
       },
       {
-        number: "6",
         title: "Reactivate customers whose normal return window has passed.",
-        bestWhen: "The database contains good customers who have quietly stopped returning.",
-        body: "Define inactive using the shop's actual visit cycle—such as customers who have not returned in 12, 18, or 24 months—then separate useful segments by vehicle, prior work, location, or customer value. Acknowledge the gap without sounding accusatory, give a practical reason to reconnect, and make booking simple across the channels the customer has agreed to receive.",
-        measure: "Reactivated appointments, completed repair orders, and post-campaign return rate.",
-        watch: "A generic blast to the entire database hides which customers and messages worked.",
+        bestWhen: "Your database holds good customers who have quietly stopped coming back.",
+        body: "Define inactive by your shop's actual visit cycle, such as customers who haven't returned in 12, 18, or 24 months. Then separate useful segments by vehicle, prior work, location, or customer value. Acknowledge the gap without scolding anyone, give a practical reason to reconnect, and make booking simple in the channels each customer has agreed to hear from you.",
+        measure: "Reactivated appointments, completed repair orders, and return rate after the campaign.",
+        watch: "One generic blast to the whole database hides which customers and messages actually worked.",
         link: {
           href: "/services/retention-marketing",
           label: "See how retention marketing brings customers back",
         },
       },
       {
-        number: "7",
         title: "Follow up on previously declined work with context.",
         bestWhen: "Customers left with documented work that still needs attention.",
-        body: "Use the advisor's notes and the inspection record to remind the customer what was found, why it mattered, and how to take the next step. Prioritize safety, reliability, and maintenance needs honestly. Coordinate timing and ownership so the customer receives a helpful continuation of the service conversation—not an alarming message from an anonymous campaign.",
+        body: "Use the advisor's notes and the inspection record to remind the customer what was found, why it matters, and how to take the next step. Be honest about what is safety, what is reliability, and what is routine maintenance. Agree on who sends the message and when, so it feels like the service conversation picking back up. It should never read like an alarming note from a campaign nobody at the shop recognizes.",
         measure: "Responses, booked follow-up work, approvals, and completed repair orders.",
-        watch: "Respect communication preferences and applicable messaging rules, and never exaggerate urgency.",
+        watch: "Respect each customer's communication preferences and the messaging rules that apply, and never exaggerate urgency.",
       },
     ],
   },
   {
     id: "retention",
-    number: "03",
-    eyebrow: "Earn the next visit",
     title: "Turn a first appointment into a relationship.",
     intro:
-      "The shop has already paid to earn the customer's attention and trust. Retention marketing protects that investment by making the next helpful step clear, timely, and consistent with the experience the customer just had.",
+      "You already paid to earn this customer's attention and trust. Retention marketing protects that investment. Make the next helpful step clear, send it at the right time, and keep it consistent with the visit the customer just had.",
     ideas: [
       {
-        number: "8",
         title: "Set the next expectation before the keys change hands.",
-        bestWhen: "Customers leave satisfied but have no clear reason or date to return.",
-        body: "At pickup, explain the next likely maintenance milestone, document it in the system, and tell the customer how the shop will follow up. When appropriate, offer to reserve the next visit. The later email or text should reinforce a conversation the customer remembers rather than introduce a mysterious new recommendation months later.",
+        bestWhen: "Customers leave happy with no clear reason or date to come back.",
+        body: "At pickup, explain the next likely maintenance milestone, note it in the system, and tell the customer how the shop will follow up. When it makes sense, offer to reserve the next visit right there. Then the email or text months later reinforces a conversation the customer remembers, instead of arriving as a mystery recommendation.",
         measure: "Future appointments set, reminder response, and return rate.",
-        watch: "Do not schedule a next step the advisor has not explained or the shop cannot honor.",
+        watch: "Don't schedule a next step the advisor hasn't explained or the shop can't honor.",
       },
       {
-        number: "9",
         title: "Create a useful new-customer welcome sequence.",
-        bestWhen: "The first visit is strong but the customer hears nothing until another promotion.",
-        body: "Send a brief thank-you, explain how to reach the shop, remind the customer where inspections or records can be found, and introduce the next appropriate service touchpoint. A simple 30-, 60-, and 90-day sequence can build familiarity without sending three sales offers. Each message should have one job and one obvious next action.",
+        bestWhen: "The first visit goes well, then the customer hears nothing until the next promotion.",
+        body: "Send a short thank-you. Explain how to reach the shop, remind the customer where to find inspections or records, and introduce the next service touchpoint that fits their vehicle. A simple 30-, 60-, and 90-day sequence builds familiarity without sending three sales offers in a row. Give each message one job and one obvious next step.",
         measure: "Message engagement, second-visit rate, and time to the next appointment.",
-        watch: "Automation should sound like the shop and stop when the message is no longer relevant.",
+        watch: "Automation should sound like your shop, and it should stop once a message no longer applies.",
         link: {
           href: "/services/retention-marketing",
           label: "See how Turnkey supports customer retention",
         },
       },
       {
-        number: "10",
         title: "Segment seasonal reminders around real vehicle needs.",
-        bestWhen: "The shop sends the same holiday promotion to every customer.",
-        body: "Start with local weather, mileage, vehicle age, service history, and the work the team can perform. A cooling-system reminder, pre-trip inspection, tire check, or maintenance message is useful only when the audience and timing make sense. Educational context usually gives a good customer a better reason to act than a novelty holiday coupon.",
-        measure: "Appointments and completed work from the intended customer segment.",
-        watch: "Do not let the marketing calendar create demand the technician schedule cannot absorb.",
+        bestWhen: "Every customer gets the same holiday promotion.",
+        body: "Start with local weather, mileage, vehicle age, service history, and the work your team can take on. A cooling-system reminder, pre-trip inspection, tire check, or maintenance message only helps when the audience and the timing fit. For a good customer, a clear explanation of why the service matters now is usually a better reason to book than a novelty holiday coupon.",
+        measure: "Appointments and completed work from the customer segment you intended to reach.",
+        watch: "Don't let the marketing calendar create demand the technician schedule can't absorb.",
       },
     ],
   },
   {
     id: "trust",
-    number: "04",
-    eyebrow: "Reduce uncertainty",
     title: "Build trust before the customer calls.",
     intro:
-      "Drivers cannot evaluate a diagnosis before choosing a shop, so they look for other signals: recognizable people, a professional place, clear communication, recent customer experiences, and an understandable process.",
+      "A driver can't judge your diagnosis before choosing your shop. So they look for other signals: people they recognize, a professional place, clear communication, recent customer experiences, and a process that makes sense.",
     ideas: [
       {
-        number: "11",
         title: "Show the real people, place, and process.",
-        bestWhen: "The website could belong to almost any repair shop.",
-        body: "Photograph the exterior and entrance, advisors, technicians, inspection process, equipment, waiting area, and key handoff. Use the images across the website, Business Profile, social content, email, recruiting, and campaigns. Current original photography lets a customer recognize the shop before arriving and gives every marketing channel a shared visual language.",
+        bestWhen: "Your website could belong to almost any repair shop.",
+        body: "Photograph the exterior and entrance, your advisors and technicians, the inspection process, the equipment, the waiting area, and the moment the keys go back to the customer. Use those images on the website, Business Profile, social content, email, recruiting, and campaigns. Current, original photos let a customer recognize your shop before arriving. They also give every channel the same look, so everything feels like one shop.",
         measure: "Engagement with profile and website pages, calls, and customer feedback.",
-        watch: "Outdated team photos and generic stock imagery can create more uncertainty than confidence.",
+        watch: "Old team photos and generic stock images can create more doubt than confidence.",
         link: {
           href: "/resources/auto-repair-shop-photography-guide",
           label: "Plan the shop photo library",
         },
       },
       {
-        number: "12",
         title: "Ask every eligible customer for an honest review.",
-        bestWhen: "Review requests are inconsistent or depend on one advisor remembering.",
-        body: "Choose a repeatable point after a completed customer experience, send a direct link, and ask for honest feedback in neutral language. Give the team a recovery path when a customer raises a concern. Reviews can improve customer confidence and may contribute to local prominence, but the goal is a truthful record of the experience—not a manufactured five-star score.",
+        bestWhen: "Review requests are hit or miss, or depend on one advisor remembering.",
+        body: "Pick a repeatable point after the visit is complete, send a direct link, and ask for honest feedback in neutral words. Give the team a way to recover when a customer raises a concern. Reviews can build customer confidence and may contribute to local prominence. The goal is still a truthful record of the experience, not a manufactured five-star score.",
         measure: "Request volume, completed reviews, recency, rating themes, and issues recovered.",
-        watch: "The FTC prohibits fake reviews and incentives conditioned on positive or negative sentiment.",
+        watch: "The FTC prohibits fake reviews and incentives conditioned on whether a review is positive or negative.",
         link: {
           href: "https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers",
           label: "Review the FTC's business guidance",
@@ -236,54 +209,48 @@ const ideaGroups = [
         },
       },
       {
-        number: "13",
         title: "Respond to reviews like a future customer is reading.",
-        bestWhen: "Reviews receive canned replies, defensive replies, or no replies at all.",
-        body: "Thank the customer, reflect a specific part of the experience when appropriate, and show the shop's communication style. For a negative review, stay calm, avoid discussing private repair details, and offer a direct path to continue the conversation. The response is not only for the reviewer; it helps future customers understand how the shop handles praise and problems.",
+        bestWhen: "Reviews get canned replies, defensive replies, or no reply at all.",
+        body: "Thank the customer, mention a specific part of the visit when it fits, and let your shop's way of communicating come through. With a negative review, stay calm, keep private repair details out of it, and offer a direct way to continue the conversation. The reply isn't only for the reviewer. Future customers read it to see how you handle praise and how you handle problems.",
         measure: "Response coverage, response time, recurring themes, and recovered relationships.",
-        watch: "Do not argue, reveal customer information, or paste the same promotional paragraph under every review.",
+        watch: "Don't argue, reveal customer information, or paste the same promotional paragraph under every review.",
         link: {
           href: "/services/digital-marketing",
           label: "See how Turnkey supports reviews and local visibility",
         },
       },
       {
-        number: "14",
         title: "Turn advisor questions into useful content.",
-        bestWhen: "The front counter answers the same high-value questions every week.",
-        body: "Keep a running list of the questions customers ask before booking, during inspection, and before approval. Turn the best ones into concise website answers, emails, short videos, social posts, or call-handling notes. Plain-language explanations about diagnostics, estimates, warranties, timelines, and maintenance can lower uncertainty before the customer ever reaches an advisor.",
-        measure: "Relevant page visits, assisted conversions, call quality, and repeated-question frequency.",
-        watch: "Useful content answers a real decision question; it does not need to chase every trend or keyword.",
+        bestWhen: "Your front counter answers the same important questions every week.",
+        body: "Keep a running list of what customers ask before booking, during the inspection, and before approving work. Turn the best ones into short website answers, emails, quick videos, social posts, or call-handling notes. Plain explanations of diagnostics, estimates, warranties, timelines, and maintenance take the uncertainty out before a customer ever reaches an advisor.",
+        measure: "Relevant page visits, calls and bookings the content helped produce, call quality, and how often the same question still comes up.",
+        watch: "Useful content answers a real decision question. It doesn't need to chase every trend or keyword.",
       },
     ],
   },
   {
     id: "better-work",
-    number: "05",
-    eyebrow: "Improve the mix",
     title: "Get more of the work the shop wants.",
     intro:
-      "When the calendar is full but the business still feels strained, volume may not be the real goal. Marketing can help shape vehicle mix, service mix, customer expectations, and the quality of work reaching the bays.",
+      "Maybe the calendar is full and the business still feels strained. Then more volume probably isn't the goal. Marketing can shape your vehicle mix, your service mix, what customers expect when they call, and the quality of work that reaches the bays.",
     ideas: [
       {
-        number: "15",
         title: "Choose one customer or service priority for the quarter.",
         bestWhen: "Every campaign is trying to reach every driver for every service.",
-        body: "Use shop data and team experience to define a focus: a vehicle specialty, a maintenance relationship, a service category, nearby households, or another customer situation the shop serves especially well. State why that work fits the business and what proof the customer needs. A focused quarter creates a cleaner test than a permanently broad promise.",
-        measure: "Qualified inquiries, targeted service mix, repair-order quality, and repeat behavior.",
-        watch: "The focus should come from real capability and economics, not an invented demographic stereotype.",
+        body: "Use your shop data and your team's experience to pick a focus: a vehicle specialty, a maintenance relationship, a service category, nearby households, or another customer situation you serve especially well. Write down why that work fits the business and what proof the customer needs to see. One focused quarter gives you a cleaner test than a permanent promise to be everything to everyone.",
+        measure: "Qualified inquiries, targeted service mix, repair-order quality, and repeat visits.",
+        watch: "Base the focus on real capability and real economics, not an invented demographic stereotype.",
         link: {
           href: "/resources/ideal-customer-profile-auto-repair-shop",
           label: "Build an evidence-based customer profile",
         },
       },
       {
-        number: "16",
         title: "Carry one promise from the ad to the advisor.",
-        bestWhen: "The campaign generates responses but too few good appointments.",
-        body: "Align the audience, offer, landing page, phone greeting, advisor explanation, and follow-up around the same customer need. Give the team the exact campaign details before launch and listen to a sample of real calls. When the front counter understands who the message is for and why it matters, the marketing promise has a better chance of becoming the right repair order.",
+        bestWhen: "The campaign gets responses, but too few become good appointments.",
+        body: "Line up the audience, offer, landing page, phone greeting, advisor explanation, and follow-up around the same customer need. Give the team the exact campaign details before launch, then listen to a sample of real calls. When the front counter knows who the message is for and why it matters, the promise in the ad has a better chance of becoming the right repair order.",
         measure: "Qualified-call rate, booking rate, show rate, and completed targeted work.",
-        watch: "More traffic will not fix a confusing offer, a weak handoff, or a schedule that cannot accept the work.",
+        watch: "More traffic won't fix a confusing offer, a weak handoff, or a schedule that can't take the work.",
         link: {
           href: "/services/directtrack-marketing",
           label: "See how DirectTrack connects targeting and measurement",
@@ -294,38 +261,38 @@ const ideaGroups = [
 ];
 
 const measurementSteps = [
-  { label: "Response", detail: "Calls, forms, messages" },
-  { label: "Qualified", detail: "Right customer and work" },
+  { label: "Response", detail: "Calls, forms, and messages" },
+  { label: "Qualified", detail: "The right customer and work" },
   { label: "Booked", detail: "Appointment accepted" },
   { label: "Completed", detail: "Repair order closed" },
   { label: "Returned", detail: "Next visit earned" },
 ];
 
 const testSteps = [
-  "Write down the business problem and current baseline.",
-  "Choose one audience, one campaign, and one owner.",
-  "Prepare the landing, phone, scheduling, and follow-up path.",
-  "Set one primary business measure and a review date.",
-  "Run long enough to gather evidence without changing everything at once.",
-  "Make a keep, fix, stop, or expand decision.",
+  "Write down the business problem and where the numbers stand today.",
+  "Pick one audience, one campaign, and one person who owns it.",
+  "Get the landing page, phone handling, scheduling, and follow-up ready.",
+  "Choose the one business number you'll judge it by, and set a review date.",
+  "Run it long enough to learn something, without changing everything at once.",
+  "Decide whether to keep it, fix it, stop it, or expand it.",
 ];
 
 const avoidItems = [
   {
     title: "A campaign without a shop problem",
-    body: "If the team cannot state what needs to change, the channel will be impossible to judge fairly.",
+    body: "If nobody can say what needs to change, there's no fair way to judge the channel.",
   },
   {
     title: "A discount for everyone",
-    body: "Broad price offers can create activity while attracting work and expectations the shop does not want.",
+    body: "A broad price offer can create activity while attracting work and expectations the shop doesn't want.",
   },
   {
     title: "A channel nobody owns",
-    body: "Every campaign needs one person responsible for the list, message, launch, phone handoff, and review.",
+    body: "Every campaign needs one person responsible for the list, the message, the launch, the phone handoff, and the review.",
   },
   {
     title: "A report that stops at leads",
-    body: "Lead volume cannot show whether the right customers booked, arrived, approved work, or came back.",
+    body: "A lead count can't tell you whether the right customers booked, showed up, approved work, or came back.",
   },
 ];
 
@@ -345,61 +312,54 @@ const wordSource = [
 const readMinutes = Math.max(1, Math.round(wordSource.split(/\s+/).length / 225));
 ---
 
-<article class="bg-white">
-  <section class="relative overflow-hidden bg-[var(--off-white)] py-8 md:py-12 lg:py-16">
-    <div class="pointer-events-none absolute -right-28 top-20 h-80 w-80 rounded-full bg-[var(--key-blue)]/10 blur-3xl" aria-hidden="true"></div>
-    <div class="container-page relative">
-      <a href="/resources" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/70 transition hover:text-charcoal">
-        <ArrowLeft className="h-4 w-4" />
+<article class="tk-mi" data-art-body>
+  <section class="tk-art__hero">
+    <div class="v6-wrap">
+      <a href="/resources" class="tk-art__back">
+        <i set:html={arrow} />
         All resources
       </a>
 
-      <div class="mt-7 grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
-        <header class="lg:col-span-7">
-          <p class="eyebrow text-[var(--key-blue)]">
-            {post.tag} guide · <time datetime={post.updatedDate ?? post.originalDate}>{post.date}</time> · {readMinutes} min read
+      <div class="tk-art__head">
+        <header class="tk-art__head-text">
+          <p class="tk-art__meta" data-fade>
+            <span class="tk-art__tag">{post.tag} guide</span> · <time datetime={post.updatedDate ?? post.originalDate}>{post.date}</time> · {readMinutes} min read
           </p>
-          <h1 class="page-title mt-5 max-w-[18ch] text-balance text-charcoal">
-            {post.title}
-          </h1>
-          <p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-charcoal/70 md:text-xl">
+          <h1 class="tk-art__title" data-words set:html={split([{ t: post.title }])} />
+          <p class="tk-art__dek tk-mi__dek" data-fade style="--d:2">
             {post.dek}
           </p>
-          <div class="mt-8">
-            <a href="#start-here" class="btn-primary w-full sm:w-auto">
-              Find Your Starting Point
-              <ArrowRight className="h-4 w-4" />
+          <div class="tk-art__actions" data-fade style="--d:3">
+            <a href="#start-here" class="v6-btn v6-btn--navy v6-btn--lg">
+              <span>Find Your Starting Point</span>
+              <i set:html={arrow} />
             </a>
           </div>
         </header>
 
-        <div class="relative mx-auto w-full max-w-[560px] lg:col-span-5 lg:justify-self-end">
-          <div class="overflow-hidden rounded-[30px] bg-[var(--navy)] p-3 shadow-[0_34px_90px_-48px_rgba(20,22,28,0.5)] md:rounded-[38px] md:p-4">
-            <div class="aspect-[4/3] overflow-hidden rounded-[22px] md:rounded-[28px]">
-              <img
-                src={post.image.src}
-                alt={post.image.alt}
-                width={post.imageWidth ?? 1200}
-                height={post.imageHeight ?? 800}
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-                class="h-full w-full object-cover"
-                style={`object-position: ${post.image.position ?? "50% 50%"};`}
-              />
-            </div>
-          </div>
+        <div class="tk-mi__visual" data-fade style="--d:3">
+          <figure class="tk-art__media">
+            <img
+              src={post.image.src}
+              alt={post.image.alt}
+              width={post.imageWidth ?? 1200}
+              height={post.imageHeight ?? 800}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              style={`object-position: ${post.image.position ?? "50% 50%"};`}
+            />
+          </figure>
 
-          <div class="card-float relative mx-4 -mt-10 px-5 py-5 md:absolute md:-bottom-8 md:-left-7 md:mx-0 md:w-[280px]">
-            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-charcoal/55">Inside this guide</p>
-            <dl class="mt-4 grid grid-cols-2 gap-4">
+          <div class="tk-mi__inside">
+            <dl>
               <div>
-                <dt class="font-display text-3xl font-semibold leading-none tabular-nums text-[var(--key-blue)]">{ideaCount}</dt>
-                <dd class="mt-1.5 text-xs leading-snug text-charcoal/70">ideas you can run</dd>
+                <dt>{ideaCount}</dt>
+                <dd>ideas you can run</dd>
               </div>
               <div>
-                <dt class="font-display text-3xl font-semibold leading-none tabular-nums text-[var(--key-blue)]">{situations.length}</dt>
-                <dd class="mt-1.5 text-xs leading-snug text-charcoal/70">shop situations to start from</dd>
+                <dt>{situations.length}</dt>
+                <dd>shop situations to start from</dd>
               </div>
             </dl>
           </div>
@@ -408,450 +368,405 @@ const readMinutes = Math.max(1, Math.round(wordSource.split(/\s+/).length / 225)
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20" aria-labelledby="short-answer-heading">
-    <div class="container-page">
-      <div class="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:gap-16">
-        <div>
-          <p class="eyebrow text-[var(--key-blue)]">The short answer</p>
-          <h2 id="short-answer-heading" class="display-3 mt-4 max-w-[16ch] text-charcoal">
-            Choose the idea by the job it needs to do.
-          </h2>
-        </div>
-        <div>
-          <p class="max-w-[62ch] text-xl leading-relaxed text-charcoal/70">
-            This guide helps you choose an idea based on the shop problem in front of you. Effective auto repair marketing usually has one of five jobs: attract a better-fit new customer, fill a known capacity gap, earn another visit, reduce uncertainty, or improve the work mix. Decide which job matters now before choosing a channel. For the commercial overview,
-            <a href="/" class="font-semibold text-[var(--navy)] underline decoration-[var(--green)] decoration-2 underline-offset-4 hover:text-[var(--key-blue)]">
-              see how Turnkey approaches auto repair marketing for independent shops
-            </a>.
-          </p>
-          <ul class="mt-9 grid gap-6 sm:grid-cols-3">
-            {post.takeaways.map((takeaway) => (
-              <li class="border-t-2 border-[var(--green)] pt-4 text-sm leading-relaxed text-charcoal/70">{takeaway}</li>
-            ))}
-          </ul>
-        </div>
+  <section class="v6-sec tk-mi__short" aria-labelledby="short-answer-heading">
+    <div class="v6-wrap tk-mi__split">
+      <div>
+        <h2 id="short-answer-heading" class="tk-art__h2 tk-mi__short-h2" data-rise>
+          Choose the idea by the job it needs to do.
+        </h2>
+      </div>
+      <div>
+        <p class="tk-mi__short-text">
+          Start with the problem in front of your shop, not the channel everyone is talking about this month. Most auto repair marketing has one of five jobs: attract a better-fit new customer, fill a known capacity gap, earn another visit, reduce uncertainty, or improve the work mix. Which one matters most right now? Answer that first, then choose the channel. For the bigger picture,
+          <a href="/" class="tk-art__text-link">
+            see how Turnkey approaches auto repair marketing for independent shops
+          </a>.
+        </p>
+        <ul class="tk-mi__takeaways">
+          {post.takeaways.map((takeaway) => (
+            <li>{takeaway}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  <section id="start-here" class="scroll-mt-28 bg-[var(--off-white)] py-14 md:py-20" aria-labelledby="start-heading">
-    <div class="container-page">
-      <div class="max-w-3xl">
-        <p class="eyebrow text-[var(--key-blue)]">Choose your route</p>
-        <h2 id="start-heading" class="display-2 mt-4 text-balance text-charcoal">
-          What does the shop need marketing to change?
-        </h2>
-        <p class="mt-5 max-w-[58ch] text-lg leading-relaxed text-charcoal/70">
-          Pick the situation closest to yours. It will take you to the ideas most likely to be useful now—not merely the tactics getting the most attention online.
+  <section id="start-here" class="v6-sec v6-sec--tint tk-mi__start" aria-labelledby="start-heading">
+    <div class="v6-wrap">
+      <div class="tk-mi__start-head">
+        <h2 id="start-heading" class="v6-h2" data-words set:html={split([{ t: "What does the shop need" }, { t: "marketing to change?", accent: true }])} />
+        <p class="v6-lead">
+          Pick the situation that sounds most like your shop right now. Each one takes you to the ideas most likely to help, instead of the tactics getting the most attention online.
         </p>
       </div>
 
-      <div class="mt-9 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        {situations.map((situation) => {
-          return (
-            <a href={situation.href} class="motion-card group flex min-h-full flex-col rounded-[24px] border border-black/[0.06] bg-white p-6 shadow-[0_18px_45px_-42px_rgba(20,22,28,0.5)] transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_28px_64px_-46px_rgba(20,22,28,0.55)]">
-              <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--key-blue-soft)] text-[var(--navy)]">
-                <MarketingIcon name={situation.icon} class="h-8 w-8" />
-              </span>
-              <h3 class="mt-5 text-xl font-semibold leading-tight text-charcoal">{situation.need}</h3>
-              <p class="mt-4 text-sm leading-relaxed text-charcoal/70">Start with: {situation.startingPoint}.</p>
-              <div class="mt-auto border-l-2 border-[var(--green)] pl-3 pt-0 text-xs leading-relaxed text-charcoal/55">
-                <span class="font-semibold text-charcoal/70">Measure:</span> {situation.measure}
-              </div>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[var(--navy)]">
-                {situation.linkLabel} <ChevronRight className="motion-arrow h-4 w-4" />
-              </span>
-            </a>
-          );
-        })}
+      <div class="v6-swipe tk-mi__routes" style="--cols:5">
+        {situations.map((situation) => (
+          <a href={situation.href} class="v6-tile tk-mi__route">
+            <span class="v6-tile__icon" aria-hidden="true">
+              <span class="v6-icon" style={`--icon:url(${iconSrc(situation.icon)})`}></span>
+            </span>
+            <h3 class="v6-tile__title">{situation.need}</h3>
+            <p class="v6-tile__text">Start with: {situation.startingPoint}.</p>
+            <div class="tk-mi__route-measure">
+              <span>Measure:</span> {situation.measure}
+            </div>
+            <span class="v6-link tk-mi__route-go">
+              {situation.linkLabel} <i set:html={arrow} />
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-24">
-    <div class="container-page grid gap-10 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[270px_minmax(0,1fr)] xl:gap-24">
-      <aside class="hidden lg:block">
-        <nav class="ideas-nav sticky top-28" aria-label="Article sections" data-ideas-nav>
-          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-charcoal/55">In this guide</p>
-          <div class="mt-4 h-[3px] w-full rounded-full bg-[var(--hairline)]">
-            <div class="h-full w-0 rounded-full bg-[var(--key-blue)]" data-reading-progress></div>
-          </div>
-          <ol class="mt-5 border-l border-[var(--hairline)]">
+  <div class="v6-wrap tk-art__layout tk-art__read">
+    <aside class="tk-art__aside">
+      <nav class="tk-toc" aria-label="Article sections" data-toc>
+        <details class="tk-toc__box" data-toc-details open>
+          <summary>In this guide <span class="tk-toc__plus" aria-hidden="true"></span></summary>
+          <ul class="tk-toc__list">
             {ideaGroups.map((group, index) => (
               <li>
-                <a
-                  href={`#${group.id}`}
-                  class="ideas-nav-link flex min-h-11 items-center gap-3 py-2.5 pl-4 text-sm font-medium text-charcoal/70 transition hover:text-charcoal"
-                >
-                  <span class="tabular-nums text-xs text-charcoal/40">{group.number}</span>
+                <a href={`#${group.id}`}>
                   {groupLinks[index].label}
                 </a>
               </li>
             ))}
-          </ol>
-          <div class="mt-5 flex flex-col gap-1 border-t border-[var(--hairline)] pt-4">
-            <a href="#start-here" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/60 transition hover:text-charcoal">
-              <ArrowUp className="h-3.5 w-3.5" />
-              Start here
-            </a>
-            <a href="#measurement" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/60 transition hover:text-charcoal">
-              <ArrowDown className="h-3.5 w-3.5" />
-              The scoreboard
-            </a>
+          </ul>
+        </details>
+        <div class="tk-toc__extra">
+          <a href="#start-here">
+            <i class="tk-mi__up" set:html={arrow} />
+            Start here
+          </a>
+          <a href="#measurement">
+            <i class="tk-mi__down" set:html={arrow} />
+            The scoreboard
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <div class="tk-art__main">
+      {ideaGroups.map((group) => (
+        <section id={group.id} class="tk-mi__group">
+          <div class="tk-mi__group-head">
+            <h2 class="tk-art__h2" data-rise>{group.title}</h2>
+            <p class="tk-art__lede tk-mi__lede">{group.intro}</p>
           </div>
-        </nav>
-      </aside>
 
-      <div class="min-w-0">
-        <nav class="-mx-5 mb-12 flex gap-2 overflow-x-auto px-5 pb-2 lg:hidden" aria-label="Jump to article section">
-          {groupLinks.map((link) => (
-            <a href={link.href} class="inline-flex min-h-11 shrink-0 items-center rounded-full border border-black/[0.08] bg-white px-4 text-sm font-medium text-charcoal/70">
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {ideaGroups.map((group, groupIndex) => (
-          <section id={group.id} class:list={["scroll-mt-28", groupIndex > 0 && "mt-20 md:mt-28"]}>
-            <div class="grid gap-4 md:grid-cols-[72px_minmax(0,1fr)] md:gap-8">
-              <span class="font-display text-6xl font-semibold leading-none tabular-nums text-[var(--key-blue)]/30 md:text-right md:text-[4.5rem]" aria-hidden="true">{group.number}</span>
-              <div>
-                <p class="eyebrow text-[var(--key-blue)]">{group.eyebrow}</p>
-                <h2 class="display-3 mt-3 max-w-[20ch] text-balance text-charcoal">{group.title}</h2>
-                <p class="mt-5 max-w-[62ch] text-lg leading-relaxed text-charcoal/70">{group.intro}</p>
-              </div>
-            </div>
-
-            <ol class="mt-12 md:mt-14">
-              {group.ideas.map((idea) => (
-                <li class="idea-item grid gap-x-8 gap-y-3 border-t border-[var(--hairline)] pt-9 md:grid-cols-[72px_minmax(0,1fr)]">
-                  <span class="font-display text-2xl font-semibold leading-none tabular-nums text-[var(--key-blue)] md:pt-1 md:text-right md:text-3xl" aria-hidden="true">{idea.number}</span>
-                  <div class="max-w-[64ch]">
-                    <h3 class="text-2xl font-semibold leading-[1.15] text-charcoal md:text-[1.75rem]">{idea.title}</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-charcoal/70">
-                      <span class="mr-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-charcoal/55">Best when</span>
-                      {idea.bestWhen}
-                    </p>
-                    <p class="mt-5 text-lg leading-[1.72] text-charcoal/80">{idea.body}</p>
-                    <dl class="mt-7 grid gap-5 text-sm leading-relaxed sm:grid-cols-2">
-                      <div class="border-l-2 border-[var(--green)] pl-4">
-                        <dt class="text-xs font-semibold uppercase tracking-[0.12em] text-charcoal/55">Measure</dt>
-                        <dd class="mt-1.5 text-charcoal/70">{idea.measure}</dd>
-                      </div>
-                      <div class="border-l-2 border-[var(--hairline)] pl-4">
-                        <dt class="text-xs font-semibold uppercase tracking-[0.12em] text-charcoal/55">Watch out for</dt>
-                        <dd class="mt-1.5 text-charcoal/70">{idea.watch}</dd>
-                      </div>
-                    </dl>
-                    {idea.link && (
-                      <a
-                        href={idea.link.href}
-                        class="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/35 underline-offset-4 transition hover:decoration-[var(--key-blue)]"
-                        target={idea.link.external ? "_blank" : undefined}
-                        rel={idea.link.external ? "noreferrer" : undefined}
-                        data-track-event={idea.link.href.startsWith("/services/") ? "service_cta_click" : undefined}
-                        data-track-slug={idea.link.href.startsWith("/services/") ? idea.link.href.replace("/services/", "") : undefined}
-                        data-track-placement={idea.link.href.startsWith("/services/") ? "resource_marketing_ideas_inline" : undefined}
-                      >
-                        {idea.link.label}
-                        <ArrowRight className="h-4 w-4" />
-                      </a>
-                    )}
+          <ul class="tk-mi__ideas">
+            {group.ideas.map((idea) => (
+              <li class="tk-mi__idea">
+                <h3 class="tk-mi__idea-h3">{idea.title}</h3>
+                <p class="tk-mi__best">
+                  <span>Best when:</span>
+                  {idea.bestWhen}
+                </p>
+                <p class="tk-mi__idea-text">{idea.body}</p>
+                <dl class="tk-mi__dl">
+                  <div class="tk-mi__dl-measure">
+                    <dt>Measure</dt>
+                    <dd>{idea.measure}</dd>
                   </div>
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))}
+                  <div class="tk-mi__dl-watch">
+                    <dt>Watch out for</dt>
+                    <dd>{idea.watch}</dd>
+                  </div>
+                </dl>
+                {idea.link && (
+                  <a
+                    href={idea.link.href}
+                    class="v6-link tk-mi__idea-link"
+                    target={idea.link.external ? "_blank" : undefined}
+                    rel={idea.link.external ? "noreferrer" : undefined}
+                    data-track-event={idea.link.href.startsWith("/services/") ? "service_cta_click" : undefined}
+                    data-track-slug={idea.link.href.startsWith("/services/") ? idea.link.href.replace("/services/", "") : undefined}
+                    data-track-placement={idea.link.href.startsWith("/services/") ? "resource_marketing_ideas_inline" : undefined}
+                  >
+                    {idea.link.label}
+                    <i set:html={arrow} />
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
 
-        <div class="mt-16 border-t border-[var(--hairline)] pt-6">
-          <a href="#start-here" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/60 transition hover:text-charcoal">
-            <ArrowUp className="h-4 w-4" />
-            Back to the starting point
+      <div class="tk-mi__back">
+        <a href="#start-here" class="v6-link">
+          <i class="tk-mi__up" set:html={arrow} />
+          Back to the starting point
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section class="v6-sec v6-sec--navy" aria-labelledby="current-context-heading">
+    <div class="v6-wrap tk-mi__split">
+      <div>
+        <h2 id="current-context-heading" class="v6-h2 tk-mi__navy-h2" data-rise>
+          Local discovery is becoming more conversational.
+        </h2>
+      </div>
+      <div class="tk-mi__navy-text">
+        <p>
+          Google compiles local business information from claimed profiles, public web content, licensed data, user contributions, and its own interactions with places. Google now also says eligible US users can ask its AI to call multiple nearby auto repair providers to check availability and prices. Availability can vary, and a call like that still can't replace a proper vehicle inspection or an exact diagnosis.
+        </p>
+        <p>
+          So don't answer the change by swapping your strategy for AI-written content. Keep your shop facts accurate. Make your services and your proof easy to understand. Answer the phone well, and publish information that helps a real customer choose. Those basics make your shop easier to understand for people and for search systems alike.
+        </p>
+        <div class="tk-mi__navy-links">
+          <a href="https://support.google.com/business/answer/2721884" target="_blank" rel="noreferrer" class="v6-link v6-link--light">
+            How Google sources local information <i set:html={arrow} />
+          </a>
+          <a href="https://blog.google/products-and-platforms/products/search/search-io-2026/?pubDate=20260519" target="_blank" rel="noreferrer" class="v6-link v6-link--light">
+            Google Search's 2026 update <i set:html={arrow} />
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-[var(--navy)] py-14 text-white md:py-20" aria-labelledby="current-context-heading">
-    <div class="container-page">
-      <div class="relative overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(135deg,var(--navy-deep)_0%,var(--navy)_62%,#2d4b79_100%)] px-6 py-9 md:rounded-[36px] md:px-10 md:py-12 lg:px-14">
-        <div class="pointer-events-none absolute -right-16 -top-24 h-80 w-80 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></div>
-        <div class="relative grid gap-9 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-14">
-          <div>
-            <p class="eyebrow !text-[var(--green)]">What is changing now</p>
-            <h2 id="current-context-heading" class="display-3 mt-4 max-w-[15ch] text-white">
-              Local discovery is becoming more conversational.
-            </h2>
-          </div>
-          <div class="space-y-5 text-base leading-relaxed text-white/70 md:text-lg">
-            <p>
-              Google compiles local business information from claimed profiles, public web content, licensed data, user contributions, and its own interactions with places. Google now says eligible US users can ask its AI to call multiple nearby auto repair providers for availability and prices. Availability can vary, and the call still cannot replace a proper vehicle inspection or exact diagnosis.
-            </p>
-            <p>
-              The durable response is not to replace the strategy with AI-written content. Keep shop facts accurate, make services and proof easy to understand, answer the phone well, and publish information that helps a real customer choose. Those fundamentals make the business easier for people and search systems to interpret.
-            </p>
-            <div class="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-sm font-semibold">
-              <a href="https://support.google.com/business/answer/2721884" target="_blank" rel="noreferrer" class="inline-flex min-h-11 items-center gap-2 text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
-                How Google sources local information <ArrowRight className="h-4 w-4" />
-              </a>
-              <a href="https://blog.google/products-and-platforms/products/search/search-io-2026/?pubDate=20260519" target="_blank" rel="noreferrer" class="inline-flex min-h-11 items-center gap-2 text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
-                Google Search's 2026 update <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="measurement" class="scroll-mt-28 bg-[var(--off-white)] py-14 md:py-20 lg:py-24" aria-labelledby="measurement-heading">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
-        <div>
-          <p class="eyebrow text-[var(--key-blue)]">The scoreboard</p>
-          <h2 id="measurement-heading" class="display-2 mt-4 max-w-[12ch] text-balance text-charcoal">
-            Measure the path to the repair order.
-          </h2>
-          <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-charcoal/70">
-            Impressions and clicks can diagnose activity. They cannot tell you whether the right driver booked, arrived, approved the work, or trusted the shop enough to return.
-          </p>
-        </div>
-
-        <div>
-          <ol class="rail grid gap-7 sm:grid-cols-5 sm:gap-4">
-            {measurementSteps.map((step, index) => (
-              <li class="rail-step relative pl-8 sm:pl-0 sm:pt-9">
-                <span class="rail-dot" aria-hidden="true"></span>
-                <span class="text-xs font-semibold tabular-nums text-charcoal/40">0{index + 1}</span>
-                <h3 class="mt-1 text-base font-semibold text-charcoal">{step.label}</h3>
-                <p class="mt-1 text-xs leading-relaxed text-charcoal/55">{step.detail}</p>
-              </li>
-            ))}
-          </ol>
-
-          <div class="mt-12 border-t border-[var(--hairline)] pt-9">
-            <h3 class="text-2xl font-semibold text-charcoal">A useful 90-day test</h3>
-            <ol class="mt-7 grid gap-x-10 gap-y-5 sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-3">
-              {testSteps.map((item, index) => (
-                <li class="flex gap-3.5 text-sm leading-relaxed text-charcoal/70">
-                  <span class="font-display text-sm font-semibold tabular-nums text-[var(--key-blue)]">{index + 1}</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-white py-14 md:py-20" aria-labelledby="avoid-heading">
-    <div class="container-page">
-      <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
-        <div>
-          <p class="eyebrow text-[var(--key-blue)]">Before you spend</p>
-          <h2 id="avoid-heading" class="display-3 mt-4 max-w-[12ch] text-charcoal">What not to run next.</h2>
-        </div>
-        <p class="max-w-[58ch] text-lg leading-relaxed text-charcoal/70">
-          A disciplined “no” protects the budget and the team. These are signals to stop and clarify the plan before another campaign launches.
+  <section id="measurement" class="v6-sec v6-sec--tint tk-mi__measure" aria-labelledby="measurement-heading">
+    <div class="v6-wrap tk-mi__split">
+      <div class="tk-mi__sticky">
+        <h2 id="measurement-heading" class="v6-h2" data-words set:html={split([{ t: "Measure the path to the" }, { t: "repair order.", accent: true }])} />
+        <p class="v6-lead tk-mi__measure-lead">
+          Impressions and clicks can tell you whether anything is happening. They can't tell you whether the right driver booked, showed up, approved the work, or trusted the shop enough to come back.
         </p>
       </div>
-      <ul class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-2 xl:grid-cols-4">
+
+      <div>
+        <ol class="rail">
+          {measurementSteps.map((step) => (
+            <li class="rail-step">
+              <span class="rail-dot" aria-hidden="true"></span>
+              <h3 class="rail-h3">{step.label}</h3>
+              <p class="rail-text">{step.detail}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div class="tk-mi__test">
+          <h3 class="tk-mi__test-h3">A useful 90-day test</h3>
+          <ol class="tk-mi__test-list">
+            {testSteps.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v6-sec tk-mi__avoid" aria-labelledby="avoid-heading">
+    <div class="v6-wrap">
+      <div class="v6-head">
+        <div>
+          <h2 id="avoid-heading" class="v6-h2" data-words set:html={split([{ t: "What not to" }, { t: "run next.", accent: true }])} />
+        </div>
+        <p class="v6-lead">
+          A clear “no” protects your budget and your team. If you spot any of these, stop and fix the plan before another campaign goes out.
+        </p>
+      </div>
+      <ul class="tk-mi__avoid-list">
         {avoidItems.map((item) => (
-          <li class="border-t border-charcoal/15 pt-5">
-            <span class="flex h-6 w-6 items-center justify-center rounded-full border border-charcoal/20 text-charcoal/50" aria-hidden="true">
-              <X className="h-3 w-3" />
-            </span>
-            <h3 class="mt-4 text-lg font-semibold leading-tight text-charcoal">{item.title}</h3>
-            <p class="mt-2.5 text-sm leading-relaxed text-charcoal/70">{item.body}</p>
+          <li>
+            <span class="v6-mark v6-mark--x tk-mi__x" aria-hidden="true"></span>
+            <h3 class="tk-mi__avoid-h3">{item.title}</h3>
+            <p>{item.body}</p>
           </li>
         ))}
       </ul>
     </div>
   </section>
 
-  <section class="bg-white pb-14 pt-4 md:pb-20 lg:pb-24">
-    <div class="container-page">
-      <div class="relative overflow-hidden rounded-[30px] bg-[var(--navy)] px-6 py-10 text-white md:rounded-[36px] md:px-12 md:py-14 lg:px-16">
-        <div class="pointer-events-none absolute -right-20 -top-24 h-96 w-96 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></div>
-        <div class="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
-          <div>
-            <p class="eyebrow !text-[var(--green)]">Your next move</p>
-            <h2 class="mt-4 max-w-[16ch] font-display text-3xl font-semibold leading-tight md:text-5xl">
-              Need someone to own the full marketing plan?
-            </h2>
-            <p class="mt-5 max-w-[58ch] text-base leading-relaxed text-white/70 md:text-lg">
-              A VIP Marketing Manager builds the plan, coordinates the people and vendors, keeps the work moving, and turns reporting into the next decision while you stay focused on the shop.
-            </p>
-          </div>
+  {post.faq && post.faq.length > 0 && (
+    <section id="faq" class="v6-faq tk-art__faq" aria-labelledby="resource-faq-heading">
+      <div class="v6-wrap v6-faq__grid">
+        <div class="v6-faq__title">
+          <h2 id="resource-faq-heading" class="v6-h2" data-words set:html={split([{ t: "Frequently asked" }, { t: "questions", accent: true }])} />
+          <p class="tk-art__faq-lead tk-mi__faq-lead">
+            Straight answers to the questions owners ask when they put these ideas to work in their own shop.
+          </p>
+        </div>
+        <ul class="v6-acc">
+          {post.faq.map((item, index) => (
+            <li class:list={["v6-acc__item", index === 0 && "is-open"]} data-acc-item>
+              <h3 class="tk-acc__q">
+                <button type="button" class="v6-acc__head" aria-expanded={index === 0 ? "true" : "false"} data-acc-head><span>{item.question}</span><span class="v6-acc__icon" aria-hidden="true"></span></button>
+              </h3>
+              <div class="v6-acc__panel"><div><p>{item.answer}</p></div></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {post.externalSources && post.externalSources.length > 0 && (
+    <ExternalSources sources={post.externalSources} />
+  )}
+
+  <section class="v6-cta">
+    <div class="v6-wrap">
+      <div class="v6-cta__panel" data-rise>
+        <h2 class="v6-cta__title">
+          Need someone to own the full marketing plan?
+        </h2>
+        <p class="v6-cta__text">
+          A VIP Marketing Manager builds the plan, coordinates the people and vendors, keeps the work moving, and turns every report into the next decision. You stay focused on running the shop.
+        </p>
+        <div class="v6-cta__actions">
           <a
             href="/services/vip-marketing-manager"
-            class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[var(--green)] px-7 py-4 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105 sm:w-fit"
+            class="v6-btn v6-btn--navy v6-btn--lg"
             data-track-event="service_cta_click"
             data-track-slug="vip-marketing-manager"
             data-track-placement="resource_marketing_ideas_bottom"
           >
-            See VIP Marketing Manager
-            <ArrowRight className="h-4 w-4" />
+            <span>See VIP Marketing Manager</span>
+            <i set:html={arrow} />
           </a>
         </div>
       </div>
-
-      {relatedPosts.length > 0 && (
-        <section class="mt-14" aria-labelledby="related-marketing-ideas-heading">
-          <div class="flex items-end justify-between gap-4 border-b border-charcoal/10 pb-5">
-            <div>
-              <p class="eyebrow text-[var(--key-blue)]">Keep building</p>
-              <h2 id="related-marketing-ideas-heading" class="mt-2 font-display text-2xl font-semibold text-charcoal md:text-3xl">Turn the ideas into a plan</h2>
-            </div>
-            <a href="/resources" class="shrink-0 text-sm font-semibold text-[var(--navy)]">View all</a>
-          </div>
-          <div class="mt-7 grid gap-5 md:grid-cols-3">
-            {relatedPosts.map((relatedPost) => (
-              <a href={relatedPost.href} class="motion-card group rounded-[24px] border border-black/[0.06] bg-[var(--cream)] p-6 transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_24px_60px_-48px_rgba(20,22,28,0.55)]">
-                <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--key-blue)]">{relatedPost.tag}</p>
-                <h3 class="mt-3 font-display text-xl font-semibold leading-tight text-charcoal">{relatedPost.title}</h3>
-                <p class="mt-3 text-sm leading-relaxed text-charcoal/70">{relatedPost.description}</p>
-                <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
-                  Read resource <ArrowRight className="motion-arrow h-4 w-4" />
-                </span>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   </section>
+
+  {relatedPosts.length > 0 && (
+    <section class="v6-sec v6-sec--tint tk-art__related" aria-labelledby="related-marketing-ideas-heading">
+      <div class="v6-wrap">
+        <div class="v6-row-head">
+          <div>
+            <h2 id="related-marketing-ideas-heading" class="v6-h2 tk-art__related-h2">Turn the ideas into a plan</h2>
+          </div>
+          <a href="/resources" class="v6-link">View all <i set:html={arrow} /></a>
+        </div>
+        <div class="v6-swipe tk-art__cards" style={`--cols:${Math.max(2, Math.min(4, relatedPosts.length))}`}>
+          {relatedPosts.map((relatedPost) => (
+            <a href={relatedPost.href} class="v6-post">
+              <div class="v6-post__media"><img src={relatedPost.image.src} alt={relatedPost.image.alt} width={relatedPost.imageWidth ?? 1200} height={relatedPost.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${relatedPost.image.position};`} /></div>
+              <p class="v6-post__tag">{relatedPost.tag}</p>
+              <h3 class="v6-post__title">{relatedPost.title}</h3>
+              <p class="v6-post__text">{relatedPost.description}</p>
+              <span class="v6-link">
+                Read resource <i set:html={arrow} />
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 </article>
 
-<script>
-  const ideasNav = document.querySelector("[data-ideas-nav]");
-
-  if (ideasNav) {
-    const navLinks = Array.from(ideasNav.querySelectorAll<HTMLAnchorElement>("ol a[href^='#']"));
-    const sections = navLinks
-      .map((link) => document.querySelector(link.hash))
-      .filter((section): section is HTMLElement => section instanceof HTMLElement);
-    const progressBar = ideasNav.querySelector<HTMLElement>("[data-reading-progress]");
-    const stream = sections[0]?.parentElement;
-
-    let ticking = false;
-
-    const update = () => {
-      ticking = false;
-
-      // Active section: the last one whose top has passed below the sticky header.
-      const threshold = window.innerHeight * 0.3;
-      let activeIndex = -1;
-      sections.forEach((section, index) => {
-        if (section.getBoundingClientRect().top <= threshold) activeIndex = index;
-      });
-
-      navLinks.forEach((link, index) => {
-        if (index === activeIndex) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
-      });
-
-      if (progressBar && stream) {
-        const { top, height } = stream.getBoundingClientRect();
-        const scrolled = (threshold - top) / Math.max(1, height - threshold);
-        progressBar.style.width = `${Math.min(100, Math.max(0, scrolled * 100))}%`;
-      }
-    };
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    update();
-  }
-</script>
-
 <style>
-  .ideas-nav ol a {
-    position: relative;
+  /* Readable ink for body copy; muted gray is reserved for tiny meta */
+  .tk-mi { --ink: #2b303b; --ink-soft: #3f4452; }
+  .tk-mi .tk-mi__dek, .tk-mi .v6-lead, .tk-mi .v6-tile__text, .tk-mi .tk-mi__lede, .tk-mi .tk-mi__faq-lead, .tk-mi .v6-cta__text { color: var(--ink); }
+  .tk-mi .v6-post__text { color: var(--ink-soft); }
+
+  .tk-mi__visual { position: relative; }
+  .tk-mi__inside { position: absolute; left: -2rem; bottom: -2rem; width: 18rem; padding: 1.3rem 1.5rem; border-radius: 24px; background: var(--navy); color: #fff; box-shadow: 0 30px 60px -34px rgba(35, 46, 102, 0.55); }
+  .tk-mi__inside dl { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .tk-mi__inside dt { font-size: 2.6rem; font-weight: 600; letter-spacing: -0.05em; line-height: 1; color: var(--green); font-variant-numeric: tabular-nums; }
+  .tk-mi__inside dd { margin-top: 0.4rem; font-size: 0.88rem; line-height: 1.35; color: #fff; }
+
+  .tk-mi__split { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .tk-mi__short { padding-top: clamp(5rem, 9vw, 8rem); }
+  .tk-mi__short-h2 { max-width: 14ch; }
+  .tk-mi__short-text { font-size: clamp(1.1rem, 1.4vw, 1.3rem); line-height: 1.65; color: var(--ink); max-width: 42rem; }
+  .tk-mi__takeaways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2.25rem; }
+  .tk-mi__takeaways li { padding-top: 1rem; border-top: 3px solid var(--green); font-size: 1rem; font-weight: 500; line-height: 1.55; color: var(--charcoal); }
+
+  .tk-mi__start { scroll-margin-top: var(--header-h); }
+  .tk-mi__start-head { display: grid; gap: 0; max-width: 48rem; }
+  .tk-mi__start-head .v6-lead { margin-top: 1.25rem; }
+  .tk-mi__routes { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .tk-mi__route { gap: 0.9rem; }
+  .tk-mi__route .v6-tile__title { font-size: 1.2rem; }
+  .tk-mi__route .v6-tile__text { font-size: 0.95rem; line-height: 1.55; }
+  .tk-mi__route-measure { margin-top: auto; padding-top: 0.9rem; border-top: 1px solid #dcd9d2; font-size: 0.9rem; line-height: 1.5; color: var(--ink); }
+  .tk-mi__route-measure span { font-weight: 700; color: var(--navy); }
+  .tk-mi__route-go { font-size: 0.92rem; }
+
+  .tk-mi__up { display: inline-grid; transform: rotate(-90deg); }
+  .tk-mi__down { display: inline-grid; transform: rotate(90deg); }
+  .tk-mi .tk-toc__list a { color: var(--ink-soft); }
+  .tk-mi .tk-toc__list a.is-active, .tk-mi .tk-toc__list a:hover { color: var(--navy); }
+
+  .tk-mi__group { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+  .tk-mi__group + .tk-mi__group { margin-top: clamp(4.5rem, 8vw, 7rem); padding-top: clamp(3rem, 5vw, 4rem); border-top: 3px solid var(--navy); }
+  .tk-mi__lede { color: var(--ink); }
+  .tk-mi__group-head .tk-art__h2 { max-width: 22ch; }
+  .tk-mi__ideas { margin-top: clamp(2.25rem, 4vw, 3rem); border-top: 1px solid #dcd9d2; }
+  .tk-mi__idea { max-width: 46rem; padding-block: clamp(2rem, 4vw, 2.75rem); border-bottom: 1px solid #dcd9d2; }
+  .tk-mi__idea-h3 { font-size: clamp(1.4rem, 2.2vw, 1.85rem); line-height: 1.14; letter-spacing: -0.04em; font-weight: 600; text-wrap: balance; color: var(--charcoal); }
+  .tk-mi__best { margin-top: 0.85rem; font-size: 1.02rem; line-height: 1.55; color: var(--ink); }
+  .tk-mi__best span { margin-right: 0.4rem; font-weight: 700; color: var(--navy); }
+  .tk-mi__idea-text { margin-top: 1rem; font-size: 1.125rem; line-height: 1.75; color: var(--ink); }
+  .tk-mi__dl { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1.5rem; }
+  .tk-mi__dl > div { padding: 1.1rem 1.25rem; border-radius: 18px; }
+  .tk-mi__dl-measure { background: var(--key-blue-soft); }
+  .tk-mi__dl-watch { background: var(--off-white); }
+  .tk-mi__dl dt { font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+  .tk-mi__dl dd { margin-top: 0.3rem; font-size: 0.98rem; line-height: 1.55; color: var(--charcoal); }
+  .tk-mi__idea-link { margin-top: 1rem; font-size: 0.98rem; text-decoration: underline; text-decoration-color: var(--key-blue); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+  .tk-mi__back { margin-top: 2.5rem; }
+
+  .tk-mi__navy-h2 { max-width: 14ch; }
+  .tk-mi__navy-text { display: grid; gap: 1.25rem; font-size: 1.1rem; line-height: 1.7; color: #e4e8f2; }
+  .tk-mi__navy-links { display: flex; flex-wrap: wrap; gap: 0.25rem 2rem; }
+  .tk-mi__navy-links .v6-link { text-decoration: underline; text-decoration-color: var(--green); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+
+  .tk-mi__measure { scroll-margin-top: var(--header-h); }
+  .tk-mi__sticky { position: sticky; top: calc(var(--header-h) + 2.5rem); }
+  .tk-mi__measure-lead { margin-top: 1.25rem; }
+  .rail { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; padding-top: 0.5rem; }
+  .rail-step { position: relative; padding-top: 2.1rem; }
+  .rail-step:not(:last-child)::before { content: ""; position: absolute; top: 6px; left: 0.9rem; width: calc(100% + 1rem); height: 3px; background: var(--key-blue); }
+  .rail-dot { position: absolute; top: 0; left: 0.4rem; width: 12px; height: 12px; border: 2px solid var(--off-white); border-radius: 999px; background: var(--key-blue); box-sizing: content-box; }
+  .rail-step:last-child .rail-dot { background: var(--green); }
+  .rail-h3 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.02em; color: var(--charcoal); }
+  .rail-text { margin-top: 0.3rem; font-size: 0.92rem; line-height: 1.45; color: var(--ink); }
+  .tk-mi__test { margin-top: 3rem; padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: 28px; background: #fff; }
+  .tk-mi__test-h3 { font-size: clamp(1.4rem, 2vw, 1.8rem); font-weight: 600; letter-spacing: -0.04em; color: var(--charcoal); }
+  .tk-mi__test-list { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, auto); grid-auto-flow: column; gap: 1rem 3rem; margin-top: 1.5rem; padding-left: 1.3rem; list-style: decimal; }
+  .tk-mi__test-list li { padding-left: 0.3rem; line-height: 1.55; color: var(--ink); }
+  .tk-mi__test-list li::marker { font-weight: 700; color: var(--navy); }
+
+  .tk-mi__avoid-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 2rem; border-top: 1px solid #dcd9d2; }
+  .tk-mi__avoid-list li { padding-top: 1.75rem; }
+  .tk-mi__x.v6-mark--x { display: block; background: #ffe3de; }
+  .tk-mi__x.v6-mark--x::before, .tk-mi__x.v6-mark--x::after { background: #c8402c; height: 2px; }
+  .tk-mi__avoid-h3 { margin-top: 1rem; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; color: var(--charcoal); }
+  .tk-mi__avoid-list p { margin-top: 0.6rem; line-height: 1.6; color: var(--ink); }
+
+  @media (max-width: 1100px) {
+    .tk-mi__split { grid-template-columns: 1fr; }
+    .tk-mi__sticky { position: static; }
+    .tk-mi__avoid-list { grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+    .tk-mi__inside { left: 1rem; }
   }
-
-  .ideas-nav ol a::before {
-    position: absolute;
-    top: 0.5rem;
-    bottom: 0.5rem;
-    left: -1px;
-    width: 2px;
-    background: transparent;
-    content: "";
-    transition: background-color var(--duration-standard) var(--ease-standard);
-  }
-
-  .ideas-nav-link[aria-current="location"] {
-    color: var(--charcoal);
-    font-weight: 600;
-  }
-
-  .ideas-nav-link[aria-current="location"]::before {
-    background: var(--key-blue);
-  }
-
-  .ideas-nav-link[aria-current="location"] span {
-    color: var(--key-blue);
-  }
-
-  .idea-item + .idea-item {
-    margin-top: 3.25rem;
-  }
-
-  /* Scoreboard rail: a single connected path, vertical on small screens. */
-  .rail {
-    position: relative;
-  }
-
-  /* Each step draws the segment to the next one, so the path stops at the last dot. */
-  .rail-step:not(:last-child)::before {
-    position: absolute;
-    top: 0.9rem;
-    left: 5px;
-    width: 2px;
-    height: calc(100% + 1.65rem);
-    background: var(--key-blue);
-    content: "";
-  }
-
-  .rail-step:nth-last-child(2)::before {
-    background: linear-gradient(180deg, var(--key-blue), var(--green));
-  }
-
-  .rail-dot {
-    position: absolute;
-    top: 0.4rem;
-    left: 0;
-    width: 12px;
-    height: 12px;
-    border: 2px solid var(--off-white);
-    border-radius: 999px;
-    background: var(--key-blue);
-  }
-
-  .rail-step:last-child .rail-dot {
-    background: var(--green);
-  }
-
-  @media (min-width: 640px) {
-    .rail-step:not(:last-child)::before {
-      top: 5px;
-      left: 1.15rem;
-      width: calc(100% + 0.65rem);
-      height: 2px;
-    }
-
-    .rail-dot {
-      top: 0;
-      left: 0.4rem;
-    }
+  @media (max-width: 900px) {
+    .tk-mi__inside { position: relative; left: auto; bottom: auto; width: auto; margin: -2.5rem 1rem 0; padding: 1.1rem 1.25rem; }
+    .tk-mi__inside dt { font-size: 2.2rem; }
+    .tk-mi__short { padding-top: 4rem; }
+    .tk-mi__short-text { font-size: 1.08rem; }
+    .tk-mi__takeaways { grid-template-columns: 1fr; gap: 1rem; margin-top: 1.75rem; }
+    .tk-mi__idea-text { font-size: 1.0625rem; line-height: 1.7; }
+    .tk-mi__dl { grid-template-columns: 1fr; }
+    .tk-mi__navy-text { font-size: 1.05rem; }
+    .tk-mi__navy-links { flex-direction: column; }
+    .rail { grid-template-columns: 1fr; gap: 1.25rem; padding-top: 0; }
+    .rail-step { padding-top: 0; padding-left: 2rem; }
+    .rail-step:not(:last-child)::before { top: 0.9rem; left: 5px; width: 3px; height: calc(100% + 1.25rem); }
+    .rail-dot { top: 0.3rem; left: -1px; }
+    .tk-mi__test { margin-top: 2.25rem; border-radius: 22px; }
+    .tk-mi__test-list { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
+    .tk-mi__avoid-list { grid-template-columns: 1fr; }
   }
 </style>

@@ -1,0 +1,47 @@
+---
+// v6 closing call to action: the current site's "Stop carrying the marketing burden" panel.
+// Pass title/accent/text to keep a page's existing CTA copy.
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
+import { CONSULTATION_URL } from "@/lib/services";
+import { googleReviewSummary } from "@/lib/google-reviews";
+import { arrow, phoneHref, phoneLabel, split } from "@/lib/v6";
+
+interface Props {
+  title?: string;
+  accent?: string;
+  text?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  placement?: string;
+  /** Optional data-track-slug for pages that track CTAs per page. */
+  slug?: string;
+  as?: "h2" | "h3";
+}
+const {
+  title = "Stop carrying",
+  accent = "the marketing burden.",
+  text = "30 minutes with our team. No pitch deck. Just a real conversation about what is working, what is leaking, and what the next few months should realistically focus on.",
+  ctaLabel = "Book a Strategy Call",
+  ctaHref = CONSULTATION_URL,
+  placement = "page_cta",
+  slug,
+  as: Tag = "h2",
+} = Astro.props;
+---
+
+<section class="v6-cta">
+  <div class="v6-wrap">
+    <div class="v6-cta__panel" data-rise>
+      <a href={googleReviewSummary.url} class="v6-cta__rating">
+        <span class="v6-stars" aria-hidden="true">★★★★★</span>
+        {googleReviewSummary.rating} on Google · {googleReviewSummary.count} reviews
+      </a>
+      <Tag class="v6-cta__title" data-words set:html={split([{ t: title }, ...(accent ? [{ t: accent, accent: true }] : [])])} />
+      {text && <p class="v6-cta__text">{text}</p>}
+      <div class="v6-cta__actions">
+        <a href={ctaHref} class="v6-btn v6-btn--navy v6-btn--lg" data-track-event="consultation_cta_click" data-track-placement={placement} data-track-slug={slug}><span>{ctaLabel}</span><i set:html={arrow} /></a>
+        <a href={phoneHref} class="v6-btn v6-btn--ghost v6-btn--lg" data-track-event="phone_click" data-track-placement={placement} data-track-slug={slug}><SolidPhoneIcon class="h-6 w-6" /><span>{phoneLabel}</span></a>
+      </div>
+    </div>
+  </div>
+</section>

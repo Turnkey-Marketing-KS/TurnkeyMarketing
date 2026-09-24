@@ -204,10 +204,12 @@ const jsonLd = [...sitewideSchema, ...schemaItems].filter(Boolean);
     <!-- End Meta Pixel Code -->
     <div class="flex min-h-screen flex-col" style="background: var(--background);">
       {!minimalChrome && <Header />}
+      <slot name="chrome-top" />
       <main class={minimalChrome ? "flex-1" : "flex-1 pt-[76px] md:pt-[92px]"}>
         <slot />
       </main>
       {!minimalChrome && <Footer />}
+      <slot name="chrome-bottom" />
     </div>
     <script is:inline>
       (function () {

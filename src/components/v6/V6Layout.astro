@@ -1,0 +1,155 @@
+---
+// v6 page shell: the redesign header, footer, phone bottom bar, and shared behavior.
+// SEO props pass straight through to BaseLayout, so titles, canonicals, and schema are unchanged.
+import "@/styles/v6.css";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Footer from "@/components/site/Footer.astro";
+import V6Header from "@/components/v6/V6Header.astro";
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
+import { CONSULTATION_URL } from "@/lib/services";
+import { phoneHref } from "@/lib/v6";
+
+type Schema = Record<string, unknown>;
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogTitle?: string;
+  ogType?: string;
+  ogImage?: string;
+  schema?: Schema | Schema[];
+  noindex?: boolean;
+  /** Show the phone-only "Book a Strategy Call" bar after the hero. Default true. */
+  dock?: boolean;
+  /** Extra class on the page wrapper, for page-scoped styles. */
+  class?: string;
+}
+const { dock = true, class: className, ...seo } = Astro.props;
+---
+
+<BaseLayout {...seo} minimalChrome>
+  <V6Header slot="chrome-top" />
+  <div class:list={["v6 v6-page", className]} data-v6>
+    <slot />
+  </div>
+  <Fragment slot="chrome-bottom">
+    <Footer />
+    <dialog class="v6-lightbox" data-lightbox>
+      <button type="button" class="v6-lightbox__close" data-lightbox-close>Close</button>
+      <video controls playsinline preload="none"></video>
+    </dialog>
+    {dock && (
+      <div class="v6-dock" data-dock aria-hidden="true">
+        <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy" tabindex="-1" data-track-event="consultation_cta_click" data-track-placement="mobile_dock"><span>Book a Strategy Call</span></a>
+        <a href={phoneHref} class="v6-dock__call" tabindex="-1" aria-label="Call Turnkey Marketing" data-track-event="phone_click" data-track-placement="mobile_dock"><SolidPhoneIcon /></a>
+      </div>
+    )}
+  </Fragment>
+</BaseLayout>
+
+<script>
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+  const root = document.querySelector<HTMLElement>("[data-v6]");
+  if (root) {
+    requestAnimationFrame(() => setTimeout(() => root.classList.add("is-loaded"), 60));
+
+    // Mobile menu
+    const menu = document.querySelector<HTMLElement>("[data-menu]");
+    const menuBtn = document.querySelector<HTMLButtonElement>("[data-menu-btn]");
+    const setMenu = (open: boolean) => {
+      if (!menu || !menuBtn) return;
+      menu.hidden = !open;
+      menuBtn.setAttribute("aria-expanded", String(open));
+      document.body.style.overflow = open ? "hidden" : "";
+    };
+    menuBtn?.addEventListener("click", () => setMenu(Boolean(menu?.hidden)));
+    menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenu(false)));
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape" && menu && !menu.hidden) setMenu(false); });
+    window.matchMedia("(min-width: 901px)").addEventListener("change", (event) => { if (event.matches) setMenu(false); });
+
+    // Reveals and word headlines
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        io.unobserve(entry.target);
+      }),
+      { rootMargin: "0px 0px -10% 0px" },
+    );
+    root.querySelectorAll("[data-rise], [data-words]").forEach((el) => io.observe(el));
+
+    // Accordions
+    root.querySelectorAll<HTMLElement>("[data-acc-item]").forEach((item) => {
+      const head = item.querySelector<HTMLElement>("[data-acc-head]");
+      head?.addEventListener("click", () => {
+        const open = !item.classList.contains("is-open");
+        item.classList.toggle("is-open", open);
+        head.setAttribute("aria-expanded", String(open));
+      });
+    });
+
+    // Rails with arrow buttons: [data-rail-scope] holds [data-rail] plus [data-rail-prev]/[data-rail-next]
+    root.querySelectorAll<HTMLElement>("[data-rail-scope]").forEach((scope) => {
+      const rail = scope.querySelector<HTMLElement>("[data-rail]");
+      const step = () => ((rail?.firstElementChild as HTMLElement | null)?.offsetWidth ?? 280) + 16;
+      scope.querySelector("[data-rail-prev]")?.addEventListener("click", () => rail?.scrollBy({ left: -step() * 2, behavior: "smooth" }));
+      scope.querySelector("[data-rail-next]")?.addEventListener("click", () => rail?.scrollBy({ left: step() * 2, behavior: "smooth" }));
+    });
+
+    // Video lightbox: any [data-video] button opens its src
+    const lightbox = document.querySelector<HTMLDialogElement>("[data-lightbox]");
+    const lightboxVideo = lightbox?.querySelector<HTMLVideoElement>("video");
+    root.querySelectorAll<HTMLButtonElement>("[data-video]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!lightbox || !lightboxVideo) return;
+        lightboxVideo.src = button.dataset.video ?? "";
+        lightbox.showModal();
+        lightboxVideo.play().catch(() => {});
+      });
+    });
+    const closeLightbox = () => {
+      lightboxVideo?.pause();
+      lightboxVideo?.removeAttribute("src");
+      lightboxVideo?.load();
+      if (lightbox?.open) lightbox.close();
+    };
+    lightbox?.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
+    lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) closeLightbox(); });
+    lightbox?.addEventListener("close", () => lightboxVideo?.pause());
+
+    // Scroll effects: header state, hero media grow, phone dock
+    const header = document.querySelector<HTMLElement>("[data-header]");
+    const heroMedia = root.querySelector<HTMLElement>("[data-ph-media]");
+    const dock = document.querySelector<HTMLElement>("[data-dock]");
+    const footer = document.querySelector<HTMLElement>(".site-footer");
+    const desktop = window.matchMedia("(min-width: 901px)");
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      header?.classList.toggle("is-scrolled", window.scrollY > 10);
+      if (heroMedia && desktop.matches && !reduceMotion) {
+        const rect = heroMedia.getBoundingClientRect();
+        const p = clamp((vh - rect.top) / (vh + rect.height * 0.35));
+        heroMedia.style.setProperty("--ph-inset", `${(1 - p) * 6}%`);
+        heroMedia.style.setProperty("--ph-scale", String(1.08 - p * 0.08));
+      }
+      if (dock) {
+        const past = window.scrollY > vh * 0.6;
+        const nearFooter = footer ? footer.getBoundingClientRect().top < vh : false;
+        dock.classList.toggle("is-on", past && !nearFooter && !desktop.matches);
+        dock.setAttribute("aria-hidden", String(!dock.classList.contains("is-on")));
+        dock.querySelectorAll("a").forEach((a) => a.setAttribute("tabindex", dock.classList.contains("is-on") ? "0" : "-1"));
+      }
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+  }
+</script>

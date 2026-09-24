@@ -1,5 +1,6 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
+import { split } from "@/lib/v6";
 
 const effectiveDate = "August 13, 2026";
 
@@ -71,45 +72,160 @@ const sections = [
     ],
   },
 ];
+
+// Section anchors for the on-page index, and tap-to-call / tap-to-email links. Visible text is unchanged.
+const slug = (title: string) => title.toLowerCase().replace(/'/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const escapeHtml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const withContactLinks = (text: string) =>
+  escapeHtml(text)
+    .replace("hello@turnkeyautomarketing.com", '<a href="mailto:hello@turnkeyautomarketing.com" data-track-event="email_click" data-track-placement="legal">hello@turnkeyautomarketing.com</a>')
+    .replace("(913) 427-0674", '<a href="tel:+19134270674" data-track-event="phone_click" data-track-placement="legal">(913) 427-0674</a>');
 ---
 
-<BaseLayout
+
+<V6Layout
   title="Privacy Policy - Turnkey Marketing"
   description="Review how Turnkey Marketing collects, uses, shares, and protects information submitted through the website."
   path="/privacy-policy"
   ogTitle="Privacy Policy - Turnkey Marketing"
+  class="tk-legal"
 >
-  <section class="border-b hairline">
-    <div class="container-page pt-20 md:pt-28 pb-16">
-      <p class="eyebrow">Legal</p>
-      <h1 class="display-1 mt-6 max-w-[12ch] text-balance">
-        Privacy Policy
-      </h1>
-      <p class="mt-8 text-lg text-muted-foreground max-w-2xl">
-        Effective date: {effectiveDate}
-      </p>
+  <section class="tk-legal__hero">
+    <div class="v6-wrap tk-legal__hero-grid">
+      <h1 class="tk-legal__title" data-words set:html={split([{ t: "Privacy" }, { t: "Policy", accent: true }])} />
+      <div class="tk-legal__aside" data-fade style="--d:2">
+        <p class="tk-legal__date">Effective date: {effectiveDate}</p>
+        <p class="tk-legal__intro">
+          This Privacy Policy explains how Turnkey Marketing, operated by CL
+          Business Coaching LLC, collects, uses, shares, and protects information
+          when you visit this website, contact us, or interact with our online
+          forms and communications.
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="container-page py-20">
-    <div class="max-w-3xl space-y-12">
-      <p class="text-lg leading-relaxed text-muted-foreground">
-        This Privacy Policy explains how Turnkey Marketing, operated by CL
-        Business Coaching LLC, collects, uses, shares, and protects information
-        when you visit this website, contact us, or interact with our online
-        forms and communications.
-      </p>
-
-      {sections.map((section) => (
-        <div class="border-t hairline pt-8">
-          <h2 class="font-display text-2xl font-semibold text-charcoal">
-            {section.title}
-          </h2>
-          <div class="mt-4 space-y-4 text-muted-foreground leading-relaxed">
-            {section.body.map((paragraph) => <p>{paragraph}</p>)}
-          </div>
+  <section class="tk-legal__body" data-legal>
+    <div class="v6-wrap tk-legal__grid">
+      <nav class="tk-legal__index" aria-label="Privacy Policy sections">
+        <div data-acc-item>
+          <button type="button" class="tk-legal__toggle" data-acc-head aria-expanded="false" aria-controls="tk-legal-list">
+            On this page <span class="v6-acc__icon" aria-hidden="true"></span>
+          </button>
+          <div class="v6-acc__panel"><div><ol class="tk-legal__list" id="tk-legal-list" data-legal-list></ol></div></div>
         </div>
-      ))}
+      </nav>
+
+      <div class="tk-legal__text v6-prose">
+        {sections.map((section) => (
+          <section class="tk-legal__sec" id={slug(section.title)} data-legal-sec>
+            <h2>{section.title}</h2>
+            {section.body.map((paragraph) => <p set:html={withContactLinks(paragraph)} />)}
+          </section>
+        ))}
+      </div>
     </div>
   </section>
-</BaseLayout>
+</V6Layout>
+
+<script>
+  // Builds the section index from the headings (navigation only, so the page copy is not repeated in the HTML),
+  // then highlights the section being read.
+  const legal = document.querySelector<HTMLElement>("[data-legal]");
+  const list = legal?.querySelector<HTMLOListElement>("[data-legal-list]");
+  const sections = [...(legal?.querySelectorAll<HTMLElement>("[data-legal-sec]") ?? [])];
+  if (legal && list && sections.length) {
+    const links = sections.map((section) => {
+      const heading = section.querySelector("h2");
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = `#${section.id}`;
+      link.textContent = heading?.textContent?.trim() ?? "";
+      item.append(link);
+      list.append(item);
+      return link;
+    });
+    legal.classList.add("has-index");
+
+    const acc = legal.querySelector<HTMLElement>("[data-acc-item]");
+    list.addEventListener("click", (event) => {
+      if (!(event.target instanceof HTMLAnchorElement) || !acc?.classList.contains("is-open")) return;
+      acc.classList.remove("is-open");
+      acc.querySelector("[data-acc-head]")?.setAttribute("aria-expanded", "false");
+    });
+
+    const setActive = (index: number) => links.forEach((link, i) => link.toggleAttribute("aria-current", i === index));
+    const onScroll = () => {
+      const line = window.innerHeight * 0.3;
+      let current = 0;
+      sections.forEach((section, i) => { if (section.getBoundingClientRect().top < line) current = i; });
+      setActive(current);
+    };
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { ticking = false; onScroll(); });
+    }, { passive: true });
+    onScroll();
+  }
+</script>
+
+<style>
+  /* Hero: title on the left, effective date and intro on the right (stacked on phones) */
+  .tk-legal__hero { padding-block: clamp(3rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem); border-bottom: 1px solid var(--hairline); }
+  .tk-legal__hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: clamp(2rem, 5vw, 5rem); align-items: end; }
+  .tk-legal__title { font-size: clamp(3rem, 6.4vw, 6.75rem); line-height: 0.98; letter-spacing: -0.058em; font-weight: 600; text-wrap: balance; max-width: 10ch; }
+  .tk-legal__aside { display: grid; gap: 1.25rem; justify-items: start; padding-bottom: 0.5rem; }
+  .tk-legal__date { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 2.25rem; padding: 0 1rem; border-radius: 999px; background: var(--key-blue-soft); color: var(--navy); font-size: 0.9rem; font-weight: 600; }
+  .tk-legal__date::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--green); }
+  .tk-legal__intro { font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: var(--muted); max-width: 34rem; }
+
+  /* Body: sticky index beside the text on desktop */
+  .tk-legal__body { padding-block: clamp(3rem, 6vw, 5.5rem) var(--space); }
+  .tk-legal__grid { display: grid; grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr); gap: clamp(3rem, 7vw, 7rem); align-items: start; }
+  .tk-legal__index { position: sticky; top: calc(var(--header-h) + 2.5rem); }
+  .tk-legal__body:not(.has-index) .tk-legal__index { visibility: hidden; }
+  .tk-legal__toggle { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 1rem; min-height: 2.5rem; font-size: 0.85rem; font-weight: 600; color: var(--muted); text-align: left; pointer-events: none; }
+  .tk-legal__toggle .v6-acc__icon { display: none; }
+  .tk-legal__index .v6-acc__panel { grid-template-rows: 1fr; }
+  .tk-legal__list { display: grid; gap: 0; margin-top: 0.5rem; padding-left: 0.1rem; border-left: 1px solid var(--hairline); }
+  .tk-legal__list :global(a) { position: relative; display: flex; align-items: center; min-height: 2.5rem; padding: 0.4rem 0 0.4rem 1rem; margin-left: -1px; border-left: 2px solid transparent; font-size: 0.92rem; font-weight: 500; line-height: 1.35; color: var(--muted); transition: color 0.3s, border-color 0.3s; }
+  .tk-legal__list :global(a):hover { color: var(--navy); }
+  .tk-legal__list :global(a[aria-current]) { color: var(--navy); border-left-color: var(--key-blue); }
+
+  /* Text: sections split by hairlines */
+  .tk-legal__text { max-width: 46rem; }
+  .tk-legal__sec { scroll-margin-top: calc(var(--header-h) + 1.5rem); padding-block: 2.5rem; border-top: 1px solid var(--hairline); }
+  .tk-legal__sec:first-child { padding-top: 0; border-top: 0; }
+  .tk-legal__sec:last-child { padding-bottom: 0; }
+  .tk-legal__text.v6-prose > * + * { margin-top: 0; }
+  .tk-legal__sec h2 { margin-top: 0; font-size: clamp(1.6rem, 2.4vw, 2.1rem); }
+  .tk-legal__sec p + p { margin-top: 1.1em; }
+  .tk-legal__sec h2 + p { margin-top: 1rem; }
+
+  @media (max-width: 1100px) {
+    .tk-legal__hero-grid { grid-template-columns: 1fr; align-items: start; }
+  }
+  @media (max-width: 900px) {
+    .tk-legal__hero { padding-block: 2.25rem 2rem; }
+    .tk-legal__title { font-size: clamp(2.6rem, 11.5vw, 3.6rem); }
+    .tk-legal__hero-grid { gap: 1.25rem; }
+    .tk-legal__aside { gap: 1rem; padding-bottom: 0; }
+    .tk-legal__intro { font-size: 1.05rem; }
+    .tk-legal__body { padding-top: 1.5rem; }
+    .tk-legal__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .tk-legal__body:not(.has-index) .tk-legal__index { display: none; }
+    /* Phones: the index folds into one tap-to-open row */
+    .tk-legal__index { position: static; border-radius: 22px; background: var(--off-white); }
+    .tk-legal__toggle { pointer-events: auto; min-height: 3.5rem; padding: 0 0.6rem 0 1.25rem; font-size: 1rem; color: var(--charcoal); }
+    .tk-legal__toggle .v6-acc__icon { display: block; }
+    .tk-legal__index .v6-acc__panel { grid-template-rows: 0fr; }
+    .tk-legal__index .is-open .v6-acc__panel { grid-template-rows: 1fr; }
+    .tk-legal__list { margin: 0; padding: 0 0.75rem 0.75rem; border-left: 0; }
+    .tk-legal__list :global(a) { min-height: 2.75rem; align-items: center; padding: 0.35rem 0.5rem; margin-left: 0; border-left: 0; border-radius: 12px; font-size: 0.98rem; }
+    .tk-legal__list :global(a[aria-current]) { background: #fff; }
+    .tk-legal__sec { padding-block: 2rem; }
+    .tk-legal__sec h2 { font-size: 1.6rem; }
+  }
+</style>

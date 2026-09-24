@@ -1,0 +1,33 @@
+---
+// v6 FAQ accordion. Answers stay in the HTML (only visually collapsed) so search engines read them.
+// Keep the page's FAQPage schema where it already is; this component only renders the visible list.
+import { split } from "@/lib/v6";
+
+interface Props {
+  items: { q: string; a: string }[];
+  title?: string;
+  accent?: string;
+  tint?: boolean;
+  openFirst?: boolean;
+  /** Heading level for the section title. */
+  as?: "h2" | "h3";
+}
+const { items, title = "Frequently asked", accent = "questions", tint = true, openFirst = true, as: Tag = "h2" } = Astro.props;
+---
+
+<section class:list={["v6-faq", !tint && "v6-faq--plain"]} style={tint ? undefined : "background:transparent"}>
+  <div class="v6-wrap v6-faq__grid">
+    <Tag class="v6-h2 v6-faq__title" data-words set:html={split([{ t: title }, ...(accent ? [{ t: accent, accent: true }] : [])])} />
+    <ul class="v6-acc">
+      {items.map((item, index) => {
+        const open = openFirst && index === 0;
+        return (
+          <li class:list={["v6-acc__item", open && "is-open"]} data-acc-item>
+            <button type="button" class="v6-acc__head" aria-expanded={open ? "true" : "false"} data-acc-head><span>{item.q}</span><span class="v6-acc__icon" aria-hidden="true"></span></button>
+            <div class="v6-acc__panel"><div><p>{item.a}</p></div></div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

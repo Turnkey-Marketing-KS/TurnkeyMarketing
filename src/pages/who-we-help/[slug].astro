@@ -1,6 +1,9 @@
 ---
-import { ArrowRight, Check, ChevronRight, ExternalLink } from "lucide-react";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
+import V6Faq from "@/components/v6/V6Faq.astro";
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
+import { googleReviewSummary } from "@/lib/google-reviews";
+import { arrow, arrowUp, iconSrc, phoneHref, phoneLabel, serviceIcons, split } from "@/lib/v6";
 import { audiences, getAudience, type AudiencePage } from "@/lib/audiences";
 import { CONSULTATION_URL } from "@/lib/services";
 
@@ -64,277 +67,312 @@ const faqSchema = {
     acceptedAnswer: { "@type": "Answer", text: faq.answer },
   })),
 };
+
+// Noun icons for the three "customer decision" priorities, per audience.
+const priorityIcons: Record<string, string[]> = {
+  "european-auto-repair-shops": ["car-count", "target", "vip"],
+  "multi-location-auto-repair-shops": ["weekly-planner", "location", "report"],
+};
+const icons = priorityIcons[currentAudience.slug] ?? ["target", "location", "report"];
+const serviceIcon = (href: string) => serviceIcons[href.replace("/services/", "")] ?? "target";
 ---
 
-<BaseLayout
+<V6Layout
   title={currentAudience.seoTitle}
   description={currentAudience.seoDescription}
   path={path}
   ogTitle={currentAudience.seoTitle}
   ogImage={currentAudience.image.src}
   schema={[serviceSchema, breadcrumbSchema, faqSchema]}
+  class="tk-aud"
 >
-  <section class="relative overflow-hidden bg-white py-10 md:py-16 lg:py-20">
-    <div class="container-page">
-      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-charcoal/60">
-        <a href="/" class="inline-flex min-h-11 items-center font-medium transition hover:text-charcoal">Home</a>
-        <ChevronRight className="h-4 w-4 text-charcoal/30" aria-hidden="true" />
-        <span class="font-medium text-charcoal">{currentAudience.name}</span>
-      </nav>
-
-      <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
-        <div class="lg:col-span-7">
-          <p class="eyebrow text-[var(--key-blue)]">{currentAudience.eyebrow}</p>
-          <h1 class="page-title mt-6 max-w-[15ch] text-balance text-charcoal">
-            <span class="block">{currentAudience.heroTitle}</span>
-            <span class="block text-[var(--key-blue)]">{currentAudience.heroAccent}</span>
-          </h1>
-          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/68 md:text-xl">
-            {currentAudience.heroCopy}
-          </p>
-          <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <a
-              href={CONSULTATION_URL}
-              class="btn-primary"
-              data-track-event="consultation_cta_click"
-              data-track-slug={currentAudience.slug}
-              data-track-placement="audience_hero"
-            >
-              Book a Strategy Call
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </a>
-            <a href="#answer" class="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)]">
-              See what matters
-              <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-            </a>
-          </div>
+  <!-- Hero. Desktop: title and actions beside a portrait photo. Phones: title, actions, then a 4:3 photo. -->
+  <section class="tk-aud__hero">
+    <div class="v6-wrap tk-aud__hero-grid">
+      <div class="tk-aud__hero-copy">
+        <nav class="v6-crumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/" class="tk-aud__crumb">Home</a></li>
+            <li><span aria-current="page">{currentAudience.name}</span></li>
+          </ol>
+        </nav>
+        <p class="v6-kicker tk-aud__kicker" data-fade style="--d:0">{currentAudience.eyebrow}</p>
+        <h1 class="tk-aud__title" data-words set:html={split([{ t: currentAudience.heroTitle }, { t: currentAudience.heroAccent, accent: true }])} />
+        <p class="tk-aud__lead" data-fade style="--d:2">{currentAudience.heroCopy}</p>
+        <div class="tk-aud__actions" data-fade style="--d:3">
+          <a
+            href={CONSULTATION_URL}
+            class="v6-btn v6-btn--navy v6-btn--lg"
+            data-track-event="consultation_cta_click"
+            data-track-slug={currentAudience.slug}
+            data-track-placement="audience_hero"
+          >
+            <span>Book a Strategy Call</span><i set:html={arrow} />
+          </a>
+          <a href="#answer" class="v6-link">See what matters <i set:html={arrow} /></a>
         </div>
-
-        <figure class="lg:col-span-5">
-          <div class="overflow-hidden rounded-[32px] bg-[var(--navy)] p-3 shadow-[0_34px_90px_-58px_rgba(20,22,28,0.55)]">
-            <img
-              src={currentAudience.image.src}
-              alt={currentAudience.image.alt}
-              width={currentAudience.image.width}
-              height={currentAudience.image.height}
-              loading="eager"
-              decoding="async"
-              class="aspect-[4/3] h-full w-full rounded-[24px] object-cover"
-              style={`object-position: ${currentAudience.image.position};`}
-            />
-          </div>
-        </figure>
       </div>
+      <figure class="tk-aud__media" data-fade style="--d:2">
+        <img
+          src={currentAudience.image.src}
+          alt={currentAudience.image.alt}
+          width={currentAudience.image.width}
+          height={currentAudience.image.height}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          style={`object-position: ${currentAudience.image.position};`}
+        />
+      </figure>
     </div>
   </section>
 
-  <section id="answer" class="bg-[var(--navy)] py-14 text-white md:py-20">
-    <div class="container-page grid gap-8 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-4">
-        <p class="eyebrow text-[var(--green)]">The short answer</p>
-        <h2 class="display-3 mt-5 max-w-[12ch] text-balance text-white">What should this marketing actually do?</h2>
-      </div>
-      <p class="max-w-3xl text-xl leading-relaxed text-white/82 lg:col-span-7 lg:col-start-6 lg:pt-2 md:text-2xl">
-        {currentAudience.answer}
-      </p>
+  <!-- The short answer -->
+  <section id="answer" class="v6-sec v6-sec--navy tk-aud__answer">
+    <div class="v6-wrap tk-aud__answer-grid">
+      <h2 class="tk-aud__answer-title" data-words set:html={split([{ t: "What should this marketing" }, { t: "actually do?", accent: true }])} />
+      <p class="tk-aud__answer-text" data-rise>{currentAudience.answer}</p>
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-14 md:py-24">
-    <div class="container-page">
-      <div class="max-w-3xl">
-        <p class="eyebrow text-[var(--key-blue)]">The customer decision</p>
-        <h2 class="display-2 mt-5 text-balance text-charcoal">Build trust before the phone call.</h2>
-      </div>
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
-        {currentAudience.priorities.map((priority) => (
-          <article class="motion-card rounded-[28px] border border-black/[0.07] bg-white p-7 md:p-8">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--navy)] text-white">
-              <Check className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <h3 class="mt-6 font-display text-2xl font-semibold leading-tight text-charcoal">{priority.title}</h3>
-            <p class="mt-4 leading-relaxed text-charcoal/68">{priority.description}</p>
+  <!-- The customer decision: tiles on desktop, a swipe rail on phones -->
+  <section class="v6-sec v6-sec--tint">
+    <div class="v6-wrap">
+      <h2 class="v6-h2 tk-aud__h2" data-words set:html={split([{ t: "Build trust before" }, { t: "the phone call.", accent: true }])} />
+      <div class="v6-swipe tk-aud__tiles" style="--cols:3">
+        {currentAudience.priorities.map((priority, index) => (
+          <article class="v6-tile tk-aud__tile" data-rise style={`transition-delay:${index * 0.08}s`}>
+            <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(icons[index] ?? "target")})`}></span></span>
+            <h3 class="v6-tile__title">{priority.title}</h3>
+            <p class="v6-tile__text">{priority.description}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-24">
-    <div class="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-5">
-        <p class="eyebrow text-[var(--key-blue)]">A coordinated approach</p>
-        <h2 class="display-2 mt-5 max-w-[12ch] text-balance text-charcoal">One plan. Clear local priorities.</h2>
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/65">
+  <!-- A coordinated approach: sticky title, numbered rows -->
+  <section class="v6-sec">
+    <div class="v6-wrap tk-aud__split">
+      <div class="tk-aud__side">
+        <h2 class="v6-h2 tk-aud__side-title" data-words set:html={split([{ t: "One plan." }, { t: "Clear local priorities.", accent: true }])} />
+        <p class="v6-lead" data-rise>
           The strategy stays focused on the shop's real capacity, customer fit, and repair work. The channels support that decision instead of setting it.
         </p>
       </div>
-      <div class="space-y-4 lg:col-span-7">
-        {currentAudience.approach.map((item) => (
-          <article class="rounded-[24px] border border-[var(--hairline)] bg-white p-6 shadow-[0_20px_55px_-48px_rgba(20,22,28,0.5)] md:p-8">
-            <h3 class="font-display text-2xl font-semibold leading-tight text-charcoal">{item.title}</h3>
-            <p class="mt-3 max-w-2xl leading-relaxed text-charcoal/68">{item.description}</p>
-          </article>
+      <ol class="tk-aud__steps">
+        {currentAudience.approach.map((item, index) => (
+          <li class="tk-aud__step" data-rise>
+            <div>
+              <h3 class="tk-aud__step-title">{item.title}</h3>
+              <p class="tk-aud__step-text">{item.description}</p>
+            </div>
+          </li>
         ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Proof: the one featured card on the page -->
+  <section class="v6-sec tk-aud__proof-sec">
+    <div class="v6-wrap">
+      <div class="v6-glow" data-rise>
+        <div class="v6-glow__inner tk-aud__proof">
+          <div class="tk-aud__proof-stat">
+            <p class="v6-kicker">{currentAudience.proof.eyebrow}</p>
+            <p class="tk-aud__metric">{currentAudience.proof.metric}</p>
+          </div>
+          <div class="tk-aud__proof-body">
+            <h2 class="tk-aud__proof-title">{currentAudience.proof.title}</h2>
+            <p class="tk-aud__proof-text">{currentAudience.proof.description}</p>
+            <a href={currentAudience.proof.href} class="v6-link">{currentAudience.proof.linkLabel} <i set:html={arrow} /></a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-[var(--charcoal)] py-14 text-white md:py-24">
-    <div class="container-page">
-      <div class="grid gap-10 rounded-[32px] bg-[var(--navy)] p-7 md:p-12 lg:grid-cols-12 lg:items-center lg:gap-16 lg:p-14">
-        <div class="lg:col-span-4">
-          <p class="eyebrow text-[var(--green)]">{currentAudience.proof.eyebrow}</p>
-          <p class="mt-5 font-display text-7xl font-semibold tracking-[-0.055em] text-white md:text-8xl">{currentAudience.proof.metric}</p>
-        </div>
-        <div class="lg:col-span-8">
-          <h2 class="display-3 text-balance text-white">{currentAudience.proof.title}</h2>
-          <p class="mt-5 max-w-3xl text-lg leading-relaxed text-white/72">{currentAudience.proof.description}</p>
-          <a href={currentAudience.proof.href} class="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--green)]">
-            {currentAudience.proof.linkLabel}
-            <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[var(--off-white)] py-14 md:py-24">
-    <div class="container-page">
-      <div class="max-w-3xl">
-        <p class="eyebrow text-[var(--key-blue)]">Relevant services</p>
-        <h2 class="display-2 mt-5 text-balance text-charcoal">Choose the level of help the shop needs.</h2>
-      </div>
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
-        {currentAudience.services.map((service) => (
+  <!-- Relevant services -->
+  <section class="v6-sec v6-sec--tint">
+    <div class="v6-wrap">
+      <h2 class="v6-h2 tk-aud__h2" data-words set:html={split([{ t: "Choose the level of help" }, { t: "the shop needs.", accent: true }])} />
+      <div class="v6-swipe tk-aud__tiles" style="--cols:3">
+        {currentAudience.services.map((service, index) => (
           <a
             href={service.href}
-            class="group flex min-h-[260px] flex-col rounded-[28px] border border-black/[0.07] bg-white p-7 transition hover:-translate-y-1 hover:border-[var(--key-blue)]/35 hover:shadow-[0_28px_70px_-48px_rgba(20,22,28,0.45)]"
+            class:list={["v6-tile tk-aud__svc", index === 0 && "v6-tile--navy"]}
             data-track-event="service_cta_click"
             data-track-slug={service.href.replace("/services/", "")}
             data-track-placement="audience_services"
+            data-rise
+            style={`transition-delay:${index * 0.08}s`}
           >
-            <h3 class="font-display text-2xl font-semibold leading-tight text-charcoal">{service.title}</h3>
-            <p class="mt-4 leading-relaxed text-charcoal/68">{service.description}</p>
-            <span class="mt-auto inline-flex min-h-11 items-end gap-2 pt-7 font-semibold text-[var(--navy)]">
-              Explore service
-              <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-            </span>
+            <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcon(service.href))})`}></span></span>
+            <h3 class="v6-tile__title">{service.title}</h3>
+            <p class="v6-tile__text">{service.description}</p>
+            <span class:list={["v6-link tk-aud__svc-go", index === 0 && "v6-link--light"]}>Explore service <i set:html={arrow} /></span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20">
-    <div class="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-4">
-        <p class="eyebrow text-[var(--key-blue)]">Source notes</p>
-        <h2 class="display-3 mt-5 text-balance text-charcoal">Useful primary guidance.</h2>
-        <p class="mt-5 leading-relaxed text-charcoal/65">
+  <!-- Source notes: hairline rows -->
+  <section class="v6-sec">
+    <div class="v6-wrap tk-aud__split">
+      <div class="tk-aud__side">
+        <h2 class="tk-aud__src-h2" data-words set:html={split([{ t: "Useful primary" }, { t: "guidance.", accent: true }])} />
+        <p class="v6-lead" data-rise>
           These external sources support the local-profile, service, and review practices referenced on this page.
         </p>
       </div>
-      <div class="grid gap-4 lg:col-span-8">
+      <ul class="tk-aud__sources">
         {currentAudience.sources.map((source) => (
-          <a href={source.href} target="_blank" rel="noopener noreferrer" class="group rounded-[24px] border border-[var(--hairline)] bg-white p-6 transition hover:border-[var(--key-blue)]/35 hover:shadow-[0_20px_55px_-48px_rgba(20,22,28,0.5)]">
-            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--key-blue)]">{source.publisher}</p>
-            <h3 class="mt-3 flex items-start gap-3 font-display text-xl font-semibold leading-tight text-charcoal">
-              <span>{source.title}</span>
-              <ExternalLink className="mt-1 h-4 w-4 shrink-0 text-charcoal/40 transition group-hover:text-[var(--key-blue)]" aria-hidden="true" />
-            </h3>
-            <p class="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/65">{source.description}</p>
-          </a>
+          <li data-rise>
+            <a href={source.href} target="_blank" rel="noopener noreferrer" class="tk-aud__src">
+              <p class="tk-aud__src-pub">{source.publisher}</p>
+              <h3 class="tk-aud__src-title">
+                <span>{source.title}</span>
+                <i class="tk-aud__src-go" set:html={arrowUp} />
+              </h3>
+              <p class="tk-aud__src-text">{source.description}</p>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-14 md:py-24">
-    <div class="container-page">
-      <div class="mx-auto mb-8 max-w-4xl text-center md:mb-14">
-        <h2 class="display-2 text-balance text-charcoal">Frequently asked questions</h2>
-      </div>
-      <div class="faq-list mx-auto max-w-3xl space-y-3">
-        {currentAudience.faqs.map((faq, index) => (
-          <details class="faq-item overflow-hidden rounded-2xl border hairline bg-white" open={index === 0}>
-            <summary class="faq-summary group flex w-full cursor-pointer items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--key-blue)] md:px-6 md:py-5">
-              <span class="faq-question pr-5 font-display text-base font-semibold text-charcoal transition-colors group-hover:text-white md:pr-8 md:text-lg">
-                {faq.question}
-              </span>
-              <span class="faq-icon inline-flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[var(--off-white)] text-charcoal transition-colors group-hover:bg-white/15 group-hover:text-white" aria-hidden="true">
-                <span class="faq-plus">+</span>
-                <span class="faq-minus">−</span>
-              </span>
-            </summary>
-            <div class="faq-answer px-5 pb-5 leading-relaxed text-charcoal/70 transition-colors md:px-6 md:pb-6">
-              {faq.answer}
-            </div>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
+  <V6Faq items={currentAudience.faqs.map((faq) => ({ q: faq.question, a: faq.answer }))} />
 
-  <section class="bg-white py-14 md:py-24">
-    <div class="container-page">
-      <div class="relative overflow-hidden rounded-[32px] bg-[var(--navy)] p-8 text-white md:p-12 lg:p-14">
-        <span class="pointer-events-none absolute -right-24 -top-28 h-80 w-80 rounded-full bg-[var(--key-blue)] blur-3xl opacity-30" aria-hidden="true"></span>
-        <div class="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p class="eyebrow text-[var(--green)]">Talk through the fit</p>
-            <h2 class="display-2 mt-5 max-w-[14ch] text-balance text-white">Build the plan around the work you want more of.</h2>
-            <p class="mt-5 max-w-2xl text-lg leading-relaxed text-white/72">Bring your market, capacity, current vendors, and biggest question. We will help you identify the next practical move.</p>
-          </div>
+  <!-- Closing call to action (page copy kept; audience tracking kept) -->
+  <section class="v6-cta">
+    <div class="v6-wrap">
+      <div class="v6-cta__panel" data-rise>
+        <a href={googleReviewSummary.url} class="v6-cta__rating">
+          <span class="v6-stars" aria-hidden="true">★★★★★</span>
+          {googleReviewSummary.rating} on Google · {googleReviewSummary.count} reviews
+        </a>
+        <h2 class="v6-cta__title" data-words set:html={split([{ t: "Build the plan around" }, { t: "the work you want more of.", accent: true }])} />
+        <p class="v6-cta__text">Bring your market, capacity, current vendors, and biggest question. We will help you identify the next practical move.</p>
+        <div class="v6-cta__actions">
           <a
             href={CONSULTATION_URL}
-            class="inline-flex min-h-12 items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105"
+            class="v6-btn v6-btn--navy v6-btn--lg"
             data-track-event="consultation_cta_click"
             data-track-slug={currentAudience.slug}
             data-track-placement="audience_footer"
           >
-            Book a Strategy Call
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            <span>Book a Strategy Call</span><i set:html={arrow} />
           </a>
+          <a href={phoneHref} class="v6-btn v6-btn--ghost v6-btn--lg" data-track-event="phone_click" data-track-placement="audience_footer"><SolidPhoneIcon class="h-6 w-6" /><span>{phoneLabel}</span></a>
         </div>
       </div>
     </div>
   </section>
-</BaseLayout>
+</V6Layout>
 
 <style>
-  .faq-item > summary {
-    list-style: none;
+  /* Hero */
+  .tk-aud__hero { padding-block: clamp(2.5rem, 5.5vw, 5rem) clamp(4rem, 8vw, 7rem); }
+  .tk-aud__hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(2.5rem, 5vw, 5.5rem); align-items: end; }
+  .tk-aud__hero-copy { display: grid; justify-items: start; }
+  .tk-aud__crumb { display: inline-flex; align-items: center; min-height: 2.75rem; min-width: 2.75rem; }
+  .tk-aud__actions .v6-link, .tk-aud__proof-body .v6-link { min-height: 2.75rem; }
+  .tk-aud__hero .v6-crumbs { margin-top: -0.75rem; }
+  .tk-aud__kicker { margin-top: 1.75rem; }
+  .tk-aud__title { margin-top: 1rem; max-width: 15ch; font-size: clamp(3rem, 5.4vw, 5.6rem); line-height: 0.98; letter-spacing: -0.058em; font-weight: 600; text-wrap: balance; }
+  .tk-aud__lead { margin-top: 1.75rem; max-width: 36rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: var(--muted); }
+  .tk-aud__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: 2.25rem; }
+  .tk-aud__media { position: relative; margin: 0; overflow: hidden; border-radius: 36px; aspect-ratio: 4 / 5; max-height: 38rem; background: var(--off-white); box-shadow: 0 40px 90px -60px rgba(35, 46, 102, 0.7); }
+  .tk-aud__media img { width: 100%; height: 100%; object-fit: cover; }
+  .tk-aud__media::after { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 70% at 0% 0%, rgba(63, 140, 203, 0.22), transparent 62%); pointer-events: none; }
+
+  /* Short answer */
+  .tk-aud__answer-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .tk-aud__answer-title { font-size: clamp(2rem, 3.4vw, 3.4rem); line-height: 1.04; letter-spacing: -0.05em; font-weight: 600; text-wrap: balance; max-width: 12ch; }
+  .tk-aud__answer-text { font-size: clamp(1.25rem, 2vw, 1.85rem); line-height: 1.42; letter-spacing: -0.025em; font-weight: 500; color: rgba(255, 255, 255, 0.86); text-wrap: pretty; }
+
+  /* Section heads and tiles */
+  .tk-aud__h2 { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .tk-aud__tile .v6-tile__title, .tk-aud__svc .v6-tile__title { margin-top: 1.25rem; }
+  .tk-aud__tile { min-height: 20rem; }
+  .tk-aud__svc { min-height: 22rem; }
+  .tk-aud__svc-go { margin-top: auto; padding-top: 1rem; align-self: flex-start; }
+  .tk-aud__svc:hover .tk-aud__svc-go i { transform: translateX(3px); }
+  .tk-aud__svc.v6-tile--navy { background: linear-gradient(150deg, var(--key-blue), var(--navy) 70%); }
+
+  /* Split with sticky side title */
+  .tk-aud__split { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: start; }
+  .tk-aud__side { position: sticky; top: calc(var(--header-h) + 2.5rem); display: grid; gap: 1.5rem; }
+  .tk-aud__side-title { max-width: 11ch; }
+  .tk-aud__steps { border-top: 1px solid var(--hairline); }
+  .tk-aud__step { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding-block: clamp(1.75rem, 3vw, 2.5rem); border-bottom: 1px solid var(--hairline); }
+  .tk-aud__step-num { font-size: 1rem; font-weight: 700; color: var(--key-blue); font-variant-numeric: tabular-nums; padding-top: 0.45rem; }
+  .tk-aud__step-title { font-size: clamp(1.45rem, 2.3vw, 2.1rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1.1; text-wrap: balance; }
+  .tk-aud__step-text { margin-top: 0.85rem; max-width: 34rem; font-size: 1.05rem; line-height: 1.65; color: var(--muted); }
+
+  /* Proof */
+  .tk-aud__proof { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; padding: clamp(2.25rem, 5vw, 4.5rem); }
+  .tk-aud__proof-stat { display: grid; gap: 0.75rem; padding-right: clamp(1rem, 3vw, 3rem); border-right: 1px solid var(--hairline); }
+  .tk-aud__metric { font-size: clamp(5.5rem, 12vw, 11rem); font-weight: 600; letter-spacing: -0.07em; line-height: 0.9; white-space: nowrap; background: linear-gradient(120deg, var(--navy) 10%, var(--key-blue) 60%, var(--green)); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.08em; }
+  .tk-aud__proof-body { display: grid; justify-items: start; gap: 1.25rem; }
+  .tk-aud__proof-title { font-size: clamp(1.9rem, 3.2vw, 3.1rem); line-height: 1.04; letter-spacing: -0.05em; font-weight: 600; text-wrap: balance; }
+  .tk-aud__proof-text { max-width: 36rem; font-size: 1.05rem; line-height: 1.65; color: var(--muted); }
+
+  /* Sources */
+  .tk-aud__src-h2 { font-size: clamp(2rem, 3.4vw, 3.4rem); line-height: 1.04; letter-spacing: -0.05em; font-weight: 600; text-wrap: balance; }
+  .tk-aud__sources { border-top: 1px solid var(--hairline); }
+  .tk-aud__sources li { border-bottom: 1px solid var(--hairline); }
+  .tk-aud__src { display: grid; gap: 0.55rem; padding-block: 1.75rem; transition: padding 0.5s var(--ease); }
+  .tk-aud__src:hover { padding-left: 0.75rem; }
+  .tk-aud__src-pub { font-size: 0.85rem; font-weight: 600; color: var(--key-blue); }
+  .tk-aud__src-title { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; font-size: clamp(1.2rem, 1.7vw, 1.5rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.2; transition: color 0.3s; }
+  .tk-aud__src:hover .tk-aud__src-title { color: var(--navy); }
+  .tk-aud__src-go { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-top: -0.3rem; border-radius: 999px; background: var(--off-white); color: var(--navy); transition: background-color 0.3s, color 0.3s, transform 0.5s var(--ease); }
+  .tk-aud__src:hover .tk-aud__src-go { background: var(--navy); color: #fff; transform: rotate(0deg) scale(1.05); }
+  .tk-aud__src-text { max-width: 38rem; line-height: 1.6; color: var(--muted); }
+
+  @media (max-width: 1100px) {
+    .tk-aud__hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); align-items: center; }
+    .tk-aud__answer-grid, .tk-aud__split { grid-template-columns: 1fr; }
+    .tk-aud__side { position: static; }
+    .tk-aud__side-title, .tk-aud__answer-title { max-width: 18ch; }
+    .tk-aud__proof { grid-template-columns: 1fr; }
+    .tk-aud__proof-stat { padding-right: 0; padding-bottom: 1.75rem; border-right: 0; border-bottom: 1px solid var(--hairline); }
   }
 
-  .faq-item > summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-item[open] > .faq-summary,
-  .faq-item[open] > .faq-answer {
-    background: var(--key-blue);
-  }
-
-  .faq-item[open] .faq-question,
-  .faq-item[open] > .faq-answer {
-    color: white;
-  }
-
-  .faq-item[open] .faq-icon {
-    background: rgb(255 255 255 / 0.15);
-    color: white;
-  }
-
-  .faq-minus {
-    display: none;
-  }
-
-  .faq-item[open] .faq-plus {
-    display: none;
-  }
-
-  .faq-item[open] .faq-minus {
-    display: inline;
+  /* Phones: CTA right under the title, full-width buttons, compact photo, rails for card groups */
+  @media (max-width: 900px) {
+    .tk-aud__hero { padding-block: 1.25rem 3.5rem; }
+    .tk-aud__hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .tk-aud__hero .v6-crumbs { margin-top: 0; }
+    .tk-aud__kicker { margin-top: 0.75rem; }
+    .tk-aud__title { margin-top: 0.6rem; font-size: clamp(2.35rem, 10.5vw, 3.4rem); }
+    .tk-aud__lead { margin-top: 1.1rem; font-size: 1.02rem; }
+    .tk-aud__actions { display: grid; width: 100%; gap: 0.25rem; margin-top: 1.6rem; }
+    .tk-aud__actions .v6-btn, .tk-aud__actions .v6-link { justify-content: center; }
+    .tk-aud__media { margin-inline: calc(var(--gutter) * -0.5); aspect-ratio: 4 / 3; max-height: none; border-radius: 28px; }
+    .tk-aud__answer-grid { gap: 1.5rem; }
+    .tk-aud__answer-text { font-size: 1.2rem; line-height: 1.5; }
+    .tk-aud__tile, .tk-aud__svc { min-height: 0; }
+    .tk-aud__tile .v6-tile__title, .tk-aud__svc .v6-tile__title { margin-top: 0.5rem; }
+    .tk-aud__svc-go { min-height: 2.75rem; }
+    .tk-aud__split { gap: 2rem; }
+    .tk-aud__side { gap: 1rem; }
+    .tk-aud__step { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; padding-block: 1.5rem; }
+    .tk-aud__step-num { padding-top: 0.25rem; font-size: 0.9rem; }
+    .tk-aud__step-title { font-size: 1.35rem; }
+    .tk-aud__step-text { margin-top: 0.55rem; font-size: 1rem; }
+    .tk-aud__proof { gap: 1.5rem; padding: 1.75rem 1.5rem 2rem; }
+    .tk-aud__proof-stat { padding-bottom: 1.25rem; }
+    .tk-aud__metric { font-size: clamp(4.5rem, 24vw, 6.5rem); }
+    .tk-aud__proof-title { font-size: 1.75rem; }
+    .tk-aud__proof-text { font-size: 1rem; }
+    .tk-aud__src { padding-block: 1.35rem; }
+    .tk-aud__src:hover { padding-left: 0; }
+    .tk-aud__src-title { font-size: 1.15rem; gap: 1rem; }
+    .tk-aud__src-go { width: 2.25rem; height: 2.25rem; }
+    .tk-aud__src-text { font-size: 0.95rem; }
   }
 </style>

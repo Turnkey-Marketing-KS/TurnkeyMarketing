@@ -1,6 +1,5 @@
 ---
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
 import MarketingIdeasArticle from "@/components/resources/MarketingIdeasArticle.astro";
 import AIReviewsArticle from "@/components/resources/AIReviewsArticle.astro";
 import ReputationGuide from "@/components/resources/ReputationGuide.astro";
@@ -9,6 +8,7 @@ import AdvertisingGuide from "@/components/resources/AdvertisingGuide.astro";
 import ExternalSources from "@/components/resources/ExternalSources.astro";
 import { getResourcePost, resourcePosts } from "@/lib/resource-posts";
 import { CONSULTATION_URL } from "@/lib/services";
+import { arrow, split } from "@/lib/v6";
 
 export function getStaticPaths() {
   return resourcePosts.map((post) => ({
@@ -36,6 +36,7 @@ const isAIReviews = currentPost.layout === "ai-reviews";
 const isReputationGuide = currentPost.layout === "reputation-guide";
 const isAISearch = currentPost.layout === "ai-search";
 const isAdvertisingGuide = currentPost.layout === "advertising-guide";
+const isTemplateLayout = !isReputationGuide && !isAIReviews && !isAISearch && !isMarketingIdeas && !isAdvertisingGuide;
 
 const articleSchema = {
   "@context": "https://schema.org",
@@ -114,9 +115,26 @@ const faqSchema = schemaFaqs?.length
 const pageSchemas = faqSchema
   ? [articleSchema, breadcrumbSchema, faqSchema]
   : [articleSchema, breadcrumbSchema];
+
+const relatedCols = Math.max(2, Math.min(4, relatedPosts.length));
+
+// Section anchors for the table of contents. The heading text itself is never changed.
+const tocLabel = (heading: string) => heading.replace(/^\s*\d+[.)]\s*/, "").replace(/\.$/, "");
+const usedIds = new Set<string>();
+const sectionId = (heading: string) => {
+  const base = tocLabel(heading).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 64) || "section";
+  let id = base;
+  for (let n = 2; usedIds.has(id); n++) id = `${base}-${n}`;
+  usedIds.add(id);
+  return id;
+};
+const templateSections = isTemplateLayout && !isClientProof
+  ? currentPost.sections.map((section) => ({ ...section, id: sectionId(section.heading) }))
+  : [];
+const showToc = templateSections.length >= 3;
 ---
 
-<BaseLayout
+<V6Layout
   title={currentPost.seoTitle ?? `${currentPost.title} — Turnkey Marketing`}
   description={currentPost.seoDescription ?? currentPost.description}
   path={currentPost.href}
@@ -124,7 +142,10 @@ const pageSchemas = faqSchema
   ogType="article"
   ogImage={currentPost.image.src}
   schema={pageSchemas}
+  class="tk-art"
 >
+  <div class="tk-art__progress" aria-hidden="true"><span data-art-progress></span></div>
+
   {isReputationGuide ? (
     <ReputationGuide post={currentPost} />
   ) : isAIReviews ? (
@@ -136,391 +157,615 @@ const pageSchemas = faqSchema
   ) : isAdvertisingGuide ? (
     <AdvertisingGuide post={currentPost} />
   ) : isClientProof ? (
-    <>
-      <section class="overflow-hidden bg-[var(--off-white)] py-8 md:py-12 lg:py-16">
-        <div class="container-page">
-          <a href="/resources" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/65 transition hover:text-charcoal">
-            <ArrowLeft className="h-4 w-4" />
-            All resources
-          </a>
-
-          <header class="mt-7 grid gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
-            <div class="lg:col-span-8">
-              <p class="eyebrow text-[var(--key-blue)]">
-                Client story · <time datetime={currentPost.updatedDate ?? currentPost.originalDate}>{currentPost.date}</time>
-              </p>
-              <h1 class="page-title mt-5 max-w-[14ch] text-balance text-charcoal">
-                {currentPost.title}
-              </h1>
-            </div>
-            <p class="max-w-xl text-lg leading-relaxed text-charcoal/65 lg:col-span-4 lg:pb-1">
+    <article data-art-body>
+      <header class="tk-art__hero">
+        <div class="v6-wrap">
+          <a href="/resources" class="tk-art__back"><i set:html={arrow} /> All resources</a>
+          <div class="tk-art__head tk-art__head--solo">
+            <p class="tk-art__meta" data-fade>
+              Client story · <time datetime={currentPost.updatedDate ?? currentPost.originalDate}>{currentPost.date}</time>
+            </p>
+            <h1 class="tk-art__title" data-words set:html={split([{ t: currentPost.title }])} />
+            <p class="tk-art__dek" data-fade style="--d:2">
               {currentPost.dek}
             </p>
-          </header>
-
-          <figure class="mt-10 grid overflow-hidden rounded-[30px] bg-white shadow-[0_34px_90px_-58px_rgba(20,22,28,0.55)] md:rounded-[38px] lg:grid-cols-[0.82fr_1.18fr]">
-            <div class="aspect-[4/3] overflow-hidden bg-[var(--navy)] lg:aspect-auto lg:min-h-[580px]">
-              <img
-                src={currentPost.client.portrait.src}
-                alt={currentPost.client.portrait.alt}
-                width="1200"
-                height="1600"
-                loading="eager"
-                decoding="async"
-                class="h-full w-full object-cover"
-                style={`object-position: ${currentPost.client.portrait.position};`}
-              />
-            </div>
-
-            <figcaption class="relative flex flex-col justify-center overflow-hidden bg-[var(--navy)] px-6 py-10 text-white md:px-12 md:py-14 lg:px-16">
-              <span class="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[var(--key-blue)]/20 blur-3xl" aria-hidden="true"></span>
-              <span class="font-display text-7xl font-semibold leading-none text-[var(--green)]" aria-hidden="true">“</span>
-              <blockquote class="relative -mt-3 max-w-[25ch] font-display text-[clamp(1.65rem,3vw,3rem)] font-semibold leading-[1.12] tracking-[-0.035em]">
-                {currentPost.client.quote}
-              </blockquote>
-              <div class="relative mt-9 border-t border-white/15 pt-6">
-                <p class="font-semibold text-white">{currentPost.client.name}</p>
-                <p class="mt-1 text-sm text-white/64">
-                  {currentPost.client.company} · {currentPost.client.location}
-                </p>
-              </div>
-            </figcaption>
-          </figure>
+          </div>
         </div>
-      </section>
+      </header>
 
-      <section class="bg-white py-14 md:py-20">
-        <div class="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <aside class="lg:col-span-4">
-            <div class="sticky top-28">
-              <p class="eyebrow text-[var(--key-blue)]">Why this matters</p>
-              <h2 class="mt-4 max-w-[12ch] font-display text-3xl font-semibold leading-tight text-charcoal md:text-4xl">
+      <div class="v6-wrap">
+        <figure class="tk-proof" data-fade style="--d:3">
+          <div class="tk-proof__photo">
+            <img
+              src={currentPost.client.portrait.src}
+              alt={currentPost.client.portrait.alt}
+              width="1200"
+              height="1600"
+              loading="eager"
+              decoding="async"
+              style={`object-position: ${currentPost.client.portrait.position};`}
+            />
+          </div>
+          <figcaption class="tk-proof__quote">
+            <span class="tk-proof__mark" aria-hidden="true">“</span>
+            <blockquote>
+              {currentPost.client.quote}
+            </blockquote>
+            <div class="tk-proof__who">
+              <p class="tk-proof__name">{currentPost.client.name}</p>
+              <p>
+                {currentPost.client.company} · {currentPost.client.location}
+              </p>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+
+      <section class="v6-sec tk-art__read">
+        <div class="v6-wrap tk-art__layout">
+          <aside class="tk-art__aside">
+            <div class="tk-art__sticky">
+              <h2 class="tk-art__aside-h2">
                 A plan turns marketing into a system.
               </h2>
-              <ul class="mt-7 grid gap-4 border-t border-[var(--hairline)] pt-6 text-sm leading-relaxed text-charcoal/70">
+              <ul class="tk-art__takeaways">
                 {currentPost.takeaways.map((takeaway) => (
-                  <li class="flex gap-3">
-                    <span class="mt-2 h-2 w-2 flex-none rounded-full bg-[var(--green)]"></span>
-                    <span>{takeaway}</span>
-                  </li>
+                  <li><span>{takeaway}</span></li>
                 ))}
               </ul>
             </div>
           </aside>
 
-          <article class="lg:col-span-8">
-            <div class="max-w-3xl">
-              {currentPost.sections.map((section, index) => (
-                <section class={index === 0 ? "" : "mt-12 border-t border-[var(--hairline)] pt-12"}>
-                  <p class="text-sm font-semibold tabular-nums text-[var(--key-blue)]">0{index + 1}</p>
-                  <h2 class="mt-3 font-display text-3xl font-semibold leading-tight text-charcoal md:text-[2.65rem]">
+          <div class="tk-art__main">
+            <div class="tk-proof__sections">
+              {currentPost.sections.map((section) => (
+                <section class="tk-proof__section" data-rise>
+                  <h2 class="tk-proof__h2">
                     {section.heading}
                   </h2>
-                  <p class="mt-5 text-lg leading-relaxed text-charcoal/65">
+                  <p class="tk-proof__body">
                     {section.body}
                   </p>
                 </section>
               ))}
+            </div>
 
-              {currentPost.serviceLinks && currentPost.serviceLinks.length > 0 && (
-                <section class="mt-12 border-t border-[var(--hairline)] pt-8" aria-labelledby="related-services-heading">
-                  <p class="eyebrow text-[var(--key-blue)]">Put this into practice</p>
-                  <h2 id="related-services-heading" class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">
-                    Related marketing services
-                  </h2>
-                  <div class={`mt-6 grid gap-4 ${currentPost.serviceLinks.length > 1 ? "sm:grid-cols-2" : "max-w-xl"}`}>
-                    {currentPost.serviceLinks.map((serviceLink) => (
+            {currentPost.serviceLinks && currentPost.serviceLinks.length > 0 && (
+              <section class="tk-art__services" aria-labelledby="related-services-heading">
+                <h2 id="related-services-heading" class="tk-art__services-h2">
+                  Related marketing services
+                </h2>
+                <ul class="tk-art__svc">
+                  {currentPost.serviceLinks.map((serviceLink) => (
+                    <li>
                       <a
                         href={serviceLink.href}
-                        class="group rounded-[22px] border border-black/[0.08] bg-[var(--off-white)] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-black/15 hover:bg-white hover:shadow-[0_20px_45px_-38px_rgba(20,22,28,0.45)]"
+                        class="tk-art__svc-row"
                         data-track-event="service_cta_click"
                         data-track-slug={serviceLink.href.replace("/services/", "")}
                         data-track-placement="resource_related_services"
                       >
-                        <h3 class="font-display text-lg font-semibold leading-snug text-charcoal transition group-hover:text-[var(--navy)]">
-                          {serviceLink.label}
-                        </h3>
-                        <p class="mt-3 text-sm leading-relaxed text-charcoal/65">
-                          {serviceLink.description}
-                        </p>
-                        <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
-                          Explore service <span class="motion-arrow" aria-hidden="true">→</span>
+                        <span class="tk-art__svc-text">
+                          <h3 class="tk-art__svc-title">
+                            {serviceLink.label}
+                          </h3>
+                          <p class="tk-art__svc-desc">
+                            {serviceLink.description}
+                          </p>
                         </span>
+                        <span class="tk-art__svc-go" aria-hidden="true" set:html={arrow} />
                       </a>
-                    ))}
-                  </div>
-                </section>
-              )}
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="bg-[var(--off-white)] py-14 md:py-20">
-        <div class="container-page">
-          <div class="relative overflow-hidden rounded-[30px] bg-[var(--navy)] px-6 py-10 text-white md:rounded-[36px] md:px-12 md:py-14 lg:px-16">
-            <span class="pointer-events-none absolute -right-16 -top-24 h-80 w-80 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
-            <div class="relative grid gap-7 lg:grid-cols-[1fr_auto] lg:items-end">
-              <div>
-                <p class="eyebrow !text-[var(--green)]">Your plan, your shop</p>
-                <h2 class="mt-4 max-w-[16ch] font-display text-3xl font-semibold leading-tight md:text-5xl">
-                  Stop starting your marketing over every month.
-                </h2>
-                <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-                  Bring us your goals, capacity, and current marketing. We’ll help you see what to keep, fix, stop, and run next.
-                </p>
-              </div>
-              <a href={CONSULTATION_URL} class="inline-flex min-h-12 w-fit items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105">
-                Book a Strategy Call
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-
-          {relatedPosts.length > 0 && (
-            <section class="mt-14" aria-labelledby="related-client-resources-heading">
-              <div class="flex items-end justify-between gap-4 border-b border-charcoal/10 pb-4">
-                <div>
-                  <p class="eyebrow text-[var(--key-blue)]">Keep going</p>
-                  <h2 id="related-client-resources-heading" class="mt-2 font-display text-2xl font-semibold text-charcoal">
-                    Put the plan into practice
-                  </h2>
-                </div>
-                <a href="/resources" class="text-sm font-semibold text-[var(--navy)]">View all</a>
-              </div>
-              <div class="mt-6 grid gap-5 sm:grid-cols-2">
-                {relatedPosts.map((relatedPost) => (
-                  <a href={relatedPost.href} class="group rounded-[24px] border border-black/[0.06] bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_24px_60px_-48px_rgba(20,22,28,0.55)]">
-                    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--key-blue)]">{relatedPost.tag}</p>
-                    <h3 class="mt-3 font-display text-xl font-semibold leading-tight text-charcoal">{relatedPost.title}</h3>
-                    <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
-                      Read article <span class="motion-arrow" aria-hidden="true">→</span>
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-      </section>
-    </>
-  ) : (
-    <>
-  <section class="container-page py-14 md:py-20">
-    <a href="/resources" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/65 transition hover:text-charcoal">
-      <ArrowLeft className="h-4 w-4" />
-      All resources
-    </a>
-
-    <div class="mt-8 grid gap-10 lg:grid-cols-12 lg:items-start">
-      <div class="lg:col-span-7">
-        <p class="eyebrow text-[var(--key-blue)]">
-          {currentPost.tag} · <time datetime={currentPost.updatedDate ?? currentPost.originalDate}>{currentPost.date}</time>
-        </p>
-        <h1 class="page-title mt-5 max-w-[12ch] text-balance text-charcoal">
-          {currentPost.title}
-        </h1>
-        <p class="mt-6 max-w-2xl text-xl leading-relaxed text-charcoal/65">
-          {currentPost.dek}
-        </p>
-      </div>
-
-      <div class="lg:col-span-5">
-        <div class="rounded-[30px] bg-white p-4 shadow-[0_30px_90px_-60px_rgba(20,22,28,0.45)]">
-          <div class="aspect-[4/3] overflow-hidden rounded-[22px] bg-[var(--off-white)]">
-            <img
-              src={currentPost.image.src}
-              alt={currentPost.image.alt}
-              width={currentPost.imageWidth ?? 1000}
-              height={currentPost.imageHeight ?? 750}
-              loading="eager"
-              decoding="async"
-              class="h-full w-full object-cover"
-              style={`object-position: ${currentPost.image.position};`}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[var(--off-white)] py-14 md:py-20">
-    <div class="container-page grid gap-10 lg:grid-cols-12">
-      <aside class="lg:col-span-4">
-        <div class="sticky top-28 rounded-[28px] bg-white p-7">
-          <p class="text-sm font-semibold text-charcoal">What to take from this</p>
-          <ul class="mt-5 grid gap-3 text-sm leading-relaxed text-charcoal/70">
-            {currentPost.takeaways.map((takeaway) => (
-              <li class="flex gap-3">
-                <span class="mt-2 h-2 w-2 flex-none rounded-full bg-[var(--key-blue)]"></span>
-                <span>{takeaway}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </aside>
-
-      <article class="lg:col-span-8">
-        <div class="rounded-[32px] bg-white p-7 md:p-10">
-          {currentPost.sections.map((section, index) => (
-            <section class={index === 0 ? "" : "mt-10 border-t hairline pt-10"}>
-              <h2 class="font-display text-3xl font-semibold leading-tight text-balance text-charcoal">
-                {section.heading}
-              </h2>
-              {section.body.split("\n\n").map((paragraph) => (
-                <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">
-                  {paragraph}
-                </p>
-              ))}
-              {section.bullets && (
-                <ul class="mt-5 grid max-w-3xl gap-3 text-base leading-relaxed text-charcoal/65">
-                  {section.bullets.map((bullet) => (
-                    <li class="flex gap-3">
-                      <span class="mt-2.5 h-1.5 w-1.5 flex-none rounded-full bg-[var(--key-blue)]" aria-hidden="true"></span>
-                      <span>{bullet}</span>
                     </li>
                   ))}
                 </ul>
-              )}
-              {section.link && (
-                <a href={section.link.href} class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)] transition hover:text-[var(--key-blue)]">
-                  {section.link.label}
-                  <ArrowRight className="motion-arrow h-4 w-4 flex-none" aria-hidden="true" />
-                </a>
-              )}
-            </section>
-          ))}
-          {currentPost.serviceLinks && currentPost.serviceLinks.length > 0 && (
-            <section class="mt-10 border-t hairline pt-8" aria-labelledby="related-services-heading">
-              <p class="eyebrow text-[var(--key-blue)]">Put this into practice</p>
-              <h2 id="related-services-heading" class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">
-                Related marketing services
-              </h2>
-              <div class={`mt-6 grid gap-4 ${currentPost.serviceLinks.length > 1 ? "sm:grid-cols-2" : "max-w-xl"}`}>
-                {currentPost.serviceLinks.map((serviceLink) => (
-                  <a
-                    href={serviceLink.href}
-                    class="group rounded-[22px] border border-black/[0.08] bg-[var(--off-white)] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-black/15 hover:bg-white hover:shadow-[0_20px_45px_-38px_rgba(20,22,28,0.45)]"
-                    data-track-event="service_cta_click"
-                    data-track-slug={serviceLink.href.replace("/services/", "")}
-                    data-track-placement="resource_related_services"
-                  >
-                    <h3 class="font-display text-lg font-semibold leading-snug text-charcoal transition group-hover:text-[var(--navy)]">
-                      {serviceLink.label}
-                    </h3>
-                    <p class="mt-3 text-sm leading-relaxed text-charcoal/65">
-                      {serviceLink.description}
-                    </p>
-                    <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
-                      Explore service <span class="motion-arrow" aria-hidden="true">→</span>
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
+              </section>
+            )}
+          </div>
         </div>
-
-        <div class="mt-8 rounded-[28px] bg-[var(--navy)] p-7 text-white md:p-9">
-          <h2 class="font-display text-3xl font-semibold leading-tight">
-            Want help applying this to your shop?
-          </h2>
-          <p class="mt-4 max-w-2xl text-white/70">
-            Bring the question to a strategy call. We will talk through what is
-            working, what is leaking, and what may make sense next.
-          </p>
-          <a href={CONSULTATION_URL} class="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-medium text-charcoal transition hover:brightness-105">
-            Book a Strategy Call
-            <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-
-        {currentPost.slug === "auto-repair-shop-photography-guide" && (
-          <aside class="mt-8 rounded-[26px] border border-[rgba(63,140,203,0.24)] bg-white p-7 md:p-9">
-            <p class="eyebrow text-[var(--key-blue)]">Take it to the shoot</p>
-            <h2 class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">A ready-to-use photo shot list</h2>
-            <p class="mt-4 max-w-2xl leading-relaxed text-charcoal/65">
-              Turn the guidance into a production checklist covering the exterior, team, service bays, equipment, details, and customer experience.
-            </p>
-            <a href="/photos" class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--navy)]">
-              Open the auto repair photo shot list
-              <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-            </a>
-          </aside>
-        )}
-
-        {relatedPosts.length > 0 && (
-          <section class="mt-10" aria-labelledby="related-resources-heading">
-            <div class="flex items-end justify-between gap-4 border-b border-charcoal/10 pb-4">
-              <div>
-                <p class="eyebrow text-[var(--key-blue)]">Keep going</p>
-                <h2 id="related-resources-heading" class="mt-2 font-display text-2xl font-semibold text-charcoal">
-                  Related resources
-                </h2>
-              </div>
-              <a href="/resources" class="text-sm font-semibold text-[var(--navy)]">
-                View all
-              </a>
+      </section>
+    </article>
+  ) : (
+    <article data-art-body>
+      <header class="tk-art__hero">
+        <div class="v6-wrap">
+          <a href="/resources" class="tk-art__back"><i set:html={arrow} /> All resources</a>
+          <div class="tk-art__head">
+            <div class="tk-art__head-text">
+              <p class="tk-art__meta" data-fade>
+                <span class="tk-art__tag">{currentPost.tag}</span> · <time datetime={currentPost.updatedDate ?? currentPost.originalDate}>{currentPost.date}</time>
+              </p>
+              <h1 class="tk-art__title" data-words set:html={split([{ t: currentPost.title }])} />
+              <p class="tk-art__dek" data-fade style="--d:2">
+                {currentPost.dek}
+              </p>
             </div>
-            <div class="mt-6 grid gap-5 sm:grid-cols-2">
-              {relatedPosts.map((relatedPost) => (
-                <a
-                  href={relatedPost.href}
-                  class="group rounded-[24px] border border-black/[0.06] bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_24px_60px_-48px_rgba(20,22,28,0.55)]"
-                >
-                  <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--key-blue)]">
-                    {relatedPost.tag}
-                  </p>
-                  <h3 class="mt-3 font-display text-xl font-semibold leading-tight text-charcoal">
-                    {relatedPost.title}
-                  </h3>
-                  <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">
-                    Read article
-                    <span class="motion-arrow" aria-hidden="true">→</span>
-                  </span>
-                </a>
+            <figure class="tk-art__media" data-fade style="--d:3">
+              <img
+                src={currentPost.image.src}
+                alt={currentPost.image.alt}
+                width={currentPost.imageWidth ?? 1000}
+                height={currentPost.imageHeight ?? 750}
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                style={`object-position: ${currentPost.image.position};`}
+              />
+            </figure>
+          </div>
+        </div>
+      </header>
+
+      <section class="v6-sec tk-art__read">
+        <div class="v6-wrap tk-art__layout">
+          {showToc && (
+            <aside class="tk-art__aside">
+              <nav class="tk-toc" aria-label="In this article" data-toc>
+                <details class="tk-toc__box" data-toc-details open>
+                  <summary>In this article <span class="tk-toc__plus" aria-hidden="true"></span></summary>
+                  <ul class="tk-toc__list">
+                    {templateSections.map((section) => (
+                      <li><a href={`#${section.id}`}>{tocLabel(section.heading)}</a></li>
+                    ))}
+                  </ul>
+                </details>
+              </nav>
+            </aside>
+          )}
+
+          <div class:list={["tk-art__main", !showToc && "tk-art__main--solo"]}>
+            <ul class="tk-art__keys">
+              {currentPost.takeaways.map((takeaway) => (
+                <li>{takeaway}</li>
+              ))}
+            </ul>
+
+            <div class="v6-prose tk-art__prose">
+              {templateSections.map((section) => (
+                <section class="tk-art__section" id={section.id}>
+                  <h2>
+                    {section.heading}
+                  </h2>
+                  {section.body.split("\n\n").map((paragraph) => (
+                    <p>
+                      {paragraph}
+                    </p>
+                  ))}
+                  {section.bullets && (
+                    <ul>
+                      {section.bullets.map((bullet) => (
+                        <li>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {section.link && (
+                    <a href={section.link.href} class="tk-art__inline-link">
+                      {section.link.label.split(" ").slice(0, -1).join(" ")}{" "}<span class="tk-art__nowrap">{section.link.label.split(" ").slice(-1)[0]}<i set:html={arrow} /></span>
+                    </a>
+                  )}
+                </section>
               ))}
             </div>
-          </section>
-        )}
-      </article>
-    </div>
-  </section>
-    </>
+
+            {currentPost.serviceLinks && currentPost.serviceLinks.length > 0 && (
+              <section class="tk-art__services" aria-labelledby="related-services-heading">
+                <h2 id="related-services-heading" class="tk-art__services-h2">
+                  Related marketing services
+                </h2>
+                <ul class="tk-art__svc">
+                  {currentPost.serviceLinks.map((serviceLink) => (
+                    <li>
+                      <a
+                        href={serviceLink.href}
+                        class="tk-art__svc-row"
+                        data-track-event="service_cta_click"
+                        data-track-slug={serviceLink.href.replace("/services/", "")}
+                        data-track-placement="resource_related_services"
+                      >
+                        <span class="tk-art__svc-text">
+                          <h3 class="tk-art__svc-title">
+                            {serviceLink.label}
+                          </h3>
+                          <p class="tk-art__svc-desc">
+                            {serviceLink.description}
+                          </p>
+                        </span>
+                        <span class="tk-art__svc-go" aria-hidden="true" set:html={arrow} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {currentPost.slug === "auto-repair-shop-photography-guide" && (
+              <aside class="tk-art__shotlist">
+                <h2 class="tk-art__services-h2">A ready-to-use photo shot list</h2>
+                <p>
+                  Turn the guidance into a production checklist covering the exterior, team, service bays, equipment, details, and customer experience.
+                </p>
+                <a href="/photos" class="v6-link">
+                  Open the auto repair photo shot list
+                  <i set:html={arrow} />
+                </a>
+              </aside>
+            )}
+          </div>
+        </div>
+      </section>
+    </article>
   )}
-  {!isAISearch && !isAIReviews && !isReputationGuide && currentPost.faq && currentPost.faq.length > 0 && (
+
+  {isTemplateLayout && currentPost.faq && currentPost.faq.length > 0 && (
     <section
       id="faq"
-      class="scroll-mt-28 bg-[var(--off-white)] py-14 md:py-20"
+      class="v6-faq tk-art__faq"
       aria-labelledby="resource-faq-heading"
     >
-      <div class="container-page grid gap-9 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-16">
-        <div>
-          <p class="eyebrow text-[var(--key-blue)]">Questions shop owners ask</p>
-          <h2 id="resource-faq-heading" class="display-3 mt-4 max-w-[13ch] text-charcoal">
-            Frequently asked questions
-          </h2>
-          <p class="mt-5 max-w-[44ch] leading-relaxed text-charcoal/65">
-            Straight answers to the practical questions that come up when a shop puts this idea to work.
-          </p>
+      <div class="v6-wrap v6-faq__grid">
+        <div class="v6-faq__title">
+          <h2 id="resource-faq-heading" class="v6-h2" data-words set:html={split([{ t: "Frequently asked" }, { t: "questions", accent: true }])} />
         </div>
 
-        <div class="divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
-          {currentPost.faq.map((item) => (
-            <section class="py-7 md:py-8">
-              <h3 class="font-display text-xl font-semibold leading-tight text-charcoal md:text-2xl">
-                {item.question}
+        <ul class="v6-acc">
+          {currentPost.faq.map((item, index) => (
+            <li class:list={["v6-acc__item", index === 0 && "is-open"]} data-acc-item>
+              <h3 class="tk-acc__q">
+                <button type="button" class="v6-acc__head" aria-expanded={index === 0 ? "true" : "false"} data-acc-head><span>{item.question}</span><span class="v6-acc__icon" aria-hidden="true"></span></button>
               </h3>
-              <p class="mt-3 max-w-[68ch] leading-relaxed text-charcoal/65">
-                {item.answer}
+              <div class="v6-acc__panel"><div><p>{item.answer}</p></div></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {isTemplateLayout && currentPost.externalSources && currentPost.externalSources.length > 0 && (
+    <ExternalSources sources={currentPost.externalSources} />
+  )}
+
+  {isTemplateLayout && (
+    <section class="tk-art__cta">
+      <div class="v6-wrap">
+        <div class="tk-art__cta-panel" data-rise>
+          <div class="tk-art__cta-copy">
+          {isClientProof ? (
+            <>
+              <h2 class="tk-art__cta-title">
+                Stop starting your marketing over every month.
+              </h2>
+              <p class="tk-art__cta-text">
+                Bring us your goals, capacity, and current marketing. We’ll help you see what to keep, fix, stop, and run next.
               </p>
-            </section>
+            </>
+          ) : (
+            <>
+              <h2 class="tk-art__cta-title">
+                Want help applying this to your shop?
+              </h2>
+              <p class="tk-art__cta-text">
+                Bring the question to a strategy call. We will talk through what is
+                working, what is leaking, and what may make sense next.
+              </p>
+            </>
+          )}
+          </div>
+          <div class="tk-art__cta-actions">
+            <a href={CONSULTATION_URL} class="v6-btn v6-btn--green v6-btn--lg">
+              <span>Book a Strategy Call</span>
+              <i set:html={arrow} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {isTemplateLayout && relatedPosts.length > 0 && (
+    <section class="tk-art__related" aria-labelledby={isClientProof ? "related-client-resources-heading" : "related-resources-heading"}>
+      <div class="v6-wrap">
+        <div class="v6-row-head">
+          <h2 id={isClientProof ? "related-client-resources-heading" : "related-resources-heading"} class="v6-h2 tk-art__related-h2">
+            {isClientProof ? "Put the plan into practice" : "Related resources"}
+          </h2>
+          <a href="/resources" class="v6-link">View all <i set:html={arrow} /></a>
+        </div>
+        <div class="v6-swipe tk-art__cards" style={`--cols:${relatedCols}`}>
+          {relatedPosts.map((relatedPost) => (
+            <a href={relatedPost.href} class="v6-post tk-art__card">
+              <div class="v6-post__media tk-art__card-media">
+                <img src={relatedPost.image.src} alt={relatedPost.image.alt} width={relatedPost.imageWidth ?? 1200} height={relatedPost.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${relatedPost.image.position};`} />
+              </div>
+              <h3 class="v6-post__title tk-art__card-title">
+                {relatedPost.title}
+              </h3>
+              <span class="v6-link">
+                Read article
+                <i set:html={arrow} />
+              </span>
+            </a>
           ))}
         </div>
       </div>
     </section>
   )}
-  {currentPost.externalSources && currentPost.externalSources.length > 0 && (
-    <ExternalSources sources={currentPost.externalSources} />
-  )}
-</BaseLayout>
+</V6Layout>
+
+<script>
+  // Reading progress and table-of-contents highlighting, shared by every article layout.
+  const bar = document.querySelector<HTMLElement>("[data-art-progress]");
+  const body = document.querySelector<HTMLElement>("[data-art-body]") ?? document.querySelector<HTMLElement>(".tk-art article");
+  const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>("[data-toc] a[href^='#']")];
+  const targets = tocLinks
+    .map((link) => ({ link, el: document.getElementById(decodeURIComponent(link.hash.slice(1))) }))
+    .filter((entry): entry is { link: HTMLAnchorElement; el: HTMLElement } => entry.el instanceof HTMLElement);
+  const details = [...document.querySelectorAll<HTMLDetailsElement>("[data-toc-details]")];
+  const desktop = window.matchMedia("(min-width: 1101px)");
+  const syncDetails = () => details.forEach((d) => { d.open = desktop.matches; });
+  syncDetails();
+  desktop.addEventListener("change", syncDetails);
+  details.forEach((d) => {
+    d.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { if (!desktop.matches) d.open = false; }));
+  });
+
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    if (bar && body) {
+      const rect = body.getBoundingClientRect();
+      const distance = Math.max(1, rect.height - window.innerHeight * 0.6);
+      const p = Math.min(1, Math.max(0, -rect.top / distance));
+      bar.style.transform = `scaleX(${p})`;
+    }
+    if (targets.length) {
+      const line = window.innerHeight * 0.3;
+      let active = -1;
+      targets.forEach((entry, index) => { if (entry.el.getBoundingClientRect().top <= line) active = index; });
+      targets.forEach((entry, index) => {
+        const on = index === active;
+        entry.link.classList.toggle("is-active", on);
+        if (on) entry.link.setAttribute("aria-current", "location");
+        else entry.link.removeAttribute("aria-current");
+      });
+    }
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
+</script>
+
+<style is:global>
+  /* ------------------------------------------------------------------ */
+  /* Article system: shared by the template and every long-form layout   */
+  /* Reading palette: dark body copy, solid surfaces, visible links.     */
+  /* ------------------------------------------------------------------ */
+  .tk-art {
+    --art-toc: 15.5rem;
+    --art-ink: #2b303b;
+    --art-soft: #3d4350;
+    --art-meta: #5b6070;
+    --art-rule: #dcd9d1;
+    --art-measure: 45.5rem;
+  }
+  .tk-art__progress { position: fixed; z-index: 49; left: 0; right: 0; top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); height: 3px; pointer-events: none; }
+  .tk-art__progress span { display: block; height: 100%; background: var(--grad); transform: scaleX(0); transform-origin: left; }
+
+  /* Hero */
+  .tk-art__hero { padding-top: clamp(1.5rem, 3.5vw, 3rem); }
+  .tk-art__back { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 2.75rem; font-size: 0.92rem; font-weight: 600; color: var(--navy); transition: color 0.3s; }
+  .tk-art__back:hover { color: var(--key-blue); }
+  .tk-art__back i { display: inline-grid; transform: rotate(180deg); transition: transform 0.5s var(--ease); }
+  .tk-art__back:hover i { transform: rotate(180deg) translateX(3px); }
+  .tk-art__head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 5.5rem); align-items: center; margin-top: clamp(1rem, 2.5vw, 2rem); }
+  .tk-art__head--solo { display: block; max-width: 64rem; }
+  .tk-art__head-text { min-width: 0; }
+  .tk-art__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; font-size: 0.92rem; font-weight: 500; color: var(--art-meta); line-height: 1.5; }
+  .tk-art__tag { color: var(--navy); font-weight: 600; }
+  .tk-art__title { margin-top: 1rem; font-size: clamp(2.6rem, 4.6vw, 4.75rem); line-height: 1.02; letter-spacing: -0.05em; font-weight: 600; text-wrap: balance; max-width: 17ch; color: var(--charcoal); }
+  .tk-art__title--xl { font-size: clamp(2.8rem, 5.6vw, 5.75rem); max-width: 14ch; }
+  .tk-art__dek { margin-top: 1.5rem; font-size: clamp(1.12rem, 1.35vw, 1.3rem); line-height: 1.55; color: var(--art-soft); max-width: 36rem; }
+  .tk-art__byline { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-top: 1.5rem; font-size: 0.9rem; color: var(--art-meta); }
+  .tk-art__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 2rem; }
+  .tk-art__media { position: relative; overflow: hidden; margin: 0; border-radius: 28px; aspect-ratio: 4 / 3; background: var(--off-white); }
+  .tk-art__media img { width: 100%; height: 100%; object-fit: cover; }
+  .tk-art__media--contain img { object-fit: contain; }
+  .tk-art__media-note { position: absolute; left: 1rem; right: 1rem; bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.7rem 1rem; border-radius: 999px; background: #fff; color: var(--navy); font-size: 0.85rem; font-weight: 600; text-align: center; }
+  .tk-art__media-note .v6-icon { width: 1rem; height: 1rem; flex: none; }
+
+  /* Reading layout: sticky contents rail + measured column */
+  .tk-art__read { padding-block: clamp(3.5rem, 6.5vw, 6rem); }
+  .tk-art__layout { display: grid; grid-template-columns: var(--art-toc) minmax(0, 1fr); gap: clamp(3rem, 6vw, 7rem); align-items: start; }
+  .tk-art__layout:has(> .tk-art__main--solo) { grid-template-columns: minmax(0, 1fr); }
+  .tk-art__main { min-width: 0; max-width: var(--art-measure); }
+  .tk-art__main--solo { max-width: 46rem; }
+  .tk-art__aside { min-width: 0; align-self: stretch; }
+  .tk-art__sticky { position: sticky; top: calc(var(--header-h) + 2.5rem); }
+  .tk-art__sticky--card { padding: 1.75rem; border-radius: 24px; background: var(--off-white); }
+  .tk-art__aside-title { font-size: 0.95rem; font-weight: 600; color: var(--charcoal); }
+  .tk-art__aside-h2 { font-size: clamp(1.6rem, 2.1vw, 2rem); line-height: 1.1; letter-spacing: -0.04em; font-weight: 600; text-wrap: balance; color: var(--charcoal); }
+  .tk-art__takeaways { display: grid; gap: 1rem; margin-top: 1.4rem; font-size: 1rem; line-height: 1.55; color: var(--art-ink); }
+  .tk-art__takeaways li { position: relative; padding-left: 1.4rem; }
+  .tk-art__takeaways li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 0.55rem; height: 0.55rem; border-radius: 999px; background: var(--key-blue); }
+
+  /* Key points at the top of the article: solid blue panel, no label */
+  .tk-art__keys { display: grid; gap: 1rem; margin-bottom: clamp(3rem, 5vw, 4.25rem); padding: clamp(1.5rem, 2.6vw, 2.1rem) clamp(1.5rem, 2.8vw, 2.4rem); border-radius: 24px; background: var(--key-blue-soft); font-size: 1.08rem; line-height: 1.55; font-weight: 500; color: #1d2340; }
+  .tk-art__keys li { position: relative; padding-left: 2.1rem; }
+  .tk-art__keys li::before { content: ""; position: absolute; left: 0; top: 0.12em; width: 1.35rem; height: 1.35rem; border-radius: 999px; background: var(--navy); }
+  .tk-art__keys li::after { content: ""; position: absolute; left: 0.49rem; top: calc(0.12em + 0.3rem); width: 0.36rem; height: 0.62rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+  /* Prose: the reading surface every template article uses */
+  .tk-art .v6-prose { color: var(--art-ink); }
+  .tk-art .v6-prose a { color: var(--navy); text-decoration-color: var(--key-blue); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .tk-art .v6-prose a:hover { color: var(--key-blue); }
+  .tk-art .v6-prose ul > li::before { background: var(--key-blue); }
+  .tk-art .v6-prose ol { counter-reset: none; list-style: decimal; padding-left: 1.35em; }
+  .tk-art .v6-prose ol > li { padding-left: 0.35em; counter-increment: none; }
+  .tk-art .v6-prose ol > li::before { content: none; }
+  .tk-art .v6-prose ol > li::marker { color: var(--navy); font-weight: 600; }
+  .tk-art .v6-prose figcaption { color: var(--art-meta); }
+  .tk-art__prose { max-width: var(--art-measure); font-size: 1.1875rem; line-height: 1.72; }
+  .tk-art__prose > section + section { margin-top: 0; }
+  .tk-art__prose > section:first-child > h2:first-child { margin-top: 0; }
+  .tk-art__prose section > * + * { margin-top: 1.2em; }
+  .tk-art__prose section > h2 + * { margin-top: 0.8em; }
+  .tk-art__prose section > h2 { scroll-margin-top: calc(var(--header-h) + 2rem); }
+  .tk-art__section { scroll-margin-top: calc(var(--header-h) + 2rem); }
+  .tk-art__prose > .tk-art__section + .tk-art__section { margin-top: clamp(2.75rem, 4.5vw, 3.75rem); padding-top: clamp(2.75rem, 4.5vw, 3.75rem); border-top: 1px solid var(--art-rule); }
+  .tk-art__prose .tk-art__section > h2 { margin-top: 0; max-width: 26ch; font-size: clamp(1.7rem, 2.5vw, 2.3rem); line-height: 1.12; letter-spacing: -0.04em; }
+  .tk-art__prose .tk-art__section > ul { gap: 0.7em; }
+  .v6-prose a.tk-art__inline-link, .tk-art__inline-link { display: inline-block; padding-block: 0.55rem; line-height: 1.5; font-weight: 600; color: var(--navy); text-decoration: underline; text-decoration-color: var(--key-blue); text-decoration-thickness: 2px; text-underline-offset: 5px; background: none; }
+  .tk-art__inline-link i { display: inline-grid; margin-left: 0.45rem; vertical-align: -0.1em; transition: transform 0.5s var(--ease); }
+  .tk-art__inline-link:hover i { transform: translateX(3px); }
+  .tk-art__nowrap { white-space: nowrap; }
+
+  /* Related services: editorial rows */
+  .tk-art__services { margin-top: clamp(3.5rem, 6vw, 5rem); padding-top: clamp(2.5rem, 4vw, 3.25rem); border-top: 2px solid var(--charcoal); }
+  .tk-proof__sections + .tk-art__services { padding-top: clamp(2.5rem, 4vw, 3.25rem); }
+  .tk-art__services-h2 { margin-bottom: 1.25rem; font-size: clamp(1.6rem, 2.3vw, 2.1rem); line-height: 1.1; letter-spacing: -0.04em; font-weight: 600; color: var(--charcoal); }
+  .tk-art__svc li + li { border-top: 1px solid var(--art-rule); }
+  .tk-art__svc-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 1.4rem; }
+  .tk-art__svc-text { display: grid; gap: 0.35rem; min-width: 0; }
+  .tk-art__svc-title { font-size: clamp(1.15rem, 1.5vw, 1.3rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; color: var(--charcoal); transition: color 0.3s; }
+  .tk-art__svc-desc { font-size: 1rem; line-height: 1.55; color: var(--art-soft); max-width: 34rem; }
+  .tk-art__svc-go { flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: var(--navy); color: #fff; transition: background-color 0.3s, color 0.3s, transform 0.5s var(--ease); }
+  .tk-art__svc-row:hover .tk-art__svc-title { color: var(--navy); }
+  .tk-art__svc-row:hover .tk-art__svc-go { background: var(--green); color: var(--navy); transform: translateX(3px); }
+  .tk-art__shotlist { margin-top: 2rem; padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: 24px; background: var(--key-blue-soft); }
+  .tk-art__shotlist .tk-art__services-h2 { margin-bottom: 0.75rem; }
+  .tk-art__shotlist p { max-width: 36rem; font-size: 1.05rem; line-height: 1.6; color: var(--art-ink); }
+  .tk-art__shotlist .v6-link { margin-top: 1rem; min-height: 2.75rem; text-decoration: underline; text-decoration-color: var(--key-blue); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+
+  /* Table of contents: sticky rail on desktop, a collapsible panel on phones. Never numbered. */
+  .tk-toc { position: sticky; top: calc(var(--header-h) + 2.5rem); }
+  .tk-toc__box > summary { list-style: none; display: flex; min-height: 2.75rem; align-items: center; justify-content: space-between; gap: 1rem; font-size: 0.95rem; font-weight: 600; color: var(--charcoal); cursor: default; pointer-events: none; }
+  .tk-toc__box > summary::-webkit-details-marker { display: none; }
+  .tk-toc__plus { display: none; position: relative; flex: none; width: 2rem; height: 2rem; border-radius: 999px; background: var(--navy); }
+  .tk-toc__plus::before, .tk-toc__plus::after { content: ""; position: absolute; left: 32%; right: 32%; top: 50%; height: 1.5px; margin-top: -0.75px; background: #fff; transition: transform 0.5s var(--ease); }
+  .tk-toc__plus::after { transform: rotate(90deg); }
+  .tk-toc__box[open] .tk-toc__plus::after { transform: rotate(0deg); }
+  .tk-toc__list { display: grid; margin-top: 0.75rem; padding: 0; list-style: none; border-left: 2px solid var(--art-rule); }
+  .tk-toc__list li { list-style: none; }
+  .tk-toc__list li::before, .tk-toc__list li::marker { content: none; }
+  .tk-toc__list a { position: relative; display: flex; align-items: baseline; gap: 0.6rem; min-height: 2.5rem; padding: 0.55rem 0 0.55rem 1.1rem; margin-left: -2px; border-left: 2px solid transparent; font-size: 0.93rem; font-weight: 500; line-height: 1.4; color: var(--art-soft); transition: color 0.3s, border-color 0.3s; }
+  .tk-toc__list a:hover { color: var(--navy); }
+  .tk-toc__list a.is-active { border-left-color: var(--navy); color: var(--navy); font-weight: 600; }
+  .tk-toc__num { display: none !important; }
+  .tk-toc__extra { display: grid; gap: 0.1rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--art-rule); }
+  .tk-toc__extra a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; font-size: 0.92rem; font-weight: 600; color: var(--navy); }
+  .tk-toc__extra a i { display: inline-grid; }
+  .tk-toc__note { display: flex; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--art-rule); font-size: 0.92rem; line-height: 1.55; color: var(--navy); font-weight: 500; }
+  .tk-toc__note .v6-mark { width: 1.4rem; height: 1.4rem; margin-top: 0.1rem; }
+
+  /* Section heading for long-form layouts */
+  .tk-art__h2 { font-size: clamp(2rem, 3.6vw, 3.4rem); line-height: 1.04; letter-spacing: -0.05em; font-weight: 600; text-wrap: balance; color: var(--charcoal); }
+  .tk-art__h2 .tk-art__h2-accent, .tk-art__h2 .block { color: var(--key-blue); }
+  .v6-sec--navy .tk-art__h2, .tk-dark .tk-art__h2 { color: #fff; }
+  .v6-sec--navy .tk-art__h2 .block, .tk-dark .tk-art__h2 .block { color: #8cc3ec; }
+  .tk-art__lede { margin-top: 1.4rem; font-size: 1.1875rem; line-height: 1.72; color: var(--art-ink); max-width: 44rem; }
+  .v6-sec--navy .tk-art__lede, .tk-dark .tk-art__lede { color: #e3e8f4; }
+  .tk-art__lede > * + * { margin-top: 1.2em; }
+  .tk-art__lede a, .tk-art__text-link { color: var(--navy); font-weight: 600; text-decoration: underline; text-decoration-color: var(--key-blue); text-decoration-thickness: 2px; text-underline-offset: 4px; transition: color 0.3s; }
+  .tk-art__lede a:hover, .tk-art__text-link:hover { color: var(--key-blue); }
+
+  /* FAQ */
+  .tk-art__faq { scroll-margin-top: var(--header-h); }
+  .tk-art__faq .v6-acc, .tk-art__faq .v6-acc__item { border-color: var(--art-rule); }
+  .tk-art__faq .v6-acc__head { color: var(--charcoal); }
+  .tk-art__faq .v6-acc__panel p { font-size: 1.05rem; line-height: 1.7; color: var(--art-ink); }
+  .tk-art__faq-lead { margin-top: 1.25rem; max-width: 26rem; line-height: 1.6; color: var(--art-soft); }
+  .tk-acc__q { font: inherit; letter-spacing: inherit; }
+  .tk-acc__q .v6-acc__head { font-size: clamp(1.05rem, 1.5vw, 1.3rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.3; }
+
+  .tk-art .v6-link { min-height: 2.75rem; }
+  .tk-art .v6-cta__title { max-width: 16ch; font-size: clamp(2.4rem, 5vw, 4.75rem); }
+
+  /* End-of-article CTA: one solid navy panel */
+  .tk-art__cta { padding-block: clamp(4rem, 8vw, 7rem); }
+  .tk-art__cta-panel { display: grid; grid-template-columns: minmax(0, 1.25fr) auto; align-items: end; gap: clamp(2rem, 5vw, 5rem); padding: clamp(2.75rem, 5.5vw, 5rem); border-radius: 36px; background: var(--navy); color: #fff; }
+  .tk-art__cta-title { max-width: 17ch; font-size: clamp(2.2rem, 4.2vw, 4rem); line-height: 1.02; letter-spacing: -0.05em; font-weight: 600; text-wrap: balance; color: #fff; }
+  .tk-art__cta-text { margin-top: 1.4rem; max-width: 36rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: #dde3f1; }
+  .tk-art__cta-actions { display: flex; }
+
+  /* Related reading */
+  .tk-art__related { padding-block: clamp(4rem, 8vw, 7rem); background: var(--off-white); }
+  .tk-art__related-h2 { max-width: 16ch; }
+  .tk-art__related .v6-row-head .v6-h2 { font-size: clamp(2rem, 3.4vw, 3.2rem); }
+  .tk-art__cards { margin-top: clamp(2rem, 4vw, 3rem); }
+  .tk-art__cards .v6-post { align-content: start; }
+  .tk-art__cards .v6-post .v6-link { justify-self: start; margin-top: 0.1rem; }
+  .tk-art__cards .v6-post__text { font-size: 0.98rem; line-height: 1.55; color: var(--art-soft); }
+  .tk-art__card { gap: 0.6rem; padding-bottom: 1rem; border-radius: 24px; overflow: hidden; background: #fff; transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+  .tk-art__card:hover { transform: translateY(-3px); box-shadow: 0 28px 56px -40px rgba(35, 46, 102, 0.55); }
+  .tk-art__card .tk-art__card-media { border-radius: 0; aspect-ratio: 3 / 2; }
+  .tk-art__card > :not(.tk-art__card-media) { margin-inline: clamp(1.25rem, 2vw, 1.6rem); }
+  .tk-art__card-title { margin-top: 0.75rem; font-size: clamp(1.2rem, 1.5vw, 1.4rem); color: var(--charcoal); }
+
+  /* Client proof */
+  .tk-proof { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); margin-top: clamp(2.5rem, 5vw, 4rem); overflow: hidden; border-radius: 36px; background: var(--navy); color: #fff; }
+  .tk-proof__photo { min-height: 34rem; background: var(--navy); }
+  .tk-proof__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .tk-proof__quote { position: relative; display: flex; flex-direction: column; justify-content: center; padding: clamp(2rem, 5vw, 5rem); }
+  .tk-proof__mark { font-size: 6rem; line-height: 0.6; font-weight: 600; color: var(--green); height: 2.5rem; }
+  .tk-proof__quote blockquote { max-width: 24ch; font-size: clamp(1.6rem, 2.8vw, 2.75rem); line-height: 1.14; letter-spacing: -0.04em; font-weight: 600; }
+  .tk-proof__who { margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid #45508a; font-size: 0.95rem; color: #d3d9ec; }
+  .tk-proof__name { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.2rem; }
+  .tk-proof__sections { border-top: 1px solid var(--art-rule); }
+  .tk-proof__section:last-child { border-bottom: 0; }
+  .tk-proof__section { padding-block: clamp(2.25rem, 4vw, 3.25rem); border-bottom: 1px solid var(--art-rule); }
+  .tk-proof__num { display: none; }
+  .tk-proof__h2 { font-size: clamp(1.8rem, 2.8vw, 2.6rem); line-height: 1.08; letter-spacing: -0.045em; font-weight: 600; text-wrap: balance; color: var(--charcoal); }
+  .tk-proof__body { margin-top: 1rem; max-width: var(--art-measure); font-size: 1.1875rem; line-height: 1.72; color: var(--art-ink); }
+
+  @media (max-width: 1100px) {
+    .tk-art__layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    .tk-art__main { max-width: 46rem; }
+    .tk-art__sticky, .tk-toc { position: static; }
+    .tk-art__aside { max-width: 46rem; }
+    .tk-toc__box { border-radius: 18px; background: var(--off-white); padding: 0 1.25rem; }
+    .tk-toc__box > summary { min-height: 3.5rem; cursor: pointer; pointer-events: auto; }
+    .tk-toc__plus { display: block; }
+    .tk-toc__list { margin-top: 0; margin-bottom: 1rem; }
+    .tk-toc__note { display: none; }
+    .tk-toc__extra { margin-top: 0.75rem; padding-top: 0.5rem; }
+    .tk-art__cta-panel { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  }
+  @media (max-width: 900px) {
+    .tk-art__hero { padding-top: 0.75rem; }
+    .tk-art__head { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; margin-top: 0.5rem; }
+    .tk-art__title, .tk-art__title--xl { font-size: clamp(2.15rem, 9vw, 3.1rem); line-height: 1.04; letter-spacing: -0.045em; margin-top: 0.75rem; max-width: none; }
+    .tk-art__dek { margin-top: 1rem; font-size: 1.1rem; line-height: 1.55; }
+    .tk-art__actions { flex-direction: column; align-items: stretch; gap: 0.35rem; margin-top: 1.5rem; }
+    .tk-art__actions .v6-btn, .tk-art__actions .v6-link { justify-content: center; }
+    .tk-art__media { border-radius: 20px; margin-inline: calc(var(--gutter) * -0.5); }
+    .tk-art__read { padding-block: 2rem 3rem; }
+    .tk-art__sticky--card { padding: 1.4rem; border-radius: 20px; }
+    .tk-art__keys { gap: 0.85rem; margin-bottom: 2.5rem; padding: 1.35rem 1.25rem; border-radius: 20px; font-size: 1.02rem; }
+    .tk-art__prose, .tk-proof__body, .tk-art__lede { font-size: 1.09rem; line-height: 1.7; }
+    .tk-art__prose > .tk-art__section + .tk-art__section { margin-top: 2.5rem; padding-top: 2.5rem; }
+    .tk-art__prose .tk-art__section > h2 { font-size: clamp(1.5rem, 6.4vw, 1.85rem); line-height: 1.15; }
+    .tk-art__h2 { font-size: clamp(1.85rem, 8vw, 2.4rem); }
+    .tk-art__services { margin-top: 3rem; padding-top: 2rem; }
+    .tk-art__svc-row { gap: 1rem; padding-block: 1.2rem; align-items: flex-start; }
+    .tk-art__svc-go { width: 2.5rem; height: 2.5rem; margin-top: 0.1rem; }
+    .tk-art__cards { margin-top: 1.75rem; }
+    .tk-art__card { padding-bottom: 0.75rem; border-radius: 20px; }
+    .tk-art__related .v6-row-head .v6-h2 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+    .tk-art__cta { padding-block: 3rem 3.5rem; }
+    .tk-art__cta-panel { gap: 1.75rem; padding: 2.25rem 1.5rem 1.5rem; border-radius: 26px; margin-inline: calc(var(--gutter) * -0.5); }
+    .tk-art__cta-title { font-size: clamp(2rem, 8.6vw, 2.6rem); }
+    .tk-art__cta-text { margin-top: 1rem; font-size: 1.04rem; }
+    .tk-art__cta-actions .v6-btn { width: 100%; justify-content: center; }
+    .tk-proof { grid-template-columns: 1fr; border-radius: 24px; margin-inline: calc(var(--gutter) * -0.5); }
+    .tk-proof__photo { min-height: 0; aspect-ratio: 4 / 3.4; }
+    .tk-proof__quote { padding: 2rem 1.5rem 2.25rem; }
+    .tk-proof__quote blockquote { font-size: 1.5rem; }
+    .tk-proof__section { padding-block: 2rem; }
+    .tk-proof__h2 { font-size: clamp(1.6rem, 7vw, 2rem); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tk-art__progress span { transition: none; }
+  }
+</style>

@@ -1,13 +1,22 @@
 ---
 // Redesign mockup, version 6. Not linked, not in the sitemap, and noindex.
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
 import { CONSULTATION_URL, services } from "@/lib/services";
 import { ownerTestimonials, videoTestimonials } from "@/lib/proof";
 import { googleReviewSummary } from "@/lib/google-reviews";
 import { resourcePosts } from "@/lib/resource-posts";
 import { audiences } from "@/lib/audiences";
-import Footer from "@/components/site/Footer.astro";
 import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
+
+// Hero frames: the photo cycles through real client shops as the hero expands, landing on the last one
+const heroFrames = [
+  { src: "/site-media/hero-thunderbird-shop.webp", alt: "Shop owner helping a customer at the Thunderbird service counter", w: 1200, h: 800, fx: 0.55, fy: 0.36, pos: "58% 50%" },
+  { src: "/site-media/hero-shop-pearson.webp", alt: "Technician smiling while working under the hood at Pearson Auto Repair", w: 2000, h: 1333, fx: 0.55, fy: 0.3, pos: "58% 50%" },
+  { src: "/site-media/mm-shop.webp", alt: "Technician running a wheel alignment in the shop", w: 1200, h: 834, fx: 0.64, fy: 0.3, pos: "66% 50%" },
+  { src: "/site-media/hero-shop-tommys.webp", alt: "The Tommy's Hi-Tech Auto Repair building", w: 1814, h: 888, fx: 0.5, fy: 0.45, pos: "50% 50%" },
+  { src: "/site-media/thunderbird-team.webp", alt: "The Thunderbird team outside their shop", w: 1200, h: 800, fx: 0.5, fy: 0.4, pos: "50% 50%" },
+  { src: "/site-media/hero-shop-keys.webp", alt: "Auto repair technician handing car keys back to a smiling customer outside the shop", w: 1999, h: 1333, fx: 0.6, fy: 0.34, pos: "62% 50%" },
+];
 
 const phrases = [
   "that increases car count.",
@@ -15,13 +24,6 @@ const phrases = [
   "that brings customers back.",
   "that proves what is working.",
   "that gets it off your plate.",
-];
-
-const navLinks = [
-  { label: "Services", href: "/services" },
-  { label: "Results", href: "/results" },
-  { label: "Resources", href: "/resources" },
-  { label: "About", href: "/about" },
 ];
 
 const logoFiles = [
@@ -74,9 +76,9 @@ const vip = services.find((service) => service.slug === "vip-marketing-manager")
 const directTrack = services.find((service) => service.slug === "directtrack-marketing")!;
 const included = services.filter((service) => serviceIcons[service.slug]);
 const dtSteps = [
-  { icon: "location", title: "Choose the right households" },
-  { icon: "email", title: "Run one coordinated campaign" },
-  { icon: "report", title: "Measure, review, and improve" },
+  { icon: "location", title: "Choose the <br />right households" },
+  { icon: "email", title: "Run one <br />coordinated campaign" },
+  { icon: "report", title: "Measure, review, <br />and improve" },
 ];
 
 // Odometer markup: digits roll through a full turn to their target.
@@ -162,33 +164,13 @@ const arrowUp = `<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="tr
 const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>`;
 ---
 
-<BaseLayout
+<V6Layout
   title="Homepage Redesign Mockup v6 | Turnkey Marketing"
   description="Design mockup, version 6, for the Turnkey Marketing homepage redesign."
   path="/mockup/homepage-v6"
   noindex
-  minimalChrome
+  class="v6-home"
 >
-  <div class="v6" data-v6>
-    <header class="v6-header" data-header>
-      <div class="v6-wrap v6-header__inner">
-        <a href="/" class="v6-header__logo" aria-label="Turnkey Marketing home"><img src="/turnkey-marketing-logo-2026.webp" alt="Turnkey Marketing" width="170" height="45" /></a>
-        <nav class="v6-header__nav" aria-label="Primary">{navLinks.map((link) => <a href={link.href}>{link.label}</a>)}</nav>
-        <div class="v6-header__end">
-          <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--sm"><span>Book a Strategy Call</span></a>
-          <button type="button" class="v6-burger" data-menu-btn aria-expanded="false" aria-controls="v6-menu"><span class="v6-sr">Menu</span><i></i><i></i></button>
-        </div>
-      </div>
-    </header>
-    <div class="v6-menu" id="v6-menu" data-menu hidden>
-      <nav class="v6-wrap v6-menu__nav" aria-label="Mobile">
-        {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-        <a href="/contact">Contact</a>
-        <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy"><span>Book a Strategy Call</span></a>
-      </nav>
-    </div>
-
-    <main>
       <!-- HERO -->
       <section class="v6-hero" data-hero>
         <div class="v6-hero__sticky">
@@ -207,7 +189,9 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
             </div>
           </div>
           <div class="v6-hero__stage" data-hero-stage>
-            <img src="/site-media/hero-shop-handshake.webp" alt="Auto repair technician shaking hands with a smiling customer in the shop" width="2400" height="1600" fetchpriority="high" data-hero-img data-focus-x="0.55" data-focus-y="0.22" />
+            {heroFrames.map((frame, index) => (
+              <img src={frame.src} alt={index === heroFrames.length - 1 ? frame.alt : ""} aria-hidden={index === heroFrames.length - 1 ? undefined : "true"} width={frame.w} height={frame.h} fetchpriority={index === 0 ? "high" : "low"} class:list={[index === 0 && "is-on"]} style={`--pos:${frame.pos}`} data-hero-img data-focus-x={frame.fx} data-focus-y={frame.fy} />
+            ))}
             <div class="v6-hero__shade" data-hero-shade></div>
             <p class="v6-hero__caption" data-hero-caption><span class="v6-wrap">Serving 300+ independent shops <span class="v6-nowrap">since 2013.</span></span></p>
           </div>
@@ -250,7 +234,6 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
           <div class="v6-suite" data-rise>
             <div class="v6-suite__lead">
               <div class="v6-suite__content">
-                <span class="v6-suite__badge"><span class="v6-icon" style={`--icon:url(${iconSrc("vip")})`}></span></span>
                 <p class="v6-suite__name">{vip.name}</p>
                 <p class="v6-suite__copy">Stop chasing vendors. We make the plan, manage the people, and keep the work moving so it stops landing back on you.</p>
                 <a href={`/services/${vip.slug}`} class="v6-btn v6-btn--green"><span>See how VIP works</span><i set:html={arrow} /></a>
@@ -283,12 +266,39 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
               {dtSteps.map((step, index) => (
                 <li>
                   <span class="v6-dt__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(step.icon)})`}></span></span>
-                  <span class="v6-dt__row"><span class="v6-dt__num">{index + 1}</span><span class="v6-dt__title">{step.title}</span></span>
+                  <span class="v6-dt__row"><span class="v6-dt__num">{index + 1}</span><span class="v6-dt__title" set:html={step.title} /></span>
                 </li>
               ))}
             </ol>
           </div>
         </div>
+      </section>
+
+      <!-- VOICES -->
+      <section class="v6-voices">
+        <div class="v6-wrap v6-row-head">
+          <h2 class="v6-h2" data-words set:html={split([{ t: "Hear it from" }, { t: "shop owners.", accent: true }])} />
+          <div class="v6-arrows" data-rise>
+            <button type="button" data-rail-prev aria-label="Previous"><i set:html={arrow} /></button>
+            <button type="button" data-rail-next aria-label="Next"><i set:html={arrow} /></button>
+          </div>
+        </div>
+        <ul class="v6-rail" data-rail>
+          {rail.map((item) => item.type === "video" ? (
+            <li class="v6-reel">
+              <button type="button" class="v6-reel__frame" data-video={item.videoSrc} aria-label={`Play ${item.name}'s testimonial`}>
+                <img src={item.posterSrc} alt="" loading="lazy" decoding="async" />
+                <video muted playsinline loop preload="none" data-preview={item.videoSrc}></video>
+                <span class="v6-reel__play" set:html={play} />
+                <span class="v6-reel__who"><strong>{item.name}</strong>{item.shop}</span>
+              </button>
+            </li>
+          ) : (
+            <li class="v6-reel v6-reel--quote">
+              <figure><blockquote>“{item.quote}”</blockquote><figcaption><strong>{item.name}</strong>{item.shop}</figcaption></figure>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <!-- RESULTS -->
@@ -311,7 +321,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
               </div>
               <div class="v6-story__progress"><span data-story-progress></span></div>
             </div>
-            <ol class="v6-story__list">
+            <ol class="v6-story__list" data-allow-overflow>
               {storySteps.map((step, index) => (
                 <li class:list={["v6-story__card", index === 0 && "is-active"]} data-story-card>
                   <div class="v6-story__inner">
@@ -338,6 +348,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
                 </li>
               ))}
             </ol>
+            <div class="v6-story__swipebar" aria-hidden="true"><span data-story-swipebar></span></div>
           </div>
 
           <ol class="v6-board" data-variant="scoreboard" hidden>
@@ -381,33 +392,6 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
             ))}
           </div>
         </div>
-      </section>
-
-      <!-- VOICES -->
-      <section class="v6-voices">
-        <div class="v6-wrap v6-row-head">
-          <h2 class="v6-h2" data-words set:html={split([{ t: "Hear it from" }, { t: "shop owners.", accent: true }])} />
-          <div class="v6-arrows" data-rise>
-            <button type="button" data-rail-prev aria-label="Previous"><i set:html={arrow} /></button>
-            <button type="button" data-rail-next aria-label="Next"><i set:html={arrow} /></button>
-          </div>
-        </div>
-        <ul class="v6-rail" data-rail>
-          {rail.map((item) => item.type === "video" ? (
-            <li class="v6-reel">
-              <button type="button" class="v6-reel__frame" data-video={item.videoSrc} aria-label={`Play ${item.name}'s testimonial`}>
-                <img src={item.posterSrc} alt="" loading="lazy" decoding="async" />
-                <video muted playsinline loop preload="none" data-preview={item.videoSrc}></video>
-                <span class="v6-reel__play" set:html={play} />
-                <span class="v6-reel__who"><strong>{item.name}</strong>{item.shop}</span>
-              </button>
-            </li>
-          ) : (
-            <li class="v6-reel v6-reel--quote">
-              <figure><blockquote>“{item.quote}”</blockquote><figcaption><strong>{item.name}</strong>{item.shop}</figcaption></figure>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <!-- AUDIENCES -->
@@ -472,29 +456,10 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
           </div>
         </div>
       </section>
-    </main>
-
-    <Footer />
-
-    <dialog class="v6-lightbox" data-lightbox>
-      <button type="button" class="v6-lightbox__close" data-lightbox-close>Close</button>
-      <video controls playsinline preload="none" data-lightbox-video></video>
-    </dialog>
-  </div>
-</BaseLayout>
+</V6Layout>
 
 <style is:global>
-  .v6 {
-    --gutter: clamp(1.25rem, 3.2vw, 3rem);
-    --max: 1360px;
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --muted: #5b6070;
-    --space: clamp(5.5rem, 10vw, 10rem);
-    --grad: linear-gradient(90deg, var(--key-blue), var(--green));
-    --grad-v: linear-gradient(180deg, var(--key-blue), var(--green));
-    background: #fff;
-    color: var(--charcoal);
-  }
+  .v6-home.v6-page { padding-top: 0; }
   .v6-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .v6-wrap { width: 100%; max-width: calc(var(--max) + var(--gutter) * 2); margin-inline: auto; padding-inline: var(--gutter); }
   .v6-center { text-align: center; margin-inline: auto; }
@@ -551,7 +516,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
   .v6-menu__nav .v6-btn { margin-top: 1.75rem; justify-self: start; }
 
   /* Hero */
-  .v6-hero { position: relative; height: 240vh; }
+  .v6-hero { position: relative; height: 520vh; }
   .v6-hero__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
   .v6-hero__intro { position: absolute; inset: 0 0 auto; margin-inline: auto; z-index: 3; padding-top: clamp(7.5rem, 16vh, 10rem); text-align: center; display: grid; justify-items: center; will-change: transform, opacity; }
   .v6-hero__title { font-size: clamp(3rem, 6.6vw, 7.25rem); line-height: 0.98; letter-spacing: -0.058em; font-weight: 600; }
@@ -567,9 +532,14 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
   [data-fade] { opacity: 0; transform: translateY(14px); transition: opacity 0.9s var(--ease), transform 1.1s var(--ease); transition-delay: calc(0.15s + var(--d, 0) * 0.1s); }
   .v6.is-loaded [data-fade] { opacity: 1; transform: none; }
   .v6-hero__stage { position: absolute; inset: 0; z-index: 1; overflow: hidden; clip-path: inset(66% 13% 0% 13% round 32px 32px 0 0); will-change: clip-path; }
-  .v6-hero__stage img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; will-change: transform; }
-  .v6-hero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 22, 28, 0) 50%, rgba(20, 22, 28, 0.6)); opacity: 0; }
-  .v6-hero__caption { position: absolute; left: 0; right: 0; bottom: 9vh; color: #fff; font-size: clamp(2rem, 4.4vw, 4.4rem); font-weight: 600; letter-spacing: -0.048em; line-height: 1.02; opacity: 0; transform: translateY(24px); }
+  .v6-hero__stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; opacity: 0; transition: opacity 0.7s ease; will-change: transform, opacity; }
+  .v6-hero__stage img.is-on { opacity: 1; }
+  .v6-hero__shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; background:
+    linear-gradient(180deg, rgba(35, 46, 102, 0) 38%, rgba(35, 46, 102, 0.5) 72%, rgba(26, 34, 78, 0.86)),
+    radial-gradient(90% 70% at 0% 0%, rgba(63, 140, 203, 0.34), transparent 62%),
+    radial-gradient(70% 60% at 100% 100%, rgba(147, 200, 69, 0.16), transparent 60%); }
+  .v6-hero__shade::after { content: ""; position: absolute; inset: 0; background: rgba(35, 46, 102, 0.1); mix-blend-mode: multiply; }
+  .v6-hero__caption { position: absolute; z-index: 2; left: 0; right: 0; bottom: 9vh; color: #fff; font-size: clamp(2rem, 4.4vw, 4.4rem); font-weight: 600; letter-spacing: -0.048em; line-height: 1.02; opacity: 0; transform: translateY(24px); }
   .v6-hero__caption > span { display: block; text-wrap: balance; }
 
   /* Logos */
@@ -592,9 +562,11 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
   .v6-steps__rail span { position: absolute; inset: 0; background: var(--grad-v); transform: scaleY(0); transform-origin: top; }
   .v6-step { position: relative; display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.75rem; align-items: start; opacity: 0.35; transition: opacity 0.6s var(--ease); }
   .v6-step.is-active { opacity: 1; }
-  .v6-step__node { position: relative; z-index: 1; display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 999px; background: #fff; color: var(--navy); box-shadow: 0 0 0 1px var(--hairline); transition: background-color 0.5s, color 0.5s, box-shadow 0.5s; }
+  .v6-step__node { position: relative; z-index: 1; display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 999px; background: var(--off-white); color: #9aa0ad; transition: background-color 0.5s, color 0.5s; }
   .v6-step__node .v6-icon { width: 1.7rem; height: 1.7rem; }
-  .v6-step.is-active .v6-step__node { background: var(--navy); color: #fff; box-shadow: 0 0 0 8px var(--key-blue-soft); }
+  .v6-step.is-active .v6-step__node { background: var(--navy); color: #fff; }
+  .v6-step:nth-of-type(2).is-active .v6-step__node { background: var(--green); color: var(--navy); }
+  .v6-step:nth-of-type(3).is-active .v6-step__node { background: var(--key-blue); color: #fff; }
   .v6-step__title { font-size: clamp(1.6rem, 2.4vw, 2.3rem); letter-spacing: -0.045em; font-weight: 600; line-height: 1.05; margin-top: 0.7rem; }
   .v6-step__copy { margin-top: 0.8rem; max-width: 28rem; font-size: 1.05rem; line-height: 1.6; color: var(--muted); }
 
@@ -613,7 +585,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
   .v6-suite__content { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 1.25rem; padding: clamp(2rem, 4vw, 3rem); }
   .v6-suite__badge { display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 999px; background: rgba(255, 255, 255, 0.14); color: #fff; margin-bottom: auto; }
   .v6-suite__badge .v6-icon { width: 1.8rem; height: 1.8rem; }
-  .v6-suite__name { margin-top: 5rem; font-size: clamp(2.4rem, 4.2vw, 4rem); font-weight: 600; letter-spacing: -0.055em; line-height: 0.98; max-width: 9ch; }
+  .v6-suite__name { margin-top: auto; font-size: clamp(2.4rem, 4.2vw, 4rem); font-weight: 600; letter-spacing: -0.055em; line-height: 0.98; max-width: 9ch; }
   .v6-suite__copy { max-width: 26rem; line-height: 1.6; color: rgba(255, 255, 255, 0.78); }
   .v6-suite__list { padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2.5vw, 2rem); }
   .v6-suite__label { font-size: 0.9rem; font-weight: 600; color: var(--muted); padding-inline: 1rem; }
@@ -655,6 +627,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
 
   /* Results scoreboard */
   .v6-results { padding-block: var(--space); }
+  .v6-voices + .v6-results { padding-top: 0; }
   .v6-results .v6-h2 { max-width: 20ch; }
   .v6-board { margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--hairline); }
   .v6-board__row { display: grid; grid-template-columns: 5rem minmax(0, 1.3fr) minmax(6rem, 0.6fr) 2rem minmax(0, 0.9fr) 5rem; align-items: center; gap: 1.5rem; padding-block: 1.4rem; border-bottom: 1px solid var(--hairline); opacity: 0; transform: translateY(20px); transition: opacity 0.8s var(--ease), transform 1s var(--ease), background-color 0.4s; }
@@ -728,7 +701,17 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
     .v6-story__pins { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1rem; }
     .v6-story__bar { grid-template-columns: 3.25rem minmax(0, 1fr); }
     .v6-story__bar-value { grid-column: 2; text-align: left; min-width: 0; }
+    /* Phones: results become a swipe rail instead of six stacked cards */
+    .v6-story { margin-top: 2.5rem; }
+    .v6-story__list { display: flex; align-items: stretch; gap: 0.75rem; margin-inline: calc(var(--gutter) * -1); padding: 0.5rem var(--gutter) 1.25rem; scroll-padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+    .v6-story__list::-webkit-scrollbar { display: none; }
+    .v6-story__card { flex: none; width: min(84vw, 22rem); scroll-snap-align: center; transform: none !important; }
+    .v6-story__card:not(.is-active) { opacity: 0.55; }
+    .v6-story__inner { height: 100%; align-content: start; gap: 1.1rem; padding: 1.5rem; border-radius: 30px; }
+    .v6-story__swipebar { display: block; height: 3px; margin: 0.25rem auto 0; width: 7rem; border-radius: 3px; background: var(--hairline); overflow: hidden; }
+    .v6-story__swipebar span { display: block; height: 100%; background: var(--grad); transform-origin: left; transform: scaleX(0.17); transition: transform 0.25s linear; }
   }
+  .v6-story__swipebar { display: none; }
 
   /* Time */
   .v6-time { padding-block: var(--space); background: var(--off-white); }
@@ -777,7 +760,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
   .v6-reel--quote figcaption strong { color: var(--navy); font-size: 1rem; }
 
   /* Audiences, insights, FAQ */
-  .v6-aud { padding-bottom: var(--space); }
+  .v6-aud { padding-block: var(--space); }
   .v6-aud__list { margin-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--hairline); }
   .v6-aud__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 2rem; align-items: center; padding-block: clamp(1.5rem, 3vw, 2.25rem); border-bottom: 1px solid var(--hairline); transition: padding 0.5s var(--ease); }
   .v6-aud__row:hover { padding-left: 1rem; }
@@ -822,10 +805,11 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
   .v6-btn--ghost { background: #fff; color: var(--navy); box-shadow: inset 0 0 0 1px rgba(35, 46, 102, 0.14); }
   .v6-btn--ghost:hover { box-shadow: inset 0 0 0 1px var(--navy), 0 16px 32px -22px rgba(35, 46, 102, 0.6); }
 
-  .v6-lightbox { padding: 0; border: 0; background: transparent; width: min(92vw, 28rem); overflow: visible; }
+  .v6-lightbox { margin: auto; padding: 0; border: 0; background: transparent; width: min(92vw, 28rem); overflow: visible; }
   .v6-lightbox::backdrop { background: rgba(20, 22, 28, 0.88); }
-  .v6-lightbox video { display: block; width: 100%; max-height: 86vh; border-radius: 20px; background: #000; }
-  .v6-lightbox__close { position: absolute; top: -2.75rem; right: 0; color: #fff; font-weight: 600; }
+  .v6-lightbox video { display: block; width: 100%; max-height: calc(100dvh - 8rem); border-radius: 20px; background: #000; }
+  .v6-lightbox__close { position: fixed; z-index: 1; top: calc(env(safe-area-inset-top, 0px) + 1rem); right: 1rem; min-height: 2.75rem; padding-inline: 1.25rem; border-radius: 999px; background: rgba(255, 255, 255, 0.14); color: #fff; font-weight: 600; transition: background-color 0.3s; }
+  .v6-lightbox__close:hover { background: rgba(255, 255, 255, 0.24); }
 
   [data-rise] { opacity: 0; transform: translateY(32px); transition: opacity 0.9s var(--ease), transform 1.1s var(--ease); }
   [data-rise].is-in { opacity: 1; transform: none; }
@@ -850,7 +834,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
     .v6-hero__title { font-size: 12.5vw; }
     .v6-typer { font-size: 0.62em; min-height: 2.08em; white-space: normal; text-wrap: balance; }
         .v6-hero__stage { position: relative; inset: auto; margin: 2.5rem 0.75rem 0; aspect-ratio: 4 / 5; border-radius: 28px; clip-path: none !important; }
-    .v6-hero__stage img { transform: none !important; }
+    .v6-hero__stage img { transform: none !important; object-position: var(--pos, 50% 50%); }
     .v6-hero__shade, .v6-hero__caption { opacity: 1 !important; transform: none !important; }
     .v6-hero__caption { bottom: 1.5rem; font-size: 1.75rem; }
         .v6-marquee img { height: 2.75rem; }
@@ -868,8 +852,44 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
     .v6-aud__row { grid-template-columns: minmax(0, 1fr) auto; }
     .v6-aud__line { grid-column: 1; grid-row: 2; }
     .v6-aud__go { grid-row: 1; grid-column: 2; }
-    .v6-posts { grid-template-columns: 1fr; }
-      }
+    .v6-posts { display: flex; gap: 0.75rem; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .v6-posts::-webkit-scrollbar { display: none; }
+    .v6-posts > li { flex: none; width: min(78vw, 19rem); scroll-snap-align: start; }
+    .v6-post__media { border-radius: 22px; }
+    .v6-post__title { font-size: 1.15rem; }
+    /* Phones: tighter rhythm */
+    .v6-hero__intro { padding-top: 6.25rem; }
+    .v6-hero__lead { margin-top: 1.1rem; font-size: 1rem; }
+    .v6-hero__actions { margin-top: 1.5rem; gap: 0.5rem 1.5rem; }
+    .v6-hero__stage { margin-top: 2rem; }
+    .v6-logos { padding-block: 3rem 1rem; gap: 1rem; }
+    .v6-steps { gap: 2.75rem; padding-block: 0.5rem 1rem; }
+    .v6-connect__grid { gap: 2.5rem; }
+    .v6-step__copy { font-size: 1rem; }
+    .v6-suite { margin-top: 2.25rem; }
+    .v6-suite__lead { min-height: 0; }
+    .v6-suite__content { padding: 1.75rem 1.5rem; }
+    .v6-suite__list { padding: 1.25rem 0.5rem 0.75rem; }
+    .v6-svc { padding: 0.9rem 0.75rem; gap: 0.85rem; }
+    .v6-svc__icon, .v6-svc__icon .v6-icon { width: 2rem; height: 2rem; }
+    .v6-svc__text { padding-right: 0; }
+    .v6-dt { padding: 1.75rem 1.5rem; border-radius: 32px; }
+    .v6-voices .v6-arrows { display: none; }
+    .v6-rail { margin-top: 2rem; }
+    .v6-time__card { border-radius: 30px; }
+    .v6-aud__list { margin-top: 2rem; }
+    .v6-posts { margin-top: 2rem; }
+    .v6-link { min-height: 2.75rem; }
+    .v6-header__logo { display: inline-flex; align-items: center; min-height: 2.75rem; }
+    .v6-odo--xl { font-size: min(3.4rem, 13vw); }
+    .v6-dt__title { font-size: 1rem; }
+  }
+  @media (max-width: 420px) {
+    .v6-story__logo { width: 4.25rem; height: 3rem; }
+    .v6-story__head { gap: 0.85rem; }
+    .v6-dt__title br { display: none; }
+    .v6-dt__title { text-wrap: balance; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .v6 *, .v6 *::before, .v6 *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     .v6-marquee__track { animation: none; }
@@ -914,16 +934,6 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
       if (phrases.length > 1) window.setTimeout(tick, 2600);
     }
 
-    const menu = root.querySelector<HTMLElement>("[data-menu]");
-    const menuBtn = root.querySelector<HTMLButtonElement>("[data-menu-btn]");
-    menuBtn?.addEventListener("click", () => {
-      if (!menu) return;
-      const open = menu.hidden;
-      menu.hidden = !open;
-      menuBtn.setAttribute("aria-expanded", String(open));
-      document.body.style.overflow = open ? "hidden" : "";
-    });
-
     // Reveals, word headlines, scoreboard rows, odometers
     const io = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {
@@ -939,11 +949,25 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
     root.querySelectorAll("[data-rise], [data-words], [data-odo-group]").forEach((el) => io.observe(el));
     root.querySelectorAll<HTMLElement>(".v6-board__row").forEach((row, i) => { row.style.transitionDelay = `${(i % 6) * 0.06}s`; });
 
-    const header = root.querySelector<HTMLElement>("[data-header]");
+    const header = document.querySelector<HTMLElement>("[data-header]");
     const hero = root.querySelector<HTMLElement>("[data-hero]");
     const intro = root.querySelector<HTMLElement>("[data-hero-intro]");
     const stage = root.querySelector<HTMLElement>("[data-hero-stage]");
-    const heroImg = root.querySelector<HTMLImageElement>("[data-hero-img]");
+    const heroFrames = Array.from(root.querySelectorAll<HTMLImageElement>("[data-hero-img]"));
+    const heroImg = heroFrames[0];
+    let heroFrame = 0;
+    const showFrame = (index: number) => {
+      if (index === heroFrame || !heroFrames[index]) return;
+      heroFrames[heroFrame].classList.remove("is-on");
+      heroFrames[index].classList.add("is-on");
+      heroFrame = index;
+    };
+    // Frames switch through the first part of the scroll, then hold on the last photo
+    // Each photo gets an equal slice of the scroll
+    const frameAt = (q: number) => Math.min(heroFrames.length - 1, Math.floor(q * heroFrames.length));
+    // Desktop: the first part of the hero scroll grows the photo to full width, the rest holds it full screen while the shops change
+    const EXPAND_SHARE = 0.34;
+    if (reduceMotion) showFrame(heroFrames.length - 1);
     const shade = root.querySelector<HTMLElement>("[data-hero-shade]");
     const caption = root.querySelector<HTMLElement>("[data-hero-caption]");
     const chips = Array.from(root.querySelectorAll<HTMLElement>("[data-hero-chip]"));
@@ -975,17 +999,24 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
       let hidden = false;
       if (hero && stage && heroImg && intro && desktop.matches && !reduceMotion) {
         const rect = hero.getBoundingClientRect();
-        const p = clamp(-rect.top / (rect.height - vh));
+        const raw = clamp(-rect.top / (rect.height - vh));
+        const p = clamp(raw / EXPAND_SHARE);
         const e = 1 - Math.pow(1 - p, 3);
         const r = lerp(32, 0, e);
         stage.style.clipPath = `inset(${lerp(66, 0, e)}% ${lerp(13, 0, e)}% 0% ${lerp(13, 0, e)}% round ${r}px ${r}px 0 0)`;
-        const ratio = (heroImg.naturalWidth || 2400) / (heroImg.naturalHeight || 1600);
-        const coverW = Math.max(vw, vh * ratio);
-        const coverH = coverW / ratio;
-        const faceX = (vw - coverW) / 2 + coverW * Number(heroImg.dataset.focusX || 0.5);
-        const faceY = (vh - coverH) * 0.3 + coverH * Number(heroImg.dataset.focusY || 0.3);
         const winY = vh * 0.83;
-        heroImg.style.transform = `translate3d(${(vw / 2 - faceX) * (1 - e)}px, ${(winY - faceY) * (1 - e)}px, 0) scale(${lerp(1.12, 1, e)})`;
+        // Hold progress: 0 when the photo reaches full width, 1 at the end of the hero
+        const hold = clamp((raw - EXPAND_SHARE) / (1 - EXPAND_SHARE));
+        heroFrames.forEach((frame, index) => {
+          const ratio = Number(frame.getAttribute("width")) / Number(frame.getAttribute("height"));
+          const coverW = Math.max(vw, vh * ratio);
+          const coverH = coverW / ratio;
+          const faceX = (vw - coverW) / 2 + coverW * Number(frame.dataset.focusX || 0.5);
+          const faceY = (vh - coverH) * 0.3 + coverH * Number(frame.dataset.focusY || 0.3);
+          const drift = clamp(hold * heroFrames.length - index);
+          frame.style.transform = `translate3d(${(vw / 2 - faceX) * (1 - e)}px, ${(winY - faceY) * (1 - e) - drift * vh * 0.03}px, 0) scale(${lerp(1.12, 1, e) * (1 + drift * 0.07)})`;
+        });
+        showFrame(frameAt(hold));
         intro.style.transform = `translate3d(0, ${-e * 30}vh, 0)`;
         intro.style.opacity = String(clamp(1 - p * 4));
         chips.forEach((chip, i) => {
@@ -998,7 +1029,11 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
           caption.style.opacity = String(c);
           caption.style.transform = `translateY(${(1 - c) * 24}px)`;
         }
-        hidden = p > 0.3 && p < 1;
+        hidden = p > 0.3 && raw < 1;
+      } else if (stage && !reduceMotion) {
+        // Phones: the photo sits in the page, so switch frames as it rises from the lower screen to the top
+        const top = stage.getBoundingClientRect().top;
+        showFrame(frameAt(clamp((vh * 0.75 - top) / (vh * 0.85))));
       }
       header?.classList.toggle("is-hidden", hidden);
       if (stepsEl && stepsFill) {
@@ -1028,16 +1063,32 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
     const storyIndex = root.querySelector<HTMLElement>("[data-story-index]");
     const storyProgress = root.querySelector<HTMLElement>("[data-story-progress]");
     let activeStory = -1;
+    const storyList = root.querySelector<HTMLElement>(".v6-story__list");
+    const storySwipebar = root.querySelector<HTMLElement>("[data-story-swipebar]");
+    const phone = window.matchMedia("(max-width: 900px)");
     const updateStory = () => {
       if (!storyCards.length || variant !== "story") return;
-      const mid = window.innerHeight / 2;
       let best = 0;
       let bestDist = Infinity;
-      storyCards.forEach((card, i) => {
-        const r = card.getBoundingClientRect();
-        const d = Math.abs(r.top + r.height / 2 - mid);
-        if (d < bestDist) { bestDist = d; best = i; }
-      });
+      if (phone.matches && storyList) {
+        // Phones: the cards are a swipe rail, so the card nearest the rail's center is the active one
+        const box = storyList.getBoundingClientRect();
+        const mid = box.left + box.width / 2;
+        storyCards.forEach((card, i) => {
+          const r = card.getBoundingClientRect();
+          const d = Math.abs(r.left + r.width / 2 - mid);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        const max = storyList.scrollWidth - storyList.clientWidth;
+        if (storySwipebar) storySwipebar.style.transform = `scaleX(${max > 0 ? Math.max(1 / storyCards.length, storyList.scrollLeft / max) : 1})`;
+      } else {
+        const mid = window.innerHeight / 2;
+        storyCards.forEach((card, i) => {
+          const r = card.getBoundingClientRect();
+          const d = Math.abs(r.top + r.height / 2 - mid);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+      }
       if (best !== activeStory) {
         activeStory = best;
         storyCards.forEach((card, i) => card.classList.toggle("is-active", i === best));
@@ -1047,7 +1098,8 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
         });
         if (storyIndex) storyIndex.textContent = String(best + 1);
       }
-      if (storyProgress) {
+      if (storyProgress && !phone.matches) {
+        const mid = window.innerHeight / 2;
         const first = storyCards[0].getBoundingClientRect();
         const last = storyCards[storyCards.length - 1].getBoundingClientRect();
         const span = last.top + last.height / 2 - (first.top + first.height / 2);
@@ -1056,6 +1108,7 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
       }
     };
     window.addEventListener("scroll", () => requestAnimationFrame(updateStory), { passive: true });
+    storyList?.addEventListener("scroll", () => requestAnimationFrame(updateStory), { passive: true });
     window.addEventListener("resize", updateStory);
     updateStory();
 
@@ -1097,33 +1150,5 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
       });
     }
 
-    root.querySelectorAll<HTMLElement>("[data-acc-item]").forEach((item) => {
-      item.querySelector("[data-acc-head]")?.addEventListener("click", () => {
-        const open = !item.classList.contains("is-open");
-        item.classList.toggle("is-open", open);
-        item.querySelector("[data-acc-head]")?.setAttribute("aria-expanded", String(open));
-      });
-    });
-
-    const lightbox = root.querySelector<HTMLDialogElement>("[data-lightbox]");
-    const lightboxVideo = root.querySelector<HTMLVideoElement>("[data-lightbox-video]");
-    root.querySelectorAll<HTMLButtonElement>("[data-video]").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (!lightbox || !lightboxVideo) return;
-        button.querySelector("video")?.pause();
-        lightboxVideo.src = button.dataset.video ?? "";
-        lightbox.showModal();
-        lightboxVideo.play().catch(() => {});
-      });
-    });
-    const close = () => {
-      lightboxVideo?.pause();
-      lightboxVideo?.removeAttribute("src");
-      lightboxVideo?.load();
-      if (lightbox?.open) lightbox.close();
-    };
-    root.querySelector("[data-lightbox-close]")?.addEventListener("click", close);
-    lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) close(); });
-    lightbox?.addEventListener("close", () => lightboxVideo?.pause());
   }
 </script>

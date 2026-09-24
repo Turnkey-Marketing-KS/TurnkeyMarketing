@@ -1,7 +1,8 @@
 ---
-import { ArrowLeft, ArrowRight, Check, MessageSquareText } from "lucide-react";
 import { Content } from "@/articles/ai-google-reviews.md";
 import { getResourcePost, type ResourcePost } from "@/lib/resource-posts";
+import { CONSULTATION_URL } from "@/lib/services";
+import { arrow, split } from "@/lib/v6";
 
 interface Props { post: ResourcePost }
 const { post } = Astro.props;
@@ -17,45 +18,54 @@ const nav = [
 const related = (post.relatedSlugs ?? []).map(getResourcePost).filter(Boolean);
 ---
 
-<article class="reviews-article">
-  <header class="review-hero">
-    <div class="container-page">
-      <a href="/resources" class="back-link"><ArrowLeft size={16} aria-hidden="true" /> All resources</a>
-      <div class="review-hero-grid">
-        <div>
-          <p class="review-eyebrow">AUTO REPAIR REPUTATION MANAGEMENT</p>
-          <h1>{post.title}</h1>
-          <p class="review-dek">Find what customers value. Fix what gets in their way. Give both a place in your marketing plan.</p>
-          <p class="review-byline">By Turnkey Marketing <span aria-hidden="true">·</span> <time datetime={post.originalDate}>September 15, 2026</time> <span aria-hidden="true">·</span> 7 min read</p>
-          <a class="prompt-jump" href="#ask-for-evidence-then-recommendations">Get the AI prompt <ArrowRight size={18} aria-hidden="true" /></a>
+<article class="tk-md" data-art-body>
+  <header class="tk-art__hero">
+    <div class="v6-wrap">
+      <a href="/resources" class="tk-art__back"><i set:html={arrow} /> All resources</a>
+      <div class="tk-art__head">
+        <div class="tk-art__head-text">
+          <h1 class="tk-art__title" data-words set:html={split([{ t: post.title }])} />
+          <p class="tk-art__dek" data-fade style="--d:2">Your reviews already tell you what customers value and what gets in their way. Here is how to use AI to find both, then act on what you learn.</p>
+          <p class="tk-art__byline" data-fade style="--d:2">By Turnkey Marketing <span aria-hidden="true">·</span> <time datetime={post.originalDate}>September 15, 2026</time> <span aria-hidden="true">·</span> 7 min read</p>
+          <div class="tk-art__actions" data-fade style="--d:3">
+            <a class="v6-btn v6-btn--navy v6-btn--lg" href="#ask-for-evidence-then-recommendations"><span>Get the AI prompt</span> <i set:html={arrow} /></a>
+          </div>
         </div>
-        <div class="hero-visual">
+        <figure class="tk-art__media tk-md__media" data-fade style="--d:3">
           <img src={post.image.src} alt={post.image.alt} width={1200} height={900} loading="eager" decoding="async" />
-          <p><MessageSquareText size={17} aria-hidden="true" /> Customer feedback. Clear next steps.</p>
-        </div>
+        </figure>
       </div>
     </div>
   </header>
 
-  <div class="container-page review-reading-grid">
-    <aside class="review-sidebar">
-      <details class="mobile-contents">
-        <summary>In this article <span aria-hidden="true">+</span></summary>
-        <nav aria-label="Article sections"><ul>{nav.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ul></nav>
-      </details>
-      <nav class="desktop-contents" aria-label="In this article">
-        <p class="review-eyebrow">IN THIS ARTICLE</p>
-        <ul>{nav.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ul>
-        <div class="sidebar-takeaway"><Check size={20} aria-hidden="true" /><p>One strength to protect.<br />One improvement to make.</p></div>
+  <div class="v6-wrap tk-art__layout tk-art__read">
+    <aside class="tk-art__aside">
+      <nav class="tk-toc" aria-label="In this article" data-toc>
+        <details class="tk-toc__box" data-toc-details open>
+          <summary>In this article <span class="tk-toc__plus" aria-hidden="true"></span></summary>
+          <ul class="tk-toc__list">{nav.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ul>
+        </details>
       </nav>
     </aside>
-    <div class="review-prose"><Content /></div>
+    <div class="tk-art__main"><div class="v6-prose tk-md__prose"><Content /></div></div>
   </div>
 
-  <section class="review-related container-page" aria-labelledby="review-related-title">
-    <p class="review-eyebrow">KEEP GOING</p>
-    <h2 id="review-related-title">Put the insights to work.</h2>
-    <div class="review-related-grid">{related.map(item => item && <a href={item.href}><span>{item.tag}</span><h3>{item.title}</h3><p>Read the guide <ArrowRight size={18} aria-hidden="true" /></p></a>)}</div>
+  <section class="v6-cta">
+    <div class="v6-wrap">
+      <div class="v6-cta__panel" data-rise>
+        <p class="v6-cta__title" data-words set:html={split([{ t: "Stop carrying" }, { t: "the marketing burden.", accent: true }])} />
+        <div class="v6-cta__actions">
+          <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--lg" data-track-event="consultation_cta_click" data-track-placement="resource_ai_reviews_cta"><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v6-sec v6-sec--tint tk-art__related" aria-labelledby="review-related-title">
+    <div class="v6-wrap">
+      <h2 id="review-related-title" class="v6-h2 tk-art__related-h2">Put the insights to work.</h2>
+      <div class="v6-swipe tk-art__cards" style={`--cols:${Math.max(2, related.length)}`}>{related.map(item => item && <a href={item.href} class="v6-post"><div class="v6-post__media"><img src={item.image.src} alt={item.image.alt} width={item.imageWidth ?? 1200} height={item.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${item.image.position};`} /></div><span class="v6-post__tag">{item.tag}</span><h3 class="v6-post__title">{item.title}</h3><p class="v6-link">Read the guide <i set:html={arrow} /></p></a>)}</div>
+    </div>
   </section>
 </article>
 
@@ -83,92 +93,31 @@ const related = (post.relatedSlugs ?? []).map(getResourcePost).filter(Boolean);
 </script>
 
 <style>
-  .reviews-article { background: #fff; color: var(--charcoal); }
-  .review-hero { padding: 2rem 0 4rem; border-bottom: 1px solid var(--hairline); }
-  .back-link { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .9rem; color: var(--navy); }
-  .review-hero-grid { display: grid; grid-template-columns: 1.45fr 1fr; align-items: center; gap: 3.5rem; margin-top: 2.3rem; }
-  .review-eyebrow { font-size: .75rem; letter-spacing: .12em; font-weight: 700; color: var(--navy); line-height: 1.7; }
-  h1 { font-size: clamp(2.4rem, 4.2vw, 4rem); line-height: 1.06; letter-spacing: -.045em; text-wrap: balance; margin: 1.2rem 0; font-weight: 650; }
-  .review-dek { font-size: 1.15rem; line-height: 1.65; max-width: 44ch; color: #444957; }
-  .review-byline { display: flex; flex-wrap: wrap; gap: .4rem .55rem; margin-top: 1.5rem; font-size: .8rem; line-height: 1.6; color: #535865; }
-  .prompt-jump { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; border-radius: 999px; background: var(--navy); color: white; padding: .85rem 1.35rem; margin-top: 1.7rem; font-weight: 600; min-height: 48px; transition: background .15s; }
-  .prompt-jump:hover { background: var(--navy-deep); }
-  .hero-visual { overflow: hidden; border-radius: 30px; background: var(--navy); box-shadow: 0 25px 65px -45px #232e66; }
-  .hero-visual img { width: 100%; height: auto; }
-  .hero-visual > p { display: flex; gap: .6rem; align-items: center; justify-content: center; color: white; font-size: .85rem; padding: 0 1rem 1.6rem; }
-  .review-reading-grid { display: grid; grid-template-columns: 240px minmax(0, 760px); justify-content: space-between; gap: 4rem; padding-top: 4rem; padding-bottom: 4rem; }
-  .mobile-contents { display: none; }
-  .review-sidebar nav { position: sticky; top: 112px; }
-  .review-sidebar ul { margin: 1rem 0 0; padding: 0; list-style: none; }
-  .review-sidebar a { display: block; padding: .7rem .8rem; border-left: 2px solid var(--hairline); color: #444957; font-size: .9rem; line-height: 1.5; }
-  .review-sidebar a:hover, .review-sidebar a:focus-visible { border-color: var(--navy); color: var(--navy); background: #fff; text-decoration: underline; text-underline-offset: 4px; }
-  .sidebar-takeaway { display: flex; gap: .6rem; margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); color: var(--navy); font-size: .85rem; line-height: 1.65; }
-  .sidebar-takeaway svg { flex-shrink: 0; }
-  .review-prose { min-width: 0; font-size: 1.08rem; line-height: 1.8; color: #393e4a; }
-  .review-prose :global(p) { margin: 0 0 1.25rem; }
-  .review-prose :global(> p:first-child) { font-size: 1.22rem; line-height: 1.7; color: var(--navy); font-weight: 500; }
-  .review-prose :global(h2) { margin: 3.5rem 0 1.3rem; padding-top: 1.6rem; border-top: 1px solid var(--hairline); font-size: clamp(1.7rem, 2.6vw, 2.25rem); line-height: 1.2; letter-spacing: -.035em; font-weight: 650; color: var(--charcoal); text-wrap: balance; scroll-margin-top: 115px; }
-  .review-prose :global(h3) { margin: 1.8rem 0 .8rem; font-size: 1.25rem; font-weight: 650; line-height: 1.4; color: var(--navy); text-wrap: balance; }
-  .review-prose :global(a) { color: var(--navy); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-  .review-prose :global(a:hover) { text-decoration-thickness: 2px; }
-  .review-prose :global(ul) { padding-left: 1.4rem; margin: 1.3rem 0 1.6rem; list-style: disc; }
-  .review-prose :global(li) { padding-left: .25rem; margin: .65rem 0; }
-  .review-prose :global(li::marker) { color: var(--navy); }
-  .review-prose :global(blockquote) { padding: 1.4rem 1.7rem; border-left: 4px solid var(--green); margin: 1.5rem 0; color: var(--navy); font-size: 1.2rem; }
-  .review-prose :global(blockquote p:last-child) { margin-bottom: 0; }
-  .review-prose :global(.review-prompt) { border-radius: 24px; background: var(--navy); color: white; padding: 1.6rem 1.8rem; margin: 1.7rem 0; }
-  .review-prose :global(.prompt-toolbar) { display: flex; gap: 1rem; justify-content: space-between; align-items: center; padding-bottom: 1.2rem; border-bottom: 1px solid #66719c; }
-  .review-prose :global(.prompt-toolbar span) { color: var(--green); font-size: .75rem; font-weight: 700; letter-spacing: .1em; line-height: 1.6; }
-  .review-prose :global(.prompt-toolbar button) { background: white; color: var(--navy); border-radius: 999px; padding: .6rem 1rem; font-size: .9rem; font-weight: 600; min-height: 44px; flex-shrink: 0; cursor: pointer; }
-  .review-prose :global(.prompt-toolbar button:hover) { background: var(--green); }
-  .review-prose :global(.prompt-toolbar button[hidden]) { display: none; }
-  .review-prose :global(.review-prompt blockquote) { margin: 1.3rem 0 0; padding: 0; border: 0; color: white; font-size: 1rem; line-height: 1.8; }
-  .review-prose :global(.copy-status) { font-size: .85rem; color: white; line-height: 1.5; margin: 1rem 0 0; }
-  .review-prose :global(.copy-status:empty) { display: none; }
-  .review-prose :global(.review-examples) { display: grid; gap: 1rem; margin: 1.5rem 0; }
-  .review-prose :global(.example-card) { border: 1px solid #ccd0df; border-left: 4px solid var(--green); border-radius: 0 20px 20px 0; padding: 1.4rem 1.6rem; background: white; }
-  .review-prose :global(.example-card h3) { margin: 0 0 1rem; }
-  .review-prose :global(.example-card dt) { font-size: .78rem; font-weight: 700; color: var(--navy); margin-top: .8rem; text-transform: uppercase; letter-spacing: .06em; }
-  .review-prose :global(.example-card dd) { margin: .2rem 0 0; font-size: 1rem; line-height: 1.65; }
-  .review-related { padding-top: 3rem; padding-bottom: 5rem; border-top: 1px solid var(--hairline); }
-  .review-related h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 650; letter-spacing: -.04em; margin-top: .7rem; }
-  .review-related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
-  .review-related-grid > a { background: white; border: 1px solid #ccd0df; border-radius: 24px; padding: 1.8rem; transition: border-color .15s; }
-  .review-related-grid > a:hover { border-color: var(--navy); }
-  .review-related-grid span { color: var(--navy); font-size: .8rem; font-weight: 650; }
-  .review-related-grid h3 { font-size: 1.45rem; font-weight: 650; line-height: 1.3; margin: .8rem 0 1.5rem; text-wrap: balance; }
-  .review-related-grid p { display: flex; align-items: center; gap: .6rem; color: var(--navy); font-weight: 600; font-size: .9rem; }
-  .reviews-article :global(a:focus-visible), .reviews-article :global(button:focus-visible) { outline: 3px solid var(--key-blue); outline-offset: 4px; }
-  @media (max-width: 1023px) {
-    .review-hero-grid { gap: 2rem; grid-template-columns: 1.4fr 1fr; }
-    .review-reading-grid { grid-template-columns: minmax(0, 760px); justify-content: center; gap: 2.5rem; }
-    .review-sidebar nav { position: static; border: 1px solid #ccd0df; border-radius: 20px; padding: 1.4rem; }
-    .review-sidebar ul { display: grid; grid-template-columns: 1fr 1fr; gap: .1rem 1rem; }
-    .sidebar-takeaway { display: none; }
-  }
-  @media (max-width: 639px) {
-    .review-hero { padding-top: 1rem; padding-bottom: 2.5rem; }
-    .review-hero-grid { grid-template-columns: 1fr; margin-top: 1.5rem; gap: 2rem; }
-    h1 { font-size: clamp(2.15rem, 8.4vw, 3rem); }
-    .review-dek { font-size: 1.05rem; }
-    .hero-visual { border-radius: 22px; max-width: 430px; }
-    .hero-visual img { aspect-ratio: 4/2.8; object-fit: cover; }
-    .review-reading-grid { padding-top: 2rem; padding-bottom: 2.5rem; }
-    .review-sidebar .desktop-contents { display: none; }
-    .mobile-contents { display: block; border: 1px solid #ccd0df; border-radius: 18px; padding: 0 1.1rem; }
-    .mobile-contents summary { display: flex; justify-content: space-between; align-items: center; min-height: 56px; color: var(--navy); font-weight: 600; cursor: pointer; }
-    .mobile-contents summary::-webkit-details-marker { display: none; }
-    .mobile-contents[open] summary span { transform: rotate(45deg); }
-    .review-sidebar .mobile-contents nav { padding: 0 0 1rem; border: 0; }
-    .review-sidebar .mobile-contents ul { margin-top: 0; }
-    .review-sidebar ul { grid-template-columns: 1fr; }
-    .review-sidebar a { padding: .55rem .8rem; }
-    .review-prose { font-size: 1rem; line-height: 1.8; }
-    .review-prose :global(> p:first-child) { font-size: 1.12rem; }
-    .review-prose :global(h2) { margin-top: 2.6rem; }
-    .review-prose :global(.review-prompt) { padding: 1.25rem; border-radius: 20px; }
-    .review-prose :global(.prompt-toolbar) { flex-wrap: wrap; }
-    .review-prose :global(.example-card) { padding: 1.2rem; }
-    .review-related-grid { grid-template-columns: 1fr; }
+  .tk-md__media { background: var(--navy); }
+  .tk-md { --md-body: #2b303b; --md-on-navy: #e4e8f3; }
+  .tk-md .tk-art__dek { color: var(--md-body); }
+  .tk-md__prose { color: var(--md-body); }
+  .tk-md__prose :global(> p:first-child) { font-size: 1.28em; line-height: 1.6; color: var(--navy); font-weight: 500; letter-spacing: -0.01em; }
+  .tk-md__prose :global(a) { color: var(--navy); text-decoration-color: var(--key-blue); text-decoration-thickness: 2px; }
+  .tk-md__prose :global(h2) { scroll-margin-top: calc(var(--header-h) + 2rem); }
+  .tk-md__prose :global(.review-prompt) { position: relative; padding: clamp(1.4rem, 3vw, 2.25rem); border-radius: 30px; background: var(--navy); color: #fff; }
+  .tk-md__prose :global(.prompt-toolbar) { display: flex; gap: 1rem; justify-content: flex-end; align-items: center; padding-bottom: 1.1rem; border-bottom: 1px solid #3b4785; }
+  .tk-md__prose :global(.prompt-toolbar button) { flex: none; min-height: 2.75rem; padding: 0 1.2rem; border-radius: 999px; background: #fff; color: var(--navy); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background-color 0.3s; }
+  .tk-md__prose :global(.prompt-toolbar button:hover) { background: var(--green); }
+  .tk-md__prose :global(.prompt-toolbar button[hidden]) { display: none; }
+  .tk-md__prose :global(.review-prompt blockquote) { margin-top: 1.25rem; padding: 0; border: 0; font-size: 0.98rem; font-weight: 400; letter-spacing: 0; line-height: 1.75; color: var(--md-on-navy); }
+  .tk-md__prose :global(.review-prompt blockquote > * + *) { margin-top: 1em; }
+  .tk-md__prose :global(.copy-status) { margin-top: 1rem; font-size: 0.85rem; color: #fff; line-height: 1.5; }
+  .tk-md__prose :global(.copy-status:empty) { display: none; }
+  .tk-md__prose :global(.review-examples) { display: grid; gap: 0.75rem; }
+  .tk-md__prose :global(.example-card) { padding: clamp(1.3rem, 2.6vw, 1.9rem); border-radius: 26px; background: var(--off-white); border-left: 4px solid var(--key-blue); }
+  .tk-md__prose :global(.example-card h3) { margin: 0 0 0.9rem; color: var(--charcoal); }
+  .tk-md__prose :global(.example-card dl) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.25rem 1.5rem; }
+  .tk-md__prose :global(.example-card dt) { grid-row: 1; font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+  .tk-md__prose :global(.example-card dd) { font-size: 1rem; line-height: 1.6; color: var(--md-body); }
+  @media (max-width: 900px) {
+    .tk-md__prose :global(.example-card dl) { grid-template-columns: 1fr; }
+    .tk-md__prose :global(.example-card dt) { grid-row: auto; }
+    .tk-md__prose :global(.example-card dd + dt) { margin-top: 0.75rem; }
   }
 </style>

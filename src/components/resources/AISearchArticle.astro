@@ -1,19 +1,7 @@
 ---
-import {
-  ArrowLeft,
-  ArrowRight,
-  Bot,
-  Check,
-  CheckCircle2,
-  ChevronRight,
-  CircleDot,
-  FileSearch,
-  PhoneCall,
-  Search,
-  ShieldCheck,
-  Wrench,
-} from "lucide-react";
 import { getResourcePost, type ResourcePost } from "@/lib/resource-posts";
+import ExternalSources from "@/components/resources/ExternalSources.astro";
+import { arrow, arrowUp, iconSrc, split } from "@/lib/v6";
 
 interface Props {
   post: ResourcePost;
@@ -38,25 +26,25 @@ const navLinks = [
 const evidence = [
   {
     value: "Multiple shops",
-    label: "Google can contact several nearby shops while the driver waits for one answer.",
+    label: "Google can contact several nearby shops on a driver’s behalf while that driver waits for one answer.",
     href: "https://support.google.com/websearch/answer/16421135",
     source: "Google Search Help",
   },
   {
     value: "3× longer",
-    label: "People give AI the whole story, not just “brake shop near me.”",
+    label: "Drivers give AI the whole story now, not just “brake shop near me.”",
     href: "https://blog.google/products-and-platforms/products/search/ai-mode-us-insights/",
     source: "Google, 2025",
   },
   {
     value: "8% vs. 15%",
-    label: "When an AI summary appeared, fewer searchers bothered clicking a traditional result.",
+    label: "With an AI summary on the page, 8% of searchers clicked a traditional result. Without one, 15% did.",
     href: "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
     source: "Pew Research Center, 2025",
   },
   {
     value: "45% / 88%",
-    label: "Customers may ask AI who to call, but most still read the reviews before handing over the keys.",
+    label: "Customers may ask AI who to call. Most still read the reviews before they hand over the keys.",
     href: "https://www.brightlocal.com/research/lcrs-ai-trust/",
     source: "BrightLocal, 2026",
   },
@@ -66,13 +54,13 @@ const gates = [
   {
     title: "Understand",
     question: "Can AI tell what your shop is best at?",
-    body: "If I asked what your shop is known for, I doubt you would say, “Everything for everyone.” Your website should be just as clear about the vehicles, repairs, and problems your team handles best.",
+    body: "Ask a customer what your shop is known for. The answer should not be “everything for everyone.” Your website needs to be just as specific about the vehicles, repairs, and problems your team handles best.",
     checks: [
       "Clear services and vehicle specialties",
       "Correct location, hours, and phone number",
       "Straight answers to common questions",
     ],
-    icon: Search,
+    icon: "internet",
     customIcon: null,
     dark: false,
     greenAccent: false,
@@ -80,13 +68,13 @@ const gates = [
   {
     title: "Verify",
     question: "Does the rest of the internet back you up?",
-    body: "AI can compare your website with your Google Business Profile, reviews, directories, and photos. If one says you close at 5 and another says 7, nobody is going to solve the mystery. Make every source tell the same story.",
+    body: "AI can compare your website with your Google Business Profile, reviews, directories, and photos. If one says you close at 5 and another says 7, nobody calls to settle it. They move on. Make every source tell the same story.",
     checks: [
       "Matching shop information everywhere",
       "Recent reviews that mention real repairs",
       "Real photos, people, and credentials",
     ],
-    icon: ShieldCheck,
+    icon: "report",
     customIcon: null,
     dark: true,
     greenAccent: true,
@@ -94,13 +82,13 @@ const gates = [
   {
     title: "Act",
     question: "Is it easy to call or book the next step?",
-    body: "Getting recommended is nice. Getting the appointment is better. Your phone, scheduling process, and explanation of what happens next should make it easy for a worried driver to say yes.",
+    body: "Getting recommended is nice. Getting the appointment is the point. Your phone, your scheduling, and how you explain what happens next should make it easy for a worried driver to say yes.",
     checks: [
       "A phone that is answered consistently",
       "Clear availability and scheduling",
       "A confident handoff to inspection",
     ],
-    icon: PhoneCall,
+    icon: "phone",
     customIcon: "/images/icons/phone-call.svg",
     dark: false,
     greenAccent: true,
@@ -111,60 +99,53 @@ const callJourney = [
   {
     title: "Driver asks",
     body: "“Who can look at this warning light before Friday?”",
-    icon: Search,
+    icon: "internet",
   },
   {
     title: "Google checks shops",
-    body: "Nearby shops are compared using what is already online",
-    icon: Bot,
+    body: "Nearby shops get compared on what is already online",
+    icon: "target",
   },
   {
     title: "Your advisor answers",
-    body: "Your team explains timing, price, and what must be inspected",
-    icon: PhoneCall,
+    body: "Your team explains timing, price, and what has to be inspected",
+    icon: "phone",
   },
   {
     title: "Driver chooses",
-    body: "The clearest, most trustworthy next step has the edge",
-    icon: CheckCircle2,
+    body: "The shop with the clearest, most trustworthy next step has the edge",
+    icon: "report",
   },
 ];
 
 const actionSteps = [
   {
-    label: "Target",
     title: "Choose the work you want more of.",
-    body: "Start with profitable jobs and the customers you are genuinely equipped to help, rather than a giant keyword list someone exported from a marketing tool. Name the vehicles, repairs, and diagnostic work your team wants in the bays.",
+    body: "Start with the profitable jobs and the customers your team is genuinely equipped to help. Skip the giant keyword list someone exported from a marketing tool. Name the vehicles, repairs, and diagnostic work you want in your bays.",
   },
   {
-    label: "Identity",
     title: "Make your shop information match everywhere.",
-    body: "Use the same business name, address, phone number, hours, and appointment link everywhere. If your website says one thing and Google says another, the customer will not investigate. They will call someone else.",
+    body: "Use the same business name, address, phone number, hours, and appointment link everywhere. If your website says one thing and Google says another, the customer will not investigate. They will call the next shop.",
   },
   {
-    label: "Service pages",
     title: "Answer the questions customers ask before they call.",
-    body: "Explain the symptoms you handle, which vehicles you service, what your team checks, and what happens next. Seven thin pages that repeat “brake repair” with seven city names do not make you seven times more convincing.",
+    body: "Explain the symptoms you handle, the vehicles you service, what your team checks, and what happens next. Seven thin pages that repeat “brake repair” with seven city names do not make you seven times more convincing.",
   },
   {
-    label: "Reviews",
     title: "Build a steady flow of specific reviews.",
-    body: "Ask soon after a good experience, while the repair and your communication are still fresh. “Great shop!” is nice. A review that mentions the misfire, the clear updates, and the fix is far more useful.",
+    body: "Ask soon after a good experience, while the repair and your communication are still fresh. “Great shop!” is nice. A review that mentions the misfire, the clear updates, and the fix tells the next customer, and AI, far more.",
   },
   {
-    label: "Proof",
     title: "Show the real people and work behind the shop.",
-    body: "Show your actual team, bays, inspections, credentials, and community work. Stock photos of suspiciously spotless mechanics fool no one. Real proof gives customers and AI something credible to work with.",
+    body: "Show your actual team, bays, inspections, credentials, and community work. Stock photos of suspiciously spotless mechanics fool no one. Real proof gives customers and AI something credible to go on.",
   },
   {
-    label: "Phone readiness",
     title: "Give service advisors a clear response plan.",
-    body: "Agree on what can be quoted, what needs an inspection, how diagnostic fees are explained, and which questions move the call forward. Confidence at the counter should not depend on which advisor happens to answer.",
+    body: "Agree on what can be quoted, what needs an inspection, how diagnostic fees get explained, and which questions move the call toward an appointment. Confidence at the counter should not depend on which advisor happens to pick up.",
   },
   {
-    label: "Measurement",
     title: "Track calls and booked work, not just traffic.",
-    body: "Watch qualified calls, appointment requests, and the work that actually reaches the schedule. A flashy traffic chart cannot pay a technician. The right repair orders can.",
+    body: "Watch qualified calls, appointment requests, and the work that actually lands on the schedule. A traffic chart cannot pay a technician. The right repair orders can.",
   },
 ];
 
@@ -207,447 +188,369 @@ const sources = [
 ];
 ---
 
-<article class="bg-white">
-  <div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
-
-  <section class="relative overflow-hidden bg-[linear-gradient(135deg,#fff_0%,#f6faff_58%,#edf4fc_100%)] py-10 md:py-14 lg:py-20">
-    <span class="pointer-events-none absolute -right-28 -top-24 h-[30rem] w-[30rem] rounded-full bg-[var(--key-blue-soft)]/65 blur-3xl" aria-hidden="true"></span>
-    <span class="pointer-events-none absolute -bottom-44 left-1/3 h-80 w-80 rounded-full bg-[var(--green)]/8 blur-3xl" aria-hidden="true"></span>
-    <div class="container-page relative">
-      <a href="/resources" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal/65 transition hover:text-charcoal">
-        <ArrowLeft className="h-4 w-4" /> All resources
+<article class="tk-ais" data-art-body>
+  <section class="tk-art__hero">
+    <div class="v6-wrap">
+      <a href="/resources" class="tk-art__back">
+        <i set:html={arrow} /> All resources
       </a>
 
-      <div class="mt-9 grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14 xl:gap-20">
-        <header class="lg:col-span-7">
-          <p class="eyebrow text-[var(--key-blue)]">AI Search · Field Guide · <time datetime={post.updatedDate ?? post.originalDate}>{post.date}</time></p>
-          <h1 class="mt-6 max-w-[11ch] text-balance font-display text-[clamp(3rem,6.1vw,6.35rem)] font-semibold leading-[.91] tracking-[-.065em] text-charcoal">
-            Will AI <span class="text-[var(--key-blue)]">Recommend Your Auto Repair Shop?</span>
-          </h1>
-          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/68 md:text-xl">{post.dek}</p>
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href="/ai-visibility-scan" class="btn-primary w-full justify-center sm:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_hero_scan">
-              Scan your shop’s AI visibility <ArrowRight className="h-4 w-4" />
+      <div class="tk-art__head">
+        <header class="tk-art__head-text">
+          <p class="tk-art__meta" data-fade><span class="tk-art__tag">AI Search</span> · <time datetime={post.updatedDate ?? post.originalDate}>{post.date}</time></p>
+          <h1 class="tk-art__title tk-art__title--xl" data-words set:html={split([{ t: "Will AI" }, { t: "Recommend Your Auto Repair Shop?", accent: true }])} />
+          <p class="tk-art__dek" data-fade style="--d:2">{post.dek}</p>
+          <div class="tk-art__actions" data-fade style="--d:3">
+            <a href="/ai-visibility-scan" class="v6-btn v6-btn--navy v6-btn--lg" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_hero_scan">
+              <span>Scan your shop’s AI visibility</span> <i set:html={arrow} />
             </a>
-            <a href="#what-changed" class="btn-ghost w-full justify-center sm:w-auto">Read the field guide</a>
+            <a href="#what-changed" class="v6-link">Read the guide</a>
           </div>
         </header>
 
-        <figure class="lg:col-span-5">
-          <div class="rounded-[30px] border border-[rgba(35,46,102,.1)] bg-white p-2.5 shadow-[0_38px_90px_-46px_rgba(35,46,102,.5)] md:rounded-[38px] md:p-3">
-            <div class="aspect-[4/3] overflow-hidden rounded-[22px] bg-[var(--navy)] md:rounded-[29px]">
-              <img
-                src={post.image.src}
-                alt={post.image.alt}
-                width={post.imageWidth ?? 2400}
-                height={post.imageHeight ?? 1600}
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-                class="h-full w-full object-cover"
-                style={`object-position: ${post.image.position};`}
-              />
-            </div>
-          </div>
+        <figure class="tk-art__media tk-ais__hero-media" data-fade style="--d:3">
+          <img
+            src={post.image.src}
+            alt={post.image.alt}
+            width={post.imageWidth ?? 2400}
+            height={post.imageHeight ?? 1600}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            style={`object-position: ${post.image.position};`}
+          />
         </figure>
       </div>
-
     </div>
   </section>
 
-  <section class="border-y border-[var(--hairline)] bg-white py-10 md:py-12" aria-labelledby="short-answer-heading">
-    <div class="container-page grid gap-5 md:grid-cols-[180px_1fr] md:gap-10 lg:max-w-6xl">
-      <p class="eyebrow pt-1 text-[var(--key-blue)]">The short answer</p>
+  <section class="tk-ais__short" aria-labelledby="short-answer-heading">
+    <div class="v6-wrap tk-ais__short-grid">
       <div>
-        <h2 id="short-answer-heading" class="article-summary-heading text-charcoal">
+        <h2 id="short-answer-heading" class="tk-ais__short-h2" data-rise>
           AI is more likely to recommend a shop it can clearly understand and trust.
         </h2>
-        <p class="mt-4 max-w-3xl text-lg leading-relaxed text-charcoal/65">Yes, if AI can quickly understand what you do and find enough evidence to trust it. The good news is that the fundamentals still win: clear services, accurate information, strong reviews, real proof, and an easy next step. No secret handshake required.</p>
+        <p class="tk-ais__short-text">Yes, if AI can quickly tell what you do and find enough evidence to trust it. The good news: the fundamentals still win. Clear services, accurate information, strong reviews, real proof, and an easy next step. There is no secret handshake.</p>
       </div>
     </div>
   </section>
 
-  <aside class="container-page py-8">
-    <p class="max-w-3xl text-base leading-relaxed text-charcoal">
-      Your reviews can also guide decisions inside the shop. Learn <a href="/resources/analyze-google-reviews-with-ai" class="font-semibold text-[var(--navy)] underline underline-offset-4">how to use AI to find review patterns</a>, improve customer experiences, and build messaging around what is working.
+  <aside class="v6-wrap tk-ais__note">
+    <p>
+      Your reviews can guide decisions inside the shop, too. Learn <a href="/resources/analyze-google-reviews-with-ai" class="tk-art__text-link">how to use AI to find review patterns</a>, fix what frustrates customers, and build your message around what is already working.
     </p>
   </aside>
 
-  <div class="bg-white">
-    <div class="container-page py-14 md:py-20 lg:grid lg:grid-cols-[210px_minmax(0,1fr)] lg:gap-14">
-      <aside class="hidden lg:block">
-        <nav class="sticky top-28" aria-label="Article sections">
-          <p class="eyebrow text-charcoal/40">In this guide</p>
-          <div class="mt-5 border-l border-[var(--hairline)]">
+  <div class="v6-wrap tk-art__layout tk-art__read">
+    <aside class="tk-art__aside">
+      <nav class="tk-toc" aria-label="Article sections" data-toc>
+        <details class="tk-toc__box" data-toc-details open>
+          <summary>In this guide <span class="tk-toc__plus" aria-hidden="true"></span></summary>
+          <div class="tk-toc__list">
             {navLinks.map((link) => (
-              <a href={link.href} class="article-nav-link block border-l-2 border-transparent py-2.5 pl-4 text-sm text-charcoal/55 transition hover:text-charcoal" data-article-nav>{link.label}</a>
+              <a href={link.href}>{link.label}</a>
             ))}
           </div>
-          <a href="/ai-visibility-scan" class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_sticky_scan">Run the scan <ArrowRight className="h-4 w-4" /></a>
-        </nav>
-      </aside>
+        </details>
+        <div class="tk-toc__extra">
+          <a href="/ai-visibility-scan" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_sticky_scan">Run the scan <i set:html={arrow} /></a>
+        </div>
+      </nav>
+    </aside>
 
-      <div class="min-w-0">
-        <nav class="article-mobile-nav -mx-4 mb-12 snap-x snap-proximity overflow-x-auto px-4 lg:hidden" aria-label="Article sections">
-          <div class="flex w-max gap-2 pb-2">
-            {navLinks.map((link) => <a href={link.href} class="article-mobile-nav-link inline-flex min-h-11 snap-start items-center rounded-full border border-[rgba(35,46,102,.22)] bg-white px-4 py-2 text-sm font-medium text-[var(--navy)] shadow-[0_8px_20px_-18px_rgba(35,46,102,.7)] transition hover:border-[var(--navy)] hover:bg-[var(--navy)] hover:text-white" data-article-nav>{link.label}</a>)}
-          </div>
-        </nav>
+    <div class="tk-art__main">
+      <section id="what-changed" class="tk-ais__sec" aria-labelledby="what-changed-heading">
+        <h2 id="what-changed-heading" class="tk-art__h2">
+          Customers can compare shops <span class="block">without visiting them.</span>
+        </h2>
+        <div class="tk-art__lede">
+          <p>Picture a driver in the parking lot at work. The check-engine light is on, the car is doing “that weird thing again,” and they need help before Friday. They are not going to study six shop websites. They want one answer they can trust.</p>
+          <p>So instead of typing “auto repair near me,” they ask AI: “Which shop nearby is good with European electrical problems, has strong reviews, and can see me this week?” AI can check several sources and hand back a shortlist. Part of the buying decision now happens before that driver knows your shop by name.</p>
+          <p>Google can even contact several nearby shops to ask about price and availability. So your marketing is no longer only what shows up on a page. It is also whether your information adds up, and whether your team gives a clear, helpful answer when the phone rings.</p>
+        </div>
 
-        <section id="what-changed" class="scroll-mt-28" aria-labelledby="what-changed-heading">
-          <p class="eyebrow text-[var(--key-blue)]">The shift</p>
-          <h2 id="what-changed-heading" class="article-section-heading mt-4 text-charcoal">
-            Customers can compare shops <span class="block">without visiting them.</span>
-          </h2>
-          <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.75] text-charcoal/68">
-            <p>Picture a driver in the parking lot at work. The check-engine light is on, the car has started doing “that weird thing again,” and they need help before Friday. They are not in the mood to study six shop websites. They want a trustworthy answer.</p>
-            <p>So instead of searching “auto repair near me,” they ask AI: “Which shop nearby is good with European electrical problems, has strong reviews, and can see me this week?” AI can check several sources and hand back a shortlist. Just like that, part of the buying decision happens before the driver knows your shop by name.</p>
-            <p>Google can even contact multiple nearby shops about price and availability. That means your marketing is no longer just what appears on a page. It is also whether your information makes sense and whether your team gives a clear, helpful answer when the phone rings.</p>
-          </div>
-
-          <div class="mt-10 grid gap-5 md:grid-cols-2">
-            <article class="relative overflow-hidden rounded-[30px] border border-[rgba(35,46,102,.16)] bg-[linear-gradient(145deg,#fff_0%,#f4faff_100%)] p-6 shadow-[0_28px_70px_-52px_rgba(35,46,102,.58)] md:p-8">
-              <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--key-blue)]" aria-hidden="true"></span>
-
-              <div class="flex items-start gap-4">
-                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--key-blue)] text-white shadow-sm" aria-hidden="true"><Search className="h-5 w-5" /></span>
-                <div>
-                  <p class="eyebrow text-[var(--key-blue)]">Traditional search</p>
-                  <h3 class="mt-3 font-display text-[1.75rem] font-semibold leading-[1.05] tracking-[-.035em] text-[var(--navy)]">
-                    The customer visited first
-                  </h3>
-                </div>
-              </div>
-
-              <p class="mt-4 max-w-sm text-[0.96rem] leading-relaxed text-charcoal/75">
-                Your website got to make the introduction before the customer decided.
-              </p>
-
-              <ol class="mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-1.5" aria-label="Website-led customer journey">
-                {["Search", "Click", "Compare", "Call"].map((label) => (
-                  <li class="rounded-[14px] border border-[rgba(35,46,102,.11)] bg-white px-2 py-3.5 text-center shadow-[0_10px_24px_-22px_rgba(35,46,102,.8)]">
-                    <span class="mx-auto block h-1 w-6 rounded-full bg-[var(--key-blue)]" aria-hidden="true"></span>
-                    <span class="mt-2 block text-xs font-semibold text-charcoal sm:text-sm">{label}</span>
-                  </li>
-                ))}
-              </ol>
-
-              <div class="mt-7 border-t border-[rgba(35,46,102,.12)] pt-5">
-                <p class="text-[0.67rem] font-semibold uppercase tracking-[.18em] text-[var(--navy)]/55">Where trust was built</p>
-                <p class="mt-2 font-display text-lg font-semibold leading-snug text-charcoal">
-                  On your website, after the customer arrived.
-                </p>
-              </div>
-            </article>
-
-            <article class="relative overflow-hidden rounded-[30px] bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)] p-6 text-white shadow-[0_30px_75px_-48px_rgba(25,37,94,.92)] md:p-8">
-              <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--green)]" aria-hidden="true"></span>
-              <span class="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-[var(--key-blue)]/20 blur-3xl" aria-hidden="true"></span>
-
-              <div class="relative flex items-start gap-4">
-                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--green)] text-[var(--navy)]" aria-hidden="true"><Bot className="h-5 w-5" /></span>
-                <div>
-                  <p class="eyebrow text-[#9ed8f0]">AI-assisted search</p>
-                  <h3 class="mt-3 font-display text-[1.75rem] font-semibold leading-[1.05] tracking-[-.035em] text-white">
-                    The comparison happens first
-                  </h3>
-                </div>
-              </div>
-
-              <p class="relative mt-4 max-w-sm text-[0.96rem] leading-relaxed text-white/78">
-                AI may form the shortlist before the customer ever sees your homepage.
-              </p>
-
-              <ol class="relative mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-1.5" aria-label="AI-assisted customer journey">
-                {["Ask", "Check", "Compare", "Contact"].map((label) => (
-                  <li class="rounded-[14px] border border-[#45538d] bg-[#303d79] px-2 py-3.5 text-center">
-                    <span class="mx-auto block h-1 w-6 rounded-full bg-[var(--green)]" aria-hidden="true"></span>
-                    <span class="mt-2 block text-xs font-semibold text-white lg:text-sm">{label}</span>
-                  </li>
-                ))}
-              </ol>
-
-              <div class="relative mt-7 border-t border-white/15 pt-5">
-                <p class="text-[0.67rem] font-semibold uppercase tracking-[.18em] text-[#9ed8f0]">Where trust is built</p>
-                <p class="mt-2 font-display text-lg font-semibold leading-snug text-white">
-                  In the information already online, before the customer clicks.
-                </p>
-              </div>
-            </article>
-          </div>
-
-          <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="AI search evidence">
-            {evidence.map((item) => (
-              <a href={item.href} target="_blank" rel="noreferrer" class="motion-card group rounded-[24px] border border-black/[0.07] bg-white p-5 shadow-[0_22px_50px_-44px_rgba(20,22,28,.55)]">
-                <p class="font-display text-3xl font-semibold tracking-[-.04em] text-[var(--navy)]">{item.value}</p>
-                <p class="mt-3 text-sm leading-relaxed text-charcoal/65">{item.label}</p>
-                <p class="mt-5 text-[11px] font-semibold uppercase tracking-[.12em] text-charcoal/38">{item.source} ↗</p>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section class="-mx-4 mt-16 overflow-hidden bg-[var(--navy)] px-4 py-12 text-white sm:rounded-[32px] sm:px-8 md:mt-20 md:px-12 md:py-14" aria-labelledby="automotive-stakes-heading">
-          <p class="eyebrow text-[#9ed8f0]">Why auto repair is different</p>
-          <h2 id="automotive-stakes-heading" class="article-section-heading mt-4 text-white">
-            AI can recommend a shop. <span class="block">It cannot diagnose the car.</span>
-          </h2>
-          <div class="mt-6 max-w-[65ch] space-y-5 text-lg leading-[1.72] text-white/68">
-            <p>AI can find nearby options and ask about basic pricing. It cannot hear the noise, smell the smell, put the car on a lift, or confirm what caused a trouble code. And despite what a very confident customer may tell you, a screenshot from an AI chat is not a completed inspection.</p>
-            <p>I see that as an advantage for a well-run shop. Explain what you service, how diagnosis works, what can be estimated over the phone, and what requires the vehicle. A useful, honest answer earns more trust than a fast guess dressed up as certainty.</p>
-          </div>
-          <div class="mt-9 grid gap-3 sm:grid-cols-2">
-            {["Customers need help quickly", "Diagnosis still requires the vehicle", "Most drivers choose nearby shops", "Trust matters before price"].map((label) => (
-              <div class="flex items-center gap-3 rounded-2xl border border-[#39467f] bg-[var(--navy-deep)] px-4 py-3.5"><CheckCircle2 className="h-5 w-5 flex-none text-[var(--green)]" /><span class="font-medium text-white/85">{label}</span></div>
-            ))}
-          </div>
-        </section>
-
-        <section id="three-gates" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="three-gates-heading">
-          <p class="eyebrow text-[var(--key-blue)]">A practical model</p>
-          <h2 id="three-gates-heading" class="article-section-heading mt-4 text-charcoal">
-            Three things make a shop <span class="block">easier to recommend.</span>
-          </h2>
-          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">Let me save you from the rabbit hole: there is no magic “rank me in AI” button. Make your shop clear, consistent, and easy to contact. Those improvements help real customers and <a href="/services/digital-marketing" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">traditional local search</a>, too.</p>
-
-          <div class="mt-10 grid gap-5">
-            {gates.map((gate) => {
-              const Icon = gate.icon;
-              return (
-                <section
-                  class:list={[
-                    "relative overflow-hidden rounded-[28px] p-6 md:grid md:grid-cols-[82px_1fr] md:gap-7 md:p-8",
-                    gate.dark
-                      ? "bg-[linear-gradient(135deg,var(--navy)_0%,var(--navy-deep)_100%)] text-white shadow-[0_34px_80px_-54px_rgba(25,37,94,.95)]"
-                      : "border border-[rgba(35,46,102,.13)] bg-white shadow-[0_26px_64px_-52px_rgba(35,46,102,.58)]",
-                  ]}
-                >
-                  <span
-                    class:list={[
-                      "absolute inset-y-0 left-0 w-1.5",
-                      gate.title === "Act"
-                        ? "bg-[var(--navy)]"
-                        : gate.greenAccent
-                          ? "bg-[var(--green)]"
-                          : "bg-[var(--key-blue)]",
-                    ]}
-                    aria-hidden="true"
-                  ></span>
-                  {gate.dark && <span class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[var(--key-blue)]/20 blur-3xl" aria-hidden="true"></span>}
-                  <div class="md:block">
-                    <span
-                      class="relative inline-flex h-13 w-13 items-center justify-center rounded-2xl border border-white bg-white text-[var(--navy)] shadow-[0_10px_24px_-14px_rgba(18,31,82,.5)]"
-                    >
-                      {gate.customIcon ? (
-                        <img src={gate.customIcon} alt="" role="presentation" width="1200" height="1200" loading="lazy" decoding="async" class="h-6 w-6" aria-hidden="true" />
-                      ) : (
-                        <Icon className="h-6 w-6" />
-                      )}
-                    </span>
-                  </div>
-                  <div class="relative mt-5 md:mt-0">
-                    <h3 class:list={["font-display text-2xl font-semibold leading-tight md:text-3xl", gate.dark ? "text-white" : "text-charcoal"]}>{gate.question}</h3>
-                    <p class:list={["mt-4 max-w-[62ch] leading-relaxed", gate.dark ? "text-white/72" : "text-charcoal/68"]}>{gate.body}</p>
-                    <ul class="mt-5 grid gap-2.5 sm:grid-cols-3">
-                      {gate.checks.map((check) => (
-                        <li class:list={["flex gap-2 text-sm leading-relaxed", gate.dark ? "text-white/78" : "text-charcoal/68"]}>
-                          <Check className="mt-0.5 h-4 w-4 flex-none text-[var(--green)]" />{check}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-
-          <p class="mt-6 max-w-[66ch] text-sm leading-relaxed text-charcoal/58">If the shop is difficult to describe, start with an <a href="/resources/ideal-customer-profile-auto-repair-shop" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">ideal customer profile for your repair shop</a>. If the story is clear but the proof is thin, use our <a href="/resources/auto-repair-shop-photography-guide" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">shop photography guide</a> to show the real team and work behind it.</p>
-        </section>
-
-        <section id="technical-foundation" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="technical-foundation-heading">
-          <p class="eyebrow text-[var(--key-blue)]">The behind-the-scenes work</p>
-          <h2 id="technical-foundation-heading" class="article-section-heading mt-4 text-charcoal">
-            The technical part, <span class="block">without the tech headache.</span>
-          </h2>
-          <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.72] text-charcoal/67">
-            <p>Your shop does not need to become a software company. It does need a <a href="/services/digital-marketing" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">digital marketing foundation</a> that search systems can open, read, and understand without piecing together a scavenger hunt.</p>
-            <p>This is where crawlability and structured data matter. They sound technical because they are technical, but the business goal is simple: clearly label the facts your customers care about, then make sure those facts are available in ordinary page text.</p>
-          </div>
-
-          <div class="mt-9 divide-y divide-[rgba(35,46,102,.12)] border-y border-[rgba(35,46,102,.12)]">
-            <div class="grid gap-3 py-6 md:grid-cols-[190px_1fr] md:gap-8">
-              <h3 class="font-display text-xl font-semibold text-[var(--navy)]">Readable pages</h3>
-              <p class="leading-relaxed text-charcoal/65">Services, locations, credentials, warranties, and answers should appear as real text on fast, mobile-friendly pages. Important information should not live only inside an image, video, social post, or widget that a search system may never see.</p>
-            </div>
-            <div class="grid gap-3 py-6 md:grid-cols-[190px_1fr] md:gap-8">
-              <h3 class="font-display text-xl font-semibold text-[var(--navy)]">Structured facts</h3>
-              <p class="leading-relaxed text-charcoal/65">LocalBusiness, AutoRepair, Service, and opening-hours markup can label key business details for search engines. This code does not buy a recommendation or guarantee a ranking. It simply reduces ambiguity, which is exactly what good marketing should do.</p>
-            </div>
-            <div class="grid gap-3 py-6 md:grid-cols-[190px_1fr] md:gap-8">
-              <h3 class="font-display text-xl font-semibold text-[var(--navy)]">A clear source of truth</h3>
-              <p class="leading-relaxed text-charcoal/65">Your website, Google Business Profile, directories, and review platforms should agree on the basics. When they do, customers have less reason to hesitate and AI has more reason to trust the information it finds.</p>
-            </div>
-          </div>
-
-        </section>
-
-        <section class="relative mt-16 overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,var(--key-blue),var(--navy)_55%,var(--navy-deep))] p-7 text-white shadow-[0_36px_80px_-52px_rgba(35,46,102,.9)] md:mt-20 md:p-11" aria-labelledby="scan-cta-heading">
-          <span class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true"></span>
-          <div class="relative grid gap-7 md:grid-cols-[1fr_auto] md:items-end">
-            <div>
-              <p class="eyebrow text-[#b7e3f4]">Start with evidence</p>
-              <h2 id="scan-cta-heading" class="mt-4 max-w-none font-display text-[1.4rem] font-semibold leading-[1.05] tracking-[-.035em] sm:text-3xl md:text-4xl">
-                Would AI know when your shop is the right fit?
-              </h2>
-              <p class="mt-4 max-w-2xl leading-relaxed text-white/68">Let’s see the version of your shop AI can piece together from public information, then find where a little cleanup could make a meaningful difference.</p>
-            </div>
-            <a href="/ai-visibility-scan" class="btn-primary w-full justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white md:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_inline_scan">Run my free scan <ArrowRight className="h-4 w-4" /></a>
-          </div>
-        </section>
-
-        <section id="ai-calls" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="ai-calls-heading">
-          <p class="eyebrow text-[var(--key-blue)]">The phone still matters</p>
-          <h2 id="ai-calls-heading" class="article-section-heading mt-4 text-charcoal">
-            Google may call your shop <span class="block">for the customer.</span>
-          </h2>
-          <div class="mt-6 max-w-[66ch] space-y-5 text-lg leading-[1.72] text-charcoal/67">
-            <p>Imagine the front counter on a busy Tuesday morning. Two customers are waiting, a technician needs an answer, and now an automated caller wants price and availability. That is not the moment to invent the shop’s response from scratch.</p>
-            <p>Google says its automated caller identifies itself, explains that it is calling for a user, and may record the call. My takeaway is simple: the way your phone is answered is now part of your visibility. Give advisors a clear way to explain diagnostic charges, appointment windows, and what they need to know before promising anything.</p>
-          </div>
-
-          <ol class="mt-10 grid gap-3 md:grid-cols-4" aria-label="AI-assisted local service journey">
-            {callJourney.map((item, index) => {
-              const JourneyIcon = item.icon;
-              return (
-                <li class="relative rounded-[24px] border border-[var(--hairline)] bg-white p-5 shadow-[0_18px_44px_-42px_rgba(20,22,28,.6)]">
-                  <div class="flex items-center justify-between">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--navy)] text-white"><JourneyIcon className="h-5 w-5" /></span>
-                    {index < callJourney.length - 1 && <ChevronRight className="hidden h-5 w-5 text-[var(--key-blue)] md:block" />}
-                  </div>
-                  <h3 class="mt-5 font-display text-xl font-semibold text-charcoal">{item.title}</h3>
-                  <p class="mt-2 text-sm leading-relaxed text-charcoal/58">{item.body}</p>
-                </li>
-              );
-            })}
-          </ol>
-
-          <div class="relative mt-8 overflow-hidden rounded-[26px] bg-[var(--charcoal)] p-6 text-white shadow-[0_26px_62px_-46px_rgba(20,22,28,.9)] md:p-7">
-            <span class="absolute inset-y-0 left-0 w-1.5 bg-[var(--green)]" aria-hidden="true"></span>
-            <div class="relative flex gap-4">
-              <span class="flex h-11 w-11 flex-none items-center justify-center rounded-2xl bg-[var(--green)] text-white"><Wrench className="h-6 w-6" /></span>
+        <div class="tk-ais__compare">
+          <article class="tk-ais__mode" data-rise>
+            <div class="tk-ais__mode-head">
+              <span class="tk-ais__icon" aria-hidden="true"><span class="v6-icon" style={`--icon:url(${iconSrc("internet")})`}></span></span>
               <div>
-                <p class="eyebrow text-[var(--green)]">Service advisor standard</p>
-                <h3 class="mt-2 font-display text-2xl font-semibold text-white">Treat the AI answer as a clue, not a diagnosis.</h3>
-                <p class="mt-3 leading-relaxed text-white/72">You do not need to argue with the customer or roll your eyes at the robot. Acknowledge what they found, explain what still needs to be inspected, and show how your team will verify the cause before recommending a repair.</p>
+                <h3 class="tk-ais__mode-h3">
+                  The customer visited first
+                </h3>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section id="action-plan" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="action-plan-heading">
-          <p class="eyebrow text-[var(--key-blue)]">The 30-day foundation</p>
-          <h2 id="action-plan-heading" class="article-section-heading mt-4 text-charcoal">
-            Seven practical moves <span class="block">for the next 30 days.</span>
+            <p class="tk-ais__mode-text">
+              With traditional search, your website made the introduction before the customer decided.
+            </p>
+
+            <ol class="tk-ais__chips" aria-label="Website-led customer journey">
+              {["Search", "Click", "Compare", "Call"].map((label) => (
+                <li><span>{label}</span></li>
+              ))}
+            </ol>
+
+            <div class="tk-ais__mode-foot">
+              <p class="tk-ais__mode-where">
+                Trust got built on your website, after the customer arrived.
+              </p>
+            </div>
+          </article>
+
+          <article class="tk-ais__mode tk-ais__mode--navy" data-rise>
+            <div class="tk-ais__mode-head">
+              <span class="tk-ais__icon" aria-hidden="true"><span class="v6-icon" style={`--icon:url(${iconSrc("target")})`}></span></span>
+              <div>
+                <h3 class="tk-ais__mode-h3">
+                  The comparison happens first
+                </h3>
+              </div>
+            </div>
+
+            <p class="tk-ais__mode-text">
+              With AI-assisted search, the shortlist may be set before the customer ever sees your homepage.
+            </p>
+
+            <ol class="tk-ais__chips" aria-label="AI-assisted customer journey">
+              {["Ask", "Check", "Compare", "Contact"].map((label) => (
+                <li><span>{label}</span></li>
+              ))}
+            </ol>
+
+            <div class="tk-ais__mode-foot">
+              <p class="tk-ais__mode-where">
+                Trust gets built from what is already online, before anyone clicks.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="tk-ais__evidence" aria-label="AI search evidence">
+          {evidence.map((item) => (
+            <a href={item.href} target="_blank" rel="noreferrer" class="tk-ais__stat">
+              <p class="tk-ais__stat-num">{item.value}</p>
+              <p class="tk-ais__stat-label">{item.label}</p>
+              <p class="tk-ais__stat-src">{item.source} ↗</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="tk-ais__navy" aria-labelledby="automotive-stakes-heading" data-rise>
+        <h2 id="automotive-stakes-heading" class="tk-art__h2">
+          AI can recommend a shop. <span class="block">It cannot diagnose the car.</span>
+        </h2>
+        <div class="tk-art__lede">
+          <p>AI can find nearby options and ask about basic pricing. It cannot hear the noise, smell the smell, put the car on a lift, or confirm what caused a trouble code. And no matter how confident the customer sounds, a screenshot from an AI chat is not a completed inspection.</p>
+          <p>For a well-run shop, that is an advantage. Explain what you service, how diagnosis works, what can be estimated over the phone, and what needs the vehicle in the bay. A useful, honest answer earns more trust than a fast guess dressed up as certainty.</p>
+        </div>
+        <div class="tk-ais__facts">
+          {["Customers need help quickly", "Diagnosis still requires the vehicle", "Most drivers choose nearby shops", "Trust matters before price"].map((label) => (
+            <div><span class="v6-mark v6-mark--check" aria-hidden="true"></span><span>{label}</span></div>
+          ))}
+        </div>
+      </section>
+
+      <section id="three-gates" class="tk-ais__sec" aria-labelledby="three-gates-heading">
+        <h2 id="three-gates-heading" class="tk-art__h2">
+          Three things make a shop <span class="block">easier to recommend.</span>
+        </h2>
+        <p class="tk-art__lede">Save yourself the rabbit hole: there is no magic “rank me in AI” button. Make your shop clear, consistent, and easy to contact. The same work helps real customers and <a href="/services/digital-marketing">traditional local search</a>, too.</p>
+
+        <div class="tk-ais__gates">
+          {gates.map((gate) => (
+            <section class:list={["tk-ais__gate", gate.dark && "tk-ais__gate--navy"]} data-rise>
+              <div class="tk-ais__gate-side">
+                                <span class="tk-ais__icon">
+                  {gate.customIcon ? (
+                    <img src={gate.customIcon} alt="" role="presentation" width="1200" height="1200" loading="lazy" decoding="async" aria-hidden="true" />
+                  ) : (
+                    <span class="v6-icon" aria-hidden="true" style={`--icon:url(${iconSrc(gate.icon)})`}></span>
+                  )}
+                </span>
+              </div>
+              <div>
+                <h3 class="tk-ais__gate-h3">{gate.question}</h3>
+                <p class="tk-ais__gate-text">{gate.body}</p>
+                <ul class="tk-ais__checks">
+                  {gate.checks.map((check) => (
+                    <li>
+                      <span class="v6-mark v6-mark--check" aria-hidden="true"></span>{check}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ))}
+        </div>
+
+        <p class="tk-ais__small">If your shop is hard to describe, start with an <a href="/resources/ideal-customer-profile-auto-repair-shop" class="tk-art__text-link">ideal customer profile for your repair shop</a>. If the story is clear but the proof is thin, use our <a href="/resources/auto-repair-shop-photography-guide" class="tk-art__text-link">shop photography guide</a> to show the real team and work behind it.</p>
+      </section>
+
+      <section id="technical-foundation" class="tk-ais__sec" aria-labelledby="technical-foundation-heading">
+        <h2 id="technical-foundation-heading" class="tk-art__h2">
+          The technical part, <span class="block">without the tech headache.</span>
+        </h2>
+        <div class="tk-art__lede">
+          <p>Your shop does not need to become a software company. It does need a <a href="/services/digital-marketing">digital marketing foundation</a> that search systems can open, read, and understand without a scavenger hunt.</p>
+          <p>This is where crawlability and structured data come in. They sound technical because they are. The business goal is simple: label the facts your customers care about, and make sure those same facts appear in ordinary page text.</p>
+        </div>
+
+        <div class="tk-ais__rows">
+          <div class="tk-ais__row">
+            <h3 class="tk-ais__row-h3">Readable pages</h3>
+            <p>Services, locations, credentials, warranties, and answers should appear as real text on fast, mobile-friendly pages. If important information lives only inside an image, a video, a social post, or a widget, a search system may never see it.</p>
+          </div>
+          <div class="tk-ais__row">
+            <h3 class="tk-ais__row-h3">Structured facts</h3>
+            <p>LocalBusiness, AutoRepair, Service, and opening-hours markup can label key business details for search engines. The code does not buy a recommendation or guarantee a ranking. It removes guesswork, which is exactly what good marketing should do.</p>
+          </div>
+          <div class="tk-ais__row">
+            <h3 class="tk-ais__row-h3">A clear source of truth</h3>
+            <p>Your website, Google Business Profile, directories, and review platforms should agree on the basics. When they do, customers have less reason to hesitate, and AI has more reason to trust what it finds.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="v6-glow tk-ais__scan" aria-labelledby="scan-cta-heading" data-rise>
+        <div class="v6-glow__inner tk-ais__scan-inner">
+          <div>
+            <h2 id="scan-cta-heading" class="tk-ais__scan-h2">
+              Would AI know when your shop is the right fit?
+            </h2>
+            <p class="tk-ais__scan-text">See the version of your shop AI can piece together from public information, then find where a little cleanup would make a real difference.</p>
+          </div>
+          <a href="/ai-visibility-scan" class="v6-btn v6-btn--navy v6-btn--lg" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_inline_scan"><span>Run my free scan</span> <i set:html={arrow} /></a>
+        </div>
+      </section>
+
+      <section id="ai-calls" class="tk-ais__sec" aria-labelledby="ai-calls-heading">
+        <h2 id="ai-calls-heading" class="tk-art__h2">
+          Google may call your shop <span class="block">for the customer.</span>
+        </h2>
+        <div class="tk-art__lede">
+          <p>Picture the front counter on a busy Tuesday morning. Two customers are waiting, a technician needs an answer, and now an automated caller wants price and availability. That is not the moment to make up the shop’s answer from scratch.</p>
+          <p>Google says its automated caller identifies itself, explains that it is calling for a user, and may record the call. The takeaway: how your phone gets answered is now part of how visible your shop is. Give advisors a clear way to explain diagnostic charges, appointment windows, and what they need to know before promising anything.</p>
+        </div>
+
+        <ol class="tk-ais__journey" data-allow-overflow aria-label="AI-assisted local service journey">
+          {callJourney.map((item, index) => (
+            <li>
+              <div class="tk-ais__journey-top">
+                <span class="tk-ais__icon tk-ais__icon--navy"><span class="v6-icon" aria-hidden="true" style={`--icon:url(${iconSrc(item.icon)})`}></span></span>
+                {index < callJourney.length - 1 && <i class="tk-ais__journey-go" aria-hidden="true" set:html={arrow} />}
+              </div>
+              <h3 class="tk-ais__journey-h3">{item.title}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div class="tk-ais__advisor" data-rise>
+          <span class="tk-ais__icon tk-ais__icon--green"><span class="v6-icon" aria-hidden="true" style={`--icon:url(${iconSrc("car-count")})`}></span></span>
+          <div>
+            <h3 class="tk-ais__advisor-h3">Treat the AI answer as a clue, not a diagnosis.</h3>
+            <p class="tk-ais__advisor-text">You do not need to argue with the customer or roll your eyes at the robot. Acknowledge what they found, explain what still has to be inspected, and walk them through how your team will confirm the cause before recommending a repair.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="action-plan" class="tk-ais__sec" aria-labelledby="action-plan-heading">
+        <h2 id="action-plan-heading" class="tk-art__h2">
+          Seven practical moves <span class="block">for the next 30 days.</span>
+        </h2>
+        <p class="tk-art__lede">You do not need to rebuild your whole <a href="/resources/auto-repair-marketing-plan">auto repair marketing plan</a> by next Tuesday. Start with these seven moves. Each one makes it easier for the right customer to find you, trust you, and book.</p>
+        <ul class="tk-ais__steps">
+          {actionSteps.map((step) => (
+            <li>
+              <h3 class="tk-ais__step-h3">{step.title}</h3>
+              <p class="tk-ais__step-text">{step.body}</p>
+            </li>
+          ))}
+        </ul>
+        <div class="tk-ais__warn"><p><strong>Skip the breathless AI hacks.</strong> You do not need to sprinkle magic files across your website. Clear pages, correct shop information, useful content, strong reviews, and real proof will do far more for your car count.</p></div>
+      </section>
+
+      <section id="how-turnkey-helps" class="tk-ais__tint" aria-labelledby="turnkey-heading">
+        <h2 id="turnkey-heading" class="tk-art__h2">
+          Turnkey keeps the whole <span class="block">marketing system working together.</span>
+        </h2>
+        <p class="tk-art__lede">You already have enough moving parts inside the shop. You should not also have to referee a website company, an SEO vendor, review tools, content, and reporting. We pull those pieces together around the repairs you want more of and the customers your shop serves best.</p>
+        <div class="tk-ais__helps">
+          <a href="/services/digital-marketing" class="v6-tile">
+            <span class="v6-tile__icon"><span class="v6-icon" aria-hidden="true" style={`--icon:url(${iconSrc("internet")})`}></span></span>
+            <h3 class="v6-tile__title">Make your shop easier to find and trust</h3>
+            <p class="v6-tile__text">Keep your website, Google Business Profile, reviews, and content accurate, useful, and pointed at the work you want.</p>
+            <span class="v6-tile__go v6-link">Explore digital marketing <i set:html={arrow} /></span>
+          </a>
+          <a href="/services/vip-marketing-manager" class="v6-tile v6-tile--navy">
+            <span class="v6-tile__icon"><span class="v6-icon" aria-hidden="true" style={`--icon:url(${iconSrc("vip")})`}></span></span>
+            <h3 class="v6-tile__title">Put one experienced team in charge</h3>
+            <p class="v6-tile__text">Bring strategy, vendors, campaigns, reporting, and follow-through under one practical plan built for your shop.</p>
+            <span class="v6-tile__go v6-link v6-link--light">Meet the VIP marketing manager <i set:html={arrow} /></span>
+          </a>
+        </div>
+      </section>
+
+      {post.faq && post.faq.length > 0 && (
+        <section id="faq" class="tk-ais__sec" aria-labelledby="faq-heading">
+          <h2 id="faq-heading" class="tk-art__h2">
+            AI search questions, <span class="block">answered without the hype.</span>
           </h2>
-          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">You do not need to rebuild your entire <a href="/resources/auto-repair-marketing-plan" class="font-semibold text-[var(--navy)] underline decoration-[rgba(64,145,209,.45)] decoration-2 underline-offset-4 transition hover:decoration-[var(--key-blue)]">auto repair marketing plan</a> by next Tuesday. Start with these seven practical moves. Each one makes it easier for the right customer to find, trust, and choose you.</p>
-          <ul class="mt-10 divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
-            {actionSteps.map((step) => (
-              <li class="grid gap-3 py-7 md:grid-cols-[48px_1fr] md:gap-5 md:py-8">
-                <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--navy)] text-white" aria-hidden="true"><Check className="h-5 w-5" /></span>
-                <div>
-                  <p class="eyebrow text-[var(--key-blue)]">{step.label}</p>
-                  <h3 class="mt-2 font-display text-2xl font-semibold leading-tight text-charcoal">{step.title}</h3>
-                  <p class="mt-3 max-w-[65ch] leading-relaxed text-charcoal/65">{step.body}</p>
-                </div>
+          <p class="tk-art__lede">These come from Google’s People Also Ask results and the questions that keep showing up across the top-ranking guides as the market changes.</p>
+          <ul class="v6-acc tk-ais__acc">
+            {post.faq.map((item, index) => (
+              <li class:list={["v6-acc__item", index === 0 && "is-open"]} data-acc-item>
+                <h3 class="tk-acc__q"><button type="button" class="v6-acc__head" aria-expanded={index === 0 ? "true" : "false"} data-acc-head><span>{item.question}</span><span class="v6-acc__icon" aria-hidden="true"></span></button></h3>
+                <div class="v6-acc__panel"><div><p>{item.answer}</p></div></div>
               </li>
             ))}
           </ul>
-          <div class="mt-7 flex gap-3 rounded-2xl border border-[var(--hairline)] bg-white p-5 text-sm leading-relaxed text-charcoal/65 shadow-[0_16px_36px_-34px_rgba(20,22,28,.55)]"><CircleDot className="mt-0.5 h-5 w-5 flex-none text-[var(--key-blue)]" /><p><strong class="font-semibold text-charcoal">Please ignore the breathless AI hacks.</strong> You do not need to sprinkle magic files across your website. Clear pages, correct shop information, useful content, strong reviews, and real proof will do far more for the business.</p></div>
         </section>
+      )}
 
-        <section id="how-turnkey-helps" class="-mx-4 mt-16 scroll-mt-28 bg-[var(--off-white)] px-4 py-12 sm:rounded-[32px] sm:px-8 md:mt-20 md:px-11 md:py-14" aria-labelledby="turnkey-heading">
-          <p class="eyebrow text-[var(--key-blue)]">How Turnkey helps</p>
-          <h2 id="turnkey-heading" class="article-section-heading mt-4 text-charcoal">
-            Turnkey keeps the whole <span class="block">marketing system working together.</span>
-          </h2>
-          <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">You already have enough moving parts inside the shop. You should not also have to referee a website company, an SEO vendor, review tools, content, and reporting. We bring those pieces together around the repairs you want more of and the customers your shop serves best.</p>
-          <div class="mt-9 grid gap-4 md:grid-cols-2">
-            <a href="/services/digital-marketing" class="motion-card group rounded-[24px] bg-white p-6 ring-1 ring-black/[0.06]">
-              <FileSearch className="h-7 w-7 text-[var(--navy)]" />
-              <h3 class="mt-5 font-display text-2xl font-semibold text-charcoal">Make your shop easier to find and trust</h3>
-              <p class="mt-3 leading-relaxed text-charcoal/62">Keep your website, Google Business Profile, reviews, and content accurate, useful, and focused on the work you want.</p>
-              <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">Explore digital marketing <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-            </a>
-            <a href="/services/vip-marketing-manager" class="motion-card group rounded-[24px] bg-white p-6 ring-1 ring-black/[0.06]">
-              <Bot className="h-7 w-7 text-[var(--navy)]" />
-              <h3 class="mt-5 font-display text-2xl font-semibold text-charcoal">Put one experienced team in charge</h3>
-              <p class="mt-3 leading-relaxed text-charcoal/62">Bring strategy, vendors, campaigns, reporting, and follow-through under one practical plan built for the shop.</p>
-              <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">Meet the VIP marketing manager <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-            </a>
-          </div>
-        </section>
-
-        {post.faq && post.faq.length > 0 && (
-          <section id="faq" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="faq-heading">
-            <p class="eyebrow text-[var(--key-blue)]">Questions shop owners are asking</p>
-            <h2 id="faq-heading" class="article-section-heading mt-4 text-charcoal">
-              AI search questions, <span class="block">answered without the hype.</span>
-            </h2>
-            <p class="mt-6 max-w-[65ch] text-lg leading-[1.72] text-charcoal/65">These questions come from Google’s People Also Ask results and the questions showing up across the top-ranking guides as the market keeps changing.</p>
-            <div class="mt-9 divide-y divide-[rgba(35,46,102,.13)] border-y border-[rgba(35,46,102,.13)]">
-              {post.faq.map((item) => (
-                <section class="py-7 md:py-8">
-                  <h3 class="font-display text-2xl font-semibold leading-tight text-charcoal">{item.question}</h3>
-                  <p class="mt-3 max-w-[68ch] leading-[1.72] text-charcoal/65">{item.answer}</p>
-                </section>
-              ))}
-            </div>
-          </section>
-        )}
-
-        <section id="sources" class="mt-16 scroll-mt-28 md:mt-20" aria-labelledby="sources-heading">
-          <p class="eyebrow text-[var(--key-blue)]">Research notes</p>
-          <h2 id="sources-heading" class="display-3 mt-4 text-charcoal">What this guide is based on</h2>
-          <p class="mt-5 max-w-[65ch] leading-relaxed text-charcoal/62">AI search changes quickly. We checked current Google and OpenAI documentation, then used outside research only where it added useful context. Claims were reviewed on August 26, 2026.</p>
-          <ul class="mt-7 divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
-            {sources.map((source) => (
-              <li><a href={source.href} target="_blank" rel="noreferrer" class="group flex min-h-16 items-center justify-between gap-5 py-4"><span><span class="block font-semibold leading-snug text-charcoal group-hover:text-[var(--navy)]">{source.title}</span><span class="mt-1 block text-xs leading-relaxed text-charcoal/45">{source.publisher}</span></span><ArrowRight className="h-4 w-4 flex-none text-charcoal/35 transition group-hover:translate-x-1 group-hover:text-[var(--navy)]" /></a></li>
-            ))}
-          </ul>
-        </section>
-      </div>
+      <section id="sources" class="tk-ais__sec" aria-labelledby="sources-heading">
+        <h2 id="sources-heading" class="tk-art__h2">What this guide is based on</h2>
+        <p class="tk-art__lede">AI search changes quickly. We checked current Google and OpenAI documentation and used outside research only where it added useful context. Claims were reviewed on August 26, 2026.</p>
+        <ul class="tk-ais__sources">
+          {sources.map((source) => (
+            <li><a href={source.href} target="_blank" rel="noreferrer"><span><span class="tk-ais__source-title">{source.title}</span><span class="tk-ais__source-pub">{source.publisher}</span></span><i aria-hidden="true" set:html={arrowUp} /></a></li>
+          ))}
+        </ul>
+      </section>
     </div>
   </div>
 
-  <section class="relative overflow-hidden bg-[var(--navy)] py-14 text-white md:py-20">
-    <span class="pointer-events-none absolute -left-24 -top-28 h-80 w-80 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
-    <span class="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--green)]/10 blur-3xl" aria-hidden="true"></span>
-    <div class="container-page relative text-center">
-      <img src="/images/icons/ai-search-spark-white.svg" alt="" role="presentation" width="1200" height="1200" loading="lazy" decoding="async" class="ai-spark-icon mx-auto h-9 w-9" aria-hidden="true" />
-      <p class="eyebrow mt-5 text-[#9ed8f0]">See the starting point</p>
-      <h2 class="mx-auto mt-4 max-w-none font-display text-[1.85rem] font-semibold leading-[1.02] tracking-[-.05em] sm:text-5xl lg:text-[4.4rem]">
+  {post.externalSources && post.externalSources.length > 0 && (
+    <ExternalSources sources={post.externalSources} />
+  )}
+
+  <section class="v6-sec v6-sec--navy tk-ais__final">
+    <div class="v6-wrap tk-ais__final-inner" data-rise>
+      <img src="/images/icons/ai-search-spark-white.svg" alt="" role="presentation" width="1200" height="1200" loading="lazy" decoding="async" class="ai-spark-icon" aria-hidden="true" />
+      <h2 class="tk-ais__final-h2">
         Would AI put your shop <span class="block">on the shortlist?</span>
       </h2>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/65">Let’s find out what AI can see, what it may be missing, and which improvement deserves your attention first.</p>
-      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-        <a href="/ai-visibility-scan" class="btn-primary w-full justify-center !bg-[var(--green)] !text-charcoal hover:!bg-white sm:w-auto" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_final_scan">Run my free AI Visibility Scan <ArrowRight className="h-4 w-4" /></a>
-        <a href="/services/digital-marketing" class="btn-ghost w-full justify-center !border-white !bg-white !text-[var(--navy)] hover:!bg-[var(--key-blue-soft)] hover:!text-[var(--navy-deep)] sm:w-auto">Explore digital marketing</a>
+      <p class="tk-ais__final-text">Find out what AI can see, what it may be missing, and which fix deserves your attention first.</p>
+      <div class="v6-cta__actions">
+        <a href="/ai-visibility-scan" class="v6-btn v6-btn--green v6-btn--lg" data-track-event="ai_visibility_scan_click" data-track-placement="resource_ai_search_final_scan"><span>Run my free AI Visibility Scan</span> <i set:html={arrow} /></a>
+        <a href="/services/digital-marketing" class="v6-btn v6-btn--ghost v6-btn--lg"><span>Explore digital marketing</span></a>
       </div>
     </div>
   </section>
 
   {relatedPosts.length > 0 && (
-    <section class="bg-[var(--off-white)] py-14 md:py-20" aria-labelledby="related-reading-heading">
-      <div class="container-page">
-        <div class="flex items-end justify-between gap-5">
-          <div><p class="eyebrow text-[var(--key-blue)]">Keep building</p><h2 id="related-reading-heading" class="display-3 mt-3 text-charcoal">Related field guides</h2></div>
-          <a href="/resources" class="hidden items-center gap-2 text-sm font-semibold text-[var(--navy)] sm:inline-flex">All resources <ArrowRight className="h-4 w-4" /></a>
+    <section class="v6-sec v6-sec--tint tk-art__related" aria-labelledby="related-reading-heading">
+      <div class="v6-wrap">
+        <div class="v6-row-head">
+          <div><h2 id="related-reading-heading" class="v6-h2 tk-art__related-h2">Related field guides</h2></div>
+          <a href="/resources" class="v6-link">All resources <i set:html={arrow} /></a>
         </div>
-        <div class="mt-8 grid gap-5 md:grid-cols-3">
+        <div class="v6-swipe tk-art__cards" style={`--cols:${Math.max(2, Math.min(4, relatedPosts.length))}`}>
           {relatedPosts.map((relatedPost) => (
-            <a href={relatedPost.href} class="motion-card group overflow-hidden rounded-[26px] bg-white shadow-[0_22px_55px_-45px_rgba(20,22,28,.55)]">
-              <div class="aspect-[16/10] overflow-hidden bg-[var(--navy)]"><img src={relatedPost.image.src} alt={relatedPost.image.alt} width={relatedPost.imageWidth ?? 1200} height={relatedPost.imageHeight ?? 800} loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" style={`object-position:${relatedPost.image.position};`} /></div>
-              <div class="p-6"><p class="eyebrow text-[var(--key-blue)]">{relatedPost.tag}</p><h3 class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal">{relatedPost.title}</h3><span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)]">Read guide <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span></div>
+            <a href={relatedPost.href} class="v6-post">
+              <div class="v6-post__media"><img src={relatedPost.image.src} alt={relatedPost.image.alt} width={relatedPost.imageWidth ?? 1200} height={relatedPost.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${relatedPost.image.position};`} /></div>
+              <p class="v6-post__tag">{relatedPost.tag}</p><h3 class="v6-post__title">{relatedPost.title}</h3><span class="v6-link">Read guide <i set:html={arrow} /></span>
             </a>
           ))}
         </div>
@@ -656,144 +559,157 @@ const sources = [
   )}
 </article>
 
-<script>
-  const progress = document.querySelector<HTMLElement>("[data-reading-progress]");
-  const sections = [...document.querySelectorAll<HTMLElement>("main section[id]")];
-  const navItems = [...document.querySelectorAll<HTMLAnchorElement>("[data-article-nav]")];
-
-  const updateArticleState = () => {
-    const article = document.querySelector<HTMLElement>("main article");
-    if (progress && article) {
-      const start = article.offsetTop;
-      const distance = Math.max(1, article.offsetHeight - window.innerHeight);
-      const percentage = Math.min(100, Math.max(0, ((window.scrollY - start) / distance) * 100));
-      progress.style.width = `${percentage}%`;
-    }
-
-    const marker = window.scrollY + 180;
-    let activeId = "";
-    for (const section of sections) {
-      if (section.offsetTop <= marker) activeId = section.id;
-    }
-    navItems.forEach((item) => item.classList.toggle("is-active", item.hash === `#${activeId}`));
-  };
-
-  window.addEventListener("scroll", updateArticleState, { passive: true });
-  window.addEventListener("resize", updateArticleState);
-  updateArticleState();
-</script>
-
 <style>
-  .reading-progress {
-    position: fixed;
-    inset: 0 0 auto;
-    z-index: 70;
-    height: 3px;
-    pointer-events: none;
-  }
+  .tk-ais { --ais-body: #2b303b; --ais-meta: #4a5060; --ais-on-navy: #dde3f2; --ais-line-navy: #3b4785; }
+  .tk-ais__hero-media { background: var(--navy); }
+  .tk-ais__short { margin-top: clamp(3rem, 6vw, 5rem); padding-block: clamp(2.5rem, 5vw, 4rem); background: var(--key-blue-soft); }
+  .tk-ais__short-grid { display: grid; grid-template-columns: var(--art-toc) minmax(0, 1fr); gap: clamp(1rem, 6vw, 7rem); }
+  .tk-ais__short-grid > div { grid-column: 2; }
+  .tk-ais__short-h2 { max-width: 26ch; font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1.1; letter-spacing: -0.045em; font-weight: 600; text-wrap: balance; color: var(--navy); }
+  .tk-ais__short-text { margin-top: 1rem; max-width: 44rem; font-size: 1.125rem; line-height: 1.7; color: var(--ais-body); }
+  .tk-ais__note { padding-top: 2rem; }
+  .tk-ais__note p { max-width: 44rem; margin-left: calc(var(--art-toc) + clamp(1rem, 6vw, 7rem)); font-size: 1.05rem; line-height: 1.65; color: var(--ais-body); }
 
-  .reading-progress span {
-    display: block;
-    width: 0;
-    height: 100%;
-    background: linear-gradient(90deg, var(--key-blue), var(--green));
-  }
+  .tk-ais .tk-art__lede { color: var(--ais-body); }
+  .tk-ais__sec { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+  .tk-ais__sec + .tk-ais__sec, .tk-ais__sec + section, section + .tk-ais__sec { margin-top: clamp(4.5rem, 8vw, 7rem); }
 
-  .article-nav-link.is-active {
-    border-left-color: var(--key-blue);
-    color: var(--navy);
-    font-weight: 600;
-  }
+  .tk-ais__icon { display: grid; place-items: center; flex: none; width: 3rem; height: 3rem; border-radius: 999px; background: #fff; color: var(--navy); }
+  .tk-ais__icon .v6-icon, .tk-ais__icon img { width: 1.4rem; height: 1.4rem; }
+  .tk-ais__icon--navy { background: var(--navy); color: #fff; }
+  .tk-ais__icon--green { background: var(--green); color: var(--navy); }
 
-  .article-mobile-nav {
-    scrollbar-width: none;
-  }
+  .tk-ais__compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+  .tk-ais__mode { display: flex; flex-direction: column; padding: clamp(1.5rem, 2.6vw, 2.25rem); border-radius: 30px; background: var(--off-white); color: var(--charcoal); }
+  .tk-ais__mode--navy { background: var(--navy); color: #fff; }
+  .tk-ais__mode--navy .tk-ais__icon { background: var(--green); color: var(--navy); }
+  .tk-ais__mode-head { display: flex; gap: 1rem; align-items: center; }
+  .tk-ais__mode-h3 { font-size: clamp(1.35rem, 2vw, 1.7rem); line-height: 1.08; letter-spacing: -0.04em; font-weight: 600; }
+  .tk-ais__mode-text { margin-top: 1.1rem; line-height: 1.6; color: var(--ais-body); }
+  .tk-ais__mode--navy .tk-ais__mode-text { color: var(--ais-on-navy); }
+  .tk-ais__chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; margin-top: 1.5rem; list-style: none; padding: 0; }
+  .tk-ais__chips li { display: grid; place-items: center; min-height: 3rem; border-radius: 16px; background: #fff; font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+  .tk-ais__mode--navy .tk-ais__chips li { background: #33407c; color: #fff; }
+  .tk-ais__mode-foot { margin-top: auto; padding-top: 1.5rem; }
+  .tk-ais__mode-where { margin-top: 0.25rem; padding-top: 1.25rem; border-top: 1px solid #d9d5cc; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.35; }
+  .tk-ais__mode--navy .tk-ais__mode-where { border-color: var(--ais-line-navy); }
 
-  .article-mobile-nav::-webkit-scrollbar {
-    display: none;
-  }
+  .tk-ais__evidence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2.5rem; margin-top: 2.5rem; border-top: 1px solid var(--hairline); }
+  .tk-ais__stat { display: grid; align-content: start; gap: 0.5rem; padding-block: 1.75rem; border-bottom: 1px solid var(--hairline); }
+  .tk-ais__stat-num { font-size: clamp(2rem, 3.4vw, 3rem); font-weight: 600; letter-spacing: -0.055em; line-height: 1; color: var(--navy); }
+  .tk-ais__stat-label { line-height: 1.55; color: var(--ais-body); }
+  .tk-ais__stat-src { font-size: 0.82rem; font-weight: 600; color: var(--ais-meta); text-decoration: underline; text-decoration-color: #b9c7de; text-underline-offset: 3px; transition: color 0.3s; }
+  .tk-ais__stat:hover .tk-ais__stat-src { color: var(--key-blue); }
 
-  .article-mobile-nav-link.is-active {
-    border-color: var(--navy);
-    background: var(--navy);
-    color: white;
-  }
+  .tk-ais__navy { margin-top: clamp(4.5rem, 8vw, 7rem); padding: clamp(2rem, 5vw, 3.75rem); border-radius: 36px; background: var(--navy); color: #fff; }
+  .tk-ais__navy .tk-art__h2 { color: #fff; }
+  .tk-ais__navy .tk-art__h2 .block { color: #8cc3ec; }
+  .tk-ais__navy .tk-art__lede { color: var(--ais-on-navy); }
+  .tk-ais__facts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 2rem; }
+  .tk-ais__facts > div { display: flex; align-items: center; gap: 0.8rem; min-height: 3.5rem; padding: 0.75rem 1rem; border-radius: 18px; background: #2e3a76; font-weight: 500; color: #fff; }
 
-  .article-section-heading {
-    max-width: none;
-    text-wrap: balance;
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
-    line-height: 1.02;
-    letter-spacing: -0.045em;
-  }
+  .tk-ais__gates { display: grid; gap: 0.75rem; margin-top: 2.5rem; }
+  .tk-ais__gate { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.5rem; padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: 30px; background: var(--off-white); color: var(--charcoal); }
+  .tk-ais__gate--navy { background: var(--navy); color: #fff; }
+  .tk-ais__gate--navy .tk-ais__icon { background: var(--green); }
+  .tk-ais__gate-side { display: grid; justify-items: start; align-content: start; }
+  .tk-ais__gate-h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.1; letter-spacing: -0.04em; font-weight: 600; text-wrap: balance; }
+  .tk-ais__gate-text { margin-top: 0.9rem; max-width: 40rem; font-size: 1.0625rem; line-height: 1.65; color: var(--ais-body); }
+  .tk-ais__gate--navy .tk-ais__gate-text { color: var(--ais-on-navy); }
+  .tk-ais__checks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem 1.25rem; margin-top: 1.4rem; padding-top: 1.25rem; border-top: 1px solid #d9d5cc; }
+  .tk-ais__gate--navy .tk-ais__checks { border-color: var(--ais-line-navy); }
+  .tk-ais__checks li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.95rem; font-weight: 500; line-height: 1.45; }
+  .tk-ais__checks .v6-mark, .tk-ais__facts .v6-mark { width: 1.35rem; height: 1.35rem; flex: none; }
+  .tk-ais__small { margin-top: 1.75rem; max-width: 44rem; font-size: 1rem; line-height: 1.65; color: var(--ais-body); }
 
-  .article-summary-heading {
-    max-width: none;
-    text-wrap: balance;
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
-  }
+  .tk-ais__rows { margin-top: 2.5rem; border-top: 2px solid var(--navy); }
+  .tk-ais__row { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 2rem; padding-block: 1.75rem; border-bottom: 1px solid var(--hairline); }
+  .tk-ais__row-h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; color: var(--navy); }
+  .tk-ais__row p { font-size: 1.0625rem; line-height: 1.65; color: var(--ais-body); }
 
-  @media (min-width: 640px) {
-    .article-summary-heading {
-      font-size: 2rem;
-    }
-  }
+  .tk-ais__scan { margin-top: clamp(4.5rem, 8vw, 7rem); }
+  .tk-ais__scan-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; }
+  .tk-ais__scan-h2 { font-size: clamp(1.7rem, 2.8vw, 2.5rem); line-height: 1.05; letter-spacing: -0.045em; font-weight: 600; text-wrap: balance; max-width: 18ch; color: var(--navy); }
+  .tk-ais__scan-text { margin-top: 0.9rem; max-width: 34rem; line-height: 1.6; color: var(--ais-body); }
 
-  @media (min-width: 640px) {
-    .article-section-heading {
-      font-size: 2.5rem;
-    }
-  }
+  .tk-ais__journey { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-top: 2.5rem; list-style: none; padding: 0; }
+  .tk-ais__journey li { padding: 1.4rem; border-radius: 26px; background: var(--off-white); }
+  .tk-ais__journey-top { display: flex; justify-content: space-between; align-items: center; }
+  .tk-ais__journey-go { display: inline-grid; color: var(--key-blue); }
+  .tk-ais__journey-h3 { margin-top: 1.25rem; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.025em; color: var(--charcoal); }
+  .tk-ais__journey p { margin-top: 0.4rem; font-size: 0.95rem; line-height: 1.5; color: var(--ais-body); }
+  .tk-ais__advisor { display: flex; gap: 1.25rem; align-items: flex-start; margin-top: 1rem; padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: 30px; background: var(--charcoal); color: #fff; }
+  .tk-ais__advisor-h3 { margin-top: 0.4rem; font-size: clamp(1.3rem, 2vw, 1.65rem); line-height: 1.12; letter-spacing: -0.035em; font-weight: 600; }
+  .tk-ais__advisor-text { margin-top: 0.75rem; max-width: 40rem; font-size: 1.0625rem; line-height: 1.6; color: #e1e3e8; }
 
-  @media (min-width: 768px) {
-    .article-section-heading {
-      font-size: 3rem;
-    }
-  }
+  .tk-ais__steps { margin-top: 2.5rem; border-top: 2px solid var(--navy); list-style: none; padding: 0; }
+  .tk-ais__steps li { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: 2.5rem; padding-block: 1.75rem; border-bottom: 1px solid var(--hairline); }
+  .tk-ais__step-h3 { font-size: clamp(1.2rem, 1.7vw, 1.4rem); line-height: 1.2; letter-spacing: -0.03em; font-weight: 600; color: var(--navy); text-wrap: balance; }
+  .tk-ais__step-text { max-width: 40rem; font-size: 1.0625rem; line-height: 1.65; color: var(--ais-body); }
+  .tk-ais__warn { margin-top: 1.5rem; padding: 1.4rem 1.6rem; border-radius: 24px; background: var(--key-blue-soft); font-size: 1.0625rem; line-height: 1.6; color: var(--ais-body); }
+  .tk-ais__warn strong { color: var(--navy); font-weight: 600; }
 
-  @media (min-width: 1280px) {
-    .article-section-heading {
-      font-size: 3.5rem;
-    }
-  }
+  .tk-ais__tint { margin-top: clamp(4.5rem, 8vw, 7rem); padding: clamp(2rem, 5vw, 3.75rem); border-radius: 36px; background: var(--off-white); scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+  .tk-ais__helps { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2rem; }
+  .tk-ais__helps .v6-tile { background: #fff; }
+  .tk-ais__helps .v6-tile .v6-tile__text { color: var(--ais-body); }
+  .tk-ais__helps .v6-tile--navy { background: var(--navy); }
+  .tk-ais__helps .v6-tile--navy .v6-tile__text { color: var(--ais-on-navy); }
+  .tk-ais__helps .v6-tile--navy .v6-tile__icon { background: var(--green); color: var(--navy); }
+  .tk-ais__helps .v6-tile .v6-tile__icon { background: var(--off-white); }
 
-  .ai-spark-icon {
-    transform-origin: center;
-    animation: ai-spark-twinkle 4.2s ease-in-out infinite;
-    will-change: transform;
-  }
+  .tk-ais__acc { margin-top: 2.25rem; }
+  .tk-ais__acc :global(.v6-acc__panel p) { font-size: 1.0625rem; line-height: 1.65; color: var(--ais-body); }
+  .tk-ais__sources { margin-top: 2rem; border-top: 1px solid var(--hairline); }
+  .tk-ais__sources li { border-bottom: 1px solid var(--hairline); }
+  .tk-ais__sources a { display: flex; justify-content: space-between; align-items: center; gap: 1.25rem; min-height: 4.25rem; padding-block: 1rem; }
+  .tk-ais__sources a i { display: grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: 999px; background: var(--off-white); color: var(--navy); transition: background-color 0.3s, color 0.3s; }
+  .tk-ais__sources a:hover i { background: var(--navy); color: #fff; }
+  .tk-ais__source-title { display: block; font-weight: 600; line-height: 1.35; color: var(--charcoal); }
+  .tk-ais__source-pub { display: block; margin-top: 0.25rem; font-size: 0.85rem; line-height: 1.45; color: var(--ais-meta); }
 
+  .tk-ais__final-inner { display: grid; justify-items: center; text-align: center; }
+  .ai-spark-icon { width: 2.5rem; height: 2.5rem; transform-origin: center; animation: ai-spark-twinkle 4.2s ease-in-out infinite; }
+  .tk-ais__final-h2 { margin-top: 1.25rem; max-width: 16ch; font-size: clamp(2.4rem, 5.4vw, 5rem); line-height: 1; letter-spacing: -0.055em; font-weight: 600; text-wrap: balance; }
+  .tk-ais__final-h2 .block { color: #8cc3ec; }
+  .tk-ais__final-text { margin-top: 1.4rem; max-width: 36rem; font-size: 1.125rem; line-height: 1.6; color: var(--ais-on-navy); }
   @keyframes ai-spark-twinkle {
-    0%,
-    18%,
-    100% {
-      transform: rotate(0deg) scale(1);
-    }
-
-    7% {
-      transform: rotate(10deg) scale(1.18);
-    }
-
-    12% {
-      transform: rotate(-4deg) scale(0.97);
-    }
+    0%, 18%, 100% { transform: rotate(0deg) scale(1); }
+    7% { transform: rotate(10deg) scale(1.18); }
+    12% { transform: rotate(-4deg) scale(0.97); }
   }
 
+  @media (max-width: 1100px) {
+    .tk-ais__short-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .tk-ais__short-grid > div { grid-column: 1; }
+    .tk-ais__note p { margin-left: 0; }
+    .tk-ais__journey { grid-template-columns: 1fr 1fr; }
+    .tk-ais__steps li { grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 1.75rem; }
+  }
+  @media (max-width: 900px) {
+    .tk-ais__short { margin-top: 2.5rem; padding-block: 2rem; }
+    .tk-ais__short-text { font-size: 1.0625rem; }
+    .tk-ais__note { padding-top: 1.5rem; }
+    .tk-ais__compare { grid-template-columns: 1fr; }
+    .tk-ais__mode, .tk-ais__gate, .tk-ais__advisor { border-radius: 24px; }
+    .tk-ais__evidence { grid-template-columns: 1fr; }
+    .tk-ais__navy, .tk-ais__tint { margin-inline: calc(var(--gutter) * -1); padding: 2.75rem var(--gutter); border-radius: 0; }
+    .tk-ais__facts { grid-template-columns: 1fr; }
+    .tk-ais__gate { grid-template-columns: 1fr; gap: 1rem; }
+    .tk-ais__checks { grid-template-columns: 1fr; }
+    .tk-ais__row { grid-template-columns: 1fr; gap: 0.5rem; padding-block: 1.4rem; }
+    .tk-ais__scan-inner { grid-template-columns: 1fr; }
+    .tk-ais__scan-inner .v6-btn { justify-content: center; }
+    .tk-ais__journey { display: flex; gap: 0.6rem; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+    .tk-ais__journey::-webkit-scrollbar { display: none; }
+    .tk-ais__journey li { flex: none; width: min(72vw, 16rem); scroll-snap-align: start; }
+    .tk-ais__advisor { flex-direction: column; gap: 1rem; }
+    .tk-ais__steps li { grid-template-columns: 1fr; gap: 0.5rem; padding-block: 1.4rem; }
+    .tk-ais__warn { padding: 1.25rem 1.25rem; }
+    .tk-ais__helps { grid-template-columns: 1fr; }
+    .tk-ais__final-inner .v6-cta__actions { align-self: stretch; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .reading-progress span,
-    .motion-card,
-    .motion-card img {
-      transition: none !important;
-    }
-
-    .ai-spark-icon {
-      animation: none !important;
-    }
+    .ai-spark-icon { animation: none !important; }
   }
 </style>

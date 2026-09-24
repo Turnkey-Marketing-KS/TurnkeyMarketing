@@ -1,21 +1,86 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
+import { arrow, iconSrc, split } from "@/lib/v6";
+
+// Helpful places to go next
+const links = [
+  { label: "Services", href: "/services", icon: "target" },
+  { label: "Results", href: "/results", icon: "report" },
+  { label: "Resources", href: "/resources", icon: "weekly-planner" },
+  { label: "About", href: "/about", icon: "location" },
+  { label: "Contact", href: "/contact", icon: "phone" },
+];
 ---
 
-<BaseLayout
+<V6Layout
   title="Page Not Found — Turnkey Marketing"
   description="The page you are looking for does not exist or has moved."
   path="/404"
   noindex
+  dock={false}
+  class="tk-404"
 >
-  <section class="container-page py-32 text-center">
-    <p class="eyebrow">404</p>
-    <h1 class="display-2 mt-4">Page not found</h1>
-    <p class="mt-3 text-muted-foreground">
-      The page you're looking for doesn't exist or has moved.
-    </p>
-    <div class="mt-8">
-      <a href="/" class="btn-primary">Back to home</a>
+  <section class="tk-404__main">
+    <div class="v6-wrap tk-404__grid">
+      <div class="tk-404__intro">
+        <p class="tk-404__code" data-fade>404</p>
+        <h1 class="tk-404__title" data-words set:html={split([{ t: "Page" }, { t: "not found", accent: true }])} />
+        <p class="tk-404__text" data-fade style="--d:2">
+          The page you're looking for doesn't exist or has moved.
+        </p>
+        <div class="tk-404__actions" data-fade style="--d:3">
+          <a href="/" class="v6-btn v6-btn--navy v6-btn--lg"><span>Back to home</span><i set:html={arrow} /></a>
+        </div>
+      </div>
+
+      <nav class="tk-404__links" aria-label="Popular pages" data-fade style="--d:3">
+        <ul>
+          {links.map((link) => (
+            <li>
+              <a href={link.href} class="tk-404__link">
+                <span class="tk-404__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(link.icon)})`}></span></span>
+                <span class="tk-404__label">{link.label}</span>
+                <i class="tk-404__go" set:html={arrow} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </section>
-</BaseLayout>
+</V6Layout>
+
+<style>
+  .tk-404__main { padding-block: clamp(4rem, 9vw, 8rem) var(--space); }
+  /* Desktop: message on the left, a list of places to go on the right */
+  .tk-404__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(3rem, 7vw, 7rem); align-items: center; }
+  .tk-404__intro { display: grid; justify-items: start; }
+  .tk-404__code { font-size: clamp(7rem, 17vw, 15rem); font-weight: 700; line-height: 0.82; letter-spacing: -0.07em; background: linear-gradient(120deg, var(--navy) 10%, var(--key-blue) 60%, var(--green) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+  .tk-404__title { margin-top: clamp(1.5rem, 3vw, 2.5rem); font-size: clamp(2.8rem, 5.2vw, 5.25rem); line-height: 1; letter-spacing: -0.055em; font-weight: 600; text-wrap: balance; }
+  .tk-404__text { margin-top: 1.25rem; max-width: 30rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: var(--muted); }
+  .tk-404__actions { margin-top: 2.25rem; }
+
+  .tk-404__links ul { border-top: 1px solid var(--hairline); }
+  .tk-404__link { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) auto; gap: 1.25rem; align-items: center; padding-block: 1.15rem; border-bottom: 1px solid var(--hairline); transition: color 0.3s; }
+  .tk-404__icon { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: var(--off-white); color: var(--navy); transition: background-color 0.35s, color 0.35s; }
+  .tk-404__icon .v6-icon { width: 1.4rem; height: 1.4rem; }
+  .tk-404__label { font-size: clamp(1.35rem, 2vw, 1.75rem); font-weight: 600; letter-spacing: -0.04em; }
+  .tk-404__go { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; color: var(--navy); transition: transform 0.5s var(--ease), background-color 0.35s, color 0.35s; }
+  .tk-404__link:hover { color: var(--navy); }
+  .tk-404__link:hover .tk-404__icon { background: var(--navy); color: #fff; }
+  .tk-404__link:hover .tk-404__go { transform: translateX(4px); background: var(--green); color: var(--charcoal); }
+
+  @media (max-width: 900px) {
+    .tk-404__main { padding-block: 2.5rem 4rem; }
+    .tk-404__grid { grid-template-columns: 1fr; gap: 2.75rem; }
+    .tk-404__code { font-size: clamp(6rem, 34vw, 9rem); }
+    .tk-404__title { margin-top: 1.25rem; font-size: clamp(2.5rem, 11vw, 3.25rem); }
+    .tk-404__text { font-size: 1.05rem; }
+    .tk-404__actions { justify-self: stretch; margin-top: 1.75rem; }
+    .tk-404__actions .v6-btn { width: 100%; justify-content: center; }
+    .tk-404__link { grid-template-columns: 2.75rem minmax(0, 1fr) auto; gap: 1rem; padding-block: 0.8rem; }
+    .tk-404__icon { width: 2.75rem; height: 2.75rem; }
+    .tk-404__icon .v6-icon { width: 1.2rem; height: 1.2rem; }
+    .tk-404__label { font-size: 1.3rem; }
+  }
+</style>

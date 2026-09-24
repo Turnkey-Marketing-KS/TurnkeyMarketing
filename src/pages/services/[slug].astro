@@ -1,12 +1,8 @@
 ---
-import {
-  ArrowRight,
-  Check,
-  ChevronRight,
-  Star,
-  X,
-} from "lucide-react";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import V6Layout from "@/components/v6/V6Layout.astro";
+import V6PageHero from "@/components/v6/V6PageHero.astro";
+import SolidPhoneIcon from "@/components/site/SolidPhoneIcon.astro";
+import { arrow, iconSrc, phoneHref, phoneLabel, serviceIcons, split } from "@/lib/v6";
 import { CONSULTATION_URL, services, type Service } from "@/lib/services";
 import { getServiceDetail } from "@/lib/service-details";
 
@@ -24,8 +20,6 @@ interface Props {
 const { service } = Astro.props;
 const detail = getServiceDetail(service.slug);
 const servicePath = `/services/${service.slug}`;
-const accent = detail.accent ?? "blue";
-const accentColor = accent === "green" ? "var(--green)" : "var(--key-blue)";
 const hero = detail.hero;
 const hasHeroSubhead = hero.subhead.trim().length > 0;
 const showHeroEyebrow = service.slug !== "directtrack-marketing";
@@ -114,458 +108,437 @@ const faqSchema = {
     },
   })),
 };
+const isFlagship = Boolean(service.featured);
+// Real shop and team photos for each service (the old 3D renders stay only as the social share image).
+const heroPhotos: Record<string, { src: string; alt: string; width: number; height: number; position?: string }> = {
+  "vip-marketing-manager": { src: "/site-media/team-turnkey-2025.webp", alt: "The Turnkey Marketing team", width: 1400, height: 933, position: "50% 40%" },
+  "directtrack-marketing": { src: "/site-media/hero-shop-keys.webp", alt: "Auto repair technician handing car keys back to a smiling customer outside the shop", width: 1999, height: 1333, position: "62% 50%" },
+  "marketing-consulting": { src: "/site-media/mikes-auto-works.webp", alt: "Mike's Auto Works team member helping a customer at the counter", width: 1200, height: 900, position: "50% 45%" },
+  "direct-mail": { src: "/site-media/tommys-hi-tech-building.webp", alt: "Tommy's Hi-Tech Auto Repair shop exterior", width: 1400, height: 685, position: "50% 50%" },
+  "social-media-marketing": { src: "/site-media/thunderbird-team.webp", alt: "Thunderbird Automotive Specialists team members in the shop", width: 1200, height: 800, position: "50% 40%" },
+  "retention-marketing": { src: "/site-media/hero-thunderbird-shop.webp", alt: "Shop owner helping a customer at the Thunderbird service counter", width: 1200, height: 800, position: "58% 50%" },
+  "digital-marketing": { src: "/site-media/mm-shop.webp", alt: "Technician running a wheel alignment in the shop", width: 1200, height: 834, position: "66% 50%" },
+  "boost-days": { src: "/site-media/hero-shop-pearson.webp", alt: "Technician smiling while working under the hood at Pearson Auto Repair", width: 2000, height: 1333, position: "58% 40%" },
+};
+const heroPhoto = heroPhotos[service.slug];
+// Section headings: the last few words render in key blue. Text is unchanged.
+const accentTail = (text: string) => {
+  const words = text.split(" ");
+  let cut = Math.max(1, Math.round(words.length * 0.55));
+  // Keep a dash with the words before it so the blue part never starts with one
+  if (/^[—–-]$/.test(words[cut] ?? "")) cut += 1;
+  return split([{ t: words.slice(0, cut).join(" ") }, { t: words.slice(cut).join(" "), accent: true }]);
+};
+const heroKicker = showHeroEyebrow ? (hero.badge ? `${service.name} · ${hero.badge}` : service.name) : undefined;
 ---
 
-<BaseLayout
+<V6Layout
   title={service.seoTitle}
   description={service.seoDescription}
   path={servicePath}
   ogTitle={service.seoTitle}
   ogType="website"
-  ogImage={detail.image.src}
+  ogImage={heroPhoto.src}
   schema={[serviceSchema, breadcrumbSchema, faqSchema]}
+  class={isFlagship ? "tk-sd tk-sd--flag" : "tk-sd"}
 >
-  <section class="relative bg-white">
-    <div class="container-page pb-16 pt-8 md:pb-20 md:pt-10">
-      <div data-reveal>
-        <nav aria-label="Breadcrumb" class="flex items-center gap-1.5 text-sm text-muted-foreground">
-          <a href="/services" class="inline-flex min-h-11 items-center transition hover:text-charcoal">Services</a>
-          <ChevronRight className="h-3.5 w-3.5 text-charcoal/35" />
-          <span class="font-medium text-charcoal">{service.name}</span>
-        </nav>
-      </div>
+  <V6PageHero
+    title={hero.headline}
+    accent={hero.headlineAccent}
+    lead={hasHeroSubhead ? hero.subhead : undefined}
+    crumbs={[{ label: "Services", href: "/services" }, { label: service.name }]}
+    kicker={heroKicker}
+    image={heroPhoto}
+    class="tk-sd__hero"
+  >
+    <a
+      href={CONSULTATION_URL}
+      class="v6-btn v6-btn--navy v6-btn--lg"
+      data-track-event="consultation_cta_click"
+      data-track-slug={service.slug}
+      data-track-placement="service_hero"
+    ><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+    <a href="#service-includes" class="v6-link">See what's included <i set:html={arrow} /></a>
+  </V6PageHero>
 
-      <div class="mt-14 md:mt-20 lg:mt-24">
-        {showHeroEyebrow && (
-          <p class="eyebrow flex items-center gap-3" data-reveal style="--reveal-delay: 60ms;">
-            <span class="h-px w-8 md:w-10" style={`background: ${accentColor};`} aria-hidden="true"
-            ></span>
-            <span>
-              {hero.badge ? (
-                <><span class="hidden sm:inline">{service.name} · </span>{hero.badge}</>
-              ) : service.name}
-            </span>
-          </p>
-        )}
-
-        <h1
-          class:list={[
-            "max-w-[22ch] font-display font-semibold text-balance text-charcoal",
-            showHeroEyebrow && "mt-7",
-          ]}
-          style="font-size: clamp(2.6rem, 7.2vw, 5.5rem); line-height: 1.01; letter-spacing: -0.045em; --reveal-delay: 120ms;"
-          data-reveal
-        >
-          {hero.headline}
-          <span class="block text-[var(--key-blue)]">{hero.headlineAccent}</span>
-        </h1>
-      </div>
-
-      <div
-        class:list={[
-          "gap-8",
-          hasHeroSubhead
-            ? "mt-12 grid md:mt-16 lg:grid-cols-12 lg:items-end lg:gap-10"
-            : "mt-8 md:mt-10",
-        ]}
-        data-reveal
-        style="--reveal-delay: 200ms;"
-      >
-        {hasHeroSubhead && (
-          <p class="max-w-[46ch] text-lg leading-relaxed text-charcoal/60 md:text-xl lg:col-span-7">
-            {hero.subhead}
-          </p>
-        )}
-        <div
-          class:list={[
-            "flex flex-col items-start gap-5 sm:flex-row sm:items-center",
-            hasHeroSubhead && "lg:col-span-5 lg:justify-end",
-          ]}
-        >
-          <a
-            href={CONSULTATION_URL}
-            class="btn-primary whitespace-nowrap !px-7 !py-4"
-            data-track-event="consultation_cta_click"
-            data-track-slug={service.slug}
-            data-track-placement="service_hero"
-          >
-            Book a Strategy Call
-            <ArrowRight className="h-4 w-4" />
-          </a>
-          <a
-            href="#service-includes"
-            class="group inline-flex min-h-11 items-center gap-2 whitespace-nowrap font-medium text-charcoal/80 transition hover:text-charcoal"
-          >
-            See what's included
-            <ArrowRight className="motion-arrow h-4 w-4" />
-          </a>
-        </div>
-      </div>
-
-      <div
-        class="mt-16 grid gap-8 border-t border-[var(--hairline)] pt-8 sm:grid-cols-3 md:mt-24 md:gap-12 md:pt-10"
-        data-reveal
-        style="--reveal-delay: 260ms;"
-      >
+  <!-- Hero stats: the flagship gets the gradient border -->
+  <div class="v6-wrap tk-sd__statsWrap">
+    <div class:list={["tk-sd__statsFrame", isFlagship && "v6-glow"]} data-rise>
+      <ul class:list={["tk-sd__stats", isFlagship && "v6-glow__inner"]}>
         {hero.stats.map((stat) => (
+          <li class="tk-sd__stat">
+            <p class="tk-sd__statValue">{stat.value}</p>
+            <p class="tk-sd__statLabel">{stat.label}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Problems -->
+  <section class="v6-sec v6-sec--tint tk-sd__pains">
+    <div class="v6-wrap tk-sd__side">
+      <div class="tk-sd__sideHead">
+        <h2 class="v6-h2 tk-sd__h2" data-words set:html={accentTail(sectionHeadings.problems ?? "You didn't open a shop to spend your nights doing marketing.")} />
+        <p class="v6-lead tk-sd__sub" data-rise>
+          These are the problems shop owners bring us right before they hand this work over.
+        </p>
+      </div>
+      <div class="tk-sd__painBody">
+        <ul class="tk-sd__painList">
+          {detail.pains.map((pain) => (
+            <li data-rise><span class="v6-mark v6-mark--x" aria-hidden="true"></span><p>{pain}</p></li>
+          ))}
+        </ul>
+        <div class="tk-sd__fit" data-rise>
+          <span class="v6-mark v6-mark--check" aria-hidden="true"></span>
           <div>
-            <p class="font-display text-lg font-semibold tracking-tight text-charcoal md:text-xl">
-              {stat.value}
-            </p>
-            <p class="mt-1.5 max-w-[36ch] text-sm leading-relaxed text-muted-foreground">
-              {stat.label}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[var(--off-white)] py-14 md:py-24">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
-        <div class="lg:col-span-5">
-          <p class="eyebrow" style={`color: ${accentColor};`}>Sound familiar?</p>
-          <h2 class="display-3 mt-4 text-balance text-charcoal">
-            {sectionHeadings.problems ?? "You didn't open a shop to spend your nights doing marketing."}
-          </h2>
-          <p class="mt-5 leading-relaxed text-charcoal/65">
-            These are the problems shop owners bring us right before they hand this work over.
-          </p>
-        </div>
-
-        <div class="lg:col-span-7">
-          <div class="space-y-3">
-            {detail.pains.map((pain) => (
-              <div class="flex items-start gap-4 rounded-2xl bg-white p-5 md:p-6">
-                <span class="mt-0.5 inline-flex h-7 w-7 flex-none items-center justify-center rounded-full bg-[var(--off-white)]">
-                  <X className="h-3.5 w-3.5 text-charcoal/55" />
-                </span>
-                <p class="leading-relaxed text-charcoal/75 md:text-lg">{pain}</p>
-              </div>
-            ))}
-
-            <div class="flex items-start gap-4 rounded-2xl bg-[var(--navy)] p-5 text-white md:p-6">
-              <span
-                class="mt-0.5 inline-flex h-7 w-7 flex-none items-center justify-center rounded-full"
-                style={`background: ${accentColor};`}
-              >
-                <Check className="h-3.5 w-3.5 text-white" />
-              </span>
-              <div>
-                <p class="font-display text-lg font-semibold leading-tight">
-                  Where {shortName} fits
-                </p>
-                <p class="mt-1.5 leading-relaxed text-white/75">{detail.bestFor}</p>
-              </div>
-            </div>
+            <p class="tk-sd__fitTitle">Where {shortName} fits</p>
+            <p class="tk-sd__fitText">{detail.bestFor}</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="service-includes" class="bg-white py-14 md:py-24">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
-        <div class="lg:col-span-4">
-          <div class="lg:sticky lg:top-28">
-            <p class="eyebrow" style={`color: ${accentColor};`}>What's included</p>
-            <h2 class="display-3 mt-4 text-balance text-charcoal">
-              {sectionHeadings.included ?? "Everything it takes to make this work. Handled."}
-            </h2>
-            <p class="mt-5 leading-relaxed text-charcoal/65">{service.summary}</p>
-            {supportingResource && (
-              <p class="mt-4 text-sm leading-relaxed text-charcoal/65">
-                {supportingResource.lead}
-                <a
-                  href={supportingResource.href}
-                  class="ml-1 font-semibold text-[var(--navy)] underline decoration-[var(--key-blue)]/35 underline-offset-4 transition hover:decoration-[var(--key-blue)]"
-                >
-                  {supportingResource.label}
-                </a>.
-              </p>
-            )}
-            <a
-              href={CONSULTATION_URL}
-              class="btn-primary mt-7"
-              data-track-event="consultation_cta_click"
-              data-track-slug={service.slug}
-              data-track-placement="service_includes"
-            >
-              Book a Strategy Call
-              <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
+  <!-- What's included -->
+  <section id="service-includes" class="v6-sec tk-sd__inc">
+    <div class="v6-wrap tk-sd__incGrid">
+      <div class="tk-sd__incSide">
+        <div class="tk-sd__incHead">
+          <h2 class="v6-h2 tk-sd__h2" data-words set:html={accentTail(sectionHeadings.included ?? "Everything it takes to make this work. Handled.")} />
+          <p class="v6-lead tk-sd__sub" data-rise>{service.summary}</p>
         </div>
-
-        <div class="lg:col-span-8">
-          <div class="grid gap-4 sm:grid-cols-2">
-            {detail.deliverables.map((item) => (
-              <div class="motion-card rounded-[24px] border border-[var(--hairline)] bg-white p-6 shadow-[0_22px_55px_-48px_rgba(20,22,28,0.48)] md:p-7">
-                <span class="block h-1 w-12 rounded-full" style={`background: ${accentColor};`} aria-hidden="true"></span>
-                <h3 class="mt-5 font-display text-xl font-semibold leading-tight tracking-normal text-charcoal">
-                  {item.title}
-                </h3>
-                <p class="mt-2 leading-relaxed text-muted-foreground">{item.description}</p>
-              </div>
-            ))}
-          </div>
-          {detail.scope && (
-            <aside class="mt-5 rounded-[24px] border border-[rgba(63,140,203,0.24)] bg-[var(--key-blue-soft)] p-6 md:p-7" aria-label={`${shortName} scope`}>
-              <p class="font-display text-xl font-semibold leading-tight tracking-normal text-[var(--navy)]">
-                {detail.scope.title}
-              </p>
-              <p class="mt-3 max-w-[68ch] leading-relaxed text-charcoal/70">
-                {detail.scope.description}
-              </p>
-            </aside>
+        <div class="tk-sd__incAside" data-rise>
+          {supportingResource && (
+            <p class="tk-sd__resource">
+              {supportingResource.lead}
+              <a href={supportingResource.href}>{supportingResource.label}</a>.
+            </p>
           )}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[var(--charcoal)] py-14 text-white md:py-24">
-    <div class="container-page">
-      <div class="max-w-3xl">
-        <p class="eyebrow" style={`color: ${accentColor};`}>How it works</p>
-        <h2 class="display-3 mt-4 text-balance text-white">
-          {sectionHeadings.process ?? "Simple on purpose. You run the shop — we run the plan."}
-        </h2>
-      </div>
-
-      <div class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
-        {detail.process.map((step) => (
-          <div class="border-t border-white/15 pt-7">
-            <p class="font-display text-2xl font-semibold leading-tight tracking-normal text-white">
-              {step.title}
-            </p>
-            <p class="mt-3 leading-relaxed text-white/65">{step.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-white py-14 md:py-24">
-    <div class="container-page">
-      <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
-        <div class="lg:col-span-7">
-          <div class="flex items-center gap-1" aria-hidden="true">
-            {[0, 1, 2, 3, 4].map(() => (
-              <Star className="h-5 w-5 fill-[var(--green)] text-[var(--green)]" />
-            ))}
-          </div>
-          <blockquote class="mt-6 font-display text-2xl font-semibold leading-snug tracking-tight text-charcoal md:text-4xl md:leading-[1.18]">
-            “{detail.testimonial.quote}”
-          </blockquote>
-          <p class="mt-7 font-semibold text-charcoal">{detail.testimonial.name}</p>
-          {detail.testimonial.detail !== detail.testimonial.name && (
-            <p class="mt-1 text-sm text-muted-foreground">{detail.testimonial.detail}</p>
-          )}
-        </div>
-
-        <div class="lg:col-span-5">
-          <div class="rounded-[28px] bg-[var(--off-white)] p-7 md:p-9">
-            <div class="space-y-6">
-              {trustStats.map((stat, index) => (
-                <div class:list={[index > 0 && "border-t border-[var(--hairline)] pt-6"]}>
-                  <p class="font-display text-3xl font-semibold tracking-tight text-charcoal">
-                    {stat.value}
-                  </p>
-                  <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-            <a
-              href="/results"
-              class="group mt-8 inline-flex min-h-11 items-center gap-2 font-medium text-charcoal"
-            >
-              See all shop results
-              <ArrowRight className="motion-arrow h-4 w-4" />
-            </a>
-            {relatedProof.length > 0 && (
-              <div class="mt-7 border-t border-[var(--hairline)] pt-6">
-                <p class="text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--key-blue)]">
-                  Documented related proof
-                </p>
-                <ul class="mt-3 space-y-2.5">
-                  {relatedProof.map((proof) => (
-                    <li>
-                      <a
-                        href={proof.href}
-                        class="group/proof inline-flex min-h-11 items-center gap-2 text-sm font-semibold leading-snug text-[var(--navy)] underline decoration-[var(--key-blue)]/30 underline-offset-4 transition hover:decoration-[var(--key-blue)]"
-                      >
-                        <span>{proof.label}</span>
-                        <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover/proof:translate-x-0.5" aria-hidden="true" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[var(--off-white)] py-14 md:py-24">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
-        <div class="lg:col-span-5">
-          <p class="eyebrow" style={`color: ${accentColor};`}>Questions</p>
-          <h2 class="display-3 mt-4 text-balance text-charcoal">
-            What shop owners ask about {shortName}.
-          </h2>
-          <p class="mt-5 leading-relaxed text-charcoal/65">
-            If your question isn't here, bring it to the call — that's what it's for.
-          </p>
           <a
             href={CONSULTATION_URL}
-            class="btn-blue mt-7"
+            class="v6-btn v6-btn--navy"
             data-track-event="consultation_cta_click"
             data-track-slug={service.slug}
-            data-track-placement="service_faq"
-          >
-            Book a Strategy Call
-            <ArrowRight className="h-4 w-4" />
-          </a>
+            data-track-placement="service_includes"
+          ><span>Book a Strategy Call</span><i set:html={arrow} /></a>
         </div>
+      </div>
 
-        <div class="space-y-3 lg:col-span-7">
-          {detail.faqs.map((item, index) => (
-            <details
-              class="faq-item overflow-hidden rounded-2xl border hairline bg-white"
-              open={index === 0}
-            >
-              <summary class="flex w-full cursor-pointer items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--cream)] md:px-6 md:py-5">
-                <span class="pr-5 font-display text-base font-semibold text-charcoal md:pr-8 md:text-lg">
-                  {item.q}
-                </span>
-                <span
-                  class="inline-flex h-8 w-8 flex-none items-center justify-center rounded-full"
-                  style="background: var(--off-white);"
-                >
-                  <span class="faq-plus">+</span>
-                  <span class="faq-minus">−</span>
-                </span>
-              </summary>
-              <div class="px-5 pb-5 leading-relaxed text-charcoal/70 md:px-6 md:pb-6">
-                {item.a}
-              </div>
-            </details>
+      <div class="tk-sd__incMain">
+        <div class="v6-swipe tk-sd__deliv" style="--cols:2">
+          {detail.deliverables.map((item) => (
+            <div class="v6-tile tk-sd__tile" data-rise>
+              <h3 class="v6-tile__title">{item.title}</h3>
+              <p class="v6-tile__text">{item.description}</p>
+            </div>
           ))}
         </div>
+        {detail.scope && (
+          <div class:list={["tk-sd__scopeFrame", isFlagship && "v6-glow"]} data-rise>
+            <aside class:list={["tk-sd__scope", isFlagship && "v6-glow__inner"]} aria-label={`${shortName} scope`}>
+              <span class="tk-sd__scopeIcon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[service.slug] ?? "target")})`}></span></span>
+              <div>
+                <p class="tk-sd__scopeTitle">{detail.scope.title}</p>
+                <p class="tk-sd__scopeText">{detail.scope.description}</p>
+              </div>
+            </aside>
+          </div>
+        )}
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-24">
-    <div class="container-page">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <p class="eyebrow" style={`color: ${accentColor};`}>{detail.relatedServicesHeading?.eyebrow ?? "Pairs well with"}</p>
-          <h2 class="display-3 mt-4 text-balance text-charcoal">{detail.relatedServicesHeading?.title ?? "Shops rarely run just one piece."}</h2>
-          {detail.relatedServicesHeading && <p class="mt-5 max-w-2xl leading-relaxed text-charcoal/65">{detail.relatedServicesHeading.description}</p>}
-        </div>
-        <a href="/services" class="group inline-flex min-h-11 items-center gap-2 font-medium text-charcoal">
-          All services
-          <ArrowRight className="motion-arrow h-4 w-4" />
-        </a>
+  <!-- How it works -->
+  <section class="v6-sec v6-sec--navy tk-sd__proc">
+    <div class="v6-wrap">
+      <h2 class="v6-h2 tk-sd__procTitle" data-words set:html={accentTail(sectionHeadings.process ?? "Simple on purpose. You run the shop — we run the plan.")} />
+      <ol class="tk-sd__steps">
+        {detail.process.map((step) => (
+          <li class="tk-sd__step" data-rise>
+            <span class="tk-sd__stepNum" aria-hidden="true"></span>
+            <p class="tk-sd__stepTitle">{step.title}</p>
+            <p class="tk-sd__stepText">{step.description}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="v6-sec tk-sd__proof">
+    <div class="v6-wrap tk-sd__proofGrid">
+      <figure class="tk-sd__quote" data-rise>
+        <span class="v6-stars tk-sd__stars" aria-hidden="true">★★★★★</span>
+        <blockquote>“{detail.testimonial.quote}”</blockquote>
+        <figcaption>
+          <strong>{detail.testimonial.name}</strong>
+          {detail.testimonial.detail !== detail.testimonial.name && <span>{detail.testimonial.detail}</span>}
+        </figcaption>
+      </figure>
+
+      <div class="tk-sd__trust" data-rise>
+        <ul class="tk-sd__trustStats">
+          {trustStats.map((stat) => (
+            <li>
+              <p class="tk-sd__trustNum">{stat.value}</p>
+              <p class="tk-sd__trustLabel">{stat.label}</p>
+            </li>
+          ))}
+        </ul>
+        <a href="/results" class="v6-link tk-sd__trustLink">See all shop results <i set:html={arrow} /></a>
+        {relatedProof.length > 0 && (
+          <div class="tk-sd__related">
+            <p class="tk-sd__relatedLabel">Documented related proof</p>
+            <ul>
+              {relatedProof.map((proof) => (
+                <li><a href={proof.href} class="tk-sd__relatedLink"><span>{proof.label}</span><i set:html={arrow} /></a></li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
+    </div>
+  </section>
 
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
+  <!-- FAQ: answers stay in the HTML, only visually collapsed -->
+  <section class="v6-faq tk-sd__faq">
+    <div class="v6-wrap v6-faq__grid">
+      <div class="tk-sd__faqSide">
+        <h2 class="v6-h2 tk-sd__faqTitle" data-words set:html={split([{ t: "What shop owners ask about" }, { t: `${shortName}.`, accent: true }])} />
+        <p class="v6-lead tk-sd__faqNote" data-rise>
+          If your question isn't here, bring it to the call — that's what it's for.
+        </p>
+        <a
+          href={CONSULTATION_URL}
+          class="v6-btn v6-btn--navy tk-sd__faqBtn"
+          data-track-event="consultation_cta_click"
+          data-track-slug={service.slug}
+          data-track-placement="service_faq"
+        ><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+      </div>
+      <ul class="v6-acc tk-sd__acc">
+        {detail.faqs.map((item, index) => (
+          <li class:list={["v6-acc__item", index === 0 && "is-open"]} data-acc-item>
+            <button type="button" class="v6-acc__head" aria-expanded={index === 0 ? "true" : "false"} data-acc-head><span>{item.q}</span><span class="v6-acc__icon" aria-hidden="true"></span></button>
+            <div class="v6-acc__panel"><div><p>{item.a}</p></div></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Related services -->
+  <section class="v6-sec tk-sd__pairs">
+    <div class="v6-wrap">
+      <div class="v6-row-head tk-sd__pairsHead">
+        <div>
+          <h2 class="v6-h2 tk-sd__h2" data-words set:html={accentTail(detail.relatedServicesHeading?.title ?? "Shops rarely run just one piece.")} />
+          {detail.relatedServicesHeading && <p class="v6-lead tk-sd__sub" data-rise>{detail.relatedServicesHeading.description}</p>}
+        </div>
+        <a href="/services" class="v6-link">All services <i set:html={arrow} /></a>
+      </div>
+      <div class="v6-swipe tk-sd__pairGrid" style="--cols:3">
         {relatedServices.map((related) => (
-            <a
-              href={`/services/${related.slug}`}
-              class="motion-card group/related relative flex min-h-[260px] flex-col overflow-hidden rounded-[28px] border border-[rgba(63,140,203,0.22)] bg-white p-6 shadow-[0_24px_58px_-42px_rgba(35,46,102,0.62)] transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-[var(--navy)] hover:bg-[var(--navy)] hover:shadow-[0_30px_70px_-38px_rgba(35,46,102,0.82)] md:p-7"
-            >
-              <span class="pointer-events-none absolute inset-x-7 top-0 h-px bg-gradient-to-r from-transparent via-[var(--key-blue)]/75 to-transparent transition-colors group-hover/related:via-[var(--green)]"></span>
-              <span class="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full bg-[var(--key-blue-soft)]/75 blur-3xl transition-colors group-hover/related:bg-[var(--key-blue)]/25"></span>
-
-              <div class="relative z-10 flex items-center justify-between gap-4">
-                <p class="text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--key-blue)] transition-colors group-hover/related:text-[var(--green)]">
-                  {detail.relatedServicesHeading?.cardLabel ?? "Recommended pairing"}
-                </p>
-                <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--navy)]/10 bg-white text-[var(--navy)] shadow-[0_10px_24px_-18px_rgba(35,46,102,0.7)] transition duration-300 group-hover/related:border-white/12 group-hover/related:bg-white/10 group-hover/related:text-white">
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/related:translate-x-0.5" aria-hidden="true" />
-                </span>
-              </div>
-
-              <div class="relative z-10 mt-7">
-                <h3 class="font-display text-[1.4rem] font-semibold leading-tight tracking-normal text-charcoal transition-colors group-hover/related:text-white">
-                  {related.shortName ?? related.name}
-                </h3>
-                <p class="mt-3 line-clamp-3 leading-relaxed text-muted-foreground transition-colors group-hover/related:text-white/68">
-                  {related.tagline}
-                </p>
-              </div>
-
-              <span class="relative z-10 mt-auto inline-flex items-center gap-2 pt-7 text-sm font-semibold text-[var(--navy)] transition-colors group-hover/related:text-white">
-                Explore service
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/related:translate-x-1" />
-              </span>
-            </a>
+          <a href={`/services/${related.slug}`} class="v6-tile tk-sd__pair" data-rise>
+            <span class="tk-sd__pairTop">
+              <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[related.slug] ?? "target")})`}></span></span>
+              <span class="tk-sd__pairLabel">{detail.relatedServicesHeading?.cardLabel ?? "Recommended pairing"}</span>
+            </span>
+            <h3 class="v6-tile__title tk-sd__pairName">{related.shortName ?? related.name}</h3>
+            <p class="v6-tile__text">{related.tagline}</p>
+            <span class="v6-link v6-tile__go tk-sd__pairGo">Explore service <i set:html={arrow} /></span>
+          </a>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="container-page pb-16 pt-2 md:pb-24">
-    <div class="vip-shader-card relative overflow-hidden rounded-[32px] p-8 text-white md:p-14">
-      <div class="relative mx-auto flex max-w-3xl flex-col items-center text-center">
-        <p class="eyebrow text-white/70">Next step</p>
-        <h2 class="display-2 mt-4 text-balance text-white">
-          See how {shortName} would fit your shop.
-        </h2>
-        <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-white/78">
+  <!-- Next step -->
+  <section class="v6-cta tk-sd__cta">
+    <div class="v6-wrap">
+      <div class="v6-cta__panel" data-rise>
+        <p class="v6-kicker">Next step</p>
+        <h2 class="v6-cta__title tk-sd__ctaTitle" data-words set:html={split([{ t: `See how ${shortName}` }, { t: "would fit your shop.", accent: true }])} />
+        <p class="v6-cta__text">
           Book a Strategy Call — we'll look at your market, your current marketing, and whether
           this is the right move for your shop.
         </p>
-        <div class="mt-8 flex flex-col items-center gap-5 sm:flex-row">
+        <div class="v6-cta__actions">
           <a
             href={CONSULTATION_URL}
-            class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 font-medium text-[var(--navy)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.5)]"
+            class="v6-btn v6-btn--navy v6-btn--lg"
             data-track-event="consultation_cta_click"
             data-track-slug={service.slug}
             data-track-placement="service_bottom"
-          >
-            Book a Strategy Call
-            <ArrowRight className="h-4 w-4" />
-          </a>
-          <a
-            href="/results"
-            class="group inline-flex min-h-11 items-center gap-2 font-medium text-white/85 transition hover:text-white"
-          >
-            See client results
-            <ArrowRight className="motion-arrow h-4 w-4" />
-          </a>
+          ><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+          <a href={phoneHref} class="v6-btn v6-btn--ghost v6-btn--lg" data-track-event="phone_click" data-track-placement="service_bottom"><SolidPhoneIcon class="h-6 w-6" /><span>{phoneLabel}</span></a>
         </div>
+        <a href="/results" class="v6-link tk-sd__ctaResults">See client results <i set:html={arrow} /></a>
       </div>
     </div>
   </section>
-</BaseLayout>
+</V6Layout>
 
 <style>
-  .faq-item > summary {
-    list-style: none;
-  }
+  /* Hero */
+  :global(.tk-sd__hero .v6-ph__title) { max-width: 15ch; }
+  :global(.tk-sd__hero .v6-kicker) { display: inline-flex; align-items: center; gap: 0.6rem; }
+  :global(.tk-sd__hero .v6-kicker)::before { content: ""; width: 1.75rem; height: 2px; border-radius: 2px; background: var(--grad); }
 
-  .faq-item > summary::-webkit-details-marker {
-    display: none;
-  }
+  /* Stats */
+  .tk-sd__statsWrap { margin-top: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: clamp(3.5rem, 7vw, 6.5rem); }
+  .tk-sd__inc .v6-link, .tk-sd__proof .v6-link, .tk-sd__pairs .v6-link, .tk-sd__cta .v6-link, :global(.tk-sd__hero .v6-ph__actions .v6-link) { min-height: 2.75rem; }
+  :global(.tk-sd__hero .v6-crumbs a) { display: inline-flex; align-items: center; min-height: 2.75rem; }
+  .tk-sd__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 4rem); padding-block: clamp(1.75rem, 3vw, 2.5rem); border-bottom: 1px solid var(--hairline); }
+  .tk-sd__stat { display: grid; gap: 0.5rem; align-content: start; }
+  .tk-sd__statValue { font-size: clamp(1.5rem, 2.4vw, 2.2rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1.05; color: var(--navy); }
+  .tk-sd__stat:first-child .tk-sd__statValue { color: var(--key-blue); }
+  .tk-sd__statLabel { max-width: 30ch; font-size: 0.95rem; line-height: 1.55; color: var(--muted); }
+  :global(.tk-sd--flag) .tk-sd__stats { border-bottom: 0; padding: clamp(1.75rem, 3.5vw, 2.75rem); }
+  :global(.tk-sd--flag) .tk-sd__stat + .tk-sd__stat { padding-left: clamp(1.5rem, 4vw, 4rem); border-left: 1px solid var(--hairline); }
+  :global(.tk-sd--flag) .tk-sd__stats { gap: 0; }
+  :global(.tk-sd--flag) .tk-sd__stat { padding-right: 1rem; }
 
-  .faq-minus {
-    display: none;
-  }
+  /* Shared split: sticky title beside content */
+  .tk-sd__h2 { font-size: clamp(2.1rem, 3.8vw, 3.75rem); max-width: 16ch; }
+  .tk-sd__sub { margin-top: 1.25rem; }
+  .tk-sd__side, .tk-sd__incGrid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 6vw, 6.5rem); align-items: start; }
+  .tk-sd__sideHead, .tk-sd__incSide { position: sticky; top: 7.5rem; }
 
-  .faq-item[open] .faq-plus {
-    display: none;
-  }
+  /* Problems */
+  .tk-sd__painList { border-top: 1px solid rgba(20, 22, 28, 0.12); }
+  .tk-sd__painList li { display: flex; gap: 1.1rem; align-items: flex-start; padding-block: clamp(1.4rem, 2.6vw, 2rem); border-bottom: 1px solid rgba(20, 22, 28, 0.12); }
+  .tk-sd__painList p { font-size: clamp(1.1rem, 1.5vw, 1.35rem); line-height: 1.45; letter-spacing: -0.015em; color: var(--charcoal); }
+  .tk-sd__painList .v6-mark { margin-top: 0.1rem; }
+  .tk-sd__painList .v6-mark--x { background: #ffe6e1; }
+  .tk-sd__fit { display: flex; gap: 1.1rem; align-items: flex-start; margin-top: clamp(1.5rem, 3vw, 2.25rem); padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: 30px; background: var(--navy); color: #fff; }
+  .tk-sd__fit .v6-mark { margin-top: 0.15rem; }
+  .tk-sd__fitTitle { font-size: clamp(1.25rem, 1.8vw, 1.55rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; }
+  .tk-sd__fitText { margin-top: 0.5rem; line-height: 1.6; color: rgba(255, 255, 255, 0.76); }
 
-  .faq-item[open] .faq-minus {
-    display: inline;
+  /* Included */
+  .tk-sd__incAside { display: grid; justify-items: start; gap: 1.25rem; margin-top: 1.75rem; }
+  .tk-sd__resource { max-width: 30rem; font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+  .tk-sd__resource a { margin-left: 0.25rem; font-weight: 600; color: var(--navy); text-decoration: underline; text-decoration-color: rgba(63, 140, 203, 0.45); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: text-decoration-color 0.3s; }
+  .tk-sd__resource a:hover { text-decoration-color: var(--key-blue); }
+  .tk-sd__deliv { counter-reset: tk-deliv; }
+  .tk-sd__tile { counter-increment: tk-deliv; min-height: 14rem; }
+  .tk-sd__tileNum::before { content: counter(tk-deliv, decimal-leading-zero); font-size: 0.9rem; font-weight: 700; color: var(--key-blue); font-variant-numeric: tabular-nums; }
+  .tk-sd__tileNum { display: block; margin-bottom: auto; padding-bottom: 1.5rem; }
+  :global(.tk-sd--flag) .tk-sd__tileNum::before { color: var(--green); }
+  /* Odd counts: the first tile spans the row so the grid never leaves an orphan */
+  .tk-sd__tile:first-child:nth-last-child(odd) { grid-column: 1 / -1; min-height: 0; background: var(--navy); color: #fff; }
+  .tk-sd__tile:first-child:nth-last-child(odd) .v6-tile__text { color: rgba(255, 255, 255, 0.74); max-width: 40rem; }
+  .tk-sd__tile:first-child:nth-last-child(odd) .tk-sd__tileNum::before { color: var(--green); }
+  .tk-sd__scopeFrame { margin-top: clamp(0.75rem, 1.5vw, 1.25rem); }
+  .tk-sd__scope { display: flex; gap: 1.25rem; align-items: flex-start; padding: clamp(1.5rem, 2.6vw, 2.25rem); border-radius: 30px; background: var(--key-blue-soft); }
+  .tk-sd__scopeIcon { flex: none; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: #fff; color: var(--navy); }
+  .tk-sd__scopeIcon .v6-icon { width: 1.5rem; height: 1.5rem; }
+  :global(.tk-sd--flag) .tk-sd__scopeIcon { background: var(--navy); color: var(--green); }
+  .tk-sd__scopeTitle { font-size: clamp(1.25rem, 1.8vw, 1.55rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; color: var(--navy); }
+  .tk-sd__scopeText { margin-top: 0.6rem; max-width: 42rem; line-height: 1.65; color: #3a3f4b; }
+
+  /* Process */
+  .tk-sd__procTitle { max-width: 20ch; }
+  .tk-sd__procTitle :global(.v6-accent) { color: #8cc3ec; }
+  .tk-sd__steps { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3.5vw, 3.5rem); margin-top: clamp(3rem, 6vw, 5rem); counter-reset: tk-step; }
+  .tk-sd__steps::before { content: ""; position: absolute; left: 0; right: 0; top: 1.75rem; height: 2px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.22), var(--green)); }
+  .tk-sd__step { position: relative; display: grid; gap: 0.8rem; align-content: start; counter-increment: tk-step; }
+  .tk-sd__stepNum { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; margin-bottom: 1rem; border-radius: 999px; background: #fff; color: var(--navy); font-weight: 700; font-size: 1.05rem; }
+  .tk-sd__stepNum::before { content: counter(tk-step); }
+  .tk-sd__step:last-child .tk-sd__stepNum { background: var(--green); }
+  .tk-sd__stepTitle { font-size: clamp(1.35rem, 2vw, 1.8rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1.12; text-wrap: balance; }
+  .tk-sd__stepText { max-width: 26rem; line-height: 1.65; color: rgba(255, 255, 255, 0.72); }
+
+  /* Proof */
+  .tk-sd__proofGrid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  .tk-sd__stars { font-size: 1.1rem; }
+  .tk-sd__quote blockquote { margin-top: 1.25rem; font-size: clamp(1.9rem, 3.6vw, 3.4rem); font-weight: 600; letter-spacing: -0.05em; line-height: 1.08; text-wrap: balance; }
+  .tk-sd__quote figcaption { display: grid; gap: 0.2rem; margin-top: 1.75rem; }
+  .tk-sd__quote figcaption strong { font-weight: 600; }
+  .tk-sd__quote figcaption span { font-size: 0.9rem; color: var(--muted); }
+  .tk-sd__trust { padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: 30px; background: var(--off-white); }
+  .tk-sd__trustStats { display: grid; gap: 1.5rem; }
+  .tk-sd__trustStats li + li { padding-top: 1.5rem; border-top: 1px solid var(--hairline); }
+  .tk-sd__trustNum { font-size: clamp(2.2rem, 3.4vw, 3rem); font-weight: 600; letter-spacing: -0.055em; line-height: 1; color: var(--navy); }
+  .tk-sd__trustLabel { margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
+  .tk-sd__trustLink { margin-top: 1.5rem; }
+  .tk-sd__related { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--hairline); }
+  .tk-sd__relatedLabel { font-size: 0.8rem; font-weight: 600; color: var(--key-blue); }
+  .tk-sd__related ul { display: grid; gap: 0.25rem; margin-top: 0.5rem; }
+  .tk-sd__relatedLink { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 2.75rem; font-size: 0.92rem; font-weight: 600; line-height: 1.35; color: var(--navy); }
+  .tk-sd__relatedLink span { text-decoration: underline; text-decoration-color: rgba(63, 140, 203, 0.35); text-underline-offset: 4px; }
+  .tk-sd__relatedLink :global(i) { flex: none; display: inline-grid; transition: transform 0.5s var(--ease); }
+  .tk-sd__relatedLink:hover :global(i) { transform: translateX(3px); }
+
+  /* FAQ */
+  .tk-sd__faqSide { position: sticky; top: 8rem; }
+  .tk-sd__faqTitle { font-size: clamp(2.1rem, 3.8vw, 3.75rem); max-width: 13ch; }
+  .tk-sd__faqNote { margin-top: 1.25rem; max-width: 26rem; }
+  .tk-sd__faqBtn { margin-top: 1.75rem; }
+
+  /* Related */
+  .tk-sd__pairsHead { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+  .tk-sd__pairsHead .tk-sd__sub { max-width: 40rem; }
+  .tk-sd__pair { min-height: 17rem; }
+  .tk-sd__pair:hover { background: var(--navy); color: #fff; }
+  .tk-sd__pair:hover .v6-tile__text { color: rgba(255, 255, 255, 0.74); }
+  .tk-sd__pair:hover .v6-tile__icon { background: var(--green); color: var(--navy); }
+  .tk-sd__pair:hover .tk-sd__pairGo { color: #fff; background-size: 100% 1.5px; }
+  .tk-sd__pairName { margin-top: 0.75rem; }
+  .tk-sd__pairTop { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .tk-sd__pairLabel { font-size: 0.8rem; font-weight: 600; color: var(--key-blue); text-align: right; transition: color 0.4s; }
+  .tk-sd__pair:hover .tk-sd__pairLabel { color: var(--green); }
+
+  /* CTA */
+  .tk-sd__ctaTitle { max-width: 15ch; font-size: clamp(2.5rem, 5.4vw, 5.25rem); }
+  .tk-sd__ctaResults { margin-top: 1.25rem; }
+
+  @media (max-width: 1100px) {
+    .tk-sd__side, .tk-sd__incGrid, .tk-sd__proofGrid { grid-template-columns: 1fr; }
+    .tk-sd__sideHead, .tk-sd__incSide, .tk-sd__faqSide { position: static; }
+  }
+  @media (max-width: 900px) {
+    :global(.tk-sd__hero .v6-ph__media) { aspect-ratio: 4 / 3; }
+    .tk-sd__statsWrap { margin-top: 1rem; margin-bottom: 3rem; }
+    .tk-sd__stats { grid-template-columns: 1fr; gap: 0; padding-block: 0.5rem; }
+    .tk-sd__stat { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 1rem; align-items: baseline; padding-block: 1.1rem; }
+    .tk-sd__stat + .tk-sd__stat { border-top: 1px solid var(--hairline); }
+    .tk-sd__statValue { font-size: 1.3rem; }
+    .tk-sd__statLabel { font-size: 0.88rem; }
+    :global(.tk-sd--flag) .tk-sd__stats { padding: 0.5rem 1.25rem; }
+    :global(.tk-sd--flag) .tk-sd__stat + .tk-sd__stat { padding-left: 0; border-left: 0; }
+    .tk-sd__h2, .tk-sd__faqTitle { font-size: clamp(2rem, 8.6vw, 2.6rem); }
+    .tk-sd__side, .tk-sd__incGrid { gap: 1.75rem; }
+    /* Included: heading, then the swipe rail, then the resource link and button */
+    .tk-sd__incSide { display: contents; }
+    .tk-sd__incHead { order: 1; }
+    .tk-sd__incMain { order: 2; min-width: 0; }
+    .tk-sd__incAside { order: 3; margin-top: 0; justify-items: stretch; }
+    .tk-sd__incAside .v6-btn { justify-content: center; }
+    .tk-sd__tile { min-height: 15rem; }
+    .tk-sd__tile:first-child:nth-last-child(odd) { min-height: 15rem; }
+    .tk-sd__scope { flex-direction: column; gap: 1rem; }
+    .tk-sd__painList li { gap: 0.9rem; padding-block: 1.2rem; }
+    .tk-sd__painList p { font-size: 1.05rem; }
+    .tk-sd__fit { border-radius: 24px; padding: 1.4rem; }
+    .tk-sd__steps { grid-template-columns: 1fr; gap: 2rem; margin-top: 2.5rem; }
+    .tk-sd__steps::before { left: 1.4rem; right: auto; top: 1.4rem; bottom: 1.4rem; width: 2px; height: auto; background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), var(--green)); }
+    .tk-sd__step { grid-template-columns: 2.8rem minmax(0, 1fr); column-gap: 1.1rem; row-gap: 0.4rem; }
+    .tk-sd__stepNum { grid-row: span 2; width: 2.8rem; height: 2.8rem; margin: 0; font-size: 0.95rem; position: relative; z-index: 1; }
+    .tk-sd__stepTitle { font-size: 1.3rem; padding-top: 0.45rem; }
+    .tk-sd__stepText { font-size: 0.98rem; }
+    .tk-sd__quote blockquote { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+    .tk-sd__trust { border-radius: 24px; padding: 1.5rem; }
+    .tk-sd__trustStats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+    .tk-sd__trustStats li + li { padding-top: 0; border-top: 0; padding-left: 0.75rem; border-left: 1px solid var(--hairline); }
+    .tk-sd__trustNum { font-size: 1.7rem; }
+    .tk-sd__trustLabel { font-size: 0.78rem; }
+    .tk-sd__faqBtn { width: 100%; justify-content: center; }
+    .tk-sd__pairsHead { margin-bottom: 1.75rem; }
+    .tk-sd__pair { min-height: 16rem; }
+    .tk-sd__ctaTitle { font-size: clamp(2.2rem, 10vw, 3rem); }
   }
 </style>

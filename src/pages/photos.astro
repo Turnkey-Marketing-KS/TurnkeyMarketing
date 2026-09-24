@@ -1,17 +1,7 @@
 ---
-import {
-  ArrowDown,
-  ArrowRight,
-  Camera,
-  Check,
-  MapPin,
-  Smartphone,
-  Sparkles,
-  Users,
-  Wrench,
-} from "lucide-react";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { CONSULTATION_URL } from "@/lib/services";
+import V6Layout from "@/components/v6/V6Layout.astro";
+import V6Cta from "@/components/v6/V6Cta.astro";
+import { arrow, iconSrc, split } from "@/lib/v6";
 
 const shotList = [
   {
@@ -133,295 +123,327 @@ const breadcrumbSchema = {
     },
   ],
 };
+// Real shop photography that illustrates each part of the shot list.
+const groupPhotos = [
+  { src: "/site-media/thunderbird-team.webp", alt: "Auto repair shop team standing together outside the shop", width: 1200, height: 800, position: "50% 40%" },
+  { src: "/site-media/hero-thunderbird-shop.webp", alt: "Service advisor helping a customer at the front counter", width: 1200, height: 800, position: "50% 50%" },
+  { src: "/site-media/hero-shop-pearson.webp", alt: "Technician working under the hood in a clean service bay", width: 2000, height: 1333, position: "45% 50%" },
+  { src: "/site-media/hero-shop-keys.webp", alt: "Customer handing over car keys outside the shop", width: 1999, height: 1333, position: "60% 50%" },
+];
+
+const gallery = [
+  { src: "/site-media/mikes-auto-works.webp", alt: "Auto repair team member helping a customer at the service counter", width: 1200, height: 900, cls: "tk-ph__shot--a" },
+  { src: "/images/shops/image6.jpg", alt: "Clean auto repair service bays with vehicles ready for work", width: 640, height: 427, cls: "tk-ph__shot--b" },
+  { src: "/images/shops/image2.jpg", alt: "Auto repair technician inspecting the underside of a vehicle", width: 640, height: 427, cls: "tk-ph__shot--c" },
+  { src: "/images/shops/Tommys-hi-tech-building.png", alt: "Auto repair shop exterior with open service bays and visible signage", width: 1814, height: 888, cls: "tk-ph__shot--d" },
+];
+
 ---
 
-<BaseLayout
+<V6Layout
   title="Auto Repair Shop Photo Shot List | Turnkey Marketing"
   description="Use this practical auto repair shop photography checklist to capture your team, customer areas, service bays, repairs, exterior, and community."
   path="/photos"
   ogTitle="The Auto Repair Shop Photo Shot List"
   ogImage="/images/resources/auto-repair-shop-photography.jpg"
   schema={[pageSchema, breadcrumbSchema]}
+  class="tk-photos"
 >
-  <section class="relative overflow-hidden bg-white">
-    <div class="container-page py-10 md:py-16 lg:py-20">
-      <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
-        <div class="lg:col-span-7">
-          <p class="eyebrow text-[var(--key-blue)]">Photo day field guide</p>
-          <h1 class="page-title mt-5 max-w-[11ch] text-balance text-charcoal">
-            Get every photo your shop needs.
-          </h1>
-          <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-charcoal/65 md:text-xl">
-            Customers want to see the people, place, and care behind your shop. Use this shot list
-            to plan one productive photo day—and leave with a library that works across your
-            website, Google profile, social media, ads, direct mail, and recruiting.
-          </p>
-          <div class="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
-            <a href="#shot-list" class="btn-primary w-full sm:w-auto" data-track-event="photo_shot_list_click" data-track-placement="photos_hero">
-              Start the shot list
-              <ArrowDown className="h-4 w-4" aria-hidden="true" />
-            </a>
-            <a
-              href="/resources/auto-repair-shop-photography-guide"
-              class="inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-[var(--navy)] transition hover:text-[var(--key-blue)] sm:justify-start"
-            >
-              Read the full photography guide
-              <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-
-        <div class="relative lg:col-span-5">
-          <div class="overflow-hidden rounded-[30px] bg-[var(--off-white)] p-3 shadow-[0_34px_90px_-54px_rgba(20,22,28,0.5)] md:rounded-[36px] md:p-4">
-            <div class="aspect-[6/5] overflow-hidden rounded-[22px] md:rounded-[28px]">
-              <img
-                src="/images/resources/auto-repair-shop-photography.jpg"
-                alt="Two auto repair shop team members standing outside their shop"
-                width="1200"
-                height="1000"
-                class="h-full w-full object-cover"
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-              />
-            </div>
-          </div>
-          <div class="card-float absolute -bottom-5 left-4 flex items-center gap-3 px-4 py-3 md:-left-6 md:bottom-8 md:px-5 md:py-4">
-            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--green)]/20 text-[var(--navy)]">
-              <Camera className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <div>
-              <p class="text-xs text-charcoal/55">One photo day</p>
-              <p class="text-sm font-semibold text-charcoal">A full marketing library</p>
-            </div>
-          </div>
+  <!-- HERO -->
+  <section class="tk-ph__hero">
+    <div class="v6-wrap tk-ph__hero-grid">
+      <div class="tk-ph__hero-text">
+        <p class="v6-kicker" data-fade>Photo day field guide</p>
+        <h1 class="tk-ph__title" data-words set:html={split([{ t: "Get every photo" }, { t: "your shop needs.", accent: true }])} />
+        <p class="tk-ph__lead" data-fade style="--d:1">
+          Customers want to see the people, place, and care behind your shop. Use this shot list
+          to plan one productive photo day—and leave with a library that works across your
+          website, Google profile, social media, ads, direct mail, and recruiting.
+        </p>
+        <div class="tk-ph__actions" data-fade style="--d:2">
+          <a href="#shot-list" class="v6-btn v6-btn--navy v6-btn--lg" data-track-event="photo_shot_list_click" data-track-placement="photos_hero">
+            <span>Start the shot list</span><i class="tk-ph__down" set:html={arrow} />
+          </a>
+          <a href="/resources/auto-repair-shop-photography-guide" class="v6-link">
+            Read the full photography guide <i set:html={arrow} />
+          </a>
         </div>
       </div>
+
+      <figure class="tk-ph__hero-media" data-fade style="--d:3">
+        <img
+          src="/images/resources/auto-repair-shop-photography.jpg"
+          alt="Two auto repair shop team members standing outside their shop"
+          width="1200"
+          height="1000"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <figcaption class="tk-ph__chip">
+          <span class="tk-ph__chip-icon"><span class="v6-icon" style={`--icon:url(${iconSrc("weekly-planner")})`}></span></span>
+          <span>
+            <span class="tk-ph__chip-small">One photo day</span>
+            <strong>A full marketing library</strong>
+          </span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-14 md:py-20" aria-labelledby="must-have-heading">
-    <div class="container-page">
-      <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
-        <div class="lg:col-span-5">
-          <p class="eyebrow text-[var(--key-blue)]">Short on time?</p>
-          <h2 id="must-have-heading" class="display-3 mt-4 max-w-[13ch] text-balance text-charcoal">
-            Start with these nine must-have shots.
-          </h2>
-          <p class="mt-5 max-w-[52ch] text-base leading-relaxed text-charcoal/65 md:text-lg">
-            If the schedule gets tight, protect these first. Together they show who you are, what
-            the visit feels like, and how your team cares for a vehicle.
-          </p>
-        </div>
-        <ol class="grid gap-3 sm:grid-cols-2 lg:col-span-7">
-          {mustHaveShots.map((shot, index) => (
-            <li class:list={[
-              "motion-card flex min-h-20 items-start gap-4 rounded-[22px] border border-black/[0.05] bg-white px-5 py-4 shadow-[0_18px_50px_-44px_rgba(20,22,28,0.5)]",
-              index === mustHaveShots.length - 1 ? "sm:col-span-2" : "",
-            ]}>
-              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--key-blue)]/12 text-xs font-bold text-[var(--navy)]">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span class="pt-1 text-sm font-medium leading-relaxed text-charcoal/75">{shot}</span>
-            </li>
-          ))}
-        </ol>
+  <!-- NINE MUST-HAVES -->
+  <section class="v6-sec v6-sec--tint tk-ph__must" aria-labelledby="must-have-heading">
+    <div class="v6-wrap tk-ph__must-grid">
+      <div class="tk-ph__side">
+        <p class="v6-kicker">Short on time?</p>
+        <h2 id="must-have-heading" class="v6-h2 tk-ph__h2" data-words set:html={split([{ t: "Start with these" }, { t: "nine must-have shots.", accent: true }])} />
+        <p class="v6-lead" data-rise>
+          If the schedule gets tight, protect these first. Together they show who you are, what
+          the visit feels like, and how your team cares for a vehicle.
+        </p>
       </div>
+      <ol class="tk-ph__nine">
+        {mustHaveShots.map((shot, index) => (
+          <li class:list={["tk-ph__nine-item", index === mustHaveShots.length - 1 && "tk-ph__nine-item--wide"]} data-rise style={`transition-delay:${(index % 2) * 0.08}s`}>
+            <span class="v6-mark v6-mark--check tk-ph__nine-check" aria-hidden="true"></span>
+            <span class="tk-ph__nine-text">{shot}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
-  <section id="shot-list" class="scroll-mt-28 bg-white py-14 md:py-20" aria-labelledby="shot-list-heading">
-    <div class="container-page">
-      <div class="max-w-3xl">
-        <p class="eyebrow text-[var(--key-blue)]">Complete checklist</p>
-        <h2 id="shot-list-heading" class="display-2 mt-4 text-balance text-charcoal">
-          Photograph the whole customer experience.
-        </h2>
-        <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-charcoal/65">
+  <!-- SHOT LIST -->
+  <section id="shot-list" class="v6-sec tk-ph__list" aria-labelledby="shot-list-heading">
+    <div class="v6-wrap">
+      <div class="v6-head">
+        <h2 id="shot-list-heading" class="v6-h2" data-words set:html={split([{ t: "Photograph the whole" }, { t: "customer experience.", accent: true }])} />
+        <p class="v6-lead" data-rise>
           Cars on lifts matter, but they are only one part of the story. A useful library also shows
           the people customers will meet, the spaces they will enter, and the details that make your
           shop different.
         </p>
       </div>
 
-      <div class="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
-        {shotList.map((group, index) => (
-          <article class:list={[
-            "motion-card rounded-[28px] border border-black/[0.05] p-6 md:rounded-[32px] md:p-8",
-            index === 0 || index === 3 ? "bg-[var(--off-white)]" : "bg-[var(--key-blue-soft)]/55",
-          ]}>
-            <div class="flex items-start justify-between gap-5">
-              <div>
-                <p class="text-xs font-bold tracking-[0.16em] text-[var(--key-blue)]">{group.number}</p>
-                <h3 class="mt-3 font-display text-2xl font-semibold leading-tight text-charcoal md:text-3xl">
-                  {group.label}
-                </h3>
+      <div class="tk-ph__groups">
+        {shotList.map((group, index) => {
+          const photo = groupPhotos[index];
+          return (
+            <article class:list={["tk-ph__group", index % 2 === 1 && "tk-ph__group--flip"]}>
+              <figure class="tk-ph__group-media" data-rise>
+                <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" style={`object-position:${photo.position}`} />
+              </figure>
+              <div class="tk-ph__group-body" data-rise>
+                <h3 class="tk-ph__group-title">{group.label}</h3>
+                <p class="tk-ph__group-intro">{group.intro}</p>
+                <ul class="v6-checks tk-ph__checks">
+                  {group.items.map((item) => (
+                    <li><span class="v6-mark v6-mark--check" aria-hidden="true"></span><span>{item}</span></li>
+                  ))}
+                </ul>
               </div>
-              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--navy)] shadow-[0_14px_30px_-24px_rgba(20,22,28,0.45)]">
-                {index === 0 && <Users className="h-5 w-5" aria-hidden="true" />}
-                {index === 1 && <Smartphone className="h-5 w-5" aria-hidden="true" />}
-                {index === 2 && <Wrench className="h-5 w-5" aria-hidden="true" />}
-                {index === 3 && <MapPin className="h-5 w-5" aria-hidden="true" />}
-              </span>
-            </div>
-            <p class="mt-4 text-sm leading-relaxed text-charcoal/62">{group.intro}</p>
-            <ul class="mt-6 grid gap-3 border-t border-charcoal/10 pt-6">
-              {group.items.map((item) => (
-                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--green)]" strokeWidth={3} aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <section class="overflow-hidden bg-[var(--navy)] py-14 text-white md:py-20" aria-labelledby="examples-heading">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-12 lg:items-end">
-        <div class="lg:col-span-7">
-          <p class="eyebrow !text-[var(--green)]">What good coverage looks like</p>
-          <h2 id="examples-heading" class="display-2 mt-4 max-w-[12ch] text-balance">
-            People. Place. Process. Proof.
-          </h2>
+  <!-- GALLERY -->
+  <section class="v6-sec v6-sec--navy tk-ph__gallery" aria-labelledby="examples-heading">
+    <div class="v6-wrap">
+      <div class="v6-head">
+        <div>
+          <p class="v6-kicker tk-ph__kicker-light">What good coverage looks like</p>
+          <h2 id="examples-heading" class="v6-h2 tk-ph__gallery-title" data-words set:html={split([{ t: "People. Place." }, { t: "Process. Proof.", accent: true }])} />
         </div>
-        <p class="max-w-[52ch] text-base leading-relaxed text-white/68 md:text-lg lg:col-span-5">
+        <p class="v6-lead" data-rise>
           Mix real interactions, clean facility views, and close-up work. The result should feel
           recognizably yours—not like a stock-photo library that could belong to any shop.
         </p>
       </div>
 
-      <div class="mt-10 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-12">
-        <figure class="col-span-2 overflow-hidden rounded-[24px] bg-white/5 lg:col-span-5 lg:row-span-2 lg:rounded-[30px]">
-          <img
-            src="/site-media/mikes-auto-works.webp"
-            alt="Auto repair team member helping a customer at the service counter"
-            width="1200"
-            height="900"
-            loading="lazy"
-            decoding="async"
-            class="h-full min-h-[260px] w-full object-cover lg:min-h-[530px]"
-          />
-        </figure>
-        <figure class="col-span-1 overflow-hidden rounded-[22px] bg-white/5 lg:col-span-4 lg:rounded-[30px]">
-          <img
-            src="/images/shops/image6.jpg"
-            alt="Clean auto repair service bays with vehicles ready for work"
-            width="640"
-            height="427"
-            loading="lazy"
-            decoding="async"
-            class="h-full min-h-[180px] w-full object-cover lg:min-h-[250px]"
-          />
-        </figure>
-        <figure class="col-span-1 overflow-hidden rounded-[22px] bg-white/5 lg:col-span-3 lg:rounded-[30px]">
-          <img
-            src="/images/shops/image2.jpg"
-            alt="Auto repair technician inspecting the underside of a vehicle"
-            width="640"
-            height="427"
-            loading="lazy"
-            decoding="async"
-            class="h-full min-h-[180px] w-full object-cover lg:min-h-[250px]"
-          />
-        </figure>
-        <figure class="col-span-2 overflow-hidden rounded-[24px] bg-white/5 lg:col-span-7 lg:rounded-[30px]">
-          <img
-            src="/images/shops/Tommys-hi-tech-building.png"
-            alt="Auto repair shop exterior with open service bays and visible signage"
-            width="1814"
-            height="888"
-            loading="lazy"
-            decoding="async"
-            class="h-full min-h-[220px] w-full object-cover lg:min-h-[260px]"
-          />
-        </figure>
+      <div class="v6-swipe tk-ph__mosaic">
+        {gallery.map((shot, index) => (
+          <figure class:list={["tk-ph__shot", shot.cls]} data-rise style={`transition-delay:${index * 0.08}s`}>
+            <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" />
+          </figure>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="bg-[var(--off-white)] py-14 md:py-20" aria-labelledby="prep-heading">
-    <div class="container-page">
-      <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
-        <div class="lg:col-span-4">
-          <p class="eyebrow text-[var(--key-blue)]">Before the camera comes out</p>
-          <h2 id="prep-heading" class="display-3 mt-4 max-w-[13ch] text-balance text-charcoal">
-            Set up a photo day that stays on schedule.
-          </h2>
-          <p class="mt-5 text-base leading-relaxed text-charcoal/65">
+  <!-- PREP -->
+  <section class="v6-sec tk-ph__prep" aria-labelledby="prep-heading">
+    <div class="v6-wrap">
+      <div class="tk-ph__prep-grid">
+        <div class="tk-ph__side">
+          <p class="v6-kicker">Before the camera comes out</p>
+          <h2 id="prep-heading" class="v6-h2 tk-ph__h2" data-words set:html={split([{ t: "Set up a photo day that" }, { t: "stays on schedule.", accent: true }])} />
+          <p class="v6-lead" data-rise>
             A little planning keeps the day efficient and gives the photographer more chances to
             capture natural moments.
           </p>
         </div>
 
-        <ol class="grid gap-5 lg:col-span-8">
+        <ol class="tk-ph__steps">
           {prepSteps.map((step, index) => (
-            <li class="motion-card grid gap-4 rounded-[26px] border border-black/[0.05] bg-white p-6 sm:grid-cols-[auto_1fr] sm:gap-5 md:p-7">
-              <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--green)]/18 text-sm font-bold text-[var(--navy)]">
-                {index + 1}
-              </span>
+            <li class="tk-ph__step" data-rise>
+              <span class="tk-ph__step-num">{index + 1}</span>
               <div>
-                <h3 class="font-display text-xl font-semibold leading-tight text-charcoal">{step.title}</h3>
-                <p class="mt-3 text-sm leading-relaxed text-charcoal/65 md:text-base">{step.copy}</p>
+                <h3 class="tk-ph__step-title">{step.title}</h3>
+                <p class="tk-ph__step-copy">{step.copy}</p>
               </div>
             </li>
           ))}
         </ol>
       </div>
 
-      <div class="mt-10 rounded-[28px] border border-[var(--key-blue)]/18 bg-[var(--key-blue-soft)]/55 p-6 md:rounded-[32px] md:p-8">
-        <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div class="flex gap-4">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--navy)]">
-              <Sparkles className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <div>
-              <h3 class="font-display text-xl font-semibold text-charcoal">One last detail: secure permission.</h3>
-              <p class="mt-2 max-w-[70ch] text-sm leading-relaxed text-charcoal/65">
-                Get releases from recognizable customers and team members, and make sure your
-                photographer agreement gives the shop lasting rights to use the final images on the
-                web, social media, ads, email, print, and recruiting.
-              </p>
-            </div>
-          </div>
-          <a href="/resources/auto-repair-shop-photography-guide" class="btn-ghost shrink-0">
-            Photography planning tips
-            <ArrowRight className="motion-arrow h-4 w-4" aria-hidden="true" />
-          </a>
+      <div class="tk-ph__permit" data-rise>
+        <span class="tk-ph__permit-icon"><span class="v6-icon" style={`--icon:url(${iconSrc("report")})`}></span></span>
+        <div class="tk-ph__permit-text">
+          <h3 class="tk-ph__permit-title">One last detail: secure permission.</h3>
+          <p>
+            Get releases from recognizable customers and team members, and make sure your
+            photographer agreement gives the shop lasting rights to use the final images on the
+            web, social media, ads, email, print, and recruiting.
+          </p>
         </div>
+        <a href="/resources/auto-repair-shop-photography-guide" class="v6-btn v6-btn--ghost tk-ph__permit-btn">
+          <span>Photography planning tips</span><i set:html={arrow} />
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-14 md:py-20">
-    <div class="container-page">
-      <div class="relative overflow-hidden rounded-[30px] bg-[var(--navy)] px-6 py-10 text-white md:rounded-[36px] md:px-12 md:py-14 lg:px-16">
-        <span class="pointer-events-none absolute -right-16 -top-24 h-80 w-80 rounded-full bg-[var(--key-blue)]/25 blur-3xl" aria-hidden="true"></span>
-        <div class="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p class="eyebrow !text-[var(--green)]">Put the photos to work</p>
-            <h2 class="mt-4 max-w-[17ch] font-display text-3xl font-semibold leading-tight md:text-5xl">
-              Your best photos should do more than sit in a folder.
-            </h2>
-            <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-              Turnkey can help your shop use a strong photo library across Google, your website,
-              social content, campaigns, and recruiting—inside one coordinated marketing plan.
-            </p>
-          </div>
-          <a
-            href={CONSULTATION_URL}
-            class="inline-flex min-h-12 w-fit items-center gap-2 rounded-full bg-[var(--green)] px-6 py-3.5 font-semibold text-charcoal transition hover:-translate-y-0.5 hover:brightness-105"
-            data-track-event="consultation_cta_click"
-            data-track-placement="photos_final_cta"
-          >
-            Book a Strategy Call
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+  <V6Cta
+    title="Your best photos should do"
+    accent="more than sit in a folder."
+    text="Turnkey can help your shop use a strong photo library across Google, your website, social content, campaigns, and recruiting—inside one coordinated marketing plan."
+    placement="photos_final_cta"
+  />
+</V6Layout>
+
+<style is:global>
+  /* Hero */
+  .tk-ph__hero { padding-block: clamp(2.5rem, 6vw, 5.5rem) clamp(4rem, 8vw, 7rem); }
+  .tk-ph__hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  .tk-ph__hero-text { display: grid; justify-items: start; }
+  .tk-ph__title { margin-top: 1.25rem; font-size: clamp(3rem, 6.4vw, 6.5rem); line-height: 0.98; letter-spacing: -0.058em; font-weight: 600; text-wrap: balance; max-width: 11ch; }
+  .tk-ph__lead { margin-top: 1.75rem; font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.6; color: var(--muted); max-width: 36rem; }
+  .tk-ph__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: 2.25rem; }
+  .tk-ph__actions .v6-link { min-height: 2.75rem; }
+  .tk-ph__down { transform: rotate(90deg); }
+  .v6-btn:hover .tk-ph__down { transform: rotate(90deg) translateX(3px); }
+  .tk-ph__hero-media { position: relative; margin: 0; }
+  .tk-ph__hero-media img { width: 100%; aspect-ratio: 6 / 5; object-fit: cover; object-position: 50% 35%; border-radius: 40px; }
+  .tk-ph__chip { position: absolute; left: clamp(-2.5rem, -3vw, -1rem); bottom: 2.5rem; display: flex; align-items: center; gap: 0.85rem; padding: 0.9rem 1.35rem 0.9rem 0.9rem; border-radius: 999px; background: #fff; box-shadow: 0 24px 50px -28px rgba(20, 22, 28, 0.55); }
+  .tk-ph__chip-icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: var(--green); color: var(--navy); flex: none; }
+  .tk-ph__chip-icon .v6-icon { width: 1.3rem; height: 1.3rem; }
+  .tk-ph__chip > span:last-child { display: grid; line-height: 1.3; }
+  .tk-ph__chip-small { font-size: 0.8rem; color: var(--muted); }
+  .tk-ph__chip strong { font-size: 0.98rem; font-weight: 600; letter-spacing: -0.02em; }
+
+  /* Shared side title */
+  .tk-ph__side { display: grid; gap: 1.25rem; align-content: start; position: sticky; top: 8rem; }
+  .tk-ph__h2 { font-size: clamp(2.3rem, 4vw, 4rem); max-width: 13ch; }
+
+  /* Nine must-haves */
+  .tk-ph__must-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .tk-ph__nine { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .tk-ph__nine-check { margin-top: 0.15rem; }
+  .tk-ph__nine-item--wide .tk-ph__nine-check { margin-top: 0; }
+  .tk-ph__nine-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.1rem; align-items: start; min-height: 7.5rem; padding: 1.5rem; border-radius: 26px; background: #fff; }
+  .tk-ph__nine-item--wide { grid-column: 1 / -1; min-height: 0; align-items: center; background: var(--navy); color: #fff; }
+  .tk-ph__nine-num { font-size: 2rem; font-weight: 600; letter-spacing: -0.05em; line-height: 1; color: var(--key-blue); font-variant-numeric: tabular-nums; }
+  .tk-ph__nine-item--wide .tk-ph__nine-num { color: var(--green); }
+  .tk-ph__nine-text { padding-top: 0.2rem; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.35; }
+
+  /* Shot list groups */
+  .tk-ph__groups { display: grid; gap: clamp(4rem, 8vw, 7.5rem); }
+  .tk-ph__group { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  .tk-ph__group--flip .tk-ph__group-media { order: 2; }
+  .tk-ph__group-media { margin: 0; overflow: hidden; border-radius: 36px; aspect-ratio: 5 / 4; background: var(--off-white); }
+  .tk-ph__group-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .tk-ph__group:hover .tk-ph__group-media img { transform: scale(1.04); }
+  .tk-ph__group-num { font-size: 1rem; font-weight: 700; color: var(--key-blue); font-variant-numeric: tabular-nums; }
+  .tk-ph__group-title { margin-top: 0.6rem; font-size: clamp(2rem, 3.4vw, 3.25rem); font-weight: 600; letter-spacing: -0.055em; line-height: 1; }
+  .tk-ph__group-intro { margin-top: 1rem; font-size: 1.1rem; line-height: 1.55; color: var(--muted); max-width: 30rem; }
+  .tk-ph__checks { margin-top: 1.75rem; padding-top: 1.75rem; border-top: 1px solid var(--hairline); }
+  .tk-ph__checks li { font-size: 1rem; color: #3a3f4b; }
+
+  /* Gallery */
+  .tk-ph__kicker-light { color: var(--green); }
+  .tk-ph__gallery-title { max-width: 12ch; }
+  .tk-ph__mosaic.v6-swipe { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: clamp(14rem, 20vw, 17rem) clamp(14rem, 20vw, 17rem); gap: clamp(0.75rem, 1.4vw, 1.25rem); }
+  .tk-ph__shot { margin: 0; overflow: hidden; border-radius: 30px; background: #1b2352; }
+  .tk-ph__shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .tk-ph__shot:hover img { transform: scale(1.05); }
+  .tk-ph__shot--a { grid-column: 1 / span 5; grid-row: 1 / span 2; }
+  .tk-ph__shot--b { grid-column: 6 / span 4; grid-row: 1; }
+  .tk-ph__shot--c { grid-column: 10 / span 3; grid-row: 1; }
+  .tk-ph__shot--d { grid-column: 6 / span 7; grid-row: 2; }
+
+  /* Prep */
+  .tk-ph__prep-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .tk-ph__steps { border-top: 1px solid var(--hairline); }
+  .tk-ph__step { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1.5rem; padding-block: clamp(1.75rem, 3vw, 2.5rem); border-bottom: 1px solid var(--hairline); }
+  .tk-ph__step-num { font-size: clamp(2.6rem, 4vw, 3.75rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.9; color: var(--key-blue); }
+  .tk-ph__step:nth-child(2) .tk-ph__step-num { color: var(--green); }
+  .tk-ph__step:nth-child(3) .tk-ph__step-num { color: var(--navy); }
+  .tk-ph__step-title { font-size: clamp(1.4rem, 2vw, 1.85rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1.1; }
+  .tk-ph__step-copy { margin-top: 0.75rem; font-size: 1.05rem; line-height: 1.65; color: var(--muted); max-width: 36rem; }
+  .tk-ph__permit { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.5rem 2rem; align-items: center; margin-top: clamp(3rem, 6vw, 5rem); padding: clamp(1.75rem, 3.5vw, 2.75rem); border-radius: 32px; background: var(--key-blue-soft); }
+  .tk-ph__permit-icon { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 999px; background: #fff; color: var(--navy); }
+  .tk-ph__permit-icon .v6-icon { width: 1.5rem; height: 1.5rem; }
+  .tk-ph__permit-title { font-size: clamp(1.3rem, 1.8vw, 1.6rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; }
+  .tk-ph__permit-text p { margin-top: 0.5rem; max-width: 44rem; line-height: 1.6; color: #4a5060; }
+
+  @media (max-width: 1100px) {
+    .tk-ph__hero-grid, .tk-ph__must-grid, .tk-ph__prep-grid { grid-template-columns: 1fr; }
+    .tk-ph__side { position: static; }
+    .tk-ph__chip { left: 1rem; }
+    .tk-ph__permit { grid-template-columns: auto minmax(0, 1fr); }
+    .tk-ph__permit-btn { grid-column: 2; justify-self: start; }
+  }
+
+  @media (max-width: 900px) {
+    .tk-ph__hero { padding-block: 2rem 4rem; }
+    .tk-ph__title { font-size: clamp(2.6rem, 12vw, 3.6rem); margin-top: 1rem; }
+    .tk-ph__lead { margin-top: 1.25rem; font-size: 1.02rem; }
+    .tk-ph__actions { flex-direction: column; align-items: stretch; gap: 0.25rem; width: 100%; margin-top: 1.75rem; }
+    .tk-ph__actions .v6-btn, .tk-ph__actions .v6-link { justify-content: center; }
+    .tk-ph__hero-grid { gap: 2rem; }
+    .tk-ph__hero-media { margin-inline: calc(var(--gutter) * -0.5); }
+    .tk-ph__hero-media img { aspect-ratio: 4 / 5; border-radius: 28px; }
+    .tk-ph__chip { left: 0.75rem; right: auto; bottom: 0.75rem; padding: 0.6rem 1.1rem 0.6rem 0.6rem; }
+    .tk-ph__chip-icon { width: 2.4rem; height: 2.4rem; }
+
+    .tk-ph__side { gap: 1rem; }
+    .tk-ph__h2 { font-size: clamp(2.2rem, 10vw, 2.9rem); }
+
+    .tk-ph__nine { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--hairline); }
+    .tk-ph__nine-item { min-height: 0; padding: 1rem 0.25rem; border-radius: 0; background: none; border-bottom: 1px solid var(--hairline); align-items: center; gap: 1rem; }
+    .tk-ph__nine-item--wide { margin-top: 1rem; padding: 1.1rem 1.25rem; border-radius: 22px; border: 0; background: var(--navy); }
+    .tk-ph__nine-num { width: 2.25rem; font-size: 1.35rem; }
+    .tk-ph__nine-text { padding-top: 0; font-size: 1rem; }
+
+    .tk-ph__groups { gap: 3.5rem; }
+    .tk-ph__group { grid-template-columns: 1fr; gap: 1.5rem; }
+    .tk-ph__group--flip .tk-ph__group-media { order: 0; }
+    .tk-ph__group-media { aspect-ratio: 4 / 3; border-radius: 28px; margin-inline: calc(var(--gutter) * -0.5); }
+    .tk-ph__group-title { font-size: 2.1rem; }
+    .tk-ph__group-intro { font-size: 1.02rem; }
+    .tk-ph__checks { margin-top: 1.25rem; padding-top: 1.25rem; gap: 0.75rem; }
+    .tk-ph__checks li { font-size: 0.97rem; }
+
+    .tk-ph__mosaic.v6-swipe { display: flex; grid-template-rows: none; }
+    .tk-ph__mosaic.v6-swipe > .tk-ph__shot { width: min(78vw, 20rem); aspect-ratio: 4 / 5; border-radius: 24px; }
+
+    .tk-ph__step { grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1rem; padding-block: 1.5rem; }
+    .tk-ph__step-num { font-size: 2.3rem; }
+    .tk-ph__step-copy { font-size: 1rem; }
+    .tk-ph__permit { grid-template-columns: 1fr; gap: 1.1rem; border-radius: 26px; padding: 1.75rem 1.4rem; }
+    .tk-ph__permit-btn { grid-column: auto; justify-self: stretch; justify-content: center; }
+  }
+</style>

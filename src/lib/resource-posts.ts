@@ -264,7 +264,7 @@ export const resourcePosts: ResourcePost[] = [
       "Find practical auto repair marketing ideas for attracting better customers, filling slow bays, earning trust, and bringing past customers back.",
     description:
       "A decision guide for choosing the right marketing move based on the problem your shop needs to solve.",
-    dek: "Use this decision guide to choose the right marketing idea for the specific shop problem in front of you—not simply the newest channel.",
+    dek: "Use this decision guide to choose the right marketing idea for the specific shop problem in front of you, not simply the newest channel.",
     image: siteMedia.hero,
     imageWidth: 1200,
     imageHeight: 800,
@@ -274,7 +274,7 @@ export const resourcePosts: ResourcePost[] = [
     takeaways: [
       "Choose the shop problem before you choose a marketing channel.",
       "Match every campaign to a specific audience, owner, timeframe, and business result.",
-      "Measure the path from response to booked work and the next visit—not only impressions or leads.",
+      "Measure the path from response to booked work and the next visit, not just impressions or leads.",
     ],
     sections: [],
     faq: [
@@ -435,7 +435,7 @@ export const resourcePosts: ResourcePost[] = [
       "Define your auto repair shop's ideal customer, choose useful traits, and turn the profile into clearer offers, content, and marketing campaigns.",
     description:
       "A practical exercise for defining the customers and repair work your shop wants more of.",
-    dek: "An ideal customer profile helps your team choose better messages, offers, channels, and service priorities without pretending every driver wants the same thing.",
+    dek: "An ideal customer profile helps your team choose the right messages, offers, channels, and service priorities. It starts with the customers you already love working with, not a guess about what every driver wants.",
     image: {
       src: "/images/resources/ideal-auto-repair-customer-profile.png",
       alt: "Notebook asking who is your ideal customer",
@@ -448,60 +448,60 @@ export const resourcePosts: ResourcePost[] = [
     originalUrl: "https://turnkeyautomarketing.com/create-customer-profile-auto-repair-shop/",
     legacyPaths: ["/create-customer-profile-auto-repair-shop/"],
     takeaways: [
-      "Start with evidence from your best current customers, not a made-up demographic.",
-      "Describe the jobs, values, and service experience that make a customer a strong fit.",
-      "Use the profile to make practical decisions about messages, offers, channels, and follow-up.",
+      "Build the profile from your best current customers, not a demographic someone made up.",
+      "Describe the jobs, values, and service experience that make a customer a strong fit for your shop.",
+      "Then put the profile to work on real decisions: your message, your offer, your channels, and your follow-up.",
     ],
     sections: [
       {
         heading: "Start with the customers you would gladly clone.",
-        body: "Ask your advisors and leadership team to name five to ten customers they would be happy to see more often. Look for patterns in the relationship, not just the repair order. A strong-fit customer values good advice, approves needed work, keeps vehicles maintained, communicates well, and refers people who behave similarly.",
+        body: "Sit down with your advisors and leadership team and ask one question: which five to ten customers would you gladly see more often? Write the names down. Then look for what those relationships have in common beyond the repair order. A strong-fit customer usually values good advice, approves the work the vehicle needs, keeps up with maintenance, communicates well, and refers friends who act the same way.",
         bullets: [
-          "Which vehicles and services create a healthy fit for the shop?",
-          "Which customers follow a maintenance plan instead of waiting for a crisis?",
-          "Which customers value safety, reliability, convenience, or expertise over the lowest price?",
-          "Which relationships are profitable without exhausting the front counter?",
+          "Which vehicles and services are a healthy fit for your bays?",
+          "Which customers follow a maintenance plan instead of waiting for a breakdown?",
+          "Which customers care more about safety, reliability, convenience, or expertise than the lowest price?",
+          "Which relationships are profitable without wearing out the front counter?",
         ],
       },
       {
         heading: "Describe the situation, not a stereotype.",
-        body: "Age and income can be useful, but a profile becomes actionable when it explains what the customer is trying to accomplish. Note where they live, what they drive, who depends on the vehicle, how they prefer to communicate, and what makes choosing a repair shop feel risky. Those details help your marketing address a real decision.",
+        body: "Age and income can help, but they will not tell you what to say. A profile becomes useful when it explains what the customer is trying to get done. Where do they live? What do they drive? Who depends on that vehicle every morning? Do they prefer a call, a text, or an email? And what makes choosing a repair shop feel risky to them? Answer those questions and your marketing can speak to a real decision instead of a stereotype.",
       },
       {
         heading: "Turn the profile into marketing choices.",
-        body: "Use the profile as a filter. A customer who values predictable transportation may respond to maintenance planning, easy scheduling, and clear updates. A European-car owner may care more about specialized knowledge and the right diagnostic equipment. Match the promise, proof, offer, and channel to the customer you want—not to everyone within driving distance.",
+        body: "Now use the profile as a filter for every campaign. A customer who needs predictable transportation may respond to maintenance planning, easy scheduling, and clear updates. A European-car owner may care more about specialized knowledge and the right diagnostic equipment. Same shop, different message. Match the promise, proof, offer, and channel to the customer you want, not to everyone within driving distance.",
         bullets: [
           "Lead with the customer problem your shop is best equipped to solve.",
-          "Show proof that matters to that person, such as reviews, credentials, photos, or process.",
-          "Choose channels based on where that audience pays attention.",
-          "Give advisors the same language so the experience matches the campaign.",
+          "Show the proof that matters to that person, such as reviews, credentials, photos, or your process.",
+          "Choose channels based on where that customer actually pays attention.",
+          "Give your advisors the same language, so the phone call matches the campaign.",
         ],
       },
       {
         heading: "Validate the profile with shop data.",
-        body: "Treat the first profile as a working hypothesis. Compare it with repair-order quality, vehicle mix, retention, declined work, call recordings, reviews, and customer feedback. Revisit it when capacity, staffing, specialty, geography, or business goals change. The useful profile is the one that keeps improving real decisions.",
+        body: "Treat your first profile as a working theory, then test it. Compare it with repair-order quality, vehicle mix, retention, declined work, call recordings, reviews, and customer feedback. Does the shop data back it up? Revisit the profile when capacity, staffing, specialty, service area, or business goals change. The useful profile is the one that keeps improving real decisions, not the one that looked good on paper last year.",
       },
     ],
     faq: [
       {
         question: "What is an ideal customer profile for an auto repair shop?",
         answer:
-          "It is a practical description of the customers, vehicles, repair work, values, and service expectations that create a strong fit for the shop. It should help the team make better decisions about marketing, offers, scheduling, and the customer experience.",
+          "It is a practical description of the customers, vehicles, repair work, values, and service expectations that fit your shop best. A good profile helps your team make better decisions about marketing, offers, scheduling, and the customer experience.",
       },
       {
         question: "How can a repair shop identify its best customers?",
         answer:
-          "Start with customers the advisors and technicians would gladly serve again, then compare patterns in repair-order quality, retention, vehicle mix, communication, and referrals. The goal is to find evidence of a healthy relationship, not simply the customers who spent the most on one visit.",
+          "Start with the customers your advisors and technicians would gladly serve again. Then compare patterns in repair-order quality, retention, vehicle mix, communication, and referrals. You are looking for evidence of a healthy, lasting relationship, not simply the customer who spent the most on one visit.",
       },
       {
         question: "Can an ideal customer profile be too narrow?",
         answer:
-          "Yes. A profile becomes unhelpful when it excludes viable customers without a business reason or depends on stereotypes instead of shop data. Keep the focus on service fit, customer needs, geography, vehicle types, and the experience the shop can consistently deliver.",
+          "Yes. A profile stops being helpful when it shuts out good customers without a business reason or leans on stereotypes instead of shop data. Keep the focus on service fit, customer needs, geography, vehicle types, and the experience your shop can deliver every time.",
       },
       {
         question: "How often should a repair shop update its customer profile?",
         answer:
-          "Review it at least once a year and whenever capacity, staffing, specialties, location, or business goals change. Use current repair-order data, call recordings, reviews, and advisor feedback to confirm whether the profile still describes the relationships the shop wants more of.",
+          "Review it at least once a year, and any time capacity, staffing, specialties, location, or business goals change. Use current repair-order data, call recordings, reviews, and advisor feedback to confirm the profile still describes the customers you want more of.",
       },
     ],
     externalSources: [
@@ -553,7 +553,7 @@ export const resourcePosts: ResourcePost[] = [
       "Plan an auto repair shop photo shoot with a practical shot list, preparation checklist, usage rights, and ideas for websites, ads, and social media.",
     description:
       "A useful shot list and preparation guide for photos that make your shop easier to trust.",
-    dek: "Original photography lets customers see the people, place, and process behind your shop before they ever make the first call.",
+    dek: "Original photography lets customers meet your people, see your place, and understand how you work before they ever make the first call.",
     image: {
       src: "/images/resources/auto-repair-shop-photography.jpg",
       alt: "Two Wiggs Auto Service team members photographed outside their shop",
@@ -566,55 +566,55 @@ export const resourcePosts: ResourcePost[] = [
     originalUrl: "https://turnkeyautomarketing.com/auto-repair-shop-photography/",
     legacyPaths: ["/auto-repair-shop-photography/"],
     takeaways: [
-      "Photograph the complete customer experience, not only cars on lifts.",
-      "Prepare the shop, vehicles, team, and permissions before the photographer arrives.",
-      "Secure broad usage rights and organize the final library so the images keep working.",
+      "Photograph the whole customer experience, not just cars on lifts.",
+      "Get the shop, vehicles, team, and permissions ready before the photographer arrives.",
+      "Secure broad usage rights and organize the final library so the photos keep working for years.",
     ],
     sections: [
       {
         heading: "Build the shot list around customer questions.",
-        body: "A prospective customer wants to know who will greet them, whether the shop feels professional, and whether their vehicle will be handled with care. Build a photo library that answers those questions. Mix wide establishing images with close details, horizontal and vertical compositions, and both posed and candid moments.",
+        body: "Think about what a new customer wonders before they call. Who will greet me? Does this place look professional? Will they take care of my car? Your photos should answer those questions, so build the shot list around them. Mix wide shots of the building with close details, shoot both horizontal and vertical, and capture posed portraits alongside candid moments of real work.",
         bullets: [
-          "Exterior, roadside signage, parking, entrance, counter, and waiting area.",
+          "Exterior, roadside sign, parking, entrance, front counter, and waiting area.",
           "Owner, advisors, technicians, and a friendly full-team portrait.",
-          "Inspections, diagnostics, repairs, updates, key handoff, and customer care.",
-          "Specialty equipment, certifications, amenities, loaners, and shop details.",
-          "Community involvement and the vehicle types your best customers drive.",
+          "Inspections, diagnostics, repairs, customer updates, the key handoff, and customer care.",
+          "Specialty equipment, certifications, amenities, loaners, and the details that make the shop yours.",
+          "Community involvement and the vehicles your best customers drive.",
         ],
       },
       {
         heading: "Prepare the shop for one productive day.",
-        body: "Choose a day when key team members can participate without disrupting the schedule. Clean visible work areas, remove clutter and confidential customer information, stage representative vehicles, and ask everyone to wear clean, consistent uniforms. Share the shot list and brand examples with the photographer in advance.",
+        body: "Pick a day when your key people can be in the photos without wrecking the schedule. Clean every work area the camera will see. Clear clutter and anything showing confidential customer information. Stage vehicles that represent the work you want more of, and ask everyone to wear clean, matching uniforms. Send the photographer the shot list and a few brand examples ahead of time, so nobody is figuring it out on the shop floor.",
       },
       {
         heading: "Protect the right to use every image.",
-        body: "The agreement should give the shop lasting permission to use the final photographs on its website, social channels, ads, email, print, recruiting, and future campaigns. Get written releases from recognizable customers and team members, and confirm whether the photographer may use the work in their own portfolio.",
+        body: "Read the agreement before the shoot, not after. It should give your shop lasting permission to use the final photos on your website, social channels, ads, email, print, recruiting, and future campaigns. Get written releases from any customer or team member who can be recognized, and confirm whether the photographer may use the work in their own portfolio.",
       },
       {
         heading: "Make the library easy to reuse.",
-        body: "Ask for full-resolution originals plus web-ready exports. Sort files by people, facility, service, equipment, community, and orientation, then use descriptive filenames. Refresh staff and facility photography when the team or customer experience changes; a smaller current library is more credible than a large outdated one.",
+        body: "Ask for full-resolution originals plus web-ready versions. Sort the files by people, facility, service, equipment, community, and orientation, and use descriptive filenames so anyone on the team can find the right shot in a minute. Refresh staff and facility photos when the team or the customer experience changes. A small, current library earns more trust than a large one full of people who no longer work there.",
       },
     ],
     faq: [
       {
         question: "What photos should an auto repair shop website include?",
         answer:
-          "Show the exterior and entrance, front counter, waiting area, owner, advisors, technicians, inspections, equipment, common vehicle types, and the key handoff. The library should help a new customer understand who they will meet, where they will go, and how the shop cares for a vehicle.",
+          "Show the exterior and entrance, front counter, waiting area, owner, advisors, technicians, inspections, equipment, the vehicles you commonly service, and the key handoff. Together, those photos should tell a new customer who they will meet, where they will go, and how your shop cares for a vehicle.",
       },
       {
         question: "Should a repair shop hire a professional photographer?",
         answer:
-          "A professional is useful when the shop needs a coordinated library for its website, ads, print, recruiting, and social media. A capable team member can still capture timely day-to-day images, but the shop should maintain consistent quality, lighting, framing, and permission practices.",
+          "A professional makes sense when you need a coordinated library for your website, ads, print, recruiting, and social media. A capable team member can still capture day-to-day moments as they happen. Either way, keep the quality, lighting, framing, and permission practices consistent.",
       },
       {
         question: "Do employees and customers need to sign photo releases?",
         answer:
-          "Get written permission before using recognizable employees or customers in marketing, and confirm how the images may be used. Requirements can vary by situation and location, so the release process should be reviewed with qualified legal counsel when needed.",
+          "Get written permission before using a recognizable employee or customer in your marketing, and be clear about how the photos may be used. Requirements can vary by situation and location, so review your release process with qualified legal counsel when needed.",
       },
       {
         question: "How often should an auto repair shop update its photos?",
         answer:
-          "Refresh the library when the team, building, branding, equipment, or customer experience changes. Review prominent website and Google Business Profile images at least yearly so customers are not introduced to people or facilities they will no longer see.",
+          "Refresh the library when your team, building, branding, equipment, or customer experience changes. Review the most visible photos on your website and Google Business Profile at least once a year, so customers are not introduced to people or rooms they will never see.",
       },
     ],
     externalSources: [
@@ -666,7 +666,7 @@ export const resourcePosts: ResourcePost[] = [
       "Clarify your auto repair shop messaging by making the customer the hero and your team the trusted guide with empathy, authority, and a clear plan.",
     description:
       "A customer-centered messaging framework that balances empathy, expertise, and a clear next step.",
-    dek: "Your shop has the expertise, but the customer is the main character. Strong messaging shows that you understand the problem and can guide them toward a safe, reliable vehicle.",
+    dek: "Your shop has the expertise, but the customer is the main character. Strong messaging shows you understand their problem and can guide them to a safe, reliable vehicle.",
     image: {
       src: "/images/resources/repair-shop-guide-messaging.png",
       alt: "Compass needle pointing toward the word guide",
@@ -679,54 +679,54 @@ export const resourcePosts: ResourcePost[] = [
     originalUrl: "https://turnkeyautomarketing.com/be-the-guide/",
     legacyPaths: ["/be-the-guide/", "/two-keys-auto-repair-shop-message/"],
     takeaways: [
-      "The customer is the hero; the shop earns attention by being a useful guide.",
-      "Effective guides pair empathy with specific, believable authority.",
-      "A simple plan and clear next step reduce the uncertainty around booking service.",
+      "The customer is the hero. Your shop earns attention by being a useful guide.",
+      "Good guides pair empathy with specific, believable authority.",
+      "A simple plan and one clear next step take the uncertainty out of booking service.",
     ],
     sections: [
       {
         heading: "Move the spotlight from the shop to the customer.",
-        body: "Most shop marketing opens with years in business, certifications, equipment, or a long service list. Those facts matter, but customers first want to know whether you understand their situation. Lead with the outcome they need: a safe commute, a dependable family vehicle, a clear explanation, or confidence that the repair was done right.",
+        body: "Most shop marketing opens with years in business, certifications, equipment, or a long list of services. Those facts matter. But the customer's first question is simpler: do you understand what I am dealing with? So lead with the outcome they need. A safe commute. A dependable family vehicle. A clear explanation. Confidence that the repair was done right.",
       },
       {
         heading: "Show empathy and authority together.",
-        body: "Empathy tells the customer, “We understand why this is frustrating.” Authority shows that the team can solve it. Either one alone is weak: empathy without proof feels vague, while credentials without empathy can feel self-centered. Pair a customer-centered statement with reviews, technician credentials, a transparent process, or relevant experience.",
+        body: "Empathy tells the customer, “We understand why this is frustrating.” Authority shows them your team can fix it. You need both. Empathy without proof sounds vague, and credentials without empathy sound like you are talking about yourself. Pair a customer-centered statement with reviews, technician credentials, a transparent process, or relevant experience.",
         bullets: [
-          "Empathy: name the inconvenience, concern, or uncertainty the driver feels.",
+          "Empathy: name the inconvenience, worry, or uncertainty the driver feels.",
           "Authority: show relevant proof without turning the message into a résumé.",
           "Plan: explain the next two or three steps in plain language.",
-          "Action: make calling, scheduling, or asking a question easy.",
+          "Action: make it easy to call, schedule, or ask a question.",
         ],
       },
       {
         heading: "Rewrite “we” statements as customer outcomes.",
-        body: "A useful editing pass is to circle every “we,” “our,” and “us.” Keep the ones that provide necessary proof, then rewrite the rest around what the customer gets. “We perform digital inspections” becomes “See what we see before you approve the work.” The capability stays; the benefit becomes easier to understand.",
+        body: "Here is a simple editing exercise. Take your homepage or your latest ad and circle every “we,” “our,” and “us.” Keep the ones that carry necessary proof, then rewrite the rest around what the customer gets. “We perform digital inspections” becomes “See what we see before you approve the work.” The capability stays the same. The benefit becomes easy to understand.",
       },
       {
         heading: "Carry the message through the whole experience.",
-        body: "The guide role cannot stop at the website. Use the same clear language in phone scripts, appointment confirmations, inspections, estimates, follow-up, social content, and review responses. Consistency turns a marketing promise into an experience customers can recognize and recommend.",
+        body: "Being the guide cannot stop at the website. Use the same clear language in your phone scripts, appointment confirmations, inspections, estimates, follow-up, social content, and review responses. When the message sounds the same at every step, the marketing promise becomes an experience customers can recognize and recommend.",
       },
     ],
     faq: [
       {
         question: "What does it mean for a repair shop to be the guide?",
         answer:
-          "It means the customer remains the main character while the shop provides empathy, expertise, and a clear path forward. The message should show that the team understands the driver's concern, can solve it, and will make the next step easy to understand.",
+          "It means the customer stays the main character while your shop brings empathy, expertise, and a clear path forward. The message should show that your team understands the driver's concern, can solve it, and will make the next step easy to understand.",
       },
       {
         question: "What should an auto repair shop say on its homepage?",
         answer:
-          "Lead with the customer problem or outcome, explain who the shop helps, show relevant proof, and give one clear next action. Services, credentials, and equipment matter, but they work best when they support a customer-centered promise instead of replacing it.",
+          "Lead with the customer's problem or the outcome they want. Then explain who the shop helps, show relevant proof, and give one clear next action. Services, credentials, and equipment still matter, but they work best when they support a customer-centered promise instead of replacing it.",
       },
       {
         question: "How can a repair shop show authority without sounding self-centered?",
         answer:
-          "Connect every credential to a customer benefit. Reviews, technician certifications, warranties, original photos, and a clear inspection process build authority when they help the driver understand why the shop is prepared to solve the problem.",
+          "Tie every credential to a customer benefit. Reviews, technician certifications, warranties, original photos, and a clear inspection process build authority when they help the driver see why your shop is prepared to solve the problem.",
       },
       {
         question: "How can a shop tell whether its message is clear?",
         answer:
-          "Ask someone unfamiliar with the business to review the page for a few seconds and explain who it serves, what problem it solves, and what to do next. Call quality, booking rate, repeated customer questions, and advisor feedback can then show where the message still creates confusion.",
+          "Show the page for a few seconds to someone who does not know your business. Can they tell you who it serves, what problem it solves, and what to do next? After that, call quality, booking rate, the questions customers keep asking, and advisor feedback will show you where the message still creates confusion.",
       },
     ],
     externalSources: [
@@ -778,7 +778,7 @@ export const resourcePosts: ResourcePost[] = [
       "Use the know-like-trust filter to review your repair shop website, ads, mail, email, and social content before asking customers to book service.",
     description:
       "A three-question filter for checking whether a campaign earns attention and confidence before it asks for action.",
-    dek: "Before customers book, they need to recognize your shop, feel that it understands them, and believe it will deliver. Use those three stages to improve every campaign.",
+    dek: "Before customers book, they need to recognize your shop, feel that it understands them, and believe it will deliver. Run every campaign through those three stages before it goes out.",
     image: {
       src: "/images/resources/know-like-trust-filter.png",
       alt: "Magician presenting a top hat as a three-word marketing filter",
@@ -792,31 +792,31 @@ export const resourcePosts: ResourcePost[] = [
       "https://turnkeyautomarketing.com/use-this-magical-three-word-filter-to-woo-customers-to-your-auto-repair-shop/",
     legacyPaths: ["/use-this-magical-three-word-filter-to-woo-customers-to-your-auto-repair-shop/"],
     takeaways: [
-      "Know: make the shop and its relevance immediately recognizable.",
-      "Like: communicate with useful, human language that reflects the customer.",
-      "Trust: support every promise with proof, process, and consistency.",
+      "Know: make your shop, and why it matters to this customer, easy to recognize.",
+      "Like: use useful, human language that sounds like the customer.",
+      "Trust: back every promise with proof, process, and consistency.",
     ],
     sections: [
       {
         heading: "Know: can the right customer recognize you?",
-        body: "Recognition is more than seeing a logo. The customer should quickly understand where the shop is, what it helps with, and whether it serves their vehicle or situation. Consistent naming, photography, colors, location details, and service language make repeated impressions add up across search, mail, social, email, and the street.",
+        body: "Recognition is more than seeing your logo. The right customer should quickly understand where the shop is, what it helps with, and whether it works on their vehicle or handles their situation. Use the same name, photography, colors, location details, and service language everywhere. Then every impression adds to the last, whether the customer finds you in search, in the mailbox, on social, in their inbox, or driving down the street.",
       },
       {
         heading: "Like: does the message feel useful and human?",
-        body: "Customers do not need a repair shop to be entertaining; they need it to be understandable and considerate. Explain problems without jargon, respect the customer's time and intelligence, and show the people behind the work. Helpful maintenance advice and community involvement can create familiarity without forcing a sales pitch into every message.",
+        body: "Nobody needs their repair shop to be entertaining. They need it to be understandable and considerate. Explain problems without jargon. Respect the customer's time and intelligence. Show the people behind the work. Helpful maintenance advice and real community involvement build familiarity without forcing a sales pitch into every message.",
       },
       {
         heading: "Trust: is there enough proof to act?",
-        body: "A strong claim needs evidence. Use recent reviews, original shop photos, credentials, warranties, a clear approval process, and honest expectations. Make phone numbers, hours, address, and scheduling steps consistent everywhere. Small contradictions create doubt, while operational consistency makes the decision feel safer.",
+        body: "A strong claim needs evidence. Use recent reviews, original shop photos, credentials, warranties, a clear approval process, and honest expectations. Make sure your phone number, hours, address, and scheduling steps match everywhere they appear. Small contradictions plant doubt. Consistency makes the decision feel safer.",
       },
       {
         heading: "Score the campaign before it ships.",
-        body: "Review each website page, postcard, ad, email, and social post with three questions: Will the intended customer know who this is for? Is the message relevant and respectful enough to like? Is there enough proof and clarity to trust the next step? Fix the weakest answer before increasing the budget.",
+        body: "Before any website page, postcard, ad, email, or social post goes out, ask three questions. Will the intended customer know this is for them? Is the message relevant and respectful enough to like? Is there enough proof and clarity to trust the next step? Fix the weakest answer first, before you increase the budget.",
         bullets: [
-          "Name the specific audience and problem.",
-          "Use one primary message and one clear action.",
-          "Add the proof most relevant to the promise.",
-          "Check that the landing page and front-counter experience match.",
+          "Name the specific customer and the problem you solve for them.",
+          "Use one main message and one clear action.",
+          "Add the proof that best supports the promise.",
+          "Check that the landing page and the front counter deliver what the campaign promised.",
         ],
       },
     ],
@@ -824,22 +824,22 @@ export const resourcePosts: ResourcePost[] = [
       {
         question: "What is know-like-trust marketing?",
         answer:
-          "Know-like-trust is a simple way to evaluate whether customers can recognize a business, relate to its message, and find enough proof to act. For a repair shop, those stages should work together across search, the website, reviews, mail, social content, and the service experience.",
+          "Know-like-trust is a simple way to check whether customers can recognize a business, relate to its message, and find enough proof to act. For a repair shop, all three stages should work together across search, the website, reviews, mail, social content, and the service experience itself.",
       },
       {
         question: "Which part of know-like-trust should a repair shop fix first?",
         answer:
-          "Fix the weakest stage that blocks the next action. More awareness will not help if customers cannot tell what the shop does, and a friendly message will not convert if the hours, address, reviews, or booking process create doubt.",
+          "Fix the weakest stage, the one blocking the next action. More awareness will not help if customers cannot tell what your shop does, and a friendly message will not turn into a booked appointment if the hours, address, reviews, or booking process create doubt.",
       },
       {
         question: "Can the know-like-trust filter be used for ads and direct mail?",
         answer:
-          "Yes. The piece should make the sender recognizable, use language relevant to the intended customer, provide believable proof, and lead to a landing page or phone experience that matches the promise. A discount alone rarely covers all three stages.",
+          "Yes. The piece should make it obvious who sent it, speak to the customer you want, offer believable proof, and lead to a landing page or phone call that matches the promise. A discount alone rarely covers all three stages.",
       },
       {
         question: "How do you measure know, like, and trust?",
         answer:
-          "Use a combination of signals instead of one score. Search visibility and reach can indicate recognition; engagement and response quality can show relevance; reviews, call-to-book rate, repeat visits, and customer feedback can reveal whether the shop is earning trust.",
+          "Use a few signals instead of one score. Search visibility and reach point to recognition. Engagement and the quality of responses show relevance. Reviews, the share of calls that book, repeat visits, and customer feedback reveal whether the shop is earning trust.",
       },
     ],
     externalSources: [
@@ -896,7 +896,7 @@ export const resourcePosts: ResourcePost[] = [
       "Five common auto repair marketing mistakes that waste money, plus practical fixes for timing, messaging, tracking, phone calls, and customer follow-up.",
     description:
       "The five places auto repair marketing usually leaks, and a practical fix for each one.",
-    dek: "Most shop marketing does not fail because of one bad channel. It leaks in a few predictable places, and most of them can be fixed without spending more.",
+    dek: "Most shop marketing does not fail because of one bad channel. It leaks in a few predictable places, and you can fix most of them without spending more.",
     image: {
       ...siteMedia.graphics.leadGenerator,
       alt: "Cover of the Turnkey guide 5 Marketing Mistakes Shop Owners Make and How to Fix Them, featuring two repair shop owners",
@@ -916,13 +916,13 @@ export const resourcePosts: ResourcePost[] = [
     sections: [
       {
         heading: "Most marketing leaks in the same five places.",
-        body: "Here is the short version. When a shop owner tells me the marketing is not working, the problem usually falls into one of five buckets: the marketing only runs when the bays are empty, the message tries to reach every driver in town, each channel is judged on its own report, callers get lost at the front counter, or past customers never hear from the shop again.\n\nNone of these require a bigger budget to fix. Most of them require a decision, a simple habit, and someone who owns it. Let's walk through each one, what it costs you, and what I would do instead.",
+        body: "Here is the short version. When a shop owner tells me the marketing is not working, the problem usually lands in one of five places: the marketing only runs when the bays are empty, the message tries to reach every driver in town, each channel gets judged on its own report, callers get lost at the front counter, or past customers never hear from the shop again.\n\nNone of these takes a bigger budget to fix. Most take a decision, a simple habit, and someone who owns it. Below is each one, what it costs you, and what I would do instead.",
       },
       {
-        heading: "1. Marketing only when the bays are empty.",
-        body: "This one is so common it almost feels like a tradition. The schedule gets thin, the owner panics a little, and a discount goes out the door. But marketing takes time to land. Mail needs design, printing, and delivery time. Digital campaigns need time to find the right people. By the time the calls pick up, the shop is busy again, so the marketing gets turned off. A few months later, the bays are quiet, and the whole cycle starts over.\n\nThe cost is bigger than it looks. You pay for rushed creative, you train customers to wait for a coupon, and you never run anything long enough to learn whether it works. The fix is to separate your baseline from your boosts. Keep a steady level of marketing running every month, then plan the extra pushes on the calendar before the slow weeks you already know are coming.",
+        heading: "Marketing only when the bays are empty.",
+        body: "This one is so common it almost feels like a tradition. The schedule gets thin, the owner gets nervous, and a discount goes out the door. But marketing takes time to land. Mail needs design, printing, and delivery time. Digital campaigns need time to find the right people. By the time the calls pick up, the shop is busy again, so the marketing gets turned off. A few months later the bays are quiet, and the whole cycle starts over.\n\nThe cost is bigger than it looks. You pay for rushed creative, you teach customers to wait for a coupon, and you never run anything long enough to learn whether it works. The fix is to separate your baseline from your boosts. Keep a steady level of marketing running every month. Then put the extra pushes on the calendar ahead of the slow weeks you already know are coming.",
         bullets: [
-          "Baseline: the work that keeps running every month, such as reviews, customer follow-up, and your local visibility.",
+          "Baseline: the work that runs every month, such as reviews, customer follow-up, and your local visibility.",
           "Boosts: planned campaigns for known slow periods, seasonal services, or open bays you can see coming.",
           "Guardrail: decide how long a campaign runs and what it needs to prove before it launches, not after a quiet week.",
         ],
@@ -932,8 +932,8 @@ export const resourcePosts: ResourcePost[] = [
         },
       },
       {
-        heading: "2. Trying to sell every repair to every driver.",
-        body: '"Honest, reliable service at fair prices. We fix all makes and models." I would bet you have seen that line on a dozen shop ads, and the problem is exactly that. When everyone says it, nobody hears it. It also pushes the conversation toward price, which invites the customers who will happily leave you for a $10 cheaper oil change.\n\nTry this quick test. Cover your logo on your last ad, postcard, or homepage. Could it belong to the shop down the street? If the answer is yes, the message needs work. Start by deciding which customers and repairs you want more of. Then lead with the specifics that matter to them: the makes you know best, how your diagnosis works, your warranty, your wait times, and real reviews that sound like those customers.',
+        heading: "Trying to sell every repair to every driver.",
+        body: "\"Honest, reliable service at fair prices. We fix all makes and models.\" I would bet you have seen that line on a dozen shop ads, and that is exactly the problem. When everyone says it, nobody hears it. It also pulls the conversation toward price, which attracts the customers who will happily leave you for a $10 cheaper oil change.\n\nTry this quick test. Cover the logo on your last ad, postcard, or homepage. Could it belong to the shop down the street? If the answer is yes, the message needs work. Start by deciding which customers and repairs you want more of. Then lead with the specifics that matter to them: the makes you know best, how your diagnosis works, your warranty, your wait times, and real reviews that sound like those customers.",
         bullets: [
           "Name the vehicles, services, or customer situations you want more of.",
           "Replace general claims with proof: certifications, warranty terms, photos of your real team, and specific reviews.",
@@ -945,8 +945,8 @@ export const resourcePosts: ResourcePost[] = [
         },
       },
       {
-        heading: "3. Grading every channel on its own report card.",
-        body: "Here is a fun exercise. Add up the new customers every vendor says they brought you last month. Do not be surprised if the total is bigger than the number of cars that actually came through the door. That is not always anyone lying. Every platform counts differently and gives itself credit when it touched the customer somewhere along the way.\n\nThe problem is that separate reports make it almost impossible to decide what to keep. The fix is one shop scoreboard that every channel gets measured against. Pull it from your shop management system, not from vendor dashboards, and review it on the same day every month.",
+        heading: "Grading every channel on its own report card.",
+        body: "Try this. Add up the new customers every vendor says they brought you last month. Do not be surprised if the total is bigger than the number of cars that actually came through the door. Nobody has to be lying for that to happen. Every platform counts differently, and most give themselves credit if they touched the customer anywhere along the way.\n\nThe trouble is that separate reports make it almost impossible to decide what to keep. The fix is one shop scoreboard that every channel gets measured against. Pull it from your shop management system, not from vendor dashboards, and review it on the same day every month.",
         bullets: [
           "Calls and online requests by source.",
           "Booked appointments and show rate.",
@@ -960,8 +960,8 @@ export const resourcePosts: ResourcePost[] = [
         },
       },
       {
-        heading: "4. Paying for calls the front counter cannot convert.",
-        body: "Marketing's job is to make the phone ring. The shop's job is to turn that call into an appointment. When a call goes to voicemail at 12:15, or the first thing a caller hears is a price with no explanation, the ad did its job and the shop lost the customer anyway. The owner usually never hears about it, because missed opportunities do not show up on a report.\n\nIf you have call recording, listen to five first-time calls every week. You will learn more in 20 minutes than from most monthly reports. Then give your team a simple, friendly way to handle the calls that matter most, especially the \"how much will it cost?\" question. Explain what you can estimate over the phone, what needs an inspection, and how diagnosis works, then offer a specific time.",
+        heading: "Paying for calls the front counter cannot convert.",
+        body: "Marketing's job is to make the phone ring. The shop's job is to turn that call into an appointment. When a call goes to voicemail at 12:15, or the first thing a caller hears is a price with no explanation, the ad did its job and the shop lost the customer anyway. The owner usually never hears about it, because a missed opportunity does not show up on any report.\n\nIf you have call recording, listen to five first-time calls every week. You will learn more in 20 minutes than from most monthly reports. Then give your team a simple, friendly way to handle the calls that matter most, especially the \"how much will it cost?\" question. Explain what you can estimate over the phone, what needs an inspection, and how diagnosis works. Then offer a specific time.",
         bullets: [
           "Track how many first-time callers book an appointment, not just how many call.",
           "Cover the phone at lunch, in the morning rush, and after hours.",
@@ -973,8 +973,8 @@ export const resourcePosts: ResourcePost[] = [
         },
       },
       {
-        heading: "5. Forgetting the customers you already paid to earn.",
-        body: "Most marketing budgets chase new customers. Meanwhile, the people who already know your shop, trust your team, and have your number in their phone hear nothing until they get a reminder from the dealership. Those customers are usually the easiest cars to earn back, and they are the most expensive to replace.\n\nThe fix does not need to be fancy. Thank people after the visit. Remind them when the next service is due. Send useful updates they will actually read. Reach out to customers you have not seen in a year. And ask every customer for an honest review, the same way, every time. Google does not allow incentives in exchange for reviews, so keep the request simple and send the link.",
+        heading: "Forgetting the customers you already paid to earn.",
+        body: "Most marketing budgets chase new customers. Meanwhile, the people who already know your shop, trust your team, and have your number in their phone hear nothing until the dealership sends them a reminder. Those customers are usually the easiest cars to earn back, and the most expensive to replace.\n\nThe fix does not need to be fancy. Thank people after the visit. Remind them when the next service is due. Send useful updates they will actually read. Reach out to customers you have not seen in a year. And ask every customer for an honest review, the same way, every time. Google does not allow incentives in exchange for reviews, so keep the request simple and send the link.",
         bullets: [
           "A thank-you message or note after the visit.",
           "Service reminders based on time or mileage.",
@@ -989,7 +989,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "Check your shop for all five this week.",
-        body: "You can find most of these leaks in about an hour. Grab your last three months of marketing, your shop management reports, and a cup of coffee. Then answer these questions honestly. Anything you cannot answer is a good place to start.\n\nIf every fix on this list ends up on your desk, that is worth noticing too. The biggest mistake I see is not any single tactic. It is expecting the busiest person in the building to plan, coordinate, and measure the marketing in the evenings. The fixes work best when someone owns them.",
+        body: "You can find most of these leaks in about an hour. Pull your last three months of marketing and your shop management reports, pour a cup of coffee, and answer the questions below honestly. Anything you cannot answer is a good place to start.\n\nIf every fix on this list lands on your desk, notice that too. The biggest mistake I see is not any single tactic. It is expecting the busiest person in the building to plan, coordinate, and measure the marketing in the evenings. These fixes work best when someone owns them.",
         bullets: [
           "Timing: Which campaigns ran every month, and which ones only ran when it got slow?",
           "Message: Would your last ad still make sense with another shop's logo on it?",
@@ -1007,12 +1007,12 @@ export const resourcePosts: ResourcePost[] = [
       {
         question: "What is the most common auto repair shop marketing mistake?",
         answer:
-          "Running marketing only when the shop gets slow is one of the most common and most expensive. Campaigns take time to reach customers, so stop-start marketing usually arrives after the slow period has passed and never runs long enough to learn what works. A steady monthly baseline with planned seasonal pushes is more reliable.",
+          "Running marketing only when the shop gets slow is one of the most common, and one of the most expensive. Campaigns take time to reach customers, so stop-start marketing usually arrives after the slow period has passed and never runs long enough to show what works. A steady monthly baseline with planned seasonal pushes is far more reliable.",
       },
       {
         question: "How can a shop owner tell whether marketing money is being wasted?",
         answer:
-          "Check whether each campaign has a defined audience, offer, owner, timeframe, and measurable result. Then compare spend against calls, booked appointments, and completed repair orders by source in your shop management system. If you cannot connect a campaign to any of those numbers, fix the tracking before increasing the budget.",
+          "Check whether each campaign has a defined audience, offer, owner, timeframe, and measurable result. Then compare spend against calls, booked appointments, and completed repair orders by source in your shop management system. If you cannot connect a campaign to any of those numbers, fix the tracking before you raise the budget.",
       },
       {
         question: "How long should I wait before judging a marketing campaign?",
@@ -1022,12 +1022,12 @@ export const resourcePosts: ResourcePost[] = [
       {
         question: "Should an auto repair shop stop marketing when it is busy?",
         answer:
-          "Usually not. Stopping everything creates the next slow period. It is reasonable to pause promotions for work you cannot take, but keep your baseline running: reviews, customer follow-up, and local visibility. Use busy periods to promote the higher-value work you want more of instead.",
+          "Usually not. Stopping everything creates the next slow period. It is reasonable to pause promotions for work you cannot take, but keep your baseline running: reviews, customer follow-up, and local visibility. Use busy stretches to promote the higher-value work you want more of.",
       },
       {
         question: "Is weak marketing always the vendor's fault?",
         answer:
-          "No. The leak may be in the targeting or offer, but it can also be in call handling, scheduling, capacity, or follow-up after the first visit. Review the whole customer path, from the first response to the completed repair order, before deciding a channel or vendor is the only problem.",
+          "No. The leak may be in the targeting or the offer, but it can just as easily be in call handling, scheduling, capacity, or follow-up after the first visit. Review the whole customer path, from the first response to the completed repair order, before you decide a channel or vendor is the only problem.",
       },
     ],
     externalSources: [
@@ -1085,7 +1085,7 @@ export const resourcePosts: ResourcePost[] = [
       "Plan auto repair direct mail campaigns with the right mailing list, offer, timing, postcard creative, call tracking, and follow-up that drives repair orders.",
     description:
       "A six-part guide to running auto repair direct mail as a managed campaign instead of a one-off postcard order.",
-    dek: "Direct mail still earns a place when the list, offer, timing, creative, tracking, and follow-up are treated like a campaign instead of a print order.",
+    dek: "Direct mail still earns its place when the list, offer, timing, creative, tracking, and follow-up are run as one campaign instead of a print order.",
     image: siteMedia.graphics.directMail,
     href: resourcePath("direct-mail-for-repair-shops"),
     sourceAsset:
@@ -1094,73 +1094,73 @@ export const resourcePosts: ResourcePost[] = [
     legacyPaths: ["/joe-flammer-ratchet-wrench/"],
     takeaways: [
       "The mailing list decides more of the outcome than the postcard design does.",
-      "Mail should be judged by calls, booked appointments, and repair-order quality — not by how the piece looked.",
-      "Most disappointing campaigns fail at timing, tracking, or front-counter follow-up rather than at the print stage.",
+      "Judge mail by calls, booked appointments, and repair-order quality, not by how good the piece looked.",
+      "Most disappointing campaigns break down at timing, tracking, or front-counter follow-up, not at the printer.",
     ],
     sections: [
       {
-        heading: "1. A mailer is not the strategy.",
-        body: "The postcard is one piece of a direct mail campaign for an auto repair shop. The real work is deciding who should receive it, what problem the offer solves, when it should land, and how the shop follows up when the phone starts ringing. A printer can sell quantity. Nobody at the print shop owns whether the mail reached households that can become good customers.",
+        heading: "A mailer is not the strategy.",
+        body: "The postcard is one piece of a direct mail campaign for an auto repair shop. The real work is deciding who should get it, what problem the offer solves, when it should land, and how the shop follows up when the phone starts ringing. A printer can sell you quantity. Nobody at the print shop is responsible for whether the mail reached households that can become good customers.",
       },
       {
-        heading: "2. Build the mailing list before the creative.",
-        body: "Start with the households that can realistically drive to the shop and afford the work the bays are built for. A tight radius around the shop usually beats a broad blanket drop, and household filters — vehicle age, income range, homeownership, tenure in the neighborhood — matter more than raw quantity. Your own customer list is a separate and often stronger audience, because reactivating a lapsed customer costs less than buying a new one.",
+        heading: "Build the mailing list before the creative.",
+        body: "Start with the households that can realistically drive to your shop and afford the work your bays are built for. A tight radius around the shop usually beats a broad blanket drop. Household filters such as vehicle age, income range, homeownership, and how long people have lived in the neighborhood matter more than raw quantity. Your own customer list is a separate audience, and often a stronger one, because bringing back a lapsed customer costs less than buying a new one.",
         bullets: [
-          "Drive-time radius from the shop, not an arbitrary mile count.",
+          "A drive-time radius from the shop, not an arbitrary mile count.",
           "Household characteristics that match your best current customers.",
           "New movers, who are actively choosing a shop for the first time.",
           "Your own lapsed customers, mailed as a separate reactivation campaign.",
         ],
       },
       {
-        heading: "3. Write an offer that attracts the right work.",
-        body: "The offer decides which customer responds. A deep discount on a low-margin service brings in price shoppers who will not return. An offer tied to the work the shop wants more of — diagnostics, maintenance intervals, seasonal inspections, a specific vehicle type — attracts a customer worth keeping. State the offer plainly, give it an expiration so the mail has a reason to be acted on, and make sure the front counter can honor exactly what was printed.",
+        heading: "Write an offer that attracts the right work.",
+        body: "The offer decides who responds. A deep discount on a low-margin service brings in price shoppers who will not come back. An offer tied to the work you want more of, such as diagnostics, maintenance intervals, seasonal inspections, or a specific vehicle type, attracts a customer worth keeping. State the offer plainly. Give it an expiration date so people have a reason to act. And make sure the front counter can honor exactly what was printed.",
       },
       {
-        heading: "4. Decide the timing and the drop schedule.",
-        body: "Mail should land when the shop has capacity to absorb the response and when demand is naturally moving. Plan around the shop's real slow weeks, seasonal service patterns, and technician availability, then work backward through list pull, creative approval, print, and postal transit. One drop rarely establishes recognition. A repeated schedule to the same list — several drops across a season — consistently outperforms a single large mailing to a list you only touch once.",
+        heading: "Decide the timing and the drop schedule.",
+        body: "Mail should land when the shop has room to handle the response and when demand is naturally moving. Plan around your real slow weeks, seasonal service patterns, and technician availability. Then work backward through the list pull, creative approval, printing, and postal delivery. One drop rarely makes a shop recognizable. A repeated schedule to the same list, with several drops across a season, consistently outperforms one large mailing to a list you only touch once.",
         bullets: [
           "Work backward from the mail date through print, approval, and list deadlines.",
           "Mail into weeks the shop can actually staff.",
-          "Repeat to a smaller list rather than mailing a larger list once.",
-          "Give each drop enough spacing to read the response before the next one.",
+          "Mail a smaller list more often instead of a larger list once.",
+          "Space the drops far enough apart to read the response before the next one goes out.",
         ],
       },
       {
-        heading: "5. Track the response, not just the impression.",
-        body: "Direct mail earns its budget when the shop can connect it to booked work. Put a trackable phone number on the piece, keep a landing page or scheduling link that matches the mailer's promise, and ask at the counter how the customer heard about the shop. Penetration reporting shows where the campaign reached; call and appointment data shows what came back. Judge the campaign on calls, booked appointments, show rate, and average repair order — not on the print cost per piece.",
+        heading: "Track the response, not just the impression.",
+        body: "Direct mail earns its budget when you can connect it to booked work. Put a trackable phone number on the piece. Send people to a landing page or scheduling link that matches the mailer's promise. Ask at the counter how the customer heard about you. Penetration reporting shows where the campaign reached, and call and appointment data shows what came back. So judge the campaign on calls, booked appointments, show rate, and average repair order, not on the print cost per piece.",
         bullets: [
-          "Trackable phone number and a matching landing page or booking link.",
-          "A consistent source question at the counter and on the phone.",
-          "Calls, booked appointments, show rate, and repair-order value by drop.",
-          "Penetration reporting to confirm the mail reached the intended neighborhoods.",
+          "A trackable phone number and a matching landing page or booking link.",
+          "The same source question at the counter and on the phone, every time.",
+          "Calls, booked appointments, show rate, and repair-order value for each drop.",
+          "Penetration reporting to confirm the mail reached the neighborhoods you chose.",
         ],
       },
       {
-        heading: "6. Plan the follow-up before the mail drops.",
-        body: "The campaign continues after the postcard arrives. Someone has to answer the phone well, capture the customer's information, book the appointment, and bring that customer back a second time. Connect the mail to the shop's email, text, and CRM follow-up so a first visit generated by a postcard turns into a retained customer. This is where most disappointing direct mail campaigns actually fail — not at the mailbox.",
+        heading: "Plan the follow-up before the mail drops.",
+        body: "The campaign keeps going after the postcard arrives. Someone has to answer the phone well, capture the customer's information, book the appointment, and bring that customer back a second time. Connect the mail to your email, text, and CRM follow-up, so a first visit from a postcard turns into a customer who stays. This is where most disappointing direct mail campaigns actually fall apart. Not at the mailbox, but at the counter and in the weeks after the first visit.",
       },
     ],
     faq: [
       {
         question: "Does direct mail still work for auto repair shops?",
         answer:
-          "It can work when the list, offer, timing, creative, tracking, and front-counter follow-up support the same goal. A postcard sent once to a broad list is much harder to evaluate than a repeated, trackable campaign aimed at households the shop can realistically serve.",
+          "It can, when the list, offer, timing, creative, tracking, and front-counter follow-up all support the same goal. A postcard sent once to a broad list is hard to judge. A repeated, trackable campaign aimed at households your shop can realistically serve gives you a real answer.",
       },
       {
         question: "How often should an auto repair shop send direct mail?",
         answer:
-          "There is no universal schedule, but repeated contact with a qualified list usually provides a better test than one large drop. Plan the cadence around seasonal demand, shop capacity, postal timing, budget, and enough space between drops to measure response.",
+          "There is no universal schedule, but repeated contact with a qualified list usually gives you a better test than one large drop. Plan the rhythm around seasonal demand, shop capacity, postal timing, budget, and enough space between drops to measure the response.",
       },
       {
         question: "How should a repair shop choose a direct mail list?",
         answer:
-          "Begin with a realistic drive-time area, then use household and vehicle characteristics that resemble the shop's best current customers. Keep new movers, prospects, current customers, and lapsed customers in separate groups because each audience needs a different message and measurement plan.",
+          "Start with a realistic drive-time area, then use household and vehicle characteristics that resemble your best current customers. Keep new movers, prospects, current customers, and lapsed customers in separate groups, because each one needs a different message and a different way to measure it.",
       },
       {
         question: "How do you track direct mail return on investment?",
         answer:
-          "Use a trackable phone number or campaign-specific response path, record the source during calls and check-in, and connect responses to booked and completed repair orders. Review show rate, repair-order value, customer acquisition cost, and whether first-time customers return—not only coupon redemptions or print cost.",
+          "Use a trackable phone number or a response path built for that campaign, record the source during calls and at check-in, and connect responses to booked and completed repair orders. Then review show rate, repair-order value, customer acquisition cost, and whether first-time customers come back. Coupon redemptions and print cost alone will not tell you much.",
       },
     ],
     externalSources: [
@@ -1212,7 +1212,7 @@ export const resourcePosts: ResourcePost[] = [
       "Build an auto repair marketing plan around shop goals, ideal customers, budget, channels, a 12-month calendar, and useful performance metrics.",
     description:
       "A seven-step framework for turning shop goals, budget, channels, and reporting into one practical marketing plan.",
-    dek: "A useful auto repair marketing plan connects the result your shop needs to the customers, campaigns, calendar, budget, and measurements that can produce it.",
+    dek: "A useful auto repair marketing plan starts with the result your shop needs, then lines up the customers, campaigns, calendar, budget, and measurements that can produce it.",
     image: siteMedia.graphics.marketingPlan,
     href: resourcePath("auto-repair-marketing-plan"),
     sourceAsset: "https://turnkeyautomarketing.com/wp-content/uploads/2023/01/marketing-plan2.png",
@@ -1221,37 +1221,37 @@ export const resourcePosts: ResourcePost[] = [
     legacyPaths: ["/how-to-create-a-winning-marketing-plan-for-your-auto-repair-shop/"],
     takeaways: [
       "Start with a specific shop result, such as better-fit work, stronger retention, or more booked appointments.",
-      "Give acquisition, retention, reputation, and seasonal campaigns clear jobs in a 12-month calendar.",
-      "Track the path from marketing source to calls, appointments, repair orders, and revenue so you can decide what to keep, change, or stop.",
+      "Give acquisition, retention, reputation, and seasonal campaigns each a clear job on a 12-month calendar.",
+      "Track the path from marketing source to calls, appointments, repair orders, and revenue, so you know what to keep, change, or stop.",
     ],
     sections: [
       {
-        heading: "1. Choose the shop result before the marketing channel.",
-        body: "Start the auto repair marketing plan with one business result. A second location that needs first-time customers requires a different plan than a full shop that wants better repair-order quality or stronger retention. Write down the capacity, car-count, revenue, customer-mix, or service-category change you need, along with a timeframe. That keeps the team from buying a channel simply because a vendor recommended it.",
+        heading: "Choose the shop result before the marketing channel.",
+        body: "Start your auto repair marketing plan with one business result. What do you need the marketing to do? A second location that needs first-time customers calls for a very different plan than a full shop that wants better repair-order quality or stronger retention. Write down the change you need in capacity, car count, revenue, customer mix, or service category, and put a timeframe on it. That keeps you from buying a channel just because a vendor recommended it.",
         bullets: [
-          "How many additional booked appointments can the shop handle each week?",
-          "Which services, vehicles, or customer relationships are the best fit?",
+          "How many more booked appointments can the shop handle each week?",
+          "Which services, vehicles, or customer relationships fit best?",
           "Is the priority acquisition, retention, reputation, reactivation, or a seasonal capacity gap?",
-          "What must improve in the next 90 days, and what is a 12-month goal?",
+          "What has to improve in the next 90 days, and what is the 12-month goal?",
         ],
       },
       {
-        heading: "2. Establish the baseline and a workable budget.",
-        body: "Record what the shop already spends, which vendors and campaigns are active, and what each one appears to produce. Include software, creative, media, mail, agency fees, discounts, and staff time when they materially affect the decision. Then set a budget range the shop can maintain long enough to learn. A smaller coordinated plan is more useful than an ambitious mix that stops before the results are clear.",
+        heading: "Establish the baseline and a workable budget.",
+        body: "Before you add anything, write down what the shop already spends, which vendors and campaigns are running, and what each one appears to produce. Include software, creative, media, mail, agency fees, discounts, and staff time when they affect the decision. Then set a budget range you can keep up long enough to learn something. A smaller plan where the pieces work together beats an ambitious mix that stops before the results are clear.",
         bullets: [
           "Current monthly spend by vendor and channel.",
-          "Calls, forms, booked appointments, new customers, and returning customers by source when available.",
-          "Average repair order, gross profit, customer acquisition cost, and customer value using the shop's own definitions.",
-          "Capacity constraints such as technician hours, advisor follow-through, or parts availability.",
+          "Calls, forms, booked appointments, new customers, and returning customers by source, when you have them.",
+          "Average repair order, gross profit, customer acquisition cost, and customer value, using your shop's own definitions.",
+          "Capacity limits such as technician hours, advisor follow-through, or parts availability.",
         ],
       },
       {
-        heading: "3. Define the customer, work, and offer.",
-        body: "Decide who the plan should attract and what action they should take. The best audience is not always every driver in a radius. It may be owners of a specific vehicle type, households near a new location, lapsed customers, or current customers who need a maintenance service. Match the message and offer to that situation, then make sure the front counter can deliver the same promise when the customer calls.",
+        heading: "Define the customer, work, and offer.",
+        body: "Decide who the plan should attract and what you want them to do. The best audience is not always every driver within a few miles. It might be owners of a specific vehicle type, households near a new location, lapsed customers, or current customers who are due for maintenance. Match the message and offer to that situation. Then make sure the front counter delivers the same promise when the customer calls.",
       },
       {
-        heading: "4. Give every marketing channel one clear job.",
-        body: "Choose channels by the role they play in the customer journey. Local SEO, Google Business Profile work, reviews, and paid search help capture existing demand. Direct mail, targeted digital campaigns, and social content can create awareness before a driver searches. Email, CRM follow-up, thank-you messages, and reactivation campaigns help the shop earn another visit from customers it already paid to acquire. Use only the channels the team can coordinate and measure.",
+        heading: "Give every marketing channel one clear job.",
+        body: "Choose each channel for the role it plays on the path from attention to appointment. Local SEO, your Google Business Profile, reviews, and paid search help you catch the drivers who are already looking. Direct mail, targeted digital campaigns, and social content build awareness before someone searches. Email, CRM follow-up, thank-you messages, and reactivation campaigns earn another visit from customers you already paid to win. Use only the channels your team can coordinate and measure.",
         bullets: [
           "Capture demand: local search visibility, reviews, website conversion, and paid search.",
           "Create demand: direct mail, targeted digital campaigns, community visibility, and social content.",
@@ -1260,21 +1260,21 @@ export const resourcePosts: ResourcePost[] = [
         ],
       },
       {
-        heading: "5. Build a 12-month auto repair shop marketing calendar.",
-        body: "Put recurring work, seasonal opportunities, campaign launches, creative deadlines, and review dates on one calendar. Start with the shop's real demand patterns rather than a generic holiday list. Schedule enough lead time for mail, creative approval, landing pages, lists, tracking, staff communication, and follow-up. The calendar should also show who owns each task so the owner does not become the default project manager.",
+        heading: "Build a 12-month auto repair shop marketing calendar.",
+        body: "Put recurring work, seasonal opportunities, campaign launches, creative deadlines, and review dates on one calendar. Build it around your shop's real busy and slow stretches, not a generic holiday list. Leave enough lead time for mail, creative approval, landing pages, lists, tracking, team communication, and follow-up. And put a name next to every task, so you do not become the default project manager.",
       },
       {
-        heading: "6. Measure the path from response to repair order.",
-        body: "A marketing dashboard should connect activity to shop outcomes. Clicks and impressions can help diagnose a campaign, but they do not show whether the right cars reached the bays. Track calls and forms, then booked appointments, show rate, repair-order quality, source mix, returning customers, and revenue. Use consistent source definitions so vendor reports can be compared instead of reviewed in separate silos.",
+        heading: "Measure the path from response to repair order.",
+        body: "Your reporting should connect marketing activity to what happens in the shop. Clicks and impressions can help diagnose a campaign, but they cannot tell you whether the right cars reached the bays. Track calls and forms, then booked appointments, show rate, repair-order quality, source mix, returning customers, and revenue. Define sources the same way everywhere, so vendor reports can be compared side by side instead of read one at a time.",
       },
       {
-        heading: "7. Review the plan with keep, fix, stop, and start decisions.",
-        body: "Review the marketing plan each month and make a clear call on each active campaign. Keep campaigns that produce the shop results you planned for. Fix the message, targeting, tracking, landing page, call handling, or follow-up when the channel has potential but the system is leaking. Stop work that cannot support the goal, and start the next priority only when someone can own it. Good reporting makes the next move obvious instead of merely proving that activity happened.",
+        heading: "Review the plan with keep, fix, stop, and start decisions.",
+        body: "Review the plan every month and make a clear call on every active campaign. Keep what is producing the results you planned for. Fix the message, targeting, tracking, landing page, call handling, or follow-up when a channel has potential but something is leaking. Stop work that cannot support the goal. Start the next priority only when someone can own it. Good reporting makes the next move obvious instead of just proving that activity happened.",
         bullets: [
-          "Keep: producing the intended shop outcome at a cost the business can defend.",
-          "Fix: promising channel with a specific, correctable leak.",
-          "Stop: wrong audience, wrong goal, weak economics, or no accountable owner.",
-          "Start: the highest-priority gap the current team can execute and measure.",
+          "Keep: producing the result you planned for at a cost the shop can defend.",
+          "Fix: a promising channel with a specific leak you can correct.",
+          "Stop: wrong audience, wrong goal, weak economics, or no one accountable for it.",
+          "Start: the most important gap your current team can execute and measure.",
         ],
       },
     ],
@@ -1282,22 +1282,22 @@ export const resourcePosts: ResourcePost[] = [
       {
         question: "What should an auto repair shop marketing plan include?",
         answer:
-          "Include the business result, target customers and repair work, baseline performance, budget, channel roles, offers, a 12-month calendar, campaign owners, and the metrics used to make decisions. The plan should also account for shop capacity and front-counter follow-up so marketing does not promise work the team cannot support.",
+          "Include the business result, the customers and repair work you want, baseline performance, budget, the job of each channel, offers, a 12-month calendar, campaign owners, and the numbers you will use to make decisions. Account for shop capacity and front-counter follow-up too, so the marketing never promises work your team cannot support.",
       },
       {
         question: "How much should an auto repair shop spend on marketing?",
         answer:
-          "There is no percentage that fits every shop. Build the budget from growth goals, current revenue and margin, customer value, local competition, existing demand, and the number of additional appointments the shop can profitably handle.",
+          "There is no percentage that fits every shop. Build the budget from your growth goals, current revenue and margin, customer value, local competition, existing demand, and the number of additional appointments the shop can profitably handle.",
       },
       {
         question: "How often should a repair shop review its marketing plan?",
         answer:
-          "Review campaign performance monthly and revisit the larger plan at least quarterly. Seasonal demand, staffing, capacity, vehicle mix, and business priorities can change, so the calendar and budget should be adjusted with evidence rather than left untouched for a full year.",
+          "Review campaign performance monthly and revisit the larger plan at least once a quarter. Seasonal demand, staffing, capacity, vehicle mix, and priorities change, so adjust the calendar and budget based on what the numbers show instead of leaving them untouched for a full year.",
       },
       {
         question: "Which marketing channels should an auto repair shop use?",
         answer:
-          "Choose channels by the job they need to perform. Local search, reviews, the website, and paid search can capture demand; direct mail and targeted campaigns can create demand; email, reminders, reactivation, and follow-up can help retain customers the shop already earned.",
+          "Choose each channel for the job it needs to do. Local search, reviews, your website, and paid search can capture existing demand. Direct mail and targeted campaigns can create new demand. Email, reminders, reactivation, and follow-up help you keep the customers you already earned.",
       },
     ],
     externalSources: [
@@ -1370,11 +1370,11 @@ export const resourcePosts: ResourcePost[] = [
     sections: [
       {
         heading: "Usually, nothing is broken. It is disconnected.",
-        body: "When marketing stops working, the natural reaction is to look for the one bad piece. Fire the vendor, cancel the mailer, try the new thing a rep pitched last week. Sometimes that is the right call. More often, each piece is doing roughly what it was hired to do. The problem is what happens between them.\n\nThink about the path a new customer takes. They see a postcard, look you up on Google, visit your website, call the shop, talk to an advisor, drop off the car, approve the work, and hopefully come back. Different people and vendors handle almost every step. When nobody owns the whole path, the break usually happens in a handoff, and every report still looks fine.",
+        body: "When marketing stops working, the natural reaction is to hunt for the one bad piece. Fire the vendor, cancel the mailer, try the new thing a rep pitched last week. Sometimes that is the right call. More often, each piece is doing roughly what it was hired to do. The problem is what happens between them.\n\nThink about the path a new customer takes. They see a postcard, look you up on Google, visit your website, call the shop, talk to an advisor, drop off the car, approve the work, and hopefully come back. Different people and vendors handle almost every step. When nobody owns the whole path, it usually breaks at a handoff, and every report still looks fine.",
       },
       {
         heading: "Find the stage where customers drop out.",
-        body: "Before you change anything, find where people are falling out. It is the fastest way to stop the blame game, because each drop points to a different fix. Look at the last 60 to 90 days and ask where the numbers get thin.",
+        body: "Before you change anything, find where people are falling out. It is the fastest way to end the blame game, because each drop-off points to a different fix. Pull the last 60 to 90 days and ask one question: where do the numbers get thin?",
         bullets: [
           "Few calls or requests: the audience, offer, message, or reach needs work. That is a marketing conversation.",
           "Plenty of calls, few appointments: look at phone coverage, hours, availability, and how price questions are handled.",
@@ -1385,7 +1385,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "Every piece is telling a different story.",
-        body: 'Picture this. A customer calls about the brake special on your postcard, and the advisor says, "What special?" Or the mailer says you specialize in European vehicles, the homepage says "all makes and models," and Google still shows last year\'s Saturday hours. Nobody did anything terrible, but the customer now has three reasons to hesitate.\n\nThe fix is a one-page brief for every campaign, shared with every vendor and the front counter before anything launches. It should answer who the campaign is for, what it offers, when it runs, where customers will land, what the team should say, and how the shop will know it worked.',
+        body: "Picture this. A customer calls about the brake special on your postcard, and the advisor says, \"What special?\" Or the mailer says you specialize in European vehicles, the homepage says \"all makes and models,\" and Google still shows last year's Saturday hours. Nobody did anything terrible. But the customer now has three reasons to hesitate.\n\nThe fix is a one-page brief for every campaign, shared with every vendor and the front counter before anything launches. It should answer who the campaign is for, what it offers, when it runs, where customers will land, what the team should say, and how the shop will know it worked.",
         link: {
           href: "/resources/know-like-trust-marketing-filter",
           label: "Check every campaign with the know-like-trust filter",
@@ -1393,7 +1393,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "Every vendor is winning. The shop is not.",
-        body: "Each vendor reports on its own work, in its own dashboard, using its own definitions. The mail house counts households reached. The ad platform counts clicks and calls. The review tool counts stars. Many platforms also take credit whenever they touched a customer somewhere along the way, so the same car can show up as a win in three reports.\n\nThat is why vendor reports should never be the scoreboard. Use numbers from your shop management system and track the same few things every month: calls and requests by source, booked appointments, completed repair orders, average repair order, and new versus returning customers. Ask every new customer how they heard about you, and record the answer the same way every time.",
+        body: "Each vendor reports on its own work, in its own dashboard, by its own definitions. The mail house counts households reached. The ad platform counts clicks and calls. The review tool counts stars. Many platforms also take credit any time they touched a customer along the way, so the same car can show up as a win in three different reports.\n\nThat is why vendor reports should never be your scoreboard. Use the numbers in your shop management system and track the same few things every month: calls and requests by source, booked appointments, completed repair orders, average repair order, and new versus returning customers. Ask every new customer how they heard about you, and record the answer the same way every time.",
         link: {
           href: "/resources/auto-repair-marketing-plan",
           label: "Set up a scoreboard as part of your marketing plan",
@@ -1401,7 +1401,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "The owner is the only one connecting the dots.",
-        body: "In a lot of shops, the owner is the unofficial marketing department. They approve the creative, relay information between vendors, dig up logins, and try to remember who promised what. That works until the shop gets busy, which is exactly when the marketing matters most. Decisions wait, deadlines slip, and campaigns go out half finished or not at all.\n\nThere is a quieter risk here, too. When vendors create and control your accounts, leaving a vendor can mean losing access to your own profile, ads, or data. Your shop should own its accounts and give vendors the access they need. Google Business Profile, for example, lets an owner add managers without sharing a password.",
+        body: "In a lot of shops, the owner is the unofficial marketing department. They approve the creative, pass information between vendors, dig up logins, and try to remember who promised what. That works until the shop gets busy, which is exactly when the marketing matters most. Decisions wait, deadlines slip, and campaigns go out half finished or not at all.\n\nThere is a quieter risk here too. When vendors create and control your accounts, leaving a vendor can mean losing access to your own profile, ads, or data. Your shop should own its accounts and give vendors the access they need. Google Business Profile, for example, lets an owner add managers without sharing a password.",
         bullets: [
           "Google Business Profile, with the shop as owner.",
           "Your website domain and hosting.",
@@ -1415,7 +1415,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "The plan changes every time the phone gets quiet.",
-        body: "Marketing that restarts every few weeks never gets a fair test. A quiet Tuesday leads to a new idea, the new idea replaces the old one before it had time to work, and three months later nobody can say what worked. The opposite happens too. Some campaigns run for years because nobody decided what success looks like.\n\nBefore a campaign starts, write down how long it will run, which numbers it needs to move, and the date you will review it. Then make a clear call at that review: keep it, fix it, stop it, or start something else.",
+        body: "Marketing that restarts every few weeks never gets a fair test. A quiet Tuesday sparks a new idea, the new idea replaces the old one before it had time to work, and three months later nobody can say what worked. The opposite happens too. Some campaigns run for years because nobody ever decided what success looks like.\n\nBefore a campaign starts, write down how long it will run, which numbers it needs to move, and the date you will review it. Then make a clear call at that review: keep it, fix it, stop it, or start something else.",
         link: {
           href: "/resources/5-marketing-mistakes-shop-owners-make",
           label: "Avoid the stop-start marketing mistake",
@@ -1423,7 +1423,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "Marketing is promising work the shop cannot take.",
-        body: "Sometimes the marketing works and the shop still struggles. If your technicians are booked out two weeks, more calls do not create more revenue. They create frustrated customers and a stressed front counter. The opposite also happens: the shop promotes the work that is easy to advertise instead of the work it actually wants.\n\nMarketing should follow capacity. Share your booking window, technician availability, and the work you want more of with whoever runs the marketing. Turn campaigns up when bays open, point them toward higher-value work when you are busy, and use a focused push when you can see a slow stretch coming.",
+        body: "Sometimes the marketing works and the shop still struggles. If your technicians are booked out two weeks, more calls do not create more revenue. They create frustrated customers and a stressed front counter. The reverse happens too, when a shop promotes the work that is easy to advertise instead of the work it actually wants.\n\nMarketing should follow capacity. Tell whoever runs your marketing how far out you are booking, what your technicians can take on, and which work you want more of. Turn campaigns up when bays open, point them toward higher-value work when you are busy, and plan a focused push when you can see a slow stretch coming.",
         link: {
           href: "/services/boost-days",
           label: "Fill a slow stretch with a focused Boost Day campaign",
@@ -1431,7 +1431,7 @@ export const resourcePosts: ResourcePost[] = [
       },
       {
         heading: "How to put it back together.",
-        body: "You do not need more tools to fix a disconnected system. You need one owner, one scoreboard, and one regular conversation where decisions get made. Here is a simple monthly marketing meeting that fits in about 45 minutes.",
+        body: "You do not need more tools to fix a disconnected system. You need one owner, one scoreboard, and one regular conversation where decisions actually get made. Here is a simple monthly marketing meeting that fits in about 45 minutes.",
         bullets: [
           "Review the shop scoreboard against last month and the same month last year.",
           "Make a keep, fix, stop, or start call on every active campaign.",
@@ -1449,22 +1449,22 @@ export const resourcePosts: ResourcePost[] = [
       {
         question: "Why is my auto repair shop marketing not working?",
         answer:
-          "The problem may be the targeting, offer, or message, but it is often in a handoff: mixed information across the website and Google, missed or poorly handled calls, no follow-up, or campaigns that change before they can be measured. Find the stage where customers drop out before blaming one channel.",
+          "The problem may be the targeting, offer, or message, but it is often a handoff: mixed information across the website and Google, missed or poorly handled calls, no follow-up, or campaigns that change before anyone can measure them. Find the stage where customers drop out before you blame one channel.",
       },
       {
         question: "Can too many marketing vendors hurt results?",
         answer:
-          "Specialists can be valuable, but results suffer when each vendor works toward a different definition of success and nobody coordinates the customer journey. One accountable owner should align the message, timing, tracking, and reporting across vendors and keep the front counter informed.",
+          "Specialists can be valuable, but results suffer when each vendor works toward a different definition of success and nobody coordinates the customer's path from first look to repair order. One accountable owner should line up the message, timing, tracking, and reporting across vendors and keep the front counter informed.",
       },
       {
         question: "Which marketing numbers should a repair shop review?",
         answer:
-          "Track calls and requests by source, booked appointments, show rate, completed repair orders, average repair order, new versus returning customers, and spend. Clicks and impressions are useful for diagnosing a campaign, but they should connect to outcomes the shop can recognize.",
+          "Track calls and requests by source, booked appointments, show rate, completed repair orders, average repair order, new versus returning customers, and spend. Clicks and impressions help diagnose a campaign, but they should connect to outcomes you can see in the shop.",
       },
       {
         question: "When should a repair shop stop a marketing campaign?",
         answer:
-          "Stop when the audience or goal is wrong, the economics cannot work, or no one can own the campaign well enough to learn from it. If the channel has potential but the leak is specific, such as the offer, tracking, landing page, or call handling, fix and retest that problem first.",
+          "Stop when the audience or goal is wrong, the economics cannot work, or no one can own the campaign well enough to learn from it. If the channel has potential and the leak is specific, such as the offer, tracking, landing page, or call handling, fix and retest that first.",
       },
     ],
     externalSources: [
@@ -1519,7 +1519,7 @@ export const resourcePosts: ResourcePost[] = [
     seoTitle: "Jason Smith's Yearly Marketing Plan | Turnkey Marketing",
     description:
       "See why sitting down with Turnkey to build a yearly marketing plan was a mind-blowing moment for Jason Smith of M&M Car Care Center.",
-    dek: "For the first time, Jason could see an entire year of marketing mapped to his shop—not another pile of disconnected monthly tactics.",
+    dek: "For the first time, Jason could see a full year of marketing mapped to his shop, instead of another pile of disconnected monthly tactics.",
     image: siteMedia.graphics.jasonSmithPlan,
     imageWidth: 960,
     imageHeight: 540,
@@ -1536,40 +1536,40 @@ export const resourcePosts: ResourcePost[] = [
     sourceAsset:
       "https://turnkeyautomarketing.com/wp-content/uploads/2023/01/jason-smith-marketing-plan.png",
     takeaways: [
-      "Long-term growth needs a visible plan.",
-      "The owner should not have to invent the marketing calendar alone.",
-      "The strongest plan connects campaigns, reporting, and accountability.",
+      "Long-term growth needs a plan you can actually see.",
+      "The owner should not have to build the marketing calendar alone.",
+      "The strongest plan ties campaigns, reporting, and accountability together.",
     ],
     sections: [
       {
         heading: "The plan made the whole year visible.",
-        body: "A yearly marketing plan sets a schedule for attracting customers, encouraging repeat visits, managing reviews, and planning seasonal campaigns and spending. Instead of restarting the strategy conversation every month, Jason and his team could see how the pieces worked together and what needed to happen next.",
+        body: "A yearly marketing plan sets the schedule for attracting customers, encouraging repeat visits, managing reviews, and planning seasonal campaigns and spending. Instead of restarting the strategy conversation every month, Jason and his team could see how the pieces fit together and what needed to happen next.",
       },
       {
         heading: "A plan is only useful when someone owns it.",
-        body: "Turnkey pairs the strategy with execution and reporting, so the owner gets a clear direction without becoming the project manager for every campaign. The result is accountability, fewer last-minute decisions, and marketing that supports the shop's actual goals.",
+        body: "Turnkey pairs the strategy with execution and reporting, so the owner gets a clear direction without becoming the project manager for every campaign. The result is real accountability, fewer last-minute decisions, and marketing that supports the goals the shop actually has.",
       },
     ],
     faq: [
       {
         question: "What is a yearly marketing plan for an auto repair shop?",
         answer:
-          "It is a 12-month view of the shop's acquisition, retention, reputation, seasonal campaigns, budget, deadlines, and dates to review results. The plan gives each activity a purpose and helps the team prepare before a slow week or service opportunity becomes urgent.",
+          "It is a 12-month view of the shop's acquisition, retention, reputation, and seasonal campaigns, along with the budget, deadlines, and dates to review results. The plan gives every activity a purpose and helps the team prepare before a slow week or service opportunity turns urgent. Instead of deciding what to run from scratch each month, the shop works from a calendar it already agreed on.",
       },
       {
         question: "What should go on an annual auto repair marketing calendar?",
         answer:
-          "Include recurring campaigns, seasonal service opportunities, customer follow-up, review and reputation work, direct-mail dates, creative deadlines, budget checkpoints, and reporting meetings. Add the person responsible for each task so the calendar shows ownership as well as timing.",
+          "Include recurring campaigns, seasonal service opportunities, customer follow-up, review and reputation work, direct-mail dates, creative deadlines, budget checkpoints, and reporting meetings. Put a name next to each task, so the calendar shows who owns the work as well as when it happens.",
       },
       {
         question: "How far in advance should a repair shop plan marketing?",
         answer:
-          "Set the annual direction before the year or planning cycle begins, then work at least several weeks ahead of each campaign. Direct mail, creative approvals, landing pages, lists, tracking, and staff preparation all need lead time, while monthly reviews keep the plan responsive.",
+          "Set the annual direction before the year or planning cycle begins, then work at least several weeks ahead of each campaign. Direct mail, creative approvals, landing pages, lists, tracking, and staff preparation all need lead time, and monthly reviews keep the plan responsive. The earlier the direction is set, the fewer marketing decisions get made in a rush.",
       },
       {
         question: "Who should manage the yearly marketing plan?",
         answer:
-          "One accountable person or team should coordinate the plan, vendors, approvals, reporting, and next actions. The owner should set goals and understand the decisions without having to chase every deadline or translate separate vendor reports alone.",
+          "One accountable person or team should coordinate the plan, vendors, approvals, reporting, and next steps. The owner should set the goals and understand the decisions without chasing every deadline or translating separate vendor reports alone.",
       },
     ],
     externalSources: [
