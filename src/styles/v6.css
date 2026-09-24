@@ -324,8 +324,8 @@
 a.v6-tile:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -44px rgba(35, 46, 102, 0.6); }
 .v6-tile--navy { background: var(--navy); color: #fff; }
 .v6-tile--blue { background: var(--key-blue-soft); }
-.v6-tile__icon { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: #fff; color: var(--navy); }
-.v6-sec--tint .v6-tile .v6-tile__icon { background: var(--off-white); }
+.v6-tile__icon { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: var(--navy); color: #fff; }
+.v6-tile--blue .v6-tile__icon { background: var(--navy); color: #fff; }
 .v6-tile--navy .v6-tile__icon { background: var(--green); color: var(--navy); }
 .v6-tile__icon .v6-icon { width: 1.5rem; height: 1.5rem; }
 .v6-tile__title { font-size: clamp(1.2rem, 1.6vw, 1.45rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; }

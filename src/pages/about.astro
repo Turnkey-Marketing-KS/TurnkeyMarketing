@@ -382,9 +382,9 @@ const aboutSchema = {
   .tk-about__team-photo { overflow: hidden; border-radius: 36px; aspect-ratio: 3 / 2; background: #fff; box-shadow: 0 0 0 1px var(--hairline), 0 40px 90px -60px rgba(35, 46, 102, 0.55); }
   .tk-about__disciplines.v6-swipe { gap: 0; border-top: 1px solid var(--hairline); }
   .tk-about__discipline { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1.25rem; align-items: start; padding-block: clamp(1.25rem, 2vw, 1.6rem); border-bottom: 1px solid var(--hairline); }
-  .tk-about__discipline-icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--key-blue-soft); color: var(--navy); }
-  .tk-about__discipline:nth-child(2) .tk-about__discipline-icon { background: #e9f3dc; }
-  .tk-about__discipline:nth-child(4) .tk-about__discipline-icon { background: var(--navy); color: var(--green); }
+  .tk-about__discipline-icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--navy); color: #fff; }
+  .tk-about__discipline:nth-child(2) .tk-about__discipline-icon { background: var(--green); color: var(--navy); }
+  .tk-about__discipline:nth-child(4) .tk-about__discipline-icon { background: var(--key-blue); color: #fff; }
   .tk-about__discipline-icon .v6-icon { width: 1.4rem; height: 1.4rem; }
   .tk-about__discipline-title { font-size: clamp(1.15rem, 1.5vw, 1.35rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
   .tk-about__discipline-copy { margin-top: 0.4rem; line-height: 1.6; color: var(--muted); }
@@ -436,8 +436,8 @@ const aboutSchema = {
     .tk-about__discipline:nth-child(4) { background: var(--navy); color: #fff; }
     .tk-about__discipline:nth-child(4) .tk-about__discipline-icon { background: var(--green); color: var(--navy); }
     .tk-about__discipline:nth-child(4) .tk-about__discipline-copy { color: rgba(255, 255, 255, 0.74); }
-    .tk-about__discipline-icon { background: #fff; }
-    .tk-about__discipline:nth-child(2) .tk-about__discipline-icon { background: #fff; }
+    .tk-about__discipline-icon { background: var(--navy); color: #fff; }
+    .tk-about__discipline:nth-child(2) .tk-about__discipline-icon { background: var(--green); color: var(--navy); }
     .tk-about__discipline-title { font-size: 1.3rem; }
 
     .tk-about__values-grid { row-gap: 1.5rem; }

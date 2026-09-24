@@ -402,15 +402,23 @@ const faqSchema = {
             <a href={googleReviewSummary.url} class="v6-btn v6-btn--green tk-reviews__all" target="_blank" rel="noopener"><span>Read every review on Google</span><i set:html={arrowUp} /></a>
           </div>
           <ul class="tk-reviews__list" data-allow-overflow>
-            {googleReviewHighlights.map((review) => (
-              <li class="tk-review" data-rise>
-                <figure>
-                  <span class="v6-stars tk-review__stars" aria-label="5 out of 5 stars">★★★★★</span>
-                  <blockquote><p>“{review.excerpt}”</p></blockquote>
-                  <figcaption><strong>{review.author}</strong> <span>{review.detail === "Google review" ? "Google review" : review.detail}</span></figcaption>
-                </figure>
-              </li>
-            ))}
+            {googleReviewHighlights.map((review, index) => {
+              const initials = review.author.replace(/[^A-Za-z ]/g, "").split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+              const shop = review.detail === "Google review" ? "" : review.detail;
+              return (
+                <li class:list={["tk-review", index === 0 && "tk-review--lead"]} style={`--tone:${["var(--navy)", "var(--green)", "var(--key-blue)"][index % 3]}`} data-rise>
+                  <figure>
+                    <span class="tk-review__mark" aria-hidden="true">“</span>
+                    <blockquote><p>{review.excerpt}</p></blockquote>
+                    <figcaption>
+                      <span class="tk-review__avatar" aria-hidden="true">{initials}</span>
+                      <span class="tk-review__who"><strong>{review.author}</strong>{shop && <span>{shop}</span>}</span>
+                      <span class="tk-review__source"><span class="v6-stars" aria-label="5 out of 5 stars">★★★★★</span><span>Google review</span></span>
+                    </figcaption>
+                  </figure>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
@@ -790,7 +798,7 @@ const faqSchema = {
   .v6-story__pins { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
   .v6-story__pinitem { position: relative; display: grid; justify-items: center; gap: 0.6rem; font-size: 0.85rem; font-weight: 600; text-align: center; opacity: 0.25; transition: opacity 0.5s; transition-delay: calc(0.2s + var(--i) * 0.3s); }
   .v6-story__card.is-active .v6-story__pinitem { opacity: 1; }
-  .v6-story__pinicon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--key-blue-soft); color: var(--navy); }
+  .v6-story__pinicon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--navy); color: #fff; }
   .v6-story__pinitem:first-child .v6-story__pinicon { background: var(--green); color: var(--charcoal); }
   .v6-story__pinicon .v6-icon { width: 1.3rem; height: 1.3rem; }
   .v6-story__line { font-size: 1.05rem; line-height: 1.55; color: var(--muted); }
@@ -1115,12 +1123,29 @@ const faqSchema = {
   .tk-reviews__stars { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 600; color: #e4e8f2; }
   .tk-reviews__all { margin-top: 0.75rem; }
   .tk-reviews__list { columns: 3 15rem; column-gap: clamp(1rem, 2vw, 1.5rem); }
+
   .tk-review { break-inside: avoid; margin-bottom: clamp(1rem, 2vw, 1.5rem); }
-  .tk-review figure { display: grid; gap: 0.9rem; padding: clamp(1.4rem, 2.4vw, 1.75rem); border-radius: 26px; background: var(--off-white); }
-  .tk-review__stars { font-size: 0.95rem; }
-  .tk-review blockquote p { font-size: clamp(1.05rem, 1.3vw, 1.2rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.4; color: var(--charcoal); }
-  .tk-review figcaption { display: grid; gap: 0.1rem; font-size: 0.88rem; color: var(--muted); }
-  .tk-review figcaption strong { font-size: 0.98rem; color: var(--navy); }
+  .tk-review figure { position: relative; display: grid; gap: 1.4rem; padding: clamp(1.6rem, 2.6vw, 2rem); border: 2px solid transparent; border-radius: 28px; background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, var(--hairline), var(--hairline)) border-box; box-shadow: 0 30px 60px -48px rgba(35, 46, 102, 0.55); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), background 0.4s; }
+  .tk-review figure:hover { transform: translateY(-4px); background: linear-gradient(#fff, #fff) padding-box, var(--grad) border-box; box-shadow: 0 36px 70px -44px rgba(35, 46, 102, 0.6); }
+  .tk-review__mark { position: absolute; top: 0.9rem; right: 1.35rem; font-size: 4.5rem; font-weight: 700; line-height: 1; color: var(--key-blue-soft); pointer-events: none; }
+  .tk-review blockquote p { position: relative; font-size: clamp(1.05rem, 1.3vw, 1.2rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.45; color: var(--charcoal); text-wrap: pretty; }
+  .tk-review figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "avatar who" "source source"; align-items: center; column-gap: 0.8rem; row-gap: 0.9rem; padding-top: 1.2rem; border-top: 1px solid var(--hairline); }
+  .tk-review__avatar { grid-area: avatar; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: var(--tone); color: #fff; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; }
+  .tk-review[style*="--green"] .tk-review__avatar { color: var(--navy); }
+  .tk-review__who { grid-area: who; display: grid; gap: 0.1rem; min-width: 0; }
+  .tk-review__who strong { font-size: 1rem; color: var(--navy); }
+  .tk-review__who span { font-size: 0.85rem; color: var(--muted); }
+  .tk-review__source { grid-area: source; display: flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+  .tk-review__source .v6-stars { font-size: 0.9rem; letter-spacing: 0.08em; }
+  /* Lead review: the navy feature card */
+  .tk-review--lead figure { background: linear-gradient(var(--navy), var(--navy)) padding-box, linear-gradient(var(--navy), var(--navy)) border-box; box-shadow: 0 34px 70px -40px rgba(35, 46, 102, 0.8); }
+  .tk-review--lead figure:hover { background: linear-gradient(var(--navy), var(--navy)) padding-box, var(--grad) border-box; }
+  .tk-review--lead .tk-review__mark { color: var(--key-blue); }
+  .tk-review--lead blockquote p { font-size: clamp(1.2rem, 1.6vw, 1.45rem); color: #fff; }
+  .tk-review--lead figcaption { border-color: rgb(63, 77, 140); }
+  .tk-review--lead .tk-review__avatar { background: var(--green); color: var(--navy); }
+  .tk-review--lead .tk-review__who strong { color: #fff; }
+  .tk-review--lead .tk-review__who span, .tk-review--lead .tk-review__source { color: #c9d1e6; }
 
   /* FAQ: sticky intro and ask card on desktop; on phones intro, questions, then the ask card */
   .tk-faq__grid { grid-template-areas: "intro list" "ask list" ". list"; grid-template-rows: auto auto 1fr; column-gap: clamp(2rem, 6vw, 6rem); row-gap: 2rem; }
@@ -1151,7 +1176,9 @@ const faqSchema = {
     .tk-reviews__list { columns: auto; display: flex; gap: 0.75rem; margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 0.25rem; scroll-padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
     .tk-reviews__list::-webkit-scrollbar { display: none; }
     .tk-review { flex: none; width: min(80vw, 19rem); margin: 0; scroll-snap-align: start; }
-    .tk-review figure { height: 100%; align-content: start; border-radius: 22px; }
+    .tk-review figure { height: 100%; align-content: start; grid-template-rows: auto 1fr auto; border-radius: 24px; }
+    .tk-review figure:hover { transform: none; }
+    .tk-review__mark { font-size: 3.75rem; }
     .tk-faq__lead { font-size: 1rem; }
     .tk-faq__ask { padding: 1.5rem; }
     .tk-faq__ask-actions { flex-direction: column; align-items: stretch; }

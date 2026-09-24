@@ -553,7 +553,7 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
     .tk-scan__lead { max-width: 32rem; font-size: clamp(1.1rem, 1.35vw, 1.25rem); line-height: 1.6; color: var(--muted); }
     .tk-scan__meta { grid-area: meta; display: flex; flex-wrap: wrap; gap: 0.5rem; align-self: start; }
     .tk-scan__chip { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 2.6rem; padding: 0 1rem 0 0.45rem; border-radius: 999px; background: var(--off-white); color: var(--navy); font-size: 0.9rem; font-weight: 600; }
-    .tk-scan__chip-icon { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 999px; background: #fff; color: var(--key-blue); }
+    .tk-scan__chip-icon { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 999px; background: var(--navy); color: #fff; }
     .tk-scan__chip-icon .v6-icon { width: 1rem; height: 1rem; }
     .tk-scan__formwrap { grid-area: form; align-self: center; width: 100%; max-width: 32rem; justify-self: end; }
     .tk-scan__form { display: grid; gap: 1.25rem; padding: clamp(1.75rem, 3vw, 2.5rem); }
@@ -562,7 +562,7 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
     .tk-scan__signals-title { font-size: 1rem; font-weight: 600; letter-spacing: -0.015em; color: var(--navy); }
     .tk-scan__signals-list { display: flex; flex-wrap: wrap; gap: 0.75rem 2.5rem; }
     .tk-scan__signal { display: inline-flex; align-items: center; gap: 0.7rem; font-size: 0.98rem; font-weight: 500; color: var(--charcoal); }
-    .tk-scan__signal-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--key-blue-soft); color: var(--navy); }
+    .tk-scan__signal-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--navy); color: #fff; }
     .tk-scan__signal-icon .v6-icon { width: 1.15rem; height: 1.15rem; }
 
     /* Progress */
@@ -656,7 +656,7 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
 
     .tk-scan .report-section-label { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
     .tk-scan .report-section-label h3 { font-size: clamp(1.3rem, 1.9vw, 1.7rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; }
-    .tk-scan__label-icon { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 999px; background: #fff; color: var(--navy); }
+    .tk-scan__label-icon { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 999px; background: var(--navy); color: #fff; }
     .tk-scan__label-icon .v6-icon { width: 1.1rem; height: 1.1rem; }
     .tk-scan__block { margin-top: clamp(0.5rem, 1.5vw, 1.25rem); }
     .tk-scan__understood { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(0.75rem, 1.5vw, 1.25rem); }
@@ -672,7 +672,7 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
     .tk-scan__alert { position: relative; background: #fdecea; }
     .tk-scan__alert::before { content: ""; position: absolute; left: 50%; top: 28%; width: 2.5px; height: 28%; margin-left: -1.25px; border-radius: 2px; background: #c9544a; }
     .tk-scan__alert::after { content: ""; position: absolute; left: 50%; bottom: 26%; width: 3.5px; height: 3.5px; margin-left: -1.75px; border-radius: 999px; background: #c9544a; }
-    .tk-scan__strip-icon--blue { background: var(--key-blue-soft); color: var(--navy); }
+    .tk-scan__strip-icon--blue { background: var(--navy); color: #fff; }
     .tk-scan__grow { min-width: 0; flex: 1; }
     .tk-scan__card-title { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; color: var(--charcoal); }
     .tk-scan__card-text { margin-top: 0.5rem; line-height: 1.6; color: var(--muted); }
@@ -694,7 +694,7 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
     .tk-scan .report-action-card { display: flex; align-items: flex-start; gap: 1.1rem; padding: clamp(1.4rem, 2.4vw, 2rem); border-radius: 30px; background: #fff; }
     .tk-scan__action--good .report-action-icon { background: #eaf5dc; }
     .tk-scan__action--good .v6-mark { width: 1.6rem; height: 1.6rem; }
-    .tk-scan__action--fix .report-action-icon { background: var(--key-blue-soft); color: var(--navy); }
+    .tk-scan__action--fix .report-action-icon { background: var(--navy); color: #fff; }
     .tk-scan__cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1.25rem; }
 
     .tk-scan__how { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: clamp(0.5rem, 1.5vw, 1rem); padding: 1.4rem clamp(1.5rem, 3vw, 2.25rem); border-radius: 26px; background: var(--navy); color: rgba(255, 255, 255, 0.74); line-height: 1.6; }
@@ -728,7 +728,7 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
       .tk-scan__input { height: 3.625rem; font-size: 1.0625rem; }
       .tk-scan__meta { justify-content: center; gap: 0.25rem 1.25rem; }
       .tk-scan__chip { min-height: 2rem; padding: 0; gap: 0.45rem; background: none; font-size: 0.85rem; }
-      .tk-scan__chip-icon { width: 1.6rem; height: 1.6rem; background: var(--key-blue-soft); }
+      .tk-scan__chip-icon { width: 1.6rem; height: 1.6rem; }
       .tk-scan__signals { display: grid; gap: 0.25rem; margin-top: 0.75rem; padding-top: 1.5rem; }
       .tk-scan__signals-title { font-size: 0.95rem; margin-bottom: 0.5rem; }
       .tk-scan__signals-list { display: grid; gap: 0; }
