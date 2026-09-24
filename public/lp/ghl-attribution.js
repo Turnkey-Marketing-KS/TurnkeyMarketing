@@ -133,6 +133,28 @@
     return attribution;
   }
 
+  function bookingSourceLabel(attribution) {
+    const record = attribution || {};
+    const touch = record.latest_touch || {};
+    const source = (touch.utm_source || "").toLowerCase();
+    const medium = (touch.utm_medium || "").toLowerCase();
+    const campaign = (touch.utm_campaign || "").toLowerCase();
+    const paid = /^(cpc|ppc|paidsearch|paid_search|paid-search|paid_social|paid-social|paidsocial|paid)$/.test(medium);
+    if (touch.gclid || touch.gbraid || touch.wbraid || (source === "google" && paid)) return "Google Ads";
+    if (source === "google" && medium === "organic" && campaign === "gbp") return "Google Business Profile";
+    if (source === "google" && medium === "organic") return "Google Organic Search";
+    if (/^(facebook|instagram|meta|fb|ig)$/.test(source)) return paid ? "Meta Ads" : "Facebook / Instagram";
+    if (medium === "email") return "Email";
+    if (source) return `${touch.utm_source}${medium ? ` / ${touch.utm_medium}` : ""}`;
+    let referrer;
+    try { referrer = new URL(record.latest_referrer || record.first_referrer); } catch (_) {}
+    if (referrer && referrer.origin !== window.location.origin) {
+      if (/^(www\.)?google\.[a-z.]+$/.test(referrer.hostname)) return "Google Organic Search";
+      return `Referral — ${referrer.hostname}`;
+    }
+    return "Website — Direct / unattributed";
+  }
+
   function decorate(attribution) {
     document
       .querySelectorAll('[data-tk-booking-provider="ghl_calendar"]')
@@ -143,6 +165,7 @@
         if (!raw) return;
         try {
           var url = new URL(raw, window.location.href);
+          url.searchParams.set("source", bookingSourceLabel(attribution));
           var latest = attribution.latest_touch || {};
           var first = attribution.first_touch || {};
           CAMPAIGN_KEYS.forEach(function (key) {

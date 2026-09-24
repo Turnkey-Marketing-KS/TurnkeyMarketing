@@ -2,12 +2,14 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { runInNewContext } from "node:vm";
 
 import {
   ATTRIBUTION_STORAGE_KEY,
   MAIN_WEBSITE_GHL_BOOKING_EVENT_STORAGE_KEY,
   MAIN_WEBSITE_GHL_BOOKING_URL,
   buildBookingEventParams,
+  bookingSourceLabel,
   decorateGhlCalendarUrlWithAttribution,
   decorateUrlWithAttribution,
   initializeAttributionTracking,
@@ -24,6 +26,34 @@ import {
 const FIRST_TIME = "2026-08-20T15:00:00.000Z";
 const LATEST_TIME = "2026-08-20T16:30:00.000Z";
 const TRACKING_ID = "tk_0123456789abcdef0123456789abcdef";
+
+test("booking source distinguishes GBP, organic, ads and unknown traffic", () => {
+  const label = (query) => bookingSourceLabel(mergeAttribution({
+    href: `https://www.turnkeyautomarketing.com/?${query}`,
+    trackingSessionId: TRACKING_ID,
+    now: FIRST_TIME,
+  }));
+  assert.equal(label("utm_source=google&utm_medium=organic&utm_campaign=gbp"), "Google Business Profile");
+  assert.equal(label("utm_source=google&utm_medium=organic"), "Google Organic Search");
+  assert.equal(label("utm_source=google&utm_medium=organic&utm_campaign=gbp&gclid=paid-click"), "Google Ads");
+  assert.equal(label("utm_source=facebook&utm_medium=paid_social"), "Meta Ads");
+  assert.equal(label("utm_source=facebook&fbclid=ordinary-click"), "Facebook / Instagram");
+  assert.equal(label(""), "Website — Direct / unattributed");
+});
+
+test("GBP evidence survives homepage to contact to hidden calendar fields", () => {
+  const first = mergeAttribution({
+    href: "https://www.turnkeyautomarketing.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=website_button",
+    now: FIRST_TIME, trackingSessionId: TRACKING_ID,
+  });
+  const booking = mergeAttribution({ href: "https://www.turnkeyautomarketing.com/contact", existing: first, now: LATEST_TIME });
+  const url = new URL(decorateGhlCalendarUrlWithAttribution(MAIN_WEBSITE_GHL_BOOKING_URL, booking));
+  assert.equal(url.searchParams.get("source"), "Google Business Profile");
+  assert.equal(url.searchParams.get("tk_utm_campaign"), "gbp");
+  assert.equal(url.searchParams.get("tk_utm_content"), "website_button");
+  assert.equal(url.searchParams.get("tk_tracking_session_id"), TRACKING_ID);
+  assert.equal(url.searchParams.get("tk_first_landing_page"), first.first_landing_page);
+});
 
 function createStorage(values = new Map()) {
   return {
@@ -833,4 +863,26 @@ test("public page sources keep the two booking funnels scoped correctly", () => 
 
 test("invalid persisted attribution is ignored", () => {
   assert.deepEqual(parseStoredAttribution("not-json"), {});
+});
+
+// Execute the standalone paid-page script against browser-shaped DOM/storage doubles.
+test("standalone paid calendar passes source and raw evidence without assuming paid traffic", () => {
+  for (const [query, expected] of [
+    ["gclid=paid-click&utm_source=google&utm_medium=cpc", "Google Ads"],
+    ["utm_source=google&utm_medium=organic&utm_campaign=gbp", "Google Business Profile"],
+    ["utm_source=facebook&utm_medium=paid_social", "Meta Ads"],
+    ["", "Website — Direct / unattributed"],
+  ]) {
+    const attrs = new Map([["data-src", "https://api.leadconnectorhq.com/widget/booking/6tmXrJxmo6AUsMP2ja9d"]]);
+    const element = { tagName: "IFRAME", hasAttribute: key => attrs.has(key), getAttribute: key => attrs.get(key), setAttribute: (key, value) => attrs.set(key,value) };
+    runInNewContext(readFileSync(new URL("../public/lp/ghl-attribution.js", import.meta.url), "utf8"), {
+      URL, sessionStorage: createStorage(),
+      window: { location: new URL(`https://www.turnkeyautomarketing.com/google-ads-strategy-call?${query}`) },
+      document: { referrer: "", querySelectorAll: () => [element] },
+    });
+    const calendar = new URL(attrs.get("data-src"));
+    assert.equal(calendar.searchParams.get("source"), expected);
+    assert.ok(calendar.searchParams.get("tk_tracking_session_id"));
+    if (query.includes("gclid")) assert.equal(calendar.searchParams.get("tk_gclid"), "paid-click");
+  }
 });
