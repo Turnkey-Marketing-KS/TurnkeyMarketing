@@ -167,7 +167,7 @@ const heroKicker = showHeroEyebrow ? (hero.badge ? `${service.name} · ${hero.ba
       <ul class:list={["tk-sd__stats", isFlagship && "v6-glow__inner"]}>
         {hero.stats.map((stat) => (
           <li class="tk-sd__stat">
-            <p class="tk-sd__statValue">{stat.value}</p>
+            <p class="tk-sd__statValue">{stat.value.endsWith("★") ? <>{stat.value.slice(0, -1)}<span class="v6-star">★</span></> : stat.value}</p>
             <p class="tk-sd__statLabel">{stat.label}</p>
           </li>
         ))}
@@ -282,7 +282,7 @@ const heroKicker = showHeroEyebrow ? (hero.badge ? `${service.name} · ${hero.ba
         <ul class="tk-sd__trustStats">
           {trustStats.map((stat) => (
             <li>
-              <p class="tk-sd__trustNum">{stat.value}</p>
+              <p class="tk-sd__trustNum">{stat.value.endsWith("★") ? <>{stat.value.slice(0, -1)}<span class="v6-star">★</span></> : stat.value}</p>
               <p class="tk-sd__trustLabel">{stat.label}</p>
             </li>
           ))}

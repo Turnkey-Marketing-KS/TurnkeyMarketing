@@ -243,7 +243,7 @@ const faqSchema = {
             <dl class="tk-home__stats" data-rise>
               {stats.map((stat) => (
                 <div class="tk-home__stat">
-                  <dt class:list={["tk-home__stat-num", stat.accent && "is-accent"]}>{stat.k}</dt>
+                  <dt class:list={["tk-home__stat-num", stat.accent && "is-accent"]}>{stat.k.endsWith("★") ? <>{stat.k.slice(0, -1)}<span class="v6-star">★</span></> : stat.k}</dt>
                   <dd class="tk-home__stat-label">
                     {stat.v}
                     {stat.accent && <a href={googleReviewSummary.url} class="tk-home__stat-link">Read {googleReviewSummary.count} reviews</a>}
@@ -444,7 +444,13 @@ const faqSchema = {
                 </li>
               ))}
             </ol>
-            <div class="v6-story__swipebar" aria-hidden="true"><span data-story-swipebar></span></div>
+            <div class="v6-story__nav">
+              <div class="v6-story__swipebar" aria-hidden="true"><span data-story-swipebar></span></div>
+              <div class="v6-arrows">
+                <button type="button" data-story-prev aria-label="Previous result"><i set:html={arrow} /></button>
+                <button type="button" data-story-next aria-label="Next result"><i set:html={arrow} /></button>
+              </div>
+            </div>
           </div>
 
           <div class="v6-results__foot">
@@ -1019,6 +1025,42 @@ const faqSchema = {
     .tk-home__aud-head { grid-template-columns: 1fr; }
     .v6-aud__line { font-size: 0.95rem; }
   }
+
+  .v6-story__nav { display: none; }
+  /* Results on phones: a fitted revenue counter, compact swipe cards, and a clear way to move between them */
+  @media (max-width: 900px) {
+    .v6-results { padding-block: 4.5rem 4rem; }
+    .v6-results__hero { container-type: inline-size; margin-inline: calc(var(--gutter) * -0.35); padding: 2.25rem 1.1rem 2rem; border-radius: 30px; background: var(--navy); color: #fff; text-align: center; }
+    .v6-results__hero .v6-h2 { max-width: 13ch; font-size: clamp(1.9rem, 8.6cqi, 2.6rem); color: #fff; }
+    .v6-results__hero .v6-accent { color: #8cc3ec; }
+    .v6-odo--xl { margin-top: 1.5rem; font-size: 11.4cqi; letter-spacing: -0.02em; color: #fff; }
+    .v6-odo--xl .v6-odo__col { padding-inline: 0; margin-inline: 0; }
+    .v6-odo--xl .v6-odo__sym:first-child { color: #8cc3ec; }
+    .v6-story { margin-top: 1.75rem; }
+    .v6-story__list { padding-block: 0.25rem 1rem; align-items: flex-start; }
+    .v6-story__inner { height: auto; }
+    .v6-story__card { width: min(86vw, 22rem); border-radius: 30px; }
+    .v6-story__card:not(.is-active) { opacity: 0.5; }
+    .v6-story__inner { gap: 1rem; padding: 1.35rem 1.35rem 1.5rem; border-radius: 26px; }
+    .v6-story__head { gap: 0.8rem; }
+    .v6-story__logo { width: 3.75rem; height: 2.75rem; }
+    .v6-story__who strong { font-size: 1rem; line-height: 1.25; }
+    .v6-story__who span { font-size: 0.8rem; }
+    .v6-story__mobile-stat { font-size: 2.9rem; }
+    .v6-story__mobile-stat span { margin-top: 0.35rem; font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; }
+    .v6-story__bars { gap: 0.8rem; }
+    .v6-story__bar { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label value" "track track"; row-gap: 0.4rem; column-gap: 0.75rem; }
+    .v6-story__bar-label { grid-area: label; font-size: 0.82rem; }
+    .v6-story__track { grid-area: track; height: 0.7rem; }
+    .v6-story__bar-value { grid-area: value; grid-column: auto; min-width: 0; text-align: right; font-size: 0.95rem; }
+    .v6-story__bar-value--after { font-size: 1.1rem; }
+    .v6-story__line { font-size: 0.98rem; line-height: 1.5; color: #3a3f4b; }
+    .v6-story__quote { font-size: 0.95rem; }
+    .v6-story__nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.25rem; }
+    .v6-story__nav .v6-story__swipebar { display: block; margin: 0; width: 8rem; }
+    .v6-story__nav .v6-arrows button { width: 2.75rem; height: 2.75rem; }
+    .v6-results__foot { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--hairline); flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  }
 </style>
 
 <script>
@@ -1232,6 +1274,14 @@ const faqSchema = {
     };
     window.addEventListener("scroll", () => requestAnimationFrame(updateStory), { passive: true });
     storyList?.addEventListener("scroll", () => requestAnimationFrame(updateStory), { passive: true });
+    // Phone rail arrows: move exactly one card
+    const storyStep = (dir: number) => {
+      if (!storyList) return;
+      const target = storyCards[Math.min(storyCards.length - 1, Math.max(0, activeStory + dir))];
+      if (target) storyList.scrollTo({ left: target.offsetLeft - (storyList.clientWidth - target.offsetWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
+    };
+    root.querySelector("[data-story-prev]")?.addEventListener("click", () => storyStep(-1));
+    root.querySelector("[data-story-next]")?.addEventListener("click", () => storyStep(1));
     window.addEventListener("resize", updateStory);
     updateStory();
 
