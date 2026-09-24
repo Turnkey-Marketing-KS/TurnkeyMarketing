@@ -2,15 +2,14 @@
 // Homepage: the approved v6 design (reference: src/pages/mockup/homepage-v6.astro).
 // SEO parity with the previous homepage: same title, description, path, FAQPage schema, H1, H2s, H3s, and links.
 import V6Layout from "@/components/v6/V6Layout.astro";
-import V6Faq from "@/components/v6/V6Faq.astro";
 import V6Cta from "@/components/v6/V6Cta.astro";
 import { CONSULTATION_URL, services } from "@/lib/services";
 import { ownerTestimonials, videoTestimonials } from "@/lib/proof";
-import { googleReviewSummary } from "@/lib/google-reviews";
+import { googleReviewHighlights, googleReviewSummary } from "@/lib/google-reviews";
 import { resourcePosts } from "@/lib/resource-posts";
 import { audiences } from "@/lib/audiences";
 import { siteMedia } from "@/lib/site-media";
-import { arrow, arrowUp, play, iconSrc, split } from "@/lib/v6";
+import { arrow, arrowUp, play, iconSrc, split, phoneHref, phoneLabel } from "@/lib/v6";
 
 // Hero frames: the photo cycles through real client shops as the hero expands, landing on the last one
 const heroFrames = [
@@ -155,20 +154,22 @@ const rail = [
 
 const insightPosts = resourcePosts.slice(0, 3);
 
+// Homepage FAQ: each answer opens with a direct one-sentence answer (what search and AI answer engines quote),
+// then the detail, then one link to the page that goes deeper. The schema uses the same plain-text answers.
 const faqItems = [
-  { q: "What does an auto repair marketing company actually do?", a: "An auto repair marketing company should connect the shop’s business goals to a practical plan, coordinate the people and vendors responsible for executing it, and measure whether the work creates the right calls, appointments, customers, and repair orders. Turnkey can provide focused services or function as the shop’s outsourced marketing department." },
-  { q: "What is the best marketing strategy for an auto repair shop?", a: "The best strategy is a coordinated plan that matches your market, capacity, customer mix, and budget. For most shops, that means Google visibility, reviews, paid search, retention, direct mail, and reporting working together instead of as separate vendor tasks." },
-  { q: "How do I get more customers for my auto repair shop?", a: "Start by deciding which customers and jobs you actually want more of. Then connect search, Google Business Profile, reviews, offers, follow-up, and call handling so demand turns into booked appointments." },
-  { q: "How can my auto repair shop show up higher on Google Maps?", a: "Google Maps visibility usually improves when your profile, reviews, photos, location signals, website, and local relevance are stronger. No agency can guarantee rankings, but complete shop information, steady review activity, accurate listings, and useful local content give Google clearer trust signals." },
-  { q: "Are Google Ads worth it for auto repair shops?", a: "Google Ads can be worth it when campaigns are tied to profitable services, clear geography, call handling, and appointment quality. If ads are only judged by clicks or cheap leads, they can spend money without filling the bays with the right cars." },
-  { q: "Does direct mail still work for auto repair shops?", a: "Direct mail can still work when the list, offer, timing, and follow-up are precise. It is strongest for local radius campaigns, second-location growth, customer reactivation, and dense markets where the shop needs a physical reminder." },
-  { q: "How do I know if my auto repair marketing is actually working?", a: "Marketing is working when it creates the right calls, booked appointments, returning customers, and customer mix at a cost the shop can defend. The report should explain what to keep, what to fix, what to stop spending on, and what to run next." },
-  { q: "What should an auto repair shop track besides leads?", a: "Track calls, booked appointments, close rate, repair order quality, returning customers, source mix, review activity, and capacity. Lead volume by itself can hide whether marketing is helping the shop or just making the front counter busier." },
-  { q: "What if I am getting calls but not enough booked appointments?", a: "That usually means the issue is between demand and the schedule, not just more marketing. Call handling, advisor scripts, offer fit, service mix, hours, and follow-up all affect whether a call becomes a car in the bay." },
-  { q: "How do I bring back inactive auto repair customers?", a: "Use retention and reactivation campaigns that speak to known customers based on timing, service history, and ownership cycles. Email, SMS, direct mail, and service reminders work best when they are coordinated instead of sent as one-off blasts." },
-  { q: "What if my shop does not need more cars right now?", a: "Then marketing should shift from more volume to better control. The plan can focus on retention, higher-fit work, customer quality, reputation, future demand timing, and protecting spend until capacity opens up." },
-  { q: "Should I keep my current marketing vendors or replace them?", a: "Keep vendors that are producing clear value and make them part of one accountable plan. Turnkey helps shop owners see what to keep, what to cut, and what needs tighter coordination so the owner is not managing every moving part." },
-  { q: "How long does auto repair marketing take to work?", a: "Some cleanup and campaign fixes can show early signals quickly, but dependable growth usually takes months. A practical first 90-120 days should clarify budget, fix tracking, clean up vendors, launch priority campaigns, and set the next moves." },
+  { id: "what-does-an-auto-repair-marketing-company-do", q: "What does an auto repair marketing company actually do?", a: "An auto repair marketing company turns your shop's goals into a plan, then runs it. That means coordinating the people and vendors doing the work and measuring whether it produces the right calls, appointments, customers, and repair orders. Turnkey can handle one focused service or act as your shop's outsourced marketing department.", link: { href: "/services", label: "See every service" } },
+  { id: "best-marketing-strategy-for-an-auto-repair-shop", q: "What is the best marketing strategy for an auto repair shop?", a: "The best strategy is one coordinated plan built around your market, capacity, customer mix, and budget. For most shops that means Google visibility, reviews, paid search, retention, direct mail, and reporting working together, not running as separate vendor projects that never talk to each other.", link: { href: "/resources/auto-repair-marketing-plan", label: "How to build an auto repair marketing plan" } },
+  { id: "how-to-get-more-customers-for-an-auto-repair-shop", q: "How do I get more customers for my auto repair shop?", a: "Decide which customers and jobs you want more of, then point every channel at them. Search, your Google Business Profile, reviews, offers, follow-up, and call handling all have to work together, so the demand you create actually turns into booked appointments.", link: { href: "/resources/ideal-customer-profile-auto-repair-shop", label: "Define your ideal customer" } },
+  { id: "how-to-rank-higher-on-google-maps", q: "How can my auto repair shop show up higher on Google Maps?", a: "You show up higher on Google Maps by giving Google clear, consistent reasons to trust your shop. That means a complete Business Profile, steady review activity, real photos, accurate listings, and useful local content on your website. No one can guarantee rankings, but these signals are what Google weighs.", link: { href: "/services/digital-marketing", label: "Google Business Profile and review management" } },
+  { id: "are-google-ads-worth-it-for-auto-repair-shops", q: "Are Google Ads worth it for auto repair shops?", a: "Google Ads are worth it when campaigns are tied to profitable services, a clear service area, good call handling, and appointment quality. Judge them only by clicks or cheap leads and they can spend real money without putting the right cars in your bays.", link: { href: "/resources/auto-repair-advertising", label: "One advertising plan for every channel" } },
+  { id: "does-direct-mail-still-work-for-auto-repair-shops", q: "Does direct mail still work for auto repair shops?", a: "Yes, direct mail still works when the list, offer, timing, and follow-up are precise. It is strongest for tight local radius campaigns, opening a second location, bringing back past customers, and busy markets where your shop needs a physical reminder in the mailbox.", link: { href: "/services/direct-mail", label: "Direct mail for repair shops" } },
+  { id: "how-to-know-if-auto-repair-marketing-is-working", q: "How do I know if my auto repair marketing is actually working?", a: "Your marketing is working when it brings in the right calls, booked appointments, returning customers, and customer mix at a cost your shop can defend. A useful report tells you what to keep, what to fix, what to stop paying for, and what to run next.", link: { href: "/results", label: "See documented shop results" } },
+  { id: "what-to-track-besides-leads", q: "What should an auto repair shop track besides leads?", a: "Track calls, booked appointments, close rate, repair order quality, returning customers, source mix, review activity, and capacity. Lead volume on its own can hide whether marketing is actually helping the shop or just making the front counter busier.", link: { href: "/resources/why-auto-repair-marketing-breaks", label: "Why auto repair marketing breaks down" } },
+  { id: "calls-but-not-enough-booked-appointments", q: "What if I am getting calls but not enough booked appointments?", a: "If calls are not turning into appointments, the gap is usually between the phone and the schedule, not a lack of marketing. Call handling, advisor scripts, offer fit, service mix, hours, and follow-up all decide whether a call becomes a car in the bay.", link: { href: "/resources/5-marketing-mistakes-shop-owners-make", label: "Five marketing mistakes shop owners make" } },
+  { id: "how-to-bring-back-inactive-auto-repair-customers", q: "How do I bring back inactive auto repair customers?", a: "Bring back inactive customers with retention and reactivation campaigns timed to their service history and ownership cycle. Email, text, direct mail, and service reminders work best when they are coordinated as one sequence instead of sent as one-off blasts.", link: { href: "/services/retention-marketing", label: "Retention marketing" } },
+  { id: "shop-does-not-need-more-cars", q: "What if my shop does not need more cars right now?", a: "Then your marketing should shift from more volume to more control. The plan can focus on retention, better-fit work, customer quality, reputation, and timing future demand, while protecting your spend until you have open capacity again.", link: { href: "/services/marketing-consulting", label: "Marketing consulting" } },
+  { id: "keep-or-replace-marketing-vendors", q: "Should I keep my current marketing vendors or replace them?", a: "Keep the vendors producing clear value and put them inside one accountable plan. Turnkey helps you see what to keep, what to cut, and what needs tighter coordination, so you are not the one managing every moving part.", link: { href: "/services/vip-marketing-manager", label: "How VIP Marketing Manager coordinates vendors" } },
+  { id: "how-long-does-auto-repair-marketing-take-to-work", q: "How long does auto repair marketing take to work?", a: "Dependable growth usually takes months, though cleanup and campaign fixes can show early signals quickly. A practical first 90 to 120 days should settle the budget, fix tracking, clean up vendors, launch the priority campaigns, and set the next moves.", link: { href: "/contact#book", label: "Talk through your first 90 days" } },
 ];
 
 const faqSchema = {
@@ -393,6 +394,26 @@ const faqSchema = {
             </li>
           ))}
         </ul>
+
+        <!-- Written Google reviews: real excerpts, shown as text so shop owners (and search engines) can read them -->
+        <div class="v6-wrap tk-reviews">
+          <div class="tk-reviews__summary" data-rise>
+            <p class="tk-reviews__score">{googleReviewSummary.rating}<span class="v6-star" aria-hidden="true">★</span></p>
+            <p class="tk-reviews__stars"><span class="v6-stars" aria-hidden="true">★★★★★</span> {googleReviewSummary.count} Google reviews</p>
+            <a href={googleReviewSummary.url} class="v6-btn v6-btn--green tk-reviews__all" target="_blank" rel="noopener"><span>Read every review on Google</span><i set:html={arrowUp} /></a>
+          </div>
+          <ul class="tk-reviews__list" data-allow-overflow>
+            {googleReviewHighlights.map((review) => (
+              <li class="tk-review" data-rise>
+                <figure>
+                  <span class="v6-stars tk-review__stars" aria-label="5 out of 5 stars">★★★★★</span>
+                  <blockquote><p>“{review.excerpt}”</p></blockquote>
+                  <figcaption><strong>{review.author}</strong> <span>{review.detail === "Google review" ? "Google review" : review.detail}</span></figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <!-- RESULTS -->
@@ -526,7 +547,33 @@ const faqSchema = {
       </section>
 
       <!-- FAQ: all 13 questions from the FAQPage schema -->
-      <V6Faq items={faqItems} />
+      <section class="v6-faq tk-faq" id="faq">
+        <div class="v6-wrap v6-faq__grid tk-faq__grid">
+          <div class="tk-faq__intro">
+            <h2 class="v6-h2" data-words set:html={split([{ t: "Frequently asked" }, { t: "questions", accent: true }])} />
+            <p class="tk-faq__lead" data-rise>Straight answers to what independent shop owners ask us most about auto repair marketing.</p>
+          </div>
+          <ul class="v6-acc tk-faq__list">
+            {faqItems.map((item, index) => (
+              <li class:list={["v6-acc__item", index === 0 && "is-open"]} id={`faq-${item.id}`} data-acc-item>
+                <h3 class="tk-faq__q"><button type="button" class="v6-acc__head" aria-expanded={index === 0 ? "true" : "false"} aria-controls={`faq-${item.id}-a`} data-acc-head><span>{item.q}</span><span class="v6-acc__icon" aria-hidden="true"></span></button></h3>
+                <div class="v6-acc__panel" id={`faq-${item.id}-a`}><div>
+                  <p>{item.a}</p>
+                  <a href={item.link.href} class="v6-link tk-faq__more">{item.link.label} <i set:html={arrow} /></a>
+                </div></div>
+              </li>
+            ))}
+          </ul>
+          <aside class="tk-faq__ask" data-rise>
+            <p class="tk-faq__ask-title">Still have a question?</p>
+            <p class="tk-faq__ask-text">Bring it to a 30-minute strategy call. We will look at your shop, not a script.</p>
+            <div class="tk-faq__ask-actions">
+              <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy" data-track-event="consultation_cta_click" data-track-placement="home_faq"><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+              <a href={phoneHref} class="v6-link" data-track-event="phone_click" data-track-placement="home_faq">{phoneLabel}</a>
+            </div>
+          </aside>
+        </div>
+      </section>
 
       <!-- CTA -->
       <V6Cta placement="final_cta" />
@@ -1061,6 +1108,57 @@ const faqSchema = {
     .v6-story__nav .v6-arrows button { width: 2.75rem; height: 2.75rem; }
     .v6-results__foot { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--hairline); flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   }
+
+  /* Written Google reviews */
+  .tk-reviews { display: grid; grid-template-columns: minmax(17rem, 0.75fr) minmax(0, 2.25fr); gap: clamp(1rem, 2vw, 1.5rem); align-items: start; margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .tk-reviews__summary { position: sticky; top: calc(var(--header-h) + 1.5rem); display: grid; gap: 0.75rem; justify-items: start; padding: clamp(1.75rem, 3vw, 2.25rem); border-radius: 30px; background: var(--navy); color: #fff; }
+  .tk-reviews__score { font-size: clamp(3.5rem, 6vw, 5rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.95; }
+  .tk-reviews__stars { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 600; color: #e4e8f2; }
+  .tk-reviews__all { margin-top: 0.75rem; }
+  .tk-reviews__list { columns: 3 15rem; column-gap: clamp(1rem, 2vw, 1.5rem); }
+  .tk-review { break-inside: avoid; margin-bottom: clamp(1rem, 2vw, 1.5rem); }
+  .tk-review figure { display: grid; gap: 0.9rem; padding: clamp(1.4rem, 2.4vw, 1.75rem); border-radius: 26px; background: var(--off-white); }
+  .tk-review__stars { font-size: 0.95rem; }
+  .tk-review blockquote p { font-size: clamp(1.05rem, 1.3vw, 1.2rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.4; color: var(--charcoal); }
+  .tk-review figcaption { display: grid; gap: 0.1rem; font-size: 0.88rem; color: var(--muted); }
+  .tk-review figcaption strong { font-size: 0.98rem; color: var(--navy); }
+
+  /* FAQ: sticky intro and ask card on desktop; on phones intro, questions, then the ask card */
+  .tk-faq__grid { grid-template-areas: "intro list" "ask list" ". list"; grid-template-rows: auto auto 1fr; column-gap: clamp(2rem, 6vw, 6rem); row-gap: 2rem; }
+  .tk-faq__intro { grid-area: intro; display: grid; gap: 1.25rem; }
+  .tk-faq__lead { max-width: 24rem; font-size: 1.1rem; line-height: 1.6; color: #3a3f4b; }
+  .tk-faq__list { grid-area: list; }
+  .tk-faq__ask { grid-area: ask; align-self: start; position: sticky; top: calc(var(--header-h) + 2rem); display: grid; gap: 0.6rem; max-width: 24rem; padding: 1.75rem; border-radius: 26px; background: #fff; }
+  .tk-faq__ask-title { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.03em; color: var(--charcoal); }
+  .tk-faq__ask-text { line-height: 1.55; color: #3a3f4b; }
+  .tk-faq__ask-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 0.6rem; }
+  .tk-faq__q { margin: 0; font: inherit; }
+  .tk-faq .v6-acc__head { color: var(--charcoal); }
+  .tk-faq .v6-acc__panel p { color: #2b303b; font-size: 1.05rem; }
+  .tk-faq__more { margin: -0.5rem 0 1.5rem; font-size: 0.95rem; }
+  .tk-faq .v6-acc__item { scroll-margin-top: calc(var(--header-h) + 1rem); }
+  @media (max-width: 1100px) {
+    .tk-reviews { grid-template-columns: 1fr; }
+    .tk-reviews__summary { position: static; grid-template-columns: auto 1fr; align-items: center; column-gap: 1.25rem; }
+    .tk-reviews__summary .tk-reviews__all { grid-column: 1 / -1; }
+    .tk-faq__grid { grid-template-columns: 1fr; grid-template-areas: "intro" "list" "ask"; grid-template-rows: none; }
+    .tk-faq__ask { position: static; max-width: none; }
+  }
+  @media (max-width: 900px) {
+    .tk-reviews { margin-top: 2.5rem; gap: 1rem; }
+    .tk-reviews__summary { padding: 1.5rem; border-radius: 26px; }
+    .tk-reviews__score { font-size: 3.25rem; }
+    .tk-reviews__summary .tk-reviews__all { justify-content: center; }
+    .tk-reviews__list { columns: auto; display: flex; gap: 0.75rem; margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 0.25rem; scroll-padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .tk-reviews__list::-webkit-scrollbar { display: none; }
+    .tk-review { flex: none; width: min(80vw, 19rem); margin: 0; scroll-snap-align: start; }
+    .tk-review figure { height: 100%; align-content: start; border-radius: 22px; }
+    .tk-faq__lead { font-size: 1rem; }
+    .tk-faq__ask { padding: 1.5rem; }
+    .tk-faq__ask-actions { flex-direction: column; align-items: stretch; }
+    .tk-faq__ask-actions .v6-btn { justify-content: center; }
+    .tk-faq__ask-actions .v6-link { justify-content: center; }
+  }
 </style>
 
 <script>
@@ -1280,6 +1378,15 @@ const faqSchema = {
       const target = storyCards[Math.min(storyCards.length - 1, Math.max(0, activeStory + dir))];
       if (target) storyList.scrollTo({ left: target.offsetLeft - (storyList.clientWidth - target.offsetWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
     };
+    // FAQ deep links: /#faq-<question> opens that answer
+    const openFaqFromHash = () => {
+      const item = location.hash.startsWith("#faq-") ? document.querySelector<HTMLElement>(`${location.hash}[data-acc-item]`) : null;
+      if (!item) return;
+      item.classList.add("is-open");
+      item.querySelector("[data-acc-head]")?.setAttribute("aria-expanded", "true");
+    };
+    openFaqFromHash();
+    window.addEventListener("hashchange", openFaqFromHash);
     root.querySelector("[data-story-prev]")?.addEventListener("click", () => storyStep(-1));
     root.querySelector("[data-story-next]")?.addEventListener("click", () => storyStep(1));
     window.addEventListener("resize", updateStory);
