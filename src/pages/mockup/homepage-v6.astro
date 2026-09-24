@@ -832,7 +832,11 @@ const play = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
     .v6-hero__sticky { position: relative; height: auto; overflow: visible; padding-bottom: 1rem; }
     .v6-hero__intro { position: relative; padding-top: 7rem; }
     .v6-hero__title { font-size: 12.5vw; }
-    .v6-typer { font-size: 0.62em; min-height: 2.08em; white-space: normal; text-wrap: balance; }
+    /* Phones: both headline lines share one size, scaled to the headline's own width (container units),
+       tuned so the longest typed phrase fits on two lines. The typed line reserves both lines so nothing jumps. */
+    .v6-hero__title { container-type: inline-size; width: 100%; font-size: inherit; }
+    .v6-hero__title .v6-mask { font-size: clamp(2rem, 12.4cqi, 4.25rem); max-width: 9.2em; margin-inline: auto; }
+    .v6-typer { font-size: clamp(2rem, 12.4cqi, 4.25rem); min-height: calc(2 * 0.98em + 0.06em); white-space: normal; text-wrap: wrap; max-width: 10.2em; margin-inline: auto; }
         .v6-hero__stage { position: relative; inset: auto; margin: 2.5rem 0.75rem 0; aspect-ratio: 4 / 5; border-radius: 28px; clip-path: none !important; }
     .v6-hero__stage img { transform: none !important; object-position: var(--pos, 50% 50%); }
     .v6-hero__shade, .v6-hero__caption { opacity: 1 !important; transform: none !important; }
