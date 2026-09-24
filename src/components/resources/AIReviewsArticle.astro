@@ -109,15 +109,22 @@ const related = (post.relatedSlugs ?? []).map(getResourcePost).filter(Boolean);
   .tk-md__prose :global(.review-prompt blockquote > * + *) { margin-top: 1em; }
   .tk-md__prose :global(.copy-status) { margin-top: 1rem; font-size: 0.85rem; color: #fff; line-height: 1.5; }
   .tk-md__prose :global(.copy-status:empty) { display: none; }
-  .tk-md__prose :global(.review-examples) { display: grid; gap: 0.75rem; }
-  .tk-md__prose :global(.example-card) { padding: clamp(1.3rem, 2.6vw, 1.9rem); border-radius: 26px; background: var(--off-white); border-left: 4px solid var(--key-blue); }
-  .tk-md__prose :global(.example-card h3) { margin: 0 0 0.9rem; color: var(--charcoal); }
-  .tk-md__prose :global(.example-card dl) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.25rem 1.5rem; }
-  .tk-md__prose :global(.example-card dt) { grid-row: 1; font-size: 0.88rem; font-weight: 700; color: var(--navy); }
-  .tk-md__prose :global(.example-card dd) { font-size: 1rem; line-height: 1.6; color: var(--md-body); }
   @media (max-width: 900px) {
+        }
+  /* Review examples: each card reads problem, then what to look into, then the change to try */
+  .tk-md__prose :global(.review-examples) { display: grid; gap: 1rem; margin-top: 1.5rem; }
+  .tk-md__prose :global(.example-card) { overflow: hidden; border-radius: 26px; background: #fff; box-shadow: 0 0 0 1px var(--hairline), 0 24px 50px -40px rgba(35, 46, 102, 0.55); }
+  .tk-md__prose :global(.example-card h3) { margin: 0; padding: 1.35rem 1.6rem; background: var(--navy); color: #fff; font-size: clamp(1.15rem, 1.6vw, 1.3rem); letter-spacing: -0.025em; line-height: 1.25; }
+  .tk-md__prose :global(.example-card dl) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin: 0; }
+  .tk-md__prose :global(.example-card dt) { grid-row: 1; padding: 1.25rem 1.6rem 0; font-size: 0.85rem; font-weight: 700; color: var(--key-blue); }
+  .tk-md__prose :global(.example-card dt:nth-of-type(2)) { background: var(--key-blue-soft); color: var(--navy); }
+  .tk-md__prose :global(.example-card dd) { grid-row: 2; margin: 0; padding: 0.35rem 1.6rem 1.4rem; font-size: 1.0625rem; font-weight: 500; line-height: 1.5; color: var(--charcoal); }
+  .tk-md__prose :global(.example-card dd:nth-of-type(2)) { background: var(--key-blue-soft); }
+  @media (max-width: 900px) {
+    .tk-md__prose :global(.example-card) { border-radius: 22px; }
+    .tk-md__prose :global(.example-card h3) { padding: 1.1rem 1.2rem; }
     .tk-md__prose :global(.example-card dl) { grid-template-columns: 1fr; }
-    .tk-md__prose :global(.example-card dt) { grid-row: auto; }
-    .tk-md__prose :global(.example-card dd + dt) { margin-top: 0.75rem; }
+    .tk-md__prose :global(.example-card dt), .tk-md__prose :global(.example-card dd) { grid-row: auto; padding-inline: 1.2rem; }
+    .tk-md__prose :global(.example-card dd) { padding-bottom: 1.1rem; font-size: 1rem; }
   }
 </style>

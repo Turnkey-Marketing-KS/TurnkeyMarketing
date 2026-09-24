@@ -121,17 +121,12 @@ Compare results against staffing, seasonality, capacity, and advertising changes
 
 ## Your first month
 
-<div class="month-plan">
-
-**Week one: Correct and assign.** Fix inaccurate information, check who has account access, and name a review owner and a backup.
-
-**Week two: Test the invitation.** Build an honest request into a consistent after-service process. Check the message and the link yourself.
-
-**Week three: Listen and choose.** Read a defined batch of feedback. Investigate one concern and pick one strength to protect.
-
-**Week four: Check the work.** Confirm the new process is actually happening. Adjust it before you add another tool or campaign.
-
-</div>
+<ol class="month-plan" aria-label="Your first month, week by week">
+<li class="mp__step"><span class="mp__node" aria-hidden="true"><span class="v6-icon" style="--icon:url(/images/icons/noun/report.svg)"></span></span><div class="mp__body"><p class="mp__week">Week one</p><p class="mp__title">Correct and assign.</p><p class="mp__text">Fix inaccurate information, check who has account access, and name a review owner and a backup.</p></div></li>
+<li class="mp__step"><span class="mp__node" aria-hidden="true"><span class="v6-icon" style="--icon:url(/images/icons/noun/email.svg)"></span></span><div class="mp__body"><p class="mp__week">Week two</p><p class="mp__title">Test the invitation.</p><p class="mp__text">Build an honest request into a consistent after-service process. Check the message and the link yourself.</p></div></li>
+<li class="mp__step"><span class="mp__node" aria-hidden="true"><span class="v6-icon" style="--icon:url(/images/icons/noun/social-media-marketing.svg)"></span></span><div class="mp__body"><p class="mp__week">Week three</p><p class="mp__title">Listen and choose.</p><p class="mp__text">Read a defined batch of feedback. Investigate one concern and pick one strength to protect.</p></div></li>
+<li class="mp__step"><span class="mp__node" aria-hidden="true"><span class="v6-icon" style="--icon:url(/images/icons/noun/target.svg)"></span></span><div class="mp__body"><p class="mp__week">Week four</p><p class="mp__title">Check the work.</p><p class="mp__text">Confirm the new process is actually happening. Adjust it before you add another tool or campaign.</p></div></li>
+</ol>
 
 Your average rating may not move much in a month. Earlier signs of progress look like fewer missed updates and customer concerns getting handled instead of sitting in an inbox.
 

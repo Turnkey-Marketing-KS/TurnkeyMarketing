@@ -79,8 +79,31 @@ const related = (post.relatedSlugs ?? []).map(getResourcePost).filter(Boolean);
   .tk-md__prose :global(> p:first-child) { font-size: 1.28em; line-height: 1.6; color: var(--navy); font-weight: 500; letter-spacing: -0.01em; }
   .tk-md__prose :global(h2) { scroll-margin-top: calc(var(--header-h) + 2rem); }
   .tk-md__prose :global(h3) { color: var(--navy); }
-  .tk-md__prose :global(.month-plan) { padding: clamp(1.4rem, 3vw, 2rem); border-radius: 26px; background: var(--key-blue-soft); border-left: 4px solid var(--key-blue); color: var(--md-body); }
-  .tk-md__prose :global(.month-plan strong) { color: var(--navy); }
-  .tk-md__prose :global(.month-plan > * + *) { margin-top: 1em; }
-  .tk-md__prose :global(.month-plan p:last-child) { margin-bottom: 0; }
+  /* Your first month: a four-week rail, same language as the homepage strategy rail */
+  .tk-md__prose :global(.month-plan) { position: relative; display: grid; gap: 0; margin-top: 1.75rem; padding: 0; list-style: none; }
+  /* Connector: one segment per step, from this node's center to the next node's center, blending the two node colors */
+  .tk-md__prose :global(.mp__step:not(:last-child)::after) { content: ""; position: absolute; left: calc(1.625rem - 1.5px); top: 1.625rem; bottom: -1.625rem; width: 3px; background: linear-gradient(180deg, var(--c1), var(--c2)); }
+  .tk-md__prose :global(.mp__step:nth-child(1)) { --c1: var(--navy); --c2: var(--green); }
+  .tk-md__prose :global(.mp__step:nth-child(2)) { --c1: var(--green); --c2: var(--key-blue); }
+  .tk-md__prose :global(.mp__step:nth-child(3)) { --c1: var(--key-blue); --c2: var(--navy); }
+  .tk-md__prose :global(.mp__step) { position: relative; display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: 1.5rem; padding: 0 0 2.25rem; margin: 0; }
+  .tk-md__prose :global(.mp__step::before) { display: none; }
+  .tk-md__prose :global(.mp__step:last-child) { padding-bottom: 0; }
+  .tk-md__prose :global(.mp__node) { position: relative; z-index: 1; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: var(--navy); color: #fff; box-shadow: 0 0 0 6px #fff; }
+  .tk-md__prose :global(.mp__step:nth-child(2) .mp__node) { background: var(--green); color: var(--navy); }
+  .tk-md__prose :global(.mp__step:nth-child(3) .mp__node) { background: var(--key-blue); }
+  .tk-md__prose :global(.mp__node .v6-icon) { width: 1.35rem; height: 1.35rem; }
+  .tk-md__prose :global(.mp__body) { padding: 1.35rem 1.5rem 1.4rem; border-radius: 22px; background: var(--off-white); transition: background-color 0.3s; }
+  .tk-md__prose :global(.mp__body > p) { margin: 0; }
+  .tk-md__prose :global(.mp__week) { font-size: 0.85rem; font-weight: 700; color: var(--key-blue); letter-spacing: 0; }
+  .tk-md__prose :global(.mp__title) { margin-top: 0.3rem !important; font-size: clamp(1.25rem, 1.8vw, 1.45rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; color: var(--charcoal); }
+  .tk-md__prose :global(.mp__text) { margin-top: 0.5rem !important; font-size: 1.0625rem; line-height: 1.6; color: #2b303b; }
+  @media (max-width: 900px) {
+    .tk-md__prose :global(.mp__step:not(:last-child)::after) { left: calc(1.25rem - 1.5px); top: 1.25rem; bottom: -1.25rem; }
+    .tk-md__prose :global(.mp__step) { grid-template-columns: 2.5rem minmax(0, 1fr); gap: 0.9rem; padding-bottom: 1.25rem; }
+    .tk-md__prose :global(.mp__node) { width: 2.5rem; height: 2.5rem; box-shadow: 0 0 0 5px #fff; }
+    .tk-md__prose :global(.mp__node .v6-icon) { width: 1.1rem; height: 1.1rem; }
+    .tk-md__prose :global(.mp__body) { padding: 1.1rem 1.15rem 1.2rem; border-radius: 18px; }
+    .tk-md__prose :global(.mp__text) { font-size: 1rem; }
+  }
 </style>
