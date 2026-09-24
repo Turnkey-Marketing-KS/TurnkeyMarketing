@@ -96,7 +96,6 @@ const serviceIcon = (href: string) => serviceIcons[href.replace("/services/", ""
             <li><span aria-current="page">{currentAudience.name}</span></li>
           </ol>
         </nav>
-        <p class="v6-kicker tk-aud__kicker" data-fade style="--d:0">{currentAudience.eyebrow}</p>
         <h1 class="tk-aud__title" data-words set:html={split([{ t: currentAudience.heroTitle }, { t: currentAudience.heroAccent, accent: true }])} />
         <p class="tk-aud__lead" data-fade style="--d:2">{currentAudience.heroCopy}</p>
         <div class="tk-aud__actions" data-fade style="--d:3">
@@ -179,7 +178,6 @@ const serviceIcon = (href: string) => serviceIcons[href.replace("/services/", ""
       <div class="v6-glow" data-rise>
         <div class="v6-glow__inner tk-aud__proof">
           <div class="tk-aud__proof-stat">
-            <p class="v6-kicker">{currentAudience.proof.eyebrow}</p>
             <p class="tk-aud__metric">{currentAudience.proof.metric}</p>
           </div>
           <div class="tk-aud__proof-body">

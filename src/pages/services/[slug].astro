@@ -147,7 +147,6 @@ const heroKicker = showHeroEyebrow ? (hero.badge ? `${service.name} · ${hero.ba
     accent={hero.headlineAccent}
     lead={hasHeroSubhead ? hero.subhead : undefined}
     crumbs={[{ label: "Services", href: "/services" }, { label: service.name }]}
-    kicker={heroKicker}
     image={heroPhoto}
     class="tk-sd__hero"
   >
@@ -290,7 +289,6 @@ const heroKicker = showHeroEyebrow ? (hero.badge ? `${service.name} · ${hero.ba
         <a href="/results" class="v6-link tk-sd__trustLink">See all shop results <i set:html={arrow} /></a>
         {relatedProof.length > 0 && (
           <div class="tk-sd__related">
-            <p class="tk-sd__relatedLabel">Documented related proof</p>
             <ul>
               {relatedProof.map((proof) => (
                 <li><a href={proof.href} class="tk-sd__relatedLink"><span>{proof.label}</span><i set:html={arrow} /></a></li>
@@ -344,7 +342,6 @@ const heroKicker = showHeroEyebrow ? (hero.badge ? `${service.name} · ${hero.ba
           <a href={`/services/${related.slug}`} class="v6-tile tk-sd__pair" data-rise>
             <span class="tk-sd__pairTop">
               <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(serviceIcons[related.slug] ?? "target")})`}></span></span>
-              <span class="tk-sd__pairLabel">{detail.relatedServicesHeading?.cardLabel ?? "Recommended pairing"}</span>
             </span>
             <h3 class="v6-tile__title tk-sd__pairName">{related.shortName ?? related.name}</h3>
             <p class="v6-tile__text">{related.tagline}</p>
@@ -359,7 +356,6 @@ const heroKicker = showHeroEyebrow ? (hero.badge ? `${service.name} · ${hero.ba
   <section class="v6-cta tk-sd__cta">
     <div class="v6-wrap">
       <div class="v6-cta__panel" data-rise>
-        <p class="v6-kicker">Next step</p>
         <h2 class="v6-cta__title tk-sd__ctaTitle" data-words set:html={split([{ t: `See how ${shortName}` }, { t: "would fit your shop.", accent: true }])} />
         <p class="v6-cta__text">
           Book a Strategy Call — we'll look at your market, your current marketing, and whether

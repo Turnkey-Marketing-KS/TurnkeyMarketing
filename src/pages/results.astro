@@ -113,7 +113,6 @@ const featAfter = featuredResult.chart.bars[1];
     <div class="v6-wrap">
       <div class="v6-ph__grid">
         <div>
-          <p class="v6-kicker" data-fade>Client results</p>
           <h1 class="v6-ph__title tk-res__title" data-words set:html={heroHtml} />
         </div>
         <div class="v6-ph__aside" data-fade style="--d:2">
@@ -135,7 +134,6 @@ const featAfter = featuredResult.chart.bars[1];
     <div class="v6-wrap">
       <div class="tk-vid__head">
         <div>
-          <p class="tk-vid__kicker"><span class="v6-stars" aria-hidden="true">★★★★★</span> <span>Video testimonials</span></p>
           <h2 class="v6-h2" data-words set:html={split([{ t: "Hear it from" }, { t: "shop owners.", accent: true }])} />
         </div>
         <div class="tk-vid__aside">
@@ -178,7 +176,6 @@ const featAfter = featuredResult.chart.bars[1];
   <section id={featuredResult.id} class="tk-res__feat result-target">
     <div class="v6-wrap tk-feat">
       <div class="tk-feat__text" data-rise>
-        <p class="v6-kicker">Featured result</p>
         <span class="tk-feat__logo">
           <img src={featuredResult.logoSrc} alt={`${featuredResult.name} logo`} loading="lazy" decoding="async" />
         </span>
@@ -362,7 +359,6 @@ const featAfter = featuredResult.chart.bars[1];
     <div class="v6-wrap">
       <div class="v6-head">
         <div>
-          <p class="v6-kicker">What produced these results</p>
           <h2 class="v6-h2 tk-path__title" data-words set:html={split([{ t: "Every shop on this page has" }, { t: "someone owning the marketing.", accent: true }])} />
         </div>
         <p class="v6-lead" data-rise>
@@ -376,7 +372,6 @@ const featAfter = featuredResult.chart.bars[1];
         {resultPathways.map((path, index) => (
           <a href={path.href} class:list={["v6-tile tk-path__tile", index === 0 ? "v6-tile--navy" : "v6-tile--blue"]} data-rise style={`transition-delay:${index * 0.1}s`}>
             <span class="v6-tile__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(path.icon)})`}></span></span>
-            <p class="tk-path__eyebrow">{path.eyebrow}</p>
             <h3 class="tk-path__name">{path.title}</h3>
             <p class="v6-tile__text">{path.body}</p>
             <span class:list={["v6-link v6-tile__go", index === 0 && "v6-link--light"]}>{path.cta} <i set:html={arrow} /></span>

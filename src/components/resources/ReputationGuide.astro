@@ -66,7 +66,7 @@ const related = (post.relatedSlugs ?? []).map(getResourcePost).filter(Boolean);
   <section class="v6-sec v6-sec--tint tk-art__related" aria-labelledby="review-related-title">
     <div class="v6-wrap">
       <h2 id="review-related-title" class="v6-h2 tk-art__related-h2">Keep building customer trust.</h2>
-      <div class="v6-swipe tk-art__cards" style={`--cols:${Math.max(2, related.length)}`}>{related.map(item => item && <a href={item.href} class="v6-post"><div class="v6-post__media"><img src={item.image.src} alt={item.image.alt} width={item.imageWidth ?? 1200} height={item.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${item.image.position};`} /></div><span class="v6-post__tag">{item.tag}</span><h3 class="v6-post__title">{item.title}</h3><p class="v6-link">Read the guide <i set:html={arrow} /></p></a>)}</div>
+      <div class="v6-swipe tk-art__cards" style={`--cols:${Math.max(2, related.length)}`}>{related.map(item => item && <a href={item.href} class="v6-post"><div class="v6-post__media"><img src={item.image.src} alt={item.image.alt} width={item.imageWidth ?? 1200} height={item.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${item.image.position};`} /></div><h3 class="v6-post__title">{item.title}</h3><p class="v6-link">Read the guide <i set:html={arrow} /></p></a>)}</div>
     </div>
   </section>
 </article>

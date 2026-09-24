@@ -550,7 +550,7 @@ const sources = [
           {relatedPosts.map((relatedPost) => (
             <a href={relatedPost.href} class="v6-post">
               <div class="v6-post__media"><img src={relatedPost.image.src} alt={relatedPost.image.alt} width={relatedPost.imageWidth ?? 1200} height={relatedPost.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${relatedPost.image.position};`} /></div>
-              <p class="v6-post__tag">{relatedPost.tag}</p><h3 class="v6-post__title">{relatedPost.title}</h3><span class="v6-link">Read guide <i set:html={arrow} /></span>
+              <h3 class="v6-post__title">{relatedPost.title}</h3><span class="v6-link">Read guide <i set:html={arrow} /></span>
             </a>
           ))}
         </div>

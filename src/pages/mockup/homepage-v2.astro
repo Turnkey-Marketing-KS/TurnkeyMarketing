@@ -1,0 +1,816 @@
+---
+// Redesign mockup, version 2. Not linked, not in the sitemap, and noindex.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { CONSULTATION_URL, services } from "@/lib/services";
+import { videoTestimonials } from "@/lib/proof";
+import { googleReviewSummary } from "@/lib/google-reviews";
+
+const ledger = [
+  {
+    value: "+169%",
+    shop: "Legendary Automotive & Diesel Repair",
+    detail: "Reported revenue, August 2024 to June 2026. Total cars served nearly tripled.",
+  },
+  {
+    value: "1→4",
+    shop: "Killian Auto Pros",
+    detail: "One location in Mauldin, South Carolina became four.",
+  },
+  {
+    value: "2×",
+    shop: "Torque European",
+    detail: "Monthly revenue, from about $110K to a steady $220K+ since August 2025.",
+  },
+  {
+    value: "+60%",
+    shop: "ASAP Auto Repair",
+    detail: "Monthly revenue, $125K to $200K. Record months in three of the last four.",
+  },
+  {
+    value: "3.74×",
+    shop: "Pro Automotive",
+    detail: "Tracked revenue for every advertising dollar in the first full month.",
+  },
+];
+
+const serviceImages: Record<string, string> = {
+  "vip-marketing-manager": "/images/services/vip-marketing-manager-hero.jpg",
+  "directtrack-marketing": "/images/services/directtrack-marketing-hero-v2.webp",
+  "marketing-consulting": "/images/services/marketing-consulting-hero-v2.webp",
+  "direct-mail": "/images/services/direct-mail-mailbox.webp",
+  "social-media-marketing": "/images/services/social-media-marketing-hero-v2.webp",
+  "retention-marketing": "/images/services/retention-marketing-hero-v2.webp",
+  "digital-marketing": "/images/services/digital-marketing-hero-v2.webp",
+  "boost-days": "/images/services/boost-days-hero-v2.webp",
+};
+
+const serviceRows = services.map((service) => ({
+  ...service,
+  image: serviceImages[service.slug],
+  label: service.slug === "vip-marketing-manager" ? "The whole department" : service.name,
+}));
+
+const featuredVideo = videoTestimonials[0];
+const moreVideos = videoTestimonials.slice(1, 6);
+const marqueeWords = ["More calls", "More cars", "More revenue"];
+---
+
+<BaseLayout
+  title="Homepage Redesign Mockup v2 | Turnkey Marketing"
+  description="Design mockup, version 2, for the Turnkey Marketing homepage redesign."
+  path="/mockup/homepage-v2"
+  noindex
+  minimalChrome
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+  />
+
+  <div class="v2" data-v2 data-theme="dark">
+    <div class="v2-cursor" data-cursor aria-hidden="true"><span data-cursor-label></span></div>
+
+    <header class="v2-header" data-header>
+      <a href="/" class="v2-logo" aria-label="Turnkey Marketing home">
+        <img class="v2-logo__light" src="/images/logos/Turnkey%20Marketing%20Logo%20-%20full%20color-dark%20background-01.png" alt="Turnkey Marketing" width="170" height="45" />
+        <img class="v2-logo__dark" src="/turnkey-marketing-logo-2026.webp" alt="" width="170" height="45" />
+      </a>
+      <div class="v2-header__right">
+        <a href={CONSULTATION_URL} class="v2-header__cta v2-underline">Book a strategy call</a>
+        <button type="button" class="v2-menu-btn" data-menu-btn aria-expanded="false" aria-controls="v2-menu">
+          <span class="v2-menu-btn__label" data-menu-label>Menu</span>
+          <span class="v2-menu-btn__dots" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="v2-menu" id="v2-menu" data-menu hidden>
+      <div class="v2-menu__inner">
+        <nav class="v2-menu__primary" aria-label="Primary">
+          <a href="/services"><span>Services</span></a>
+          <a href="/results"><span>Results</span></a>
+          <a href="/resources"><span>Resources</span></a>
+          <a href="/about"><span>About</span></a>
+          <a href="/contact"><span>Contact</span></a>
+        </nav>
+        <div class="v2-menu__side">
+          <p class="v2-menu__heading">Services</p>
+          {services.map((service) => <a href={`/services/${service.slug}`}>{service.name}</a>)}
+          <p class="v2-menu__heading v2-menu__heading--gap">Talk to us</p>
+          <a href="tel:+19134270674">(913) 427-0674</a>
+          <a href="mailto:hello@turnkeyautomarketing.com">hello@turnkeyautomarketing.com</a>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <!-- 1. Hero: the image window opens to full screen as you scroll -->
+      <section class="v2-hero" data-hero data-section-theme="dark">
+        <div class="v2-hero__sticky">
+          <h1 class="v2-hero__title" data-hero-title>
+            <span class="v2-mask"><span class="v2-mask__in" data-intro style="--d:0">Auto repair</span></span>
+            <span class="v2-mask"><span class="v2-mask__in" data-intro style="--d:1">marketing that</span></span>
+            <span class="v2-mask"><span class="v2-mask__in v2-serif" data-intro style="--d:2">increases car count.</span></span>
+          </h1>
+
+          <div class="v2-hero__window" data-hero-window>
+            <img
+              src="/site-media/pearson-auto-repair-shop.webp"
+              alt="Pearson Auto Repair technician working in a service bay"
+              width="1400"
+              height="933"
+              fetchpriority="high"
+              data-hero-img
+            />
+            <div class="v2-hero__overlay" data-hero-overlay>
+              <p>300+ independent shops.<br /><span class="v2-serif">One accountable team.</span></p>
+            </div>
+          </div>
+
+          <div class="v2-hero__foot" data-intro style="--d:4" data-hero-foot>
+            <p class="v2-hero__scroll"><span class="v2-hero__scroll-line" aria-hidden="true"></span>Scroll</p>
+            <p class="v2-hero__line">
+              {googleReviewSummary.rating} on Google &nbsp;·&nbsp; Since 2013
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Statement with inline photos -->
+      <section class="v2-statement" data-section-theme="light">
+        <div class="v2-grid">
+          <p class="v2-statement__text" data-lines>
+            We
+            <span class="v2-pill"><img src="/images/team/20230303-turnkeyvisionexpo0043.jpg" alt="" loading="lazy" /></span>
+            plan your marketing, run it
+            <span class="v2-pill"><img src="/site-media/mikes-auto-works.webp" alt="" loading="lazy" /></span>
+            every week, and show you exactly what it did for
+            <span class="v2-serif v2-blue">car count.</span>
+            <span class="v2-pill"><img src="/site-media/thunderbird-team.webp" alt="" loading="lazy" /></span>
+          </p>
+          <div class="v2-statement__aside" data-rise>
+            <p>
+              You didn't open a shop to spend your nights doing marketing. We become the marketing
+              department you never had to hire, from the plan to the postcard to the report.
+            </p>
+            <a href={CONSULTATION_URL} class="v2-arrow-link" data-cursor-text="Book">
+              <span class="v2-underline">Book a strategy call</span>
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Proof ledger -->
+      <section class="v2-proof" data-section-theme="light">
+        <div class="v2-grid">
+          <h2 class="v2-proof__title" data-rise>
+            Over $1 billion in revenue
+            <span class="v2-serif">for independent shops.</span>
+          </h2>
+        </div>
+        <ol class="v2-ledger">
+          {ledger.map((row) => (
+            <li class="v2-ledger__row" data-rise>
+              <span class="v2-ledger__value">{row.value}</span>
+              <span class="v2-ledger__meta">
+                <span class="v2-ledger__shop">{row.shop}</span>
+                <span class="v2-ledger__detail">{row.detail}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+        <div class="v2-grid v2-proof__foot">
+          <a href="/results" class="v2-arrow-link" data-cursor-text="View">
+            <span class="v2-underline">Every result, in detail</span>
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+          </a>
+          <p class="v2-fine">Client-specific examples. Results vary by shop, market, investment, and execution.</p>
+        </div>
+      </section>
+
+      <!-- 4. Services accordion -->
+      <section class="v2-services" data-section-theme="dark">
+        <div class="v2-grid">
+          <h2 class="v2-services__title" data-rise>
+            Take one thing off your plate.
+            <span class="v2-serif v2-green">Or all of it.</span>
+          </h2>
+        </div>
+        <ul class="v2-acc" data-acc>
+          {serviceRows.map((service, index) => (
+            <li class:list={["v2-acc__item", index === 0 && "is-open"]} data-acc-item>
+              <button type="button" class="v2-acc__head" aria-expanded={index === 0 ? "true" : "false"} data-acc-head>
+                <span class="v2-acc__name">{service.name}</span>
+                <span class="v2-acc__icon" aria-hidden="true"></span>
+              </button>
+              <div class="v2-acc__panel">
+                <div class="v2-acc__panel-inner">
+                  <div class="v2-acc__body">
+                    <p class="v2-acc__tagline">{service.tagline}</p>
+                    <a href={`/services/${service.slug}`} class="v2-arrow-link" data-cursor-text="Open">
+                      <span class="v2-underline">Explore {service.name}</span>
+                      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+                    </a>
+                  </div>
+                  <div class="v2-acc__media">
+                    <img src={service.image} alt="" loading="lazy" decoding="async" />
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- 5. Testimonial -->
+      <section class="v2-voice" data-section-theme="dark">
+        <div class="v2-grid">
+          <blockquote class="v2-voice__quote" data-rise>
+            <p>“We got to <span class="v2-green">$300,000</span> a month within one year at a brand new shop.”</p>
+          </blockquote>
+          <div class="v2-voice__who" data-rise>
+            <button type="button" class="v2-voice__play" data-video={featuredVideo.videoSrc} data-cursor-text="Play" aria-label={`Play ${featuredVideo.name}'s story`}>
+              <img src={featuredVideo.posterSrc} alt="" loading="lazy" />
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor" /></svg>
+            </button>
+            <p><strong>{featuredVideo.name}</strong><br />{featuredVideo.shop}</p>
+          </div>
+        </div>
+        <div class="v2-voice__more">
+          <p class="v2-voice__more-label">More owners, in their own words</p>
+          <ul>
+            {moreVideos.map((video) => (
+              <li>
+                <button type="button" data-video={video.videoSrc} data-cursor-text="Play" aria-label={`Play ${video.name}'s testimonial`}>
+                  <img src={video.posterSrc} alt="" loading="lazy" decoding="async" />
+                </button>
+                <span>{video.name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- 6. Founder -->
+      <section class="v2-founder" data-section-theme="light">
+        <figure class="v2-founder__media" data-parallax-wrap>
+          <img src="/site-media/founder-carrie-lynn.webp" alt="Carrie-Lynn Rodenberg, founder of Turnkey Marketing" width="687" height="900" loading="lazy" decoding="async" data-parallax />
+        </figure>
+        <div class="v2-founder__copy">
+          <h2 class="v2-founder__title" data-rise>
+            Founded in 2013 by
+            <span class="v2-serif">Carrie-Lynn Rodenberg.</span>
+          </h2>
+          <p class="v2-founder__text" data-rise>
+            Turnkey started in Kansas City as a family-owned small business, so we know the weight of
+            payroll and late-night decisions. That is why the work has never been about selling one more
+            tactic. We learn the shop, build the plan, and stay accountable to the outcome.
+          </p>
+          <p class="v2-founder__creds" data-rise>
+            EmblemHealth <i>·</i> VISION Hi-Tech Training & Expo <i>·</i> ShopFix Academy <i>·</i> Remarkable Results Radio
+          </p>
+          <a href="/about" class="v2-arrow-link" data-rise data-cursor-text="Meet">
+            <span class="v2-underline">Meet the team</span>
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- 7. CTA -->
+      <section class="v2-cta" data-section-theme="green">
+        <div class="v2-marquee" aria-hidden="true">
+          <div class="v2-marquee__track">
+            {[0, 1].map(() => (
+              <span class="v2-marquee__group">
+                {marqueeWords.map((word, index) => (
+                  <span class:list={["v2-marquee__word", index === 2 && "v2-serif"]}>{word}<i></i></span>
+                ))}
+              </span>
+            ))}
+          </div>
+        </div>
+        <h2 class="v2-sr">More calls. More cars. More revenue.</h2>
+        <a href={CONSULTATION_URL} class="v2-orb" data-magnetic data-cursor-text="Go">
+          <svg class="v2-orb__ring" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="v2-ring" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" /></defs>
+            <text><textPath href="#v2-ring">Book a strategy call • Book a strategy call • </textPath></text>
+          </svg>
+          <span class="v2-orb__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="34" height="34"><path d="M6 18L18 6M8 6h10v10" fill="none" stroke="currentColor" stroke-width="1.6" /></svg>
+          </span>
+          <span class="v2-sr">Book a strategy call</span>
+        </a>
+        <p class="v2-cta__phone">Or call <a href="tel:+19134270674" class="v2-underline">(913) 427-0674</a></p>
+      </section>
+    </main>
+
+    <footer class="v2-footer" data-section-theme="dark">
+      <a href="mailto:hello@turnkeyautomarketing.com" class="v2-footer__mail" data-cursor-text="Write">
+        hello@turnkey<wbr />automarketing.com
+      </a>
+      <div class="v2-footer__cols">
+        <nav aria-label="Footer">
+          <a href="/services">Services</a>
+          <a href="/results">Results</a>
+          <a href="/resources">Resources</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+        <p>9401 Indian Creek Pkwy #1300<br />Overland Park, KS 66210</p>
+        <p>
+          <a href="https://www.facebook.com/turnkeymarketingks">Facebook</a><br />
+          <a href="https://www.instagram.com/turnkey_marketing/">Instagram</a><br />
+          <a href="https://www.linkedin.com/company/turnkey-marketing-for-auto-repair-shops">LinkedIn</a>
+        </p>
+        <p class="v2-footer__legal">© {new Date().getFullYear()} Turnkey Marketing<br /><a href="/privacy-policy">Privacy</a> · <a href="/terms-of-service">Terms</a></p>
+      </div>
+    </footer>
+
+    <dialog class="v2-lightbox" data-lightbox>
+      <button type="button" class="v2-lightbox__close" data-lightbox-close aria-label="Close video">Close</button>
+      <video controls playsinline preload="none" data-lightbox-video></video>
+    </dialog>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .v2 {
+    --ink: #0b0f26;
+    --paper: #f3f1ea;
+    --blue: #5aa2dd;
+    --green: #93c845;
+    --navy: #232e66;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --pad: clamp(1.25rem, 3.2vw, 3.25rem);
+    --display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+    --serif: "Instrument Serif", ui-serif, Georgia, serif;
+    --bg: var(--ink);
+    --fg: var(--paper);
+    --muted: rgba(243, 241, 234, 0.58);
+    --line: rgba(243, 241, 234, 0.16);
+    background: var(--bg);
+    color: var(--fg);
+    transition: background-color 0.9s var(--ease), color 0.9s var(--ease);
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  }
+  .v2[data-theme="light"] { --bg: var(--paper); --fg: var(--ink); --muted: rgba(11, 15, 38, 0.56); --line: rgba(11, 15, 38, 0.14); --blue: #2f78b8; }
+  .v2[data-theme="green"] { --bg: var(--green); --fg: var(--ink); --muted: rgba(11, 15, 38, 0.6); --line: rgba(11, 15, 38, 0.2); }
+  .v2 h1, .v2 h2, .v2 h3 { font-family: var(--display); letter-spacing: -0.04em; font-weight: 400; }
+  .v2-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .v2-serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
+  .v2-blue { color: var(--blue); }
+  .v2-green { color: var(--green); }
+  .v2-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.25rem; padding-inline: var(--pad); }
+
+  .v2-underline { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: background-size 0.6s var(--ease); padding-bottom: 0.1em; }
+  .v2-underline:hover, a:hover > .v2-underline { background-size: 0 1px; background-position: 100% 100%; }
+  .v2-arrow-link { display: inline-flex; align-items: center; gap: 0.9rem; font-size: 1.05rem; font-weight: 500; }
+  .v2-arrow-link svg { transition: transform 0.6s var(--ease); }
+  .v2-arrow-link:hover svg { transform: translateX(0.4rem); }
+  .v2-fine { font-size: 0.8rem; color: var(--muted); }
+
+  /* Cursor */
+  .v2-cursor { position: fixed; left: 0; top: 0; z-index: 90; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 999px; background: #fff; mix-blend-mode: difference; pointer-events: none; display: grid; place-items: center; transition: width 0.5s var(--ease), height 0.5s var(--ease), margin 0.5s var(--ease), opacity 0.3s; opacity: 0; }
+  .v2-cursor.is-ready { opacity: 1; }
+  .v2-cursor span { font-size: 0.8rem; font-weight: 600; color: #000; opacity: 0; transition: opacity 0.3s; letter-spacing: 0.02em; }
+  .v2-cursor.is-label { width: 84px; height: 84px; margin: -42px 0 0 -42px; }
+  .v2-cursor.is-label span { opacity: 1; }
+  @media (pointer: coarse) { .v2-cursor { display: none; } }
+
+  /* Header */
+  .v2-header { position: fixed; inset: 0 0 auto; z-index: 60; display: flex; align-items: center; justify-content: space-between; padding: calc(1.25rem + env(safe-area-inset-top, 0px)) var(--pad) 1.25rem; pointer-events: none; }
+  .v2-header > * { pointer-events: auto; }
+  .v2-logo img { height: 2.1rem; width: auto; }
+  .v2-logo__dark { display: none; }
+  .v2-header.is-light .v2-logo__light { display: none; }
+  .v2-header.is-light .v2-logo__dark { display: block; }
+  .v2-header.is-light:not(.is-menu) { color: var(--ink); }
+  .v2-header { color: var(--paper); transition: color 0.5s; }
+  .v2-header.is-menu .v2-logo__light { display: block; }
+  .v2-header.is-menu .v2-logo__dark { display: none; }
+  .v2-header__right { display: flex; align-items: center; gap: 2rem; font-size: 0.95rem; font-weight: 500; }
+  .v2-menu-btn { display: inline-flex; align-items: center; gap: 0.75rem; font: inherit; color: inherit; }
+  .v2-menu-btn__dots { display: grid; grid-template-columns: repeat(2, 5px); gap: 4px; }
+  .v2-menu-btn__dots i { width: 5px; height: 5px; border-radius: 999px; background: currentColor; transition: transform 0.5s var(--ease); }
+  .v2-menu-btn:hover .v2-menu-btn__dots i:first-child { transform: translateX(9px); }
+  .v2-menu-btn:hover .v2-menu-btn__dots i:last-child { transform: translateX(-9px); }
+  .v2-header.is-hidden { transform: translateY(-120%); }
+  .v2-header.is-solid:not(.is-menu) { background: var(--bg); }
+  .v2-header { transition: transform 0.7s var(--ease), color 0.5s, background-color 0.9s var(--ease); }
+
+  .v2-menu { position: fixed; inset: 0; z-index: 55; background: var(--navy); color: var(--paper); clip-path: inset(0 0 100% 0); transition: clip-path 0.9s var(--ease); }
+  .v2-menu.is-open { clip-path: inset(0 0 0 0); }
+  .v2-menu__inner { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 2rem; height: 100%; padding: 8rem var(--pad) 3rem; }
+  .v2-menu__primary { display: flex; flex-direction: column; justify-content: flex-end; }
+  .v2-menu__primary a { font-family: var(--display); font-size: clamp(3rem, 8.5vw, 8rem); line-height: 0.95; letter-spacing: -0.05em; overflow: hidden; }
+  .v2-menu__primary a span { display: inline-block; transform: translateY(105%); transition: transform 0.9s var(--ease); }
+  .v2-menu.is-open .v2-menu__primary a span { transform: none; }
+  .v2-menu__primary a:nth-child(2) span { transition-delay: 0.05s; }
+  .v2-menu__primary a:nth-child(3) span { transition-delay: 0.1s; }
+  .v2-menu__primary a:nth-child(4) span { transition-delay: 0.15s; }
+  .v2-menu__primary a:nth-child(5) span { transition-delay: 0.2s; }
+  .v2-menu__primary a:hover { color: var(--green); }
+  .v2-menu__side { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.45rem; color: rgba(243, 241, 234, 0.72); }
+  .v2-menu__side a:hover { color: #fff; }
+  .v2-menu__heading { color: rgba(243, 241, 234, 0.45); font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .v2-menu__heading--gap { margin-top: 1.5rem; }
+
+  /* Intro masks */
+  .v2-mask { display: block; overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  .v2-mask__in { display: block; text-wrap: balance; transform: translateY(110%); transition: transform 1.3s var(--ease); transition-delay: calc(0.2s + var(--d, 0) * 0.1s); }
+  .v2.is-loaded .v2-mask__in { transform: none; }
+  [data-intro]:not(.v2-mask__in) { opacity: 0; transition: opacity 1s var(--ease); transition-delay: calc(0.3s + var(--d, 0) * 0.1s); }
+  .v2.is-loaded [data-intro]:not(.v2-mask__in) { opacity: 1; }
+
+  /* Hero */
+  .v2-hero { position: relative; height: 240vh; }
+  .v2-hero__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .v2-hero__title { position: absolute; left: var(--pad); right: var(--pad); top: 17vh; z-index: 2; font-size: clamp(3.2rem, 8.6vw, 10.5rem); line-height: 0.9; letter-spacing: -0.055em; font-weight: 400; will-change: transform, opacity; }
+  .v2-hero__title .v2-serif { letter-spacing: -0.035em; color: var(--blue); }
+  .v2-hero__window { position: absolute; inset: 0; z-index: 1; clip-path: inset(16% var(--pad-pct, 3.4%) 42% 60% round 16px); will-change: clip-path; }
+  .v2-hero__window img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; will-change: transform; }
+  .v2-hero__overlay { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: var(--pad); padding-bottom: 12vh; background: linear-gradient(180deg, rgba(11, 15, 38, 0) 40%, rgba(11, 15, 38, 0.7)); opacity: 0; }
+  .v2-hero__overlay p { font-family: var(--display); font-size: clamp(2.2rem, 5.2vw, 5.5rem); line-height: 0.98; letter-spacing: -0.045em; color: #fff; }
+  .v2-hero__overlay .v2-serif { color: var(--green); }
+  .v2-hero__foot { position: absolute; left: var(--pad); right: var(--pad); bottom: 2.25rem; z-index: 2; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: var(--muted); }
+  .v2-hero__scroll { display: flex; align-items: center; gap: 0.8rem; }
+  .v2-hero__scroll-line { position: relative; width: 3rem; height: 1px; background: var(--line); overflow: hidden; }
+  .v2-hero__scroll-line::after { content: ""; position: absolute; inset: 0; background: var(--fg); animation: v2-scroll 2.2s var(--ease) infinite; }
+  @keyframes v2-scroll { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+  /* Statement */
+  .v2-statement { padding-block: clamp(8rem, 18vw, 17rem) clamp(6rem, 12vw, 11rem); }
+  .v2-statement__text { grid-column: 1 / -1; font-family: var(--display); font-size: clamp(2.3rem, 5.6vw, 6.2rem); line-height: 1; letter-spacing: -0.048em; }
+  .v2-pill { display: inline-block; width: 1.75em; height: 0.78em; border-radius: 999px; overflow: hidden; vertical-align: -0.04em; margin-inline: 0.04em; transform: scale(0.4); opacity: 0; transition: transform 1.1s var(--ease), opacity 0.6s; }
+  .v2-pill img { width: 100%; height: 100%; object-fit: cover; }
+  .v2-statement__text.is-in .v2-pill { transform: none; opacity: 1; }
+  .v2-statement__text.is-in .v2-pill:nth-of-type(2) { transition-delay: 0.15s; }
+  .v2-statement__text.is-in .v2-pill:nth-of-type(3) { transition-delay: 0.3s; }
+  .v2-statement__aside { grid-column: 8 / span 4; margin-top: clamp(3rem, 6vw, 5.5rem); display: grid; gap: 2rem; }
+  .v2-statement__aside p { font-size: 1.125rem; line-height: 1.6; color: var(--muted); }
+
+  /* Proof ledger */
+  .v2-proof { padding-block: clamp(4rem, 8vw, 7rem) clamp(7rem, 14vw, 13rem); }
+  .v2-proof__title { grid-column: 1 / span 9; font-size: clamp(2.4rem, 5.2vw, 5.6rem); line-height: 0.98; }
+  .v2-proof__title .v2-serif { display: block; color: var(--blue); }
+  .v2-ledger { margin-top: clamp(3.5rem, 7vw, 6.5rem); border-top: 1px solid var(--line); }
+  .v2-ledger__row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.25rem; align-items: center; padding: clamp(1rem, 2vw, 1.75rem) var(--pad); border-bottom: 1px solid var(--line); transition: background-color 0.5s var(--ease); }
+  .v2-ledger__value { grid-column: 1 / span 7; font-family: var(--display); font-size: clamp(4rem, 12.5vw, 13rem); line-height: 0.86; letter-spacing: -0.065em; font-weight: 300; font-variant-numeric: tabular-nums; transition: transform 0.8s var(--ease), color 0.4s; }
+  .v2-ledger__meta { grid-column: 8 / span 5; display: grid; gap: 0.5rem; }
+  .v2-ledger__shop { font-family: var(--display); font-size: clamp(1.2rem, 1.6vw, 1.6rem); letter-spacing: -0.02em; }
+  .v2-ledger__detail { color: var(--muted); line-height: 1.5; max-width: 28rem; }
+  .v2-ledger__row:hover .v2-ledger__value { color: var(--blue); transform: translateX(1.5rem); }
+  .v2-proof__foot { margin-top: 2.5rem; align-items: center; }
+  .v2-proof__foot .v2-arrow-link { grid-column: 1 / span 6; }
+  .v2-proof__foot .v2-fine { grid-column: 8 / span 5; }
+
+  /* Services */
+  .v2-services { padding-block: clamp(7rem, 14vw, 13rem); }
+  .v2-services__title { grid-column: 1 / span 10; font-size: clamp(2.4rem, 5.2vw, 5.6rem); line-height: 0.98; }
+  .v2-services__title .v2-serif { display: block; }
+  .v2-acc { margin-top: clamp(3.5rem, 7vw, 6rem); border-top: 1px solid var(--line); }
+  .v2-acc__item { border-bottom: 1px solid var(--line); }
+  .v2-acc__head { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(1.1rem, 2vw, 1.6rem) var(--pad); text-align: left; color: inherit; }
+  .v2-acc__name { font-family: var(--display); font-size: clamp(2rem, 5vw, 5.25rem); line-height: 1; letter-spacing: -0.05em; transition: transform 0.7s var(--ease), color 0.4s; }
+  .v2-acc__head:hover .v2-acc__name, .v2-acc__item.is-open .v2-acc__name { transform: translateX(clamp(0.5rem, 2vw, 2rem)); }
+  .v2-acc__item.is-open .v2-acc__name { color: var(--green); }
+  .v2-acc__icon { position: relative; flex: none; width: 1.75rem; height: 1.75rem; }
+  .v2-acc__icon::before, .v2-acc__icon::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; transition: transform 0.6s var(--ease); }
+  .v2-acc__icon::after { transform: rotate(90deg); }
+  .v2-acc__item.is-open .v2-acc__icon::after { transform: rotate(0deg); }
+  .v2-acc__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.8s var(--ease); }
+  .v2-acc__item.is-open .v2-acc__panel { grid-template-rows: 1fr; }
+  .v2-acc__panel-inner { overflow: hidden; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.25rem; padding-inline: var(--pad); }
+  .v2-acc__body { grid-column: 1 / span 5; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; padding: 0.5rem 0 2.5rem clamp(0.5rem, 2vw, 2rem); }
+  .v2-acc__tagline { font-size: clamp(1.15rem, 1.6vw, 1.5rem); line-height: 1.45; color: var(--muted); max-width: 30rem; }
+  .v2-acc__media { grid-column: 8 / span 5; aspect-ratio: 16 / 10; overflow: hidden; margin-bottom: 2.5rem; border-radius: 6px; }
+  .v2-acc__media img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 1.4s var(--ease); }
+  .v2-acc__item.is-open .v2-acc__media img { transform: none; }
+
+  /* Voice */
+  .v2-voice { padding-block: clamp(4rem, 8vw, 7rem) clamp(7rem, 14vw, 13rem); }
+  .v2-voice__quote { grid-column: 1 / span 11; }
+  .v2-voice__quote p { font-family: var(--serif); font-style: italic; font-size: clamp(2.8rem, 7.4vw, 8.4rem); line-height: 0.95; letter-spacing: -0.03em; }
+  .v2-voice__who { grid-column: 1 / span 6; display: flex; align-items: center; gap: 1.25rem; margin-top: clamp(2.5rem, 5vw, 4rem); line-height: 1.4; color: var(--muted); }
+  .v2-voice__who strong { color: var(--fg); font-weight: 500; }
+  .v2-voice__play { position: relative; width: 4.5rem; height: 4.5rem; border-radius: 999px; overflow: hidden; flex: none; }
+  .v2-voice__play img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+  .v2-voice__play svg { position: absolute; inset: 0; margin: auto; color: #fff; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)); }
+  .v2-voice__more { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-top: clamp(5rem, 10vw, 9rem); padding: 1.5rem var(--pad) 0; border-top: 1px solid var(--line); }
+  .v2-voice__more-label { color: var(--muted); }
+  .v2-voice__more ul { display: flex; gap: clamp(1rem, 2.4vw, 2.25rem); flex-wrap: wrap; }
+  .v2-voice__more li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
+  .v2-voice__more button { width: 3.25rem; height: 3.25rem; border-radius: 999px; overflow: hidden; transition: transform 0.6s var(--ease); }
+  .v2-voice__more button:hover { transform: scale(1.12); }
+  .v2-voice__more img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+
+  /* Founder */
+  .v2-founder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 100vh; }
+  .v2-founder__media { position: relative; overflow: hidden; min-height: 70vh; }
+  .v2-founder__media img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: 72% 30%; will-change: transform; }
+  .v2-founder__copy { display: flex; flex-direction: column; justify-content: center; gap: 2rem; padding: clamp(4rem, 8vw, 8rem) var(--pad); }
+  .v2-founder__title { font-size: clamp(2.3rem, 4.4vw, 4.8rem); line-height: 1; }
+  .v2-founder__title .v2-serif { display: block; color: var(--blue); }
+  .v2-founder__text { font-size: 1.125rem; line-height: 1.65; color: var(--muted); max-width: 34rem; }
+  .v2-founder__creds { font-family: var(--display); font-size: 1rem; letter-spacing: -0.01em; max-width: 34rem; line-height: 1.7; }
+  .v2-founder__creds i { font-style: normal; color: var(--muted); padding-inline: 0.35rem; }
+
+  /* CTA */
+  .v2-cta { position: relative; display: grid; place-items: center; min-height: 100vh; overflow: hidden; padding-block: 6rem; }
+  .v2-marquee { position: absolute; inset: 50% 0 auto; transform: translateY(-50%); overflow: hidden; pointer-events: none; }
+  .v2-marquee__track { display: flex; width: max-content; animation: v2-marquee 28s linear infinite; }
+  .v2-marquee__group { display: flex; }
+  .v2-marquee__word { display: inline-flex; align-items: center; font-family: var(--display); font-size: clamp(5rem, 15vw, 17rem); line-height: 1; letter-spacing: -0.06em; white-space: nowrap; }
+  .v2-marquee__word.v2-serif { letter-spacing: -0.03em; }
+  .v2-marquee__word i { display: inline-block; width: 0.18em; height: 0.18em; border-radius: 999px; background: currentColor; margin-inline: 0.35em; }
+  @keyframes v2-marquee { to { transform: translateX(-50%); } }
+  .v2-orb { position: relative; z-index: 2; display: grid; place-items: center; width: clamp(11rem, 16vw, 14rem); aspect-ratio: 1; border-radius: 999px; background: var(--ink); color: var(--paper); transition: transform 0.6s var(--ease); }
+  .v2-orb__ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: v2-spin 14s linear infinite; }
+  .v2-orb__ring text { fill: currentColor; font-size: 13.5px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; }
+  .v2-orb__arrow { display: grid; place-items: center; width: 4.25rem; height: 4.25rem; border-radius: 999px; background: var(--green); color: var(--ink); transition: transform 0.6s var(--ease); }
+  .v2-orb:hover .v2-orb__arrow { transform: rotate(45deg) scale(1.08); }
+  @keyframes v2-spin { to { transform: rotate(360deg); } }
+  .v2-cta__phone { position: absolute; bottom: 2.5rem; left: 0; right: 0; text-align: center; font-size: 1rem; }
+
+  /* Footer */
+  .v2-footer { padding: clamp(6rem, 12vw, 11rem) var(--pad) 2.5rem; }
+  .v2-footer__mail { display: inline-block; font-family: var(--display); font-size: clamp(2rem, 6.2vw, 7rem); letter-spacing: -0.055em; line-height: 1; background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat; transition: background-size 0.8s var(--ease); padding-bottom: 0.1em; }
+  .v2-footer__mail:hover { background-size: 100% 2px; }
+  .v2-footer__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin-top: clamp(4rem, 8vw, 7rem); padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.95rem; line-height: 1.7; color: var(--muted); }
+  .v2-footer__cols nav { display: flex; flex-direction: column; }
+  .v2-footer__cols a:hover { color: var(--fg); }
+  .v2-footer__legal { text-align: right; }
+
+  /* Lightbox */
+  .v2-lightbox { padding: 0; border: 0; background: transparent; width: min(92vw, 28rem); overflow: visible; }
+  .v2-lightbox::backdrop { background: rgba(11, 15, 38, 0.9); }
+  .v2-lightbox video { display: block; width: 100%; max-height: 86vh; border-radius: 12px; background: #000; }
+  .v2-lightbox__close { position: absolute; top: -2.75rem; right: 0; color: #fff; font-size: 0.95rem; }
+
+  /* Rise */
+  [data-rise] { opacity: 0; transform: translateY(40px); transition: opacity 1.1s var(--ease), transform 1.3s var(--ease); }
+  [data-rise].is-in { opacity: 1; transform: none; }
+  [data-lines] { opacity: 0; transform: translateY(30px); transition: opacity 1.2s var(--ease), transform 1.4s var(--ease); }
+  [data-lines].is-in { opacity: 1; transform: none; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .v2-header__cta { display: none; }
+    .v2-menu__inner { grid-template-columns: 1fr; align-content: end; }
+    .v2-menu__side { display: none; }
+    .v2-hero { height: auto; }
+    .v2-hero__sticky { position: relative; height: auto; overflow: visible; padding-top: 8.5rem; }
+    .v2-hero__title { position: relative; top: 0; left: 0; right: 0; padding-inline: var(--pad); font-size: 15vw; }
+    .v2-hero__window { position: relative; inset: auto; margin-top: 2.5rem; aspect-ratio: 4 / 5; clip-path: none !important; }
+    .v2-hero__window img { transform: none !important; }
+    .v2-hero__overlay { opacity: 1 !important; padding-bottom: var(--pad); }
+    .v2-hero__foot { position: relative; left: 0; right: 0; bottom: 0; padding: 1.25rem var(--pad) 0; }
+    .v2-statement__aside, .v2-proof__title, .v2-services__title, .v2-voice__quote, .v2-voice__who { grid-column: 1 / -1; }
+    .v2-ledger__row { row-gap: 0.75rem; }
+    .v2-ledger__value, .v2-ledger__meta { grid-column: 1 / -1; }
+    .v2-ledger__value { font-size: 22vw; }
+    .v2-proof__foot { row-gap: 1.5rem; }
+    .v2-proof__foot .v2-arrow-link, .v2-proof__foot .v2-fine { grid-column: 1 / -1; }
+    .v2-acc__panel-inner { grid-template-columns: 1fr; }
+    .v2-acc__body, .v2-acc__media { grid-column: 1; }
+    .v2-acc__body { padding-left: 0; padding-bottom: 1.5rem; }
+    .v2-acc__media { margin-bottom: 1.75rem; }
+    .v2-founder { grid-template-columns: 1fr; min-height: 0; }
+    .v2-founder__media { min-height: 0; aspect-ratio: 4 / 5; }
+    .v2-footer__cols { grid-template-columns: 1fr 1fr; }
+    .v2-footer__legal { text-align: left; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .v2 *, .v2 *::before, .v2 *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .v2-marquee__track, .v2-orb__ring { animation: none; }
+    .v2-hero { height: auto; }
+    .v2-hero__sticky { position: relative; height: auto; overflow: visible; padding-top: 9rem; }
+    .v2-hero__title { position: relative; top: 0; left: 0; right: 0; padding-inline: var(--pad); }
+    .v2-hero__window { position: relative; inset: auto; margin-top: 3rem; aspect-ratio: 16 / 9; clip-path: none !important; }
+    .v2-hero__window img { transform: none !important; }
+    .v2-hero__overlay { opacity: 1 !important; }
+    .v2-hero__foot { position: relative; left: 0; right: 0; bottom: 0; padding: 1.25rem var(--pad) 0; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-v2]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  const desktop = window.matchMedia("(min-width: 901px)");
+
+  if (root) {
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+
+    // Intro
+    const reveal = () => root.classList.add("is-loaded");
+    requestAnimationFrame(() => setTimeout(reveal, 80));
+
+    // Header and menu
+    const header = root.querySelector<HTMLElement>("[data-header]");
+    const menu = root.querySelector<HTMLElement>("[data-menu]");
+    const menuBtn = root.querySelector<HTMLButtonElement>("[data-menu-btn]");
+    const menuLabel = root.querySelector<HTMLElement>("[data-menu-label]");
+    let menuOpen = false;
+    menuBtn?.addEventListener("click", () => {
+      if (!menu) return;
+      menuOpen = !menuOpen;
+      menuBtn.setAttribute("aria-expanded", String(menuOpen));
+      if (menuLabel) menuLabel.textContent = menuOpen ? "Close" : "Menu";
+      header?.classList.toggle("is-menu", menuOpen);
+      document.body.style.overflow = menuOpen ? "hidden" : "";
+      if (menuOpen) {
+        menu.hidden = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add("is-open")));
+      } else {
+        menu.classList.remove("is-open");
+        setTimeout(() => { if (!menuOpen) menu.hidden = true; }, 900);
+      }
+    });
+
+    // Reveals
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        io.unobserve(entry.target);
+      }),
+      { rootMargin: "0px 0px -10% 0px" },
+    );
+    root.querySelectorAll("[data-rise], [data-lines]").forEach((el) => io.observe(el));
+
+    // Theme follows the section in the middle of the screen; header follows the section under it
+    const sections = Array.from(root.querySelectorAll<HTMLElement>("[data-section-theme]"));
+    const themeAt = (y: number) => {
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= y && rect.bottom > y) return section.dataset.sectionTheme ?? "dark";
+      }
+      return null;
+    };
+
+    // Hero
+    const hero = root.querySelector<HTMLElement>("[data-hero]");
+    const heroTitle = root.querySelector<HTMLElement>("[data-hero-title]");
+    const heroWindow = root.querySelector<HTMLElement>("[data-hero-window]");
+    const heroImg = root.querySelector<HTMLElement>("[data-hero-img]");
+    const heroOverlay = root.querySelector<HTMLElement>("[data-hero-overlay]");
+    const heroFoot = root.querySelector<HTMLElement>("[data-hero-foot]");
+
+    // Parallax
+    const parallax = Array.from(root.querySelectorAll<HTMLElement>("[data-parallax]"));
+
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      const y = window.scrollY;
+
+      const theme = themeAt(vh * 0.5);
+      if (theme && root.dataset.theme !== theme) root.dataset.theme = theme;
+      const headerTheme = themeAt(40);
+      header?.classList.toggle("is-light", headerTheme === "light" || headerTheme === "green");
+      header?.classList.toggle("is-hidden", !menuOpen && y > vh * 2.6 && y > lastY + 2);
+      if (y < lastY - 2) header?.classList.remove("is-hidden");
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      header?.classList.toggle("is-solid", heroBottom < 80);
+      lastY = y;
+
+      if (hero && heroWindow && heroImg && heroTitle && desktop.matches && !reduceMotion) {
+        const rect = hero.getBoundingClientRect();
+        const p = clamp(-rect.top / (rect.height - vh));
+        const e = 1 - Math.pow(1 - p, 3);
+        const vw = window.innerWidth;
+        const padPct = (parseFloat(getComputedStyle(root).getPropertyValue("--pad-px")) || vw * 0.034) / vw * 100;
+        const start = { top: 16, right: padPct, bottom: 42, left: 60 };
+        const top = lerp(start.top, 0, e);
+        const right = lerp(start.right, 0, e);
+        const bottom = lerp(start.bottom, 0, e);
+        const left = lerp(start.left, 0, e);
+        const radius = lerp(16, 0, e);
+        heroWindow.style.clipPath = `inset(${top}% ${right}% ${bottom}% ${left}% round ${radius}px)`;
+        // Start with the technician's face centered in the small window, then settle to the full frame
+        const img = heroImg as HTMLImageElement;
+        const ratio = (img.naturalWidth || 1400) / (img.naturalHeight || 933);
+        const coverW = Math.max(vw, vh * ratio);
+        const coverH = coverW / ratio;
+        const offsetY = (vh - coverH) * 0.3;
+        const faceX = (vw - coverW) / 2 + coverW * 0.57;
+        const faceY = offsetY + coverH * 0.24;
+        const winX = vw * (start.left + (100 - start.left - start.right) / 2) / 100;
+        const winY = vh * (start.top + (100 - start.top - start.bottom) / 2) / 100;
+        const tx = (winX - faceX) * (1 - e);
+        const ty = (winY - faceY) * (1 - e);
+        heroImg.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${lerp(1.18, 1, e)})`;
+        heroTitle.style.transform = `translate3d(0, ${-e * 18}vh, 0)`;
+        heroTitle.style.opacity = String(clamp(1 - p * 2.2));
+        if (heroFoot) heroFoot.style.opacity = String(clamp(1 - p * 4));
+        if (heroOverlay) heroOverlay.style.opacity = String(clamp((p - 0.62) / 0.3));
+      }
+
+      if (!reduceMotion) {
+        parallax.forEach((el) => {
+          const wrap = el.parentElement;
+          if (!wrap) return;
+          const rect = wrap.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > vh) return;
+          const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+          el.style.transform = `translate3d(0, ${progress * -8}%, 0)`;
+        });
+      }
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    // Accordion: hover opens on desktop, click everywhere
+    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-acc-item]"));
+    const openItem = (item: HTMLElement) => {
+      items.forEach((other) => {
+        const open = other === item;
+        other.classList.toggle("is-open", open);
+        other.querySelector("[data-acc-head]")?.setAttribute("aria-expanded", String(open));
+      });
+    };
+    items.forEach((item) => {
+      const head = item.querySelector<HTMLElement>("[data-acc-head]");
+      head?.addEventListener("click", () => openItem(item));
+      if (finePointer) {
+        let timer = 0;
+        head?.addEventListener("mouseenter", () => { timer = window.setTimeout(() => openItem(item), 140); });
+        head?.addEventListener("mouseleave", () => clearTimeout(timer));
+      }
+    });
+
+    // Cursor
+    const cursor = root.querySelector<HTMLElement>("[data-cursor]");
+    const cursorLabel = root.querySelector<HTMLElement>("[data-cursor-label]");
+    if (cursor && finePointer && !reduceMotion) {
+      let x = -100, y = -100, cx = -100, cy = -100;
+      window.addEventListener("pointermove", (event) => {
+        x = event.clientX;
+        y = event.clientY;
+        cursor.classList.add("is-ready");
+      });
+      const loop = () => {
+        cx += (x - cx) * 0.2;
+        cy += (y - cy) * 0.2;
+        cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+      root.querySelectorAll<HTMLElement>("[data-cursor-text]").forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          if (cursorLabel) cursorLabel.textContent = el.dataset.cursorText ?? "";
+          cursor.classList.add("is-label");
+        });
+        el.addEventListener("mouseleave", () => cursor.classList.remove("is-label"));
+      });
+    }
+
+    // Magnetic orb
+    if (finePointer && !reduceMotion) {
+      root.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
+        el.addEventListener("mousemove", (event) => {
+          const rect = el.getBoundingClientRect();
+          const dx = event.clientX - (rect.left + rect.width / 2);
+          const dy = event.clientY - (rect.top + rect.height / 2);
+          el.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+        });
+        el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+      });
+    }
+
+    // Video lightbox
+    const lightbox = root.querySelector<HTMLDialogElement>("[data-lightbox]");
+    const lightboxVideo = root.querySelector<HTMLVideoElement>("[data-lightbox-video]");
+    root.querySelectorAll<HTMLButtonElement>("[data-video]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!lightbox || !lightboxVideo) return;
+        lightboxVideo.src = button.dataset.video ?? "";
+        lightbox.showModal();
+        lightboxVideo.play().catch(() => {});
+      });
+    });
+    const closeLightbox = () => {
+      lightboxVideo?.pause();
+      lightboxVideo?.removeAttribute("src");
+      lightboxVideo?.load();
+      if (lightbox?.open) lightbox.close();
+    };
+    root.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
+    lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) closeLightbox(); });
+    lightbox?.addEventListener("close", () => lightboxVideo?.pause());
+  }
+</script>

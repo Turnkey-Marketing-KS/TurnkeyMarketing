@@ -128,7 +128,6 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
         </div>
 
         <div class="report-gate-unlock">
-          <p class="v6-kicker">Unlock your report</p>
           <h3 class="tk-scan__unlock-title">See what drivers may learn about your shop.</h3>
           <p class="tk-scan__unlock-text">Enter your business email to see whether your shop appeared, what AI found, and what to improve first.</p>
 
@@ -146,7 +145,6 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
   <section id="scan-results" class="report-dashboard tk-scan__results hidden">
     <div class="v6-wrap">
       <header class="report-heading">
-        <p class="v6-kicker">Your AI visibility snapshot</p>
         <h2 class="tk-scan__results-title" data-words set:html={split([{ t: "AI Visibility Report" }])} />
         <div class="tk-scan__facts">
           <span class="tk-scan__fact tk-scan__fact--shop"><span data-result-shop>Your shop</span></span>
@@ -241,7 +239,7 @@ const icon = (name: string) => `--icon:url(${iconSrc(name)})`;
     </div>
   </section>
 
-  <section id="schedule" class="tk-scan__schedule hidden"><div class="v6-wrap"><div class="tk-scan__schedule-head"><p class="v6-kicker">Want help fixing it?</p><h2 class="tk-scan__schedule-title" data-words set:html={split([{ t: "Let’s turn this report into a" }, { t: "practical plan.", accent: true }])} /><p class="tk-scan__schedule-text">We’ll show you what to update first, what can wait, and how to make your shop easier for the right drivers to find.</p></div><div class="tk-scan__sheet"><iframe src={APPOINTMENTCORE_BOOKING_URL} title="Schedule an AI visibility review with Turnkey Marketing" width="100%" height="800" class="tk-scan__frame" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div><script is:inline src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786635857"></script></section>
+  <section id="schedule" class="tk-scan__schedule hidden"><div class="v6-wrap"><div class="tk-scan__schedule-head"><h2 class="tk-scan__schedule-title" data-words set:html={split([{ t: "Let’s turn this report into a" }, { t: "practical plan.", accent: true }])} /><p class="tk-scan__schedule-text">We’ll show you what to update first, what can wait, and how to make your shop easier for the right drivers to find.</p></div><div class="tk-scan__sheet"><iframe src={APPOINTMENTCORE_BOOKING_URL} title="Schedule an AI visibility review with Turnkey Marketing" width="100%" height="800" class="tk-scan__frame" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div><script is:inline src="https://go.appointmentcore.com/frontend/js/app/booking-link-embed-helper.js?v=1786635857"></script></section>
 
   <script is:inline>
     const form = document.querySelector("#scan-form");

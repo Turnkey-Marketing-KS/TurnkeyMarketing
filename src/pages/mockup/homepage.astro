@@ -1,0 +1,1258 @@
+---
+// Design mockup for a homepage redesign. Not linked, not in the sitemap, and noindex.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { CONSULTATION_URL, services } from "@/lib/services";
+import { videoTestimonials } from "@/lib/proof";
+import { googleReviewSummary } from "@/lib/google-reviews";
+
+const phrases = [
+  "that increases car count.",
+  "that gets the phone ringing.",
+  "that brings customers back.",
+  "that proves what is working.",
+  "that gets it off your plate.",
+];
+
+const navLinks = [
+  { label: "Services", href: "/services" },
+  { label: "Results", href: "/results" },
+  { label: "Resources", href: "/resources" },
+  { label: "About", href: "/about" },
+];
+
+const shopLogos = [
+  "01-d-and-e-auto-repair", "02-super-service-of-aliso-viejo", "03-cdt-automotive",
+  "04-fast-lane-automotive", "05-budd-and-company-automotive-mlk", "06-keeton-euro-repair",
+  "07-ingolstadt-west", "08-chris-matthews-automotive", "09-japanese-car-care-east",
+  "10-cherry-lane-auto-repair", "11-carfix-mast-dr", "12-pristal-s-automotive-inc",
+  "13-boradori-automotive-marysville", "14-al-huss-auto-and-truck", "15-autoworks-of-tampa",
+  "16-pit-shop-auto-repair-libertyville", "17-eurotech-car-care", "18-kay-jay-s-auto-repair",
+  "19-koffman-autoworks", "20-pro-automotive-191-west-main-dudley", "21-keeton-auto-repair",
+  "22-horizon-auto-center", "23-garage-guys-automotive-richmond",
+  "24-choisser-automotive-services-of-davidsonville", "25-craftsman-auto-care",
+  "26-apex-auto-and-rv-repair", "27-inmotion-auto-care", "28-gene-s-112-auto-service-center",
+  "29-killian-auto-pros-greenville", "30-certified-auto-repair",
+].map((file) => `/images/trust-logos/vip/${file}.webp`);
+
+const statement =
+  "You didn't open a shop to spend your nights doing marketing. We build the plan, run it every week, and show you exactly what it did for car count.";
+const statementWords = statement.split(" ");
+
+const results = [
+  {
+    shop: "Legendary Automotive & Diesel Repair",
+    logo: "/images/results/shop-logos/legendary-automotive-diesel-repair.png",
+    value: "+169%",
+    label: "Reported revenue",
+    detail: "$260,534 in August 2024 to $701,725 in June 2026, while total cars served nearly tripled.",
+    bars: [30, 82],
+    tone: "blue",
+  },
+  {
+    shop: "Killian Auto Pros",
+    logo: "/images/results/shop-logos/killian-auto-pros.png",
+    value: "1 → 4",
+    label: "Locations",
+    detail: "Started with Turnkey as a single shop in Mauldin, South Carolina. The growth funded three more.",
+    tone: "white",
+  },
+  {
+    shop: "Torque European",
+    logo: "/images/results/shop-logos/torque-european.png",
+    value: "2×",
+    label: "Monthly revenue",
+    detail: "From about $110K to a consistent $220K to $230K since onboarding in August 2025.",
+    tone: "white",
+  },
+  {
+    shop: "ASAP Auto Repair",
+    logo: "/images/results/shop-logos/asap-auto-repair.png",
+    logoDark: true,
+    value: "+60%",
+    label: "Monthly revenue",
+    detail: "$125K to $200K from October 2024 to June 2026, with an all-time high in three of the last four months.",
+    bars: [38, 62],
+    tone: "white",
+  },
+  {
+    shop: "Pro Automotive",
+    logo: "/images/results/shop-logos/pro-automotive-services.png",
+    value: "3.74×",
+    label: "Revenue per ad dollar",
+    detail: "Tracked revenue for every $1 of advertising in the first full month of its campaign.",
+    tone: "green",
+  },
+  {
+    shop: "Chris Matthews Automotive",
+    value: "15-20",
+    label: "Google reviews a month",
+    detail: "Up from 1 to 2 a month, turning review activity from occasional into consistent.",
+    tone: "white",
+  },
+];
+
+const serviceImages: Record<string, string> = {
+  "vip-marketing-manager": "/images/services/vip-marketing-manager-hero.jpg",
+  "directtrack-marketing": "/images/services/directtrack-marketing-hero-v2.webp",
+  "marketing-consulting": "/images/services/marketing-consulting-hero-v2.webp",
+  "direct-mail": "/images/services/direct-mail-mailbox.webp",
+  "social-media-marketing": "/images/services/social-media-marketing-hero-v2.webp",
+  "retention-marketing": "/images/services/retention-marketing-hero-v2.webp",
+  "digital-marketing": "/images/services/digital-marketing-hero-v2.webp",
+  "boost-days": "/images/services/boost-days-hero-v2.webp",
+};
+
+const serviceRows = services.map((service) => ({
+  ...service,
+  image: serviceImages[service.slug],
+}));
+
+const process = [
+  {
+    word: "Plan.",
+    title: "Shop-specific strategy",
+    copy: "We start with proven auto repair formulas, then adjust the plan around your market, capacity, goals, and customer mix.",
+    image: "/images/team/20230303-turnkeyvisionexpo0043.jpg",
+    alt: "Turnkey Marketing team member speaking with shop owners at an industry event",
+    tone: "white",
+  },
+  {
+    word: "Run.",
+    title: "Weekly execution",
+    copy: "We don't just consult. We run the direct mail, ads, Google Business Profile, reviews, and CRM every week.",
+    image: "/site-media/mikes-auto-works.webp",
+    alt: "Mike's Auto Works team member helping a customer at the counter",
+    tone: "blue",
+  },
+  {
+    word: "Prove.",
+    title: "Honest reporting",
+    copy: "See campaign spending, tracked calls, and reported revenue where the data connects them. We explain what the numbers show and what to change next.",
+    list: ["Campaign spend", "Tracked calls", "Reported revenue", "What to change next"],
+    tone: "navy",
+  },
+];
+
+const videos = videoTestimonials.slice(0, 6);
+---
+
+<BaseLayout
+  title="Homepage Redesign Mockup | Turnkey Marketing"
+  description="Design mockup for the Turnkey Marketing homepage redesign."
+  path="/mockup/homepage"
+  noindex
+  minimalChrome
+>
+  <div class="mk" data-mk>
+    <div class="mk-curtain" data-curtain aria-hidden="true">
+      <img src="/turnkey-brand-icon.png" alt="" width="64" height="64" />
+    </div>
+
+    <header class="mk-header" data-header>
+      <div class="mk-wrap mk-header__inner">
+        <a href="/" class="mk-header__logo" aria-label="Turnkey Marketing home">
+          <img class="mk-logo-light" src="/turnkey-marketing-logo-2026.webp" alt="Turnkey Marketing" width="180" height="48" />
+          <img class="mk-logo-dark" src="/images/logos/Turnkey%20Marketing%20Logo%20-%20full%20color-dark%20background-01.png" alt="" width="180" height="48" />
+        </a>
+        <nav class="mk-header__nav" aria-label="Primary">
+          {navLinks.map((link) => (
+            <a href={link.href} class="mk-link-roll"><span data-text={link.label}>{link.label}</span></a>
+          ))}
+        </nav>
+        <div class="mk-header__actions">
+          <a href={CONSULTATION_URL} class="mk-btn mk-btn--navy mk-btn--sm">
+            <span>Book a Strategy Call</span>
+            <span class="mk-btn__dot" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          </a>
+          <button class="mk-menu-btn" type="button" aria-expanded="false" aria-controls="mk-menu" data-menu-btn>
+            <span class="mk-sr">Open menu</span>
+            <span class="mk-menu-btn__bar mk-menu-btn__bar--top"></span>
+            <span class="mk-menu-btn__bar mk-menu-btn__bar--bottom"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="mk-menu" id="mk-menu" data-menu hidden>
+      <nav class="mk-wrap mk-menu__nav" aria-label="Mobile">
+        {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+        <a href={CONSULTATION_URL} class="mk-btn mk-btn--green">Book a Strategy Call</a>
+      </nav>
+    </div>
+
+    <main>
+      <!-- HERO -->
+      <section class="mk-hero">
+        <div class="mk-wrap">
+          <div class="mk-hero__meta" data-intro style="--d: 0">
+            <span>Marketing for independent auto repair shops</span>
+            <span class="mk-hero__meta-right">Kansas City · Since 2013</span>
+          </div>
+
+          <h1 class="mk-hero__title">
+            <span class="mk-sr">Auto repair marketing that increases car count.</span>
+            <span aria-hidden="true">
+              <span class="mk-line"><span class="mk-line__inner mk-hero__main" data-intro style="--d: 1">Auto repair marketing</span></span>
+              <span class="mk-line mk-line--accent">
+                <span class="mk-line__inner mk-rotator" data-intro data-rotator style="--d: 3">
+                  {phrases.map((phrase, index) => (
+                    <span class:list={["mk-rotator__item", index === 0 && "is-active"]}>{phrase}</span>
+                  ))}
+                </span>
+              </span>
+            </span>
+          </h1>
+
+          <div class="mk-hero__row">
+            <p class="mk-hero__lead" data-intro style="--d: 4">
+              We plan your marketing, coordinate your vendors, and manage the campaigns for your
+              independent repair shop. Get help with one service or a full marketing team.
+            </p>
+            <div class="mk-hero__cta" data-intro style="--d: 5">
+              <a href={CONSULTATION_URL} class="mk-btn mk-btn--navy mk-btn--lg" data-magnetic>
+                <span>Book a Strategy Call</span>
+                <span class="mk-btn__dot" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </a>
+              <a href="/results" class="mk-text-link">See shop results</a>
+            </div>
+            <dl class="mk-hero__proof" data-intro style="--d: 6">
+              <div>
+                <dt>{googleReviewSummary.rating}</dt>
+                <dd>
+                  <span class="mk-stars" aria-hidden="true">★★★★★</span>
+                  {googleReviewSummary.count} Google reviews
+                </dd>
+              </div>
+              <div>
+                <dt>300+</dt>
+                <dd>Independent shops served</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="mk-wrap">
+          <figure class="mk-hero__media" data-hero-media>
+            <div class="mk-hero__media-inner" data-parallax="0.12">
+              <img
+                src="/site-media/pearson-auto-repair-shop.webp"
+                alt="Pearson Auto Repair technician working in a service bay"
+                width="1400"
+                height="933"
+                fetchpriority="high"
+              />
+            </div>
+            <figcaption class="mk-hero__card">
+              <img src="/images/results/shop-logos/legendary-automotive-diesel-repair.png" alt="" width="56" height="56" />
+              <div>
+                <p class="mk-hero__card-value">+169% revenue</p>
+                <p class="mk-hero__card-label">Legendary Automotive & Diesel · Aug 2024 to Jun 2026</p>
+              </div>
+            </figcaption>
+            <span class="mk-hero__credit">Pearson Auto Repair</span>
+          </figure>
+        </div>
+      </section>
+
+      <!-- LOGOS -->
+      <section class="mk-logos" aria-label="Shops we work with">
+        <div class="mk-wrap mk-logos__head">
+          <p class="mk-eyebrow">Trusted by 300+ independent shops</p>
+          <p class="mk-logos__note">From single-bay specialists to multi-location groups.</p>
+        </div>
+        <div class="mk-marquee">
+          <div class="mk-marquee__track">
+            {[...shopLogos, ...shopLogos].map((src, index) => (
+              <img src={src} alt="" width="160" height="64" loading="lazy" decoding="async" aria-hidden={index >= shopLogos.length ? "true" : undefined} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- STATEMENT -->
+      <section class="mk-statement">
+        <div class="mk-wrap mk-statement__grid">
+          <p class="mk-eyebrow" data-reveal>Why shops switch to Turnkey</p>
+          <p class="mk-statement__text" data-highlight>
+            {statementWords.map((word) => <span class="mk-word">{word} </span>)}
+          </p>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section class="mk-results" data-hscroll>
+        <div class="mk-results__sticky" data-hscroll-sticky>
+          <div class="mk-results__panel">
+            <div class="mk-wrap mk-results__head">
+              <div>
+                <p class="mk-eyebrow mk-eyebrow--green">Proof, not promises</p>
+                <p class="mk-results__big" aria-label="Over $1 billion">
+                  $<span data-count="1000000000">1,000,000,000</span>+
+                </p>
+                <p class="mk-results__sub">in revenue for independent repair shops, driven alongside the owners who run them.</p>
+              </div>
+              <a href="/results" class="mk-btn mk-btn--green">
+                <span>See every result</span>
+                <span class="mk-btn__dot" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </a>
+            </div>
+            <div class="mk-results__viewport">
+              <ul class="mk-results__track" data-hscroll-track>
+                {results.map((result) => (
+                  <li class:list={["mk-result", `mk-result--${result.tone}`]}>
+                    <div class="mk-result__top">
+                      {result.logo ? (
+                        <span class:list={["mk-result__logo", result.logoDark && "mk-result__logo--dark"]}>
+                          <img src={result.logo} alt={`${result.shop} logo`} loading="lazy" />
+                        </span>
+                      ) : (
+                        <span class="mk-result__initials" aria-hidden="true">CM</span>
+                      )}
+                      <p class="mk-result__shop">{result.shop}</p>
+                    </div>
+                    <p class="mk-result__value">{result.value}</p>
+                    <p class="mk-result__label">{result.label}</p>
+                    {result.bars && (
+                      <div class="mk-result__bars" aria-hidden="true">
+                        <span style={`--h: ${result.bars[0]}%`}></span>
+                        <span style={`--h: ${result.bars[1]}%`}></span>
+                      </div>
+                    )}
+                    <p class="mk-result__detail">{result.detail}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p class="mk-wrap mk-results__note">Client-specific examples. Results vary by shop, market, investment, and execution.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section class="mk-services" data-services>
+        <div class="mk-wrap">
+          <div class="mk-section-head">
+            <p class="mk-eyebrow" data-reveal>Services</p>
+            <h2 class="mk-h2" data-reveal>
+              Start with one service.
+              <span class="mk-accent">Or hand us the whole department.</span>
+            </h2>
+          </div>
+          <ul class="mk-services__list">
+            {serviceRows.map((service) => (
+              <li>
+                <a href={`/services/${service.slug}`} class="mk-service" data-service-image={service.image}>
+                  <span class="mk-service__name">
+                    {service.name}
+                    {service.featured && <span class="mk-service__flag">Flagship</span>}
+                    {service.isNew && <span class="mk-service__flag mk-service__flag--new">New</span>}
+                  </span>
+                  <span class="mk-service__tagline">{service.tagline}</span>
+                  <span class="mk-service__thumb" aria-hidden="true">
+                    <img src={service.image} alt="" width="160" height="120" loading="lazy" decoding="async" />
+                  </span>
+                  <span class="mk-service__arrow" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="18" height="18"><path d="M4 12L12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="mk-cursor-preview" data-preview aria-hidden="true">
+          {serviceRows.map((service) => (
+            <img src={service.image} alt="" data-preview-img={service.image} loading="lazy" decoding="async" />
+          ))}
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section class="mk-process">
+        <div class="mk-wrap mk-process__grid">
+          <div class="mk-process__intro">
+            <p class="mk-eyebrow" data-reveal>How it works</p>
+            <h2 class="mk-h2" data-reveal>
+              One team. One plan.
+              <span class="mk-accent">Every single week.</span>
+            </h2>
+            <p class="mk-body" data-reveal>
+              Most shops are juggling a mail house, an ad vendor, a website company, and a review tool,
+              with the owner stuck in the middle. We take the middle.
+            </p>
+          </div>
+          <ol class="mk-process__stack">
+            {process.map((step, index) => (
+              <li class:list={["mk-step", `mk-step--${step.tone}`]} style={`--i: ${index}`}>
+                <div class="mk-step__copy">
+                  <p class="mk-step__word">{step.word}</p>
+                  <h3 class="mk-step__title">{step.title}</h3>
+                  <p class="mk-step__text">{step.copy}</p>
+                  {step.list && (
+                    <ul class="mk-step__list">
+                      {step.list.map((item) => <li>{item}</li>)}
+                    </ul>
+                  )}
+                </div>
+                {step.image && (
+                  <div class="mk-step__media">
+                    <img src={step.image} alt={step.alt} loading="lazy" decoding="async" />
+                  </div>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- VIDEOS -->
+      <section class="mk-videos">
+        <div class="mk-wrap">
+          <div class="mk-section-head mk-section-head--split">
+            <div>
+              <p class="mk-eyebrow" data-reveal>In their words</p>
+              <h2 class="mk-h2" data-reveal>Hear it from <span class="mk-accent">shop owners.</span></h2>
+            </div>
+            <blockquote class="mk-videos__quote" data-reveal>
+              <p>“We got to $300,000/month within one year at a brand new shop.”</p>
+              <cite>Steve Killian, Killian Auto Pros</cite>
+            </blockquote>
+          </div>
+        </div>
+        <ul class="mk-videos__rail" data-rail>
+          {videos.map((video) => (
+            <li class="mk-video">
+              <button type="button" class="mk-video__frame" data-video={video.videoSrc} aria-label={`Play ${video.name}'s testimonial`}>
+                <img src={video.posterSrc} alt={video.posterAlt} width="720" height="1280" loading="lazy" decoding="async" />
+                <span class="mk-video__play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor" /></svg>
+                </span>
+              </button>
+              <p class="mk-video__name">{video.name}</p>
+              <p class="mk-video__shop">{video.shop}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- FOUNDER -->
+      <section class="mk-founder">
+        <div class="mk-wrap mk-founder__grid">
+          <figure class="mk-founder__media" data-reveal-img>
+            <img src="/site-media/founder-carrie-lynn.webp" alt="Carrie-Lynn Rodenberg, founder of Turnkey Marketing" width="687" height="900" loading="lazy" decoding="async" />
+          </figure>
+          <div class="mk-founder__copy">
+            <p class="mk-eyebrow" data-reveal>Founder-led since 2013</p>
+            <h2 class="mk-h2" data-reveal>We fell in love with the people <span class="mk-accent">behind the bays.</span></h2>
+            <p class="mk-body" data-reveal>
+              Turnkey began in Kansas City in 2013 as a family-owned small business. We understand the
+              weight of payroll, the late-night decisions, and the responsibility that comes with building
+              something other people depend on.
+            </p>
+            <p class="mk-body" data-reveal>
+              Before founding Turnkey, Carrie-Lynn Rodenberg led direct-response marketing for EmblemHealth.
+              Today her perspective is trusted on stages including VISION Hi-Tech Training & Expo,
+              ShopFix Academy, and Remarkable Results Radio.
+            </p>
+            <div class="mk-founder__sign" data-reveal>
+              <p class="mk-founder__name">Carrie-Lynn Rodenberg</p>
+              <p class="mk-founder__role">Founder, Turnkey Marketing</p>
+            </div>
+            <a href="/about" class="mk-text-link" data-reveal>Meet the team</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="mk-cta">
+        <div class="mk-wrap">
+          <div class="mk-cta__panel">
+            <p class="mk-eyebrow mk-eyebrow--green">Stop carrying the marketing burden</p>
+            <h2 class="mk-cta__title">
+              <span class="mk-line"><span class="mk-line__inner" data-reveal-line>More calls.</span></span>
+              <span class="mk-line"><span class="mk-line__inner" data-reveal-line style="--d: 1">More cars.</span></span>
+              <span class="mk-line"><span class="mk-line__inner mk-accent-green" data-reveal-line style="--d: 2">More revenue.</span></span>
+            </h2>
+            <div class="mk-cta__row">
+              <a href={CONSULTATION_URL} class="mk-btn mk-btn--green mk-btn--lg" data-magnetic>
+                <span>Book a Strategy Call</span>
+                <span class="mk-btn__dot" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </a>
+              <a href="tel:+19134270674" class="mk-cta__phone">or call (913) 427-0674</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mk-footer">
+      <div class="mk-wrap mk-footer__grid">
+        <div>
+          <img src="/turnkey-marketing-logo-2026.webp" alt="Turnkey Marketing" width="180" height="48" loading="lazy" />
+          <p class="mk-footer__blurb">Auto repair marketing for independent shops. Strategy, execution, and reporting from one accountable team.</p>
+        </div>
+        <nav aria-label="Footer">
+          <p class="mk-footer__label">Company</p>
+          {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+          <a href="/contact">Contact</a>
+        </nav>
+        <nav aria-label="Services">
+          <p class="mk-footer__label">Services</p>
+          {services.slice(0, 5).map((service) => <a href={`/services/${service.slug}`}>{service.name}</a>)}
+        </nav>
+        <div>
+          <p class="mk-footer__label">Talk to us</p>
+          <a href="tel:+19134270674">(913) 427-0674</a>
+          <a href="mailto:hello@turnkeyautomarketing.com">hello@turnkeyautomarketing.com</a>
+          <p class="mk-footer__addr">9401 Indian Creek Pkwy #1300<br />Overland Park, KS 66210</p>
+        </div>
+      </div>
+      <div class="mk-wrap mk-footer__base">
+        <p>© {new Date().getFullYear()} Turnkey Marketing · Overland Park, Kansas</p>
+        <a href="#top" class="mk-text-link" data-top>Back to top</a>
+      </div>
+      <p class="mk-wrap mk-footer__word" aria-hidden="true">Turnkey</p>
+    </footer>
+
+    <dialog class="mk-lightbox" data-lightbox>
+      <button type="button" class="mk-lightbox__close" data-lightbox-close aria-label="Close video">×</button>
+      <video controls playsinline preload="none" data-lightbox-video></video>
+    </dialog>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .mk {
+    --mk-gutter: clamp(1.25rem, 3.4vw, 3rem);
+    --mk-max: 1440px;
+    --mk-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --mk-muted: #5b6070;
+    background: var(--cream);
+    color: var(--charcoal);
+  }
+  .mk-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .mk-wrap {
+    width: 100%;
+    max-width: var(--mk-max);
+    margin-inline: auto;
+    padding-inline: var(--mk-gutter);
+  }
+  .mk-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--key-blue);
+  }
+  .mk-eyebrow--green { color: var(--green); }
+  .mk-accent { color: var(--key-blue); }
+  .mk-accent-green { color: var(--green); }
+  .mk-h2 {
+    font-size: clamp(2.4rem, 5.4vw, 5.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+    font-weight: 600;
+    text-wrap: balance;
+    margin-top: 1.25rem;
+  }
+  .mk-h2 .mk-accent { display: block; }
+  .mk-body {
+    margin-top: 1.5rem;
+    max-width: 34rem;
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--mk-muted);
+  }
+
+  /* Buttons */
+  .mk-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-height: 3rem;
+    padding: 0.4rem 0.45rem 0.4rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.5s var(--mk-ease), background-color 0.3s;
+    will-change: transform;
+  }
+  .mk-btn--sm { min-height: 2.6rem; font-size: 0.875rem; padding-left: 1.15rem; gap: 0.7rem; }
+  .mk-btn--lg { min-height: 3.75rem; font-size: 1.05rem; padding-left: 1.75rem; gap: 1.1rem; }
+  .mk-btn--navy { background: var(--navy); color: #fff; }
+  .mk-btn--navy:hover { background: var(--navy-deep); }
+  .mk-btn--green { background: var(--green); color: var(--charcoal); }
+  .mk-btn__dot {
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    overflow: hidden;
+    transition: transform 0.5s var(--mk-ease);
+  }
+  .mk-btn--lg .mk-btn__dot { width: 2.9rem; height: 2.9rem; }
+  .mk-btn--green .mk-btn__dot { background: var(--charcoal); color: var(--green); }
+  .mk-btn:hover .mk-btn__dot { transform: rotate(-45deg); }
+  .mk-text-link {
+    position: relative;
+    font-weight: 600;
+    color: var(--navy);
+    padding-block: 0.4rem;
+  }
+  .mk-text-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.2rem;
+    height: 1.5px;
+    background: currentColor;
+    transform-origin: right;
+    transition: transform 0.6s var(--mk-ease);
+  }
+  .mk-text-link:hover::after { transform: scaleX(0); }
+
+  /* Curtain */
+  .mk-curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background: var(--navy);
+    transition: transform 0.9s var(--mk-ease) 0.15s;
+  }
+  .mk-curtain img { width: 56px; height: 56px; animation: mk-pulse 0.9s var(--mk-ease) both; }
+  .mk.is-loaded .mk-curtain { transform: translateY(-100%); }
+  @keyframes mk-pulse { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: none; } }
+
+  /* Header */
+  .mk-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    padding-top: env(safe-area-inset-top, 0px);
+    transition: transform 0.6s var(--mk-ease), background-color 0.4s, box-shadow 0.4s;
+  }
+  .mk-header.is-scrolled { background: rgba(251, 250, 246, 0.94); box-shadow: 0 1px 0 var(--hairline); backdrop-filter: saturate(1.4) blur(10px); }
+  .mk-header.is-hidden { transform: translateY(-110%); }
+  .mk-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; height: 5rem; }
+  .mk-header__logo img { height: 2.35rem; width: auto; }
+  .mk-header__nav { display: flex; gap: 2.4rem; font-size: 0.95rem; font-weight: 500; }
+  .mk-header__actions { display: flex; align-items: center; gap: 0.75rem; }
+  .mk-link-roll { display: inline-block; overflow: hidden; height: 1.4em; line-height: 1.4em; }
+  .mk-link-roll span { display: inline-block; position: relative; transition: transform 0.55s var(--mk-ease); }
+  .mk-link-roll span::after { content: attr(data-text); position: absolute; left: 0; top: 100%; color: var(--key-blue); }
+  .mk-link-roll:hover span { transform: translateY(-100%); }
+  .mk-menu-btn { display: none; position: relative; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: var(--charcoal); }
+  .mk-menu-btn__bar { position: absolute; left: 50%; top: 50%; width: 16px; height: 1.5px; margin: -0.75px 0 0 -8px; background: #fff; transition: transform 0.4s var(--mk-ease); }
+  .mk-menu-btn__bar--top { transform: translateY(-3px); }
+  .mk-menu-btn__bar--bottom { transform: translateY(3px); }
+  .mk-menu-btn[aria-expanded="true"] { background: #fff; }
+  .mk-menu-btn[aria-expanded="true"] .mk-menu-btn__bar { background: var(--navy); }
+  .mk-menu-btn[aria-expanded="true"] .mk-menu-btn__bar--top { transform: rotate(45deg); }
+  .mk-menu-btn[aria-expanded="true"] .mk-menu-btn__bar--bottom { transform: rotate(-45deg); }
+  .mk-logo-dark { display: none; }
+  .mk-header.is-menu { background: transparent; box-shadow: none; backdrop-filter: none; }
+  .mk-header.is-menu .mk-logo-light { display: none; }
+  .mk-header.is-menu .mk-logo-dark { display: block; }
+  .mk-menu { position: fixed; inset: 0; z-index: 40; background: var(--navy); color: #fff; padding-top: 7rem; }
+  .mk-menu__nav { display: grid; gap: 0.5rem; }
+  .mk-menu__nav a:not(.mk-btn) { font-size: 2.75rem; font-weight: 600; letter-spacing: -0.04em; }
+  .mk-menu__nav .mk-btn { margin-top: 2rem; justify-self: start; padding-right: 1.4rem; }
+
+  /* Hero */
+  .mk-hero { padding-top: clamp(7.5rem, 13vw, 10.5rem); }
+  .mk-hero__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mk-muted);
+  }
+  .mk-hero__title {
+    margin-top: clamp(1.75rem, 3vw, 2.75rem);
+    font-size: clamp(3.1rem, 9.5vw, 10.4rem);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    font-weight: 600;
+  }
+  .mk-line { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+  .mk-line__inner { display: block; }
+  @media (min-width: 1000px) { .mk-hero__main { white-space: nowrap; } }
+  @media (max-width: 999px) { .mk-hero__title { font-size: 15.5vw; } }
+  .mk-line--accent { color: var(--key-blue); font-size: 0.56em; line-height: 1; letter-spacing: -0.05em; margin-top: 0.12em; }
+  .mk-rotator { display: grid; }
+  .mk-rotator__item {
+    grid-area: 1 / 1;
+    transform: translateY(105%);
+    transition: transform 0.9s var(--mk-ease);
+  }
+  .mk-rotator__item.is-active { transform: none; }
+  .mk-rotator__item.is-leaving { transform: translateY(-105%); }
+  .mk-hero__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) auto minmax(0, 0.9fr);
+    align-items: end;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    margin-top: clamp(2.25rem, 4vw, 3.5rem);
+  }
+  .mk-hero__lead { max-width: 30rem; font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.55; color: var(--mk-muted); }
+  .mk-hero__cta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .mk-hero__proof { display: flex; justify-content: flex-end; gap: 2.5rem; }
+  .mk-hero__proof dt { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.05em; line-height: 1; }
+  .mk-hero__proof dd { margin-top: 0.5rem; font-size: 0.85rem; color: var(--mk-muted); max-width: 9rem; line-height: 1.35; }
+  .mk-stars { display: block; color: #f5a623; letter-spacing: 0.1em; font-size: 0.8rem; margin-bottom: 0.15rem; }
+  .mk-hero__media {
+    position: relative;
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+    aspect-ratio: 16 / 8;
+    border-radius: clamp(20px, 2.6vw, 36px);
+    overflow: hidden;
+    background: var(--navy);
+    clip-path: inset(18% 8% 0 8% round 36px);
+    transition: clip-path 1.4s var(--mk-ease) 0.55s;
+  }
+  .mk.is-loaded .mk-hero__media { clip-path: inset(0 0 0 0 round 36px); }
+  .mk-hero__media-inner { position: absolute; inset: -12% 0; }
+  .mk-hero__media-inner img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; transform: scale(1.12); transition: transform 1.8s var(--mk-ease) 0.55s; }
+  .mk.is-loaded .mk-hero__media-inner img { transform: scale(1); }
+  .mk-hero__card {
+    position: absolute;
+    left: clamp(1rem, 2.4vw, 2rem);
+    bottom: clamp(1rem, 2.4vw, 2rem);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.4rem 0.85rem 0.85rem;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 30px 60px -30px rgba(20, 22, 28, 0.5);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s var(--mk-ease) 1.5s, transform 0.8s var(--mk-ease) 1.5s;
+  }
+  .mk.is-loaded .mk-hero__card { opacity: 1; transform: none; }
+  .mk-hero__card img { width: 3.25rem; height: 3.25rem; object-fit: contain; border-radius: 14px; background: var(--off-white); padding: 0.3rem; }
+  .mk-hero__card-value { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.04em; color: var(--navy); }
+  .mk-hero__card-label { font-size: 0.8rem; color: var(--mk-muted); }
+  .mk-hero__credit { position: absolute; right: 1.5rem; bottom: 1.25rem; font-size: 0.75rem; color: rgba(255, 255, 255, 0.8); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* Intro animation */
+  [data-intro] { opacity: 0; transform: translateY(0.5em); transition: opacity 0.9s var(--mk-ease), transform 1.1s var(--mk-ease); transition-delay: calc(0.35s + var(--d, 0) * 0.09s); }
+  .mk-line__inner[data-intro] { opacity: 1; transform: translateY(110%); }
+  .mk.is-loaded [data-intro] { opacity: 1; transform: none; }
+
+  /* Logos */
+  .mk-logos { padding-block: clamp(4.5rem, 9vw, 8rem) clamp(3rem, 6vw, 5rem); }
+  .mk-logos__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .mk-logos__note { color: var(--mk-muted); font-size: 0.95rem; }
+  .mk-marquee { margin-top: 2.5rem; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .mk-marquee__track { display: flex; gap: clamp(2.5rem, 5vw, 4.5rem); width: max-content; animation: mk-marquee 70s linear infinite; align-items: center; }
+  .mk-marquee:hover .mk-marquee__track { animation-play-state: paused; }
+  .mk-marquee img { height: 3.25rem; width: auto; max-width: 9rem; object-fit: contain; filter: grayscale(1) contrast(1.1); opacity: 0.6; transition: filter 0.4s, opacity 0.4s; }
+  .mk-marquee img:hover { filter: none; opacity: 1; }
+  @keyframes mk-marquee { to { transform: translateX(-50%); } }
+
+  /* Statement */
+  .mk-statement { padding-block: clamp(4rem, 9vw, 9rem); }
+  .mk-statement__grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 2rem; border-top: 1px solid var(--hairline); padding-top: clamp(2rem, 4vw, 3.5rem); }
+  .mk-statement__text { font-size: clamp(1.9rem, 4.2vw, 4.4rem); line-height: 1.08; letter-spacing: -0.045em; font-weight: 600; text-wrap: pretty; }
+  .mk-word { color: var(--charcoal); opacity: 0.14; transition: opacity 0.35s linear; }
+  .mk-word.is-lit { opacity: 1; }
+
+  /* Results */
+  .mk-results { position: relative; }
+  .mk-results__sticky { position: sticky; top: 0; min-height: 100vh; display: flex; align-items: center; padding: 1.25rem var(--mk-gutter); }
+  .mk-results__panel {
+    width: 100%;
+    max-width: calc(var(--mk-max) + 12rem);
+    margin-inline: auto;
+    padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(1.75rem, 3vw, 2.5rem);
+    border-radius: clamp(28px, 3vw, 44px);
+    background: var(--navy);
+    color: #fff;
+    overflow: hidden;
+  }
+  .mk-results__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+  .mk-results__big { margin-top: 1rem; font-size: clamp(2.6rem, 7.6vw, 8rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.95; font-variant-numeric: tabular-nums; }
+  .mk-results__sub { margin-top: 1rem; max-width: 30rem; font-size: 1.1rem; line-height: 1.5; color: rgba(255, 255, 255, 0.72); }
+  .mk-results__viewport { margin-top: clamp(2rem, 4vw, 3.5rem); overflow: hidden; }
+  .mk-results__track { display: flex; gap: 1.25rem; padding-inline: var(--mk-gutter); width: max-content; will-change: transform; }
+  .mk-result {
+    display: flex;
+    flex-direction: column;
+    width: clamp(17rem, 27vw, 24rem);
+    min-height: clamp(21rem, 30vw, 26rem);
+    padding: 1.6rem;
+    border-radius: 28px;
+    background: #fff;
+    color: var(--charcoal);
+  }
+  .mk-result--blue { background: var(--key-blue); color: #fff; }
+  .mk-result--green { background: var(--green); color: var(--charcoal); }
+  .mk-result__top { display: flex; align-items: center; gap: 0.85rem; padding-right: 3rem; }
+  .mk-result { position: relative; }
+  .mk-result__logo, .mk-result__initials { display: grid; place-items: center; height: 3.25rem; min-width: 3.25rem; max-width: 7.5rem; padding: 0.45rem 0.6rem; border-radius: 14px; background: #fff; flex: none; }
+  .mk-result__logo img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+  .mk-result--white .mk-result__logo, .mk-result--white .mk-result__initials { background: var(--off-white); }
+  .mk-result__logo--dark, .mk-result--white .mk-result__logo--dark { background: var(--navy); }
+  .mk-result__initials { display: grid; place-items: center; font-weight: 700; color: var(--navy); font-size: 0.9rem; }
+  .mk-result__shop { font-size: 0.9rem; font-weight: 600; line-height: 1.25; }
+  .mk-result__value { margin-top: auto; padding-top: 2rem; font-size: clamp(3.5rem, 5.6vw, 5.5rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.9; }
+  .mk-result__label { margin-top: 0.6rem; font-weight: 600; }
+  .mk-result__bars { position: absolute; top: 1.6rem; right: 1.6rem; display: flex; align-items: flex-end; gap: 0.35rem; height: 3.25rem; }
+  .mk-result__bars span { width: 1.1rem; height: var(--h); border-radius: 6px 6px 3px 3px; background: currentColor; opacity: 0.35; }
+  .mk-result__bars span:last-child { opacity: 1; }
+  .mk-result__detail { margin-top: 1rem; font-size: 0.92rem; line-height: 1.5; opacity: 0.78; }
+  .mk-results__note { margin-top: 1.75rem; font-size: 0.8rem; color: rgba(255, 255, 255, 0.55); }
+
+  /* Services */
+  .mk-services { padding-block: clamp(5rem, 10vw, 9rem); }
+  .mk-section-head { max-width: 58rem; }
+  .mk-section-head--split { max-width: none; display: flex; justify-content: space-between; align-items: flex-end; gap: 2.5rem; flex-wrap: wrap; }
+  .mk-services__list { margin-top: clamp(2.5rem, 5vw, 4.5rem); border-top: 1px solid var(--hairline); }
+  .mk-services__list li { border-bottom: 1px solid var(--hairline); }
+  .mk-service {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 2rem;
+    padding-block: clamp(1.4rem, 2.4vw, 2.1rem);
+    transition: color 0.4s;
+  }
+  .mk-service__name { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; font-size: clamp(1.7rem, 3.4vw, 3.25rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1; transition: transform 0.6s var(--mk-ease); }
+  .mk-service__flag { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--key-blue); font-weight: 600; }
+  .mk-service__flag--new { color: #5e8f1c; }
+  .mk-service__tagline { color: var(--mk-muted); font-size: 1rem; line-height: 1.5; max-width: 28rem; }
+  .mk-service__thumb { display: none; }
+  .mk-service__arrow { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; border: 1px solid var(--hairline); transition: background-color 0.4s, color 0.4s, transform 0.6s var(--mk-ease), border-color 0.4s; }
+  .mk-service:hover .mk-service__name { transform: translateX(1rem); color: var(--navy); }
+  .mk-service:hover .mk-service__arrow { background: var(--navy); border-color: var(--navy); color: #fff; transform: rotate(45deg); }
+  .mk-cursor-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    width: 22rem;
+    aspect-ratio: 4 / 3;
+    border-radius: 24px;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0.7);
+    transition: opacity 0.35s, transform 0.5s var(--mk-ease);
+    box-shadow: 0 40px 80px -40px rgba(20, 22, 28, 0.55);
+    background: var(--key-blue-soft);
+  }
+  .mk-cursor-preview.is-on { opacity: 1; }
+  .mk-cursor-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.35s; }
+  .mk-cursor-preview img.is-active { opacity: 1; }
+
+  /* Process */
+  .mk-process { padding-block: clamp(3rem, 6vw, 5rem) clamp(5rem, 10vw, 9rem); }
+  .mk-process__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .mk-process__intro { position: sticky; top: 7rem; }
+  .mk-process__stack { display: grid; gap: 1.5rem; }
+  .mk-step {
+    position: sticky;
+    top: calc(6.5rem + var(--i) * 1.75rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: 1.5rem;
+    min-height: 26rem;
+    padding: clamp(1.5rem, 2.6vw, 2.25rem);
+    border-radius: 32px;
+    background: #fff;
+    border: 1px solid var(--hairline);
+    box-shadow: 0 -20px 50px -40px rgba(20, 22, 28, 0.35);
+  }
+  .mk-step--blue { background: var(--key-blue-soft); border-color: transparent; }
+  .mk-step--navy { background: var(--navy); color: #fff; border-color: transparent; grid-template-columns: 1fr; }
+  .mk-step__copy { display: flex; flex-direction: column; }
+  .mk-step__word { font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.9; color: var(--navy); }
+  .mk-step--navy .mk-step__word { color: var(--green); }
+  .mk-step__title { margin-top: auto; padding-top: 2rem; font-size: 1.35rem; letter-spacing: -0.03em; }
+  .mk-step__text { margin-top: 0.75rem; line-height: 1.6; color: var(--mk-muted); max-width: 26rem; }
+  .mk-step--navy .mk-step__text { color: rgba(255, 255, 255, 0.72); }
+  .mk-step__list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .mk-step__list li { padding: 0.5rem 0.9rem; border-radius: 999px; background: var(--navy-soft); font-size: 0.85rem; font-weight: 500; }
+  .mk-step__media { border-radius: 22px; overflow: hidden; }
+  .mk-step__media img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Videos */
+  .mk-videos { padding-block: clamp(5rem, 9vw, 8rem); background: var(--off-white); }
+  .mk-videos__quote { max-width: 26rem; }
+  .mk-videos__quote p { font-size: clamp(1.3rem, 2vw, 1.75rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.2; }
+  .mk-videos__quote cite { display: block; margin-top: 0.75rem; font-style: normal; font-size: 0.9rem; color: var(--mk-muted); }
+  .mk-videos__rail {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    --rail-pad: max(var(--mk-gutter), calc((100vw - var(--mk-max)) / 2 + var(--mk-gutter)));
+    padding-inline: var(--rail-pad);
+    scroll-padding-inline: var(--rail-pad);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+  .mk-videos__rail::-webkit-scrollbar { display: none; }
+  .mk-video { flex: none; width: clamp(14rem, 21vw, 18.5rem); scroll-snap-align: start; }
+  .mk-video__frame { position: relative; display: block; width: 100%; aspect-ratio: 9 / 15; border-radius: 26px; overflow: hidden; background: var(--navy); }
+  .mk-video__frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--mk-ease); }
+  .mk-video__frame:hover img { transform: scale(1.05); }
+  .mk-video__play { position: absolute; left: 1rem; bottom: 1rem; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: #fff; color: var(--navy); transition: transform 0.5s var(--mk-ease); }
+  .mk-video__frame:hover .mk-video__play { transform: scale(1.12); }
+  .mk-video__name { margin-top: 1rem; font-weight: 600; letter-spacing: -0.02em; }
+  .mk-video__shop { font-size: 0.9rem; color: var(--mk-muted); }
+
+  /* Founder */
+  .mk-founder { padding-block: clamp(5rem, 10vw, 9rem); }
+  .mk-founder__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+  .mk-founder__media { border-radius: 32px; overflow: hidden; aspect-ratio: 687 / 900; max-width: 34rem; clip-path: inset(12% 0 0 0 round 32px); transition: clip-path 1.3s var(--mk-ease); }
+  .mk-founder__media.is-in { clip-path: inset(0 0 0 0 round 32px); }
+  .mk-founder__media img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 30%; transform: scale(1.08); transform-origin: 70% 30%; }
+  .mk-founder__sign { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); }
+  .mk-founder__name { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; }
+  .mk-founder__role { font-size: 0.9rem; color: var(--mk-muted); }
+  .mk-founder .mk-text-link { display: inline-block; margin-top: 1.5rem; }
+
+  /* CTA */
+  .mk-cta { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .mk-cta__panel { padding: clamp(2.5rem, 6vw, 6rem); border-radius: clamp(28px, 3vw, 44px); background: var(--navy); color: #fff; }
+  .mk-cta__title { margin-top: 1.5rem; font-size: clamp(3rem, 10vw, 10.5rem); line-height: 0.9; letter-spacing: -0.065em; font-weight: 600; }
+  .mk-cta__row { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: clamp(2rem, 4vw, 3.5rem); }
+  .mk-cta__phone { color: rgba(255, 255, 255, 0.75); font-weight: 500; }
+  .mk-cta__phone:hover { color: #fff; }
+
+  /* Footer */
+  .mk-footer { padding-block: clamp(3rem, 6vw, 5rem) 0; overflow: hidden; }
+  .mk-footer__grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+  .mk-footer__grid img { height: 2.35rem; width: auto; }
+  .mk-footer__blurb { margin-top: 1.25rem; max-width: 22rem; color: var(--mk-muted); line-height: 1.55; }
+  .mk-footer__grid nav, .mk-footer__grid > div:last-child { display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; }
+  .mk-footer__grid a:hover { color: var(--key-blue); }
+  .mk-footer__label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mk-muted); margin-bottom: 0.4rem; }
+  .mk-footer__addr { color: var(--mk-muted); line-height: 1.5; margin-top: 0.4rem; }
+  .mk-footer__base { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 3.5rem; border-top: 1px solid var(--hairline); padding-top: 1.25rem; font-size: 0.85rem; color: var(--mk-muted); }
+  .mk-footer__word { margin-top: clamp(1.5rem, 3vw, 2.5rem); font-size: min(26.5vw, 23.5rem); font-weight: 700; letter-spacing: -0.075em; line-height: 0.74; color: var(--navy); white-space: nowrap; transform: translateY(0.08em); }
+
+  /* Lightbox */
+  .mk-lightbox { padding: 0; border: 0; border-radius: 24px; background: #000; max-height: 90vh; width: min(92vw, 30rem); overflow: visible; }
+  .mk-lightbox::backdrop { background: rgba(20, 22, 28, 0.82); }
+  .mk-lightbox video { display: block; width: 100%; max-height: 90vh; border-radius: 24px; }
+  .mk-lightbox__close { position: absolute; top: -3.25rem; right: 0; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: #fff; font-size: 1.5rem; line-height: 1; }
+
+  /* Scroll reveals */
+  [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--mk-ease), transform 1.1s var(--mk-ease); }
+  [data-reveal].is-in { opacity: 1; transform: none; }
+  [data-reveal-line] { display: block; transform: translateY(110%); transition: transform 1.1s var(--mk-ease); transition-delay: calc(var(--d, 0) * 0.1s); }
+  [data-reveal-line].is-in { transform: none; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .mk-hero__row { grid-template-columns: 1fr auto; }
+    .mk-hero__proof { grid-column: 1 / -1; justify-content: flex-start; }
+    .mk-process__grid { grid-template-columns: 1fr; }
+    .mk-process__intro { position: static; }
+  }
+  @media (max-width: 900px) {
+    .mk-header__nav { display: none; }
+    .mk-header__actions .mk-btn { display: none; }
+    .mk-menu-btn { display: grid; }
+    .mk-hero__meta-right { display: none; }
+    .mk-hero__row { grid-template-columns: 1fr; align-items: start; }
+    .mk-hero__media { aspect-ratio: 4 / 5; }
+    .mk-hero__credit { display: none; }
+    .mk-statement__grid { grid-template-columns: 1fr; }
+    .mk-results__sticky { position: static; min-height: 0; padding-inline: 0.75rem; }
+    .mk-results__viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .mk-results__track { transform: none !important; }
+    .mk-result { scroll-snap-align: center; width: 78vw; }
+    .mk-result__bars { display: none; }
+    .mk-result__top { padding-right: 0; }
+    .mk-result__logo { max-width: 6rem; }
+    .mk-service { grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; }
+    .mk-service__tagline { grid-column: 1; grid-row: 2; font-size: 0.95rem; }
+    .mk-service__arrow { display: none; }
+    .mk-service__thumb { display: block; grid-column: 2; grid-row: 1 / span 2; width: 5.5rem; aspect-ratio: 1; border-radius: 16px; overflow: hidden; }
+    .mk-service__thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .mk-cursor-preview { display: none; }
+    .mk-step { grid-template-columns: 1fr; min-height: 0; top: calc(5.5rem + var(--i) * 1rem); }
+    .mk-step__media { aspect-ratio: 16 / 10; }
+    .mk-founder__grid { grid-template-columns: 1fr; }
+    .mk-footer__grid { grid-template-columns: 1fr 1fr; }
+    .mk-footer__grid > div:first-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 520px) {
+    .mk-hero__cta .mk-btn { width: 100%; justify-content: space-between; }
+    .mk-hero__proof { gap: 1.75rem; }
+    .mk-footer__grid { grid-template-columns: 1fr; }
+    .mk-footer__base { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mk *, .mk *::before, .mk *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .mk-curtain { display: none; }
+    .mk-word { opacity: 1; }
+    .mk-results__sticky { position: static; }
+    .mk-marquee__track { animation: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-mk]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+  if (root) {
+    // Intro
+    const reveal = () => root.classList.add("is-loaded");
+    if (reduceMotion) reveal();
+    else if (document.readyState === "complete") setTimeout(reveal, 250);
+    else window.addEventListener("load", () => setTimeout(reveal, 150), { once: true });
+    setTimeout(reveal, 1800);
+
+    // Header: solid after scroll, hides on scroll down
+    const header = root.querySelector<HTMLElement>("[data-header]");
+    let lastY = window.scrollY;
+    const onHeader = () => {
+      const y = window.scrollY;
+      header?.classList.toggle("is-scrolled", y > 24);
+      header?.classList.toggle("is-hidden", y > 480 && y > lastY && menu?.hidden !== false);
+      lastY = y;
+    };
+
+    // Mobile menu
+    const menuBtn = root.querySelector<HTMLButtonElement>("[data-menu-btn]");
+    const menu = root.querySelector<HTMLElement>("[data-menu]");
+    menuBtn?.addEventListener("click", () => {
+      if (!menu) return;
+      const open = menu.hidden;
+      menu.hidden = !open;
+      menuBtn.setAttribute("aria-expanded", String(open));
+      header?.classList.toggle("is-menu", open);
+      document.body.style.overflow = open ? "hidden" : "";
+    });
+
+    // Rotating headline
+    const rotator = root.querySelector("[data-rotator]");
+    const items = rotator ? Array.from(rotator.querySelectorAll<HTMLElement>(".mk-rotator__item")) : [];
+    if (items.length > 1 && !reduceMotion) {
+      let index = 0;
+      setInterval(() => {
+        const current = items[index];
+        index = (index + 1) % items.length;
+        const next = items[index];
+        current.classList.remove("is-active");
+        current.classList.add("is-leaving");
+        next.classList.remove("is-leaving");
+        next.classList.add("is-active");
+        setTimeout(() => current.classList.remove("is-leaving"), 950);
+      }, 2800);
+    }
+
+    // Scroll reveals
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    root.querySelectorAll("[data-reveal], [data-reveal-line], [data-reveal-img]").forEach((el) => io.observe(el));
+
+    // Counter
+    const counter = root.querySelector<HTMLElement>("[data-count]");
+    if (counter && !reduceMotion) {
+      const target = Number(counter.dataset.count);
+      counter.textContent = "0";
+      const countIO = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) return;
+        countIO.disconnect();
+        const start = performance.now();
+        const duration = 2200;
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 4);
+          counter.textContent = Math.round(target * eased).toLocaleString("en-US");
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }, { threshold: 0.4 });
+      countIO.observe(counter);
+    }
+
+    // Word highlight
+    const highlight = root.querySelector<HTMLElement>("[data-highlight]");
+    const words = highlight ? Array.from(highlight.querySelectorAll<HTMLElement>(".mk-word")) : [];
+
+    // Horizontal results
+    const hSection = root.querySelector<HTMLElement>("[data-hscroll]");
+    const hTrack = root.querySelector<HTMLElement>("[data-hscroll-track]");
+    const desktopH = window.matchMedia("(min-width: 901px)");
+    let hDistance = 0;
+    const sizeH = () => {
+      if (!hSection || !hTrack) return;
+      if (!desktopH.matches || reduceMotion) {
+        hSection.style.height = "";
+        hTrack.style.transform = "";
+        hDistance = 0;
+        return;
+      }
+      hDistance = Math.max(0, hTrack.scrollWidth - window.innerWidth + 48);
+      hSection.style.height = `${window.innerHeight + hDistance}px`;
+    };
+
+    // Parallax
+    const parallax = Array.from(root.querySelectorAll<HTMLElement>("[data-parallax]"));
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        onHeader();
+        const vh = window.innerHeight;
+
+        if (highlight && words.length) {
+          const rect = highlight.getBoundingClientRect();
+          const progress = Math.min(1, Math.max(0, (vh * 0.8 - rect.top) / (rect.height + vh * 0.35)));
+          const lit = Math.round(progress * words.length);
+          words.forEach((word, i) => word.classList.toggle("is-lit", reduceMotion || i < lit));
+        }
+
+        if (hSection && hTrack && hDistance > 0) {
+          const rect = hSection.getBoundingClientRect();
+          const progress = Math.min(1, Math.max(0, -rect.top / hDistance));
+          hTrack.style.transform = `translate3d(${-progress * hDistance}px, 0, 0)`;
+        }
+
+        if (!reduceMotion) {
+          parallax.forEach((el) => {
+            const rect = el.parentElement!.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > vh) return;
+            const speed = Number(el.dataset.parallax) || 0.1;
+            const offset = (rect.top + rect.height / 2 - vh / 2) * speed;
+            el.style.transform = `translate3d(0, ${offset}px, 0)`;
+          });
+        }
+      });
+    };
+
+    sizeH();
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", () => { sizeH(); onScroll(); });
+    window.addEventListener("load", () => { sizeH(); onScroll(); });
+
+    // Service hover preview
+    const preview = root.querySelector<HTMLElement>("[data-preview]");
+    const previewImgs = preview ? Array.from(preview.querySelectorAll<HTMLImageElement>("[data-preview-img]")) : [];
+    if (preview && finePointer && !reduceMotion) {
+      let x = 0, y = 0, cx = 0, cy = 0, active = false, raf = 0;
+      const loop = () => {
+        cx += (x - cx) * 0.14;
+        cy += (y - cy) * 0.14;
+        preview.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${active ? 1 : 0.7}) rotate(${(x - cx) * 0.02}deg)`;
+        raf = requestAnimationFrame(loop);
+      };
+      root.querySelectorAll<HTMLElement>("[data-service-image]").forEach((row) => {
+        row.addEventListener("mouseenter", (event) => {
+          active = true;
+          x = cx = event.clientX;
+          y = cy = event.clientY;
+          preview.classList.add("is-on");
+          previewImgs.forEach((img) => img.classList.toggle("is-active", img.dataset.previewImg === row.dataset.serviceImage));
+          if (!raf) raf = requestAnimationFrame(loop);
+        });
+        row.addEventListener("mousemove", (event) => { x = event.clientX; y = event.clientY; });
+        row.addEventListener("mouseleave", () => {
+          active = false;
+          preview.classList.remove("is-on");
+        });
+      });
+    }
+
+    // Magnetic buttons
+    if (finePointer && !reduceMotion) {
+      root.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((btn) => {
+        btn.addEventListener("mousemove", (event) => {
+          const rect = btn.getBoundingClientRect();
+          const dx = event.clientX - (rect.left + rect.width / 2);
+          const dy = event.clientY - (rect.top + rect.height / 2);
+          btn.style.transform = `translate(${dx * 0.18}px, ${dy * 0.28}px)`;
+        });
+        btn.addEventListener("mouseleave", () => { btn.style.transform = ""; });
+      });
+    }
+
+    // Drag to scroll the video rail
+    const rail = root.querySelector<HTMLElement>("[data-rail]");
+    if (rail && finePointer) {
+      let down = false, startX = 0, startScroll = 0, moved = false;
+      rail.addEventListener("pointerdown", (event) => { down = true; moved = false; startX = event.clientX; startScroll = rail.scrollLeft; rail.style.scrollSnapType = "none"; });
+      window.addEventListener("pointerup", () => { down = false; rail.style.scrollSnapType = ""; });
+      rail.addEventListener("pointermove", (event) => {
+        if (!down) return;
+        const dx = event.clientX - startX;
+        if (Math.abs(dx) > 5) moved = true;
+        rail.scrollLeft = startScroll - dx;
+      });
+      rail.addEventListener("click", (event) => { if (moved) { event.preventDefault(); event.stopPropagation(); } }, true);
+    }
+
+    root.querySelector("[data-top]")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+
+    // Video lightbox
+    const lightbox = root.querySelector<HTMLDialogElement>("[data-lightbox]");
+    const lightboxVideo = root.querySelector<HTMLVideoElement>("[data-lightbox-video]");
+    root.querySelectorAll<HTMLButtonElement>("[data-video]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!lightbox || !lightboxVideo) return;
+        lightboxVideo.src = button.dataset.video ?? "";
+        lightbox.showModal();
+        lightboxVideo.play().catch(() => {});
+      });
+    });
+    const closeLightbox = () => {
+      lightboxVideo?.pause();
+      lightboxVideo?.removeAttribute("src");
+      lightboxVideo?.load();
+      if (lightbox?.open) lightbox.close();
+    };
+    root.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
+    lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) closeLightbox(); });
+    lightbox?.addEventListener("close", () => { lightboxVideo?.pause(); });
+  }
+</script>
