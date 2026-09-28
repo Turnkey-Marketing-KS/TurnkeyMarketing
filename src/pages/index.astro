@@ -14,6 +14,17 @@ import { arrow, arrowUp, play, iconSrc, split, phoneHref, phoneLabel } from "@/l
 // Hero photo: one real client shop with the trust line over it
 const heroPhoto = { src: "/site-media/hero-shop-keys.webp", alt: "Auto repair technician handing car keys back to a smiling customer outside the shop", w: 1999, h: 1333, pos: "62% 50%" };
 
+// Written reviews scroll in two slow rows that loop in opposite directions
+const reviewCards = googleReviewHighlights.map((review, index) => ({
+  ...review,
+  lead: index === 0,
+  tone: ["var(--navy)", "var(--green)", "var(--key-blue)"][index % 3],
+  initials: review.author.replace(/[^A-Za-z ]/g, "").split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase(),
+  shop: review.detail === "Google review" ? "" : review.detail,
+}));
+const reviewSplit = Math.ceil(reviewCards.length / 2);
+const reviewRows = [reviewCards.slice(0, reviewSplit), reviewCards.slice(reviewSplit)];
+
 const heroPhrases = [
   "that increases car count.",
   "that gets the phone ringing.",
@@ -282,27 +293,15 @@ const faqSchema = {
         <div class="v6-wrap">
           <h2 class="v6-h2 v6-center" data-words set:html={split([{ t: "Start with one service. Or get the whole" }, { t: "marketing department.", accent: true }])} />
           <div class="tk-home__intro" data-rise>
-            <p>
-              Effective auto repair marketing is more than choosing a channel. It connects the shop’s
-              goals, ideal customers, offers, campaigns, vendors, follow-up, and reporting. Turnkey
-              helps independent repair shops
-              <a href="/resources/auto-repair-marketing-plan">build that plan</a>
-              and put it to work—whether you need
-              <a href="/services/marketing-consulting" data-track-event="service_cta_click" data-track-slug="marketing-consulting" data-track-placement="home_service_intro">better strategy</a>,
-              <a href="/services/directtrack-marketing" data-track-event="service_cta_click" data-track-slug="directtrack-marketing" data-track-placement="home_service_intro">targeted customer acquisition</a>, retention, direct mail, social media, or a
-              <a href="/services/vip-marketing-manager" data-track-event="service_cta_click" data-track-slug="vip-marketing-manager" data-track-placement="home_service_intro">complete outsourced marketing department</a>. Every channel gets a clear job,
-              every vendor works toward the same priorities, and reporting helps you decide what to
-              keep, change, or stop.
-            </p>
-            <p>
-              If a local acquisition campaign is the priority, explore
-              <a href="/services/direct-mail" data-track-event="service_cta_click" data-track-slug="direct-mail" data-track-placement="home_service_pathways">managed direct mail</a>.
-              You can also
-              <a href="/results">see examples of client work</a>
-              or
-              <a href="/about">meet the auto-repair marketing team</a>
-              responsible for the plan and follow-through.
-            </p>
+            <p class="tk-home__intro-lead">Effective auto repair marketing connects your goals, ideal customers, offers, vendors, follow-up, and reporting into one plan. Every channel gets a clear job, and reporting shows what to keep, change, or stop.</p>
+            <ul class="tk-home__paths" aria-label="Where to start">
+              <li><a href="/resources/auto-repair-marketing-plan" class="tk-home__path">Build your marketing plan<i set:html={arrow} /></a></li>
+              <li><a href="/services/marketing-consulting" class="tk-home__path" data-track-event="service_cta_click" data-track-slug="marketing-consulting" data-track-placement="home_service_intro">Better strategy<i set:html={arrow} /></a></li>
+              <li><a href="/services/directtrack-marketing" class="tk-home__path" data-track-event="service_cta_click" data-track-slug="directtrack-marketing" data-track-placement="home_service_intro">Targeted customer acquisition<i set:html={arrow} /></a></li>
+              <li><a href="/services/direct-mail" class="tk-home__path" data-track-event="service_cta_click" data-track-slug="direct-mail" data-track-placement="home_service_pathways">Managed direct mail<i set:html={arrow} /></a></li>
+              <li><a href="/services/vip-marketing-manager" class="tk-home__path" data-track-event="service_cta_click" data-track-slug="vip-marketing-manager" data-track-placement="home_service_intro">Complete outsourced marketing department<i set:html={arrow} /></a></li>
+            </ul>
+            <p class="tk-home__intro-more"><a href="/results">See examples of client work</a><span aria-hidden="true">·</span><a href="/about">Meet the auto repair marketing team</a></p>
           </div>
 
           <div class="v6-suite" data-rise>
@@ -338,11 +337,11 @@ const faqSchema = {
             </div>
             <div class="tk-home__dt-steps">
               <ol class="v6-dt__flow">
-                {dtSteps.map((step, index) => (
+                {dtSteps.map((step) => (
                   <li>
                     <span class="v6-dt__icon"><span class="v6-icon" style={`--icon:url(${iconSrc(step.icon)})`}></span></span>
                     <div class="tk-home__dt-body">
-                      <div class="v6-dt__row"><span class="v6-dt__num">{index + 1}</span> <h4 class="v6-dt__title" set:html={step.title} /></div> 
+                      <h4 class="v6-dt__title" set:html={step.title} />
                       <p class="tk-home__dt-copy">{step.copy}</p>
                     </div>
                   </li>
@@ -386,31 +385,33 @@ const faqSchema = {
         </ul>
 
         <!-- Written Google reviews: real excerpts, shown as text so shop owners (and search engines) can read them -->
-        <div class="v6-wrap tk-reviews">
-          <div class="tk-reviews__summary" data-rise>
-            <p class="tk-reviews__score">{googleReviewSummary.rating}<span class="v6-star" aria-hidden="true">★</span></p>
-            <p class="tk-reviews__stars"><span class="v6-stars" aria-hidden="true">★★★★★</span> {googleReviewSummary.count} Google reviews</p>
-            <a href={googleReviewSummary.url} class="v6-btn v6-btn--green tk-reviews__all" target="_blank" rel="noopener"><span>Read every review on Google</span><i set:html={arrowUp} /></a>
+        <div class="tk-reviews">
+          <div class="v6-wrap">
+            <div class="tk-reviews__summary" data-rise>
+              <p class="tk-reviews__score">{googleReviewSummary.rating}<span class="v6-star" aria-hidden="true">★</span></p>
+              <p class="tk-reviews__stars"><span class="v6-stars" aria-hidden="true">★★★★★</span> {googleReviewSummary.count} Google reviews</p>
+              <a href={googleReviewSummary.url} class="v6-btn v6-btn--green tk-reviews__all" target="_blank" rel="noopener"><span>Read every review on Google</span><i set:html={arrowUp} /></a>
+            </div>
           </div>
-          <ul class="tk-reviews__list" data-allow-overflow>
-            {googleReviewHighlights.map((review, index) => {
-              const initials = review.author.replace(/[^A-Za-z ]/g, "").split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
-              const shop = review.detail === "Google review" ? "" : review.detail;
-              return (
-                <li class:list={["tk-review", index === 0 && "tk-review--lead"]} style={`--tone:${["var(--navy)", "var(--green)", "var(--key-blue)"][index % 3]}`} data-rise>
-                  <figure>
-                    <span class="tk-review__mark" aria-hidden="true">“</span>
-                    <blockquote><p>{review.excerpt}</p></blockquote>
-                    <figcaption>
-                      <span class="tk-review__avatar" aria-hidden="true">{initials}</span>
-                      <span class="tk-review__who"><strong>{review.author}</strong>{shop && <span>{shop}</span>}</span>
-                      <span class="tk-review__source"><span class="v6-stars" aria-label="5 out of 5 stars">★★★★★</span><span>Google review</span></span>
-                    </figcaption>
-                  </figure>
-                </li>
-              );
-            })}
-          </ul>
+          {reviewRows.map((row, rowIndex) => (
+            <div class="tk-reviews__row" data-allow-overflow>
+              <ul class:list={["tk-reviews__track", rowIndex === 1 && "tk-reviews__track--reverse"]}>
+                {[...row, ...row].map((review, index) => (
+                  <li class:list={["tk-review", review.lead && "tk-review--lead", index >= row.length && "tk-review--copy"]} style={`--tone:${review.tone}`} aria-hidden={index >= row.length ? "true" : undefined}>
+                    <figure>
+                      <span class="tk-review__mark" aria-hidden="true"><span class="v6-icon" style={`--icon:url(${iconSrc("quote")})`}></span></span>
+                      <blockquote><p>{review.excerpt}</p></blockquote>
+                      <figcaption>
+                        <span class="tk-review__avatar" aria-hidden="true">{review.initials}</span>
+                        <span class="tk-review__who"><strong>{review.author}</strong>{review.shop && <span>{review.shop}</span>}</span>
+                        <span class="tk-review__source"><span class="v6-stars" aria-label="5 out of 5 stars">★★★★★</span><span>Google review</span></span>
+                      </figcaption>
+                    </figure>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -729,8 +730,6 @@ const faqSchema = {
   .v6-dt__flow li { position: relative; display: grid; gap: 0.6rem; justify-items: start; align-content: start; }
   .v6-dt__icon { position: relative; z-index: 1; display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 999px; background: #fff; color: var(--navy); }
   .v6-dt__icon .v6-icon { width: 1.5rem; height: 1.5rem; }
-  .v6-dt__row { display: flex; align-items: baseline; gap: 0.6rem; margin-top: 0.5rem; }
-  .v6-dt__num { flex: none; font-size: 1.1rem; font-weight: 700; color: var(--green); }
   .v6-dt__title { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; line-height: 1.25; }
 
   /* Odometer */
@@ -948,7 +947,6 @@ const faqSchema = {
     .v6-dt__flow { grid-template-columns: 1fr; }
     .v6-dt__flow::before { left: 1.75rem; right: auto; top: 1.75rem; bottom: 1.75rem; width: 2px; height: auto; background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), var(--green)); }
     .v6-dt__flow li { grid-template-columns: auto 1fr; align-items: center; column-gap: 1rem; }
-    .v6-dt__row { margin-top: 0; }
     .v6-aud__row { grid-template-columns: minmax(0, 1fr) auto; }
     .v6-aud__line { grid-column: 1; grid-row: 2; }
     .v6-aud__go { grid-row: 1; grid-column: 2; }
@@ -993,6 +991,10 @@ const faqSchema = {
   @media (prefers-reduced-motion: reduce) {
     .v6 *, .v6 *::before, .v6 *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     .v6-marquee__track { animation: none; }
+    /* No auto-scroll: each review row becomes a swipeable strip */
+    .tk-reviews__track { animation: none; padding-inline: var(--gutter); }
+    .tk-reviews__row { overflow-x: auto; scrollbar-width: none; }
+    .tk-review--copy { display: none; }
   }
 
   /* Homepage additions (content carried over from the previous homepage) */
@@ -1013,11 +1015,21 @@ const faqSchema = {
   .tk-home__hired-media { aspect-ratio: 4 / 3; border-radius: 32px; overflow: hidden; background: #1b2452; }
   .tk-home__hired-media img { width: 100%; height: 100%; object-fit: cover; }
 
-  .tk-home__intro { display: grid; gap: 1rem; max-width: 50rem; margin: 1.75rem auto 0; text-align: center; font-size: 1.05rem; line-height: 1.7; color: var(--muted); }
-  .tk-home__intro a { font-weight: 600; color: var(--navy); text-decoration: underline; text-decoration-color: var(--green); text-decoration-thickness: 2px; text-underline-offset: 4px; transition: color 0.3s; }
-  .tk-home__intro a:hover { color: var(--key-blue); }
+  .tk-home__intro { display: grid; justify-items: center; gap: 1.5rem; max-width: 52rem; margin: 1.75rem auto 0; text-align: center; }
+  .tk-home__intro-lead { max-width: 40rem; font-size: 1.1rem; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
+  .tk-home__paths { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.625rem; }
+  .tk-home__path { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0.55rem 1.1rem; border: 1px solid rgba(35, 46, 102, 0.16); border-radius: 999px; background: #fff; font-weight: 600; font-size: 0.97rem; color: var(--navy); transition: border-color 0.3s, color 0.3s, box-shadow 0.3s; }
+  .tk-home__path i { display: inline-grid; color: var(--key-blue); transition: transform 0.4s var(--ease); }
+  .tk-home__path:hover { border-color: var(--key-blue); color: var(--key-blue); box-shadow: 0 6px 18px rgba(35, 46, 102, 0.08); }
+  .tk-home__path:hover i { transform: translateX(3px); }
+  .tk-home__intro-more { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.35rem 0.75rem; font-size: 0.97rem; color: var(--muted); }
+  .tk-home__intro-more a { font-weight: 600; color: var(--navy); text-decoration: underline; text-decoration-color: var(--green); text-decoration-thickness: 2px; text-underline-offset: 4px; transition: color 0.3s; }
+  .tk-home__intro-more a:hover { color: var(--key-blue); }
 
-  .v6-dt__name, .v6-dt__title, .v6-suite__name, .v6-svc__name { margin: 0; }
+  .v6-dt__title, .v6-suite__name, .v6-svc__name { margin: 0; }
+  /* Same gap under the tag as between the headline and its copy below */
+  .v6-dt__name { margin: 0.9rem 0 0; }
+  .tk-home__dt-body { margin-top: 0.4rem; }
   .tk-home__dt-label { margin-bottom: 1.25rem; font-size: 0.85rem; font-weight: 600; color: #d6def0; }
   .tk-home__dt-copy { margin-top: 0.45rem; max-width: 17rem; font-size: 0.9rem; line-height: 1.5; color: #d6def0; }
 
@@ -1055,9 +1067,12 @@ const faqSchema = {
     .tk-home__hired-copy { font-size: 1rem; margin-block: 1.1rem 1.75rem; }
     .tk-home__hired .v6-btn { width: 100%; justify-content: center; }
     .tk-home__hired-media { border-radius: 24px; }
-    .tk-home__intro { margin-top: 1.25rem; text-align: left; font-size: 1rem; line-height: 1.65; }
+    .tk-home__intro { margin-top: 1.25rem; gap: 1.25rem; }
+    .tk-home__intro-lead { font-size: 1rem; }
+    .tk-home__paths { gap: 0.5rem; }
+    .tk-home__path { font-size: 0.92rem; padding-inline: 0.95rem; }
     .v6-dt__flow li { align-items: start; }
-    .tk-home__dt-body { padding-top: 0.2rem; }
+    .tk-home__dt-body { margin-top: 0; padding-top: 0.2rem; }
     .v6-dt__flow { gap: 1.5rem; }
     .tk-home__dt-copy { max-width: none; }
     .tk-home__time-cta .v6-btn { width: 100%; justify-content: center; }
@@ -1103,17 +1118,22 @@ const faqSchema = {
   }
 
   /* Written Google reviews */
-  .tk-reviews { display: grid; grid-template-columns: minmax(17rem, 0.75fr) minmax(0, 2.25fr); gap: clamp(1rem, 2vw, 1.5rem); align-items: start; margin-top: clamp(3rem, 6vw, 4.5rem); }
-  .tk-reviews__summary { position: sticky; top: calc(var(--header-h) + 1.5rem); display: grid; gap: 0.75rem; justify-items: start; padding: clamp(1.75rem, 3vw, 2.25rem); border-radius: 30px; background: var(--navy); color: #fff; }
-  .tk-reviews__score { font-size: clamp(3.5rem, 6vw, 5rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.95; }
+  .tk-reviews { --gap: clamp(1rem, 2vw, 1.5rem); display: grid; gap: var(--gap); margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .tk-reviews__summary { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; padding: clamp(1.25rem, 2.4vw, 1.75rem) clamp(1.5rem, 3vw, 2.25rem); border-radius: 30px; background: var(--navy); color: #fff; }
+  .tk-reviews__score { font-size: clamp(2.75rem, 4vw, 3.5rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.95; }
   .tk-reviews__stars { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 600; color: #e4e8f2; }
-  .tk-reviews__all { margin-top: 0.75rem; }
-  .tk-reviews__list { columns: 3 15rem; column-gap: clamp(1rem, 2vw, 1.5rem); }
+  .tk-reviews__all { margin-left: auto; }
+  /* Rows loop by sliding half their width; the trailing padding keeps the seam the same size as the gaps */
+  .tk-reviews__row { overflow: hidden; padding-block: 0.5rem 1.5rem; margin-block: -0.5rem -1.5rem; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .tk-reviews__track { display: flex; align-items: stretch; gap: var(--gap); width: max-content; padding-right: var(--gap); animation: v6-marquee 90s linear infinite; }
+  .tk-reviews__track--reverse { animation-direction: reverse; animation-duration: 100s; }
+  .tk-reviews__row:hover .tk-reviews__track, .tk-reviews__row:focus-within .tk-reviews__track { animation-play-state: paused; }
 
-  .tk-review { break-inside: avoid; margin-bottom: clamp(1rem, 2vw, 1.5rem); }
+  .tk-review { flex: none; width: clamp(19rem, 28vw, 25rem); }
+  .tk-review figure { height: 100%; grid-template-rows: auto 1fr auto; align-content: start; }
   .tk-review figure { position: relative; display: grid; gap: 1.4rem; padding: clamp(1.6rem, 2.6vw, 2rem); border: 2px solid transparent; border-radius: 28px; background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, var(--hairline), var(--hairline)) border-box; box-shadow: 0 30px 60px -48px rgba(35, 46, 102, 0.55); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), background 0.4s; }
   .tk-review figure:hover { transform: translateY(-4px); background: linear-gradient(#fff, #fff) padding-box, var(--grad) border-box; box-shadow: 0 36px 70px -44px rgba(35, 46, 102, 0.6); }
-  .tk-review__mark { position: absolute; top: 0.9rem; right: 1.35rem; font-size: 4.5rem; font-weight: 700; line-height: 1; color: var(--key-blue-soft); pointer-events: none; }
+  .tk-review__mark { display: block; width: 2.25rem; height: 1.65rem; color: var(--key-blue); pointer-events: none; }
   .tk-review blockquote p { position: relative; font-size: clamp(1.05rem, 1.3vw, 1.2rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.45; color: var(--charcoal); text-wrap: pretty; }
   .tk-review figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "avatar who" "source source"; align-items: center; column-gap: 0.8rem; row-gap: 0.9rem; padding-top: 1.2rem; border-top: 1px solid var(--hairline); }
   .tk-review__avatar { grid-area: avatar; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: var(--tone); color: #fff; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; }
@@ -1126,8 +1146,8 @@ const faqSchema = {
   /* Lead review: the navy feature card */
   .tk-review--lead figure { background: linear-gradient(var(--navy), var(--navy)) padding-box, linear-gradient(var(--navy), var(--navy)) border-box; box-shadow: 0 34px 70px -40px rgba(35, 46, 102, 0.8); }
   .tk-review--lead figure:hover { background: linear-gradient(var(--navy), var(--navy)) padding-box, var(--grad) border-box; }
-  .tk-review--lead .tk-review__mark { color: var(--key-blue); }
-  .tk-review--lead blockquote p { font-size: clamp(1.2rem, 1.6vw, 1.45rem); color: #fff; }
+  .tk-review--lead .tk-review__mark { color: var(--green); }
+  .tk-review--lead blockquote p { color: #fff; }
   .tk-review--lead figcaption { border-color: rgb(63, 77, 140); }
   .tk-review--lead .tk-review__avatar { background: var(--green); color: var(--navy); }
   .tk-review--lead .tk-review__who strong { color: #fff; }
@@ -1148,23 +1168,19 @@ const faqSchema = {
   .tk-faq__more { margin: -0.5rem 0 1.5rem; font-size: 0.95rem; }
   .tk-faq .v6-acc__item { scroll-margin-top: calc(var(--header-h) + 1rem); }
   @media (max-width: 1100px) {
-    .tk-reviews { grid-template-columns: 1fr; }
-    .tk-reviews__summary { position: static; grid-template-columns: auto 1fr; align-items: center; column-gap: 1.25rem; }
-    .tk-reviews__summary .tk-reviews__all { grid-column: 1 / -1; }
     .tk-faq__grid { grid-template-columns: 1fr; grid-template-areas: "intro" "list" "ask"; grid-template-rows: none; }
     .tk-faq__ask { position: static; max-width: none; }
   }
   @media (max-width: 900px) {
-    .tk-reviews { margin-top: 2.5rem; gap: 1rem; }
+    .tk-reviews { --gap: 0.75rem; margin-top: 2.5rem; }
     .tk-reviews__summary { padding: 1.5rem; border-radius: 26px; }
     .tk-reviews__score { font-size: 3.25rem; }
-    .tk-reviews__summary .tk-reviews__all { justify-content: center; }
-    .tk-reviews__list { columns: auto; display: flex; gap: 0.75rem; margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 0.25rem; scroll-padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-    .tk-reviews__list::-webkit-scrollbar { display: none; }
-    .tk-review { flex: none; width: min(80vw, 19rem); margin: 0; scroll-snap-align: start; }
-    .tk-review figure { height: 100%; align-content: start; grid-template-rows: auto 1fr auto; border-radius: 24px; }
+    .tk-reviews__all { width: 100%; margin-left: 0; justify-content: center; }
+    .tk-reviews__row { mask-image: none; }
+    .tk-review { width: min(80vw, 19rem); }
+    .tk-review figure { border-radius: 24px; }
     .tk-review figure:hover { transform: none; }
-    .tk-review__mark { font-size: 3.75rem; }
+    .tk-review__mark { width: 2rem; height: 1.45rem; }
     .tk-faq__lead { font-size: 1rem; }
     .tk-faq__ask { padding: 1.5rem; }
     .tk-faq__ask-actions { flex-direction: column; align-items: stretch; }
