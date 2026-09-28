@@ -49,6 +49,7 @@ test("GBP evidence survives homepage to contact to hidden calendar fields", () =
   const booking = mergeAttribution({ href: "https://www.turnkeyautomarketing.com/contact", existing: first, now: LATEST_TIME });
   const url = new URL(decorateGhlCalendarUrlWithAttribution(MAIN_WEBSITE_GHL_BOOKING_URL, booking));
   assert.equal(url.searchParams.get("source"), "Google Business Profile");
+  assert.equal(url.searchParams.get("tk_source"), "Google Business Profile");
   assert.equal(url.searchParams.get("tk_utm_campaign"), "gbp");
   assert.equal(url.searchParams.get("tk_utm_content"), "website_button");
   assert.equal(url.searchParams.get("tk_tracking_session_id"), TRACKING_ID);
@@ -882,6 +883,7 @@ test("standalone paid calendar passes source and raw evidence without assuming p
     });
     const calendar = new URL(attrs.get("data-src"));
     assert.equal(calendar.searchParams.get("source"), expected);
+    assert.equal(calendar.searchParams.get("tk_source"), expected);
     assert.ok(calendar.searchParams.get("tk_tracking_session_id"));
     if (query.includes("gclid")) assert.equal(calendar.searchParams.get("tk_gclid"), "paid-click");
   }

@@ -165,7 +165,9 @@
         if (!raw) return;
         try {
           var url = new URL(raw, window.location.href);
-          url.searchParams.set("source", bookingSourceLabel(attribution));
+          var sourceLabel = bookingSourceLabel(attribution);
+          url.searchParams.set("source", sourceLabel);
+          url.searchParams.set("tk_source", sourceLabel);
           var latest = attribution.latest_touch || {};
           var first = attribution.first_touch || {};
           CAMPAIGN_KEYS.forEach(function (key) {

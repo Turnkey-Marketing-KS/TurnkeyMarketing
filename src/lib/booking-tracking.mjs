@@ -438,9 +438,11 @@ export function decorateGhlCalendarUrlWithAttribution(
 
   stripPiiQueryParams(url);
   const params = buildAttributionQueryParams(attribution);
-  // GHL's native hidden Source element accepts this query key. This must be
-  // mapped explicitly: the calendar title is not an acquisition source.
-  params.set("source", bookingSourceLabel(attribution));
+  // The native Source element can be replaced with the calendar name on submit.
+  // The separate hidden field carries the label into the opportunity workflow.
+  const sourceLabel = bookingSourceLabel(attribution);
+  params.set("source", sourceLabel);
+  params.set("tk_source", sourceLabel);
   const gaClientId = params.get("tk_ga_client_id");
   const gaSessionId = params.get("tk_ga_session_id");
   params.delete("tk_ga_client_id");
