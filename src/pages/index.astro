@@ -203,19 +203,17 @@ const faqSchema = {
               <a href="/results" class="v6-link">See Shop Results <i set:html={arrow} /></a>
             </div>
           </div>
-          <div class="v6-wrap">
-            <div class="v6-hero__stage">
-              <img src={heroPhoto.src} alt={heroPhoto.alt} width={heroPhoto.w} height={heroPhoto.h} fetchpriority="high" style={`--pos:${heroPhoto.pos}`} />
-              <div class="v6-hero__shade"></div>
-              <p class="v6-hero__caption">Serving over 300 auto repair shops <span class="v6-nowrap">since 2013.</span></p>
-            </div>
+          <div class="v6-hero__stage" data-hero-stage>
+            <img src={heroPhoto.src} alt={heroPhoto.alt} width={heroPhoto.w} height={heroPhoto.h} fetchpriority="high" style={`--pos:${heroPhoto.pos}`} />
+            <div class="v6-hero__shade"></div>
+            <p class="v6-hero__caption">Serving over 300 auto repair shops <span class="v6-nowrap">since 2013.</span></p>
           </div>
         </div>
       </section>
 
       <!-- LOGOS -->
       <section class="v6-logos" aria-labelledby="v6-logos-title">
-        <h2 id="v6-logos-title" class="v6-logos__title">Trusted by 300+ shops and industry-leading partners</h2>
+        <h2 id="v6-logos-title" class="v6-logos__title">Trusted by 300+ shops and <span class="v6-nowrap">industry-leading</span> partners</h2>
         {logoRows.map((row, rowIndex) => (
           <div class="v6-marquee">
             <div class:list={["v6-marquee__track", rowIndex === 1 && "v6-marquee__track--reverse"]}>
@@ -651,18 +649,21 @@ const faqSchema = {
   .v6-hero__actions { display: flex; align-items: center; gap: 1.75rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; }
   [data-fade] { opacity: 0; transform: translateY(14px); transition: opacity 0.9s var(--ease), transform 1.1s var(--ease); transition-delay: calc(0.15s + var(--d, 0) * 0.1s); }
   .v6.is-loaded [data-fade] { opacity: 1; transform: none; }
-  .v6-hero__stage { position: relative; margin-top: clamp(3rem, 6vw, 4.5rem); aspect-ratio: 16 / 7; border-radius: 32px; overflow: hidden; }
+  /* The photo box is full-bleed but clipped to the content column; scrolling (--p from 0 to 1) opens the clip
+     to the screen edges. The height never changes, so the page below does not move. */
+  .v6-hero__stage { --p: 0; --edge: max(var(--gutter), calc(50% - var(--max) / 2)); position: relative; margin-top: clamp(3rem, 6vw, 4.5rem); height: calc(min(100vw - var(--gutter) * 2, var(--max)) * 7 / 16); overflow: hidden;
+    clip-path: inset(0 calc(var(--edge) * (1 - var(--p))) round calc(32px * (1 - var(--p)))); }
   .v6-hero__stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
   .v6-hero__shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background:
     linear-gradient(180deg, rgba(35, 46, 102, 0) 38%, rgba(35, 46, 102, 0.5) 72%, rgba(26, 34, 78, 0.86)),
     radial-gradient(90% 70% at 0% 0%, rgba(63, 140, 203, 0.34), transparent 62%),
     radial-gradient(70% 60% at 100% 100%, rgba(147, 200, 69, 0.16), transparent 60%); }
   .v6-hero__shade::after { content: ""; position: absolute; inset: 0; background: rgba(35, 46, 102, 0.1); mix-blend-mode: multiply; }
-  .v6-hero__caption { position: absolute; z-index: 2; left: clamp(1.5rem, 4vw, 3.5rem); right: clamp(1.5rem, 4vw, 3.5rem); bottom: clamp(1.5rem, 4vw, 3.25rem); max-width: 16em; color: #fff; font-size: clamp(2rem, 4vw, 3.75rem); font-weight: 600; letter-spacing: -0.048em; line-height: 1.02; text-wrap: balance; }
+  .v6-hero__caption { position: absolute; z-index: 2; left: calc(var(--edge) + clamp(1.5rem, 4vw, 3.5rem)); right: calc(var(--edge) + clamp(1.5rem, 4vw, 3.5rem)); bottom: clamp(1.5rem, 4vw, 3.25rem); max-width: 16em; color: #fff; font-size: clamp(2rem, 4vw, 3.75rem); font-weight: 600; letter-spacing: -0.048em; line-height: 1.02; text-wrap: balance; }
 
   /* Logos */
   .v6-logos { padding-block: clamp(4rem, 7vw, 6rem) clamp(2rem, 4vw, 3rem); display: grid; gap: 1.5rem; }
-  .v6-logos__title { text-align: center; font-size: clamp(1.15rem, 1.6vw, 1.45rem); letter-spacing: -0.03em; font-weight: 600; margin-bottom: 1rem; padding-inline: var(--gutter); }
+  .v6-logos__title { text-align: center; font-size: clamp(1.75rem, 3.4vw, 3.25rem); line-height: 1.08; letter-spacing: -0.045em; font-weight: 600; text-wrap: balance; max-width: 22ch; margin: 0 auto 1rem; padding-inline: var(--gutter); }
   .v6-marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
   .v6-marquee__track { display: flex; align-items: center; gap: clamp(3rem, 5vw, 4.5rem); width: max-content; animation: v6-marquee 65s linear infinite; }
   .v6-marquee__track--reverse { animation-direction: reverse; animation-duration: 75s; }
@@ -935,8 +936,8 @@ const faqSchema = {
     .v6-hero__title { container-type: inline-size; width: 100%; font-size: inherit; }
     .v6-hero__title .v6-mask { font-size: clamp(2rem, 12.4cqi, 4.25rem); max-width: 9.2em; margin-inline: auto; }
     .v6-typer { font-size: clamp(2rem, 12.4cqi, 4.25rem); min-height: calc(2 * 0.98em + 0.06em); white-space: normal; text-wrap: wrap; max-width: 10.2em; margin-inline: auto; }
-    .v6-hero__stage { margin-top: 2.5rem; aspect-ratio: 4 / 5; border-radius: 28px; }
-    .v6-hero__caption { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; font-size: 1.75rem; }
+    .v6-hero__stage { margin-top: 2.5rem; height: calc((100vw - var(--gutter) * 2) * 5 / 4); clip-path: inset(0 calc(var(--edge) * (1 - var(--p))) round calc(28px * (1 - var(--p)))); }
+    .v6-hero__caption { left: calc(var(--edge) + 1.5rem); right: calc(var(--edge) + 1.5rem); bottom: 1.5rem; font-size: 1.75rem; }
         .v6-marquee img { height: 2.75rem; }
     .v6-steps__rail { left: 1.5rem; }
     .v6-step { grid-template-columns: 3rem minmax(0, 1fr); gap: 1.25rem; }
@@ -1223,6 +1224,7 @@ const faqSchema = {
     root.querySelectorAll("[data-rise], [data-words], [data-odo-group]").forEach((el) => io.observe(el));
 
     const header = document.querySelector<HTMLElement>("[data-header]");
+    const heroStage = root.querySelector<HTMLElement>("[data-hero-stage]");
     const stepsEl = root.querySelector<HTMLElement>("[data-steps]");
     const stepsFill = root.querySelector<HTMLElement>("[data-steps-fill]");
     const stepItems = Array.from(root.querySelectorAll<HTMLElement>("[data-step]"));
@@ -1248,6 +1250,14 @@ const faqSchema = {
       const vh = window.innerHeight;
       const vw = window.innerWidth;
       header?.classList.toggle("is-scrolled", window.scrollY > 10);
+      // Hero photo widens to the screen edges over the scroll it takes to reach the header
+      if (heroStage && !reduceMotion) {
+        const top = heroStage.getBoundingClientRect().top;
+        const start = top + window.scrollY;
+        const reach = Math.max(1, start - (header?.offsetHeight ?? 0) - 24);
+        const p = clamp(window.scrollY / reach);
+        heroStage.style.setProperty("--p", (1 - Math.pow(1 - p, 2)).toFixed(4));
+      }
       if (stepsEl && stepsFill) {
         const rect = stepsEl.getBoundingClientRect();
         const railRect = stepsRail?.getBoundingClientRect() ?? rect;
