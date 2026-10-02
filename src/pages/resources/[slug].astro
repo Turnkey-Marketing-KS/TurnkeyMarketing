@@ -3,6 +3,7 @@ import V6Layout from "@/components/v6/V6Layout.astro";
 import MarketingIdeasArticle from "@/components/resources/MarketingIdeasArticle.astro";
 import AIReviewsArticle from "@/components/resources/AIReviewsArticle.astro";
 import ReputationGuide from "@/components/resources/ReputationGuide.astro";
+import CustomerExperienceGuide from "@/components/resources/CustomerExperienceGuide.astro";
 import AISearchArticle from "@/components/resources/AISearchArticle.astro";
 import AdvertisingGuide from "@/components/resources/AdvertisingGuide.astro";
 import ExternalSources from "@/components/resources/ExternalSources.astro";
@@ -34,9 +35,10 @@ const isClientProof = currentPost.layout === "client-proof" && currentPost.clien
 const isMarketingIdeas = currentPost.layout === "marketing-ideas";
 const isAIReviews = currentPost.layout === "ai-reviews";
 const isReputationGuide = currentPost.layout === "reputation-guide";
+const isCustomerExperienceGuide = currentPost.layout === "customer-experience-guide";
 const isAISearch = currentPost.layout === "ai-search";
 const isAdvertisingGuide = currentPost.layout === "advertising-guide";
-const isTemplateLayout = !isReputationGuide && !isAIReviews && !isAISearch && !isMarketingIdeas && !isAdvertisingGuide;
+const isTemplateLayout = !isReputationGuide && !isCustomerExperienceGuide && !isAIReviews && !isAISearch && !isMarketingIdeas && !isAdvertisingGuide;
 
 const articleSchema = {
   "@context": "https://schema.org",
@@ -148,6 +150,8 @@ const showToc = templateSections.length >= 3;
 
   {isReputationGuide ? (
     <ReputationGuide post={currentPost} />
+  ) : isCustomerExperienceGuide ? (
+    <CustomerExperienceGuide post={currentPost} />
   ) : isAIReviews ? (
     <AIReviewsArticle post={currentPost} />
   ) : isAISearch ? (

@@ -83,6 +83,8 @@ Then measure it. Track promised updates delivered on time and calls from custome
 
 Write down an owner, a start date, and a review date for the change. Keep the original feedback so you can compare it with new comments using the same definitions.
 
+To improve the visit itself, from check-in and estimates to updates and pickup, use our guide to [improving the customer experience at your auto repair shop](/resources/auto-repair-customer-experience).
+
 ## Put real strengths into your marketing
 
 Repeated praise tells you what to put front and center on your website, in an ad, or in a social post.

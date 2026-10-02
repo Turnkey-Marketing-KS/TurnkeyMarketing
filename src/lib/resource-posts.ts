@@ -15,6 +15,7 @@ export type ResourcePost = {
   imageWidth?: number;
   imageHeight?: number;
   layout?:
+    | "customer-experience-guide"
     | "reputation-guide"
     | "ai-reviews"
     | "article"
@@ -69,10 +70,59 @@ const resourcePath = (slug: string) => `/resources/${slug}`;
 
 export const resourcePosts: ResourcePost[] = [
   {
+    slug: "auto-repair-customer-experience",
+    date: "Oct 2026",
+    originalDate: "2026-10-02",
+    updatedDate: "2026-10-02",
+    tag: "Auto Repair Customer Experience",
+    title: "How to Improve the Customer Experience at Your Auto Repair Shop",
+    seoTitle: "Automotive Customer Experience for Repair Shops | Turnkey",
+    seoDescription:
+      "Improve the automotive customer experience at your repair shop with clearer check-ins, estimates, and updates, plus a simple way to track what gets better.",
+    description:
+      "Make every step of the repair visit easier to understand, from booking and estimates to updates, pickup, and follow-up.",
+    dek: "Make every step of the visit easier to understand. Give one person the fix, then check whether customers notice.",
+    image: {
+      src: "/images/resources/auto-repair-customer-experience.webp",
+      alt: "A shop team member with a clipboard checks over a customer's vehicle",
+      position: "50% 28%",
+    },
+    imageWidth: 1200,
+    imageHeight: 900,
+    layout: "customer-experience-guide",
+    href: resourcePath("auto-repair-customer-experience"),
+    sourceAsset:
+      "Pexels photo 33036006 by Shoreline Vehicles (https://www.pexels.com/photo/mechanic-inspecting-vehicle-interior-in-garage-33036006/), Pexels license, cropped to 4:3.",
+    takeaways: [
+      "Find the step of the visit that leaves customers guessing.",
+      "Give service advisors a routine they can repeat.",
+      "Track one improvement at a time with a named owner.",
+    ],
+    sections: [],
+    faq: [
+      {
+        question: "What are the 3 C's in automotive repair?",
+        answer:
+          "Concern, cause, and correction. They describe what the customer reported, what the technician found, and what the shop did about it. Writing all three clearly on the repair order also gives the advisor a simple way to explain the visit at pickup.",
+      },
+      {
+        question: "What are the key stages of the automotive customer journey?",
+        answer:
+          "For a repair shop, the stages are finding the shop, booking, check-in, diagnosis and estimate, updates during the repair, pickup, and follow-up. Each stage is a place where the customer can feel informed or left guessing.",
+      },
+      {
+        question: "What are good customer experience examples?",
+        answer:
+          "An advisor who calls at the promised time with a real update. An estimate that separates urgent work from items that can wait. A pickup where the invoice is ready and explained. None of these need new software. They need a clear owner.",
+      },
+    ],
+    relatedSlugs: ["auto-repair-reputation-management", "be-the-guide-auto-repair-shop-messaging"],
+  },
+  {
     slug: "auto-repair-reputation-management",
     date: "Sep 2026",
     originalDate: "2026-09-22",
-    updatedDate: "2026-09-22",
+    updatedDate: "2026-10-02",
     tag: "Auto Repair Reputation",
     title: "Reputation Management for Auto Repair Shops: A Practical Guide",
     seoTitle: "Auto Repair Reputation Management Guide | Turnkey",

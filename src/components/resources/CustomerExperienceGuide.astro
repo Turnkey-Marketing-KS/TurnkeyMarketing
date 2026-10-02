@@ -1,0 +1,95 @@
+---
+import { Content } from "@/articles/auto-repair-customer-experience.md";
+import { getResourcePost, type ResourcePost } from "@/lib/resource-posts";
+import { CONSULTATION_URL } from "@/lib/services";
+import { arrow, split } from "@/lib/v6";
+
+interface Props { post: ResourcePost }
+const { post } = Astro.props;
+const nav = [
+  ["look-at-the-whole-visit", "Look at the whole visit"],
+  ["make-booking-and-check-in-clear", "Booking and check-in"],
+  ["give-service-advisors-a-simple-routine", "Service advisor routine"],
+  ["explain-the-decision-in-the-estimate", "The estimate"],
+  ["promise-the-next-update", "Progress updates"],
+  ["make-convenience-specific", "Convenience and pickup"],
+  ["track-one-improvement-at-a-time", "Track one improvement"],
+  ["make-the-marketing-match", "Match your marketing"],
+  ["common-questions", "Common questions"],
+];
+const related = (post.relatedSlugs ?? []).map(getResourcePost).filter(Boolean);
+---
+
+<article class="tk-md" data-art-body>
+  <header class="tk-art__hero">
+    <div class="v6-wrap">
+      <a href="/resources" class="tk-art__back"><i set:html={arrow} /> All resources</a>
+      <div class="tk-art__head">
+        <div class="tk-art__head-text">
+          <h1 class="tk-art__title" data-words set:html={split([{ t: post.title }])} />
+          <p class="tk-art__dek" data-fade style="--d:2">{post.dek}</p>
+          <p class="tk-art__byline" data-fade style="--d:2">By Turnkey Marketing <span aria-hidden="true">·</span> <time datetime={post.originalDate}>October 2, 2026</time> <span aria-hidden="true">·</span> 5 min read</p>
+          <div class="tk-art__actions" data-fade style="--d:3">
+            <a class="v6-btn v6-btn--navy v6-btn--lg" href="#track-one-improvement-at-a-time"><span>Build your improvement record</span> <i set:html={arrow} /></a>
+          </div>
+        </div>
+        <figure class="tk-art__media" data-fade style="--d:3">
+          <img src={post.image.src} alt={post.image.alt} width={1200} height={900} loading="eager" decoding="async" />
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <div class="v6-wrap tk-art__layout tk-art__read">
+    <aside class="tk-art__aside">
+      <nav class="tk-toc" aria-label="In this article" data-toc>
+        <details class="tk-toc__box" data-toc-details open>
+          <summary>In this article <span class="tk-toc__plus" aria-hidden="true"></span></summary>
+          <ul class="tk-toc__list">{nav.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ul>
+        </details>
+      </nav>
+    </aside>
+    <div class="tk-art__main"><div class="v6-prose tk-md__prose"><Content /></div></div>
+  </div>
+
+  <section class="v6-cta">
+    <div class="v6-wrap">
+      <div class="v6-cta__panel" data-rise>
+        <p class="v6-cta__title" data-words set:html={split([{ t: "Stop carrying" }, { t: "the marketing burden.", accent: true }])} />
+        <div class="v6-cta__actions">
+          <a href={CONSULTATION_URL} class="v6-btn v6-btn--navy v6-btn--lg" data-track-event="consultation_cta_click" data-track-placement="resource_customer_experience_guide_cta"><span>Book a Strategy Call</span><i set:html={arrow} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v6-sec v6-sec--tint tk-art__related" aria-labelledby="cx-related-title">
+    <div class="v6-wrap">
+      <h2 id="cx-related-title" class="v6-h2 tk-art__related-h2">Keep building customer trust.</h2>
+      <div class="v6-swipe tk-art__cards" style={`--cols:${Math.max(2, related.length)}`}>{related.map(item => item && <a href={item.href} class="v6-post"><div class="v6-post__media"><img src={item.image.src} alt={item.image.alt} width={item.imageWidth ?? 1200} height={item.imageHeight ?? 800} loading="lazy" decoding="async" style={`object-position:${item.image.position};`} /></div><h3 class="v6-post__title">{item.title}</h3><p class="v6-link">Read the guide <i set:html={arrow} /></p></a>)}</div>
+    </div>
+  </section>
+</article>
+
+<style>
+  .tk-md { --md-body: #2b303b; }
+  .tk-md .tk-art__dek { color: var(--md-body); }
+  .tk-md__prose { color: var(--md-body); }
+  .tk-md__prose :global(a) { color: var(--navy); text-decoration-color: var(--key-blue); text-decoration-thickness: 2px; }
+  .tk-md__prose :global(> p:first-child) { font-size: 1.28em; line-height: 1.6; color: var(--navy); font-weight: 500; letter-spacing: -0.01em; }
+  .tk-md__prose :global(h2) { scroll-margin-top: calc(var(--header-h) + 2rem); }
+  .tk-md__prose :global(h3) { color: var(--navy); }
+  /* Example improvement record: one navy card, question over answer */
+  .tk-md__prose :global(.cx-record) { margin-top: 1.75rem; padding: 1.75rem 1.75rem 0.5rem; border-radius: 22px; background: var(--navy); color: #fff; }
+  .tk-md__prose :global(.cx-record > * + *) { margin-top: 0; }
+  .tk-md__prose :global(.cx-record__title) { margin: 0 0 0.75rem; font-size: 0.85rem; font-weight: 700; color: var(--green); letter-spacing: 0; }
+  .tk-md__prose :global(.cx-record__row) { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 1.5rem; padding: 1rem 0; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+  .tk-md__prose :global(.cx-record__row p) { margin: 0; }
+  .tk-md__prose :global(.cx-record__q) { font-weight: 600; color: #fff; line-height: 1.45; }
+  .tk-md__prose :global(.cx-record__a) { color: #fff; line-height: 1.55; }
+  @media (max-width: 640px) {
+    .tk-md__prose :global(.cx-record) { padding: 1.35rem 1.25rem 0.35rem; border-radius: 18px; }
+    .tk-md__prose :global(.cx-record__row) { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; padding: 0.9rem 0; }
+    .tk-md__prose :global(.cx-record__a) { font-size: 1rem; }
+  }
+</style>
