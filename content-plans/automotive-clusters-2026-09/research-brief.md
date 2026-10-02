@@ -1,5 +1,7 @@
 # Research brief: automotive clusters
 
+September 29 update: the October 6 Google review workflow article has been replaced with **Local SEO for Auto Repair Shops: Help Nearby Drivers Find You**. Use [october-6-local-seo-research.md](october-6-local-seo-research.md) for that release's fresh SE Ranking evidence, cluster, Google competitor/PAA research, length benchmark, voice guide, and verification. The earlier research below remains relevant to the reputation and customer-experience releases.
+
 Research date: September 15, 2026. Google queried directly in Chrome using gl=us and hl=en. Google displayed Corporate Woods, Overland Park, KS as the location and indicated personalized results. This is an observed local snapshot, not a universal US rank report. Ads, AI Overview citations, and forum results were excluded from the editorial comparison.
 
 ## Automotive reputation management
